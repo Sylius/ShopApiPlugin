@@ -1,0 +1,26 @@
+{
+    "code": "gotland_wool_blanket",
+    "name": "GOTLAND WOOL BLANKET",
+    "description": "Awesome Blanket",
+    "price": 19.99,
+    "attributes": [
+        {
+            "code": "design",
+            "name": "Design",
+            "value": "Two-toned, diamond patterned blanket with tasselled fringe along the width"
+        },
+        {
+            "code": "fabric_density",
+            "name": "Fabric density (weight per m²)",
+            "value": "333g"
+        }
+    ],
+    "taxons": [],
+    "images": [],
+    "associations": {
+        "accessories": [
+        ],
+         "similar": [
+        ]
+    }
+}
