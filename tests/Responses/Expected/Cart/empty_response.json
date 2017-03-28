@@ -1,0 +1,24 @@
+{
+    "tokenValue": "SDAOSLEFNWU35H3QLI5325",
+    "channel": "WEB-DE",
+    "currency": "EUR",
+    "locale": "de_DE",
+    "checkoutState": "cart",
+    "items": [
+
+    ],
+    "totals": {
+        "items": 0,
+        "taxes": 0,
+        "shipping": 0,
+        "promotion": 0
+    },
+    "shippingAddress": null,
+    "billingAddress": null,
+    "payments": [
+
+    ],
+    "shipments": [
+
+    ]
+}
