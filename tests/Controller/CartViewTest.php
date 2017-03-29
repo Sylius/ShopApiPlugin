@@ -41,7 +41,7 @@ EOT;
         $response = $this->client->getResponse();
 
         // TODO: Evaluate proper exception message
-        $this->assertResponse($response, 'Cart/token_already_used_response', Response::HTTP_BAD_REQUEST);
+        $this->assertResponse($response, 'cart/token_already_used_response', Response::HTTP_BAD_REQUEST);
     }
 
     /**
@@ -52,7 +52,7 @@ EOT;
         $this->client->request('GET', '/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
-        $this->assertResponse($response, 'Cart/empty_response', Response::HTTP_OK);
+        $this->assertResponse($response, 'cart/empty_response', Response::HTTP_OK);
     }
 
     /**
@@ -63,7 +63,7 @@ EOT;
         $this->client->request('GET', '/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
-        $this->assertResponse($response, 'Cart/cart_has_not_been_found_response', Response::HTTP_OK);
+        $this->assertResponse($response, 'cart/cart_has_not_been_found_response', Response::HTTP_OK);
     }
 
     /**
@@ -74,7 +74,7 @@ EOT;
         $this->client->request('GET', '/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
-        $this->assertResponse($response, 'Cart/filled_cart_with_simple_product_summary_response', Response::HTTP_OK);
+        $this->assertResponse($response, 'cart/filled_cart_with_simple_product_summary_response', Response::HTTP_OK);
     }
 
     /**
@@ -85,7 +85,7 @@ EOT;
         $this->client->request('GET', '/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
-        $this->assertResponse($response, 'Cart/filled_cart_with_product_variant_summary_response', Response::HTTP_OK);
+        $this->assertResponse($response, 'cart/filled_cart_with_product_variant_summary_response', Response::HTTP_OK);
     }
 
     /**
