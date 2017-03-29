@@ -10,6 +10,24 @@ final class CartViewTest extends JsonApiTestCase
     /**
      * @test
      */
+    public function it_creates_a_new_cart()
+    {
+        $data =
+<<<EOT
+        {
+            "channel": "WEB_DE"
+        }
+EOT;
+
+        $this->client->request('POST', '/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json'], $data);
+        $response = $this->client->getResponse();
+
+        $this->assertResponseCode($response, Response::HTTP_CREATED);
+    }
+
+    /**
+     * @test
+     */
     public function it_shows_summary_of_an_empty_cart()
     {
         $this->client->request('GET', '/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json']);
@@ -43,25 +61,6 @@ final class CartViewTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_creates_new_cart()
-    {
-        $data =
-<<<EOT
-        {
-            "channel": "WEB_DE",
-            "locale": "de_DE"
-        }
-EOT;
-
-        $this->client->request('POST', '/carts/', [], [], ['ACCEPT' => 'application/json'], $data);
-        $response = $this->client->getResponse();
-
-        $this->assertResponse($response, 'Cart/empty_response', Response::HTTP_OK);
-    }
-
-    /**
-     * @test
-     */
     public function it_deletes_a_cart()
     {
         // TODO: Add item to new cart
@@ -87,7 +86,7 @@ EOT;
         $this->client->request('POST', '/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json'], $data);
         $response = $this->client->getResponse();
 
-        $this->assertResponse($response, 'Cart/add_simple_product_response', Response::HTTP_CREATED);
+        $this->assertResponseCode($response, Response::HTTP_CREATED);
     }
 
     /**
@@ -105,7 +104,7 @@ EOT;
         $this->client->request('POST', '/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json'], $data);
         $response = $this->client->getResponse();
 
-        $this->assertResponse($response, 'Cart/add_product_variant_response', Response::HTTP_CREATED);
+        $this->assertResponseCode($response, Response::HTTP_CREATED);
     }
 
     /**
@@ -125,7 +124,7 @@ EOT;
         $this->client->request('POST', '/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json'], $data);
         $response = $this->client->getResponse();
 
-        $this->assertResponse($response, 'Cart/add_product_variant_based_on_option_response', Response::HTTP_CREATED);
+        $this->assertResponseCode($response, Response::HTTP_CREATED);
     }
 
     /**
