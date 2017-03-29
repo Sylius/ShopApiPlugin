@@ -58,6 +58,17 @@ EOT;
     /**
      * @test
      */
+    public function it_returns_not_found_exception_if_cart_has_not_been_found()
+    {
+        $this->client->request('GET', '/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json']);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'Cart/cart_has_not_been_found_response', Response::HTTP_OK);
+    }
+
+    /**
+     * @test
+     */
     public function it_shows_summary_of_a_cart_filled_with_a_simple_product()
     {
         $this->client->request('GET', '/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json']);
