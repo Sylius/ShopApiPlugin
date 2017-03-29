@@ -1,10 +1,11 @@
 <?php
 
-namespace Acme\ExampleBundle\Controller;
+namespace Sylius\ShopApiPlugin\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
-final class GreetingController extends Controller
+final class CartController extends Controller
 {
+
 }

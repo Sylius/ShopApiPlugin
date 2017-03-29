@@ -1,12 +1,12 @@
 {
-    "name": "sylius/bundle-skeleton",
+    "name": "sylius/shop-api-plugin",
     "type": "sylius-bundle",
-    "description": "Acme example bundle for Sylius.",
+    "description": "Shop API for Sylius E-Commerce.",
     "license": "MIT",
     "require": {
         "php": "^5.6|^7.0",
 
-        "sylius/sylius": "^1.0.0@beta"
+        "sylius/sylius": "^1.0.0@dev"
     },
     "require-dev": {
         "behat/behat": "^3.3",
@@ -25,8 +25,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Acme\\ExampleBundle\\": "src/",
-            "Tests\\Acme\\ExampleBundle\\": "tests/"
+            "Sylius\\ShopApiPlugin\\": "src/",
+            "Tests\\Sylius\\ShopApiPlugin\\": "tests/"
         }
     }
 }
