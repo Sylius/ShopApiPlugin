@@ -28,6 +28,25 @@ EOT;
     /**
      * @test
      */
+    public function it_does_not_allow_to_create_new_cart_if_token_is_already_used()
+    {
+        $data =
+<<<EOT
+        {
+            "channel": "WEB_DE"
+        }
+EOT;
+
+        $this->client->request('POST', '/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json'], $data);
+        $response = $this->client->getResponse();
+
+        // TODO: Evaluate proper exception message
+        $this->assertResponse($response, 'Cart/token_already_used_response', Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @test
+     */
     public function it_shows_summary_of_an_empty_cart()
     {
         $this->client->request('GET', '/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json']);
