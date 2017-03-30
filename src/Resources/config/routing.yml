@@ -1,1 +1,5 @@
-
+shop_api_provide_cart:
+    path: /shop-api/carts/{token}
+    defaults:
+        _controller: ShopApiPlugin:Cart:create
+        methods: [POST]

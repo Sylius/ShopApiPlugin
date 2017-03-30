@@ -4,4 +4,4 @@ sylius:
 # Put your own routes here
 
 sylius_shop_api:
-    resource: "@ShopApiPlugin/Resources/config/shop_routing.yml"
+    resource: "@ShopApiPlugin/Resources/config/routing.yml"

@@ -1,0 +1,9 @@
+fos_rest:
+    exception: ~
+    view:
+        formats:
+            json: true
+        empty_content: 204
+    format_listener:
+        rules:
+            - { path: '^/shop-api', priorities: ['json'], fallback_format: json, prefer_extension: true }

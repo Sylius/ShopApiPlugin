@@ -12,22 +12,21 @@ final class CartViewTest extends JsonApiTestCase
      */
     public function it_creates_a_new_cart()
     {
+        $this->loadFixturesFromFile('channel.yml');
+
         $data =
 <<<EOT
         {
-            "channel": "WEB_DE"
+            "channel": "WEB_GB"
         }
 EOT;
 
-        $this->client->request('POST', '/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json'], $data);
+        $this->client->request('POST', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'], $data);
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_CREATED);
     }
 
-    /**
-     * @test
-     */
     public function it_does_not_allow_to_create_new_cart_if_token_is_already_used()
     {
         $data =
@@ -44,9 +43,6 @@ EOT;
         $this->assertResponse($response, 'cart/token_already_used_response', Response::HTTP_BAD_REQUEST);
     }
 
-    /**
-     * @test
-     */
     public function it_shows_summary_of_an_empty_cart()
     {
         $this->client->request('GET', '/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json']);
@@ -55,9 +51,6 @@ EOT;
         $this->assertResponse($response, 'cart/empty_response', Response::HTTP_OK);
     }
 
-    /**
-     * @test
-     */
     public function it_returns_not_found_exception_if_cart_has_not_been_found()
     {
         $this->client->request('GET', '/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json']);
@@ -66,9 +59,6 @@ EOT;
         $this->assertResponse($response, 'cart/cart_has_not_been_found_response', Response::HTTP_OK);
     }
 
-    /**
-     * @test
-     */
     public function it_shows_summary_of_a_cart_filled_with_a_simple_product()
     {
         $this->client->request('GET', '/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json']);
@@ -77,9 +67,6 @@ EOT;
         $this->assertResponse($response, 'cart/filled_cart_with_simple_product_summary_response', Response::HTTP_OK);
     }
 
-    /**
-     * @test
-     */
     public function it_shows_summary_of_a_cart_filled_with_a_product_with_variant()
     {
         $this->client->request('GET', '/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json']);
@@ -88,9 +75,6 @@ EOT;
         $this->assertResponse($response, 'cart/filled_cart_with_product_variant_summary_response', Response::HTTP_OK);
     }
 
-    /**
-     * @test
-     */
     public function it_deletes_a_cart()
     {
         // TODO: Add item to new cart
@@ -101,9 +85,6 @@ EOT;
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
     }
 
-    /**
-     * @test
-     */
     public function it_adds_a_product_to_the_cart()
     {
         $data =
@@ -119,9 +100,6 @@ EOT;
         $this->assertResponseCode($response, Response::HTTP_CREATED);
     }
 
-    /**
-     * @test
-     */
     public function it_adds_a_product_variant_to_the_cart()
     {
         $data =
@@ -137,9 +115,6 @@ EOT;
         $this->assertResponseCode($response, Response::HTTP_CREATED);
     }
 
-    /**
-     * @test
-     */
     public function it_adds_a_product_variant_based_on_option_to_the_cart()
     {
         $data =
@@ -157,9 +132,6 @@ EOT;
         $this->assertResponseCode($response, Response::HTTP_CREATED);
     }
 
-    /**
-     * @test
-     */
     public function it_changes_item_quantity()
     {
         $data =
@@ -174,9 +146,6 @@ EOT;
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
     }
 
-    /**
-     * @test
-     */
     public function it_deletes_item()
     {
         $this->client->request('DELETE', '/carts/SDAOSLEFNWU35H3QLI5325/items/1', [], [], ['ACCEPT' => 'application/json']);
