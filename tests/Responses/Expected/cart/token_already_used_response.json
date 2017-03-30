@@ -1,3 +1,4 @@
 {
-    "error": "Token is used already"
+    "code": 400,
+    "message": "Cart with given token already exists"
 }

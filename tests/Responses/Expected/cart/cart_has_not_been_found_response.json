@@ -1,3 +1,4 @@
 {
-    "message": "Cart has not been found!"
+    "code": 404,
+    "message": "Cart with given id does not exists"
 }

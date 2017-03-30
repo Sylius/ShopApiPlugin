@@ -14,6 +14,8 @@ use Sylius\ShopApiPlugin\View\TotalsView;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final class CartController extends Controller
 {
@@ -32,6 +34,10 @@ final class CartController extends Controller
         $channelRepository = $this->get('sylius.repository.channel');
         /** @var ViewHandlerInterface $viewHandler */
         $viewHandler = $this->get('fos_rest.view_handler');
+
+        if (null !== $cartRepository->findOneBy(['tokenValue' => $request->attributes->get('token')])) {
+            throw new BadRequestHttpException('Cart with given token already exists');
+        }
 
         /** @var ChannelInterface $channel */
         $channel = $channelRepository->findOneByCode($request->request->get('channel'));
@@ -62,6 +68,10 @@ final class CartController extends Controller
 
         /** @var OrderInterface $cart */
         $cart = $cartRepository->findOneBy(['tokenValue' => $request->attributes->get('token')]);
+
+        if (null === $cart) {
+            throw new NotFoundHttpException('Cart with given id does not exists');
+        }
 
         $cartView = new CartSummaryView();
         $cartView->channel = $cart->getChannel()->getCode();
