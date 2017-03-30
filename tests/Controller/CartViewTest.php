@@ -7,6 +7,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class CartViewTest extends JsonApiTestCase
 {
+    private static $acceptAndContentTypeHeader = ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'];
+
     /**
      * @test
      */
@@ -21,10 +23,28 @@ final class CartViewTest extends JsonApiTestCase
         }
 EOT;
 
-        $this->client->request('POST', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'], $data);
+        $this->client->request('POST', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325', [], [], static::$acceptAndContentTypeHeader, $data);
+
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_CREATED);
+    }
+
+    /**
+     * @test
+     */
+    public function it_shows_summary_of_an_empty_cart()
+    {
+        $this->loadFixturesFromFile('channel.yml');
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        $this->createCartWithToken($token);
+
+        $this->client->request('GET', '/shop-api/carts/' . $token, [], [], ['ACCEPT' => 'application/json']);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'cart/empty_response', Response::HTTP_OK);
     }
 
     public function it_does_not_allow_to_create_new_cart_if_token_is_already_used()
@@ -41,14 +61,6 @@ EOT;
 
         // TODO: Evaluate proper exception message
         $this->assertResponse($response, 'cart/token_already_used_response', Response::HTTP_BAD_REQUEST);
-    }
-
-    public function it_shows_summary_of_an_empty_cart()
-    {
-        $this->client->request('GET', '/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json']);
-        $response = $this->client->getResponse();
-
-        $this->assertResponse($response, 'cart/empty_response', Response::HTTP_OK);
     }
 
     public function it_returns_not_found_exception_if_cart_has_not_been_found()
@@ -152,5 +164,20 @@ EOT;
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * @param string $token
+     */
+    private function createCartWithToken($token)
+    {
+        $data =
+<<<EOT
+        {
+            "channel": "WEB_GB"
+        }
+EOT;
+
+        $this->client->request('POST', '/shop-api/carts/' . $token, [], [], static::$acceptAndContentTypeHeader, $data);
     }
 }
