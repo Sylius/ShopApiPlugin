@@ -14,8 +14,11 @@ use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Sylius\Component\Core\Repository\ProductVariantRepositoryInterface;
 use Sylius\Component\Order\Modifier\OrderItemQuantityModifierInterface;
+use Sylius\Component\Order\Processor\OrderProcessorInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\ShopApiPlugin\View\CartSummaryView;
+use Sylius\ShopApiPlugin\View\ItemView;
+use Sylius\ShopApiPlugin\View\ProductView;
 use Sylius\ShopApiPlugin\View\TotalsView;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -91,6 +94,21 @@ final class CartController extends Controller
         $cartView->totals->shipping = $cart->getShippingTotal();
         $cartView->totals->taxes = $cart->getTaxTotal();
 
+        /** @var OrderItemInterface $item */
+        foreach ($cart->getItems() as $item) {
+            $itemView = new ItemView();
+
+            $itemView->id = $item->getId();
+            $itemView->quantity = $item->getQuantity();
+            $itemView->total = $item->getTotal();
+            $itemView->unitPrice = $item->getUnitPrice();
+            $itemView->product = new ProductView();
+            $itemView->product->code = $item->getProduct()->getCode();
+            $itemView->product->name = $item->getProduct()->getName();
+
+            $cartView->items[] = $itemView;
+        }
+
         return $viewHandler->handle(View::create($cartView, Response::HTTP_OK));
     }
 
@@ -113,6 +131,8 @@ final class CartController extends Controller
         $cartItemFactory = $this->get('sylius.factory.order_item');
         /** @var OrderItemQuantityModifierInterface $orderItemModifier */
         $orderItemModifier = $this->get('sylius.order_item_quantity_modifier');
+        /** @var OrderProcessorInterface $orderProcessor */
+        $orderProcessor = $this->get('sylius.order_processing.order_processor');
 
         /** @var OrderInterface $cart */
         $cart = $cartRepository->findOneBy(['tokenValue' => $request->attributes->get('token')]);
@@ -123,6 +143,8 @@ final class CartController extends Controller
         $orderItemModifier->modify($cartItem, $request->request->getInt('quantity'));
 
         $cart->addItem($cartItem);
+
+        $orderProcessor->process($cart);
 
         $cartManager->flush();
 

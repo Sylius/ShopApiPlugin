@@ -13,7 +13,14 @@
             "product": {
                 "code": "LOGAN_T_SHIRT_CODE",
                 "name": "Logan T-Shirt",
-                "images": []
+                "images": [
+                    {
+                        "code": "thumbnail",
+                        "url": {
+                            "http": "http://sylius.demo/img/t-shirt.jpg"
+                        }
+                    }
+                ]
             }
         }
     ],

@@ -4,19 +4,13 @@
     "currency": "GBP",
     "locale": "en_GB",
     "checkoutState": "cart",
-    "items": [
-
-    ],
+    "items": [],
     "totals": {
         "items": 0,
         "taxes": 0,
         "shipping": 0,
         "promotion": 0
     },
-    "payments": [
-
-    ],
-    "shipments": [
-
-    ]
+    "payments": [],
+    "shipments": []
 }
