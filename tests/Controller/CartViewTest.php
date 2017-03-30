@@ -61,7 +61,6 @@ EOT;
 
         $response = $this->client->getResponse();
 
-        // TODO: Evaluate proper exception message
         $this->assertResponse($response, 'cart/token_already_used_response', Response::HTTP_BAD_REQUEST);
     }
 
@@ -78,20 +77,36 @@ EOT;
         $this->assertResponse($response, 'cart/cart_has_not_been_found_response', Response::HTTP_NOT_FOUND);
     }
 
+    /**
+     * @test
+     */
+    public function it_adds_a_product_to_the_cart()
+    {
+        $this->loadFixturesFromFile('channel_with_simple_product.yml');
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        $this->pickupCart($token);
+
+        $data =
+<<<EOT
+        {
+            "code": "LOGAN_T_SHIRT_CODE",
+            "quantity": 3
+        }
+EOT;
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/add', $token), [], [], static::$acceptAndContentTypeHeader, $data);
+        $response = $this->client->getResponse();
+
+        $this->assertResponseCode($response, Response::HTTP_CREATED);
+    }
+
     public function it_shows_summary_of_a_cart_filled_with_a_simple_product()
     {
         $this->client->request('GET', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/filled_cart_with_simple_product_summary_response', Response::HTTP_OK);
-    }
-
-    public function it_shows_summary_of_a_cart_filled_with_a_product_with_variant()
-    {
-        $this->client->request('GET', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json']);
-        $response = $this->client->getResponse();
-
-        $this->assertResponse($response, 'cart/filled_cart_with_product_variant_summary_response', Response::HTTP_OK);
     }
 
     public function it_deletes_a_cart()
@@ -102,21 +117,6 @@ EOT;
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
-    }
-
-    public function it_adds_a_product_to_the_cart()
-    {
-        $data =
-<<<EOT
-        {
-            "code": "LOGAN_T_SHIRT_CODE",
-            "quantity": 3
-        }
-EOT;
-        $this->client->request('POST', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json'], $data);
-        $response = $this->client->getResponse();
-
-        $this->assertResponseCode($response, Response::HTTP_CREATED);
     }
 
     public function it_adds_a_product_variant_to_the_cart()
@@ -149,6 +149,14 @@ EOT;
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_CREATED);
+    }
+
+    public function it_shows_summary_of_a_cart_filled_with_a_product_with_variant()
+    {
+        $this->client->request('GET', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json']);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'cart/filled_cart_with_product_variant_summary_response', Response::HTTP_OK);
     }
 
     public function it_changes_item_quantity()

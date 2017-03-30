@@ -22,7 +22,7 @@ Sylius\Component\Locale\Model\Locale:
 Sylius\Component\Core\Model\Product:
     t_shirt:
         code: "LOGAN_T_SHIRT_CODE"
-        channels: ["@channel"]
+        channels: ["@channel_web"]
         currentLocale: "en_GB"
         currentTranslation: "@t_shirt_translation"
 

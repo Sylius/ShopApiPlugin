@@ -9,3 +9,9 @@ shop_api_cart_summary:
     methods: [GET]
     defaults:
         _controller: ShopApiPlugin:Cart:summary
+
+shop_api_add_to_cart:
+    path: /shop-api/carts/{token}/add
+    methods: [POST]
+    defaults:
+        _controller: ShopApiPlugin:Cart:add
