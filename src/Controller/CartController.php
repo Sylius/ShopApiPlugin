@@ -24,7 +24,7 @@ final class CartController extends Controller
      *
      * @return Response
      */
-    public function createAction(Request $request)
+    public function pickupAction(Request $request)
     {
         /** @var FactoryInterface $cartFactory */
         $cartFactory = $this->get('sylius.factory.order');

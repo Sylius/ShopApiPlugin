@@ -39,7 +39,7 @@ EOT;
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
-        $this->createCartWithToken($token);
+        $this->pickupCart($token);
 
         $this->client->request('GET', '/shop-api/carts/' . $token, [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
@@ -56,8 +56,8 @@ EOT;
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
-        $this->createCartWithToken($token);
-        $this->createCartWithToken($token);
+        $this->pickupCart($token);
+        $this->pickupCart($token);
 
         $response = $this->client->getResponse();
 
@@ -176,7 +176,7 @@ EOT;
     /**
      * @param string $token
      */
-    private function createCartWithToken($token)
+    private function pickupCart($token)
     {
         $data =
 <<<EOT
