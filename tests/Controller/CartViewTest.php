@@ -80,7 +80,7 @@ EOT;
 
     public function it_shows_summary_of_a_cart_filled_with_a_simple_product()
     {
-        $this->client->request('GET', '/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('GET', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/filled_cart_with_simple_product_summary_response', Response::HTTP_OK);
@@ -88,7 +88,7 @@ EOT;
 
     public function it_shows_summary_of_a_cart_filled_with_a_product_with_variant()
     {
-        $this->client->request('GET', '/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('GET', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/filled_cart_with_product_variant_summary_response', Response::HTTP_OK);
@@ -98,7 +98,7 @@ EOT;
     {
         // TODO: Add item to new cart
 
-        $this->client->request('DELETE', '/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('DELETE', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
@@ -113,7 +113,7 @@ EOT;
             "quantity": 3
         }
 EOT;
-        $this->client->request('POST', '/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json'], $data);
+        $this->client->request('POST', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json'], $data);
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_CREATED);
@@ -128,7 +128,7 @@ EOT;
             "quantity": 3
         }
 EOT;
-        $this->client->request('POST', '/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json'], $data);
+        $this->client->request('POST', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json'], $data);
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_CREATED);
@@ -145,7 +145,7 @@ EOT;
             "quantity": 3
         }
 EOT;
-        $this->client->request('POST', '/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json'], $data);
+        $this->client->request('POST', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json'], $data);
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_CREATED);
@@ -159,7 +159,7 @@ EOT;
             "quantity": 3
         }
 EOT;
-        $this->client->request('POST', '/carts/SDAOSLEFNWU35H3QLI5325/items/1', [], [], ['ACCEPT' => 'application/json'], $data);
+        $this->client->request('POST', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/items/1', [], [], ['ACCEPT' => 'application/json'], $data);
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
@@ -167,7 +167,7 @@ EOT;
 
     public function it_deletes_item()
     {
-        $this->client->request('DELETE', '/carts/SDAOSLEFNWU35H3QLI5325/items/1', [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('DELETE', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/items/1', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
