@@ -75,6 +75,11 @@ EOT;
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/cart_has_not_been_found_response', Response::HTTP_NOT_FOUND);
+
+        $this->client->request('DELETE', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json']);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'cart/cart_has_not_been_found_response', Response::HTTP_NOT_FOUND);
     }
 
     /**
@@ -119,11 +124,19 @@ EOT;
         $this->assertResponse($response, 'cart/filled_cart_with_simple_product_summary_response', Response::HTTP_OK);
     }
 
+    /**
+     * @test
+     */
     public function it_deletes_a_cart()
     {
-        // TODO: Add item to new cart
+        $this->loadFixturesFromFile('channel_with_simple_product.yml');
 
-        $this->client->request('DELETE', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json']);
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        $this->pickupCart($token);
+        $this->putItemToCart($token);
+
+        $this->client->request('DELETE', '/shop-api/carts/' . $token, [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);

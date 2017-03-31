@@ -15,3 +15,9 @@ shop_api_add_to_cart:
     methods: [POST]
     defaults:
         _controller: ShopApiPlugin:Cart:add
+
+shop_api_drop_cart:
+    path: /shop-api/carts/{token}
+    methods: [DELETE]
+    defaults:
+        _controller: ShopApiPlugin:Cart:drop
