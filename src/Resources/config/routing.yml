@@ -11,7 +11,7 @@ shop_api_cart_summary:
         _controller: ShopApiPlugin:Cart:summary
 
 shop_api_add_to_cart:
-    path: /shop-api/carts/{token}/item
+    path: /shop-api/carts/{token}/items
     methods: [POST]
     defaults:
         _controller: ShopApiPlugin:Cart:add
@@ -21,3 +21,15 @@ shop_api_drop_cart:
     methods: [DELETE]
     defaults:
         _controller: ShopApiPlugin:Cart:drop
+
+shop_api_change_item_quantity:
+    path: /shop-api/carts/{token}/items/{id}
+    methods: [PUT]
+    defaults:
+        _controller: ShopApiPlugin:Cart:changeItemQuantity
+
+shop_api_remove_item:
+    path: /shop-api/carts/{token}/items/{id}
+    methods: [DELETE]
+    defaults:
+        _controller: ShopApiPlugin:Cart:removeItem

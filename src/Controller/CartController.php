@@ -17,6 +17,7 @@ use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Sylius\Component\Core\Repository\ProductVariantRepositoryInterface;
 use Sylius\Component\Order\Modifier\OrderItemQuantityModifierInterface;
 use Sylius\Component\Order\Processor\OrderProcessorInterface;
+use Sylius\Component\Order\Repository\OrderItemRepositoryInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\ShopApiPlugin\View\CartSummaryView;
 use Sylius\ShopApiPlugin\View\ItemView;
@@ -163,6 +164,10 @@ final class CartController extends Controller
         /** @var OrderInterface $cart */
         $cart = $cartRepository->findOneBy(['tokenValue' => $request->attributes->get('token')]);
 
+        if (null === $cart) {
+            throw new NotFoundHttpException('Cart with given id does not exists');
+        }
+
         $productVariant = $this->resolveVariant($request);
 
         /** @var OrderItemInterface $cartItem */
@@ -198,6 +203,81 @@ final class CartController extends Controller
         }
 
         $cartRepository->remove($cart);
+
+        return $viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function changeItemQuantityAction(Request $request)
+    {
+        /** @var ObjectManager $cartManager */
+        $cartManager = $this->get('sylius.manager.order');
+        /** @var ViewHandlerInterface $viewHandler */
+        $viewHandler = $this->get('fos_rest.view_handler');
+        /** @var OrderItemRepositoryInterface $orderItemRepository */
+        $cartItemRepository = $this->get('sylius.repository.order_item');
+        /** @var OrderItemQuantityModifierInterface $orderItemModifier */
+        $orderItemModifier = $this->get('sylius.order_item_quantity_modifier');
+        /** @var OrderProcessorInterface $orderProcessor */
+        $orderProcessor = $this->get('sylius.order_processing.order_processor');
+        /** @var OrderRepositoryInterface $cartRepository */
+        $cartRepository = $this->get('sylius.repository.order');
+
+        $cart = $cartRepository->findOneBy(['tokenValue' => $request->attributes->get('token')]);
+
+        if (null === $cart) {
+            throw new NotFoundHttpException('Cart with given id does not exists');
+        }
+
+        /** @var OrderInterface $cart */
+        $cartItem = $cartItemRepository->find($request->attributes->get('id'));
+
+        if (null === $cartItem || !$cart->hasItem($cartItem)) {
+            throw new NotFoundHttpException('Cart item with given id does not exists');
+        }
+
+        $orderItemModifier->modify($cartItem, $request->request->getInt('quantity'));
+
+        $orderProcessor->process($cart);
+
+        $cartManager->flush();
+
+        return $viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function removeItemAction(Request $request)
+    {
+        /** @var OrderRepositoryInterface $cartRepository */
+        $cartRepository = $this->get('sylius.repository.order');
+        /** @var ViewHandlerInterface $viewHandler */
+        $viewHandler = $this->get('fos_rest.view_handler');
+        /** @var OrderItemRepositoryInterface $orderItemRepository */
+        $cartItemRepository = $this->get('sylius.repository.order_item');
+
+        $cart = $cartRepository->findOneBy(['tokenValue' => $request->attributes->get('token')]);
+
+        if (null === $cart) {
+            throw new NotFoundHttpException('Cart with given id does not exists');
+        }
+
+        /** @var OrderInterface $cart */
+        $cartItem = $cartItemRepository->find($request->attributes->get('id'));
+
+        if (null === $cartItem || !$cart->hasItem($cartItem)) {
+            throw new NotFoundHttpException('Cart item with given id does not exists');
+        }
+
+        $cart->removeItem($cartItem);
+        $cartItemRepository->remove($cartItem);
 
         return $viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));
     }

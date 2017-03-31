@@ -80,6 +80,16 @@ EOT;
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/cart_has_not_been_found_response', Response::HTTP_NOT_FOUND);
+
+        $this->client->request('POST', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/items', [], [], ['ACCEPT' => 'application/json']);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'cart/cart_has_not_been_found_response', Response::HTTP_NOT_FOUND);
+
+        $this->client->request('PUT', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/items/1', [], [], ['ACCEPT' => 'application/json']);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'cart/cart_has_not_been_found_response', Response::HTTP_NOT_FOUND);
     }
 
     /**
@@ -100,7 +110,7 @@ EOT;
             "quantity": 3
         }
 EOT;
-        $this->client->request('POST', sprintf('/shop-api/carts/%s/item', $token), [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], static::$acceptAndContentTypeHeader, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_CREATED);
@@ -161,7 +171,7 @@ EOT;
             "quantity": 3
         }
 EOT;
-        $this->client->request('POST', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/item', [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('POST', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/items', [], [], static::$acceptAndContentTypeHeader, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_CREATED);
@@ -188,7 +198,7 @@ EOT;
             "quantity": 3
         }
 EOT;
-        $this->client->request('POST', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/item', [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('POST', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/items', [], [], static::$acceptAndContentTypeHeader, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_CREATED);
@@ -224,13 +234,77 @@ EOT;
             "quantity": 3
         }
 EOT;
-        $this->client->request('POST', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/item', [], [], static::$acceptAndContentTypeHeader, $regularVariant);
-        $this->client->request('POST', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/item', [], [], static::$acceptAndContentTypeHeader, $variantWithOptions);
+        $this->client->request('POST', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/items', [], [], static::$acceptAndContentTypeHeader, $regularVariant);
+        $this->client->request('POST', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/items', [], [], static::$acceptAndContentTypeHeader, $variantWithOptions);
 
         $this->client->request('GET', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/filled_cart_with_product_variant_summary_response', Response::HTTP_OK);
+    }
+
+    /**
+     * @test
+     */
+    public function it_changes_item_quantity()
+    {
+        $this->loadFixturesFromFile('shop.yml');
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        $this->pickupCart($token);
+        $this->putItemToCart($token);
+
+        $data =
+<<<EOT
+        {
+            "quantity": 5
+        }
+EOT;
+        $this->client->request('PUT', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/items/1', [], [], static::$acceptAndContentTypeHeader, $data);
+        $response = $this->client->getResponse();
+
+        $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * @test
+     */
+    public function it_deletes_item()
+    {
+        $this->loadFixturesFromFile('shop.yml');
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        $this->pickupCart($token);
+        $this->putItemToCart($token);
+
+        $this->client->request('DELETE', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/items/1', [], [], ['ACCEPT' => 'application/json']);
+        $response = $this->client->getResponse();
+
+        $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * @test
+     */
+    public function it_returns_not_found_exception_if_cart_item_has_not_been_found()
+    {
+        $this->loadFixturesFromFile('shop.yml');
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        $this->pickupCart($token);
+
+        $this->client->request('DELETE', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/items/1', [], [], ['ACCEPT' => 'application/json']);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'cart/cart_item_has_not_been_found_response', Response::HTTP_NOT_FOUND);
+
+        $this->client->request('PUT', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/items/1', [], [], ['ACCEPT' => 'application/json']);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'cart/cart_item_has_not_been_found_response', Response::HTTP_NOT_FOUND);
     }
 
     public function it_shows_summary_of_a_cart_filled_with_a_product_with_image()
@@ -241,26 +315,12 @@ EOT;
         $this->assertResponse($response, 'cart/filled_cart_with_simple_product_with_image_summary_response', Response::HTTP_OK);
     }
 
-    public function it_changes_item_quantity()
+    public function it_shows_summary_of_a_cart_filled_with_a_product_with_variant_and_images()
     {
-        $data =
-<<<EOT
-        {
-            "quantity": 3
-        }
-EOT;
-        $this->client->request('POST', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/items/1', [], [], ['ACCEPT' => 'application/json'], $data);
+        $this->client->request('GET', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
-        $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
-    }
-
-    public function it_deletes_item()
-    {
-        $this->client->request('DELETE', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/items/1', [], [], ['ACCEPT' => 'application/json']);
-        $response = $this->client->getResponse();
-
-        $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
+        $this->assertResponse($response, 'cart/filled_cart_with_product_variant_and_images_summary_response', Response::HTTP_OK);
     }
 
     /**
@@ -290,6 +350,6 @@ EOT;
             "quantity": 5
         }
 EOT;
-        $this->client->request('POST', sprintf('/shop-api/carts/%s/item', $token), [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], static::$acceptAndContentTypeHeader, $data);
     }
 }

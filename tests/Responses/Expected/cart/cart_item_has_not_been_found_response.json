@@ -1,0 +1,4 @@
+{
+    "code": 404,
+    "message": "Cart item with given id does not exists"
+}
