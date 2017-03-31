@@ -96,11 +96,11 @@ EOT;
         $data =
 <<<EOT
         {
-            "code": "LOGAN_MUG_CODE",
+            "productCode": "LOGAN_MUG_CODE",
             "quantity": 3
         }
 EOT;
-        $this->client->request('POST', sprintf('/shop-api/carts/%s/add', $token), [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/item', $token), [], [], static::$acceptAndContentTypeHeader, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_CREATED);
@@ -156,11 +156,12 @@ EOT;
         $data =
 <<<EOT
         {
-            "code": "SMALL_LOGAN_T_SHIRT_CODE",
+            "productCode": "LOGAN_T_SHIRT_CODE",
+            "variantCode": "SMALL_LOGAN_T_SHIRT_CODE",
             "quantity": 3
         }
 EOT;
-        $this->client->request('POST', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/add', [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('POST', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/item', [], [], static::$acceptAndContentTypeHeader, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_CREATED);
@@ -180,21 +181,52 @@ EOT;
         $data =
 <<<EOT
         {
-            "code": "LOGAN_T_SHIRT_CODE",
+            "productCode": "LOGAN_HAT_CODE",
             "options": {
-                "SIZE_CODE": "SIZE_SMALL_CODE"
+                "HAT_SIZE": "HAT_SIZE_S"
             },
             "quantity": 3
         }
 EOT;
-        $this->client->request('POST', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/add', [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('POST', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/item', [], [], static::$acceptAndContentTypeHeader, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_CREATED);
     }
 
+    /**
+     * @test
+     */
     public function it_shows_summary_of_a_cart_filled_with_a_product_with_variant()
     {
+        $this->loadFixturesFromFile('shop.yml');
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        $this->pickupCart($token);
+
+        $variantWithOptions =
+<<<EOT
+        {
+            "productCode": "LOGAN_HAT_CODE",
+            "options": {
+                "HAT_SIZE": "HAT_SIZE_S"
+            },
+            "quantity": 3
+        }
+EOT;
+
+        $regularVariant =
+<<<EOT
+        {
+            "productCode": "LOGAN_T_SHIRT_CODE",
+            "variantCode": "SMALL_LOGAN_T_SHIRT_CODE",
+            "quantity": 3
+        }
+EOT;
+        $this->client->request('POST', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/item', [], [], static::$acceptAndContentTypeHeader, $regularVariant);
+        $this->client->request('POST', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/item', [], [], static::$acceptAndContentTypeHeader, $variantWithOptions);
+
         $this->client->request('GET', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
@@ -254,10 +286,10 @@ EOT;
         $data =
 <<<EOT
         {
-            "code": "LOGAN_MUG_CODE",
+            "productCode": "LOGAN_MUG_CODE",
             "quantity": 5
         }
 EOT;
-        $this->client->request('POST', sprintf('/shop-api/carts/%s/add', $token), [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/item', $token), [], [], static::$acceptAndContentTypeHeader, $data);
     }
 }

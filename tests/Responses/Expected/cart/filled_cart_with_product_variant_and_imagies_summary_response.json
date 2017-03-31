@@ -13,12 +13,26 @@
             "product": {
                 "code": "LOGAN_T_SHIRT_CODE",
                 "name": "Logan T-Shirt",
-                "images": []
+                "images": [
+                    {
+                        "code": "thumbnail",
+                        "url": {
+                            "http": "http://sylius.demo/img/t-shirt.jpg"
+                        }
+                    }
+                ]
             },
             "variant": {
                 "code": "SMALL_LOGAN_T_SHIRT_CODE",
                 "name": "Small Logan T-Shirt",
-                "images": [],
+                "images": [
+                    {
+                        "code": "thumbnail",
+                        "url": {
+                            "http": "http://sylius.demo/img/t-shirt.jpg"
+                        }
+                    }
+                ],
                 "options": []
             }
         },
@@ -30,14 +44,28 @@
             "product": {
                 "code": "LOGAN_HAT_CODE",
                 "name": "Logan Hat",
-                "images": []
+                "images": [
+                    {
+                        "code": "thumbnail",
+                        "url": {
+                            "http": "http://sylius.demo/img/t-shirt.jpg"
+                        }
+                    }
+                ]
             },
             "variant": {
                 "code": "SMALL_LOGAN_HAT_CODE",
                 "name": "Small Logan Hat",
-                "images": [],
+                "images": [
+                    {
+                        "code": "thumbnail",
+                        "url": {
+                            "http": "http://sylius.demo/img/t-shirt.jpg"
+                        }
+                    }
+                ],
                 "options": {
-                    "HAT_SIZE": {
+                    "SMALL_CODE": {
                         "name": "size",
                         "value": {
                             "code": "HAT_SIZE_S",

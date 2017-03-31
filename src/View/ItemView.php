@@ -28,4 +28,9 @@ class ItemView
      * @var ProductView
      */
     public $product;
+
+    /**
+     * @var ProductVariantView
+     */
+    public $variant;
 }

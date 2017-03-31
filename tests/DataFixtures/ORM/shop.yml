@@ -30,20 +30,32 @@ Sylius\Component\Core\Model\Product:
         channels: ["@channel_web"]
         currentLocale: "en_GB"
         currentTranslation: "@t_shirt_translation"
+    hat:
+        code: "LOGAN_HAT_CODE"
+        channels: ["@channel_web"]
+        options: ["@hat_size"]
+        currentLocale: "en_GB"
+        currentTranslation: "@hat_translation"
 
 Sylius\Component\Core\Model\ProductTranslation:
     mug_translation:
         slug: "logan_mug"
-        locale: "en_US"
+        locale: "en_GB"
         name: 'Logan Mug'
         description: <paragraph(2)>
         translatable: "@mug"
     t_shirt_translation:
         slug: "logan_t_shirt"
-        locale: "en_US"
+        locale: "en_GB"
         name: 'Logan T-Shirt'
         description: <paragraph(2)>
         translatable: "@t_shirt"
+    hat_translation:
+        slug: "logan_hat"
+        locale: "en_GB"
+        name: 'Logan Hat'
+        description: <paragraph(2)>
+        translatable: "@hat"
 
 Sylius\Component\Core\Model\ProductVariant:
     mug_variant:
@@ -67,6 +79,22 @@ Sylius\Component\Core\Model\ProductVariant:
         currentTranslation: "@large_t_shirt_translation"
         channelPricings:
             WEB_GB: "@large_t_shirt_web_channel_pricing"
+    hat_small:
+        code: "SMALL_LOGAN_HAT_CODE"
+        product: "@hat"
+        currentLocale: "en_GB"
+        optionValues: ["@hat_size_s"]
+        currentTranslation: "@small_hat_translation"
+        channelPricings:
+            WEB_GB: "@small_hat_web_channel_pricing"
+    hat_large:
+        code: "LARGE_LOGAN_HAT_CODE"
+        product: "@hat"
+        optionValues: ["@hat_size_l"]
+        currentLocale: "en_GB"
+        currentTranslation: "@large_hat_translation"
+        channelPricings:
+            WEB_GB: "@large_hat_web_channel_pricing"
 
 Sylius\Component\Product\Model\ProductVariantTranslation:
     mug_variant_translation:
@@ -81,6 +109,14 @@ Sylius\Component\Product\Model\ProductVariantTranslation:
         locale: "en_GB"
         name: 'Large Logan T-Shirt'
         translatable: "@t_shirt_large"
+    small_hat_translation:
+        locale: "en_GB"
+        name: 'Small Logan Hat'
+        translatable: "@hat_small"
+    large_hat_translation:
+        locale: "en_GB"
+        name: 'Large Logan Hat'
+        translatable: "@hat_large"
 
 Sylius\Component\Core\Model\ChannelPricing:
     mug_web_channel_pricing:
@@ -91,4 +127,47 @@ Sylius\Component\Core\Model\ChannelPricing:
         price: 1999
     large_t_shirt_web_channel_pricing:
         channelCode: "WEB_GB"
-        price: 1999
+        price: 2999
+    small_hat_web_channel_pricing:
+        channelCode: "WEB_GB"
+        price: 500
+    large_hat_web_channel_pricing:
+        channelCode: "WEB_GB"
+        price: 999
+
+Sylius\Component\Product\Model\ProductOption:
+    hat_size:
+        currentLocale: 'en_GB'
+        fallbackLocale: 'en_GB'
+        code: "HAT_SIZE"
+        currentTranslation: "@hat_size_translations"
+
+Sylius\Component\Product\Model\ProductOptionTranslation:
+    hat_size_translations:
+        locale: 'en_GB'
+        name: 'size'
+        translatable: "@hat_size"
+
+Sylius\Component\Product\Model\ProductOptionValue:
+    hat_size_s:
+        currentLocale: 'en_GB'
+        fallbackLocale: 'en_GB'
+        code: "HAT_SIZE_S"
+        option: "@hat_size"
+        currentTranslation: "@hat_size_s_translations"
+    hat_size_l:
+        currentLocale: 'en_GB'
+        fallbackLocale: 'en_GB'
+        code: "HAT_SIZE_L"
+        option: "@hat_size"
+        currentTranslation: "@hat_size_l_translations"
+
+Sylius\Component\Product\Model\ProductOptionValueTranslation:
+    hat_size_s_translations:
+        locale: 'en_GB'
+        value: 'Size S'
+        translatable: "@hat_size_s"
+    hat_size_l_translations:
+        locale: 'en_GB'
+        value: 'Size L'
+        translatable: "@hat_size_l"

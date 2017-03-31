@@ -11,7 +11,7 @@ shop_api_cart_summary:
         _controller: ShopApiPlugin:Cart:summary
 
 shop_api_add_to_cart:
-    path: /shop-api/carts/{token}/add
+    path: /shop-api/carts/{token}/item
     methods: [POST]
     defaults:
         _controller: ShopApiPlugin:Cart:add

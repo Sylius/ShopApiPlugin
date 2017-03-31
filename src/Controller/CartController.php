@@ -20,8 +20,11 @@ use Sylius\Component\Order\Processor\OrderProcessorInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\ShopApiPlugin\View\CartSummaryView;
 use Sylius\ShopApiPlugin\View\ItemView;
+use Sylius\ShopApiPlugin\View\ProductVariantView;
 use Sylius\ShopApiPlugin\View\ProductView;
 use Sylius\ShopApiPlugin\View\TotalsView;
+use Sylius\ShopApiPlugin\View\VariantOptionValueView;
+use Sylius\ShopApiPlugin\View\VariantOptionView;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -99,14 +102,37 @@ final class CartController extends Controller
         /** @var OrderItemInterface $item */
         foreach ($cart->getItems() as $item) {
             $itemView = new ItemView();
+            $product = $item->getProduct();
 
             $itemView->id = $item->getId();
             $itemView->quantity = $item->getQuantity();
             $itemView->total = $item->getTotal();
             $itemView->unitPrice = $item->getUnitPrice();
             $itemView->product = new ProductView();
-            $itemView->product->code = $item->getProduct()->getCode();
-            $itemView->product->name = $item->getProduct()->getName();
+            $itemView->product->code = $product->getCode();
+            $itemView->product->name = $product->getName();
+
+            if ($product->isConfigurable()) {
+                $variant = $item->getVariant();
+
+                $itemView->variant = new ProductVariantView();
+                $itemView->variant->name = $variant->getName();
+                $itemView->variant->code = $variant->getCode();
+
+                if ($product->hasOptions()) {
+                    foreach ($variant->getOptionValues() as $optionValue) {
+                        $option = $optionValue->getOption();
+
+                        $optionValueView = new VariantOptionView();
+                        $optionValueView->name = $option->getName();
+                        $optionValueView->value = new VariantOptionValueView();
+                        $optionValueView->value->value = $optionValue->getValue();
+                        $optionValueView->value->code = $optionValue->getCode();
+
+                        $itemView->variant->options[$option->getCode()] = $optionValueView;
+                    }
+                }
+            }
 
             $cartView->items[] = $itemView;
         }
@@ -183,37 +209,44 @@ final class CartController extends Controller
      */
     private function resolveVariant(Request $request)
     {
-        if (!$request->request->has('options')) {
-            /** @var ProductVariantRepositoryInterface $productVariantRepository */
-            $productVariantRepository = $this->get('sylius.repository.product_variant');
-
-            return $productVariantRepository->findOneBy(['code' => $request->request->get('code')]);
-        }
-
-        return $this->getVariant($request->request->get('options'), $request->request->get('code'));
-    }
-
-    /**
-     * @param array $options
-     *
-     * @return null|ProductVariantInterface
-     */
-    private function getVariant(array $options, $productCode)
-    {
         /** @var ProductRepositoryInterface $productRepository */
         $productRepository = $this->get('sylius.repository.product');
 
         /** @var ProductInterface $product */
-        $product = $productRepository->findOneBy(['code' => $productCode]);
+        $product = $productRepository->findOneBy(['code' => $request->request->get('productCode')]);
 
+        if ($product->isSimple()) {
+            return $product->getVariants()[0];
+        }
+
+        if ($product->hasOptions()){
+            return $this->getVariant($request->request->get('options'), $product);
+        }
+
+        /** @var ProductVariantRepositoryInterface $productVariantRepository */
+        $productVariantRepository = $this->get('sylius.repository.product_variant');
+
+        return $productVariantRepository->findOneByCodeAndProductCode($request->request->get('variantCode'), $request->request->get('productCode'));
+    }
+
+    /**
+     * @param array $options
+     * @param ProductInterface $product
+     *
+     * @return null|ProductVariantInterface
+     */
+    private function getVariant(array $options, ProductInterface $product)
+    {
         foreach ($product->getVariants() as $variant) {
             foreach ($variant->getOptionValues() as $optionValue) {
-                if (!isset($options[$optionValue->getOptionCode()]) && $optionValue->getValue() === $options[$optionValue->getOptionCode()]) {
+                if (!isset($options[$optionValue->getOptionCode()]) || $optionValue->getCode() !== $options[$optionValue->getOptionCode()]) {
                     continue 2;
                 }
             }
 
             return $variant;
         }
+
+        return null;
     }
 }
