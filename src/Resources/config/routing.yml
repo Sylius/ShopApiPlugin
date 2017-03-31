@@ -1,1 +1,11 @@
+shop_api_pickup_cart:
+    path: /shop-api/carts/{token}
+    methods: [POST]
+    defaults:
+        _controller: ShopApiPlugin:Cart:pickup
 
+shop_api_cart_summary:
+    path: /shop-api/carts/{token}
+    methods: [GET]
+    defaults:
+        _controller: ShopApiPlugin:Cart:summary

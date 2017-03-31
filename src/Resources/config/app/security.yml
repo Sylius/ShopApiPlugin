@@ -1,0 +1,9 @@
+parameters:
+    shop_api.security.regex: "^/shop-api"
+    sylius.security.shop_regex: "^/(?!admin|api|shop-api)[^/]++"
+
+    firewalls:
+        shop_api:
+            context: shop-api
+            pattern: "%shop_api.security.regex%"
+            security: false
