@@ -10,6 +10,8 @@ use Sylius\Component\Core\Factory\CartItemFactoryInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
+use Sylius\Component\Core\Model\ProductInterface;
+use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Sylius\Component\Core\Repository\ProductVariantRepositoryInterface;
@@ -123,8 +125,6 @@ final class CartController extends Controller
         $cartRepository = $this->get('sylius.repository.order');
         /** @var ObjectManager $cartManager */
         $cartManager = $this->get('sylius.manager.order');
-        /** @var ProductVariantRepositoryInterface $productRepository */
-        $productRepository = $this->get('sylius.repository.product_variant');
         /** @var ViewHandlerInterface $viewHandler */
         $viewHandler = $this->get('fos_rest.view_handler');
         /** @var CartItemFactoryInterface $cartItemFactory */
@@ -136,7 +136,9 @@ final class CartController extends Controller
 
         /** @var OrderInterface $cart */
         $cart = $cartRepository->findOneBy(['tokenValue' => $request->attributes->get('token')]);
-        $productVariant = $productRepository->findOneBy(['code' => $request->request->get('code')]);
+
+        $productVariant = $this->resolveVariant($request);
+
         /** @var OrderItemInterface $cartItem */
         $cartItem = $cartItemFactory->createForCart($cart);
         $cartItem->setVariant($productVariant);
@@ -172,5 +174,46 @@ final class CartController extends Controller
         $cartRepository->remove($cart);
 
         return $viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return null|ProductVariantInterface
+     */
+    private function resolveVariant(Request $request)
+    {
+        if (!$request->request->has('options')) {
+            /** @var ProductVariantRepositoryInterface $productVariantRepository */
+            $productVariantRepository = $this->get('sylius.repository.product_variant');
+
+            return $productVariantRepository->findOneBy(['code' => $request->request->get('code')]);
+        }
+
+        return $this->getVariant($request->request->get('options'), $request->request->get('code'));
+    }
+
+    /**
+     * @param array $options
+     *
+     * @return null|ProductVariantInterface
+     */
+    private function getVariant(array $options, $productCode)
+    {
+        /** @var ProductRepositoryInterface $productRepository */
+        $productRepository = $this->get('sylius.repository.product');
+
+        /** @var ProductInterface $product */
+        $product = $productRepository->findOneBy(['code' => $productCode]);
+
+        foreach ($product->getVariants() as $variant) {
+            foreach ($variant->getOptionValues() as $optionValue) {
+                if (!isset($options[$optionValue->getOptionCode()]) && $optionValue->getValue() === $options[$optionValue->getOptionCode()]) {
+                    continue 2;
+                }
+            }
+
+            return $variant;
+        }
     }
 }

@@ -1,0 +1,94 @@
+Sylius\Component\Core\Model\Channel:
+    channel_web:
+        code: "WEB_GB"
+        name: "Great Britain Channel"
+        hostname: "localhost"
+        description: "Lorem ipsum"
+        baseCurrency: "@currency"
+        defaultLocale: "@locale"
+        locales: ['@locale']
+        color: "black"
+        enabled: true
+        taxCalculationStrategy: "order_items_based"
+
+Sylius\Component\Currency\Model\Currency:
+    currency:
+        code: GBP
+
+Sylius\Component\Locale\Model\Locale:
+    locale:
+        code: en_GB
+
+Sylius\Component\Core\Model\Product:
+    mug:
+        code: "LOGAN_MUG_CODE"
+        channels: ["@channel_web"]
+        currentLocale: "en_GB"
+        currentTranslation: "@mug_translation"
+    t_shirt:
+        code: "LOGAN_T_SHIRT_CODE"
+        channels: ["@channel_web"]
+        currentLocale: "en_GB"
+        currentTranslation: "@t_shirt_translation"
+
+Sylius\Component\Core\Model\ProductTranslation:
+    mug_translation:
+        slug: "logan_mug"
+        locale: "en_US"
+        name: 'Logan Mug'
+        description: <paragraph(2)>
+        translatable: "@mug"
+    t_shirt_translation:
+        slug: "logan_t_shirt"
+        locale: "en_US"
+        name: 'Logan T-Shirt'
+        description: <paragraph(2)>
+        translatable: "@t_shirt"
+
+Sylius\Component\Core\Model\ProductVariant:
+    mug_variant:
+        code: "LOGAN_MUG_CODE"
+        product: "@mug"
+        currentLocale: "en_GB"
+        currentTranslation: "@mug_variant_translation"
+        channelPricings:
+            WEB_GB: "@mug_web_channel_pricing"
+    t_shirt_small:
+        code: "SMALL_LOGAN_T_SHIRT_CODE"
+        product: "@t_shirt"
+        currentLocale: "en_GB"
+        currentTranslation: "@small_t_shirt_translation"
+        channelPricings:
+            WEB_GB: "@small_t_shirt_web_channel_pricing"
+    t_shirt_large:
+        code: "LARGE_LOGAN_T_SHIRT_CODE"
+        product: "@t_shirt"
+        currentLocale: "en_GB"
+        currentTranslation: "@large_t_shirt_translation"
+        channelPricings:
+            WEB_GB: "@large_t_shirt_web_channel_pricing"
+
+Sylius\Component\Product\Model\ProductVariantTranslation:
+    mug_variant_translation:
+        locale: "en_GB"
+        name: 'Logan Mug'
+        translatable: "@mug_variant"
+    small_t_shirt_translation:
+        locale: "en_GB"
+        name: 'Small Logan T-Shirt'
+        translatable: "@t_shirt_small"
+    large_t_shirt_translation:
+        locale: "en_GB"
+        name: 'Large Logan T-Shirt'
+        translatable: "@t_shirt_large"
+
+Sylius\Component\Core\Model\ChannelPricing:
+    mug_web_channel_pricing:
+        channelCode: "WEB_GB"
+        price: 1999
+    small_t_shirt_web_channel_pricing:
+        channelCode: "WEB_GB"
+        price: 1999
+    large_t_shirt_web_channel_pricing:
+        channelCode: "WEB_GB"
+        price: 1999

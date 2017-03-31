@@ -11,13 +11,13 @@
             "unitPrice": 1999,
             "total": 9995,
             "product": {
-                "code": "LOGAN_T_SHIRT_CODE",
-                "name": "Logan T-Shirt",
+                "code": "LOGAN_MUG_CODE",
+                "name": "Logan Mug",
                 "images": [
                     {
                         "code": "thumbnail",
                         "url": {
-                            "http": "http://sylius.demo/img/t-shirt.jpg"
+                            "http": "http://sylius.demo/img/mug.jpg"
                         }
                     }
                 ]

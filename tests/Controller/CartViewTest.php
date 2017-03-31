@@ -14,7 +14,7 @@ final class CartViewTest extends JsonApiTestCase
      */
     public function it_creates_a_new_cart()
     {
-        $this->loadFixturesFromFile('channel.yml');
+        $this->loadFixturesFromFile('shop.yml');
 
         $data =
 <<<EOT
@@ -35,7 +35,7 @@ EOT;
      */
     public function it_shows_summary_of_an_empty_cart()
     {
-        $this->loadFixturesFromFile('channel.yml');
+        $this->loadFixturesFromFile('shop.yml');
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -52,7 +52,7 @@ EOT;
      */
     public function it_does_not_allow_to_create_new_cart_if_token_is_already_used()
     {
-        $this->loadFixturesFromFile('channel.yml');
+        $this->loadFixturesFromFile('shop.yml');
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -69,7 +69,7 @@ EOT;
      */
     public function it_returns_not_found_exception_if_cart_has_not_been_found()
     {
-        $this->loadFixturesFromFile('channel.yml');
+        $this->loadFixturesFromFile('shop.yml');
 
         $this->client->request('GET', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
@@ -87,7 +87,7 @@ EOT;
      */
     public function it_adds_a_product_to_the_cart()
     {
-        $this->loadFixturesFromFile('channel_with_simple_product.yml');
+        $this->loadFixturesFromFile('shop.yml');
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -96,7 +96,7 @@ EOT;
         $data =
 <<<EOT
         {
-            "code": "LOGAN_T_SHIRT_CODE",
+            "code": "LOGAN_MUG_CODE",
             "quantity": 3
         }
 EOT;
@@ -111,7 +111,7 @@ EOT;
      */
     public function it_shows_summary_of_a_cart_filled_with_a_simple_product()
     {
-        $this->loadFixturesFromFile('channel_with_simple_product.yml');
+        $this->loadFixturesFromFile('shop.yml');
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -129,7 +129,7 @@ EOT;
      */
     public function it_deletes_a_cart()
     {
-        $this->loadFixturesFromFile('channel_with_simple_product.yml');
+        $this->loadFixturesFromFile('shop.yml');
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -142,33 +142,52 @@ EOT;
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
     }
 
+    /**
+     * @test
+     */
     public function it_adds_a_product_variant_to_the_cart()
     {
+        $this->loadFixturesFromFile('shop.yml');
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        $this->pickupCart($token);
+
         $data =
 <<<EOT
         {
-            "code": "SMALL_LOGAN_T_SHIRT_VARIANT",
+            "code": "SMALL_LOGAN_T_SHIRT_CODE",
             "quantity": 3
         }
 EOT;
-        $this->client->request('POST', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json'], $data);
+        $this->client->request('POST', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/add', [], [], static::$acceptAndContentTypeHeader, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_CREATED);
     }
 
+    /**
+     * @test
+     */
     public function it_adds_a_product_variant_based_on_option_to_the_cart()
     {
+        $this->loadFixturesFromFile('shop.yml');
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        $this->pickupCart($token);
+
         $data =
 <<<EOT
         {
-            "options" {
+            "code": "LOGAN_T_SHIRT_CODE",
+            "options": {
                 "SIZE_CODE": "SIZE_SMALL_CODE"
             },
             "quantity": 3
         }
 EOT;
-        $this->client->request('POST', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json'], $data);
+        $this->client->request('POST', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/add', [], [], static::$acceptAndContentTypeHeader, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_CREATED);
@@ -235,7 +254,7 @@ EOT;
         $data =
 <<<EOT
         {
-            "code": "LOGAN_T_SHIRT_CODE",
+            "code": "LOGAN_MUG_CODE",
             "quantity": 5
         }
 EOT;
