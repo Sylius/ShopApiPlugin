@@ -10,8 +10,7 @@ imports:
 
     - { resource: "@ShopApiPlugin/Resources/config/app/config.yml" }
 
-    - { resource: "../../../../vendor/sylius/sylius/app/config/security.yml" }
-    - { resource: "@ShopApiPlugin/Resources/config/app/security.yml" }
+    - { resource: "security.yml" }
 
 framework:
     translator: { fallbacks: ["%locale%"] }

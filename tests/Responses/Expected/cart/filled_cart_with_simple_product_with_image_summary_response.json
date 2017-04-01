@@ -13,7 +13,14 @@
             "product": {
                 "code": "LOGAN_MUG_CODE",
                 "name": "Logan Mug",
-                "images": []
+                "images": [
+                    {
+                        "code": "thumbnail",
+                        "url": {
+                            "http": "http://sylius.demo/img/mug.jpg"
+                        }
+                    }
+                ]
             }
         }
     ],
