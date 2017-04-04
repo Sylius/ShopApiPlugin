@@ -1,0 +1,22 @@
+{
+    "id": 1,
+    "code": "LOGAN_T_SHIRT_CODE",
+    "name": "Logan T-Shirt",
+    "slug": "logan-t-shirt",
+    "images": [
+        {
+            "code": "thumbnail",
+            "url": {
+                "http": "http://sylius.demo/img/t-shirt.jpg"
+            }
+        }
+    ],
+    "_links": {
+        "self": {
+            "href": "\/shop-api\/v1\/products\/logan-t-shirt"
+        },
+        "variants": {
+            "href": "\/shop-api\/v1\/products\/logan-t-shirt\/variants\/"
+        }
+    }
+}

@@ -1,0 +1,132 @@
+{
+    "page": 1,
+    "limit": 10,
+    "pages": 3,
+    "total": 22,
+    "_links": {
+        "self": {
+            "href": "\/shop-api\/v1\/products\/?page=1&limit=10"
+        },
+        "first": {
+            "href": "\/shop-api\/v1\/products\/?page=1&limit=10"
+        },
+        "last": {
+            "href": "\/shop-api\/v1\/products\/?page=3&limit=10"
+        },
+        "next": {
+            "href": "\/shop-api\/v1\/products\/?page=2&limit=10"
+        }
+    },
+    "_embedded": {
+        "items": [
+            {
+                "id": 1,
+                "code": "LOGAN_MUG_CODE",
+                "name": "Logan Mug",
+                "slug": "logan-mug",
+                "price": 1999,
+                "images": [
+                    {
+                        "code": "thumbnail",
+                        "url": {
+                            "http": "http://sylius.demo/img/mug.jpg"
+                        }
+                    }
+                ],
+                "_links": {
+                    "self": {
+                        "href": "\/shop-api\/v1\/products\/logan-mug"
+                    }
+                }
+            },
+            {
+                "id": 1,
+                "code": "LOGAN_T_SHIRT_CODE",
+                "name": "Logan T-Shirt",
+                "slug": "logan-t-shirt",
+                "images": [
+                    {
+                        "code": "thumbnail",
+                        "url": {
+                            "http": "http://sylius.demo/img/t-shirt.jpg"
+                        }
+                    }
+                ],
+                "_links": {
+                    "self": {
+                        "href": "\/shop-api\/v1\/products\/logan-t-shirt"
+                    },
+                    "variants": {
+                        "href": "\/shop-api\/v1\/products\/logan-t-shirt\/variants\/"
+                    }
+                }
+            },
+            {
+                "id": 1,
+                "code": "LOGAN_HAT_CODE",
+                "name": "Logan Hat",
+                "slug": "logan-hat",
+                "prices": {
+                    "HAT_SIZE_S": {
+                        "BLUE": {
+                            "value": 1999
+                        },
+                        "RED": {
+                            "value": 1999
+                        }
+                    },
+                    "HAT_SIZE_L": {
+                        "BLUE": {
+                            "value": 2999
+                        },
+                        "RED": {
+                            "value": 2999
+                        }
+                    }
+                },
+                "images": [
+                    {
+                        "code": "thumbnail",
+                        "url": {
+                            "http": "http://sylius.demo/img/mug.jpg"
+                        }
+                    }
+                ],
+                "options": [
+                    {
+                        "code": "HAT_SIZE",
+                        "name": "size",
+                        "values": {
+                            "HAT_SIZE_S": {
+                                "value": "Size S"
+                            },
+                            "HAT_SIZE_L": {
+                                "value": "Size L"
+                            }
+                        }
+                    },
+                    {
+                        "code": "HAT_COLOR",
+                        "name": "color",
+                        "values": {
+                            "HAT_COLOR_RED": {
+                                "value": "Color Red"
+                            },
+                            "HAT_COLOR_BLUE": {
+                                "value": "Color Blue"
+                            }
+                        }
+                    }
+                ],
+                "_links": {
+                    "self": {
+                        "href": "\/shop-api\/v1\/products\/logan-hat"
+                    },
+                    "variants": {
+                        "href": "\/shop-api\/v1\/products\/logan-hat\/variants\/"
+                    }
+                }
+            }
+        ]
+    }
+}

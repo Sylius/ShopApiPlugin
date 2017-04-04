@@ -1,0 +1,20 @@
+{
+    "id": 1,
+    "code": "LOGAN_MUG_CODE",
+    "name": "Logan Mug",
+    "slug": "logan-mug",
+    "price": 1999,
+    "images": [
+        {
+            "code": "thumbnail",
+            "url": {
+                "http": "http://sylius.demo/img/mug.jpg"
+            }
+        }
+    ],
+    "_links": {
+        "self": {
+            "href": "\/shop-api\/v1\/products\/logan-mug"
+        }
+    }
+}
