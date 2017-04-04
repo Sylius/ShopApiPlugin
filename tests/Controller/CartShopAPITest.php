@@ -5,7 +5,7 @@ namespace Tests\Acme\ExampleBundle\Controller;
 use Lakion\ApiTestCase\JsonApiTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
-final class CartViewTest extends JsonApiTestCase
+final class CartShopAPITest extends JsonApiTestCase
 {
     private static $acceptAndContentTypeHeader = ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'];
 
