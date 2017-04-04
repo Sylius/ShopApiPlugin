@@ -1,6 +1,6 @@
 {
     "name": "sylius/shop-api-plugin",
-    "type": "sylius-bundle",
+    "type": "sylius-plugin",
     "description": "Shop API for Sylius E-Commerce.",
     "license": "MIT",
     "require": {
