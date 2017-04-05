@@ -1,0 +1,59 @@
+{
+    "code": "t-shirts",
+    "name": "T-Shirts",
+    "description": "Lorem ipsum",
+    "position": 1,
+    "children": [
+        {
+            "code": "men",
+            "name": "Men T-Shirts",
+            "description": "Lorem ipsum",
+            "position": 0,
+            "images": [
+                {
+                    "code": "thumbnail",
+                    "url": {
+                        "http": "http://sylius.demo/img/man-t-shirt.jpg"
+                    }
+                }
+            ],
+            "_links": {
+                "self": {
+                    "href": "http://sylius.demo/taxons/man-t-shirt"
+                }
+            }
+        },
+        {
+            "code": "women",
+            "name": "Women T-Shirts",
+            "description": "Lorem ipsum",
+            "position": 1,
+            "images": [
+                {
+                    "code": "thumbnail",
+                    "url": {
+                        "http": "http://sylius.demo/img/woman-t-shirt.jpg"
+                    }
+                }
+            ],
+            "_links": {
+                "self": {
+                    "href": "http://sylius.demo/taxons/woman-t-shirt"
+                }
+            }
+        }
+    ],
+    "images": [
+        {
+            "code": "thumbnail",
+            "url": {
+                "http": "http://sylius.demo/img/t-shirt.jpg"
+            }
+        }
+    ],
+    "_links": {
+        "self": {
+            "href": "http://sylius.demo/taxons/t-shirt"
+        }
+    }
+}
