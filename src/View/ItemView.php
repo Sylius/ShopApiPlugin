@@ -25,7 +25,7 @@ class ItemView
     public $total;
 
     /**
-     * @var ProductView
+     * @var CartItemProductView
      */
     public $product;
 

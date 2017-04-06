@@ -25,6 +25,7 @@ Sylius\Component\Core\Model\Product:
         channels: ["@channel_web"]
         currentLocale: "en_GB"
         currentTranslation: "@mug_translation"
+        images: ["@mug_thumbnail"]
     t_shirt:
         code: "LOGAN_T_SHIRT_CODE"
         channels: ["@channel_web"]
@@ -39,19 +40,19 @@ Sylius\Component\Core\Model\Product:
 
 Sylius\Component\Core\Model\ProductTranslation:
     mug_translation:
-        slug: "logan_mug"
+        slug: "logan-mug"
         locale: "en_GB"
         name: "Logan Mug"
         description: <paragraph(2)>
         translatable: "@mug"
     t_shirt_translation:
-        slug: "logan_t_shirt"
+        slug: "logan-t-shirt"
         locale: "en_GB"
         name: "Logan T-Shirt"
         description: <paragraph(2)>
         translatable: "@t_shirt"
     hat_translation:
-        slug: "logan_hat"
+        slug: "logan-hat"
         locale: "en_GB"
         name: "Logan Hat"
         description: <paragraph(2)>
@@ -171,3 +172,8 @@ Sylius\Component\Product\Model\ProductOptionValueTranslation:
         locale: "en_GB"
         value: "Size L"
         translatable: "@hat_size_l"
+
+Sylius\Component\Core\Model\ProductImage:
+    mug_thumbnail:
+        type: 'thumbnail'
+        path: '/uo/mug.jpg'

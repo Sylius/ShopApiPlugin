@@ -1,0 +1,5 @@
+shop_api_product_show:
+    path: /shop-api/products/{slug}
+    methods: [GET]
+    defaults:
+        _controller: ShopApiPlugin:Product:show
