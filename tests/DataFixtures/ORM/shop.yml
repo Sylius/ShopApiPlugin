@@ -5,8 +5,8 @@ Sylius\Component\Core\Model\Channel:
         hostname: "localhost"
         description: "Lorem ipsum"
         baseCurrency: "@currency"
-        defaultLocale: "@locale"
-        locales: ["@locale"]
+        defaultLocale: "@locale_en_gb"
+        locales: ["@locale_en_gb", "@locale_de_de"]
         color: "black"
         enabled: true
         taxCalculationStrategy: "order_items_based"
@@ -16,15 +16,18 @@ Sylius\Component\Currency\Model\Currency:
         code: GBP
 
 Sylius\Component\Locale\Model\Locale:
-    locale:
+    locale_en_gb:
         code: en_GB
+    locale_de_de:
+        code: de_DE
 
 Sylius\Component\Core\Model\Product:
     mug:
         code: "LOGAN_MUG_CODE"
         channels: ["@channel_web"]
         currentLocale: "en_GB"
-        currentTranslation: "@mug_translation"
+        currentTranslation: "@en_gb_mug_translation"
+        translations: ["@en_gb_mug_translation", "@de_de_mug_translation"]
         images: ["@mug_thumbnail"]
     t_shirt:
         code: "LOGAN_T_SHIRT_CODE"
@@ -37,13 +40,20 @@ Sylius\Component\Core\Model\Product:
         channels: ["@channel_web"]
         options: ["@hat_size"]
         currentLocale: "en_GB"
-        currentTranslation: "@hat_translation"
+        currentTranslation: "@en_gb_hat_translation"
+        translations: ["@en_gb_hat_translation", "@de_de_hat_translation"]
 
 Sylius\Component\Core\Model\ProductTranslation:
-    mug_translation:
+    en_gb_mug_translation:
         slug: "logan-mug"
         locale: "en_GB"
         name: "Logan Mug"
+        description: <paragraph(2)>
+        translatable: "@mug"
+    de_de_mug_translation:
+        slug: "logan-becher"
+        locale: "de_DE"
+        name: "Logan Becher"
         description: <paragraph(2)>
         translatable: "@mug"
     t_shirt_translation:
@@ -52,10 +62,16 @@ Sylius\Component\Core\Model\ProductTranslation:
         name: "Logan T-Shirt"
         description: <paragraph(2)>
         translatable: "@t_shirt"
-    hat_translation:
+    en_gb_hat_translation:
         slug: "logan-hat"
         locale: "en_GB"
         name: "Logan Hat"
+        description: <paragraph(2)>
+        translatable: "@hat"
+    de_de_hat_translation:
+        slug: "logan-hut"
+        locale: "de_DE"
+        name: "Logan Hut"
         description: <paragraph(2)>
         translatable: "@hat"
 
@@ -64,7 +80,8 @@ Sylius\Component\Core\Model\ProductVariant:
         code: "LOGAN_MUG_CODE"
         product: "@mug"
         currentLocale: "en_GB"
-        currentTranslation: "@mug_variant_translation"
+        currentTranslation: "@en_gb_mug_variant_translation"
+        translations: ["@en_gb_mug_variant_translation", "@de_de_mug_variant_translation"]
         channelPricings:
             WEB_GB: "@mug_web_channel_pricing"
     t_shirt_small:
@@ -86,7 +103,8 @@ Sylius\Component\Core\Model\ProductVariant:
         product: "@hat"
         currentLocale: "en_GB"
         optionValues: ["@hat_size_s", "@hat_color_red"]
-        currentTranslation: "@small_red_hat_translation"
+        currentTranslation: "@small_red_en_gb_hat_translation"
+        translations: ["@small_red_en_gb_hat_translation", "@small_red_de_de_hat_translation"]
         channelPricings:
             WEB_GB: "@small_red_hat_web_channel_pricing"
     hat_red_large:
@@ -94,7 +112,8 @@ Sylius\Component\Core\Model\ProductVariant:
         product: "@hat"
         optionValues: ["@hat_size_l", "@hat_color_red"]
         currentLocale: "en_GB"
-        currentTranslation: "@large_red_hat_translation"
+        currentTranslation: "@large_red_en_gb_hat_translation"
+        translations: ["@large_red_en_gb_hat_translation", "@large_red_de_de_hat_translation"]
         channelPricings:
             WEB_GB: "@large_red_hat_web_channel_pricing"
     hat_blue_small:
@@ -102,7 +121,8 @@ Sylius\Component\Core\Model\ProductVariant:
         product: "@hat"
         currentLocale: "en_GB"
         optionValues: ["@hat_size_s", "@hat_color_blue"]
-        currentTranslation: "@small_blue_hat_translation"
+        currentTranslation: "@small_blue_en_gb_hat_translation"
+        translations: ["@small_blue_en_gb_hat_translation", "@small_blue_de_de_hat_translation"]
         channelPricings:
             WEB_GB: "@small_blue_hat_web_channel_pricing"
     hat_blue_large:
@@ -110,14 +130,19 @@ Sylius\Component\Core\Model\ProductVariant:
         product: "@hat"
         optionValues: ["@hat_size_l", "@hat_color_blue"]
         currentLocale: "en_GB"
-        currentTranslation: "@large_blue_hat_translation"
+        currentTranslation: "@large_blue_en_gb_hat_translation"
+        translations: ["@large_blue_en_gb_hat_translation", "@large_blue_de_de_hat_translation"]
         channelPricings:
             WEB_GB: "@large_blue_hat_web_channel_pricing"
 
 Sylius\Component\Product\Model\ProductVariantTranslation:
-    mug_variant_translation:
+    en_gb_mug_variant_translation:
         locale: "en_GB"
         name: "Logan Mug"
+        translatable: "@mug_variant"
+    de_de_mug_variant_translation:
+        locale: "de_DE"
+        name: "Logan Becher"
         translatable: "@mug_variant"
     small_t_shirt_translation:
         locale: "en_GB"
@@ -127,21 +152,37 @@ Sylius\Component\Product\Model\ProductVariantTranslation:
         locale: "en_GB"
         name: "Large Logan T-Shirt"
         translatable: "@t_shirt_large"
-    small_red_hat_translation:
+    small_red_en_gb_hat_translation:
         locale: "en_GB"
         name: "Small Red Logan Hat"
         translatable: "@hat_red_small"
-    large_red_hat_translation:
+    large_red_en_gb_hat_translation:
         locale: "en_GB"
         name: "Large Red Logan Hat"
         translatable: "@hat_red_large"
-    small_blue_hat_translation:
+    small_blue_en_gb_hat_translation:
         locale: "en_GB"
         name: "Small Blue Logan Hat"
         translatable: "@hat_blue_small"
-    large_blue_hat_translation:
+    large_blue_en_gb_hat_translation:
         locale: "en_GB"
         name: "Large Blue Logan Hat"
+        translatable: "@hat_blue_large"
+    small_red_de_de_hat_translation:
+        locale: "de_DE"
+        name: "Klein Rot Logan Hut"
+        translatable: "@hat_red_small"
+    large_red_de_de_hat_translation:
+        locale: "de_DE"
+        name: "Großes Rot Logan Hut"
+        translatable: "@hat_red_large"
+    small_blue_de_de_hat_translation:
+        locale: "de_DE"
+        name: "Klein Blau Logan Hut"
+        translatable: "@hat_blue_small"
+    large_blue_de_de_hat_translation:
+        locale: "de_DE"
+        name: "Großes Blau Logan Hut"
         translatable: "@hat_blue_large"
 
 Sylius\Component\Core\Model\ChannelPricing:
@@ -172,21 +213,31 @@ Sylius\Component\Product\Model\ProductOption:
         currentLocale: "en_GB"
         fallbackLocale: "en_GB"
         code: "HAT_SIZE"
-        currentTranslation: "@hat_size_translations"
+        currentTranslation: "@en_gb_hat_size_translations"
+        translations: ["@en_gb_hat_size_translations", "@de_de_hat_size_translations"]
     hat_color:
         currentLocale: "en_GB"
         fallbackLocale: "en_GB"
         code: "HAT_COLOR"
-        currentTranslation: "@hat_color_translations"
+        currentTranslation: "@en_gb_hat_color_translations"
+        translations: ["@en_gb_hat_color_translations", "@de_de_hat_color_translations"]
 
 Sylius\Component\Product\Model\ProductOptionTranslation:
-    hat_size_translations:
+    en_gb_hat_size_translations:
         locale: "en_GB"
         name: "Size"
         translatable: "@hat_size"
-    hat_color_translations:
+    en_gb_hat_color_translations:
         locale: "en_GB"
         name: "Color"
+        translatable: "@hat_color"
+    de_de_hat_size_translations:
+        locale: "de_DE"
+        name: "Größe"
+        translatable: "@hat_size"
+    de_de_hat_color_translations:
+        locale: "de_DE"
+        name: "Farbe"
         translatable: "@hat_color"
 
 Sylius\Component\Product\Model\ProductOptionValue:
@@ -195,42 +246,62 @@ Sylius\Component\Product\Model\ProductOptionValue:
         fallbackLocale: "en_GB"
         code: "HAT_SIZE_S"
         option: "@hat_size"
-        currentTranslation: "@hat_size_s_translations"
+        currentTranslation: "@en_gb_hat_size_s_translations"
+        translations: ["@en_gb_hat_size_s_translations", "@de_de_hat_size_s_translations"]
     hat_size_l:
         currentLocale: "en_GB"
         fallbackLocale: "en_GB"
         code: "HAT_SIZE_L"
         option: "@hat_size"
-        currentTranslation: "@hat_size_l_translations"
+        currentTranslation: "@en_gb_hat_size_l_translations"
+        translations: ["@en_gb_hat_size_l_translations", "@de_de_hat_size_l_translations"]
     hat_color_red:
         currentLocale: "en_GB"
         fallbackLocale: "en_GB"
         code: "HAT_COLOR_RED"
         option: "@hat_color"
-        currentTranslation: "@hat_color_red_translations"
+        currentTranslation: "@en_gb_hat_color_red_translations"
+        translations: ["@en_gb_hat_color_red_translations", "@de_de_hat_color_red_translations"]
     hat_color_blue:
         currentLocale: "en_GB"
         fallbackLocale: "en_GB"
         code: "HAT_COLOR_BLUE"
         option: "@hat_color"
-        currentTranslation: "@hat_color_blue_translations"
+        currentTranslation: "@en_gb_hat_color_blue_translations"
+        translations: ["@en_gb_hat_color_blue_translations", "@de_de_hat_color_blue_translations"]
 
 Sylius\Component\Product\Model\ProductOptionValueTranslation:
-    hat_size_s_translations:
+    en_gb_hat_size_s_translations:
         locale: "en_GB"
         value: "S"
         translatable: "@hat_size_s"
-    hat_size_l_translations:
+    en_gb_hat_size_l_translations:
         locale: "en_GB"
         value: "L"
         translatable: "@hat_size_l"
-    hat_color_red_translations:
+    en_gb_hat_color_red_translations:
         locale: "en_GB"
         value: "Red"
         translatable: "@hat_color_red"
-    hat_color_blue_translations:
+    en_gb_hat_color_blue_translations:
         locale: "en_GB"
         value: "Blue"
+        translatable: "@hat_color_blue"
+    de_de_hat_size_s_translations:
+        locale: "de_DE"
+        value: "S"
+        translatable: "@hat_size_s"
+    de_de_hat_size_l_translations:
+        locale: "de_DE"
+        value: "L"
+        translatable: "@hat_size_l"
+    de_de_hat_color_red_translations:
+        locale: "de_DE"
+        value: "Rot"
+        translatable: "@hat_color_red"
+    de_de_hat_color_blue_translations:
+        locale: "de_DE"
+        value: "Blau"
         translatable: "@hat_color_blue"
 
 Sylius\Component\Core\Model\ProductImage:

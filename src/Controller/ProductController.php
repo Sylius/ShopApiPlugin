@@ -39,24 +39,34 @@ final class ProductController extends Controller
         $viewHandler = $this->get('fos_rest.view_handler');
         /** @var CacheManager $imagineCacheManager */
         $imagineCacheManager = $this->get('liip_imagine.cache.manager');
-
+        $channelCode = $request->query->get('channel');
         /** @var ChannelInterface $channel */
-        $channel = $channelRepository->findOneByCode($request->query->get('channel'));
+        $channel = $channelRepository->findOneByCode($channelCode);
+
+        if (null === $channel) {
+            throw new NotFoundHttpException(sprintf('Channel with code %s has not been found', $channelCode));
+        }
+
         $locale = $request->query->has('locale') ? $request->query->get('locale') : $channel->getDefaultLocale()->getCode();
 
-        $product = $productRepository->findOneByChannelAndSlug($channel, $locale, $request->attributes->get('slug'));
+        $productSlug = $request->attributes->get('slug');
+        $product = $productRepository->findOneByChannelAndSlug($channel, $locale, $productSlug);
+
+        if (null === $product) {
+            throw new NotFoundHttpException(sprintf('Product with slug %s has not been found in %s locale.', $productSlug, $locale));
+        }
 
         $productView = new ProductView();
-        $productView->name = $product->getName();
+        $productView->name = $product->getTranslation($locale)->getName();
         $productView->code = $product->getCode();
-        $productView->slug = $product->getSlug();
+        $productView->slug = $product->getTranslation($locale)->getSlug();
 
         /** @var ProductVariantInterface $variant */
         foreach ($product->getVariants() as $variant) {
             $variantView = new ProductVariantView();
 
             $variantView->code = $variant->getCode();
-            $variantView->name = $variant->getName();
+            $variantView->name = $variant->getTranslation($locale)->getName();
             $variantView->price = $variant->getChannelPricingForChannel($channel)->getPrice();
 
             $productView->variants[$variant->getCode()] = $variantView;
@@ -65,8 +75,8 @@ final class ProductController extends Controller
                 $variantView->axis[] = $optionValue->getCode();
                 $variantView->nameAxis[$optionValue->getCode()] = sprintf(
                     '%s %s',
-                    $optionValue->getName(),
-                    $optionValue->getValue()
+                    $optionValue->getOption()->getTranslation($locale)->getName(),
+                    $optionValue->getTranslation($locale)->getValue()
                 );
             }
         }

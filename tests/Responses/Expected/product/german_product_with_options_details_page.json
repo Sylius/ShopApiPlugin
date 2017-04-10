@@ -1,0 +1,76 @@
+{
+    "code": "LOGAN_HAT_CODE",
+    "name": "Logan Hut",
+    "slug": "logan-hut",
+    "taxons": [],
+    "variants": {
+        "SMALL_RED_LOGAN_HAT_CODE": {
+            "code": "SMALL_RED_LOGAN_HAT_CODE",
+            "name": "Klein Rot Logan Hut",
+            "axis": [
+                "HAT_SIZE_S",
+                "HAT_COLOR_RED"
+            ],
+            "name_axis": {
+                "HAT_SIZE_S": "Gr\u00f6\u00dfe S",
+                "HAT_COLOR_RED": "Farbe Rot"
+            },
+            "price": 500,
+            "images": [],
+            "applied_promotions": []
+        },
+        "LARGE_RED_LOGAN_HAT_CODE": {
+            "code": "LARGE_RED_LOGAN_HAT_CODE",
+            "name": "Gro\u00dfes Rot Logan Hut",
+            "axis": [
+                "HAT_SIZE_L",
+                "HAT_COLOR_RED"
+            ],
+            "name_axis": {
+                "HAT_SIZE_L": "Gr\u00f6\u00dfe L",
+                "HAT_COLOR_RED": "Farbe Rot"
+            },
+            "price": 999,
+            "images": [],
+            "applied_promotions": []
+        },
+        "SMALL_BLUE_LOGAN_HAT_CODE": {
+            "code": "SMALL_BLUE_LOGAN_HAT_CODE",
+            "name": "Klein Blau Logan Hut",
+            "axis": [
+                "HAT_SIZE_S",
+                "HAT_COLOR_BLUE"
+            ],
+            "name_axis": {
+                "HAT_SIZE_S": "Gr\u00f6\u00dfe S",
+                "HAT_COLOR_BLUE": "Farbe Blau"
+            },
+            "price": 1500,
+            "images": [],
+            "applied_promotions": []
+        },
+        "LARGE_BLUE_LOGAN_HAT_CODE": {
+            "code": "LARGE_BLUE_LOGAN_HAT_CODE",
+            "name": "Gro\u00dfes Blau Logan Hut",
+            "axis": [
+                "HAT_SIZE_L",
+                "HAT_COLOR_BLUE"
+            ],
+            "name_axis": {
+                "HAT_SIZE_L": "Gr\u00f6\u00dfe L",
+                "HAT_COLOR_BLUE": "Farbe Blau"
+            },
+            "price": 2599,
+            "images": [],
+            "applied_promotions": []
+        }
+    },
+    "attributes": [],
+    "associations": [],
+    "images": [],
+    "_links": {
+        "self": {
+            "href": "\/shop-api\/products\/logan-hut"
+        }
+    }
+}

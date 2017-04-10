@@ -1,0 +1,4 @@
+{
+    "code": 404,
+    "message": "Product with slug some-weird-stuff has not been found in en_GB locale."
+}
