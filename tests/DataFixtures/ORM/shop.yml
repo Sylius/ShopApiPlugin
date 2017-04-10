@@ -6,7 +6,7 @@ Sylius\Component\Core\Model\Channel:
         description: "Lorem ipsum"
         baseCurrency: "@currency"
         defaultLocale: "@locale"
-        locales: ['@locale']
+        locales: ["@locale"]
         color: "black"
         enabled: true
         taxCalculationStrategy: "order_items_based"
@@ -41,19 +41,19 @@ Sylius\Component\Core\Model\ProductTranslation:
     mug_translation:
         slug: "logan_mug"
         locale: "en_GB"
-        name: 'Logan Mug'
+        name: "Logan Mug"
         description: <paragraph(2)>
         translatable: "@mug"
     t_shirt_translation:
         slug: "logan_t_shirt"
         locale: "en_GB"
-        name: 'Logan T-Shirt'
+        name: "Logan T-Shirt"
         description: <paragraph(2)>
         translatable: "@t_shirt"
     hat_translation:
         slug: "logan_hat"
         locale: "en_GB"
-        name: 'Logan Hat'
+        name: "Logan Hat"
         description: <paragraph(2)>
         translatable: "@hat"
 
@@ -99,23 +99,23 @@ Sylius\Component\Core\Model\ProductVariant:
 Sylius\Component\Product\Model\ProductVariantTranslation:
     mug_variant_translation:
         locale: "en_GB"
-        name: 'Logan Mug'
+        name: "Logan Mug"
         translatable: "@mug_variant"
     small_t_shirt_translation:
         locale: "en_GB"
-        name: 'Small Logan T-Shirt'
+        name: "Small Logan T-Shirt"
         translatable: "@t_shirt_small"
     large_t_shirt_translation:
         locale: "en_GB"
-        name: 'Large Logan T-Shirt'
+        name: "Large Logan T-Shirt"
         translatable: "@t_shirt_large"
     small_hat_translation:
         locale: "en_GB"
-        name: 'Small Logan Hat'
+        name: "Small Logan Hat"
         translatable: "@hat_small"
     large_hat_translation:
         locale: "en_GB"
-        name: 'Large Logan Hat'
+        name: "Large Logan Hat"
         translatable: "@hat_large"
 
 Sylius\Component\Core\Model\ChannelPricing:
@@ -137,37 +137,37 @@ Sylius\Component\Core\Model\ChannelPricing:
 
 Sylius\Component\Product\Model\ProductOption:
     hat_size:
-        currentLocale: 'en_GB'
-        fallbackLocale: 'en_GB'
+        currentLocale: "en_GB"
+        fallbackLocale: "en_GB"
         code: "HAT_SIZE"
         currentTranslation: "@hat_size_translations"
 
 Sylius\Component\Product\Model\ProductOptionTranslation:
     hat_size_translations:
-        locale: 'en_GB'
-        name: 'size'
+        locale: "en_GB"
+        name: "size"
         translatable: "@hat_size"
 
 Sylius\Component\Product\Model\ProductOptionValue:
     hat_size_s:
-        currentLocale: 'en_GB'
-        fallbackLocale: 'en_GB'
+        currentLocale: "en_GB"
+        fallbackLocale: "en_GB"
         code: "HAT_SIZE_S"
         option: "@hat_size"
         currentTranslation: "@hat_size_s_translations"
     hat_size_l:
-        currentLocale: 'en_GB'
-        fallbackLocale: 'en_GB'
+        currentLocale: "en_GB"
+        fallbackLocale: "en_GB"
         code: "HAT_SIZE_L"
         option: "@hat_size"
         currentTranslation: "@hat_size_l_translations"
 
 Sylius\Component\Product\Model\ProductOptionValueTranslation:
     hat_size_s_translations:
-        locale: 'en_GB'
-        value: 'Size S'
+        locale: "en_GB"
+        value: "Size S"
         translatable: "@hat_size_s"
     hat_size_l_translations:
-        locale: 'en_GB'
-        value: 'Size L'
+        locale: "en_GB"
+        value: "Size L"
         translatable: "@hat_size_l"
