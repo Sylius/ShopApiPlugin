@@ -1,66 +1,76 @@
 {
-    "id": 1,
     "code": "LOGAN_HAT_CODE",
     "name": "Logan Hat",
     "slug": "logan-hat",
-    "prices": {
-        "HAT_SIZE_S": {
-            "BLUE": {
-                "value": 1999
+    "taxons": [],
+    "variants": {
+        "SMALL_RED_LOGAN_HAT_CODE": {
+            "code": "SMALL_RED_LOGAN_HAT_CODE",
+            "name": "Small Red Logan Hat",
+            "axis": [
+                "HAT_SIZE_S",
+                "HAT_COLOR_RED"
+            ],
+            "name_axis": {
+                "HAT_SIZE_S": "Size S",
+                "HAT_COLOR_RED": "Color Red"
             },
-            "RED": {
-                "value": 1999
-            }
+            "price": 500,
+            "images": [],
+            "applied_promotions": []
         },
-        "HAT_SIZE_L": {
-            "BLUE": {
-                "value": 2999
+        "LARGE_RED_LOGAN_HAT_CODE": {
+            "code": "LARGE_RED_LOGAN_HAT_CODE",
+            "name": "Large Red Logan Hat",
+            "axis": [
+                "HAT_SIZE_L",
+                "HAT_COLOR_RED"
+            ],
+            "name_axis": {
+                "HAT_SIZE_L": "Size L",
+                "HAT_COLOR_RED": "Color Red"
             },
-            "RED": {
-                "value": 2999
-            }
+            "price": 999,
+            "images": [],
+            "applied_promotions": []
+        },
+        "SMALL_BLUE_LOGAN_HAT_CODE": {
+            "code": "SMALL_BLUE_LOGAN_HAT_CODE",
+            "name": "Small Blue Logan Hat",
+            "axis": [
+                "HAT_SIZE_S",
+                "HAT_COLOR_BLUE"
+            ],
+            "name_axis": {
+                "HAT_SIZE_S": "Size S",
+                "HAT_COLOR_BLUE": "Color Blue"
+            },
+            "price": 1500,
+            "images": [],
+            "applied_promotions": []
+        },
+        "LARGE_BLUE_LOGAN_HAT_CODE": {
+            "code": "LARGE_BLUE_LOGAN_HAT_CODE",
+            "name": "Large Blue Logan Hat",
+            "axis": [
+                "HAT_SIZE_L",
+                "HAT_COLOR_BLUE"
+            ],
+            "name_axis": {
+                "HAT_SIZE_L": "Size L",
+                "HAT_COLOR_BLUE": "Color Blue"
+            },
+            "price": 2599,
+            "images": [],
+            "applied_promotions": []
         }
     },
-    "images": [
-        {
-            "code": "thumbnail",
-            "url": {
-                "http": "http://sylius.demo/img/mug.jpg"
-            }
-        }
-    ],
-    "options": [
-        {
-            "code": "HAT_SIZE",
-            "name": "size",
-            "values": {
-                "HAT_SIZE_S": {
-                    "value": "Size S"
-                },
-                "HAT_SIZE_L": {
-                    "value": "Size L"
-                }
-            }
-        },
-        {
-            "code": "HAT_COLOR",
-            "name": "color",
-            "values": {
-                "HAT_COLOR_RED": {
-                    "value": "Color Red"
-                },
-                "HAT_COLOR_BLUE": {
-                    "value": "Color Blue"
-                }
-            }
-        }
-    ],
+    "attributes": [],
+    "associations": [],
+    "images": [],
     "_links": {
         "self": {
-            "href": "\/shop-api\/v1\/products\/logan-hat"
-        },
-        "variants": {
-            "href": "\/shop-api\/v1\/products\/logan-hat\/variants\/"
+            "href": "\/shop-api\/products\/logan-hat"
         }
     }
 }

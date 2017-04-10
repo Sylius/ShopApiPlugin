@@ -51,6 +51,7 @@ final class ProductController extends Controller
         $productView->code = $product->getCode();
         $productView->slug = $product->getSlug();
 
+        /** @var ProductVariantInterface $variant */
         foreach ($product->getVariants() as $variant) {
             $variantView = new ProductVariantView();
 
@@ -59,6 +60,15 @@ final class ProductController extends Controller
             $variantView->price = $variant->getChannelPricingForChannel($channel)->getPrice();
 
             $productView->variants[$variant->getCode()] = $variantView;
+
+            foreach ($variant->getOptionValues() as $optionValue) {
+                $variantView->axis[] = $optionValue->getCode();
+                $variantView->nameAxis[$optionValue->getCode()] = sprintf(
+                    '%s %s',
+                    $optionValue->getName(),
+                    $optionValue->getValue()
+                );
+            }
         }
 
         /** @var ProductImage $image */
