@@ -30,7 +30,7 @@ class ItemView
     public $product;
 
     /**
-     * @var ProductVariantView
+     * @var CartItemProductVariantView
      */
     public $variant;
 }

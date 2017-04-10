@@ -2,7 +2,7 @@
 
 namespace Sylius\ShopApiPlugin\View;
 
-class ProductVariantView
+class CartItemProductVariantView
 {
     /**
      * @var string

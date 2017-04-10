@@ -17,9 +17,21 @@ Sylius\ShopApiPlugin\View\ProductView:
         images:
             expose: true
             type: array
+        taxons:
+            expose: true
+            type: array
+        variants:
+            expose: true
+            type: array
+        attributes:
+            expose: true
+            type: array
+        associations:
+            expose: true
+            type: array
     relations:
         -   rel: self
             href:
                 route: shop_api_product_show
                 parameters:
-                    slug: expr(object.getSlug())
+                    slug: expr(object.slug)

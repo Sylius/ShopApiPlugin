@@ -3,6 +3,10 @@
     "name": "Logan Mug",
     "slug": "logan-mug",
     "price": 1999,
+    "taxons": [],
+    "variants": [],
+    "attributes": [],
+    "associations": [],
     "images": [
         {
             "code": "thumbnail",

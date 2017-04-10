@@ -27,45 +27,25 @@ class ProductView
     /**
      * @var array
      */
-    public $images = array();
+    public $images = [];
 
     /**
-     * @return string
+     * @var array
      */
-    public function getCode()
-    {
-        return $this->code;
-    }
+    public $taxons = [];
 
     /**
-     * @return string
+     * @var array
      */
-    public function getName()
-    {
-        return $this->name;
-    }
+    public $variants = [];
 
     /**
-     * @return string
+     * @var array
      */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
+    public $attributes = [];
 
     /**
-     * @return int
+     * @var array
      */
-    public function getPrice()
-    {
-        return $this->price;
-    }
-
-    /**
-     * @return array
-     */
-    public function getImages()
-    {
-        return $this->images;
-    }
+    public $associations = [];
 }

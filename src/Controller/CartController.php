@@ -21,7 +21,7 @@ use Sylius\Component\Order\Repository\OrderItemRepositoryInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\ShopApiPlugin\View\CartSummaryView;
 use Sylius\ShopApiPlugin\View\ItemView;
-use Sylius\ShopApiPlugin\View\ProductVariantView;
+use Sylius\ShopApiPlugin\View\CartItemProductVariantView;
 use Sylius\ShopApiPlugin\View\CartItemProductView;
 use Sylius\ShopApiPlugin\View\TotalsView;
 use Sylius\ShopApiPlugin\View\VariantOptionValueView;
@@ -116,7 +116,7 @@ final class CartController extends Controller
             if ($product->isConfigurable()) {
                 $variant = $item->getVariant();
 
-                $itemView->variant = new ProductVariantView();
+                $itemView->variant = new CartItemProductVariantView();
                 $itemView->variant->name = $variant->getName();
                 $itemView->variant->code = $variant->getCode();
 
