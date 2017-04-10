@@ -7,9 +7,11 @@ use FOS\RestBundle\View\ViewHandlerInterface;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
+use Sylius\Component\Core\Model\ProductImage;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Sylius\ShopApiPlugin\View\ImageView;
+use Sylius\ShopApiPlugin\View\ProductVariantView;
 use Sylius\ShopApiPlugin\View\ProductView;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -43,21 +45,36 @@ final class ProductController extends Controller
         $locale = $request->query->has('locale') ? $request->query->get('locale') : $channel->getDefaultLocale()->getCode();
 
         $product = $productRepository->findOneByChannelAndSlug($channel, $locale, $request->attributes->get('slug'));
-        /** @var ProductVariantInterface $productVariant */
-        $productVariant = $product->getVariants()[0];
 
         $productView = new ProductView();
         $productView->name = $product->getName();
         $productView->code = $product->getCode();
         $productView->slug = $product->getSlug();
-        $productView->price = $productVariant->getChannelPricingForChannel($channel)->getPrice();
 
+        foreach ($product->getVariants() as $variant) {
+            $variantView = new ProductVariantView();
+
+            $variantView->code = $variant->getCode();
+            $variantView->name = $variant->getName();
+            $variantView->price = $variant->getChannelPricingForChannel($channel)->getPrice();
+
+            $productView->variants[$variant->getCode()] = $variantView;
+        }
+
+        /** @var ProductImage $image */
         foreach ($product->getImages() as $image) {
             $imageView = new ImageView();
             $imageView->code = $image->getType();
             $imageView->url = $imagineCacheManager->getBrowserPath($image->getPath(), 'sylius_small');
 
             $productView->images[] = $imageView;
+
+            foreach ($image->getProductVariants() as $productVariant) {
+                /** @var ProductVariantView $variantView */
+                $variantView = $productView->variants[$productVariant->getCode()];
+
+                $variantView->images[] = $imageView;
+            }
         }
 
         return $viewHandler->handle(View::create($productView, Response::HTTP_OK));

@@ -1,0 +1,28 @@
+Sylius\ShopApiPlugin\View\ProductVariantView:
+    exclusion_policy: ALL
+    xml_root_name: product_variant_view
+    properties:
+        code:
+            expose: true
+            type: string
+        name:
+            expose: true
+            type: string
+        axis:
+            expose: true
+            type: array
+        nameAxis:
+            expose: true
+            type: array<string, string>
+            serialized_name: name_axis
+        price:
+            expose: true
+            type: integer
+        images:
+            expose: true
+            type: array
+        appliedPromotions:
+            expose: true
+            type: array
+            serialized_name: applied_promotions
+

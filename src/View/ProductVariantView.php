@@ -2,7 +2,7 @@
 
 namespace Sylius\ShopApiPlugin\View;
 
-class ProductView
+class ProductVariantView
 {
     /**
      * @var string
@@ -15,9 +15,14 @@ class ProductView
     public $name;
 
     /**
-     * @var string
+     * @var array
      */
-    public $slug;
+    public $axis = [];
+
+    /**
+     * @var array
+     */
+    public $nameAxis = [];
 
     /**
      * @var integer
@@ -27,25 +32,10 @@ class ProductView
     /**
      * @var array
      */
-    public $taxons = [];
-
-    /**
-     * @var array
-     */
-    public $variants = [];
-
-    /**
-     * @var array
-     */
-    public $attributes = [];
-
-    /**
-     * @var array
-     */
-    public $associations = [];
-
-    /**
-     * @var array
-     */
     public $images = [];
+
+    /**
+     * @var array
+     */
+    public $appliedPromotions = [];
 }

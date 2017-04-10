@@ -175,5 +175,6 @@ Sylius\Component\Product\Model\ProductOptionValueTranslation:
 
 Sylius\Component\Core\Model\ProductImage:
     mug_thumbnail:
-        type: 'thumbnail'
-        path: '/uo/mug.jpg'
+        type: "thumbnail"
+        path: "/uo/mug.jpg"
+        productVariants: ["@mug_variant"]

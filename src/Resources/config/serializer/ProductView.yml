@@ -14,13 +14,13 @@ Sylius\ShopApiPlugin\View\ProductView:
         price:
             expose: true
             type: integer
-        images:
-            expose: true
-            type: array
         taxons:
             expose: true
             type: array
         variants:
+            expose: true
+            type: array
+        images:
             expose: true
             type: array
         attributes:
