@@ -70,39 +70,8 @@ This repository provides a ShopApi implementation on the top of [Sylius E-Commer
 
 ## Testing
 
-The application can be tested with API Test Case. In order to run test suite add following PHPUnit config to the root of your folder:
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
+The application can be tested with API Test Case. In order to run test suite execute the following command:
 
-<!-- http://phpunit.de/manual/4.1/en/appendixes.configuration.html -->
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/5.5/phpunit.xsd"
-         backupGlobals="false"
-         colors="true"
-         bootstrap="vendor/autoload.php"
->
-    <testsuites>
-        <testsuite name="Sylius Shop Api Test Suite">
-            <directory>./vendor/sylius/shop-api-plugin/tests</directory>
-        </testsuite>
-    </testsuites>
-
-    <php>
-        <server name="KERNEL_CLASS_PATH" value="app/AppKernel.php" />
-        <server name="IS_DOCTRINE_ORM_SUPPORTED" value="true" />
-    </php>
-
-    <filter>
-        <whitelist>
-            <directory>./vendor/sylius/shop-api-plugin/tests/Application</directory>
-            <directory>./vendor/sylius/shop-api-plugin/tests/DataFixtures</directory>
-            <directory>./vendor/sylius/shop-api-plugin/tests/Responses</directory>
-        </whitelist>
-    </filter>
-</phpunit>
-```
-
-And run following command:
 ```bash
 $ bin/phpunit
 ```
