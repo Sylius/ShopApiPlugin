@@ -8,8 +8,6 @@ imports:
     - { resource: "@SyliusShopBundle/Resources/config/app/config.yml" }
     - { resource: "@SyliusAdminApiBundle/Resources/config/app/config.yml" }
 
-    - { resource: "@ShopApiPlugin/Resources/config/app/config.yml" }
-
     - { resource: "security.yml" }
 
 framework:
@@ -33,3 +31,13 @@ doctrine:
         driver: "pdo_sqlite"
         path: "%kernel.cache_dir%/db.sql"
         charset: UTF8
+
+fos_rest:
+    exception: ~
+    view:
+        formats:
+            json: true
+        empty_content: 204
+    format_listener:
+        rules:
+            - { path: '^/shop-api', priorities: ['json'], fallback_format: json, prefer_extension: true }
