@@ -180,7 +180,7 @@ EOT;
     /**
      * @test
      */
-    public function it_adds_a_product_variant_based_on_option_to_the_cart()
+    public function it_throws_an_exception_if_product_variant_has_not_been_found()
     {
         $this->loadFixturesFromFile('shop.yml');
 
@@ -194,6 +194,34 @@ EOT;
             "productCode": "LOGAN_HAT_CODE",
             "options": {
                 "HAT_SIZE": "HAT_SIZE_S"
+            },
+            "quantity": 3
+        }
+EOT;
+        $this->client->request('POST', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/items', [], [], static::$acceptAndContentTypeHeader, $data);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'cart/product_variant_has_not_been_found_response', Response::HTTP_NOT_FOUND);
+    }
+
+    /**
+     * @test
+     */
+    public function it_adds_a_product_variant_based_on_option_to_the_cart()
+    {
+        $this->loadFixturesFromFile('shop.yml');
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        $this->pickupCart($token);
+
+        $data =
+<<<EOT
+        {
+            "productCode": "LOGAN_HAT_CODE",
+            "options": {
+                "HAT_SIZE": "HAT_SIZE_S",
+                "HAT_COLOR": "HAT_COLOR_RED"
             },
             "quantity": 3
         }
@@ -220,7 +248,8 @@ EOT;
         {
             "productCode": "LOGAN_HAT_CODE",
             "options": {
-                "HAT_SIZE": "HAT_SIZE_S"
+                "HAT_SIZE": "HAT_SIZE_S",
+                "HAT_COLOR": "HAT_COLOR_RED"
             },
             "quantity": 3
         }

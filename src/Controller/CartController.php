@@ -170,6 +170,10 @@ final class CartController extends Controller
 
         $productVariant = $this->resolveVariant($request);
 
+        if (null === $productVariant) {
+            throw new NotFoundHttpException('Variant not found for given configuration');
+        }
+
         /** @var OrderItemInterface $cartItem */
         $cartItem = $cartItemFactory->createForCart($cart);
         $cartItem->setVariant($productVariant);
