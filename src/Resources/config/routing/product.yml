@@ -1,5 +1,11 @@
-shop_api_product_show:
+shop_api_product_show_details:
     path: /shop-api/products/{slug}
     methods: [GET]
     defaults:
-        _controller: ShopApiPlugin:Product:show
+        _controller: ShopApiPlugin:Product:showDetails
+
+shop_api_product_show_catalog:
+    path: /shop-api/taxons/{taxonomy}/products/
+    methods: [GET]
+    defaults:
+        _controller: ShopApiPlugin:Product:showCatalog

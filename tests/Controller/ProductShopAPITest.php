@@ -104,8 +104,13 @@ final class ProductShopAPITest extends JsonApiTestCase
         $this->assertResponse($response, 'product/german_product_with_options_details_page', Response::HTTP_OK);
     }
 
+    /**
+     * @test
+     */
     public function it_shows_paginated_products_from_some_taxon()
     {
+        $this->loadFixturesFromFile('shop.yml');
+
         $this->client->request('GET', '/shop-api/taxons/x-man/products/?channel=WEB_GB', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
