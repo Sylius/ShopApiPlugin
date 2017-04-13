@@ -25,6 +25,11 @@ final class PageView
     public $total;
 
     /**
+     * @var PageLinksView
+     */
+    public $links;
+
+    /**
      * @var array
      */
     public $items;

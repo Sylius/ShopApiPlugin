@@ -17,6 +17,7 @@ use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Sylius\Component\Taxonomy\Repository\TaxonRepositoryInterface;
 use Sylius\ShopApiPlugin\View\ImageView;
+use Sylius\ShopApiPlugin\View\PageLinksView;
 use Sylius\ShopApiPlugin\View\PageView;
 use Sylius\ShopApiPlugin\View\ProductVariantView;
 use Sylius\ShopApiPlugin\View\ProductView;
@@ -106,11 +107,37 @@ final class ProductController extends Controller
         $adapter = new DoctrineORMAdapter($queryBuilder);
         $pagerfanta = new Pagerfanta($adapter);
 
+        $pagerfanta->setMaxPerPage($request->query->get('limit', 10));
+        $pagerfanta->setCurrentPage($request->query->get('page', 1));
+
         $page = new PageView();
         $page->page = $pagerfanta->getCurrentPage();
         $page->limit = $pagerfanta->getMaxPerPage();
         $page->pages = $pagerfanta->getNbPages();
         $page->total = $pagerfanta->getNbResults();
+
+        $page->links = new PageLinksView();
+
+        $page->links->self = $this->generateUrl('shop_api_product_show_catalog', [
+            'taxonomy' => $taxonSlug,
+            'page' => $pagerfanta->getCurrentPage(),
+            'limit' => $pagerfanta->getMaxPerPage(),
+        ]);
+        $page->links->first = $this->generateUrl('shop_api_product_show_catalog', [
+            'taxonomy' => $taxonSlug,
+            'page' => 1,
+            'limit' => $pagerfanta->getMaxPerPage(),
+        ]);
+        $page->links->last = $this->generateUrl('shop_api_product_show_catalog', [
+            'taxonomy' => $taxonSlug,
+            'page' => $pagerfanta->getNbPages(),
+            'limit' => $pagerfanta->getMaxPerPage(),
+        ]);
+        $page->links->next = $this->generateUrl('shop_api_product_show_catalog', [
+            'taxonomy' => $taxonSlug,
+            'page' => ($pagerfanta->getCurrentPage() < $pagerfanta->getNbPages()) ? $pagerfanta->getCurrentPage() + 1 : $pagerfanta->getCurrentPage(),
+            'limit' => $pagerfanta->getMaxPerPage(),
+        ]);
 
         foreach ($pagerfanta->getCurrentPageResults() as $currentPageResult) {
             $page->items[] = $this->buildProductView($currentPageResult, $locale, $channel);
