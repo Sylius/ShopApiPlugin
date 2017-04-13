@@ -25,12 +25,12 @@ class ItemView
     public $total;
 
     /**
-     * @var ProductView
+     * @var CartItemProductView
      */
     public $product;
 
     /**
-     * @var ProductVariantView
+     * @var CartItemProductVariantView
      */
     public $variant;
 }

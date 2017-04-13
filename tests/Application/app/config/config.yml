@@ -8,6 +8,8 @@ imports:
     - { resource: "@SyliusShopBundle/Resources/config/app/config.yml" }
     - { resource: "@SyliusAdminApiBundle/Resources/config/app/config.yml" }
 
+    - { resource: "@ShopApiPlugin/Resources/config/app/config.yml" }
+
     - { resource: "security.yml" }
 
 framework:

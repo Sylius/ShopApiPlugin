@@ -1,0 +1,6 @@
+jms_serializer:
+    metadata:
+        directories:
+            sylius-shop-api:
+                namespace_prefix: "Sylius\\ShopApiPlugin\\View"
+                path: "@ShopApiPlugin/Resources/config/serializer"

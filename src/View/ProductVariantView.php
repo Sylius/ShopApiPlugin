@@ -17,10 +17,25 @@ class ProductVariantView
     /**
      * @var array
      */
-    public $images = array();
+    public $axis = [];
 
     /**
      * @var array
      */
-    public $options = array();
+    public $nameAxis = [];
+
+    /**
+     * @var integer
+     */
+    public $price;
+
+    /**
+     * @var array
+     */
+    public $images = [];
+
+    /**
+     * @var array
+     */
+    public $appliedPromotions = [];
 }

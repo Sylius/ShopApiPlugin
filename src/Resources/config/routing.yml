@@ -1,35 +1,5 @@
-shop_api_pickup_cart:
-    path: /shop-api/carts/{token}
-    methods: [POST]
-    defaults:
-        _controller: ShopApiPlugin:Cart:pickup
+shop_api_cart:
+    resource: "@ShopApiPlugin/Resources/config/routing/cart.yml"
 
-shop_api_cart_summary:
-    path: /shop-api/carts/{token}
-    methods: [GET]
-    defaults:
-        _controller: ShopApiPlugin:Cart:summary
-
-shop_api_add_to_cart:
-    path: /shop-api/carts/{token}/items
-    methods: [POST]
-    defaults:
-        _controller: ShopApiPlugin:Cart:add
-
-shop_api_drop_cart:
-    path: /shop-api/carts/{token}
-    methods: [DELETE]
-    defaults:
-        _controller: ShopApiPlugin:Cart:drop
-
-shop_api_change_item_quantity:
-    path: /shop-api/carts/{token}/items/{id}
-    methods: [PUT]
-    defaults:
-        _controller: ShopApiPlugin:Cart:changeItemQuantity
-
-shop_api_remove_item:
-    path: /shop-api/carts/{token}/items/{id}
-    methods: [DELETE]
-    defaults:
-        _controller: ShopApiPlugin:Cart:removeItem
+shop_api_product:
+    resource: "@ShopApiPlugin/Resources/config/routing/product.yml"

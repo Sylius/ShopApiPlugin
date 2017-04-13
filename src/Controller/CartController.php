@@ -21,8 +21,8 @@ use Sylius\Component\Order\Repository\OrderItemRepositoryInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\ShopApiPlugin\View\CartSummaryView;
 use Sylius\ShopApiPlugin\View\ItemView;
-use Sylius\ShopApiPlugin\View\ProductVariantView;
-use Sylius\ShopApiPlugin\View\ProductView;
+use Sylius\ShopApiPlugin\View\CartItemProductVariantView;
+use Sylius\ShopApiPlugin\View\CartItemProductView;
 use Sylius\ShopApiPlugin\View\TotalsView;
 use Sylius\ShopApiPlugin\View\VariantOptionValueView;
 use Sylius\ShopApiPlugin\View\VariantOptionView;
@@ -109,14 +109,14 @@ final class CartController extends Controller
             $itemView->quantity = $item->getQuantity();
             $itemView->total = $item->getTotal();
             $itemView->unitPrice = $item->getUnitPrice();
-            $itemView->product = new ProductView();
+            $itemView->product = new CartItemProductView();
             $itemView->product->code = $product->getCode();
             $itemView->product->name = $product->getName();
 
             if ($product->isConfigurable()) {
                 $variant = $item->getVariant();
 
-                $itemView->variant = new ProductVariantView();
+                $itemView->variant = new CartItemProductVariantView();
                 $itemView->variant->name = $variant->getName();
                 $itemView->variant->code = $variant->getCode();
 
@@ -169,6 +169,10 @@ final class CartController extends Controller
         }
 
         $productVariant = $this->resolveVariant($request);
+
+        if (null === $productVariant) {
+            throw new NotFoundHttpException('Variant not found for given configuration');
+        }
 
         /** @var OrderItemInterface $cartItem */
         $cartItem = $cartItemFactory->createForCart($cart);

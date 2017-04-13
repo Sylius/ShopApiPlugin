@@ -33,15 +33,22 @@
                 "images": []
             },
             "variant": {
-                "code": "SMALL_LOGAN_HAT_CODE",
-                "name": "Small Logan Hat",
+                "code": "SMALL_RED_LOGAN_HAT_CODE",
+                "name": "Small Red Logan Hat",
                 "images": [],
                 "options": {
                     "HAT_SIZE": {
-                        "name": "size",
+                        "name": "Size",
                         "value": {
                             "code": "HAT_SIZE_S",
-                            "value": "Size S"
+                            "value": "S"
+                        }
+                    },
+                    "HAT_COLOR": {
+                        "name": "Color",
+                        "value": {
+                            "code": "HAT_COLOR_RED",
+                            "value": "Red"
                         }
                     }
                 }
