@@ -70,14 +70,6 @@ final class ProductShopAPITest extends JsonApiTestCase
         $this->assertResponse($response, 'product/product_with_variant_details_page', Response::HTTP_OK);
     }
 
-    public function it_shows_product_with_variant_details_page_in_different_locale()
-    {
-        $this->client->request('GET', '/shop-api/products/logan-t-shirt?channel=WEB_GB&locale=de_DE', [], [], ['ACCEPT' => 'application/json']);
-        $response = $this->client->getResponse();
-
-        $this->assertResponse($response, 'product/simple_product_details_page', Response::HTTP_OK);
-    }
-
     /**
      * @test
      */
@@ -125,12 +117,17 @@ final class ProductShopAPITest extends JsonApiTestCase
         $this->assertResponse($response, 'product/product_list_page', Response::HTTP_OK);
     }
 
+    /**
+     * @test
+     */
     public function it_shows_second_page_of_paginated_products_from_some_taxon()
     {
+        $this->loadFixturesFromFile('shop.yml');
+
         $this->client->request('GET', '/shop-api/taxons/x-man/products/?channel=WEB_GB&limit=1&page=2', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
-        $this->assertResponse($response, 'product/product_list_page', Response::HTTP_OK);
+        $this->assertResponse($response, 'product/limited_product_list_page', Response::HTTP_OK);
     }
 
     public function it_shows_sorted_product_list()
