@@ -103,7 +103,7 @@ final class ProductShopAPITest extends JsonApiTestCase
     {
         $this->loadFixturesFromFile('shop.yml');
 
-        $this->client->request('GET', '/shop-api/taxons/x-man/products/?channel=WEB_GB', [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('GET', '/shop-api/taxons/categories/products/?channel=WEB_GB', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'product/product_list_page', Response::HTTP_OK);
@@ -124,7 +124,7 @@ final class ProductShopAPITest extends JsonApiTestCase
     {
         $this->loadFixturesFromFile('shop.yml');
 
-        $this->client->request('GET', '/shop-api/taxons/x-man/products/?channel=WEB_GB&limit=1&page=2', [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('GET', '/shop-api/taxons/categories/products/?channel=WEB_GB&limit=1&page=2', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'product/limited_product_list_page', Response::HTTP_OK);

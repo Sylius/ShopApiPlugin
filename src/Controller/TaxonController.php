@@ -39,6 +39,30 @@ final class TaxonController extends Controller
 
         return $viewHandler->handle(View::create($this->buildTaxonView($taxon, $locale), Response::HTTP_OK));
     }
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function showTreeAction(Request $request)
+    {
+        /** @var TaxonRepositoryInterface $taxonRepository */
+        $taxonRepository = $this->get('sylius.repository.taxon');
+        /** @var ViewHandlerInterface $viewHandler */
+        $viewHandler = $this->get('fos_rest.view_handler');
+
+        $locale = $request->query->get('locale');
+
+        $taxons = $taxonRepository->findRootNodes();
+        $taxonViews = [];
+
+        /** @var TaxonInterface $taxon */
+        foreach ($taxons as $taxon) {
+            $taxonViews[] = $this->buildTaxonView($taxon, $locale);
+        }
+
+        return $viewHandler->handle(View::create($taxonViews, Response::HTTP_OK));
+    }
 
     /**
      * @param TaxonInterface $taxon

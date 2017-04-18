@@ -4,10 +4,10 @@
     "pages": 3,
     "total": 3,
     "_links": {
-        "self": "\/shop-api\/taxons\/x-man\/products\/?page=2&limit=1",
-        "first": "\/shop-api\/taxons\/x-man\/products\/?page=1&limit=1",
-        "last": "\/shop-api\/taxons\/x-man\/products\/?page=3&limit=1",
-        "next": "\/shop-api\/taxons\/x-man\/products\/?page=3&limit=1"
+        "self": "\/shop-api\/taxons\/categories\/products\/?page=2&limit=1",
+        "first": "\/shop-api\/taxons\/categories\/products\/?page=1&limit=1",
+        "last": "\/shop-api\/taxons\/categories\/products\/?page=3&limit=1",
+        "next": "\/shop-api\/taxons\/categories\/products\/?page=3&limit=1"
     },
     "items": [
         {

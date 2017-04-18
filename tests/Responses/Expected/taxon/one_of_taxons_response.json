@@ -3,7 +3,7 @@
     "name": "T-Shirts",
     "slug": "t-shirts",
     "description": "@string@",
-    "position": 0,
+    "position": 2,
     "children": [
         {
             "code": "MEN_T_SHIRTS",

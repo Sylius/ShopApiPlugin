@@ -20,8 +20,13 @@ final class TaxonShopAPITest extends JsonApiTestCase
         $this->assertResponse($response, 'taxon/one_of_taxons_response', Response::HTTP_OK);
     }
 
+    /**
+     * @test
+     */
     public function it_shows_tree_of_all_taxons()
     {
+        $this->loadFixturesFromFile('shop.yml');
+
         $this->client->request('GET', '/shop-api/taxons/', [], [], ['ACCEPT' => 'application/json']);
 
         $response = $this->client->getResponse();

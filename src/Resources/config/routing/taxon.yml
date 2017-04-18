@@ -3,3 +3,9 @@ shop_api_taxon_show_details:
     methods: [GET]
     defaults:
         _controller: ShopApiPlugin:Taxon:showDetails
+
+shop_api_taxon_show_tree:
+    path: /shop-api/taxons/
+    methods: [GET]
+    defaults:
+        _controller: ShopApiPlugin:Taxon:showTree

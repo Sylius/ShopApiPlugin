@@ -1,100 +1,63 @@
-{
-    "code": "category",
-    "name": "Category",
-    "description": "Lorem ipsum",
-    "position": 0,
-    "children": [
-        {
-            "code": "mugs",
-            "name": "Mugs",
-            "description": "Lorem ipsum",
-            "position": 0,
-            "children": [],
-            "images": [
-                {
-                    "code": "thumbnail",
-                    "url": {
-                        "http": "http://sylius.demo/img/mugs.jpg"
+[
+    {
+        "code": "CATEGORY",
+        "name": "Categories",
+        "slug": "categories",
+        "description": "@string@",
+        "position": 0,
+        "children": [
+            {
+                "code": "MUG",
+                "name": "Mugs",
+                "slug": "mugs",
+                "description": "@string@",
+                "position": 0,
+                "children": [],
+                "images": []
+            },
+            {
+                "code": "HAT",
+                "name": "Hats",
+                "slug": "hats",
+                "description": "@string@",
+                "position": 1,
+                "children": [],
+                "images": []
+            },
+            {
+                "code": "T_SHIRTS",
+                "name": "T-Shirts",
+                "slug": "t-shirts",
+                "description": "@string@",
+                "position": 2,
+                "children": [
+                    {
+                        "code": "MEN_T_SHIRTS",
+                        "name": "Men T-Shirts",
+                        "slug": "men-t-shirts",
+                        "description": "@string@",
+                        "position": 0,
+                        "children": [],
+                        "images": []
+                    },
+                    {
+                        "code": "WOMEN_T_SHIRTS",
+                        "name": "Women T-Shirts",
+                        "slug": "women-t-shirts",
+                        "description": "@string@",
+                        "position": 1,
+                        "children": [],
+                        "images": []
                     }
-                }
-            ],
-            "_links": {
-                "self": {
-                    "href": "http://sylius.demo/taxons/mugs"
-                }
+                ],
+                "images": [
+                    {
+                        "code": "thumbnail",
+                        "url": "http:\/\/localhost\/en_US\/media\/cache\/resolve\/sylius_small\/uo\/t-shirt.jpg"
+                    }
+                ]
             }
-        },
-        {
-            "code": "t-shirts",
-            "name": "T-Shirts",
-            "description": "Lorem ipsum",
-            "position": 1,
-            "children": [
-                {
-                    "code": "men",
-                    "name": "Men T-Shirts",
-                    "description": "Lorem ipsum",
-                    "position": 0,
-                    "images": [
-                        {
-                            "code": "thumbnail",
-                            "url": {
-                                "http": "http://sylius.demo/img/man-t-shirt.jpg"
-                            }
-                        }
-                    ],
-                    "_links": {
-                        "self": {
-                            "href": "http://sylius.demo/taxons/man-t-shirt"
-                        }
-                    }
-                },
-                {
-                    "code": "women",
-                    "name": "Women T-Shirts",
-                    "description": "Lorem ipsum",
-                    "position": 1,
-                    "images": [
-                        {
-                            "code": "thumbnail",
-                            "url": {
-                                "http": "http://sylius.demo/img/woman-t-shirt.jpg"
-                            }
-                        }
-                    ],
-                    "_links": {
-                        "self": {
-                            "href": "http://sylius.demo/taxons/woman-t-shirt"
-                        }
-                    }
-                }
-            ],
-            "images": [
-                {
-                    "code": "thumbnail",
-                    "url": {
-                        "http": "http://sylius.demo/img/t-shirt.jpg"
-                    }
-                }
-            ],
-            "_links": {
-                "self": {
-                    "href": "http://sylius.demo/taxons/t-shirt"
-                }
-            }
-        }
-    ],
-    "images": [
-        {
-            "code": "thumbnail",
-            "url": {
-                "http": "http://sylius.demo/img/category.jpg"
-            }
-        }
-    ],
-    "_links": {
-        "self": {
-            "href": "http://sylius.demo/taxons/category"
-        }
+        ],
+        "images": []
     }
-}
+]
