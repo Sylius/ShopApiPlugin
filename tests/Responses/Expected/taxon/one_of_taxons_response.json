@@ -1,59 +1,33 @@
 {
-    "code": "t-shirts",
+    "code": "T_SHIRTS",
     "name": "T-Shirts",
-    "description": "Lorem ipsum",
-    "position": 1,
+    "slug": "t-shirts",
+    "description": "@string@",
+    "position": 0,
     "children": [
         {
-            "code": "men",
+            "code": "MEN_T_SHIRTS",
             "name": "Men T-Shirts",
-            "description": "Lorem ipsum",
+            "slug": "men-t-shirts",
+            "description": "@string@",
             "position": 0,
-            "images": [
-                {
-                    "code": "thumbnail",
-                    "url": {
-                        "http": "http://sylius.demo/img/man-t-shirt.jpg"
-                    }
-                }
-            ],
-            "_links": {
-                "self": {
-                    "href": "http://sylius.demo/taxons/man-t-shirt"
-                }
-            }
+            "children": [],
+            "images": []
         },
         {
-            "code": "women",
+            "code": "WOMEN_T_SHIRTS",
             "name": "Women T-Shirts",
-            "description": "Lorem ipsum",
+            "slug": "women-t-shirts",
+            "description": "@string@",
             "position": 1,
-            "images": [
-                {
-                    "code": "thumbnail",
-                    "url": {
-                        "http": "http://sylius.demo/img/woman-t-shirt.jpg"
-                    }
-                }
-            ],
-            "_links": {
-                "self": {
-                    "href": "http://sylius.demo/taxons/woman-t-shirt"
-                }
-            }
+            "children": [],
+            "images": []
         }
     ],
     "images": [
         {
             "code": "thumbnail",
-            "url": {
-                "http": "http://sylius.demo/img/t-shirt.jpg"
-            }
+            "url": "http:\/\/localhost\/en_US\/media\/cache\/resolve\/sylius_small\/uo\/t-shirt.jpg"
         }
-    ],
-    "_links": {
-        "self": {
-            "href": "http://sylius.demo/taxons/t-shirt"
-        }
-    }
+    ]
 }

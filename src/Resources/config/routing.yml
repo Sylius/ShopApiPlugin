@@ -3,3 +3,6 @@ shop_api_cart:
 
 shop_api_product:
     resource: "@ShopApiPlugin/Resources/config/routing/product.yml"
+
+shop_api_taxon:
+    resource: "@ShopApiPlugin/Resources/config/routing/taxon.yml"

@@ -1,0 +1,5 @@
+shop_api_taxon_show_details:
+    path: /shop-api/taxons/{slug}
+    methods: [GET]
+    defaults:
+        _controller: ShopApiPlugin:Taxon:showDetails
