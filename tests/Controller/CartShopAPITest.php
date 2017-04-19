@@ -336,22 +336,6 @@ EOT;
         $this->assertResponse($response, 'cart/cart_item_has_not_been_found_response', Response::HTTP_NOT_FOUND);
     }
 
-    public function it_shows_summary_of_a_cart_filled_with_a_product_with_image()
-    {
-        $this->client->request('GET', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json']);
-        $response = $this->client->getResponse();
-
-        $this->assertResponse($response, 'cart/filled_cart_with_simple_product_with_image_summary_response', Response::HTTP_OK);
-    }
-
-    public function it_shows_summary_of_a_cart_filled_with_a_product_with_variant_and_images()
-    {
-        $this->client->request('GET', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json']);
-        $response = $this->client->getResponse();
-
-        $this->assertResponse($response, 'cart/filled_cart_with_product_variant_and_images_summary_response', Response::HTTP_OK);
-    }
-
     /**
      * @param string $token
      */

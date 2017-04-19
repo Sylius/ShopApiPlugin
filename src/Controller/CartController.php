@@ -10,6 +10,7 @@ use Sylius\Component\Core\Factory\CartItemFactoryInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
+use Sylius\Component\Core\Model\ProductImageInterface;
 use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
@@ -19,6 +20,7 @@ use Sylius\Component\Order\Modifier\OrderItemQuantityModifierInterface;
 use Sylius\Component\Order\Processor\OrderProcessorInterface;
 use Sylius\Component\Order\Repository\OrderItemRepositoryInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
+use Sylius\ShopApiPlugin\Builder\ImageViewBuilderInterface;
 use Sylius\ShopApiPlugin\View\CartSummaryView;
 use Sylius\ShopApiPlugin\View\ItemView;
 use Sylius\ShopApiPlugin\View\CartItemProductVariantView;
@@ -80,6 +82,8 @@ final class CartController extends Controller
         $cartRepository = $this->get('sylius.repository.order');
         /** @var ViewHandlerInterface $viewHandler */
         $viewHandler = $this->get('fos_rest.view_handler');
+        /** @var ImageViewBuilderInterface $imageViewBuilder */
+        $imageViewBuilder = $this->get('sylius.shop_api_plugin.builder.image_view_builder');
 
         /** @var OrderInterface $cart */
         $cart = $cartRepository->findOneBy(['tokenValue' => $request->attributes->get('token')]);
@@ -133,6 +137,19 @@ final class CartController extends Controller
                         $itemView->variant->options[$option->getCode()] = $optionValueView;
                     }
                 }
+
+                /** @var ProductImageInterface $image */
+                foreach ($product->getImages() as $image) {
+                    foreach ($image->getProductVariants() as $productVariant) {
+                        if ($variant === $productVariant){
+                            $itemView->variant->images[] = $imageViewBuilder->build($image);
+                        }
+                    }
+                }
+            }
+
+            foreach ($product->getImages() as $image) {
+                $itemView->product->images[] = $imageViewBuilder->build($image);
             }
 
             $cartView->items[] = $itemView;
