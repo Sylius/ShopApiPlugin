@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Acme\ExampleBundle\Controller;
+namespace Tests\Sylius\ShopApiPlugin\Controller;
 
 use Lakion\ApiTestCase\JsonApiTestCase;
 use Symfony\Component\HttpFoundation\Response;
