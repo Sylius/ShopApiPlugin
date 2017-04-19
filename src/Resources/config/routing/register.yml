@@ -1,0 +1,7 @@
+sylius_shop_register:
+    path: /register
+    methods: [POST]
+    defaults:
+        _controller: sylius.controller.customer:createAction
+        _sylius:
+            form: Sylius\Bundle\CoreBundle\Form\Type\Customer\CustomerRegistrationType
