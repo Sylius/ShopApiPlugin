@@ -1,0 +1,63 @@
+[
+    {
+        "code": "CATEGORY",
+        "name": "Kategorien",
+        "slug": "kategorien",
+        "description": "@string@",
+        "position": 0,
+        "children": [
+            {
+                "code": "MUG",
+                "name": "Tassen",
+                "slug": "tassen",
+                "description": "@string@",
+                "position": 0,
+                "children": [],
+                "images": []
+            },
+            {
+                "code": "HAT",
+                "name": "H\u00fcte",
+                "slug": "hute",
+                "description": "@string@",
+                "position": 1,
+                "children": [],
+                "images": []
+            },
+            {
+                "code": "T_SHIRTS",
+                "name": "T-Shirts",
+                "slug": "t-shirts",
+                "description": "@string@",
+                "position": 2,
+                "children": [
+                    {
+                        "code": "MEN_T_SHIRTS",
+                        "name": "M\u00e4nner T-Shirts",
+                        "slug": "m\u00e4nner-t-shirts",
+                        "description": "@string@",
+                        "position": 0,
+                        "children": [],
+                        "images": []
+                    },
+                    {
+                        "code": "WOMEN_T_SHIRTS",
+                        "name": "Frauen T-Shirts",
+                        "slug": "frauen-t-shirts",
+                        "description": "@string@",
+                        "position": 1,
+                        "children": [],
+                        "images": []
+                    }
+                ],
+                "images": [
+                    {
+                        "code": "thumbnail",
+                        "url": "http:\/\/localhost\/en_US\/media\/cache\/resolve\/sylius_small\/uo\/t-shirt.jpg"
+                    }
+                ]
+            }
+        ],
+        "images": []
+    }
+]
