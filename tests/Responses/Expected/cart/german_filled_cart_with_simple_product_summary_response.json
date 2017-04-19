@@ -1,0 +1,28 @@
+{
+    "tokenValue": "SDAOSLEFNWU35H3QLI5325",
+    "channel": "WEB_DE",
+    "currency": "EUR",
+    "locale": "de_DE",
+    "checkoutState": "cart",
+    "items": [
+        {
+            "id": 1,
+            "quantity": 5,
+            "unitPrice": 2099,
+            "total": 10495,
+            "product": {
+                "code": "LOGAN_MUG_CODE",
+                "name": "Logan Becher",
+                "images": []
+            }
+        }
+    ],
+    "totals": {
+        "items": 10495,
+        "taxes": 0,
+        "shipping": 0,
+        "promotion": 0
+    },
+    "payments": [],
+    "shipments": []
+}

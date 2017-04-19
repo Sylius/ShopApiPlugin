@@ -1,19 +1,32 @@
 Sylius\Component\Core\Model\Channel:
-    channel_web:
+    gb_web_channel:
         code: "WEB_GB"
         name: "Great Britain Channel"
         hostname: "localhost"
         description: "Lorem ipsum"
-        baseCurrency: "@currency"
+        baseCurrency: "@pound"
         defaultLocale: "@locale_en_gb"
         locales: ["@locale_en_gb", "@locale_de_de"]
         color: "black"
         enabled: true
         taxCalculationStrategy: "order_items_based"
+    de_web_channel:
+        code: "WEB_DE"
+        name: "Deutch Channel"
+        hostname: "localhost"
+        description: "Lorem ipsum"
+        baseCurrency: "@euro"
+        defaultLocale: "@locale_de_de"
+        locales: ["@locale_de_de"]
+        color: "blue"
+        enabled: true
+        taxCalculationStrategy: "order_items_based"
 
 Sylius\Component\Currency\Model\Currency:
-    currency:
+    pound:
         code: GBP
+    euro:
+        code: EUR
 
 Sylius\Component\Locale\Model\Locale:
     locale_en_gb:
@@ -24,7 +37,7 @@ Sylius\Component\Locale\Model\Locale:
 Sylius\Component\Core\Model\Product:
     mug:
         code: "LOGAN_MUG_CODE"
-        channels: ["@channel_web"]
+        channels: ["@gb_web_channel"]
         currentLocale: "en_GB"
         currentTranslation: "@en_gb_mug_product_translation"
         translations: ["@en_gb_mug_product_translation", "@de_de_mug_product_translation"]
@@ -33,7 +46,7 @@ Sylius\Component\Core\Model\Product:
         productTaxons: ["@mug_product_taxon"]
     t_shirt:
         code: "LOGAN_T_SHIRT_CODE"
-        channels: ["@channel_web"]
+        channels: ["@gb_web_channel"]
         currentLocale: "en_GB"
         currentTranslation: "@t_shirt_translation"
         images: ["@t_shirt_thumbnail", "@small_t_shirt_thumbnail", "@large_t_shirt_thumbnail"]
@@ -41,7 +54,7 @@ Sylius\Component\Core\Model\Product:
         productTaxons: ["@t_shirt_product_taxon"]
     hat:
         code: "LOGAN_HAT_CODE"
-        channels: ["@channel_web"]
+        channels: ["@gb_web_channel"]
         options: ["@hat_size"]
         currentLocale: "en_GB"
         currentTranslation: "@en_gb_hat_product_translation"
@@ -89,21 +102,24 @@ Sylius\Component\Core\Model\ProductVariant:
         currentTranslation: "@en_gb_mug_variant_translation"
         translations: ["@en_gb_mug_variant_translation", "@de_de_mug_variant_translation"]
         channelPricings:
-            WEB_GB: "@mug_web_channel_pricing"
+            WEB_GB: "@gb_mug_web_channel_pricing"
+            WEB_DE: "@de_mug_web_channel_pricing"
     t_shirt_small:
         code: "SMALL_LOGAN_T_SHIRT_CODE"
         product: "@t_shirt"
         currentLocale: "en_GB"
         currentTranslation: "@small_t_shirt_translation"
         channelPricings:
-            WEB_GB: "@small_t_shirt_web_channel_pricing"
+            WEB_GB: "@gb_small_t_shirt_web_channel_pricing"
+            WEB_DE: "@de_small_t_shirt_web_channel_pricing"
     t_shirt_large:
         code: "LARGE_LOGAN_T_SHIRT_CODE"
         product: "@t_shirt"
         currentLocale: "en_GB"
         currentTranslation: "@large_t_shirt_translation"
         channelPricings:
-            WEB_GB: "@large_t_shirt_web_channel_pricing"
+            WEB_GB: "@gb_large_t_shirt_web_channel_pricing"
+            WEB_DE: "@de_large_t_shirt_web_channel_pricing"
     hat_red_small:
         code: "SMALL_RED_LOGAN_HAT_CODE"
         product: "@hat"
@@ -112,7 +128,8 @@ Sylius\Component\Core\Model\ProductVariant:
         currentTranslation: "@small_red_en_gb_hat_translation"
         translations: ["@small_red_en_gb_hat_translation", "@small_red_de_de_hat_translation"]
         channelPricings:
-            WEB_GB: "@small_red_hat_web_channel_pricing"
+            WEB_GB: "@gb_small_red_hat_web_channel_pricing"
+            WEB_DE: "@de_small_red_hat_web_channel_pricing"
     hat_red_large:
         code: "LARGE_RED_LOGAN_HAT_CODE"
         product: "@hat"
@@ -121,7 +138,8 @@ Sylius\Component\Core\Model\ProductVariant:
         currentTranslation: "@large_red_en_gb_hat_translation"
         translations: ["@large_red_en_gb_hat_translation", "@large_red_de_de_hat_translation"]
         channelPricings:
-            WEB_GB: "@large_red_hat_web_channel_pricing"
+            WEB_GB: "@gb_large_red_hat_web_channel_pricing"
+            WEB_DE: "@de_large_red_hat_web_channel_pricing"
     hat_blue_small:
         code: "SMALL_BLUE_LOGAN_HAT_CODE"
         product: "@hat"
@@ -130,7 +148,8 @@ Sylius\Component\Core\Model\ProductVariant:
         currentTranslation: "@small_blue_en_gb_hat_translation"
         translations: ["@small_blue_en_gb_hat_translation", "@small_blue_de_de_hat_translation"]
         channelPricings:
-            WEB_GB: "@small_blue_hat_web_channel_pricing"
+            WEB_GB: "@gb_small_blue_hat_web_channel_pricing"
+            WEB_DE: "@de_small_blue_hat_web_channel_pricing"
     hat_blue_large:
         code: "LARGE_BLUE_LOGAN_HAT_CODE"
         product: "@hat"
@@ -139,7 +158,8 @@ Sylius\Component\Core\Model\ProductVariant:
         currentTranslation: "@large_blue_en_gb_hat_translation"
         translations: ["@large_blue_en_gb_hat_translation", "@large_blue_de_de_hat_translation"]
         channelPricings:
-            WEB_GB: "@large_blue_hat_web_channel_pricing"
+            WEB_GB: "@gb_large_blue_hat_web_channel_pricing"
+            WEB_DE: "@de_large_blue_hat_web_channel_pricing"
 
 Sylius\Component\Product\Model\ProductVariantTranslation:
     en_gb_mug_variant_translation:
@@ -192,27 +212,48 @@ Sylius\Component\Product\Model\ProductVariantTranslation:
         translatable: "@hat_blue_large"
 
 Sylius\Component\Core\Model\ChannelPricing:
-    mug_web_channel_pricing:
+    gb_mug_web_channel_pricing:
         channelCode: "WEB_GB"
         price: 1999
-    small_t_shirt_web_channel_pricing:
+    gb_small_t_shirt_web_channel_pricing:
         channelCode: "WEB_GB"
         price: 1999
-    large_t_shirt_web_channel_pricing:
+    gb_large_t_shirt_web_channel_pricing:
         channelCode: "WEB_GB"
         price: 2999
-    small_red_hat_web_channel_pricing:
+    gb_small_red_hat_web_channel_pricing:
         channelCode: "WEB_GB"
         price: 500
-    large_red_hat_web_channel_pricing:
+    gb_large_red_hat_web_channel_pricing:
         channelCode: "WEB_GB"
         price: 999
-    small_blue_hat_web_channel_pricing:
+    gb_small_blue_hat_web_channel_pricing:
         channelCode: "WEB_GB"
         price: 1500
-    large_blue_hat_web_channel_pricing:
+    gb_large_blue_hat_web_channel_pricing:
         channelCode: "WEB_GB"
         price: 2599
+    de_mug_web_channel_pricing:
+        channelCode: "WEB_DE"
+        price: 2099
+    de_small_t_shirt_web_channel_pricing:
+        channelCode: "WEB_DE"
+        price: 2099
+    de_large_t_shirt_web_channel_pricing:
+        channelCode: "WEB_DE"
+        price: 3099
+    de_small_red_hat_web_channel_pricing:
+        channelCode: "WEB_DE"
+        price: 590
+    de_large_red_hat_web_channel_pricing:
+        channelCode: "WEB_DE"
+        price: 1099
+    de_small_blue_hat_web_channel_pricing:
+        channelCode: "WEB_DE"
+        price: 1600
+    de_large_blue_hat_web_channel_pricing:
+        channelCode: "WEB_DE"
+        price: 2699
 
 Sylius\Component\Product\Model\ProductOption:
     hat_size:
