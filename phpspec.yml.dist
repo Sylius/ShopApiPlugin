@@ -1,0 +1,4 @@
+suites:
+    default:
+        namespace: Sylius\ShopApiPlugin
+        psr4_prefix: Sylius\ShopApiPlugin

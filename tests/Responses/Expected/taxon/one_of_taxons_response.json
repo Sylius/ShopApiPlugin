@@ -1,0 +1,33 @@
+{
+    "code": "T_SHIRTS",
+    "name": "T-Shirts",
+    "slug": "t-shirts",
+    "description": "@string@",
+    "position": 2,
+    "children": [
+        {
+            "code": "MEN_T_SHIRTS",
+            "name": "Men T-Shirts",
+            "slug": "men-t-shirts",
+            "description": "@string@",
+            "position": 0,
+            "children": [],
+            "images": []
+        },
+        {
+            "code": "WOMEN_T_SHIRTS",
+            "name": "Women T-Shirts",
+            "slug": "women-t-shirts",
+            "description": "@string@",
+            "position": 1,
+            "children": [],
+            "images": []
+        }
+    ],
+    "images": [
+        {
+            "code": "thumbnail",
+            "url": "http:\/\/localhost\/en_US\/media\/cache\/resolve\/sylius_small\/uo\/t-shirt.jpg"
+        }
+    ]
+}

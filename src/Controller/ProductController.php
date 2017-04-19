@@ -16,6 +16,7 @@ use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Sylius\Component\Taxonomy\Repository\TaxonRepositoryInterface;
+use Sylius\ShopApiPlugin\Builder\ImageViewBuilderInterface;
 use Sylius\ShopApiPlugin\View\ImageView;
 use Sylius\ShopApiPlugin\View\PageLinksView;
 use Sylius\ShopApiPlugin\View\PageView;
@@ -155,6 +156,9 @@ final class ProductController extends Controller
      */
     private function buildProductView(ProductInterface $product, $locale, ChannelInterface $channel)
     {
+        /** @var ImageViewBuilderInterface $imageViewBuilder */
+        $imageViewBuilder = $this->get('sylius.shop_api_plugin.builder.image_view_builder');
+
         $productView = new ProductView();
         $productView->name = $product->getTranslation($locale)->getName();
         $productView->code = $product->getCode();
@@ -182,7 +186,7 @@ final class ProductController extends Controller
 
         /** @var ProductImageInterface $image */
         foreach ($product->getImages() as $image) {
-            $imageView = $this->buildProductImageView($image);
+            $imageView = $imageViewBuilder->build($image);
             $productView->images[] = $imageView;
 
             foreach ($image->getProductVariants() as $productVariant) {
@@ -194,22 +198,5 @@ final class ProductController extends Controller
         }
 
         return $productView;
-    }
-
-    /**
-     * @param ProductImageInterface $image
-     *
-     * @return ImageView
-     */
-    private function buildProductImageView(ProductImageInterface $image)
-    {
-        /** @var CacheManager $imagineCacheManager */
-        $imagineCacheManager = $this->get('liip_imagine.cache.manager');
-
-        $imageView = new ImageView();
-        $imageView->code = $image->getType();
-        $imageView->url = $imagineCacheManager->getBrowserPath($image->getPath(), 'sylius_small');
-
-        return $imageView;
     }
 }

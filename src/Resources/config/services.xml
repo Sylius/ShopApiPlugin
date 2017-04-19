@@ -18,5 +18,9 @@
             <argument>_sylius.cart</argument>
             <argument type="service" id="security.firewall.map" />
         </service>
+
+        <service id="sylius.shop_api_plugin.builder.image_view_builder" class="Sylius\ShopApiPlugin\Builder\ImageViewBuilder">
+            <argument type="service" id="liip_imagine.cache.manager" />
+        </service>
     </services>
 </container>

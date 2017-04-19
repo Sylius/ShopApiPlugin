@@ -26,10 +26,10 @@ Sylius\Component\Core\Model\Product:
         code: "LOGAN_MUG_CODE"
         channels: ["@channel_web"]
         currentLocale: "en_GB"
-        currentTranslation: "@en_gb_mug_translation"
-        translations: ["@en_gb_mug_translation", "@de_de_mug_translation"]
+        currentTranslation: "@en_gb_mug_product_translation"
+        translations: ["@en_gb_mug_product_translation", "@de_de_mug_product_translation"]
         images: ["@mug_thumbnail"]
-        mainTaxon: "@x_man_taxon"
+        mainTaxon: "@t_shirt_taxon"
         productTaxons: ["@mug_product_taxon"]
     t_shirt:
         code: "LOGAN_T_SHIRT_CODE"
@@ -37,26 +37,26 @@ Sylius\Component\Core\Model\Product:
         currentLocale: "en_GB"
         currentTranslation: "@t_shirt_translation"
         images: ["@t_shirt_thumbnail", "@small_t_shirt_thumbnail", "@large_t_shirt_thumbnail"]
-        mainTaxon: "@x_man_taxon"
+        mainTaxon: "@t_shirt_taxon"
         productTaxons: ["@t_shirt_product_taxon"]
     hat:
         code: "LOGAN_HAT_CODE"
         channels: ["@channel_web"]
         options: ["@hat_size"]
         currentLocale: "en_GB"
-        currentTranslation: "@en_gb_hat_translation"
-        translations: ["@en_gb_hat_translation", "@de_de_hat_translation"]
-        mainTaxon: "@x_man_taxon"
+        currentTranslation: "@en_gb_hat_product_translation"
+        translations: ["@en_gb_hat_product_translation", "@de_de_hat_product_translation"]
+        mainTaxon: "@t_shirt_taxon"
         productTaxons: ["@hat_product_taxon"]
 
 Sylius\Component\Core\Model\ProductTranslation:
-    en_gb_mug_translation:
+    en_gb_mug_product_translation:
         slug: "logan-mug"
         locale: "en_GB"
         name: "Logan Mug"
         description: <paragraph(2)>
         translatable: "@mug"
-    de_de_mug_translation:
+    de_de_mug_product_translation:
         slug: "logan-becher"
         locale: "de_DE"
         name: "Logan Becher"
@@ -68,13 +68,13 @@ Sylius\Component\Core\Model\ProductTranslation:
         name: "Logan T-Shirt"
         description: <paragraph(2)>
         translatable: "@t_shirt"
-    en_gb_hat_translation:
+    en_gb_hat_product_translation:
         slug: "logan-hat"
         locale: "en_GB"
         name: "Logan Hat"
         description: <paragraph(2)>
         translatable: "@hat"
-    de_de_hat_translation:
+    de_de_hat_product_translation:
         slug: "logan-hut"
         locale: "de_DE"
         name: "Logan Hut"
@@ -328,27 +328,109 @@ Sylius\Component\Core\Model\ProductImage:
         productVariants: ["@t_shirt_large"]
 
 Sylius\Component\Core\Model\Taxon:
-    x_man_taxon:
-        code: "X_MAN"
+    category_taxon:
+        code: "CATEGORY"
         currentLocale: "en_GB"
-        currentTranslation: "@en_gb_x_man_taxon_translation"
-        translations: ["@en_gb_x_man_taxon_translation"]
+        currentTranslation: "@en_gb_category_translation"
+        translations: ["@en_gb_category_translation"]
+        children: ["@mug_taxon", "@hat_taxon", "@t_shirt_taxon"]
+    mug_taxon:
+        code: "MUG"
+        currentLocale: "en_GB"
+        currentTranslation: "@en_gb_mug_taxon_translation"
+        translations: ["@en_gb_mug_taxon_translation"]
+        parent: "@category_taxon"
+        root: "@category_taxon"
+    hat_taxon:
+        code: "HAT"
+        currentLocale: "en_GB"
+        currentTranslation: "@en_gb_hat_translation"
+        translations: ["@en_gb_hat_translation"]
+        parent: "@category_taxon"
+        root: "@category_taxon"
+    t_shirt_taxon:
+        code: "T_SHIRTS"
+        currentLocale: "en_GB"
+        currentTranslation: "@en_gb_t_shirt_taxon_translation"
+        translations: ["@en_gb_t_shirt_taxon_translation"]
+        images: ["@t_shirt_taxon_thumbnail"]
+        children: ["@men_t_shirt_taxon", "@women_t_shirt_taxon"]
+        parent: "@category_taxon"
+        root: "@category_taxon"
+    men_t_shirt_taxon:
+        code: "MEN_T_SHIRTS"
+        currentLocale: "en_GB"
+        currentTranslation: "@en_gb_men_t_shirt_translation"
+        translations: ["@en_gb_men_t_shirt_translation"]
+        parent: "@t_shirt_taxon"
+        root: "@category_taxon"
+    women_t_shirt_taxon:
+        code: "WOMEN_T_SHIRTS"
+        currentLocale: "en_GB"
+        currentTranslation: "@en_gb_women_t_shirt_translation"
+        translations: ["@en_gb_women_t_shirt_translation"]
+        parent: "@t_shirt_taxon"
+        root: "@category_taxon"
 
 Sylius\Component\Taxonomy\Model\TaxonTranslation:
-    en_gb_x_man_taxon_translation:
-        slug: "x-man"
+    en_gb_category_translation:
+        slug: "categories"
         locale: "en_GB"
-        name: "X-Man"
+        name: "Categories"
         description: <paragraph(2)>
-        translatable: "@x_man_taxon"
+        translatable: "@category_taxon"
+    en_gb_mug_taxon_translation:
+        slug: "mugs"
+        locale: "en_GB"
+        name: "Mugs"
+        description: <paragraph(2)>
+        translatable: "@mug_taxon"
+    en_gb_hat_translation:
+        slug: "hats"
+        locale: "en_GB"
+        name: "Hats"
+        description: <paragraph(2)>
+        translatable: "@hat_taxon"
+    en_gb_t_shirt_taxon_translation:
+        slug: "t-shirts"
+        locale: "en_GB"
+        name: "T-Shirts"
+        description: <paragraph(2)>
+        translatable: "@t_shirt_taxon"
+    en_gb_men_t_shirt_translation:
+        slug: "men-t-shirts"
+        locale: "en_GB"
+        name: "Men T-Shirts"
+        description: <paragraph(2)>
+        translatable: "@men_t_shirt_taxon"
+    en_gb_women_t_shirt_translation:
+        slug: "women-t-shirts"
+        locale: "en_GB"
+        name: "Women T-Shirts"
+        description: <paragraph(2)>
+        translatable: "@women_t_shirt_taxon"
 
 Sylius\Component\Core\Model\ProductTaxon:
     mug_product_taxon:
         product: "@mug"
-        taxon: "@x_man_taxon"
+        taxon: "@mug_taxon"
     t_shirt_product_taxon:
         product: "@t_shirt"
-        taxon: "@x_man_taxon"
+        taxon: "@t_shirt_taxon"
     hat_product_taxon:
         product: "@hat"
-        taxon: "@x_man_taxon"
+        taxon: "@hat_taxon"
+    mug_category_product_taxon:
+        product: "@mug"
+        taxon: "@category_taxon"
+    t_shirt_category_product_taxon:
+        product: "@t_shirt"
+        taxon: "@category_taxon"
+    hat_category_product_taxon:
+        product: "@hat"
+        taxon: "@category_taxon"
+
+Sylius\Component\Core\Model\TaxonImage:
+    t_shirt_taxon_thumbnail:
+        type: "thumbnail"
+        path: "/uo/t-shirt.jpg"
