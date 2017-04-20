@@ -13,7 +13,12 @@
             "product": {
                 "code": "LOGAN_MUG_CODE",
                 "name": "Logan Mug",
-                "images": []
+                "images": [
+                    {
+                        "code": "thumbnail",
+                        "url": "http:\/\/localhost\/en_US\/media\/cache\/resolve\/sylius_small\/uo\/mug.jpg"
+                    }
+                ]
             }
         }
     ],
