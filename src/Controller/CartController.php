@@ -92,10 +92,12 @@ final class CartController extends Controller
             throw new NotFoundHttpException('Cart with given id does not exists');
         }
 
+        $locale = $cart->getLocaleCode();
+
         $cartView = new CartSummaryView();
         $cartView->channel = $cart->getChannel()->getCode();
         $cartView->currency = $cart->getCurrencyCode();
-        $cartView->locale = $cart->getLocaleCode();
+        $cartView->locale = $locale;
         $cartView->checkoutState = $cart->getCheckoutState();
         $cartView->tokenValue = $cart->getTokenValue();
         $cartView->totals = new TotalsView();
@@ -115,13 +117,13 @@ final class CartController extends Controller
             $itemView->unitPrice = $item->getUnitPrice();
             $itemView->product = new CartItemProductView();
             $itemView->product->code = $product->getCode();
-            $itemView->product->name = $product->getName();
+            $itemView->product->name = $product->getTranslation($locale)->getName();
 
             if ($product->isConfigurable()) {
                 $variant = $item->getVariant();
 
                 $itemView->variant = new CartItemProductVariantView();
-                $itemView->variant->name = $variant->getName();
+                $itemView->variant->name = $variant->getTranslation($locale)->getName();
                 $itemView->variant->code = $variant->getCode();
 
                 if ($product->hasOptions()) {
@@ -129,9 +131,9 @@ final class CartController extends Controller
                         $option = $optionValue->getOption();
 
                         $optionValueView = new VariantOptionView();
-                        $optionValueView->name = $option->getName();
+                        $optionValueView->name = $option->getTranslation($locale)->getName();
                         $optionValueView->value = new VariantOptionValueView();
-                        $optionValueView->value->value = $optionValue->getValue();
+                        $optionValueView->value->value = $optionValue->getTranslation($locale)->getValue();
                         $optionValueView->value->code = $optionValue->getCode();
 
                         $itemView->variant->options[$option->getCode()] = $optionValueView;
