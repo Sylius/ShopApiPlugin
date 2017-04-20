@@ -1,0 +1,21 @@
+Sylius\Component\Addressing\Model\Country:
+    country_gb:
+        code: GB
+
+Sylius\Component\Addressing\Model\Province:
+    province_gb_scotland:
+        name: Scotland
+        code: GB-SCT
+        country: '@country_gb'
+    province_gb_wales:
+        name: Wales
+        code: GB-WLS
+        country: '@country_gb'
+    province_gb_northen_ireland:
+        name: Northen Ireland
+        code: GB-NIR
+        country: '@country_gb'
+    province_gb_england:
+        name: England
+        code: GB-ENG
+        country: '@country_gb'

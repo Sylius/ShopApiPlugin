@@ -1,0 +1,57 @@
+Sylius\Component\Core\Model\ShippingMethod:
+    ups:
+        code: "UPS"
+        enabled: true
+        calculator: "flat_rate"
+        configuration:
+            WEB_GB:
+                amount: 500
+        zone: "@zone_gb_scotland"
+        currentLocale: "en_GB"
+        currentTranslation: "@ups_translation"
+        translations: ["@ups_translation"]
+        channels: ["@gb_web_channel"]
+    dhl:
+        code: "DHL"
+        enabled: true
+        calculator: "flat_rate"
+        configuration:
+            WEB_GB:
+                amount: 1500
+        zone: "@zone_gb"
+        currentLocale: "en_GB"
+        currentTranslation: "@dhl_translation"
+        translations: ["@dhl_translation"]
+        channels: ["@gb_web_channel"]
+
+Sylius\Component\Shipping\Model\ShippingMethodTranslation:
+    ups_translation:
+        name: "UPS"
+        locale: "en_GB"
+        description: <paragraph(2)>
+        translatable: "@ups"
+    dhl_translation:
+        name: "DHL"
+        locale: "en_GB"
+        description: <paragraph(2)>
+        translatable: "@dhl"
+
+Sylius\Component\Addressing\Model\Zone:
+    zone_gb_scotland:
+        code: "SCOTLAND_ZONE"
+        name: "Scotland Zone"
+        type: "province"
+        scope: "all"
+        members: ["@scotland_zone_member"]
+    zone_gb:
+        code: "GB_ZONE"
+        name: "Great Brittan"
+        type: "country"
+        scope: "all"
+        members: ["@gb_zone_member"]
+
+Sylius\Component\Addressing\Model\ZoneMember:
+    gb_zone_member:
+        code: "GB"
+    scotland_zone_member:
+        code: "GB-SCT"

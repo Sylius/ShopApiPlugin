@@ -33,3 +33,9 @@ shop_api_remove_item:
     methods: [DELETE]
     defaults:
         _controller: ShopApiPlugin:Cart:removeItem
+
+shop_api_estimated_shipping_cost:
+    path: /carts/{token}/estimated-shipping-cost
+    methods: [GET]
+    defaults:
+        _controller: ShopApiPlugin:Cart:estimateShippingCost
