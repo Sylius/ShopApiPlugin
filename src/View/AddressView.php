@@ -2,6 +2,6 @@
 
 namespace Sylius\ShopApiPlugin\View;
 
-final class AddressView
+class AddressView
 {
 }

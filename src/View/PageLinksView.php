@@ -2,7 +2,7 @@
 
 namespace Sylius\ShopApiPlugin\View;
 
-final class PageLinksView
+class PageLinksView
 {
     /**
      * @var string

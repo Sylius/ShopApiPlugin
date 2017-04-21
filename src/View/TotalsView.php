@@ -2,7 +2,7 @@
 
 namespace Sylius\ShopApiPlugin\View;
 
-final class TotalsView
+class TotalsView
 {
     /**
      * @var int
