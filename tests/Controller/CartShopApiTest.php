@@ -90,6 +90,11 @@ EOT;
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/cart_has_not_been_found_response', Response::HTTP_NOT_FOUND);
+
+        $this->client->request('GET', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/estimated-shipping-cost', [], [], ['ACCEPT' => 'application/json']);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'cart/cart_has_not_been_found_response', Response::HTTP_NOT_FOUND);
     }
 
     /**
@@ -383,6 +388,45 @@ EOT;
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/cart_item_has_not_been_found_response', Response::HTTP_NOT_FOUND);
+    }
+
+    /**
+     * @test
+     */
+    public function it_calculates_estimated_shipping_cost_based_on_country()
+    {
+        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFile('shipping.yml');
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        $this->pickupCart($token, 'WEB_GB');
+        $this->putItemToCart($token);
+
+        $this->client->request('GET', sprintf('/shop-api/carts/%s/estimated-shipping-cost?countryCode=GB', $token), [], [], ['ACCEPT' => 'application/json']);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'cart/estimated_shipping_cost_bases_on_country_response', Response::HTTP_OK);
+    }
+
+    /**
+     * @test
+     */
+    public function it_calculates_estimated_shipping_cost_based_on_country_and_province()
+    {
+        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFile('country.yml');
+        $this->loadFixturesFromFile('shipping.yml');
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        $this->pickupCart($token, 'WEB_GB');
+        $this->putItemToCart($token);
+
+        $this->client->request('GET', sprintf('/shop-api/carts/%s/estimated-shipping-cost?countryCode=GB&provinceCode=GB-SCT', $token), [], [], ['ACCEPT' => 'application/json']);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'cart/estimated_shipping_cost_bases_on_country_and_province_response', Response::HTTP_OK);
     }
 
     /**
