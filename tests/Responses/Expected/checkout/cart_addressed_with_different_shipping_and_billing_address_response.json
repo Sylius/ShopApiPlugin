@@ -1,0 +1,49 @@
+{
+    "tokenValue": "SDAOSLEFNWU35H3QLI5325",
+    "channel": "WEB_GB",
+    "currency": "GBP",
+    "locale": "en_GB",
+    "checkoutState": "addressed",
+    "items": [
+        {
+            "id": 1,
+            "quantity": 5,
+            "unitPrice": 1999,
+            "total": 9995,
+            "product": {
+                "code": "LOGAN_MUG_CODE",
+                "name": "Logan Mug",
+                "images": [
+                    {
+                        "code": "thumbnail",
+                        "url": "http:\/\/localhost\/en_US\/media\/cache\/resolve\/sylius_small\/uo\/mug.jpg"
+                    }
+                ]
+            }
+        }
+    ],
+    "totals": {
+        "items": 9995,
+        "taxes": 0,
+        "shipping": 0,
+        "promotion": 0
+    },
+    "payments": [],
+    "shipments": [],
+    "shippingAddress": {
+        "firstName": "Sherlock",
+        "lastName": "Holmes",
+        "countryCode": "GB",
+        "street": "Baker Street 221b",
+        "city": "London",
+        "postcode": "NW1"
+    },
+    "billingAddress": {
+        "firstName": "John",
+        "lastName": "Watson",
+        "countryCode": "GB",
+        "street": "Baker Street 21b",
+        "city": "London",
+        "postcode": "NW1"
+    }
+}
