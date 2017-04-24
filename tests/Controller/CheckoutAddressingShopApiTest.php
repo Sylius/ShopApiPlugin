@@ -11,7 +11,7 @@ final class CheckoutAddressingShopApiTest extends JsonApiTestCase
 
     public function it_does_not_allow_to_address_unexisting_order()
     {
-        $this->client->request('PUT', '/api/v1/checkouts/addressing/1', [], [], static::$acceptAndContentTypeHeader);
+        $this->client->request('PUT', '/shop-api/checkout/SDAOSLEFNWU35H3QLI5325/address', [], [], static::$acceptAndContentTypeHeader);
 
         $response = $this->client->getResponse();
         $this->assertResponse($response, 'cart/cart_has_not_been_found_response', Response::HTTP_NOT_FOUND);
@@ -33,7 +33,7 @@ final class CheckoutAddressingShopApiTest extends JsonApiTestCase
         }
 EOT;
 
-        $this->client->request('PUT', '/shop-api/checkout/address', [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('PUT', '/shop-api/checkout/SDAOSLEFNWU35H3QLI5325/address', [], [], static::$acceptAndContentTypeHeader, $data);
 
         $response = $this->client->getResponse();
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
@@ -63,7 +63,7 @@ EOT;
         }
 EOT;
 
-        $this->client->request('PUT', '/shop-api/checkout/address', [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('PUT', '/shop-api/checkout/SDAOSLEFNWU35H3QLI5325/address', [], [], static::$acceptAndContentTypeHeader, $data);
 
         $response = $this->client->getResponse();
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
