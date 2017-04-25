@@ -1,0 +1,5 @@
+shop_api_address_checkout:
+    path: /{token}/address
+    methods: [PUT]
+    defaults:
+        _controller: ShopApiPlugin:Checkout:address

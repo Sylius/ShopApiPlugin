@@ -13,3 +13,7 @@ shop_api_taxon:
 shop_api_register:
     resource: "@ShopApiPlugin/Resources/config/routing/register.yml"
     prefix: /shop-api
+
+shop_api_checkout:
+    resource: "@ShopApiPlugin/Resources/config/routing/checkout.yml"
+    prefix: /shop-api/checkout
