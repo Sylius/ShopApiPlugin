@@ -5,7 +5,6 @@ parameters:
 imports:
     - { resource: "@SyliusCoreBundle/Resources/config/app/config.yml" }
     - { resource: "@SyliusAdminBundle/Resources/config/app/config.yml" }
-    - { resource: "@SyliusShopBundle/Resources/config/app/config.yml" }
     - { resource: "@SyliusAdminApiBundle/Resources/config/app/config.yml" }
 
     - { resource: "@ShopApiPlugin/Resources/config/app/config.yml" }
@@ -43,3 +42,7 @@ fos_rest:
     format_listener:
         rules:
             - { path: '^/shop-api', priorities: ['json'], fallback_format: json, prefer_extension: true }
+
+liip_imagine:
+    filter_sets:
+        sylius_shop_product_original: ~

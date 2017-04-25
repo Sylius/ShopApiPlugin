@@ -16,15 +16,15 @@
                 "images": [
                     {
                         "code": "thumbnail",
-                        "url": "http:\/\/localhost\/en_US\/media\/cache\/resolve\/sylius_small\/uo\/tshirt.jpg"
+                        "url": "http:\/\/localhost\/media\/cache\/resolve\/sylius_small\/uo\/tshirt.jpg"
                     },
                     {
                         "code": "thumbnail",
-                        "url": "http:\/\/localhost\/en_US\/media\/cache\/resolve\/sylius_small\/uo\/samll-tshirt.jpg"
+                        "url": "http:\/\/localhost\/media\/cache\/resolve\/sylius_small\/uo\/samll-tshirt.jpg"
                     },
                     {
                         "code": "thumbnail",
-                        "url": "http:\/\/localhost\/en_US\/media\/cache\/resolve\/sylius_small\/uo\/large-tshirt.jpg"
+                        "url": "http:\/\/localhost\/media\/cache\/resolve\/sylius_small\/uo\/large-tshirt.jpg"
                     }
                 ]
             },
@@ -34,7 +34,7 @@
                 "images": [
                     {
                         "code": "thumbnail",
-                        "url": "http:\/\/localhost\/en_US\/media\/cache\/resolve\/sylius_small\/uo\/samll-tshirt.jpg"
+                        "url": "http:\/\/localhost\/media\/cache\/resolve\/sylius_small\/uo\/samll-tshirt.jpg"
                     }
                 ],
                 "options": []
