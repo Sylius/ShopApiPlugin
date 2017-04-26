@@ -3,3 +3,9 @@ shop_api_address_checkout:
     methods: [PUT]
     defaults:
         _controller: ShopApiPlugin:Checkout:address
+
+shop_api_summarize_checkout:
+    path: /{token}
+    methods: [GET]
+    defaults:
+        _controller: ShopApiPlugin:Checkout:summarize

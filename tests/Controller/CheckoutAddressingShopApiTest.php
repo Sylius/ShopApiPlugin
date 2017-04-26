@@ -50,9 +50,52 @@ EOT;
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
     }
 
+    /**
+     * @test
+     */
+    public function it_shows_an_order_with_same_shipping_and_billing_address_with_province()
+    {
+        $this->loadFixturesFromFile('shop.yml');
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        $this->pickupCart($token, 'WEB_GB');
+        $this->putItemToCart($token);
+
+        $data =
+<<<EOT
+        {
+            "shippingAddress": {
+                "firstName": "Sherlock",
+                "lastName": "Holmes",
+                "countryCode": "GB",
+                "street": "Baker Street 221b",
+                "city": "London",
+                "postcode": "NW1",
+                "provinceName": "Greater London"
+            }
+        }
+EOT;
+
+        $this->client->request('PUT', sprintf('/shop-api/checkout/%s/address', $token), [], [], static::$acceptAndContentTypeHeader, $data);
+
+        $this->client->request('GET', '/shop-api/checkout/' . $token, [], [], static::$acceptAndContentTypeHeader, $data);
+
+        $response = $this->client->getResponse();
+        $this->assertResponse($response, 'checkout/cart_addressed_response', Response::HTTP_OK);
+    }
+
+    /**
+     * @test
+     */
     public function it_allows_to_address_order_with_the_same_shipping_and_billing_address_without_province()
     {
         $this->loadFixturesFromFile('shop.yml');
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        $this->pickupCart($token, 'WEB_GB');
+        $this->putItemToCart($token);
 
         $data =
 <<<EOT

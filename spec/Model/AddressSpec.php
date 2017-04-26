@@ -16,7 +16,6 @@ final class AddressSpec extends ObjectBehavior
             'street' => 'Baker Street 221b',
             'countryCode' => 'GB',
             'postcode' => 'NWB',
-            'provinceName' => 'Greater London',
         ]]);
     }
 
@@ -57,6 +56,16 @@ final class AddressSpec extends ObjectBehavior
 
     function it_has_province_name()
     {
+        $this->beConstructedThrough('createFromArray', [[
+            'firstName' => 'Sherlock',
+            'lastName' => 'Holmes',
+            'city' => 'London',
+            'street' => 'Baker Street 221b',
+            'countryCode' => 'GB',
+            'postcode' => 'NWB',
+            'provinceName' => 'Greater London',
+        ]]);
+
         $this->provinceName()->shouldReturn('Greater London');
     }
 
@@ -109,14 +118,6 @@ final class AddressSpec extends ObjectBehavior
             'street' => 'Baker Street 221b',
             'countryCode' => 'GB',
             'provinceName' => 'Greater London',
-        ]]);
-        $this->shouldThrow('InvalidArgumentException')->during('createFromArray', [[
-            'firstName' => 'Sherlock',
-            'lastName' => 'Holmes',
-            'city' => 'London',
-            'street' => 'Baker Street 221b',
-            'countryCode' => 'GB',
-            'postcode' => 'NWB',
         ]]);
     }
 }

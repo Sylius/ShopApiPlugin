@@ -50,7 +50,7 @@ final class Address
      * @param string $postcode
      * @param string $provinceName
      */
-    private function __construct($firstName, $lastName, $city, $street, $countryCode, $postcode, $provinceName)
+    private function __construct($firstName, $lastName, $city, $street, $countryCode, $postcode, $provinceName = null)
     {
         $this->firstName = $firstName;
         $this->lastName = $lastName;
@@ -74,7 +74,6 @@ final class Address
         Assert::keyExists($address, 'street');
         Assert::keyExists($address, 'countryCode');
         Assert::keyExists($address, 'postcode');
-        Assert::keyExists($address, 'provinceName');
 
         return new Address(
             $address['firstName'],
@@ -83,7 +82,7 @@ final class Address
             $address['street'],
             $address['countryCode'],
             $address['postcode'],
-            $address['provinceName']
+            isset($address['provinceName']) ? $address['provinceName'] : null
         );
     }
 

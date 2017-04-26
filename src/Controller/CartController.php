@@ -23,16 +23,11 @@ use Sylius\Component\Order\Processor\OrderProcessorInterface;
 use Sylius\Component\Order\Repository\OrderItemRepositoryInterface;
 use Sylius\Component\Registry\ServiceRegistryInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
-use Sylius\ShopApiPlugin\Factory\ImageViewFactoryInterface;
+use Sylius\ShopApiPlugin\Factory\CartViewFactoryInterface;
 use Sylius\Component\Shipping\Exception\UnresolvedDefaultShippingMethodException;
 use Sylius\Component\Shipping\Resolver\ShippingMethodsResolverInterface;
 use Sylius\ShopApiPlugin\Factory\PriceViewFactoryInterface;
-use Sylius\ShopApiPlugin\Factory\ProductVariantViewFactoryInterface;
-use Sylius\ShopApiPlugin\Factory\ProductViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\CartSummaryView;
 use Sylius\ShopApiPlugin\View\EstimatedShippingCostView;
-use Sylius\ShopApiPlugin\View\ItemView;
-use Sylius\ShopApiPlugin\View\TotalsView;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -87,10 +82,8 @@ final class CartController extends Controller
         $cartRepository = $this->get('sylius.repository.order');
         /** @var ViewHandlerInterface $viewHandler */
         $viewHandler = $this->get('fos_rest.view_handler');
-        /** @var ProductViewFactoryInterface $productViewFactory */
-        $productViewFactory = $this->get('sylius.shop_api_plugin.factory.product_view_factory');
-        /** @var ProductVariantViewFactoryInterface $productViewViewFactory */
-        $productViewViewFactory = $this->get('sylius.shop_api_plugin.factory.product_variant_view_factory');
+        /** @var CartViewFactoryInterface $cartViewFactory */
+        $cartViewFactory = $this->get('sylius.shop_api_plugin.factory.cart_view_factory');
 
         /** @var OrderInterface $cart */
         $cart = $cartRepository->findOneBy(['tokenValue' => $request->attributes->get('token')]);
@@ -99,35 +92,7 @@ final class CartController extends Controller
             throw new NotFoundHttpException('Cart with given id does not exists');
         }
 
-        $locale = $cart->getLocaleCode();
-
-        $cartView = new CartSummaryView();
-        $cartView->channel = $cart->getChannel()->getCode();
-        $cartView->currency = $cart->getCurrencyCode();
-        $cartView->locale = $locale;
-        $cartView->checkoutState = $cart->getCheckoutState();
-        $cartView->tokenValue = $cart->getTokenValue();
-        $cartView->totals = new TotalsView();
-        $cartView->totals->promotion = 0;
-        $cartView->totals->items = $cart->getItemsTotal();
-        $cartView->totals->shipping = $cart->getShippingTotal();
-        $cartView->totals->taxes = $cart->getTaxTotal();
-
-        /** @var OrderItemInterface $item */
-        foreach ($cart->getItems() as $item) {
-            $itemView = new ItemView();
-            $product = $item->getProduct();
-
-            $itemView->id = $item->getId();
-            $itemView->quantity = $item->getQuantity();
-            $itemView->total = $item->getTotal();
-            $itemView->product = $productViewFactory->create($product, $locale);
-            $itemView->product->variants = [$productViewViewFactory->create($item->getVariant(), $cart->getChannel(), $locale)];
-
-            $cartView->items[] = $itemView;
-        }
-
-        return $viewHandler->handle(View::create($cartView, Response::HTTP_OK));
+        return $viewHandler->handle(View::create($cartViewFactory->create($cart, $cart->getLocaleCode()), Response::HTTP_OK));
     }
 
     /**
