@@ -1,12 +1,12 @@
 <?php
 
-namespace Sylius\ShopApiPlugin\Builder;
+namespace Sylius\ShopApiPlugin\Factory;
 
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Sylius\Component\Core\Model\ImageInterface;
 use Sylius\ShopApiPlugin\View\ImageView;
 
-final class ImageViewBuilder implements ImageViewBuilderInterface
+final class ImageViewFactory implements ImageViewFactoryInterface
 {
     /**
      * @var CacheManager
@@ -26,7 +26,7 @@ final class ImageViewBuilder implements ImageViewBuilderInterface
      *
      * @return ImageView
      */
-    public function build(ImageInterface $image)
+    public function create(ImageInterface $image)
     {
         $imageView = new ImageView();
         $imageView->code = $image->getType();

@@ -1,16 +1,16 @@
 <?php
 
-namespace Sylius\ShopApiPlugin\Builder;
+namespace Sylius\ShopApiPlugin\Factory;
 
 use Sylius\Component\Core\Model\ImageInterface;
 use Sylius\ShopApiPlugin\View\ImageView;
 
-interface ImageViewBuilderInterface
+interface ImageViewFactoryInterface
 {
     /**
      * @param ImageInterface $image
      *
      * @return ImageView
      */
-    public function build(ImageInterface $image);
+    public function create(ImageInterface $image);
 }
