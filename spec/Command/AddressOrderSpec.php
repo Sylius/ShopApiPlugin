@@ -12,7 +12,7 @@ final class AddressOrderSpec extends ObjectBehavior
 {
     function let()
     {
-        $this->beConstructedThrough('create', [
+        $this->beConstructedWith(
             'ORDERTOKEN',
             Address::createFromArray([
                 'firstName' => 'Sherlock',
@@ -31,8 +31,8 @@ final class AddressOrderSpec extends ObjectBehavior
                 'countryCode' => 'GB',
                 'postcode' => 'NWB',
                 'provinceName' => 'Greater London',
-            ]),
-        ]);
+            ])
+        );
     }
 
     function it_is_initializable()

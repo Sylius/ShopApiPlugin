@@ -5,11 +5,10 @@ namespace Sylius\ShopApiPlugin\Controller;
 use Doctrine\Common\Persistence\ObjectManager;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
-use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
+use League\Tactician\CommandBus;
 use Sylius\Component\Core\Factory\AddressFactoryInterface;
 use Sylius\Component\Core\Factory\CartItemFactoryInterface;
 use Sylius\Component\Core\Model\AddressInterface;
-use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Core\Model\ProductInterface;
@@ -27,6 +26,7 @@ use Sylius\ShopApiPlugin\Factory\CartViewFactoryInterface;
 use Sylius\Component\Shipping\Exception\UnresolvedDefaultShippingMethodException;
 use Sylius\Component\Shipping\Resolver\ShippingMethodsResolverInterface;
 use Sylius\ShopApiPlugin\Factory\PriceViewFactoryInterface;
+use Sylius\ShopApiPlugin\Command\PickupCart;
 use Sylius\ShopApiPlugin\View\EstimatedShippingCostView;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -43,12 +43,10 @@ final class CartController extends Controller
      */
     public function pickupAction(Request $request)
     {
-        /** @var FactoryInterface $cartFactory */
-        $cartFactory = $this->get('sylius.factory.order');
         /** @var OrderRepositoryInterface $cartRepository */
         $cartRepository = $this->get('sylius.repository.order');
-        /** @var ChannelRepositoryInterface $channelRepository */
-        $channelRepository = $this->get('sylius.repository.channel');
+        /** @var CommandBus $bus */
+        $bus = $this->get('tactician.commandbus');
         /** @var ViewHandlerInterface $viewHandler */
         $viewHandler = $this->get('fos_rest.view_handler');
 
@@ -56,17 +54,7 @@ final class CartController extends Controller
             throw new BadRequestHttpException('Cart with given token already exists');
         }
 
-        /** @var ChannelInterface $channel */
-        $channel = $channelRepository->findOneByCode($request->request->get('channel'));
-
-        /** @var OrderInterface $cart */
-        $cart = $cartFactory->createNew();
-        $cart->setChannel($channel);
-        $cart->setCurrencyCode($channel->getBaseCurrency()->getCode());
-        $cart->setLocaleCode($channel->getDefaultLocale()->getCode());
-        $cart->setTokenValue($request->attributes->get('token'));
-
-        $cartRepository->add($cart);
+        $bus->handle(new PickupCart($request->attributes->get('token'), $request->request->get('channel')));
 
         return $viewHandler->handle(View::create(null, Response::HTTP_CREATED));
     }

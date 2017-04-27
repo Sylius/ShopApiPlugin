@@ -61,7 +61,7 @@ final class AddressOrderHandlerSpec extends ObjectBehavior
         $stateMachine->can('address')->willReturn(true);
         $stateMachine->apply('address')->shouldBeCalled();
 
-        $this->handle(AddressShipmentCommand::create(
+        $this->handle(new AddressShipmentCommand(
             'ORDERTOKEN',
             Address::createFromArray([
                 'firstName' => 'Sherlock',
