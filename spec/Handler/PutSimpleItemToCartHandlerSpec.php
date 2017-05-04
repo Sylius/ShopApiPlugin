@@ -2,6 +2,7 @@
 
 namespace spec\Sylius\ShopApiPlugin\Handler;
 
+use Doctrine\Common\Persistence\ObjectManager;
 use Sylius\Component\Core\Factory\CartItemFactoryInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
@@ -22,9 +23,10 @@ final class PutSimpleItemToCartHandlerSpec extends ObjectBehavior
         ProductRepositoryInterface $productRepository,
         CartItemFactoryInterface $cartItemFactory,
         OrderItemQuantityModifierInterface $orderItemModifier,
-        OrderProcessorInterface $orderProcessor
+        OrderProcessorInterface $orderProcessor,
+        ObjectManager $manager
     ) {
-        $this->beConstructedWith($cartRepository, $productRepository, $cartItemFactory, $orderItemModifier, $orderProcessor);
+        $this->beConstructedWith($cartRepository, $productRepository, $cartItemFactory, $orderItemModifier, $orderProcessor, $manager);
     }
 
     function it_is_initializable()
@@ -41,7 +43,8 @@ final class PutSimpleItemToCartHandlerSpec extends ObjectBehavior
         OrderRepositoryInterface $cartRepository,
         ProductInterface $product,
         ProductRepositoryInterface $productRepository,
-        ProductVariantInterface $productVariant
+        ProductVariantInterface $productVariant,
+        ObjectManager $manager
     ) {
         $productRepository->findOneBy(['code' => 'T_SHIRT_CODE'])->willReturn($product);
         $product->getVariants()->willReturn([$productVariant]);
@@ -54,6 +57,8 @@ final class PutSimpleItemToCartHandlerSpec extends ObjectBehavior
         $orderItemModifier->modify($cartItem, 5)->shouldBeCalled();
 
         $orderProcessor->process($cart)->shouldBeCalled();
+
+        $manager->persist($cart)->shouldBeCalled();
 
         $this->handle(new PutSimpleItemToCart('ORDERTOKEN', 'T_SHIRT_CODE', 5));
     }

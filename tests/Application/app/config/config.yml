@@ -1,5 +1,5 @@
 parameters:
-    locale: en_US
+    locale: en_GB
     secret: "Heron is the best animal in the world!"
 
 imports:

@@ -9,3 +9,15 @@ shop_api_summarize_checkout:
     methods: [GET]
     defaults:
         _controller: sylius.shop_api_plugin.controller.checkout.summarize_action
+
+shop_api_available_shipping_checkout:
+    path: /{token}/shipping
+    methods: [GET]
+    defaults:
+        _controller: sylius.shop_api_plugin.controller.checkout.show_available_shipping_methods_action
+
+shop_api_choose_shipping_method:
+    path: /{token}/shipping/{shippingId}
+    methods: [PUT]
+    defaults:
+        _controller: sylius.shop_api_plugin.controller.checkout.choose_shipping_method_action

@@ -2,6 +2,7 @@
 
 namespace Sylius\ShopApiPlugin\Handler;
 
+use Doctrine\Common\Persistence\ObjectManager;
 use Sylius\Component\Core\Factory\CartItemFactoryInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Core\Model\ProductInterface;
@@ -39,24 +40,32 @@ final class PutSimpleItemToCartHandler
     private $orderProcessor;
 
     /**
+     * @var ObjectManager
+     */
+    private $manager;
+
+    /**
      * @param OrderRepositoryInterface $cartRepository
      * @param ProductRepositoryInterface $productRepository
      * @param CartItemFactoryInterface $cartItemFactory
      * @param OrderItemQuantityModifierInterface $orderItemModifier
      * @param OrderProcessorInterface $orderProcessor
+     * @param ObjectManager $manager
      */
     public function __construct(
         OrderRepositoryInterface $cartRepository,
         ProductRepositoryInterface $productRepository,
         CartItemFactoryInterface $cartItemFactory,
         OrderItemQuantityModifierInterface $orderItemModifier,
-        OrderProcessorInterface $orderProcessor
+        OrderProcessorInterface $orderProcessor,
+        ObjectManager $manager
     ) {
         $this->cartRepository = $cartRepository;
         $this->productRepository = $productRepository;
         $this->cartItemFactory = $cartItemFactory;
         $this->orderItemModifier = $orderItemModifier;
         $this->orderProcessor = $orderProcessor;
+        $this->manager = $manager;
     }
 
     public function handle(PutSimpleItemToCart $putSimpleItemToCart)
@@ -76,5 +85,7 @@ final class PutSimpleItemToCartHandler
         $cart->addItem($cartItem);
 
         $this->orderProcessor->process($cart);
+
+        $this->manager->persist($cart);
     }
 }
