@@ -24,7 +24,7 @@ use Sylius\Component\Order\Processor\OrderProcessorInterface;
 use Sylius\Component\Order\Repository\OrderItemRepositoryInterface;
 use Sylius\Component\Registry\ServiceRegistryInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
-use Sylius\ShopApiPlugin\Builder\ImageViewBuilderInterface;
+use Sylius\ShopApiPlugin\Factory\ImageViewFactoryInterface;
 use Sylius\Component\Shipping\Exception\UnresolvedDefaultShippingMethodException;
 use Sylius\Component\Shipping\Resolver\ShippingMethodsResolverInterface;
 use Sylius\ShopApiPlugin\View\CartSummaryView;
@@ -89,8 +89,8 @@ final class CartController extends Controller
         $cartRepository = $this->get('sylius.repository.order');
         /** @var ViewHandlerInterface $viewHandler */
         $viewHandler = $this->get('fos_rest.view_handler');
-        /** @var ImageViewBuilderInterface $imageViewBuilder */
-        $imageViewBuilder = $this->get('sylius.shop_api_plugin.builder.image_view_builder');
+        /** @var ImageViewFactoryInterface $imageViewFactory */
+        $imageViewFactory = $this->get('sylius.shop_api_plugin.factory.image_view_factory');
 
         /** @var OrderInterface $cart */
         $cart = $cartRepository->findOneBy(['tokenValue' => $request->attributes->get('token')]);
@@ -151,14 +151,14 @@ final class CartController extends Controller
                 foreach ($product->getImages() as $image) {
                     foreach ($image->getProductVariants() as $productVariant) {
                         if ($variant === $productVariant){
-                            $itemView->variant->images[] = $imageViewBuilder->build($image);
+                            $itemView->variant->images[] = $imageViewFactory->create($image);
                         }
                     }
                 }
             }
 
             foreach ($product->getImages() as $image) {
-                $itemView->product->images[] = $imageViewBuilder->build($image);
+                $itemView->product->images[] = $imageViewFactory->create($image);
             }
 
             $cartView->items[] = $itemView;

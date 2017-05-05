@@ -16,7 +16,7 @@ use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Sylius\Component\Taxonomy\Repository\TaxonRepositoryInterface;
-use Sylius\ShopApiPlugin\Builder\ImageViewBuilderInterface;
+use Sylius\ShopApiPlugin\Factory\ImageViewFactoryInterface;
 use Sylius\ShopApiPlugin\View\ImageView;
 use Sylius\ShopApiPlugin\View\PageLinksView;
 use Sylius\ShopApiPlugin\View\PageView;
@@ -156,8 +156,8 @@ final class ProductController extends Controller
      */
     private function buildProductView(ProductInterface $product, $locale, ChannelInterface $channel)
     {
-        /** @var ImageViewBuilderInterface $imageViewBuilder */
-        $imageViewBuilder = $this->get('sylius.shop_api_plugin.builder.image_view_builder');
+        /** @var ImageViewFactoryInterface $imageViewFactory */
+        $imageViewFactory = $this->get('sylius.shop_api_plugin.factory.image_view_factory');
 
         $productView = new ProductView();
         $productView->name = $product->getTranslation($locale)->getName();
@@ -186,7 +186,7 @@ final class ProductController extends Controller
 
         /** @var ProductImageInterface $image */
         foreach ($product->getImages() as $image) {
-            $imageView = $imageViewBuilder->build($image);
+            $imageView = $imageViewFactory->create($image);
             $productView->images[] = $imageView;
 
             foreach ($image->getProductVariants() as $productVariant) {

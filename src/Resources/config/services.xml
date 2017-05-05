@@ -13,7 +13,7 @@
 
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="sylius.shop_api_plugin.builder.image_view_builder" class="Sylius\ShopApiPlugin\Builder\ImageViewBuilder">
+        <service id="sylius.shop_api_plugin.factory.image_view_factory" class="Sylius\ShopApiPlugin\Factory\ImageViewFactory">
             <argument type="service" id="liip_imagine.cache.manager" />
         </service>
 

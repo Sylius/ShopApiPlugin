@@ -1,16 +1,16 @@
 <?php
 
-namespace spec\Sylius\ShopApiPlugin\Builder;
+namespace spec\Sylius\ShopApiPlugin\Factory;
 
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Sylius\Component\Core\Model\ImageInterface;
-use Sylius\ShopApiPlugin\Builder\ImageViewBuilder;
+use Sylius\ShopApiPlugin\Factory\ImageViewFactory;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use Sylius\ShopApiPlugin\Builder\ImageViewBuilderInterface;
+use Sylius\ShopApiPlugin\Factory\ImageViewFactoryInterface;
 use Sylius\ShopApiPlugin\View\ImageView;
 
-final class ImageViewBuilderSpec extends ObjectBehavior
+final class ImageViewFactorySpec extends ObjectBehavior
 {
     function let(CacheManager $imagineCacheManager)
     {
@@ -19,15 +19,15 @@ final class ImageViewBuilderSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType(ImageViewBuilder::class);
+        $this->shouldHaveType(ImageViewFactory::class);
     }
 
-    function it_is_image_view_builder()
+    function it_is_image_view_factory()
     {
-        $this->shouldHaveType(ImageViewBuilderInterface::class);
+        $this->shouldHaveType(ImageViewFactoryInterface::class);
     }
 
-    function it_builds_image_view(CacheManager $imagineCacheManager, ImageInterface $image)
+    function it_creates_image_view(CacheManager $imagineCacheManager, ImageInterface $image)
     {
         $image->getType()->willReturn('thumbnail');
         $image->getPath()->willReturn('/ou/some.jpg');
@@ -38,6 +38,6 @@ final class ImageViewBuilderSpec extends ObjectBehavior
         $imageView->code = 'thumbnail';
         $imageView->url = 'http://localhost/media/cache/ou/some.jpg';
 
-        $this->build($image)->shouldBeLike($imageView);
+        $this->create($image)->shouldBeLike($imageView);
     }
 }

@@ -7,7 +7,7 @@ use FOS\RestBundle\View\ViewHandlerInterface;
 use Sylius\Component\Core\Model\ImageInterface;
 use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Taxonomy\Repository\TaxonRepositoryInterface;
-use Sylius\ShopApiPlugin\Builder\ImageViewBuilderInterface;
+use Sylius\ShopApiPlugin\Factory\ImageViewFactoryInterface;
 use Sylius\ShopApiPlugin\View\TaxonView;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -72,8 +72,8 @@ final class TaxonController extends Controller
      */
     private function buildTaxonView(TaxonInterface $taxon, $locale)
     {
-        /** @var ImageViewBuilderInterface $imageViewBuilder */
-        $imageViewBuilder = $this->get('sylius.shop_api_plugin.builder.image_view_builder');
+        /** @var ImageViewFactoryInterface $imageViewFactory */
+        $imageViewFactory = $this->get('sylius.shop_api_plugin.factory.image_view_factory');
 
         $taxonView = new TaxonView();
         $taxonView->name = $taxon->getTranslation($locale)->getName();
@@ -84,7 +84,7 @@ final class TaxonController extends Controller
 
         /** @var ImageInterface $image */
         foreach ($taxon->getImages() as $image) {
-            $taxonView->images[] = $imageViewBuilder->build($image);
+            $taxonView->images[] = $imageViewFactory->create($image);
         }
 
         foreach ($taxon->getChildren() as $childTaxon) {
