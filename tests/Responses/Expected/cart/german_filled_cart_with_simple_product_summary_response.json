@@ -8,17 +8,38 @@
         {
             "id": 1,
             "quantity": 5,
-            "unitPrice": 2099,
             "total": 10495,
             "product": {
                 "code": "LOGAN_MUG_CODE",
                 "name": "Logan Becher",
+                "slug": "logan-becher",
+                "taxons": [],
+                "variants": [
+                    {
+                        "code": "LOGAN_MUG_CODE",
+                        "name": "Logan Becher",
+                        "axis": [],
+                        "name_axis": {},
+                        "price": {
+                            "current": 2099
+                        },
+                        "images": [],
+                        "applied_promotions": []
+                    }
+                ],
+                "attributes": [],
+                "associations": [],
                 "images": [
                     {
                         "code": "thumbnail",
                         "url": "http:\/\/localhost\/media\/cache\/resolve\/sylius_small\/uo\/mug.jpg"
                     }
-                ]
+                ],
+                "_links": {
+                    "self": {
+                        "href": "\/shop-api\/products\/logan-becher"
+                    }
+                }
             }
         }
     ],

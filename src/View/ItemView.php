@@ -17,20 +17,10 @@ class ItemView
     /**
      * @var int
      */
-    public $unitPrice;
-
-    /**
-     * @var int
-     */
     public $total;
 
     /**
-     * @var CartItemProductView
+     * @var ProductView
      */
     public $product;
-
-    /**
-     * @var CartItemProductVariantView
-     */
-    public $variant;
 }

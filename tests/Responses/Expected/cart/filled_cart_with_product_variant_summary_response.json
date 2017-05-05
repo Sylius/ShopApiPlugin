@@ -8,11 +8,27 @@
         {
             "id": 1,
             "quantity": 3,
-            "unitPrice": 1999,
             "total": 5997,
             "product": {
                 "code": "LOGAN_T_SHIRT_CODE",
                 "name": "Logan T-Shirt",
+                "slug": "logan-t-shirt",
+                "taxons": [],
+                "variants": [
+                    {
+                        "code": "SMALL_LOGAN_T_SHIRT_CODE",
+                        "name": "Small Logan T-Shirt",
+                        "axis": [],
+                        "name_axis": {},
+                        "price": {
+                            "current": 1999
+                        },
+                        "images": [],
+                        "applied_promotions": []
+                    }
+                ],
+                "attributes": [],
+                "associations": [],
                 "images": [
                     {
                         "code": "thumbnail",
@@ -26,48 +42,48 @@
                         "code": "thumbnail",
                         "url": "http:\/\/localhost\/media\/cache\/resolve\/sylius_small\/uo\/large-tshirt.jpg"
                     }
-                ]
-            },
-            "variant": {
-                "code": "SMALL_LOGAN_T_SHIRT_CODE",
-                "name": "Small Logan T-Shirt",
-                "images": [
-                    {
-                        "code": "thumbnail",
-                        "url": "http:\/\/localhost\/media\/cache\/resolve\/sylius_small\/uo\/samll-tshirt.jpg"
-                    }
                 ],
-                "options": []
+                "_links": {
+                    "self": {
+                        "href": "\/shop-api\/products\/logan-t-shirt"
+                    }
+                }
             }
         },
         {
             "id": 2,
             "quantity": 3,
-            "unitPrice": 500,
             "total": 1500,
             "product": {
                 "code": "LOGAN_HAT_CODE",
                 "name": "Logan Hat",
-                "images": []
-            },
-            "variant": {
-                "code": "SMALL_RED_LOGAN_HAT_CODE",
-                "name": "Small Red Logan Hat",
+                "slug": "logan-hat",
+                "taxons": [],
+                "variants": [
+                    {
+                        "code": "SMALL_RED_LOGAN_HAT_CODE",
+                        "name": "Small Red Logan Hat",
+                        "axis": [
+                            "HAT_SIZE_S",
+                            "HAT_COLOR_RED"
+                        ],
+                        "name_axis": {
+                            "HAT_SIZE_S": "Size S",
+                            "HAT_COLOR_RED": "Color Red"
+                        },
+                        "price": {
+                            "current": 500
+                        },
+                        "images": [],
+                        "applied_promotions": []
+                    }
+                ],
+                "attributes": [],
+                "associations": [],
                 "images": [],
-                "options": {
-                    "HAT_SIZE": {
-                        "name": "Size",
-                        "value": {
-                            "code": "HAT_SIZE_S",
-                            "value": "S"
-                        }
-                    },
-                    "HAT_COLOR": {
-                        "name": "Color",
-                        "value": {
-                            "code": "HAT_COLOR_RED",
-                            "value": "Red"
-                        }
+                "_links": {
+                    "self": {
+                        "href": "\/shop-api\/products\/logan-hat"
                     }
                 }
             }

@@ -10,10 +10,18 @@ interface ProductViewFactoryInterface
 {
     /**
      * @param ProductInterface $product
+     * @param string $locale
+     *
+     * @return ProductView
+     */
+    public function create(ProductInterface $product, $locale);
+
+    /**
+     * @param ProductInterface $product
      * @param ChannelInterface $channel
      * @param string $locale
      *
      * @return ProductView
      */
-    public function create(ProductInterface $product, ChannelInterface $channel, $locale);
+    public function createWithVariants(ProductInterface $product, ChannelInterface $channel, $locale);
 }

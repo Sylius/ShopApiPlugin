@@ -34,12 +34,28 @@ final class ProductViewFactory implements ProductViewFactoryInterface
     /**
      * {@inheritdoc}
      */
-    public function create(ProductInterface $product, ChannelInterface $channel, $locale)
+    public function create(ProductInterface $product, $locale)
     {
         $productView = new ProductView();
         $productView->name = $product->getTranslation($locale)->getName();
         $productView->code = $product->getCode();
         $productView->slug = $product->getTranslation($locale)->getSlug();
+
+        /** @var ProductImageInterface $image */
+        foreach ($product->getImages() as $image) {
+            $imageView = $this->imageViewFactory->create($image);
+            $productView->images[] = $imageView;
+        }
+
+        return $productView;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function createWithVariants(ProductInterface $product, ChannelInterface $channel, $locale)
+    {
+        $productView = $this->create($product, $locale);
 
         /** @var ProductVariantInterface $variant */
         foreach ($product->getVariants() as $variant) {
@@ -49,7 +65,6 @@ final class ProductViewFactory implements ProductViewFactoryInterface
         /** @var ProductImageInterface $image */
         foreach ($product->getImages() as $image) {
             $imageView = $this->imageViewFactory->create($image);
-            $productView->images[] = $imageView;
 
             foreach ($image->getProductVariants() as $productVariant) {
                 /** @var ProductVariantView $variantView */

@@ -8,31 +8,37 @@
         {
             "id": 1,
             "quantity": 3,
-            "unitPrice": 590,
             "total": 1770,
             "product": {
                 "code": "LOGAN_HAT_CODE",
                 "name": "Logan Hut",
-                "images": []
-            },
-            "variant": {
-                "code": "SMALL_RED_LOGAN_HAT_CODE",
-                "name": "Klein Rot Logan Hut",
+                "slug": "logan-hut",
+                "taxons": [],
+                "variants": [
+                    {
+                        "code": "SMALL_RED_LOGAN_HAT_CODE",
+                        "name": "Klein Rot Logan Hut",
+                        "axis": [
+                            "HAT_SIZE_S",
+                            "HAT_COLOR_RED"
+                        ],
+                        "name_axis": {
+                            "HAT_SIZE_S": "Gr\u00f6\u00dfe S",
+                            "HAT_COLOR_RED": "Farbe Rot"
+                        },
+                        "price": {
+                            "current": 590
+                        },
+                        "images": [],
+                        "applied_promotions": []
+                    }
+                ],
+                "attributes": [],
+                "associations": [],
                 "images": [],
-                "options": {
-                    "HAT_SIZE": {
-                        "name": "Gr\u00f6\u00dfe",
-                        "value": {
-                            "code": "HAT_SIZE_S",
-                            "value": "S"
-                        }
-                    },
-                    "HAT_COLOR": {
-                        "name": "Farbe",
-                        "value": {
-                            "code": "HAT_COLOR_RED",
-                            "value": "Rot"
-                        }
+                "_links": {
+                    "self": {
+                        "href": "\/shop-api\/products\/logan-hut"
                     }
                 }
             }
