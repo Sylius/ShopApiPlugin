@@ -25,7 +25,7 @@ class ProductVariantView
     public $nameAxis = [];
 
     /**
-     * @var integer
+     * @var PriceView
      */
     public $price;
 

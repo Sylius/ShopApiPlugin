@@ -9,7 +9,9 @@
             "name": "Small Logan T-Shirt",
             "axis": [],
             "name_axis": [],
-            "price": 1999,
+            "price": {
+                "current": 1999
+            },
             "images": [
                 {
                     "code": "thumbnail",
@@ -23,7 +25,9 @@
             "name": "Large Logan T-Shirt",
             "axis": [],
             "name_axis": [],
-            "price": 2999,
+            "price": {
+                "current": 2999
+            },
             "images": [
                 {
                     "code": "thumbnail",

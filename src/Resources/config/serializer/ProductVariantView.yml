@@ -17,7 +17,7 @@ Sylius\ShopApiPlugin\View\ProductVariantView:
             serialized_name: name_axis
         price:
             expose: true
-            type: integer
+            type: Sylius\ShopApiPlugin\View\PriceView
         images:
             expose: true
             type: array

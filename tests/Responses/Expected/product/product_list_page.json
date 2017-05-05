@@ -21,7 +21,9 @@
                     "name": "Logan Mug",
                     "axis": [],
                     "name_axis": [],
-                    "price": 1999,
+                    "price": {
+                        "current": 1999
+                    },
                     "images": [
                         {
                             "code": "thumbnail",
@@ -56,7 +58,9 @@
                     "name": "Small Logan T-Shirt",
                     "axis": [],
                     "name_axis": [],
-                    "price": 1999,
+                    "price": {
+                        "current": 1999
+                    },
                     "images": [
                         {
                             "code": "thumbnail",
@@ -70,7 +74,9 @@
                     "name": "Large Logan T-Shirt",
                     "axis": [],
                     "name_axis": [],
-                    "price": 2999,
+                    "price": {
+                        "current": 2999
+                    },
                     "images": [
                         {
                             "code": "thumbnail",
@@ -119,7 +125,9 @@
                         "HAT_SIZE_S": "Size S",
                         "HAT_COLOR_RED": "Color Red"
                     },
-                    "price": 500,
+                    "price": {
+                        "current": 500
+                    },
                     "images": [],
                     "applied_promotions": []
                 },
@@ -134,7 +142,9 @@
                         "HAT_SIZE_L": "Size L",
                         "HAT_COLOR_RED": "Color Red"
                     },
-                    "price": 999,
+                    "price": {
+                        "current": 999
+                    },
                     "images": [],
                     "applied_promotions": []
                 },
@@ -149,7 +159,9 @@
                         "HAT_SIZE_S": "Size S",
                         "HAT_COLOR_BLUE": "Color Blue"
                     },
-                    "price": 1500,
+                    "price": {
+                        "current": 1500
+                    },
                     "images": [],
                     "applied_promotions": []
                 },
@@ -164,7 +176,9 @@
                         "HAT_SIZE_L": "Size L",
                         "HAT_COLOR_BLUE": "Color Blue"
                     },
-                    "price": 2599,
+                    "price": {
+                        "current": 2599
+                    },
                     "images": [],
                     "applied_promotions": []
                 }
