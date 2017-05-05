@@ -13,7 +13,7 @@
             "images": [
                 {
                     "code": "thumbnail",
-                    "url": "http:\/\/localhost\/en_US\/media\/cache\/resolve\/sylius_small\/uo\/mug.jpg"
+                    "url": "http:\/\/localhost\/media\/cache\/resolve\/sylius_small\/uo\/mug.jpg"
                 }
             ],
             "applied_promotions": []
@@ -24,7 +24,7 @@
     "images": [
         {
             "code": "thumbnail",
-            "url": "http:\/\/localhost\/en_US\/media\/cache\/resolve\/sylius_small\/uo\/mug.jpg"
+            "url": "http:\/\/localhost\/media\/cache\/resolve\/sylius_small\/uo\/mug.jpg"
         }
     ],
     "_links": {
