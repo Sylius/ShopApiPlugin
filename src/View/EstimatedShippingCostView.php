@@ -2,7 +2,7 @@
 
 namespace Sylius\ShopApiPlugin\View;
 
-final class EstimatedShippingCostView
+class EstimatedShippingCostView
 {
     public $cost;
 }
