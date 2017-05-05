@@ -2,13 +2,16 @@
     "code": "LOGAN_MUG_CODE",
     "name": "Logan Becher",
     "slug": "logan-becher",
-    "taxons": [],
+    "taxons": [
+        "CATEGORY",
+        "MUG"
+    ],
     "variants": {
         "LOGAN_MUG_CODE": {
             "code": "LOGAN_MUG_CODE",
             "name": "Logan Becher",
             "axis": [],
-            "name_axis": [],
+            "name_axis": {},
             "price": {
                 "current": 1999
             },
