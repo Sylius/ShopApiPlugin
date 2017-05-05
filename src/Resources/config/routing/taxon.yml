@@ -2,10 +2,10 @@ shop_api_taxon_show_details:
     path: /taxons/{slug}
     methods: [GET]
     defaults:
-        _controller: ShopApiPlugin:Taxon:showDetails
+        _controller: sylius.shop_api_plugin.controller.taxon_controller:showDetailsAction
 
 shop_api_taxon_show_tree:
     path: /taxons/
     methods: [GET]
     defaults:
-        _controller: ShopApiPlugin:Taxon:showTree
+        _controller: sylius.shop_api_plugin.controller.taxon_controller:showTreeAction

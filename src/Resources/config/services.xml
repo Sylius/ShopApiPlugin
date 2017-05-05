@@ -12,9 +12,15 @@
 -->
 
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <imports>
+        <import resource="services/controller.xml"/>
+    </imports>
     <services>
         <service id="sylius.shop_api_plugin.factory.image_view_factory" class="Sylius\ShopApiPlugin\Factory\ImageViewFactory">
             <argument type="service" id="liip_imagine.cache.manager" />
+        </service>
+        <service id="sylius.shop_api_plugin.factory.taxon_view_factory" class="Sylius\ShopApiPlugin\Factory\TaxonViewFactory">
+            <argument type="service" id="sylius.shop_api_plugin.factory.image_view_factory" />
         </service>
 
         <!-- TODO: Should be removed when problem with autostarting session will be resolved -->
