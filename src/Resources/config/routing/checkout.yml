@@ -2,10 +2,10 @@ shop_api_address_checkout:
     path: /{token}/address
     methods: [PUT]
     defaults:
-        _controller: ShopApiPlugin:Checkout:address
+        _controller: sylius.shop_api_plugin.controller.checkout.address_action
 
 shop_api_summarize_checkout:
     path: /{token}
     methods: [GET]
     defaults:
-        _controller: ShopApiPlugin:Checkout:summarize
+        _controller: sylius.shop_api_plugin.controller.checkout.summarize_action
