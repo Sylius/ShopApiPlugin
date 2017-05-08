@@ -1,0 +1,33 @@
+Sylius\Component\Core\Model\PaymentMethod:
+    cash_on_delivery:
+        code: "COD"
+        enabled: true
+        gatewayConfig: '@offline'
+        currentLocale: "en_GB"
+        currentTranslation: "@cash_on_delivery_translation"
+        channels: ["@gb_web_channel"]
+    pay_by_check:
+        code: "PBC"
+        enabled: true
+        gatewayConfig: '@offline'
+        currentLocale: "en_GB"
+        currentTranslation: "@pay_by_check_translation"
+        channels: ["@gb_web_channel"]
+
+Sylius\Bundle\PayumBundle\Model\GatewayConfig:
+    offline:
+        gatewayName: 'Offline'
+        factoryName: 'offline'
+        config: []
+
+Sylius\Component\Payment\Model\PaymentMethodTranslation:
+    cash_on_delivery_translation:
+        name: 'Cash on delivery'
+        locale: 'en_GB'
+        description: <paragraph(2)>
+        translatable: "@cash_on_delivery"
+    pay_by_check_translation:
+        name: 'Pay by check'
+        locale: 'en_GB'
+        description: <paragraph(2)>
+        translatable: "@pay_by_check"
