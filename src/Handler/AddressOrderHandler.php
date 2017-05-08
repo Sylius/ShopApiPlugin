@@ -52,6 +52,7 @@ final class AddressOrderHandler
         }
 
         $stateMachine = $this->stateMachineFactory->get($order, OrderCheckoutTransitions::GRAPH);
+
         if (!$stateMachine->can(OrderCheckoutTransitions::TRANSITION_ADDRESS)) {
             throw new \LogicException(sprintf('Order with %s token cannot be addressed.', $addressOrder->orderToken()));
         }
