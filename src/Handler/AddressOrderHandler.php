@@ -47,6 +47,15 @@ final class AddressOrderHandler
         /** @var OrderInterface $order */
         $order = $this->orderRepository->findOneBy(['tokenValue' => $addressOrder->orderToken()]);
 
+        if (null === $order) {
+            throw new \LogicException(sprintf('Order with %s token has not been found.', $addressOrder->orderToken()));
+        }
+
+        $stateMachine = $this->stateMachineFactory->get($order, OrderCheckoutTransitions::GRAPH);
+        if (!$stateMachine->can(OrderCheckoutTransitions::TRANSITION_ADDRESS)) {
+            throw new \LogicException(sprintf('Order with %s token cannot be addressed.', $addressOrder->orderToken()));
+        }
+
         /** @var AddressInterface $shippingAddress */
         $shippingAddress = $this->addressFactory->createNew();
 
@@ -58,7 +67,7 @@ final class AddressOrderHandler
         $shippingAddress->setPostcode($addressOrder->shippingAddress()->postcode());
         $shippingAddress->setProvinceName($addressOrder->shippingAddress()->provinceName());
 
-        /** @var AddressInterface $shippingAddress */
+        /** @var AddressInterface $billingAddress */
         $billingAddress = $this->addressFactory->createNew();
 
         $billingAddress->setFirstName($addressOrder->billingAddress()->firstName());
@@ -72,7 +81,6 @@ final class AddressOrderHandler
         $order->setShippingAddress($shippingAddress);
         $order->setBillingAddress($billingAddress);
 
-        $stateMachine = $this->stateMachineFactory->get($order, OrderCheckoutTransitions::GRAPH);
         $stateMachine->apply(OrderCheckoutTransitions::TRANSITION_ADDRESS);
     }
 }

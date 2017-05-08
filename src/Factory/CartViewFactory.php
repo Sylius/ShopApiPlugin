@@ -18,16 +18,16 @@ final class CartViewFactory implements CartViewFactoryInterface
     /**
      * @var ProductVariantViewFactoryInterface
      */
-    private $productViewViewFactory;
+    private $productVariantViewFactory;
 
     /**
      * @param ProductViewFactoryInterface $productViewFactory
-     * @param ProductVariantViewFactoryInterface $productViewViewFactory
+     * @param ProductVariantViewFactoryInterface $productVariantViewFactory
      */
-    public function __construct(ProductViewFactoryInterface $productViewFactory, ProductVariantViewFactoryInterface $productViewViewFactory)
+    public function __construct(ProductViewFactoryInterface $productViewFactory, ProductVariantViewFactoryInterface $productVariantViewFactory)
     {
         $this->productViewFactory = $productViewFactory;
-        $this->productViewViewFactory = $productViewViewFactory;
+        $this->productVariantViewFactory = $productVariantViewFactory;
     }
 
     /**
@@ -52,13 +52,12 @@ final class CartViewFactory implements CartViewFactoryInterface
         /** @var OrderItemInterface $item */
         foreach ($cart->getItems() as $item) {
             $itemView = new ItemView();
-            $product = $item->getProduct();
 
             $itemView->id = $item->getId();
             $itemView->quantity = $item->getQuantity();
             $itemView->total = $item->getTotal();
-            $itemView->product = $this->productViewFactory->create($product, $localeCode);
-            $itemView->product->variants = [$this->productViewViewFactory->create($item->getVariant(), $cart->getChannel(), $localeCode)];
+            $itemView->product = $this->productViewFactory->create($item->getProduct(), $localeCode);
+            $itemView->product->variants = [$this->productVariantViewFactory->create($item->getVariant(), $cart->getChannel(), $localeCode)];
 
             $cartView->items[] = $itemView;
         }

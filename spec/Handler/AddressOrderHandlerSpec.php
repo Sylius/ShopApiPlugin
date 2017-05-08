@@ -58,6 +58,7 @@ final class AddressOrderHandlerSpec extends ObjectBehavior
         $order->setBillingAddress($billingAddress)->shouldBeCalled();
 
         $stateMachineFactory->get($order, OrderCheckoutTransitions::GRAPH)->willReturn($stateMachine);
+        $stateMachine->can('address')->willReturn(true);
         $stateMachine->apply('address')->shouldBeCalled();
 
         $this->handle(AddressShipmentCommand::create(
@@ -81,5 +82,71 @@ final class AddressOrderHandlerSpec extends ObjectBehavior
                 'provinceName' => 'Greater London',
             ])
         ));
+    }
+
+    function it_throws_an_exception_if_order_does_not_exist(
+        OrderRepositoryInterface $orderRepository
+    ) {
+        $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn(null);
+
+        $this->shouldThrow(\LogicException::class)->during('handle', [
+            AddressShipmentCommand::create(
+                'ORDERTOKEN',
+                Address::createFromArray([
+                    'firstName' => 'Sherlock',
+                    'lastName' => 'Holmes',
+                    'city' => 'London',
+                    'street' => 'Baker Street 221b',
+                    'countryCode' => 'GB',
+                    'postcode' => 'NWB',
+                    'provinceName' => 'Greater London',
+                ]),
+                Address::createFromArray([
+                    'firstName' => 'John',
+                    'lastName' => 'Watson',
+                    'city' => 'London City',
+                    'street' => 'Baker Street 21b',
+                    'countryCode' => 'GB',
+                    'postcode' => 'NWB',
+                    'provinceName' => 'Greater London',
+                ])
+            )
+        ]);
+    }
+
+    function it_throws_an_exception_if_order_cannot_be_addressed(
+        FactoryInterface $stateMachineFactory,
+        OrderInterface $order,
+        OrderRepositoryInterface $orderRepository,
+        StateMachineInterface $stateMachine
+    ) {
+        $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
+
+        $stateMachineFactory->get($order, OrderCheckoutTransitions::GRAPH)->willReturn($stateMachine);
+        $stateMachine->can('address')->willReturn(false);
+
+        $this->shouldThrow(\LogicException::class)->during('handle', [
+            AddressShipmentCommand::create(
+                'ORDERTOKEN',
+                Address::createFromArray([
+                    'firstName' => 'Sherlock',
+                    'lastName' => 'Holmes',
+                    'city' => 'London',
+                    'street' => 'Baker Street 221b',
+                    'countryCode' => 'GB',
+                    'postcode' => 'NWB',
+                    'provinceName' => 'Greater London',
+                ]),
+                Address::createFromArray([
+                    'firstName' => 'John',
+                    'lastName' => 'Watson',
+                    'city' => 'London City',
+                    'street' => 'Baker Street 21b',
+                    'countryCode' => 'GB',
+                    'postcode' => 'NWB',
+                    'provinceName' => 'Greater London',
+                ])
+            )
+        ]);
     }
 }
