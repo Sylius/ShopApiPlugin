@@ -14,7 +14,10 @@
             "code": "LOGAN_T_SHIRT_CODE",
             "name": "Logan T-Shirt",
             "slug": "logan-t-shirt",
-            "taxons": [],
+            "taxons": [
+                "CATEGORY",
+                "T_SHIRTS"
+            ],
             "variants": {
                 "SMALL_LOGAN_T_SHIRT_CODE": {
                     "code": "SMALL_LOGAN_T_SHIRT_CODE",

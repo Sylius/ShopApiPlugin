@@ -14,13 +14,16 @@
             "code": "LOGAN_MUG_CODE",
             "name": "Logan Mug",
             "slug": "logan-mug",
-            "taxons": [],
+            "taxons": [
+                "CATEGORY",
+                "MUG"
+            ],
             "variants": {
                 "LOGAN_MUG_CODE": {
                     "code": "LOGAN_MUG_CODE",
                     "name": "Logan Mug",
                     "axis": [],
-                    "name_axis": [],
+                    "name_axis": {},
                     "price": {
                         "current": 1999
                     },
@@ -51,13 +54,16 @@
             "code": "LOGAN_T_SHIRT_CODE",
             "name": "Logan T-Shirt",
             "slug": "logan-t-shirt",
-            "taxons": [],
+            "taxons": [
+                "CATEGORY",
+                "T_SHIRTS"
+            ],
             "variants": {
                 "SMALL_LOGAN_T_SHIRT_CODE": {
                     "code": "SMALL_LOGAN_T_SHIRT_CODE",
                     "name": "Small Logan T-Shirt",
                     "axis": [],
-                    "name_axis": [],
+                    "name_axis": {},
                     "price": {
                         "current": 1999
                     },
@@ -73,7 +79,7 @@
                     "code": "LARGE_LOGAN_T_SHIRT_CODE",
                     "name": "Large Logan T-Shirt",
                     "axis": [],
-                    "name_axis": [],
+                    "name_axis": {},
                     "price": {
                         "current": 2999
                     },
@@ -112,7 +118,10 @@
             "code": "LOGAN_HAT_CODE",
             "name": "Logan Hat",
             "slug": "logan-hat",
-            "taxons": [],
+            "taxons": [
+                "CATEGORY",
+                "HAT"
+            ],
             "variants": {
                 "SMALL_RED_LOGAN_HAT_CODE": {
                     "code": "SMALL_RED_LOGAN_HAT_CODE",

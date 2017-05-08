@@ -6,6 +6,7 @@ use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\ProductImageInterface;
 use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
+use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\ShopApiPlugin\View\ProductVariantView;
 use Sylius\ShopApiPlugin\View\ProductView;
 
@@ -45,6 +46,11 @@ final class ProductViewFactory implements ProductViewFactoryInterface
         foreach ($product->getImages() as $image) {
             $imageView = $this->imageViewFactory->create($image);
             $productView->images[] = $imageView;
+        }
+
+        /** @var TaxonInterface $taxon */
+        foreach ($product->getTaxons() as $taxon) {
+            $productView->taxons[] = $taxon->getCode();
         }
 
         return $productView;

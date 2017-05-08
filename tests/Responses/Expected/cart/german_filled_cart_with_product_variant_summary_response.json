@@ -13,7 +13,10 @@
                 "code": "LOGAN_HAT_CODE",
                 "name": "Logan Hut",
                 "slug": "logan-hut",
-                "taxons": [],
+                "taxons": [
+                    "CATEGORY",
+                    "HAT"
+                ],
                 "variants": [
                     {
                         "code": "SMALL_RED_LOGAN_HAT_CODE",

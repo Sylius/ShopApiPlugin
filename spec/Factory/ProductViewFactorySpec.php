@@ -7,6 +7,7 @@ use Sylius\Component\Core\Model\ProductImageInterface;
 use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Model\ProductTranslationInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
+use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\ShopApiPlugin\Factory\ImageViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\ProductVariantViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\ProductViewFactory;
@@ -38,12 +39,16 @@ final class ProductViewFactorySpec extends ObjectBehavior
         ProductImageInterface $firstProductImage,
         ProductImageInterface $secondProductImage,
         ProductInterface $product,
+        TaxonInterface $taxon,
         ProductTranslationInterface $productTranslation
     ) {
         $product->getTranslation('en_GB')->willReturn($productTranslation);
         $product->getCode()->willReturn('HAT_CODE');
         $product->getTranslation('en_GB')->willReturn($productTranslation);
         $product->getImages()->willReturn([$firstProductImage, $secondProductImage]);
+        $product->getTaxons()->willReturn([$taxon]);
+
+        $taxon->getCode()->willReturn('CATEGORY_CODE');
 
         $firstProductImage->getProductVariants()->willReturn([]);
         $secondProductImage->getProductVariants()->willReturn([]);
@@ -58,6 +63,7 @@ final class ProductViewFactorySpec extends ObjectBehavior
         $productView->name = 'Hat';
         $productView->code = 'HAT_CODE';
         $productView->slug = 'hat';
+        $productView->taxons = ['CATEGORY_CODE'];
         $productView->images = [new ImageView(), new ImageView()];
 
         $this->create($product, 'en_GB')->shouldBeLike($productView);
@@ -79,6 +85,7 @@ final class ProductViewFactorySpec extends ObjectBehavior
         $product->getTranslation('en_GB')->willReturn($productTranslation);
         $product->getVariants()->willReturn([$firstProductVariant, $secondProductVariant]);
         $product->getImages()->willReturn([$firstProductImage, $secondProductImage]);
+        $product->getTaxons()->willReturn([]);
 
         $firstProductImage->getProductVariants()->willReturn([]);
         $secondProductImage->getProductVariants()->willReturn([]);

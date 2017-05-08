@@ -13,7 +13,10 @@
                 "code": "LOGAN_MUG_CODE",
                 "name": "Logan Becher",
                 "slug": "logan-becher",
-                "taxons": [],
+                "taxons": [
+                    "CATEGORY",
+                    "MUG"
+                ],
                 "variants": [
                     {
                         "code": "LOGAN_MUG_CODE",
