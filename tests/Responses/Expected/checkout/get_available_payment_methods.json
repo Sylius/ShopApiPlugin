@@ -1,0 +1,18 @@
+{
+    "payments": [
+        {
+            "methods": {
+                "COD": {
+                    "code": "COD",
+                    "name": "Cash on delivery",
+                    "description": "@string@"
+                },
+                "PBC": {
+                    "code": "PBC",
+                    "name": "Pay by check",
+                    "description": "@string@"
+                }
+            }
+        }
+    ]
+}

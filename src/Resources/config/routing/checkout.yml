@@ -21,3 +21,9 @@ shop_api_choose_shipping_method:
     methods: [PUT]
     defaults:
         _controller: sylius.shop_api_plugin.controller.checkout.choose_shipping_method_action
+
+shop_api_available_payment_methods_checkout:
+    path: /{token}/payment
+    methods: [GET]
+    defaults:
+        _controller: sylius.shop_api_plugin.controller.checkout.show_available_payment_methods_action
