@@ -58,8 +58,6 @@ final class CheckoutController extends Controller
         $viewHandler = $this->get('fos_rest.view_handler');
         /** @var CartViewFactoryInterface $cartViewFactory */
         $cartViewFactory = $this->get('sylius.shop_api_plugin.factory.cart_view_factory');
-        /** @var AddressViewFactoryInterface $addressViewFactory */
-        $addressViewFactory = $this->get('sylius.shop_api_plugin.factory.address_view_factory');
 
         /** @var OrderInterface $cart */
         $cart = $cartRepository->findOneBy(['tokenValue' => $request->attributes->get('token')]);
@@ -68,10 +66,6 @@ final class CheckoutController extends Controller
             throw new NotFoundHttpException('Cart with given id does not exists');
         }
 
-        $cartView = $cartViewFactory->create($cart, $cart->getLocaleCode());
-        $cartView->shippingAddress = $addressViewFactory->create($cart->getShippingAddress());
-        $cartView->billingAddress = $addressViewFactory->create($cart->getBillingAddress());
-
-        return $viewHandler->handle(View::create($cartView, Response::HTTP_OK));
+        return $viewHandler->handle(View::create($cartViewFactory->create($cart, $cart->getLocaleCode()), Response::HTTP_OK));
     }
 }

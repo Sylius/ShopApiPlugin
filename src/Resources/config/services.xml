@@ -33,6 +33,7 @@
         <service id="sylius.shop_api_plugin.factory.cart_view_factory" class="Sylius\ShopApiPlugin\Factory\CartViewFactory">
             <argument type="service" id="sylius.shop_api_plugin.factory.product_view_factory" />
             <argument type="service" id="sylius.shop_api_plugin.factory.product_variant_view_factory" />
+            <argument type="service" id="sylius.shop_api_plugin.factory.address_view_factory" />
         </service>
         <service id="sylius.shop_api_plugin.factory.address_view_factory" class="Sylius\ShopApiPlugin\Factory\AddressViewFactory" />
 
