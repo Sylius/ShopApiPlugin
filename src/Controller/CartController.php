@@ -12,7 +12,6 @@ use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
-use Sylius\Component\Core\Model\ProductImageInterface;
 use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Core\Model\ShipmentInterface;
@@ -28,14 +27,12 @@ use Sylius\ShopApiPlugin\Factory\ImageViewFactoryInterface;
 use Sylius\Component\Shipping\Exception\UnresolvedDefaultShippingMethodException;
 use Sylius\Component\Shipping\Resolver\ShippingMethodsResolverInterface;
 use Sylius\ShopApiPlugin\Factory\PriceViewFactoryInterface;
+use Sylius\ShopApiPlugin\Factory\ProductVariantViewFactoryInterface;
+use Sylius\ShopApiPlugin\Factory\ProductViewFactoryInterface;
 use Sylius\ShopApiPlugin\View\CartSummaryView;
 use Sylius\ShopApiPlugin\View\EstimatedShippingCostView;
 use Sylius\ShopApiPlugin\View\ItemView;
-use Sylius\ShopApiPlugin\View\CartItemProductVariantView;
-use Sylius\ShopApiPlugin\View\CartItemProductView;
 use Sylius\ShopApiPlugin\View\TotalsView;
-use Sylius\ShopApiPlugin\View\VariantOptionValueView;
-use Sylius\ShopApiPlugin\View\VariantOptionView;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -90,8 +87,10 @@ final class CartController extends Controller
         $cartRepository = $this->get('sylius.repository.order');
         /** @var ViewHandlerInterface $viewHandler */
         $viewHandler = $this->get('fos_rest.view_handler');
-        /** @var ImageViewFactoryInterface $imageViewFactory */
-        $imageViewFactory = $this->get('sylius.shop_api_plugin.factory.image_view_factory');
+        /** @var ProductViewFactoryInterface $productViewFactory */
+        $productViewFactory = $this->get('sylius.shop_api_plugin.factory.product_view_factory');
+        /** @var ProductVariantViewFactoryInterface $productViewViewFactory */
+        $productViewViewFactory = $this->get('sylius.shop_api_plugin.factory.product_variant_view_factory');
 
         /** @var OrderInterface $cart */
         $cart = $cartRepository->findOneBy(['tokenValue' => $request->attributes->get('token')]);
@@ -122,45 +121,8 @@ final class CartController extends Controller
             $itemView->id = $item->getId();
             $itemView->quantity = $item->getQuantity();
             $itemView->total = $item->getTotal();
-            $itemView->unitPrice = $item->getUnitPrice();
-            $itemView->product = new CartItemProductView();
-            $itemView->product->code = $product->getCode();
-            $itemView->product->name = $product->getTranslation($locale)->getName();
-
-            if ($product->isConfigurable()) {
-                $variant = $item->getVariant();
-
-                $itemView->variant = new CartItemProductVariantView();
-                $itemView->variant->name = $variant->getTranslation($locale)->getName();
-                $itemView->variant->code = $variant->getCode();
-
-                if ($product->hasOptions()) {
-                    foreach ($variant->getOptionValues() as $optionValue) {
-                        $option = $optionValue->getOption();
-
-                        $optionValueView = new VariantOptionView();
-                        $optionValueView->name = $option->getTranslation($locale)->getName();
-                        $optionValueView->value = new VariantOptionValueView();
-                        $optionValueView->value->value = $optionValue->getTranslation($locale)->getValue();
-                        $optionValueView->value->code = $optionValue->getCode();
-
-                        $itemView->variant->options[$option->getCode()] = $optionValueView;
-                    }
-                }
-
-                /** @var ProductImageInterface $image */
-                foreach ($product->getImages() as $image) {
-                    foreach ($image->getProductVariants() as $productVariant) {
-                        if ($variant === $productVariant){
-                            $itemView->variant->images[] = $imageViewFactory->create($image);
-                        }
-                    }
-                }
-            }
-
-            foreach ($product->getImages() as $image) {
-                $itemView->product->images[] = $imageViewFactory->create($image);
-            }
+            $itemView->product = $productViewFactory->create($product, $locale);
+            $itemView->product->variants = [$productViewViewFactory->create($item->getVariant(), $cart->getChannel(), $locale)];
 
             $cartView->items[] = $itemView;
         }

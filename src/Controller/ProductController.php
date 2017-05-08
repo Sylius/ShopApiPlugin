@@ -67,7 +67,7 @@ final class ProductController extends Controller
             throw new NotFoundHttpException(sprintf('Product with slug %s has not been found in %s locale.', $productSlug, $locale));
         }
 
-        return $viewHandler->handle(View::create($productViewFactory->create($product, $channel, $locale), Response::HTTP_OK));
+        return $viewHandler->handle(View::create($productViewFactory->createWithVariants($product, $channel, $locale), Response::HTTP_OK));
     }
 
     /**
@@ -147,7 +147,7 @@ final class ProductController extends Controller
         ]);
 
         foreach ($pagerfanta->getCurrentPageResults() as $currentPageResult) {
-            $page->items[] = $productViewFactory->create($currentPageResult, $channel, $locale);
+            $page->items[] = $productViewFactory->createWithVariants($currentPageResult, $channel, $locale);
         }
 
         return $viewHandler->handle(View::create($page, Response::HTTP_OK));

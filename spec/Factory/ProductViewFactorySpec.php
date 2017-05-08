@@ -34,6 +34,36 @@ final class ProductViewFactorySpec extends ObjectBehavior
     }
 
     function it_builds_product_view(
+        ImageViewFactoryInterface $imageViewFactory,
+        ProductImageInterface $firstProductImage,
+        ProductImageInterface $secondProductImage,
+        ProductInterface $product,
+        ProductTranslationInterface $productTranslation
+    ) {
+        $product->getTranslation('en_GB')->willReturn($productTranslation);
+        $product->getCode()->willReturn('HAT_CODE');
+        $product->getTranslation('en_GB')->willReturn($productTranslation);
+        $product->getImages()->willReturn([$firstProductImage, $secondProductImage]);
+
+        $firstProductImage->getProductVariants()->willReturn([]);
+        $secondProductImage->getProductVariants()->willReturn([]);
+
+        $imageViewFactory->create($firstProductImage)->willReturn(new ImageView());
+        $imageViewFactory->create($secondProductImage)->willReturn(new ImageView());
+
+        $productTranslation->getName()->willReturn('Hat');
+        $productTranslation->getSlug()->willReturn('hat');
+
+        $productView = new ProductView();
+        $productView->name = 'Hat';
+        $productView->code = 'HAT_CODE';
+        $productView->slug = 'hat';
+        $productView->images = [new ImageView(), new ImageView()];
+
+        $this->create($product, 'en_GB')->shouldBeLike($productView);
+    }
+
+    function it_builds_product_view_with_variants(
         ChannelInterface $channel,
         ImageViewFactoryInterface $imageViewFactory,
         ProductImageInterface $firstProductImage,
@@ -75,6 +105,6 @@ final class ProductViewFactorySpec extends ObjectBehavior
         ];
         $productView->images = [new ImageView(), new ImageView()];
 
-        $this->create($product, $channel, 'en_GB')->shouldBeLike($productView);
+        $this->createWithVariants($product, $channel, 'en_GB')->shouldBeLike($productView);
     }
 }
