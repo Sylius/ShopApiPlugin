@@ -9,7 +9,9 @@
             "name": "Logan Becher",
             "axis": [],
             "name_axis": [],
-            "price": 1999,
+            "price": {
+                "current": 1999
+            },
             "images": [
                 {
                     "code": "thumbnail",

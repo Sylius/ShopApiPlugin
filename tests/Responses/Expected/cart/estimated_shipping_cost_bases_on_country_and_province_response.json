@@ -1,3 +1,5 @@
 {
-    "cost": 500
+    "price": {
+        "current": 500
+    }
 }

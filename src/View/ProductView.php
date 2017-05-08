@@ -20,11 +20,6 @@ class ProductView
     public $slug;
 
     /**
-     * @var integer
-     */
-    public $price;
-
-    /**
      * @var array
      */
     public $taxons = [];

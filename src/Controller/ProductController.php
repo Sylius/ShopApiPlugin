@@ -17,6 +17,8 @@ use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Sylius\Component\Taxonomy\Repository\TaxonRepositoryInterface;
 use Sylius\ShopApiPlugin\Factory\ImageViewFactoryInterface;
+use Sylius\ShopApiPlugin\Factory\PriceViewFactoryInterface;
+use Sylius\ShopApiPlugin\Factory\ProductViewFactoryInterface;
 use Sylius\ShopApiPlugin\View\ImageView;
 use Sylius\ShopApiPlugin\View\PageLinksView;
 use Sylius\ShopApiPlugin\View\PageView;
@@ -46,6 +48,8 @@ final class ProductController extends Controller
         $productRepository = $this->get('sylius.repository.product');
         /** @var ViewHandlerInterface $viewHandler */
         $viewHandler = $this->get('fos_rest.view_handler');
+        /** @var ProductViewFactoryInterface $productViewFactory */
+        $productViewFactory = $this->get('sylius.shop_api_plugin.factory.product_view_factory');
         $channelCode = $request->query->get('channel');
         /** @var ChannelInterface $channel */
         $channel = $channelRepository->findOneByCode($channelCode);
@@ -63,7 +67,7 @@ final class ProductController extends Controller
             throw new NotFoundHttpException(sprintf('Product with slug %s has not been found in %s locale.', $productSlug, $locale));
         }
 
-        return $viewHandler->handle(View::create($this->buildProductView($product, $locale, $channel), Response::HTTP_OK));
+        return $viewHandler->handle(View::create($productViewFactory->create($product, $channel, $locale), Response::HTTP_OK));
     }
 
     /**
@@ -85,6 +89,8 @@ final class ProductController extends Controller
         $taxonRepository = $this->get('sylius.repository.taxon');
         /** @var ViewHandlerInterface $viewHandler */
         $viewHandler = $this->get('fos_rest.view_handler');
+        /** @var ProductViewFactoryInterface $productViewFactory */
+        $productViewFactory = $this->get('sylius.shop_api_plugin.factory.product_view_factory');
 
         $channelCode = $request->query->get('channel');
         /** @var ChannelInterface $channel */
@@ -141,62 +147,9 @@ final class ProductController extends Controller
         ]);
 
         foreach ($pagerfanta->getCurrentPageResults() as $currentPageResult) {
-            $page->items[] = $this->buildProductView($currentPageResult, $locale, $channel);
+            $page->items[] = $productViewFactory->create($currentPageResult, $channel, $locale);
         }
 
         return $viewHandler->handle(View::create($page, Response::HTTP_OK));
-    }
-
-    /**
-     * @param ProductInterface $product
-     * @param string $locale
-     * @param ChannelInterface $channel
-     *
-     * @return ProductView
-     */
-    private function buildProductView(ProductInterface $product, $locale, ChannelInterface $channel)
-    {
-        /** @var ImageViewFactoryInterface $imageViewFactory */
-        $imageViewFactory = $this->get('sylius.shop_api_plugin.factory.image_view_factory');
-
-        $productView = new ProductView();
-        $productView->name = $product->getTranslation($locale)->getName();
-        $productView->code = $product->getCode();
-        $productView->slug = $product->getTranslation($locale)->getSlug();
-
-        /** @var ProductVariantInterface $variant */
-        foreach ($product->getVariants() as $variant) {
-            $variantView = new ProductVariantView();
-
-            $variantView->code = $variant->getCode();
-            $variantView->name = $variant->getTranslation($locale)->getName();
-            $variantView->price = $variant->getChannelPricingForChannel($channel)->getPrice();
-
-            $productView->variants[$variant->getCode()] = $variantView;
-
-            foreach ($variant->getOptionValues() as $optionValue) {
-                $variantView->axis[] = $optionValue->getCode();
-                $variantView->nameAxis[$optionValue->getCode()] = sprintf(
-                    '%s %s',
-                    $optionValue->getOption()->getTranslation($locale)->getName(),
-                    $optionValue->getTranslation($locale)->getValue()
-                );
-            }
-        }
-
-        /** @var ProductImageInterface $image */
-        foreach ($product->getImages() as $image) {
-            $imageView = $imageViewFactory->create($image);
-            $productView->images[] = $imageView;
-
-            foreach ($image->getProductVariants() as $productVariant) {
-                /** @var ProductVariantView $variantView */
-                $variantView = $productView->variants[$productVariant->getCode()];
-
-                $variantView->images[] = $imageView;
-            }
-        }
-
-        return $productView;
     }
 }

@@ -15,7 +15,9 @@
                 "HAT_SIZE_S": "Gr\u00f6\u00dfe S",
                 "HAT_COLOR_RED": "Farbe Rot"
             },
-            "price": 500,
+            "price": {
+                "current": 500
+            },
             "images": [],
             "applied_promotions": []
         },
@@ -30,7 +32,9 @@
                 "HAT_SIZE_L": "Gr\u00f6\u00dfe L",
                 "HAT_COLOR_RED": "Farbe Rot"
             },
-            "price": 999,
+            "price": {
+                "current": 999
+            },
             "images": [],
             "applied_promotions": []
         },
@@ -45,7 +49,9 @@
                 "HAT_SIZE_S": "Gr\u00f6\u00dfe S",
                 "HAT_COLOR_BLUE": "Farbe Blau"
             },
-            "price": 1500,
+            "price": {
+                "current": 1500
+            },
             "images": [],
             "applied_promotions": []
         },
@@ -60,7 +66,9 @@
                 "HAT_SIZE_L": "Gr\u00f6\u00dfe L",
                 "HAT_COLOR_BLUE": "Farbe Blau"
             },
-            "price": 2599,
+            "price": {
+                "current": 2599
+            },
             "images": [],
             "applied_promotions": []
         }

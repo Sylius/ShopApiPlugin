@@ -27,6 +27,7 @@ use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\ShopApiPlugin\Factory\ImageViewFactoryInterface;
 use Sylius\Component\Shipping\Exception\UnresolvedDefaultShippingMethodException;
 use Sylius\Component\Shipping\Resolver\ShippingMethodsResolverInterface;
+use Sylius\ShopApiPlugin\Factory\PriceViewFactoryInterface;
 use Sylius\ShopApiPlugin\View\CartSummaryView;
 use Sylius\ShopApiPlugin\View\EstimatedShippingCostView;
 use Sylius\ShopApiPlugin\View\ItemView;
@@ -331,6 +332,8 @@ final class CartController extends Controller
         $shipmentFactory = $this->get('sylius.factory.shipment');
         /** @var ServiceRegistryInterface $calculators */
         $calculators = $this->get('sylius.registry.shipping_calculator');
+        /** @var PriceViewFactoryInterface $priceViewFactory */
+        $priceViewFactory = $this->get('sylius.shop_api_plugin.factory.price_view_factory');
 
         /** @var OrderInterface $cart */
         $cart = $cartRepository->findOneBy(['tokenValue' => $request->attributes->get('token')]);
@@ -360,7 +363,7 @@ final class CartController extends Controller
         $estimatedShippingCostView = new EstimatedShippingCostView();
         $calculator = $calculators->get($shippingMethod->getCalculator());
 
-        $estimatedShippingCostView->cost = $calculator->calculate($shipment, $shippingMethod->getConfiguration());
+        $estimatedShippingCostView->price = $priceViewFactory->create($calculator->calculate($shipment, $shippingMethod->getConfiguration()));
 
         return $viewHandler->handle(View::create($estimatedShippingCostView, Response::HTTP_OK));
     }
