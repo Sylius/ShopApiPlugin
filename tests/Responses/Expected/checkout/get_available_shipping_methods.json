@@ -1,12 +1,14 @@
 {
     "shipments": [
         {
-            "DHL": {
-                "code": "DHL",
-                "name": "DHL",
-                "description": "@string@",
-                "price": {
-                    "current": 1500
+            "methods": {
+                "DHL": {
+                    "code": "DHL",
+                    "name": "DHL",
+                    "description": "@string@",
+                    "price": {
+                        "current": 1500
+                    }
                 }
             }
         }

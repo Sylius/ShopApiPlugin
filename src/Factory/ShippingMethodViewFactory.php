@@ -33,7 +33,15 @@ final class ShippingMethodViewFactory implements ShippingMethodViewFactoryInterf
     /**
      * {@inheritdoc}
      */
-    public function create(ShipmentInterface $shipment, ShippingMethodInterface $shippingMethod, $locale)
+    public function create(ShipmentInterface $shipment, $locale)
+    {
+        return $this->createWithShippingMethod($shipment, $shipment->getMethod(), $locale);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function createWithShippingMethod(ShipmentInterface $shipment, ShippingMethodInterface $shippingMethod, $locale)
     {
         /** @var CalculatorInterface $calculator */
         $calculator = $this->calculators->get($shippingMethod->getCalculator());

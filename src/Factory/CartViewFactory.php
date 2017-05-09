@@ -26,18 +26,26 @@ final class CartViewFactory implements CartViewFactoryInterface
     private $addressViewFactory;
 
     /**
+     * @var ShipmentViewFactoryInterface
+     */
+    private $shipmentViewFactory;
+
+    /**
      * @param ProductViewFactoryInterface $productViewFactory
      * @param ProductVariantViewFactoryInterface $productVariantViewFactory
      * @param AddressViewFactoryInterface $addressViewFactory
+     * @param ShipmentViewFactoryInterface $shipmentViewFactory
      */
     public function __construct(
         ProductViewFactoryInterface $productViewFactory,
         ProductVariantViewFactoryInterface $productVariantViewFactory,
-        AddressViewFactoryInterface $addressViewFactory
+        AddressViewFactoryInterface $addressViewFactory,
+        ShipmentViewFactoryInterface $shipmentViewFactory
     ) {
         $this->productViewFactory = $productViewFactory;
         $this->productVariantViewFactory = $productVariantViewFactory;
         $this->addressViewFactory = $addressViewFactory;
+        $this->shipmentViewFactory = $shipmentViewFactory;
     }
 
     /**
@@ -68,6 +76,10 @@ final class CartViewFactory implements CartViewFactoryInterface
             $itemView->product->variants = [$this->productVariantViewFactory->create($item->getVariant(), $cart->getChannel(), $localeCode)];
 
             $cartView->items[] = $itemView;
+        }
+
+        foreach ($cart->getShipments() as $shipment) {
+            $cartView->shipments[] = $this->shipmentViewFactory->create($shipment, $localeCode);
         }
 
         if (null !== $cart->getShippingAddress()) {
