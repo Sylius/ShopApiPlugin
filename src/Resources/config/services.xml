@@ -34,6 +34,7 @@
             <argument type="service" id="sylius.shop_api_plugin.factory.cart_item_view_factory" />
             <argument type="service" id="sylius.shop_api_plugin.factory.address_view_factory" />
             <argument type="service" id="sylius.shop_api_plugin.factory.total_view_factory" />
+            <argument type="service" id="sylius.shop_api_plugin.factory.shipment_view_factory" />
         </service>
         <service id="sylius.shop_api_plugin.factory.cart_item_view_factory" class="Sylius\ShopApiPlugin\Factory\CartItemViewFactory">
             <argument type="service" id="sylius.shop_api_plugin.factory.product_view_factory" />
@@ -44,6 +45,9 @@
         <service id="sylius.shop_api_plugin.factory.shipping_method_view_factory" class="Sylius\ShopApiPlugin\Factory\ShippingMethodViewFactory">
             <argument type="service" id="sylius.registry.shipping_calculator" />
             <argument type="service" id="sylius.shop_api_plugin.factory.price_view_factory" />
+        </service>
+        <service id="sylius.shop_api_plugin.factory.shipment_view_factory" class="Sylius\ShopApiPlugin\Factory\ShipmentViewFactory">
+            <argument type="service" id="sylius.shop_api_plugin.factory.shipping_method_view_factory" />
         </service>
 
         <service id="sylius.shop_api_plugin.handler.address_shipment" class="Sylius\ShopApiPlugin\Handler\AddressOrderHandler">

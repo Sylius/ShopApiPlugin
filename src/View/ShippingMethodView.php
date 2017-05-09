@@ -20,7 +20,7 @@ class ShippingMethodView
     public $description;
 
     /**
-     * @var int
+     * @var PriceView
      */
     public $price;
 }
