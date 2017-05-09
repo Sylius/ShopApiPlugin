@@ -159,44 +159,9 @@ final class ProductController extends Controller
         /** @var ImageViewFactoryInterface $imageViewFactory */
         $imageViewFactory = $this->get('sylius.shop_api_plugin.factory.image_view_factory');
 
-        $productView = new ProductView();
-        $productView->name = $product->getTranslation($locale)->getName();
-        $productView->code = $product->getCode();
-        $productView->slug = $product->getTranslation($locale)->getSlug();
+        /** @var ProductViewFactoryInterface $productViewFactory */
+        $productViewFactory = $this->get('sylius.shop_api_plugin.factory.product_view_factory');
 
-        /** @var ProductVariantInterface $variant */
-        foreach ($product->getVariants() as $variant) {
-            $variantView = new ProductVariantView();
-
-            $variantView->code = $variant->getCode();
-            $variantView->name = $variant->getTranslation($locale)->getName();
-            $variantView->price = $variant->getChannelPricingForChannel($channel)->getPrice();
-
-            $productView->variants[$variant->getCode()] = $variantView;
-
-            foreach ($variant->getOptionValues() as $optionValue) {
-                $variantView->axis[] = $optionValue->getCode();
-                $variantView->nameAxis[$optionValue->getCode()] = sprintf(
-                    '%s %s',
-                    $optionValue->getOption()->getTranslation($locale)->getName(),
-                    $optionValue->getTranslation($locale)->getValue()
-                );
-            }
-        }
-
-        /** @var ProductImageInterface $image */
-        foreach ($product->getImages() as $image) {
-            $imageView = $imageViewFactory->create($image);
-            $productView->images[] = $imageView;
-
-            foreach ($image->getProductVariants() as $productVariant) {
-                /** @var ProductVariantView $variantView */
-                $variantView = $productView->variants[$productVariant->getCode()];
-
-                $variantView->images[] = $imageView;
-            }
-        }
-
-        return $productView;
+        return $productViewFactory->create($product, $locale, $imageViewFactory, $channel);
     }
 }
