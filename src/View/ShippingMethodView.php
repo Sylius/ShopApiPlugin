@@ -2,7 +2,7 @@
 
 namespace Sylius\ShopApiPlugin\View;
 
-class ShipmentMethodView
+class ShippingMethodView
 {
     /**
      * @var string

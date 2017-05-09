@@ -5,7 +5,9 @@
                 "code": "DHL",
                 "name": "DHL",
                 "description": "@string@",
-                "price": 1500
+                "price": {
+                    "current": 1500
+                }
             }
         }
     ]
