@@ -4,3 +4,9 @@ jms_serializer:
             sylius-shop-api:
                 namespace_prefix: "Sylius\\ShopApiPlugin\\View"
                 path: "@ShopApiPlugin/Resources/config/serializer"
+tactician:
+    commandbus:
+        default:
+            middleware:
+                - tactician.middleware.doctrine
+                - tactician.middleware.command_handler

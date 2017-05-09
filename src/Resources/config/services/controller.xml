@@ -7,5 +7,14 @@
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="sylius.shop_api_plugin.factory.taxon_view_factory" />
         </service>
+        <service id="sylius.shop_api_plugin.controller.checkout.summarize_action" class="Sylius\ShopApiPlugin\Controller\Checkout\SummarizeAction">
+            <argument type="service" id="sylius.repository.order" />
+            <argument type="service" id="fos_rest.view_handler" />
+            <argument type="service" id="sylius.shop_api_plugin.factory.cart_view_factory" />
+        </service>
+        <service id="sylius.shop_api_plugin.controller.checkout.address_action" class="Sylius\ShopApiPlugin\Controller\Checkout\AddressAction">
+            <argument type="service" id="fos_rest.view_handler" />
+            <argument type="service" id="tactician.commandbus" />
+        </service>
     </services>
 </container>

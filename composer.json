@@ -6,7 +6,9 @@
     "require": {
         "php": "^5.6|^7.0",
 
-        "sylius/sylius": "^1.0.0@beta"
+        "sylius/sylius": "^1.0.0@beta",
+        "league/tactician-bundle": "~0.4",
+        "league/tactician-doctrine": "^1.1"
     },
     "require-dev": {
         "lakion/api-test-case": "^1.1",
