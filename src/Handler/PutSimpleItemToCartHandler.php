@@ -11,6 +11,7 @@ use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Sylius\Component\Order\Modifier\OrderItemQuantityModifierInterface;
 use Sylius\Component\Order\Processor\OrderProcessorInterface;
 use Sylius\ShopApiPlugin\Command\PutSimpleItemToCart;
+use Webmozart\Assert\Assert;
 
 final class PutSimpleItemToCartHandler
 {
@@ -72,8 +73,12 @@ final class PutSimpleItemToCartHandler
     {
         $cart = $this->cartRepository->findOneBy(['tokenValue' => $putSimpleItemToCart->token()]);
 
+        Assert::notNull($cart, 'Cart has not been found');
+
         /** @var ProductInterface $product */
         $product = $this->productRepository->findOneBy(['code' => $putSimpleItemToCart->product()]);
+
+        Assert::notNull($product, 'Product has not been found');
 
         $productVariant = $product->getVariants()[0];
 

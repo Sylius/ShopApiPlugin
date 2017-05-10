@@ -62,4 +62,26 @@ final class PutSimpleItemToCartHandlerSpec extends ObjectBehavior
 
         $this->handle(new PutSimpleItemToCart('ORDERTOKEN', 'T_SHIRT_CODE', 5));
     }
+
+    function it_throws_an_exception_if_cart_has_not_been_found(OrderRepositoryInterface $cartRepository)
+    {
+        $cartRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn(null);
+
+        $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [
+            new PutSimpleItemToCart('ORDERTOKEN', 'T_SHIRT_CODE', 5),
+        ]);
+    }
+
+    function it_throws_an_exception_if_product_has_not_been_found(
+        OrderInterface $cart,
+        OrderRepositoryInterface $cartRepository,
+        ProductRepositoryInterface $productRepository
+    ) {
+        $cartRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($cart);
+        $productRepository->findOneBy(['code' => 'T_SHIRT_CODE'])->willReturn(null);
+
+        $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [
+            new PutSimpleItemToCart('ORDERTOKEN', 'T_SHIRT_CODE', 5),
+        ]);
+    }
 }

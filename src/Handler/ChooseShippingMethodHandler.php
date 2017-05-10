@@ -4,11 +4,13 @@ namespace Sylius\ShopApiPlugin\Handler;
 
 use SM\Factory\FactoryInterface;
 use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\Component\Core\Model\ShippingMethodInterface;
 use Sylius\Component\Core\OrderCheckoutTransitions;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\ShippingMethodRepositoryInterface;
 use Sylius\Component\Shipping\Checker\ShippingMethodEligibilityCheckerInterface;
 use Sylius\ShopApiPlugin\Command\ChooseShippingMethod;
+use Webmozart\Assert\Assert;
 
 final class ChooseShippingMethodHandler
 {
@@ -52,39 +54,27 @@ final class ChooseShippingMethodHandler
 
     /**
      * @param ChooseShippingMethod $chooseShippingMethod
-     *
-     * @throws \LogicException
      */
     public function handle(ChooseShippingMethod $chooseShippingMethod)
     {
-        /** @var OrderInterface $order */
-        $order = $this->orderRepository->findOneBy(['tokenValue' => $chooseShippingMethod->orderToken()]);
+        /** @var OrderInterface $cart */
+        $cart = $this->orderRepository->findOneBy(['tokenValue' => $chooseShippingMethod->orderToken()]);
 
-        if (null === $order) {
-            throw new \LogicException('Order has not been found');
-        }
+        Assert::notNull($cart, 'Cart has not been found.');
 
-        $stateMachine = $this->stateMachineFactory->get($order, OrderCheckoutTransitions::GRAPH);
+        $stateMachine = $this->stateMachineFactory->get($cart, OrderCheckoutTransitions::GRAPH);
 
-        if (!$stateMachine->can(OrderCheckoutTransitions::TRANSITION_SELECT_SHIPPING)) {
-            throw new \LogicException('Order cannot have shipment method assigned');
-        }
+        Assert::true($stateMachine->can(OrderCheckoutTransitions::TRANSITION_SELECT_SHIPPING), 'Order cannot have shipment method assigned.');
 
+        /** @var ShippingMethodInterface $shippingMethod */
         $shippingMethod = $this->shippingMethodRepository->findOneBy(['code' => $chooseShippingMethod->shippingMethod()]);
 
-        if (null === $shippingMethod) {
-            throw new \LogicException('Shipping method has not been found');
-        }
+        Assert::notNull($shippingMethod, 'Shipping method has not been found');
+        Assert::true(isset($cart->getShipments()[$chooseShippingMethod->shipmentIdentifier()]), 'Shipping method has not been found.');
 
-        if (!isset($order->getShipments()[$chooseShippingMethod->shippingIdentifier()])) {
-            throw new \LogicException('Shipping method has not been found');
-        }
+        $shipment = $cart->getShipments()[$chooseShippingMethod->shipmentIdentifier()];
 
-        $shipment = $order->getShipments()[$chooseShippingMethod->shippingIdentifier()];
-
-        if (!$this->eligibilityChecker->isEligible($shipment, $shippingMethod)) {
-            throw new \LogicException('Given shipment is not eligible for provided shipping method');
-        }
+        Assert::true($this->eligibilityChecker->isEligible($shipment, $shippingMethod), 'Given shipment is not eligible for provided shipping method.');
 
         $shipment->setMethod($shippingMethod);
         $stateMachine->apply(OrderCheckoutTransitions::TRANSITION_SELECT_SHIPPING);

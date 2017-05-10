@@ -7,7 +7,7 @@ final class ChooseShippingMethod
     /**
      * @var mixed
      */
-    private $shippingIdentifier;
+    private $shipmentIdentifier;
 
     /**
      * @var string
@@ -21,13 +21,13 @@ final class ChooseShippingMethod
 
     /**
      * @param string $orderToken
-     * @param mixed$shippingIdentifier
+     * @param mixed $shipmentIdentifier
      * @param string $shippingMethod
      */
-    public function __construct($orderToken, $shippingIdentifier, $shippingMethod)
+    public function __construct($orderToken, $shipmentIdentifier, $shippingMethod)
     {
         $this->orderToken = $orderToken;
-        $this->shippingIdentifier = $shippingIdentifier;
+        $this->shipmentIdentifier = $shipmentIdentifier;
         $this->shippingMethod = $shippingMethod;
     }
 
@@ -42,9 +42,9 @@ final class ChooseShippingMethod
     /**
      * @return mixed
      */
-    public function shippingIdentifier()
+    public function shipmentIdentifier()
     {
-        return $this->shippingIdentifier;
+        return $this->shipmentIdentifier;
     }
 
     /**

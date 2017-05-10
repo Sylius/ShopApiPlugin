@@ -24,7 +24,7 @@ final class ChooseShippingMethodSpec extends ObjectBehavior
 
     function it_has_identifier_of_shipping()
     {
-        $this->shippingIdentifier()->shouldReturn(1);
+        $this->shipmentIdentifier()->shouldReturn(1);
     }
 
     function it_has_shipping_method_defined()

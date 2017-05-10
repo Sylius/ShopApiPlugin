@@ -28,7 +28,7 @@ final class ShowAvailableShippingMethodsAction
     private $viewHandler;
 
     /**
-     * @var ViewHandlerInterface
+     * @var ShippingMethodsResolverInterface
      */
     private $shippingMethodsResolver;
 

@@ -54,10 +54,10 @@ final class ChooseShippingMethodHandlerSpec extends ObjectBehavior
         $shipment->setMethod($shippingMethod)->shouldBeCalled();
         $stateMachine->apply('select_shipping')->shouldBeCalled();
 
-        $this->handle(new ChooseShippingMethod('ORDERTOKEN',0, 'DHL_SHIPPING_METHOD'));
+        $this->handle(new ChooseShippingMethod('ORDERTOKEN', 0, 'DHL_SHIPPING_METHOD'));
     }
 
-    function it_throws_logical_exception_if_shipping_method_is_not_eligible(
+    function it_throws_an_exception_if_shipping_method_is_not_eligible(
         OrderRepositoryInterface $orderRepository,
         OrderInterface $order,
         ShippingMethodRepositoryInterface $shippingMethodRepository,
@@ -79,14 +79,14 @@ final class ChooseShippingMethodHandlerSpec extends ObjectBehavior
         $stateMachine->apply('select_shipping')->shouldNotBeCalled();
 
         $this
-            ->shouldThrow(\LogicException::class)
+            ->shouldThrow(\InvalidArgumentException::class)
             ->during('handle', [
-                new ChooseShippingMethod('ORDERTOKEN',0, 'DHL_SHIPPING_METHOD'),
+                new ChooseShippingMethod('ORDERTOKEN', 0, 'DHL_SHIPPING_METHOD'),
             ])
         ;
     }
 
-    function it_throws_logical_exception_if_order_with_given_token_has_not_been_found(
+    function it_throws_an_exception_if_order_with_given_token_has_not_been_found(
         OrderRepositoryInterface $orderRepository,
         ShipmentInterface $shipment
     ) {
@@ -95,14 +95,14 @@ final class ChooseShippingMethodHandlerSpec extends ObjectBehavior
         $shipment->setMethod(Argument::type(ShippingMethodInterface::class))->shouldNotBeCalled();
 
         $this
-            ->shouldThrow(\LogicException::class)
+            ->shouldThrow(\InvalidArgumentException::class)
             ->during('handle', [
-                new ChooseShippingMethod('ORDERTOKEN',0, 'DHL_SHIPPING_METHOD'),
+                new ChooseShippingMethod('ORDERTOKEN', 0, 'DHL_SHIPPING_METHOD'),
             ])
         ;
     }
 
-    function it_throws_logical_exception_order_cannot_have_shipping_selected(
+    function it_throws_an_exception_if_order_cannot_have_shipping_selected(
         OrderRepositoryInterface $orderRepository,
         OrderInterface $order,
         ShippingMethodRepositoryInterface $shippingMethodRepository,
@@ -119,14 +119,14 @@ final class ChooseShippingMethodHandlerSpec extends ObjectBehavior
         $stateMachine->apply('select_shipping')->shouldNotBeCalled();
 
         $this
-            ->shouldThrow(\LogicException::class)
+            ->shouldThrow(\InvalidArgumentException::class)
             ->during('handle', [
-                new ChooseShippingMethod('ORDERTOKEN',0, 'DHL_SHIPPING_METHOD'),
+                new ChooseShippingMethod('ORDERTOKEN', 0, 'DHL_SHIPPING_METHOD'),
             ])
         ;
     }
 
-    function it_throws_logical_exception_if_shipping_method_with_given_code_has_not_been_found(
+    function it_throws_an_exception_if_shipping_method_with_given_code_has_not_been_found(
         OrderRepositoryInterface $orderRepository,
         OrderInterface $order,
         ShippingMethodRepositoryInterface $shippingMethodRepository,
@@ -143,14 +143,14 @@ final class ChooseShippingMethodHandlerSpec extends ObjectBehavior
         $stateMachine->apply('select_shipping')->shouldNotBeCalled();
 
         $this
-            ->shouldThrow(\LogicException::class)
+            ->shouldThrow(\InvalidArgumentException::class)
             ->during('handle', [
-                new ChooseShippingMethod('ORDERTOKEN',0, 'DHL_SHIPPING_METHOD'),
+                new ChooseShippingMethod('ORDERTOKEN', 0, 'DHL_SHIPPING_METHOD'),
             ])
         ;
     }
 
-    function it_throws_logical_exception_if_ordered_shipment_has_not_been_found(
+    function it_throws_an_exception_if_ordered_shipment_has_not_been_found(
         OrderRepositoryInterface $orderRepository,
         OrderInterface $order,
         ShippingMethodRepositoryInterface $shippingMethodRepository,
@@ -169,9 +169,9 @@ final class ChooseShippingMethodHandlerSpec extends ObjectBehavior
         $stateMachine->apply('select_shipping')->shouldNotBeCalled();
 
         $this
-            ->shouldThrow(\LogicException::class)
+            ->shouldThrow(\InvalidArgumentException::class)
             ->during('handle', [
-                new ChooseShippingMethod('ORDERTOKEN',0, 'DHL_SHIPPING_METHOD'),
+                new ChooseShippingMethod('ORDERTOKEN', 0, 'DHL_SHIPPING_METHOD'),
             ])
         ;
     }
