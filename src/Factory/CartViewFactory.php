@@ -5,20 +5,14 @@ namespace Sylius\ShopApiPlugin\Factory;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\ShopApiPlugin\View\CartSummaryView;
-use Sylius\ShopApiPlugin\View\ItemView;
 use Sylius\ShopApiPlugin\View\TotalsView;
 
 final class CartViewFactory implements CartViewFactoryInterface
 {
     /**
-     * @var ProductViewFactoryInterface
+     * @var CartItemViewFactoryInterface
      */
-    private $productViewFactory;
-
-    /**
-     * @var ProductVariantViewFactoryInterface
-     */
-    private $productVariantViewFactory;
+    private $cartItemFactory;
 
     /**
      * @var AddressViewFactoryInterface
@@ -26,18 +20,15 @@ final class CartViewFactory implements CartViewFactoryInterface
     private $addressViewFactory;
 
     /**
-     * @param ProductViewFactoryInterface $productViewFactory
-     * @param ProductVariantViewFactoryInterface $productVariantViewFactory
+     * @param CartItemViewFactoryInterface $cartItemFactory
      * @param AddressViewFactoryInterface $addressViewFactory
      */
     public function __construct(
-        ProductViewFactoryInterface $productViewFactory,
-        ProductVariantViewFactoryInterface $productVariantViewFactory,
+        CartItemViewFactoryInterface $cartItemFactory,
         AddressViewFactoryInterface $addressViewFactory
     ) {
-        $this->productViewFactory = $productViewFactory;
-        $this->productVariantViewFactory = $productVariantViewFactory;
         $this->addressViewFactory = $addressViewFactory;
+        $this->cartItemFactory = $cartItemFactory;
     }
 
     /**
@@ -59,15 +50,7 @@ final class CartViewFactory implements CartViewFactoryInterface
 
         /** @var OrderItemInterface $item */
         foreach ($cart->getItems() as $item) {
-            $itemView = new ItemView();
-
-            $itemView->id = $item->getId();
-            $itemView->quantity = $item->getQuantity();
-            $itemView->total = $item->getTotal();
-            $itemView->product = $this->productViewFactory->create($item->getProduct(), $localeCode);
-            $itemView->product->variants = [$this->productVariantViewFactory->create($item->getVariant(), $cart->getChannel(), $localeCode)];
-
-            $cartView->items[] = $itemView;
+            $cartView->items[] = $this->cartItemFactory->create($item, $cart->getChannel(), $localeCode);
         }
 
         if (null !== $cart->getShippingAddress()) {
