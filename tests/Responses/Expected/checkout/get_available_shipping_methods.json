@@ -1,0 +1,12 @@
+{
+    "shipments": [
+        {
+            "DHL": {
+                "code": "DHL",
+                "name": "DHL",
+                "description": "@string@",
+                "price": 1500
+            }
+        }
+    ]
+}

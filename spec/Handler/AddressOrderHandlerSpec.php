@@ -61,7 +61,7 @@ final class AddressOrderHandlerSpec extends ObjectBehavior
         $stateMachine->can('address')->willReturn(true);
         $stateMachine->apply('address')->shouldBeCalled();
 
-        $this->handle(AddressShipmentCommand::create(
+        $this->handle(new AddressShipmentCommand(
             'ORDERTOKEN',
             Address::createFromArray([
                 'firstName' => 'Sherlock',
@@ -90,7 +90,7 @@ final class AddressOrderHandlerSpec extends ObjectBehavior
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn(null);
 
         $this->shouldThrow(\LogicException::class)->during('handle', [
-            AddressShipmentCommand::create(
+            new AddressShipmentCommand(
                 'ORDERTOKEN',
                 Address::createFromArray([
                     'firstName' => 'Sherlock',
@@ -126,7 +126,7 @@ final class AddressOrderHandlerSpec extends ObjectBehavior
         $stateMachine->can('address')->willReturn(false);
 
         $this->shouldThrow(\LogicException::class)->during('handle', [
-            AddressShipmentCommand::create(
+            new AddressShipmentCommand(
                 'ORDERTOKEN',
                 Address::createFromArray([
                     'firstName' => 'Sherlock',

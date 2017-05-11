@@ -26,27 +26,11 @@ final class AddressOrder
      * @param Address $shippingAddress
      * @param Address $billingAddress
      */
-    private function __construct($orderId, Address $shippingAddress, Address $billingAddress)
+    public function __construct($orderId, Address $shippingAddress, Address $billingAddress)
     {
         $this->orderToken = $orderId;
         $this->address = $shippingAddress;
         $this->billingAddress = $billingAddress;
-    }
-
-    /**
-     * @param string $orderToken
-     * @param Address $shippingAddress
-     * @param Address $billingAddress
-     *
-     * @return AddressOrder
-     */
-    public static function create($orderToken, Address $shippingAddress, Address $billingAddress)
-    {
-        return new AddressOrder(
-            $orderToken,
-            $shippingAddress,
-            $billingAddress
-        );
     }
 
     /**

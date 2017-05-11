@@ -3,6 +3,9 @@
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
 use Lakion\ApiTestCase\JsonApiTestCase;
+use League\Tactician\CommandBus;
+use Sylius\ShopApiPlugin\Command\PickupCart;
+use Sylius\ShopApiPlugin\Command\PutSimpleItemToCart;
 use Symfony\Component\HttpFoundation\Response;
 
 final class CheckoutAddressShopApiTest extends JsonApiTestCase
@@ -26,8 +29,10 @@ final class CheckoutAddressShopApiTest extends JsonApiTestCase
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
-        $this->pickupCart($token, 'WEB_GB');
-        $this->putItemToCart($token);
+        /** @var CommandBus $bus */
+        $bus = $this->get('tactician.commandbus');
+        $bus->handle(new PickupCart($token, 'WEB_GB'));
+        $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
 
         $data =
 <<<EOT
@@ -59,8 +64,10 @@ EOT;
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
-        $this->pickupCart($token, 'WEB_GB');
-        $this->putItemToCart($token);
+        /** @var CommandBus $bus */
+        $bus = $this->get('tactician.commandbus');
+        $bus->handle(new PickupCart($token, 'WEB_GB'));
+        $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
 
         $data =
 <<<EOT
@@ -91,8 +98,10 @@ EOT;
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
-        $this->pickupCart($token, 'WEB_GB');
-        $this->putItemToCart($token);
+        /** @var CommandBus $bus */
+        $bus = $this->get('tactician.commandbus');
+        $bus->handle(new PickupCart($token, 'WEB_GB'));
+        $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
 
         $data =
 <<<EOT
@@ -122,35 +131,5 @@ EOT;
 
         $response = $this->client->getResponse();
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
-    }
-
-    /**
-     * @param string $token
-     */
-    private function pickupCart($token, $channelCode)
-    {
-        $data =
-<<<EOT
-        {
-            "channel": "$channelCode"
-        }
-EOT;
-
-        $this->client->request('POST', '/shop-api/carts/' . $token, [], [], static::$acceptAndContentTypeHeader, $data);
-    }
-
-    /**
-     * @param string $token
-     */
-    private function putItemToCart($token)
-    {
-        $data =
-<<<EOT
-        {
-            "productCode": "LOGAN_MUG_CODE",
-            "quantity": 5
-        }
-EOT;
-        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], static::$acceptAndContentTypeHeader, $data);
     }
 }
