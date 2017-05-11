@@ -31,21 +31,29 @@ final class CartViewFactory implements CartViewFactoryInterface
     private $shipmentViewFactory;
 
     /**
+     * @var PaymentViewFactoryInterface
+     */
+    private $paymentViewFactory;
+
+    /**
      * @param CartItemViewFactoryInterface $cartItemFactory
      * @param AddressViewFactoryInterface $addressViewFactory
      * @param TotalViewFactoryInterface $totalViewFactory
      * @param ShipmentViewFactoryInterface $shipmentViewFactory
+     * @param PaymentViewFactoryInterface $paymentViewFactory
      */
     public function __construct(
         CartItemViewFactoryInterface $cartItemFactory,
         AddressViewFactoryInterface $addressViewFactory,
         TotalViewFactoryInterface $totalViewFactory,
-        ShipmentViewFactoryInterface $shipmentViewFactory
+        ShipmentViewFactoryInterface $shipmentViewFactory,
+        PaymentViewFactoryInterface $paymentViewFactory
     ) {
         $this->cartItemFactory = $cartItemFactory;
         $this->addressViewFactory = $addressViewFactory;
         $this->totalViewFactory = $totalViewFactory;
         $this->shipmentViewFactory = $shipmentViewFactory;
+        $this->paymentViewFactory = $paymentViewFactory;
     }
 
     /**
@@ -68,6 +76,10 @@ final class CartViewFactory implements CartViewFactoryInterface
 
         foreach ($cart->getShipments() as $shipment) {
             $cartView->shipments[] = $this->shipmentViewFactory->create($shipment, $localeCode);
+        }
+
+        foreach ($cart->getPayments() as $payment) {
+            $cartView->payments[] = $this->paymentViewFactory->create($payment, $localeCode);
         }
 
         if (null !== $cart->getShippingAddress()) {
