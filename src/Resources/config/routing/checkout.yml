@@ -28,8 +28,14 @@ shop_api_available_payment_methods_checkout:
     defaults:
         _controller: sylius.shop_api_plugin.controller.checkout.show_available_payment_methods_action
 
-shop_api_choose_payment_method:
+shop_api_choose_payment_method_checkout:
     path: /{token}/payment/{paymentId}
     methods: [PUT]
     defaults:
         _controller: sylius.shop_api_plugin.controller.checkout.choose_payment_method_action
+
+shop_api_complete_checkout:
+    path: /{token}/complete
+    methods: [PUT]
+    defaults:
+        _controller: sylius.shop_api_plugin.controller.checkout.complete_order_action
