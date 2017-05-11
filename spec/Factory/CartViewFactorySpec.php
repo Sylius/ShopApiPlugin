@@ -6,16 +6,20 @@ use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
+use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\ShipmentInterface;
 use Sylius\ShopApiPlugin\Factory\AddressViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\CartItemViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\CartViewFactory;
 use PhpSpec\ObjectBehavior;
+use Sylius\ShopApiPlugin\Factory\CartViewFactoryInterface;
+use Sylius\ShopApiPlugin\Factory\PaymentViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\TotalViewFactoryInterface;
 use Sylius\ShopApiPlugin\View\AddressView;
 use Sylius\ShopApiPlugin\View\CartSummaryView;
 use Sylius\ShopApiPlugin\View\ItemView;
 use Sylius\ShopApiPlugin\Factory\ShipmentViewFactoryInterface;
+use Sylius\ShopApiPlugin\View\PaymentView;
 use Sylius\ShopApiPlugin\View\ShipmentView;
 use Sylius\ShopApiPlugin\View\TotalsView;
 
@@ -25,9 +29,10 @@ final class CartViewFactorySpec extends ObjectBehavior
         CartItemViewFactoryInterface $cartItemViewFactory,
         AddressViewFactoryInterface $addressViewFactory,
         TotalViewFactoryInterface $totalViewFactory,
-        ShipmentViewFactoryInterface $shipmentViewFactory
+        ShipmentViewFactoryInterface $shipmentViewFactory,
+        PaymentViewFactoryInterface $paymentViewFactory
     ) {
-        $this->beConstructedWith($cartItemViewFactory, $addressViewFactory, $totalViewFactory, $shipmentViewFactory);
+        $this->beConstructedWith($cartItemViewFactory, $addressViewFactory, $totalViewFactory, $shipmentViewFactory, $paymentViewFactory);
     }
 
     function it_is_initializable()
@@ -35,9 +40,9 @@ final class CartViewFactorySpec extends ObjectBehavior
         $this->shouldHaveType(CartViewFactory::class);
     }
 
-    function it_is_cart_factory_interface()
+    function it_is_cart_factory()
     {
-        $this->shouldHaveType(CartViewFactory::class);
+        $this->shouldImplement(CartViewFactoryInterface::class);
     }
 
     function it_creates_a_cart_view(
@@ -56,6 +61,7 @@ final class CartViewFactorySpec extends ObjectBehavior
         $cart->getShippingAddress()->willReturn(null);
         $cart->getBillingAddress()->willReturn(null);
         $cart->getShipments()->willReturn([]);
+        $cart->getPayments()->willReturn([]);
 
         $channel->getCode()->willReturn('WEB_GB');
 
@@ -95,6 +101,7 @@ final class CartViewFactorySpec extends ObjectBehavior
         $cart->getShippingAddress()->willReturn($shippingAddress);
         $cart->getBillingAddress()->willReturn($billingAddress);
         $cart->getShipments()->willReturn([]);
+        $cart->getPayments()->willReturn([]);
 
         $channel->getCode()->willReturn('WEB_GB');
 
@@ -123,9 +130,6 @@ final class CartViewFactorySpec extends ObjectBehavior
 
     function it_creates_a_cart_view_with_shipment_if_defined(
         CartItemViewFactoryInterface $cartItemViewFactory,
-        AddressInterface $shippingAddress,
-        AddressInterface $billingAddress,
-        AddressViewFactoryInterface $addressViewFactory,
         ChannelInterface $channel,
         OrderInterface $cart,
         OrderItemInterface $firstOrderItem,
@@ -142,14 +146,12 @@ final class CartViewFactorySpec extends ObjectBehavior
         $cart->getShippingTotal()->willReturn(500);
         $cart->getTaxTotal()->willReturn(600);
         $cart->getItems()->willReturn([$firstOrderItem, $secondOrderItem]);
-        $cart->getShippingAddress()->willReturn($shippingAddress);
-        $cart->getBillingAddress()->willReturn($billingAddress);
+        $cart->getShippingAddress()->willReturn(null);
+        $cart->getBillingAddress()->willReturn(null);
         $cart->getShipments()->willReturn([$shipment]);
+        $cart->getPayments()->willReturn([]);
 
         $channel->getCode()->willReturn('WEB_GB');
-
-        $addressViewFactory->create($shippingAddress)->willReturn(new AddressView());
-        $addressViewFactory->create($billingAddress)->willReturn(new AddressView());
 
         $shipmentViewFactory->create($shipment, 'en_GB')->willReturn(new ShipmentView());
 
@@ -164,10 +166,53 @@ final class CartViewFactorySpec extends ObjectBehavior
         $cartView->locale = 'en_GB';
         $cartView->checkoutState = 'cart';
         $cartView->tokenValue = 'ORDERTOKEN';
-        $cartView->billingAddress = new AddressView();
-        $cartView->shippingAddress = new AddressView();
         $cartView->items = [new ItemView(), new ItemView()];
         $cartView->shipments = [new ShipmentView()];
+        $cartView->totals = new TotalsView();
+
+        $this->create($cart, 'en_GB')->shouldBeLike($cartView);
+    }
+
+    function it_creates_a_cart_view_with_payment_if_defined(
+        CartItemViewFactoryInterface $cartItemViewFactory,
+        ChannelInterface $channel,
+        OrderInterface $cart,
+        OrderItemInterface $firstOrderItem,
+        OrderItemInterface $secondOrderItem,
+        PaymentInterface $payment,
+        PaymentViewFactoryInterface $paymentViewFactory,
+        TotalViewFactoryInterface $totalViewFactory
+    ) {
+        $cart->getItemsTotal()->willReturn(1100);
+        $cart->getChannel()->willReturn($channel);
+        $cart->getCurrencyCode()->willReturn('GBP');
+        $cart->getCheckoutState()->willReturn('cart');
+        $cart->getTokenValue()->willReturn('ORDERTOKEN');
+        $cart->getShippingTotal()->willReturn(500);
+        $cart->getTaxTotal()->willReturn(600);
+        $cart->getItems()->willReturn([$firstOrderItem, $secondOrderItem]);
+        $cart->getShippingAddress()->willReturn(null);
+        $cart->getBillingAddress()->willReturn(null);
+        $cart->getShipments()->willReturn([]);
+        $cart->getPayments()->willReturn([$payment]);
+
+        $channel->getCode()->willReturn('WEB_GB');
+
+        $cartItemViewFactory->create($firstOrderItem, $channel, 'en_GB')->willReturn(new ItemView());
+        $cartItemViewFactory->create($secondOrderItem, $channel, 'en_GB')->willReturn(new ItemView());
+
+        $paymentViewFactory->create($payment, 'en_GB')->willReturn(new PaymentView());
+
+        $totalViewFactory->create($cart)->willReturn(new TotalsView());
+
+        $cartView = new CartSummaryView();
+        $cartView->channel = 'WEB_GB';
+        $cartView->currency = 'GBP';
+        $cartView->locale = 'en_GB';
+        $cartView->checkoutState = 'cart';
+        $cartView->tokenValue = 'ORDERTOKEN';
+        $cartView->items = [new ItemView(), new ItemView()];
+        $cartView->payments = [new PaymentView()];
         $cartView->totals = new TotalsView();
 
         $this->create($cart, 'en_GB')->shouldBeLike($cartView);

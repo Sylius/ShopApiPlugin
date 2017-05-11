@@ -150,4 +150,59 @@ EOT;
         $response = $this->client->getResponse();
         $this->assertResponse($response, 'checkout/cart_with_chosen_shipment_response', Response::HTTP_OK);
     }
+
+    /**
+     * @test
+     */
+    public function it_shows_an_order_with_chosen_payment()
+    {
+        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFile('country.yml');
+        $this->loadFixturesFromFile('shipping.yml');
+        $this->loadFixturesFromFile('payment.yml');
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var CommandBus $bus */
+        $bus = $this->get('tactician.commandbus');
+        $bus->handle(new PickupCart($token, 'WEB_GB'));
+        $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
+        $bus->handle(new AddressOrder(
+            $token,
+            Address::createFromArray([
+                'firstName' => 'Sherlock',
+                'lastName' => 'Holmes',
+                'city' => 'London',
+                'street' => 'Baker Street 221b',
+                'countryCode' => 'GB',
+                'postcode' => 'NW1',
+                'provinceName' => 'Greater London',
+            ]),
+            Address::createFromArray([
+                'firstName' => 'Sherlock',
+                'lastName' => 'Holmes',
+                'city' => 'London',
+                'street' => 'Baker Street 221b',
+                'countryCode' => 'GB',
+                'postcode' => 'NW1',
+                'provinceName' => 'Greater London',
+            ])
+        ));
+        $bus->handle(new ChooseShippingMethod($token, 0, 'DHL'));
+
+
+        $data =
+<<<EOT
+        {
+            "method": "PBC"
+        }
+EOT;
+
+        $this->client->request('PUT', sprintf('/shop-api/checkout/%s/payment/0', $token), [], [], static::$acceptAndContentTypeHeader, $data);
+
+        $this->client->request('GET', '/shop-api/checkout/' . $token, [], [], static::$acceptAndContentTypeHeader);
+
+        $response = $this->client->getResponse();
+        $this->assertResponse($response, 'checkout/cart_with_chosen_payment_response', Response::HTTP_OK);
+    }
 }

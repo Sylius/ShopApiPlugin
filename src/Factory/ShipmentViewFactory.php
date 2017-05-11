@@ -1,7 +1,5 @@
 <?php
 
-
-
 namespace Sylius\ShopApiPlugin\Factory;
 
 use Sylius\Component\Core\Model\ShipmentInterface;

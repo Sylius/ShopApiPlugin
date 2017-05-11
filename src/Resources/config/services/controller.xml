@@ -42,5 +42,11 @@
             <argument type="service" id="sylius.payment_methods_resolver" />
             <argument type="service" id="sylius.shop_api_plugin.factory.payment_method_view_factory" />
         </service>
+        <service id="sylius.shop_api_plugin.controller.checkout.choose_payment_method_action"
+                 class="Sylius\ShopApiPlugin\Controller\Checkout\ChoosePaymentMethodAction"
+        >
+            <argument type="service" id="fos_rest.view_handler" />
+            <argument type="service" id="tactician.commandbus" />
+        </service>
     </services>
 </container>
