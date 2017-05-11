@@ -10,6 +10,7 @@ use Sylius\ShopApiPlugin\Factory\AddressViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\CartItemViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\CartViewFactory;
 use PhpSpec\ObjectBehavior;
+use Sylius\ShopApiPlugin\Factory\TotalViewFactoryInterface;
 use Sylius\ShopApiPlugin\View\AddressView;
 use Sylius\ShopApiPlugin\View\CartSummaryView;
 use Sylius\ShopApiPlugin\View\ItemView;
@@ -19,9 +20,10 @@ class CartViewFactorySpec extends ObjectBehavior
 {
     public function let(
         CartItemViewFactoryInterface $cartItemViewFactory,
-        AddressViewFactoryInterface $addressViewFactory
+        AddressViewFactoryInterface $addressViewFactory,
+        TotalViewFactoryInterface $totalViewFactory
     ) {
-        $this->beConstructedWith($cartItemViewFactory, $addressViewFactory);
+        $this->beConstructedWith($cartItemViewFactory, $addressViewFactory, $totalViewFactory);
     }
 
     function it_is_initializable()
@@ -39,15 +41,13 @@ class CartViewFactorySpec extends ObjectBehavior
         ChannelInterface $channel,
         OrderInterface $cart,
         OrderItemInterface $firstOrderItem,
-        OrderItemInterface $secondOrderItem
+        OrderItemInterface $secondOrderItem,
+        TotalViewFactoryInterface $totalViewFactory
     ) {
-        $cart->getItemsTotal()->willReturn(1100);
         $cart->getChannel()->willReturn($channel);
         $cart->getCurrencyCode()->willReturn('GBP');
         $cart->getCheckoutState()->willReturn('cart');
         $cart->getTokenValue()->willReturn('ORDERTOKEN');
-        $cart->getShippingTotal()->willReturn(500);
-        $cart->getTaxTotal()->willReturn(600);
         $cart->getItems()->willReturn([$firstOrderItem, $secondOrderItem]);
         $cart->getShippingAddress()->willReturn(null);
         $cart->getBillingAddress()->willReturn(null);
@@ -57,18 +57,15 @@ class CartViewFactorySpec extends ObjectBehavior
         $cartItemViewFactory->create($firstOrderItem, $channel, 'en_GB')->willReturn(new ItemView());
         $cartItemViewFactory->create($secondOrderItem, $channel, 'en_GB')->willReturn(new ItemView());
 
+        $totalViewFactory->create($cart)->willReturn(new TotalsView());
+
         $cartView = new CartSummaryView();
         $cartView->channel = 'WEB_GB';
         $cartView->currency = 'GBP';
         $cartView->locale = 'en_GB';
         $cartView->checkoutState = 'cart';
         $cartView->tokenValue = 'ORDERTOKEN';
-
         $cartView->totals = new TotalsView();
-        $cartView->totals->promotion = 0;
-        $cartView->totals->items = 1100;
-        $cartView->totals->shipping = 500;
-        $cartView->totals->taxes = 600;
         $cartView->items = [new ItemView(), new ItemView()];
 
         $this->create($cart, 'en_GB')->shouldBeLike($cartView);
@@ -82,15 +79,13 @@ class CartViewFactorySpec extends ObjectBehavior
         ChannelInterface $channel,
         OrderInterface $cart,
         OrderItemInterface $firstOrderItem,
-        OrderItemInterface $secondOrderItem
+        OrderItemInterface $secondOrderItem,
+        TotalViewFactoryInterface $totalViewFactory
     ) {
-        $cart->getItemsTotal()->willReturn(1100);
         $cart->getChannel()->willReturn($channel);
         $cart->getCurrencyCode()->willReturn('GBP');
         $cart->getCheckoutState()->willReturn('cart');
         $cart->getTokenValue()->willReturn('ORDERTOKEN');
-        $cart->getShippingTotal()->willReturn(500);
-        $cart->getTaxTotal()->willReturn(600);
         $cart->getItems()->willReturn([$firstOrderItem, $secondOrderItem]);
         $cart->getShippingAddress()->willReturn($shippingAddress);
         $cart->getBillingAddress()->willReturn($billingAddress);
@@ -99,6 +94,8 @@ class CartViewFactorySpec extends ObjectBehavior
 
         $cartItemViewFactory->create($firstOrderItem, $channel, 'en_GB')->willReturn(new ItemView());
         $cartItemViewFactory->create($secondOrderItem, $channel, 'en_GB')->willReturn(new ItemView());
+
+        $totalViewFactory->create($cart)->willReturn(new TotalsView());
 
         $addressViewFactory->create($shippingAddress)->willReturn(new AddressView());
         $addressViewFactory->create($billingAddress)->willReturn(new AddressView());
@@ -114,10 +111,6 @@ class CartViewFactorySpec extends ObjectBehavior
         $cartView->items = [new ItemView(), new ItemView()];
 
         $cartView->totals = new TotalsView();
-        $cartView->totals->promotion = 0;
-        $cartView->totals->items = 1100;
-        $cartView->totals->shipping = 500;
-        $cartView->totals->taxes = 600;
 
         $this->create($cart, 'en_GB')->shouldBeLike($cartView);
     }

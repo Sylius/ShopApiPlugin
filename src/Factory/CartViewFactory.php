@@ -6,6 +6,7 @@ use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\ShopApiPlugin\View\CartSummaryView;
 use Sylius\ShopApiPlugin\View\TotalsView;
+use Sylius\ShopApiPlugin\View\ItemView;
 
 final class CartViewFactory implements CartViewFactoryInterface
 {
@@ -20,15 +21,23 @@ final class CartViewFactory implements CartViewFactoryInterface
     private $addressViewFactory;
 
     /**
+     * @var TotalViewFactoryInterface
+     */
+    private $totalViewFactory;
+
+    /**
      * @param CartItemViewFactoryInterface $cartItemFactory
      * @param AddressViewFactoryInterface $addressViewFactory
+     * @param TotalViewFactoryInterface $totalViewFactory
      */
     public function __construct(
         CartItemViewFactoryInterface $cartItemFactory,
-        AddressViewFactoryInterface $addressViewFactory
+        AddressViewFactoryInterface $addressViewFactory,
+        TotalViewFactoryInterface $totalViewFactory
     ) {
-        $this->addressViewFactory = $addressViewFactory;
         $this->cartItemFactory = $cartItemFactory;
+        $this->addressViewFactory = $addressViewFactory;
+        $this->totalViewFactory = $totalViewFactory;
     }
 
     /**
@@ -42,11 +51,7 @@ final class CartViewFactory implements CartViewFactoryInterface
         $cartView->locale = $localeCode;
         $cartView->checkoutState = $cart->getCheckoutState();
         $cartView->tokenValue = $cart->getTokenValue();
-        $cartView->totals = new TotalsView();
-        $cartView->totals->promotion = 0;
-        $cartView->totals->items = $cart->getItemsTotal();
-        $cartView->totals->shipping = $cart->getShippingTotal();
-        $cartView->totals->taxes = $cart->getTaxTotal();
+        $cartView->totals = $this->totalViewFactory->create($cart);
 
         /** @var OrderItemInterface $item */
         foreach ($cart->getItems() as $item) {
