@@ -2,6 +2,8 @@
 
 namespace Sylius\ShopApiPlugin\Command;
 
+use Webmozart\Assert\Assert;
+
 final class ChoosePaymentMethod
 {
     /**
@@ -26,6 +28,8 @@ final class ChoosePaymentMethod
      */
     public function __construct($orderToken, $paymentIdentifier, $paymentMethod)
     {
+        Assert::allString([$orderToken, $paymentMethod]);
+
         $this->orderToken = $orderToken;
         $this->paymentIdentifier = $paymentIdentifier;
         $this->paymentMethod = $paymentMethod;

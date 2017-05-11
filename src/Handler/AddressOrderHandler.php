@@ -9,6 +9,7 @@ use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\OrderCheckoutTransitions;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\ShopApiPlugin\Command\AddressOrder;
+use Webmozart\Assert\Assert;
 
 final class AddressOrderHandler
 {
@@ -47,15 +48,11 @@ final class AddressOrderHandler
         /** @var OrderInterface $order */
         $order = $this->orderRepository->findOneBy(['tokenValue' => $addressOrder->orderToken()]);
 
-        if (null === $order) {
-            throw new \LogicException(sprintf('Order with %s token has not been found.', $addressOrder->orderToken()));
-        }
+        Assert::notNull($order, sprintf('Order with %s token has not been found.', $addressOrder->orderToken()));
 
         $stateMachine = $this->stateMachineFactory->get($order, OrderCheckoutTransitions::GRAPH);
 
-        if (!$stateMachine->can(OrderCheckoutTransitions::TRANSITION_ADDRESS)) {
-            throw new \LogicException(sprintf('Order with %s token cannot be addressed.', $addressOrder->orderToken()));
-        }
+        Assert::true($stateMachine->can(OrderCheckoutTransitions::TRANSITION_ADDRESS), sprintf('Order with %s token cannot be addressed.', $addressOrder->orderToken()));
 
         /** @var AddressInterface $shippingAddress */
         $shippingAddress = $this->addressFactory->createNew();

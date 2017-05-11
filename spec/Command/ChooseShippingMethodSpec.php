@@ -31,4 +31,18 @@ final class ChooseShippingMethodSpec extends ObjectBehavior
     {
         $this->shippingMethod()->shouldReturn('DHL_SHIPPING_METHOD');
     }
+
+    function it_throws_an_exception_if_order_token_is_not_a_string()
+    {
+        $this->beConstructedWith(new \StdClass(), 1, 'DHL_METHOD');
+
+        $this->shouldThrow(\InvalidArgumentException::class)->duringInstantiation();
+    }
+
+    function it_throws_an_exception_if_shipping_method_code_is_not_a_string()
+    {
+        $this->beConstructedWith('ORDERTOKEN', 1, new \StdClass());
+
+        $this->shouldThrow(\InvalidArgumentException::class)->duringInstantiation();
+    }
 }

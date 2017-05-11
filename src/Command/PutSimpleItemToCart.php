@@ -2,6 +2,8 @@
 
 namespace Sylius\ShopApiPlugin\Command;
 
+use Webmozart\Assert\Assert;
+
 final class PutSimpleItemToCart
 {
     /**
@@ -26,6 +28,10 @@ final class PutSimpleItemToCart
      */
     public function __construct($token, $product, $quantity)
     {
+        Assert::allString([$token, $product]);
+        Assert::integer($quantity);
+        Assert::greaterThan($quantity, 0);
+
         $this->token = $token;
         $this->product = $product;
         $this->quantity = $quantity;
