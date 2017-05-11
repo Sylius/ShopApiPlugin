@@ -8,10 +8,8 @@ use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\ShipmentInterface;
 use Sylius\Component\Core\Model\ShippingMethodInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Sylius\Component\Registry\ServiceRegistryInterface;
-use Sylius\Component\Shipping\Calculator\CalculatorInterface;
 use Sylius\Component\Shipping\Resolver\ShippingMethodsResolverInterface;
-use Sylius\ShopApiPlugin\View\ShipmentMethodView;
+use Sylius\ShopApiPlugin\Factory\ShippingMethodViewFactory;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -33,26 +31,26 @@ final class ShowAvailableShippingMethodsAction
     private $shippingMethodsResolver;
 
     /**
-     * @var ServiceRegistryInterface
+     * @var ShippingMethodViewFactory
      */
-    private $calculators;
+    private $shippingMethodViewFactory;
 
     /**
      * @param OrderRepositoryInterface $cartRepository
      * @param ViewHandlerInterface $viewHandler
      * @param ShippingMethodsResolverInterface $shippingMethodsResolver
-     * @param ServiceRegistryInterface $calculators
+     * @param ShippingMethodViewFactory $shippingMethodViewFactory
      */
     public function __construct(
         OrderRepositoryInterface $cartRepository,
         ViewHandlerInterface $viewHandler,
         ShippingMethodsResolverInterface $shippingMethodsResolver,
-        ServiceRegistryInterface $calculators
+        ShippingMethodViewFactory $shippingMethodViewFactory
     ) {
         $this->cartRepository = $cartRepository;
         $this->viewHandler = $viewHandler;
         $this->shippingMethodsResolver = $shippingMethodsResolver;
-        $this->calculators = $calculators;
+        $this->shippingMethodViewFactory = $shippingMethodViewFactory;
     }
 
     /**
@@ -86,17 +84,8 @@ final class ShowAvailableShippingMethodsAction
 
         /** @var ShippingMethodInterface $shippingMethod */
         foreach ($this->shippingMethodsResolver->getSupportedMethods($shipment) as $shippingMethod) {
-            /** @var CalculatorInterface $calculator */
-            $calculator = $this->calculators->get($shippingMethod->getCalculator());
 
-            $shippingMethodView = new ShipmentMethodView();
-
-            $shippingMethodView->code = $shippingMethod->getCode();
-            $shippingMethodView->name = $shippingMethod->getTranslation($locale)->getName();
-            $shippingMethodView->description = $shippingMethod->getTranslation($locale)->getDescription();
-            $shippingMethodView->price = $calculator->calculate($shipment, $shippingMethod->getConfiguration());
-
-            $rawShippingMethods[$shippingMethodView->code] = $shippingMethodView;
+            $rawShippingMethods['methods'][$shippingMethod->getCode()] = $this->shippingMethodViewFactory->createWithShippingMethod($shipment, $shippingMethod, $locale);
         }
 
         return $rawShippingMethods;

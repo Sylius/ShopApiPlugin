@@ -2,7 +2,7 @@
 
 namespace Sylius\ShopApiPlugin\View;
 
-class ShipmentMethodView
+class ShippingMethodView
 {
     /**
      * @var string
@@ -20,7 +20,7 @@ class ShipmentMethodView
     public $description;
 
     /**
-     * @var int
+     * @var PriceView
      */
     public $price;
 }

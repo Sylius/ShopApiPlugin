@@ -26,13 +26,21 @@
             <argument type="service" id="sylius.repository.order" />
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="sylius.shipping_methods_resolver" />
-            <argument type="service" id="sylius.registry.shipping_calculator" />
+            <argument type="service" id="sylius.shop_api_plugin.factory.shipping_method_view_factory" />
         </service>
         <service id="sylius.shop_api_plugin.controller.checkout.choose_shipping_method_action"
                  class="Sylius\ShopApiPlugin\Controller\Checkout\ChooseShippingMethodAction"
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="tactician.commandbus" />
+        </service>
+        <service id="sylius.shop_api_plugin.controller.checkout.show_available_payment_methods_action"
+                 class="Sylius\ShopApiPlugin\Controller\Checkout\ShowAvailablePaymentMethodsAction"
+        >
+            <argument type="service" id="sylius.repository.order" />
+            <argument type="service" id="fos_rest.view_handler" />
+            <argument type="service" id="sylius.payment_methods_resolver" />
+            <argument type="service" id="sylius.shop_api_plugin.factory.payment_method_view_factory" />
         </service>
     </services>
 </container>
