@@ -1,0 +1,57 @@
+{
+    "tokenValue": "SDAOSLEFNWU35H3QLI5325",
+    "channel": "WEB_GB",
+    "currency": "GBP",
+    "locale": "en_GB",
+    "checkoutState": "cart",
+    "items": [
+        {
+            "id": 1,
+            "quantity": 5,
+            "total": 8995,
+            "product": {
+                "code": "LOGAN_MUG_CODE",
+                "name": "Logan Mug",
+                "slug": "logan-mug",
+                "taxons": [
+                    "CATEGORY",
+                    "MUG"
+                ],
+                "variants": [
+                    {
+                        "code": "LOGAN_MUG_CODE",
+                        "name": "Logan Mug",
+                        "axis": [],
+                        "name_axis": {},
+                        "price": {
+                            "current": 1999
+                        },
+                        "images": [],
+                        "applied_promotions": []
+                    }
+                ],
+                "attributes": [],
+                "associations": [],
+                "images": [
+                    {
+                        "code": "thumbnail",
+                        "url": "http:\/\/localhost\/media\/cache\/resolve\/sylius_small\/uo\/mug.jpg"
+                    }
+                ],
+                "_links": {
+                    "self": {
+                        "href": "\/shop-api\/products\/logan-mug"
+                    }
+                }
+            }
+        }
+    ],
+    "totals": {
+        "items": 8995,
+        "taxes": 0,
+        "shipping": 0,
+        "promotion": -1000
+    },
+    "payments": [],
+    "shipments": []
+}

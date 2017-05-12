@@ -17,5 +17,12 @@
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="tactician.commandbus" />
         </service>
+
+        <service id="sylius.shop_api_plugin.controller.cart.add_coupon_action"
+                 class="Sylius\ShopApiPlugin\Controller\Cart\AddCouponAction"
+        >
+            <argument type="service" id="fos_rest.view_handler" />
+            <argument type="service" id="tactician.commandbus" />
+        </service>
     </services>
 </container>
