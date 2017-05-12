@@ -2,6 +2,8 @@
 
 namespace Sylius\ShopApiPlugin\Command;
 
+use Webmozart\Assert\Assert;
+
 final class ChooseShippingMethod
 {
     /**
@@ -26,6 +28,8 @@ final class ChooseShippingMethod
      */
     public function __construct($orderToken, $shipmentIdentifier, $shippingMethod)
     {
+        Assert::allString([$orderToken, $shippingMethod]);
+
         $this->orderToken = $orderToken;
         $this->shipmentIdentifier = $shipmentIdentifier;
         $this->shippingMethod = $shippingMethod;

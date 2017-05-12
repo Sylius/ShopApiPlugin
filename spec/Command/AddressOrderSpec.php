@@ -70,4 +70,31 @@ final class AddressOrderSpec extends ObjectBehavior
             'provinceName' => 'Greater London',
         ]));
     }
+
+    function it_throws_an_exception_if_order_token_is_not_a_string()
+    {
+        $this->beConstructedWith(
+            new \StdClass(),
+            Address::createFromArray([
+                'firstName' => 'Sherlock',
+                'lastName' => 'Holmes',
+                'city' => 'London',
+                'street' => 'Baker Street 221b',
+                'countryCode' => 'GB',
+                'postcode' => 'NWB',
+                'provinceName' => 'Greater London',
+            ]),
+            Address::createFromArray([
+                'firstName' => 'John',
+                'lastName' => 'Watson',
+                'city' => 'London',
+                'street' => 'Baker Street 221b',
+                'countryCode' => 'GB',
+                'postcode' => 'NWB',
+                'provinceName' => 'Greater London',
+            ])
+        );
+
+        $this->shouldThrow(\InvalidArgumentException::class)->duringInstantiation();
+    }
 }

@@ -2,6 +2,8 @@
 
 namespace Sylius\ShopApiPlugin\Command;
 
+use Webmozart\Assert\Assert;
+
 final class PickupCart
 {
     /**
@@ -20,6 +22,8 @@ final class PickupCart
      */
     public function __construct($token, $channelCode)
     {
+        Assert::allString([$token, $channelCode]);
+
         $this->token = $token;
         $this->channelCode = $channelCode;
     }

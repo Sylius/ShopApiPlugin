@@ -51,4 +51,14 @@ final class PickupCartHandlerSpec extends ObjectBehavior
 
         $this->handle(new PickupCart('ORDERTOKEN', 'CHANNEL_CODE'));
     }
+
+    function it_throws_an_exception_if_channel_is_not_found(
+        ChannelRepositoryInterface $channelRepository
+    ) {
+        $channelRepository->findOneByCode('CHANNEL_CODE')->willReturn(null);
+
+        $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [
+            new PickupCart('ORDERTOKEN', 'CHANNEL_CODE'),
+        ]);
+    }
 }

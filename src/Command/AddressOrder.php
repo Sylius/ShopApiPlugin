@@ -3,6 +3,7 @@
 namespace Sylius\ShopApiPlugin\Command;
 
 use Sylius\ShopApiPlugin\Model\Address;
+use Webmozart\Assert\Assert;
 
 final class AddressOrder
 {
@@ -22,13 +23,15 @@ final class AddressOrder
     private $billingAddress;
 
     /**
-     * @param string $orderId
+     * @param string $orderToken
      * @param Address $shippingAddress
      * @param Address $billingAddress
      */
-    public function __construct($orderId, Address $shippingAddress, Address $billingAddress)
+    public function __construct($orderToken, Address $shippingAddress, Address $billingAddress)
     {
-        $this->orderToken = $orderId;
+        Assert::string($orderToken);
+
+        $this->orderToken = $orderToken;
         $this->address = $shippingAddress;
         $this->billingAddress = $billingAddress;
     }

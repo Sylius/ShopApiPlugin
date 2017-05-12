@@ -31,4 +31,18 @@ final class ChoosePaymentMethodSpec extends ObjectBehavior
     {
         $this->paymentMethod()->shouldReturn('CASH_ON_DELIVERY_METHOD');
     }
+
+    function it_throws_an_exception_if_order_token_is_not_a_string()
+    {
+        $this->beConstructedWith(new \StdClass(), 1, 'COD_METHOD');
+
+        $this->shouldThrow(\InvalidArgumentException::class)->duringInstantiation();
+    }
+
+    function it_throws_an_exception_if_payment_method_code_is_not_a_string()
+    {
+        $this->beConstructedWith('ORDERTOKEN', 1, new \StdClass());
+
+        $this->shouldThrow(\InvalidArgumentException::class)->duringInstantiation();
+    }
 }
