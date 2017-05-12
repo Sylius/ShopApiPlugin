@@ -11,7 +11,7 @@ use Sylius\ShopApiPlugin\Command\PutSimpleItemToCart;
 use Sylius\ShopApiPlugin\Model\Address;
 use Symfony\Component\HttpFoundation\Response;
 
-final class CheckoutSummarizeShopApiTest extends JsonApiTestCase
+final class CheckoutSummarizeApiTest extends JsonApiTestCase
 {
     private static $acceptAndContentTypeHeader = ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'];
 
