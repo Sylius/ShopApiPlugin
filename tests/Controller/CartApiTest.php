@@ -5,7 +5,7 @@ namespace Tests\Sylius\ShopApiPlugin\Controller;
 use Lakion\ApiTestCase\JsonApiTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
-final class CartShopApiTest extends JsonApiTestCase
+final class CartApiTest extends JsonApiTestCase
 {
     private static $acceptAndContentTypeHeader = ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'];
 
