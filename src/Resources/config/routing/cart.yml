@@ -2,7 +2,7 @@ shop_api_pickup_cart:
     path: /carts/{token}
     methods: [POST]
     defaults:
-        _controller: ShopApiPlugin:Cart:pickup
+        _controller: sylius.shop_api_plugin.controller.cart.pickup_action
 
 shop_api_cart_summary:
     path: /carts/{token}
