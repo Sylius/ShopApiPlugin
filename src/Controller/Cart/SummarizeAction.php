@@ -1,6 +1,6 @@
 <?php
 
-namespace Sylius\ShopApiPlugin\Controller\Checkout;
+namespace Sylius\ShopApiPlugin\Controller\Cart;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
