@@ -12,44 +12,6 @@ final class CartApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_creates_a_new_cart()
-    {
-        $this->loadFixturesFromFile('shop.yml');
-
-        $data =
-<<<EOT
-        {
-            "channel": "WEB_GB"
-        }
-EOT;
-
-        $this->client->request('POST', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325', [], [], static::$acceptAndContentTypeHeader, $data);
-
-        $response = $this->client->getResponse();
-
-        $this->assertResponseCode($response, Response::HTTP_CREATED);
-    }
-
-    /**
-     * @test
-     */
-    public function it_does_not_allow_to_create_new_cart_if_token_is_already_used()
-    {
-        $this->loadFixturesFromFile('shop.yml');
-
-        $token = 'SDAOSLEFNWU35H3QLI5325';
-
-        $this->pickupCart($token, 'WEB_GB');
-        $this->pickupCart($token, 'WEB_GB');
-
-        $response = $this->client->getResponse();
-
-        $this->assertResponse($response, 'cart/token_already_used_response', Response::HTTP_BAD_REQUEST);
-    }
-
-    /**
-     * @test
-     */
     public function it_returns_not_found_exception_if_cart_has_not_been_found()
     {
         $this->loadFixturesFromFile('shop.yml');

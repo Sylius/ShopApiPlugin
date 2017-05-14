@@ -5,7 +5,6 @@ namespace Sylius\ShopApiPlugin\Controller;
 use Doctrine\Common\Persistence\ObjectManager;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
-use League\Tactician\CommandBus;
 use Sylius\Component\Core\Factory\AddressFactoryInterface;
 use Sylius\Component\Core\Factory\CartItemFactoryInterface;
 use Sylius\Component\Core\Model\AddressInterface;
@@ -22,43 +21,17 @@ use Sylius\Component\Order\Processor\OrderProcessorInterface;
 use Sylius\Component\Order\Repository\OrderItemRepositoryInterface;
 use Sylius\Component\Registry\ServiceRegistryInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
-use Sylius\ShopApiPlugin\Factory\CartViewFactoryInterface;
 use Sylius\Component\Shipping\Exception\UnresolvedDefaultShippingMethodException;
 use Sylius\Component\Shipping\Resolver\ShippingMethodsResolverInterface;
 use Sylius\ShopApiPlugin\Factory\PriceViewFactoryInterface;
-use Sylius\ShopApiPlugin\Command\PickupCart;
 use Sylius\ShopApiPlugin\View\EstimatedShippingCostView;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final class CartController extends Controller
 {
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     */
-    public function pickupAction(Request $request)
-    {
-        /** @var OrderRepositoryInterface $cartRepository */
-        $cartRepository = $this->get('sylius.repository.order');
-        /** @var CommandBus $bus */
-        $bus = $this->get('tactician.commandbus');
-        /** @var ViewHandlerInterface $viewHandler */
-        $viewHandler = $this->get('fos_rest.view_handler');
-
-        if (null !== $cartRepository->findOneBy(['tokenValue' => $request->attributes->get('token')])) {
-            throw new BadRequestHttpException('Cart with given token already exists');
-        }
-
-        $bus->handle(new PickupCart($request->attributes->get('token'), $request->request->get('channel')));
-
-        return $viewHandler->handle(View::create(null, Response::HTTP_CREATED));
-    }
-
     /**
      * @param Request $request
      *
