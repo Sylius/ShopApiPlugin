@@ -64,30 +64,6 @@ final class CartController extends Controller
      *
      * @return Response
      */
-    public function summaryAction(Request $request)
-    {
-        /** @var OrderRepositoryInterface $cartRepository */
-        $cartRepository = $this->get('sylius.repository.order');
-        /** @var ViewHandlerInterface $viewHandler */
-        $viewHandler = $this->get('fos_rest.view_handler');
-        /** @var CartViewFactoryInterface $cartViewFactory */
-        $cartViewFactory = $this->get('sylius.shop_api_plugin.factory.cart_view_factory');
-
-        /** @var OrderInterface $cart */
-        $cart = $cartRepository->findOneBy(['tokenValue' => $request->attributes->get('token')]);
-
-        if (null === $cart) {
-            throw new NotFoundHttpException('Cart with given id does not exists');
-        }
-
-        return $viewHandler->handle(View::create($cartViewFactory->create($cart, $cart->getLocaleCode()), Response::HTTP_OK));
-    }
-
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     */
     public function addAction(Request $request)
     {
         /** @var OrderRepositoryInterface $cartRepository */

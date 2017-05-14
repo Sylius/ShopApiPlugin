@@ -8,7 +8,7 @@ shop_api_cart_summary:
     path: /carts/{token}
     methods: [GET]
     defaults:
-        _controller: ShopApiPlugin:Cart:summary
+        _controller: sylius.shop_api_plugin.controller.cart.summarize_action
 
 shop_api_add_to_cart:
     path: /carts/{token}/items

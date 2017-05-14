@@ -8,7 +8,7 @@ shop_api_summarize_checkout:
     path: /{token}
     methods: [GET]
     defaults:
-        _controller: sylius.shop_api_plugin.controller.checkout.summarize_action
+        _controller: sylius.shop_api_plugin.controller.cart.summarize_action
 
 shop_api_available_shipping_checkout:
     path: /{token}/shipping
