@@ -7,6 +7,11 @@ class TotalsView
     /**
      * @var int
      */
+    public $total;
+
+    /**
+     * @var int
+     */
     public $items;
 
     /**

@@ -6,6 +6,7 @@
     "checkoutState": "cart",
     "items": [],
     "totals": {
+        "total": 0,
         "items": 0,
         "taxes": 0,
         "shipping": 0,
