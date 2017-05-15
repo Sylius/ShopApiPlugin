@@ -6,7 +6,9 @@ use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
+use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
+use Sylius\Component\Product\Model\ProductAssociationInterface;
 use Sylius\ShopApiPlugin\Factory\ProductViewFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -80,6 +82,30 @@ final class ShowProductDetailsAction
             throw new NotFoundHttpException(sprintf('Product with slug %s has not been found in %s locale.', $productSlug, $locale));
         }
 
-        return $this->viewHandler->handle(View::create($this->productViewFactory->createWithVariants($product, $channel, $locale), Response::HTTP_OK));
+        $productView = $this->productViewFactory->createWithVariants($product, $channel, $locale);
+
+        foreach ($product->getAssociations() as $association) {
+            $productView->associations[$association->getType()->getCode()] = $this->createAssociationsView($association, $channel, $locale);
+        }
+
+        return $this->viewHandler->handle(View::create($productView, Response::HTTP_OK));
+    }
+
+    /**
+     * @param ProductAssociationInterface $productAssociation
+     * @param ChannelInterface $channel
+     * @param string $locale
+     *
+     * @return array
+     */
+    private function createAssociationsView(ProductAssociationInterface $productAssociation, ChannelInterface $channel, $locale)
+    {
+        $associations = [];
+
+        foreach ($productAssociation->getAssociatedProducts() as $association) {
+            $associations[] = $this->productViewFactory->createWithVariants($association, $channel, $locale);
+        }
+
+        return $associations;
     }
 }

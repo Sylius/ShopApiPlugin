@@ -44,6 +44,7 @@ Sylius\Component\Core\Model\Product:
         images: ["@mug_thumbnail"]
         mainTaxon: "@t_shirt_taxon"
         productTaxons: ["@mug_product_taxon"]
+        association: ["@cross-sell-hat-association"]
     t_shirt:
         code: "LOGAN_T_SHIRT_CODE"
         channels: ["@gb_web_channel"]
@@ -511,3 +512,23 @@ Sylius\Component\Core\Model\TaxonImage:
     t_shirt_taxon_thumbnail:
         type: "thumbnail"
         path: "/uo/t-shirt.jpg"
+
+Sylius\Component\Product\Model\ProductAssociationType:
+    cross-sell:
+        code: "CROSS_SELL_ASSOCIATION_TYPE"
+        currentLocale: "en_GB"
+        currentTranslation: "@en_gb_cross-sell_translation"
+
+Sylius\Component\Product\Model\ProductAssociationTypeTranslation:
+    en_gb_cross-sell_translation:
+        name: "Cross sell"
+        locale: "en_GB"
+        translatable: "@cross-sell"
+
+Sylius\Component\Product\Model\ProductAssociation:
+    cross-sell-hat-association:
+        owner: "@hat"
+        type: "@cross-sell"
+        associatedProducts:
+            - "@t_shirt"
+            - "@mug"

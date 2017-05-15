@@ -77,7 +77,114 @@
         }
     },
     "attributes": [],
-    "associations": [],
+    "associations": {
+        "CROSS_SELL_ASSOCIATION_TYPE": [
+            {
+                "code": "LOGAN_MUG_CODE",
+                "name": "Logan Mug",
+                "slug": "logan-mug",
+                "taxons": [
+                    "CATEGORY",
+                    "MUG"
+                ],
+                "variants": {
+                    "LOGAN_MUG_CODE": {
+                        "code": "LOGAN_MUG_CODE",
+                        "name": "Logan Mug",
+                        "axis": [],
+                        "name_axis": {},
+                        "price": {
+                            "current": 1999
+                        },
+                        "images": [
+                            {
+                                "code": "thumbnail",
+                                "url": "http:\/\/localhost\/media\/cache\/resolve\/sylius_small\/uo\/mug.jpg"
+                            }
+                        ],
+                        "applied_promotions": []
+                    }
+                },
+                "attributes": [],
+                "associations": [],
+                "images": [
+                    {
+                        "code": "thumbnail",
+                        "url": "http:\/\/localhost\/media\/cache\/resolve\/sylius_small\/uo\/mug.jpg"
+                    }
+                ],
+                "_links": {
+                    "self": {
+                        "href": "\/shop-api\/products\/logan-mug"
+                    }
+                }
+            },
+            {
+                "code": "LOGAN_T_SHIRT_CODE",
+                "name": "Logan T-Shirt",
+                "slug": "logan-t-shirt",
+                "taxons": [
+                    "CATEGORY",
+                    "T_SHIRTS"
+                ],
+                "variants": {
+                    "SMALL_LOGAN_T_SHIRT_CODE": {
+                        "code": "SMALL_LOGAN_T_SHIRT_CODE",
+                        "name": "Small Logan T-Shirt",
+                        "axis": [],
+                        "name_axis": {},
+                        "price": {
+                            "current": 1999
+                        },
+                        "images": [
+                            {
+                                "code": "thumbnail",
+                                "url": "http:\/\/localhost\/media\/cache\/resolve\/sylius_small\/uo\/samll-tshirt.jpg"
+                            }
+                        ],
+                        "applied_promotions": []
+                    },
+                    "LARGE_LOGAN_T_SHIRT_CODE": {
+                        "code": "LARGE_LOGAN_T_SHIRT_CODE",
+                        "name": "Large Logan T-Shirt",
+                        "axis": [],
+                        "name_axis": {},
+                        "price": {
+                            "current": 2999
+                        },
+                        "images": [
+                            {
+                                "code": "thumbnail",
+                                "url": "http:\/\/localhost\/media\/cache\/resolve\/sylius_small\/uo\/large-tshirt.jpg"
+                            }
+                        ],
+                        "applied_promotions": []
+                    }
+                },
+                "attributes": [],
+                "associations": [],
+                "images": [
+                    {
+                        "code": "thumbnail",
+                        "url": "http:\/\/localhost\/media\/cache\/resolve\/sylius_small\/uo\/tshirt.jpg"
+                    },
+                    {
+                        "code": "thumbnail",
+                        "url": "http:\/\/localhost\/media\/cache\/resolve\/sylius_small\/uo\/samll-tshirt.jpg"
+                    },
+                    {
+                        "code": "thumbnail",
+                        "url": "http:\/\/localhost\/media\/cache\/resolve\/sylius_small\/uo\/large-tshirt.jpg"
+                    }
+                ],
+                "_links": {
+                    "self": {
+                        "href": "\/shop-api\/products\/logan-t-shirt"
+                    }
+                }
+            }
+        ]
+    },
     "images": [],
     "_links": {
         "self": {
