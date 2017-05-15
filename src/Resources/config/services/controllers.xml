@@ -4,6 +4,7 @@
     <imports>
         <import resource="actions/checkout.xml"/>
         <import resource="actions/cart.xml"/>
+        <import resource="actions/product.xml"/>
     </imports>
     <services>
         <service id="sylius.shop_api_plugin.controller.taxon_controller"
