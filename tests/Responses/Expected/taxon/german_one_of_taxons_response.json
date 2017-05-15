@@ -27,7 +27,7 @@
     "images": [
         {
             "code": "thumbnail",
-            "url": "http:\/\/localhost\/media\/cache\/resolve\/sylius_small\/uo\/t-shirt.jpg"
+            "path": "\/uo\/t-shirt.jpg"
         }
     ]
 }

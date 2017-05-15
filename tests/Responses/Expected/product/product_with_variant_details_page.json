@@ -18,7 +18,7 @@
             "images": [
                 {
                     "code": "thumbnail",
-                    "url": "http:\/\/localhost\/media\/cache\/resolve\/sylius_small\/uo\/samll-tshirt.jpg"
+                    "path": "\/uo\/samll-tshirt.jpg"
                 }
             ],
             "applied_promotions": []
@@ -34,7 +34,7 @@
             "images": [
                 {
                     "code": "thumbnail",
-                    "url": "http:\/\/localhost\/media\/cache\/resolve\/sylius_small\/uo\/large-tshirt.jpg"
+                    "path": "\/uo\/large-tshirt.jpg"
                 }
             ],
             "applied_promotions": []
@@ -45,15 +45,15 @@
     "images": [
         {
             "code": "thumbnail",
-            "url": "http:\/\/localhost\/media\/cache\/resolve\/sylius_small\/uo\/tshirt.jpg"
+            "path": "\/uo\/tshirt.jpg"
         },
         {
             "code": "thumbnail",
-            "url": "http:\/\/localhost\/media\/cache\/resolve\/sylius_small\/uo\/samll-tshirt.jpg"
+            "path": "\/uo\/samll-tshirt.jpg"
         },
         {
             "code": "thumbnail",
-            "url": "http:\/\/localhost\/media\/cache\/resolve\/sylius_small\/uo\/large-tshirt.jpg"
+            "path": "\/uo\/large-tshirt.jpg"
         }
     ],
     "_links": {

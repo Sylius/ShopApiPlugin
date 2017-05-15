@@ -5,6 +5,6 @@ Sylius\ShopApiPlugin\View\ImageView:
         code:
             expose: true
             type: string
-        url:
+        path:
             expose: true
             type: string
