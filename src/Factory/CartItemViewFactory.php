@@ -40,7 +40,7 @@ final class CartItemViewFactory implements CartItemViewFactoryInterface
         $itemView->id = $item->getId();
         $itemView->quantity = $item->getQuantity();
         $itemView->total = $item->getTotal();
-        $itemView->product = $this->productViewFactory->create($item->getProduct(), $locale);
+        $itemView->product = $this->productViewFactory->create($item->getProduct(), $channel, $locale);
         $itemView->product->variants = [$this->productVariantViewFactory->create($item->getVariant(), $channel, $locale)];
 
         return $itemView;
