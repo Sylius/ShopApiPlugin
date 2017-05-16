@@ -12,5 +12,5 @@ class ImageView
     /**
      * @var string
      */
-    public $url;
+    public $path;
 }

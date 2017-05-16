@@ -18,7 +18,7 @@
             "images": [
                 {
                     "code": "thumbnail",
-                    "url": "http:\/\/localhost\/media\/cache\/resolve\/sylius_small\/uo\/mug.jpg"
+                    "path": "\/uo\/mug.jpg"
                 }
             ],
             "applied_promotions": []
@@ -29,7 +29,7 @@
     "images": [
         {
             "code": "thumbnail",
-            "url": "http:\/\/localhost\/media\/cache\/resolve\/sylius_small\/uo\/mug.jpg"
+            "path": "\/uo\/mug.jpg"
         }
     ],
     "_links": {

@@ -12,11 +12,6 @@ use Sylius\ShopApiPlugin\View\ImageView;
 
 final class ImageViewFactorySpec extends ObjectBehavior
 {
-    function let(CacheManager $imagineCacheManager)
-    {
-        $this->beConstructedWith($imagineCacheManager);
-    }
-
     function it_is_initializable()
     {
         $this->shouldHaveType(ImageViewFactory::class);
@@ -27,16 +22,14 @@ final class ImageViewFactorySpec extends ObjectBehavior
         $this->shouldHaveType(ImageViewFactoryInterface::class);
     }
 
-    function it_creates_image_view(CacheManager $imagineCacheManager, ImageInterface $image)
+    function it_creates_image_view(ImageInterface $image)
     {
         $image->getType()->willReturn('thumbnail');
         $image->getPath()->willReturn('/ou/some.jpg');
 
-        $imagineCacheManager->getBrowserPath('/ou/some.jpg', 'sylius_small')->willReturn('http://localhost/media/cache/ou/some.jpg');
-
         $imageView = new ImageView();
         $imageView->code = 'thumbnail';
-        $imageView->url = 'http://localhost/media/cache/ou/some.jpg';
+        $imageView->path = '/ou/some.jpg';
 
         $this->create($image)->shouldBeLike($imageView);
     }

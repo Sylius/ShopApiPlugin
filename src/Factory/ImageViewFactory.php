@@ -9,19 +9,6 @@ use Sylius\ShopApiPlugin\View\ImageView;
 final class ImageViewFactory implements ImageViewFactoryInterface
 {
     /**
-     * @var CacheManager
-     */
-    private $imagineCacheManager;
-
-    /**
-     * @param CacheManager $imagineCacheManager
-     */
-    public function __construct(CacheManager $imagineCacheManager)
-    {
-        $this->imagineCacheManager = $imagineCacheManager;
-    }
-
-    /**
      * @param ImageInterface $image
      *
      * @return ImageView
@@ -30,7 +17,7 @@ final class ImageViewFactory implements ImageViewFactoryInterface
     {
         $imageView = new ImageView();
         $imageView->code = $image->getType();
-        $imageView->url = $this->imagineCacheManager->getBrowserPath($image->getPath(), 'sylius_small');
+        $imageView->path = $image->getPath();
 
         return $imageView;
     }
