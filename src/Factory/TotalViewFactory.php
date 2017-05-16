@@ -15,6 +15,7 @@ final class TotalViewFactory implements TotalViewFactoryInterface
         $totalsView = new TotalsView();
 
         $totalsView->promotion = $cart->getOrderPromotionTotal();
+        $totalsView->total = $cart->getTotal();
         $totalsView->items = $cart->getItemsTotal();
         $totalsView->shipping = $cart->getShippingTotal();
         $totalsView->taxes = $cart->getTaxTotal();
