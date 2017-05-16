@@ -67,6 +67,14 @@ This repository provides a ShopApi implementation on the top of [Sylius E-Commer
                 stateless:  true
                 anonymous:  true
     ```
+    
+    5. Adjust checkout configuration to not collide with Sylius shop API. For example
+    (assuming, that you are using regular Sylius security definition):
+    ```yml
+    sylius_shop:
+        checkout_resolver:
+            pattern: "%sylius.security.shop_regex%/checkout/"
+    ```
 
 ## Testing
 

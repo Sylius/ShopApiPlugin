@@ -1,13 +1,5 @@
-sylius_admin:
-    resource: "@SyliusAdminBundle/Resources/config/routing.yml"
-    prefix: /admin
-
-sylius_admin_api:
-    resource: "@SyliusAdminApiBundle/Resources/config/routing.yml"
-    prefix: /api
-
-_liip_imagine:
-    resource: "@LiipImagineBundle/Resources/config/routing.xml"
+sylius:
+    resource: "../../../../vendor/sylius/sylius/app/config/routing.yml"
 
 # Put your own routes here
 
