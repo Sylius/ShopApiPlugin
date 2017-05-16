@@ -2,10 +2,10 @@ shop_api_product_show_details:
     path: /products/{slug}
     methods: [GET]
     defaults:
-        _controller: ShopApiPlugin:Product:showDetails
+        _controller: sylius.shop_api_plugin.controller.product.show_product_details_action
 
 shop_api_product_show_catalog:
     path: /taxons/{taxonomy}/products/
     methods: [GET]
     defaults:
-        _controller: ShopApiPlugin:Product:showCatalog
+        _controller: sylius.shop_api_plugin.controller.product.show_product_catalog_action
