@@ -4,26 +4,16 @@ namespace Sylius\ShopApiPlugin\Controller\Product;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
-use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
 use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
-use Sylius\Component\Core\Model\ProductImage;
-use Sylius\Component\Core\Model\ProductImageInterface;
-use Sylius\Component\Core\Model\ProductInterface;
-use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Sylius\Component\Taxonomy\Repository\TaxonRepositoryInterface;
-use Sylius\ShopApiPlugin\Factory\ImageViewFactoryInterface;
-use Sylius\ShopApiPlugin\Factory\PriceViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\ProductViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\ImageView;
 use Sylius\ShopApiPlugin\View\PageLinksView;
 use Sylius\ShopApiPlugin\View\PageView;
-use Sylius\ShopApiPlugin\View\ProductVariantView;
-use Sylius\ShopApiPlugin\View\ProductView;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -152,7 +142,7 @@ final class ShowProductCatalogAction extends Controller
         ]);
 
         foreach ($pagerfanta->getCurrentPageResults() as $currentPageResult) {
-            $page->items[] = $this->productViewFactory->createWithVariants($currentPageResult, $channel, $locale);
+            $page->items[] = $this->productViewFactory->create($currentPageResult, $channel, $locale);
         }
 
         return $this->viewHandler->handle(View::create($page, Response::HTTP_OK));

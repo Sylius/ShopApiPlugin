@@ -18,24 +18,17 @@ final class ProductViewFactory implements ProductViewFactoryInterface
     private $imageViewFactory;
 
     /**
-     * @var ProductVariantViewFactoryInterface
-     */
-    private $variantViewFactory;
-
-    /**
      * @param ImageViewFactoryInterface $imageViewFactory
-     * @param ProductVariantViewFactoryInterface $variantViewFactory
      */
-    public function __construct(ImageViewFactoryInterface $imageViewFactory, ProductVariantViewFactoryInterface $variantViewFactory)
+    public function __construct(ImageViewFactoryInterface $imageViewFactory)
     {
         $this->imageViewFactory = $imageViewFactory;
-        $this->variantViewFactory = $variantViewFactory;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function create(ProductInterface $product, $locale)
+    public function create(ProductInterface $product, ChannelInterface $channel, $locale)
     {
         $productView = new ProductView();
         $productView->name = $product->getTranslation($locale)->getName();
@@ -51,33 +44,6 @@ final class ProductViewFactory implements ProductViewFactoryInterface
         /** @var TaxonInterface $taxon */
         foreach ($product->getTaxons() as $taxon) {
             $productView->taxons[] = $taxon->getCode();
-        }
-
-        return $productView;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function createWithVariants(ProductInterface $product, ChannelInterface $channel, $locale)
-    {
-        $productView = $this->create($product, $locale);
-
-        /** @var ProductVariantInterface $variant */
-        foreach ($product->getVariants() as $variant) {
-            $productView->variants[$variant->getCode()] = $this->variantViewFactory->create($variant, $channel, $locale);
-        }
-
-        /** @var ProductImageInterface $image */
-        foreach ($product->getImages() as $image) {
-            $imageView = $this->imageViewFactory->create($image);
-
-            foreach ($image->getProductVariants() as $productVariant) {
-                /** @var ProductVariantView $variantView */
-                $variantView = $productView->variants[$productVariant->getCode()];
-
-                $variantView->images[] = $imageView;
-            }
         }
 
         return $productView;

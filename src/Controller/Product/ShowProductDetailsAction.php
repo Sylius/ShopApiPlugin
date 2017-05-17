@@ -82,30 +82,6 @@ final class ShowProductDetailsAction
             throw new NotFoundHttpException(sprintf('Product with slug %s has not been found in %s locale.', $productSlug, $locale));
         }
 
-        $productView = $this->productViewFactory->createWithVariants($product, $channel, $locale);
-
-        foreach ($product->getAssociations() as $association) {
-            $productView->associations[$association->getType()->getCode()] = $this->createAssociationsView($association, $channel, $locale);
-        }
-
-        return $this->viewHandler->handle(View::create($productView, Response::HTTP_OK));
-    }
-
-    /**
-     * @param ProductAssociationInterface $productAssociation
-     * @param ChannelInterface $channel
-     * @param string $locale
-     *
-     * @return array
-     */
-    private function createAssociationsView(ProductAssociationInterface $productAssociation, ChannelInterface $channel, $locale)
-    {
-        $associations = [];
-
-        foreach ($productAssociation->getAssociatedProducts() as $association) {
-            $associations[] = $this->productViewFactory->createWithVariants($association, $channel, $locale);
-        }
-
-        return $associations;
+        return $this->viewHandler->handle(View::create($this->productViewFactory->create($product, $channel, $locale), Response::HTTP_OK));
     }
 }
