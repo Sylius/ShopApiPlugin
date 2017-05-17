@@ -5,6 +5,7 @@ parameters:
 imports:
     - { resource: "@SyliusCoreBundle/Resources/config/app/config.yml" }
     - { resource: "@SyliusAdminBundle/Resources/config/app/config.yml" }
+    - { resource: "@SyliusShopBundle/Resources/config/app/config.yml" }
     - { resource: "@SyliusAdminApiBundle/Resources/config/app/config.yml" }
 
     - { resource: "@ShopApiPlugin/Resources/config/app/config.yml" }
@@ -43,6 +44,19 @@ fos_rest:
         rules:
             - { path: '^/shop-api', priorities: ['json'], fallback_format: json, prefer_extension: true }
 
-liip_imagine:
-    filter_sets:
-        sylius_shop_product_original: ~
+sylius_shop:
+    checkout_resolver:
+        pattern: "^/shop/checkout"
+        route_map:
+            cart:
+                route: sylius_shop_checkout_address
+            addressed:
+                route: sylius_shop_checkout_select_shipping
+            shipping_selected:
+                route: sylius_shop_checkout_select_payment
+            shipping_skipped:
+                route: sylius_shop_checkout_select_payment
+            payment_selected:
+                route: sylius_shop_checkout_complete
+            payment_skipped:
+                route: sylius_shop_checkout_complete

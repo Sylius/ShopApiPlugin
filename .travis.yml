@@ -22,4 +22,4 @@ before_script:
 script:
     - composer validate --strict
     - vendor/bin/phpspec run
-    - vendor/bin/phpunit
+    - vendor/bin/phpunit --process-isolation
