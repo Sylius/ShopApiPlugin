@@ -22,12 +22,12 @@
                         "code": "LOGAN_MUG_CODE",
                         "name": "Logan Mug",
                         "axis": [],
-                        "name_axis": {},
+                        "nameAxis": {},
                         "price": {
                             "current": 1999
                         },
                         "images": [],
-                        "applied_promotions": []
+                        "appliedPromotions": []
                     }
                 ],
                 "attributes": [],
