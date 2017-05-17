@@ -23,7 +23,7 @@
                     "code": "LOGAN_MUG_CODE",
                     "name": "Logan Mug",
                     "axis": [],
-                    "name_axis": {},
+                    "nameAxis": {},
                     "price": {
                         "current": 1999
                     },
@@ -33,7 +33,7 @@
                             "path": "\/uo\/mug.jpg"
                         }
                     ],
-                    "applied_promotions": []
+                    "appliedPromotions": []
                 }
             },
             "attributes": [],
@@ -63,7 +63,7 @@
                     "code": "SMALL_LOGAN_T_SHIRT_CODE",
                     "name": "Small Logan T-Shirt",
                     "axis": [],
-                    "name_axis": {},
+                    "nameAxis": {},
                     "price": {
                         "current": 1999
                     },
@@ -73,13 +73,13 @@
                             "path": "\/uo\/samll-tshirt.jpg"
                         }
                     ],
-                    "applied_promotions": []
+                    "appliedPromotions": []
                 },
                 "LARGE_LOGAN_T_SHIRT_CODE": {
                     "code": "LARGE_LOGAN_T_SHIRT_CODE",
                     "name": "Large Logan T-Shirt",
                     "axis": [],
-                    "name_axis": {},
+                    "nameAxis": {},
                     "price": {
                         "current": 2999
                     },
@@ -89,7 +89,7 @@
                             "path": "\/uo\/large-tshirt.jpg"
                         }
                     ],
-                    "applied_promotions": []
+                    "appliedPromotions": []
                 }
             },
             "attributes": [],
@@ -130,7 +130,7 @@
                         "HAT_SIZE_S",
                         "HAT_COLOR_RED"
                     ],
-                    "name_axis": {
+                    "nameAxis": {
                         "HAT_SIZE_S": "Size S",
                         "HAT_COLOR_RED": "Color Red"
                     },
@@ -138,7 +138,7 @@
                         "current": 500
                     },
                     "images": [],
-                    "applied_promotions": []
+                    "appliedPromotions": []
                 },
                 "LARGE_RED_LOGAN_HAT_CODE": {
                     "code": "LARGE_RED_LOGAN_HAT_CODE",
@@ -147,7 +147,7 @@
                         "HAT_SIZE_L",
                         "HAT_COLOR_RED"
                     ],
-                    "name_axis": {
+                    "nameAxis": {
                         "HAT_SIZE_L": "Size L",
                         "HAT_COLOR_RED": "Color Red"
                     },
@@ -155,7 +155,7 @@
                         "current": 999
                     },
                     "images": [],
-                    "applied_promotions": []
+                    "appliedPromotions": []
                 },
                 "SMALL_BLUE_LOGAN_HAT_CODE": {
                     "code": "SMALL_BLUE_LOGAN_HAT_CODE",
@@ -164,7 +164,7 @@
                         "HAT_SIZE_S",
                         "HAT_COLOR_BLUE"
                     ],
-                    "name_axis": {
+                    "nameAxis": {
                         "HAT_SIZE_S": "Size S",
                         "HAT_COLOR_BLUE": "Color Blue"
                     },
@@ -172,7 +172,7 @@
                         "current": 1500
                     },
                     "images": [],
-                    "applied_promotions": []
+                    "appliedPromotions": []
                 },
                 "LARGE_BLUE_LOGAN_HAT_CODE": {
                     "code": "LARGE_BLUE_LOGAN_HAT_CODE",
@@ -181,7 +181,7 @@
                         "HAT_SIZE_L",
                         "HAT_COLOR_BLUE"
                     ],
-                    "name_axis": {
+                    "nameAxis": {
                         "HAT_SIZE_L": "Size L",
                         "HAT_COLOR_BLUE": "Color Blue"
                     },
@@ -189,7 +189,7 @@
                         "current": 2599
                     },
                     "images": [],
-                    "applied_promotions": []
+                    "appliedPromotions": []
                 }
             },
             "attributes": [],
@@ -208,7 +208,7 @@
                                 "code": "LOGAN_MUG_CODE",
                                 "name": "Logan Mug",
                                 "axis": [],
-                                "name_axis": {},
+                                "nameAxis": {},
                                 "price": {
                                     "current": 1999
                                 },
@@ -218,7 +218,7 @@
                                         "path": "\/uo\/mug.jpg"
                                     }
                                 ],
-                                "applied_promotions": []
+                                "appliedPromotions": []
                             }
                         },
                         "attributes": [],
@@ -248,7 +248,7 @@
                                 "code": "SMALL_LOGAN_T_SHIRT_CODE",
                                 "name": "Small Logan T-Shirt",
                                 "axis": [],
-                                "name_axis": {},
+                                "nameAxis": {},
                                 "price": {
                                     "current": 1999
                                 },
@@ -258,13 +258,13 @@
                                         "path": "\/uo\/samll-tshirt.jpg"
                                     }
                                 ],
-                                "applied_promotions": []
+                                "appliedPromotions": []
                             },
                             "LARGE_LOGAN_T_SHIRT_CODE": {
                                 "code": "LARGE_LOGAN_T_SHIRT_CODE",
                                 "name": "Large Logan T-Shirt",
                                 "axis": [],
-                                "name_axis": {},
+                                "nameAxis": {},
                                 "price": {
                                     "current": 2999
                                 },
@@ -274,7 +274,7 @@
                                         "path": "\/uo\/large-tshirt.jpg"
                                     }
                                 ],
-                                "applied_promotions": []
+                                "appliedPromotions": []
                             }
                         },
                         "attributes": [],

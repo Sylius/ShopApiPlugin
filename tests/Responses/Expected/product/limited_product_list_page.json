@@ -23,7 +23,7 @@
                     "code": "SMALL_LOGAN_T_SHIRT_CODE",
                     "name": "Small Logan T-Shirt",
                     "axis": [],
-                    "name_axis": {},
+                    "nameAxis": {},
                     "price": {
                         "current": 1999
                     },
@@ -33,13 +33,13 @@
                             "path": "\/uo\/samll-tshirt.jpg"
                         }
                     ],
-                    "applied_promotions": []
+                    "appliedPromotions": []
                 },
                 "LARGE_LOGAN_T_SHIRT_CODE": {
                     "code": "LARGE_LOGAN_T_SHIRT_CODE",
                     "name": "Large Logan T-Shirt",
                     "axis": [],
-                    "name_axis": {},
+                    "nameAxis": {},
                     "price": {
                         "current": 2999
                     },
@@ -49,7 +49,7 @@
                             "path": "\/uo\/large-tshirt.jpg"
                         }
                     ],
-                    "applied_promotions": []
+                    "appliedPromotions": []
                 }
             },
             "attributes": [],

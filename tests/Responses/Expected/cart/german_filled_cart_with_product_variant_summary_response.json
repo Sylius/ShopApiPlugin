@@ -25,7 +25,7 @@
                             "HAT_SIZE_S",
                             "HAT_COLOR_RED"
                         ],
-                        "name_axis": {
+                        "nameAxis": {
                             "HAT_SIZE_S": "Gr\u00f6\u00dfe S",
                             "HAT_COLOR_RED": "Farbe Rot"
                         },
@@ -33,7 +33,7 @@
                             "current": 590
                         },
                         "images": [],
-                        "applied_promotions": []
+                        "appliedPromotions": []
                     }
                 ],
                 "attributes": [],

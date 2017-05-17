@@ -22,12 +22,12 @@
                         "code": "SMALL_LOGAN_T_SHIRT_CODE",
                         "name": "Small Logan T-Shirt",
                         "axis": [],
-                        "name_axis": {},
+                        "nameAxis": {},
                         "price": {
                             "current": 1999
                         },
                         "images": [],
-                        "applied_promotions": []
+                        "appliedPromotions": []
                     }
                 ],
                 "attributes": [],
@@ -73,7 +73,7 @@
                             "HAT_SIZE_S",
                             "HAT_COLOR_RED"
                         ],
-                        "name_axis": {
+                        "nameAxis": {
                             "HAT_SIZE_S": "Size S",
                             "HAT_COLOR_RED": "Color Red"
                         },
@@ -81,7 +81,7 @@
                             "current": 500
                         },
                         "images": [],
-                        "applied_promotions": []
+                        "appliedPromotions": []
                     }
                 ],
                 "attributes": [],

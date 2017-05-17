@@ -22,12 +22,12 @@
                         "code": "LOGAN_MUG_CODE",
                         "name": "Logan Becher",
                         "axis": [],
-                        "name_axis": {},
+                        "nameAxis": {},
                         "price": {
                             "current": 2099
                         },
                         "images": [],
-                        "applied_promotions": []
+                        "appliedPromotions": []
                     }
                 ],
                 "attributes": [],
