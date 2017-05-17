@@ -1,0 +1,20 @@
+Sylius\Component\Core\Model\Promotion:
+    banana_promotion:
+        code: "BANANA_PROMOTION"
+        name: "Banana promotion"
+        couponBased: true
+        coupons: ["@some_coupon"]
+        channels: ["@gb_web_channel"]
+        actions: ["@10_percent_order_discount"]
+
+Sylius\Component\Promotion\Model\PromotionAction:
+    10_percent_order_discount:
+        type: "order_percentage_discount"
+        promotion: "@banana_promotion"
+        configuration:
+            percentage: 0.1
+
+Sylius\Component\Core\Model\PromotionCoupon:
+    some_coupon:
+        code: "BANANAS"
+        promotion: "@banana_promotion"

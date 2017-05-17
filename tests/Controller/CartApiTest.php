@@ -3,6 +3,10 @@
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
 use Lakion\ApiTestCase\JsonApiTestCase;
+use League\Tactician\CommandBus;
+use Sylius\ShopApiPlugin\Command\AddCoupon;
+use Sylius\ShopApiPlugin\Command\PickupCart;
+use Sylius\ShopApiPlugin\Command\PutSimpleItemToCart;
 use Symfony\Component\HttpFoundation\Response;
 
 final class CartApiTest extends JsonApiTestCase
@@ -260,6 +264,29 @@ EOT;
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/estimated_shipping_cost_bases_on_country_and_province_response', Response::HTTP_OK);
+    }
+
+    /**
+     * @test
+     */
+    public function it_shows_a_cart_after_coupon_based_promotion_is_applied()
+    {
+        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFile('country.yml');
+        $this->loadFixturesFromFile('coupon_based_promotion.yml');
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var CommandBus $bus */
+        $bus = $this->get('tactician.commandbus');
+        $bus->handle(new PickupCart($token, 'WEB_GB'));
+        $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
+        $bus->handle(new AddCoupon($token, 'BANANAS'));
+
+        $this->client->request('GET', '/shop-api/checkout/' . $token, [], [], static::$acceptAndContentTypeHeader);
+
+        $response = $this->client->getResponse();
+        $this->assertResponse($response, 'cart/cart_with_coupon_based_promotion_applied_response', Response::HTTP_OK);
     }
 
     /**
