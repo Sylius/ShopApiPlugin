@@ -12,7 +12,8 @@
     },
     "require-dev": {
         "lakion/api-test-case": "^1.1",
-        "phpspec/phpspec": "^3.2"
+        "phpspec/phpspec": "^3.2",
+        "lexik/jwt-authentication-bundle": "^2.4"
     },
     "autoload": {
         "psr-4": {

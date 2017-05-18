@@ -1,6 +1,10 @@
 parameters:
     locale: en_GB
     secret: "Heron is the best animal in the world!"
+    jwt_private_key_path: '%kernel.root_dir%/config/jwt/private-test.pem'
+    jwt_public_key_path: '%kernel.root_dir%/config/jwt/public-test.pem'
+    jwt_key_pass_phrase: 'heron'
+    jwt_token_ttl: 3600
 
 imports:
     - { resource: "@SyliusCoreBundle/Resources/config/app/config.yml" }
@@ -47,16 +51,10 @@ fos_rest:
 sylius_shop:
     checkout_resolver:
         pattern: "^/shop/checkout"
-        route_map:
-            cart:
-                route: sylius_shop_checkout_address
-            addressed:
-                route: sylius_shop_checkout_select_shipping
-            shipping_selected:
-                route: sylius_shop_checkout_select_payment
-            shipping_skipped:
-                route: sylius_shop_checkout_select_payment
-            payment_selected:
-                route: sylius_shop_checkout_complete
-            payment_skipped:
-                route: sylius_shop_checkout_complete
+
+lexik_jwt_authentication:
+    private_key_path: '%jwt_private_key_path%'
+    public_key_path:  '%jwt_public_key_path%'
+    pass_phrase:      '%jwt_key_pass_phrase%'
+    token_ttl:        '%jwt_token_ttl%'
+
