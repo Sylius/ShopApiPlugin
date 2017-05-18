@@ -23,6 +23,7 @@ This repository provides a ShopApi implementation on the top of [Sylius E-Commer
                 // ...
     
                 new \Sylius\ShopApiPlugin\ShopApiPlugin(),
+                new \League\Tactician\Bundle\TacticianBundle(),
             ];
     
             return array_merge(parent::registerBundles(), $bundles);
