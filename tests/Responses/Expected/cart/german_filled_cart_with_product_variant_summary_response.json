@@ -14,8 +14,34 @@
                 "name": "Logan Hut",
                 "slug": "logan-hut",
                 "taxons": [
-                    "CATEGORY",
-                    "HAT"
+                    {
+                        "code": "CATEGORY",
+                        "name": "Kategorien",
+                        "slug": "kategorien",
+                        "description": "@string@",
+                        "position": 0,
+                        "children": [],
+                        "images": []
+                    },
+                    {
+                        "code": "CATEGORY",
+                        "name": "Kategorien",
+                        "slug": "kategorien",
+                        "description": "@string@",
+                        "position": 0,
+                        "children": [
+                            {
+                                "code": "HAT",
+                                "name": "H\u00fcte",
+                                "slug": "hute",
+                                "description": "@string@",
+                                "position": 1,
+                                "children": [],
+                                "images": []
+                            }
+                        ],
+                        "images": []
+                    }
                 ],
                 "variants": [
                     {

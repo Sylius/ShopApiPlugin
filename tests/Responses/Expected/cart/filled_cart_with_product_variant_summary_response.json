@@ -14,8 +14,39 @@
                 "name": "Logan T-Shirt",
                 "slug": "logan-t-shirt",
                 "taxons": [
-                    "CATEGORY",
-                    "T_SHIRTS"
+                    {
+                        "code": "CATEGORY",
+                        "name": "Categories",
+                        "slug": "categories",
+                        "description": "@string@",
+                        "position": 0,
+                        "children": [],
+                        "images": []
+                    },
+                    {
+                        "code": "CATEGORY",
+                        "name": "Categories",
+                        "slug": "categories",
+                        "description": "@string@",
+                        "position": 0,
+                        "children": [
+                            {
+                                "code": "T_SHIRTS",
+                                "name": "T-Shirts",
+                                "slug": "t-shirts",
+                                "description": "@string@",
+                                "position": 2,
+                                "children": [],
+                                "images": [
+                                    {
+                                        "code": "thumbnail",
+                                        "path": "\/uo\/t-shirt.jpg"
+                                    }
+                                ]
+                            }
+                        ],
+                        "images": []
+                    }
                 ],
                 "variants": [
                     {
@@ -62,8 +93,34 @@
                 "name": "Logan Hat",
                 "slug": "logan-hat",
                 "taxons": [
-                    "CATEGORY",
-                    "HAT"
+                    {
+                        "code": "CATEGORY",
+                        "name": "Categories",
+                        "slug": "categories",
+                        "description": "@string@",
+                        "position": 0,
+                        "children": [],
+                        "images": []
+                    },
+                    {
+                        "code": "CATEGORY",
+                        "name": "Categories",
+                        "slug": "categories",
+                        "description": "@string@",
+                        "position": 0,
+                        "children": [
+                            {
+                                "code": "HAT",
+                                "name": "Hats",
+                                "slug": "hats",
+                                "description": "@string@",
+                                "position": 1,
+                                "children": [],
+                                "images": []
+                            }
+                        ],
+                        "images": []
+                    }
                 ],
                 "variants": [
                     {

@@ -6,24 +6,27 @@ use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\ProductImageInterface;
 use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Model\ProductTranslationInterface;
-use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Product\Model\ProductAttributeValueInterface;
 use Sylius\ShopApiPlugin\Factory\ImageViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\ProductAttributeValueViewFactoryInterface;
-use Sylius\ShopApiPlugin\Factory\ProductVariantViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\ProductViewFactory;
 use PhpSpec\ObjectBehavior;
 use Sylius\ShopApiPlugin\Factory\ProductViewFactoryInterface;
+use Sylius\ShopApiPlugin\Factory\TaxonViewFactoryInterface;
 use Sylius\ShopApiPlugin\View\ImageView;
 use Sylius\ShopApiPlugin\View\ProductAttributeValueView;
-use Sylius\ShopApiPlugin\View\ProductVariantView;
 use Sylius\ShopApiPlugin\View\ProductView;
+use Sylius\ShopApiPlugin\View\TaxonView;
 
 final class ProductViewFactorySpec extends ObjectBehavior
 {
-    function let(ImageViewFactoryInterface $imageViewFactory, ProductAttributeValueViewFactoryInterface $attributeValueViewFactory) {
-        $this->beConstructedWith($imageViewFactory, $attributeValueViewFactory, 'en_GB');
+    function let(
+        ImageViewFactoryInterface $imageViewFactory,
+        ProductAttributeValueViewFactoryInterface $attributeValueViewFactory,
+        TaxonViewFactoryInterface $taxonViewFactory
+    ) {
+        $this->beConstructedWith($imageViewFactory, $attributeValueViewFactory, $taxonViewFactory, 'en_GB');
     }
 
     function it_is_initializable()
@@ -44,8 +47,10 @@ final class ProductViewFactorySpec extends ObjectBehavior
         ProductImageInterface $firstProductImage,
         ProductImageInterface $secondProductImage,
         ProductInterface $product,
+        TaxonInterface $parentalTaxon,
         TaxonInterface $taxon,
-        ProductTranslationInterface $productTranslation
+        ProductTranslationInterface $productTranslation,
+        TaxonViewFactoryInterface $taxonViewFactory
     ) {
         $product->getTranslation('en_GB')->willReturn($productTranslation);
         $product->getCode()->willReturn('HAT_CODE');
@@ -54,7 +59,8 @@ final class ProductViewFactorySpec extends ObjectBehavior
         $product->getTaxons()->willReturn([$taxon]);
         $product->getAttributesByLocale('en_GB', 'en_GB')->willReturn([$productAttributeValue]);
 
-        $taxon->getCode()->willReturn('CATEGORY_CODE');
+        $taxon->getParent()->willReturn($parentalTaxon);
+        $parentalTaxon->getParent()->willReturn(null);
 
         $firstProductImage->getProductVariants()->willReturn([]);
         $secondProductImage->getProductVariants()->willReturn([]);
@@ -64,14 +70,20 @@ final class ProductViewFactorySpec extends ObjectBehavior
 
         $attributeValueViewFactory->create($productAttributeValue)->willReturn(new ProductAttributeValueView());
 
+        $taxonViewFactory->create($taxon, 'en_GB')->willReturn(new TaxonView());
+        $taxonViewFactory->create($parentalTaxon, 'en_GB')->willReturn(new TaxonView());
+
         $productTranslation->getName()->willReturn('Hat');
         $productTranslation->getSlug()->willReturn('hat');
+
+        $parentalTaxonView = new TaxonView();
+        $parentalTaxonView->children = [new TaxonView()];
 
         $productView = new ProductView();
         $productView->name = 'Hat';
         $productView->code = 'HAT_CODE';
         $productView->slug = 'hat';
-        $productView->taxons = ['CATEGORY_CODE'];
+        $productView->taxons = [$parentalTaxonView];
         $productView->images = [new ImageView(), new ImageView()];
         $productView->attributes = [new ProductAttributeValueView()];
 
