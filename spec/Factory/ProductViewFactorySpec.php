@@ -9,13 +9,12 @@ use Sylius\Component\Core\Model\ProductTranslationInterface;
 use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Product\Model\ProductAttributeValueInterface;
 use Sylius\ShopApiPlugin\Factory\ImageViewFactoryInterface;
-use Sylius\ShopApiPlugin\Factory\ProductAttributeValueViewFactoryInterface;
+use Sylius\ShopApiPlugin\Factory\ProductAttributeValuesViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\ProductViewFactory;
 use PhpSpec\ObjectBehavior;
 use Sylius\ShopApiPlugin\Factory\ProductViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\TaxonViewFactoryInterface;
 use Sylius\ShopApiPlugin\View\ImageView;
-use Sylius\ShopApiPlugin\View\ProductAttributeValueView;
 use Sylius\ShopApiPlugin\View\ProductView;
 use Sylius\ShopApiPlugin\View\TaxonView;
 
@@ -23,10 +22,10 @@ final class ProductViewFactorySpec extends ObjectBehavior
 {
     function let(
         ImageViewFactoryInterface $imageViewFactory,
-        ProductAttributeValueViewFactoryInterface $attributeValueViewFactory,
+        ProductAttributeValuesViewFactoryInterface $attributeValuesViewFactory,
         TaxonViewFactoryInterface $taxonViewFactory
     ) {
-        $this->beConstructedWith($imageViewFactory, $attributeValueViewFactory, $taxonViewFactory, 'en_GB');
+        $this->beConstructedWith($imageViewFactory, $attributeValuesViewFactory, $taxonViewFactory, 'en_GB');
     }
 
     function it_is_initializable()
@@ -42,7 +41,7 @@ final class ProductViewFactorySpec extends ObjectBehavior
     function it_builds_product_view(
         ChannelInterface $channel,
         ImageViewFactoryInterface $imageViewFactory,
-        ProductAttributeValueViewFactoryInterface $attributeValueViewFactory,
+        ProductAttributeValuesViewFactoryInterface $attributeValuesViewFactory,
         ProductAttributeValueInterface $productAttributeValue,
         ProductImageInterface $firstProductImage,
         ProductImageInterface $secondProductImage,
@@ -68,7 +67,7 @@ final class ProductViewFactorySpec extends ObjectBehavior
         $imageViewFactory->create($firstProductImage)->willReturn(new ImageView());
         $imageViewFactory->create($secondProductImage)->willReturn(new ImageView());
 
-        $attributeValueViewFactory->create($productAttributeValue)->willReturn(new ProductAttributeValueView());
+        $attributeValuesViewFactory->create([$productAttributeValue])->willReturn([]);
 
         $taxonViewFactory->create($taxon, 'en_GB')->willReturn(new TaxonView());
         $taxonViewFactory->create($parentalTaxon, 'en_GB')->willReturn(new TaxonView());
@@ -85,7 +84,7 @@ final class ProductViewFactorySpec extends ObjectBehavior
         $productView->slug = 'hat';
         $productView->taxons = [$parentalTaxonView];
         $productView->images = [new ImageView(), new ImageView()];
-        $productView->attributes = [new ProductAttributeValueView()];
+        $productView->attributes = [];
 
         $this->create($product, $channel, 'en_GB')->shouldBeLike($productView);
     }

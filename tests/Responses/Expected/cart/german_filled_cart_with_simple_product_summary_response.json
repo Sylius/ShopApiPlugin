@@ -58,11 +58,6 @@
                 ],
                 "attributes": [
                     {
-                        "code": "MUG_COLLECTION_CODE",
-                        "name": "Mug collection",
-                        "value": "FEIERTAGSKOLLEKTION"
-                    },
-                    {
                         "code": "MUG_MATERIAL_CODE",
                         "name": "Mug material",
                         "value": "Holz"
