@@ -14,8 +14,34 @@
                 "name": "Logan Becher",
                 "slug": "logan-becher",
                 "taxons": [
-                    "CATEGORY",
-                    "MUG"
+                    {
+                        "code": "CATEGORY",
+                        "name": "Kategorien",
+                        "slug": "kategorien",
+                        "description": "@string@",
+                        "position": 0,
+                        "children": [],
+                        "images": []
+                    },
+                    {
+                        "code": "CATEGORY",
+                        "name": "Kategorien",
+                        "slug": "kategorien",
+                        "description": "@string@",
+                        "position": 0,
+                        "children": [
+                            {
+                                "code": "MUG",
+                                "name": "Tassen",
+                                "slug": "tassen",
+                                "description": "@string@",
+                                "position": 0,
+                                "children": [],
+                                "images": []
+                            }
+                        ],
+                        "images": []
+                    }
                 ],
                 "variants": [
                     {

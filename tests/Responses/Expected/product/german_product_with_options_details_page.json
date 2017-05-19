@@ -3,8 +3,34 @@
     "name": "Logan Hut",
     "slug": "logan-hut",
     "taxons": [
-        "CATEGORY",
-        "HAT"
+        {
+            "code": "CATEGORY",
+            "name": "Kategorien",
+            "slug": "kategorien",
+            "description": "@string@",
+            "position": 0,
+            "children": [],
+            "images": []
+        },
+        {
+            "code": "CATEGORY",
+            "name": "Kategorien",
+            "slug": "kategorien",
+            "description": "@string@",
+            "position": 0,
+            "children": [
+                {
+                    "code": "HAT",
+                    "name": "H\u00fcte",
+                    "slug": "hute",
+                    "description": "@string@",
+                    "position": 1,
+                    "children": [],
+                    "images": []
+                }
+            ],
+            "images": []
+        }
     ],
     "variants": {
         "SMALL_RED_LOGAN_HAT_CODE": {
@@ -84,8 +110,34 @@
                 "name": "Logan Becher",
                 "slug": "logan-becher",
                 "taxons": [
-                    "CATEGORY",
-                    "MUG"
+                    {
+                        "code": "CATEGORY",
+                        "name": "Kategorien",
+                        "slug": "kategorien",
+                        "description": "@string@",
+                        "position": 0,
+                        "children": [],
+                        "images": []
+                    },
+                    {
+                        "code": "CATEGORY",
+                        "name": "Kategorien",
+                        "slug": "kategorien",
+                        "description": "@string@",
+                        "position": 0,
+                        "children": [
+                            {
+                                "code": "MUG",
+                                "name": "Tassen",
+                                "slug": "tassen",
+                                "description": "@string@",
+                                "position": 0,
+                                "children": [],
+                                "images": []
+                            }
+                        ],
+                        "images": []
+                    }
                 ],
                 "variants": {
                     "LOGAN_MUG_CODE": {
@@ -135,8 +187,39 @@
                 "name": "Logan T-Shirt",
                 "slug": "logan-t-shirt",
                 "taxons": [
-                    "CATEGORY",
-                    "T_SHIRTS"
+                    {
+                        "code": "CATEGORY",
+                        "name": "Kategorien",
+                        "slug": "kategorien",
+                        "description": "@string@",
+                        "position": 0,
+                        "children": [],
+                        "images": []
+                    },
+                    {
+                        "code": "CATEGORY",
+                        "name": "Kategorien",
+                        "slug": "kategorien",
+                        "description": "@string@",
+                        "position": 0,
+                        "children": [
+                            {
+                                "code": "T_SHIRTS",
+                                "name": "T-Shirts",
+                                "slug": "t-shirts",
+                                "description": "@string@",
+                                "position": 2,
+                                "children": [],
+                                "images": [
+                                    {
+                                        "code": "thumbnail",
+                                        "path": "\/uo\/t-shirt.jpg"
+                                    }
+                                ]
+                            }
+                        ],
+                        "images": []
+                    }
                 ],
                 "variants": {
                     "SMALL_LOGAN_T_SHIRT_CODE": {
