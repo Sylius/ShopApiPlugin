@@ -59,7 +59,9 @@ final class ProductViewFactorySpec extends ObjectBehavior
         $product->getAttributesByLocale('en_GB', 'en_GB')->willReturn([$productAttributeValue]);
 
         $taxon->getParent()->willReturn($parentalTaxon);
+        $taxon->getCode()->willReturn('CHILD');
         $parentalTaxon->getParent()->willReturn(null);
+        $parentalTaxon->getCode()->willReturn('PARENT');
 
         $firstProductImage->getProductVariants()->willReturn([]);
         $secondProductImage->getProductVariants()->willReturn([]);
@@ -82,7 +84,7 @@ final class ProductViewFactorySpec extends ObjectBehavior
         $productView->name = 'Hat';
         $productView->code = 'HAT_CODE';
         $productView->slug = 'hat';
-        $productView->taxons = [$parentalTaxonView];
+        $productView->taxons = ['CHILD' => $parentalTaxonView];
         $productView->images = [new ImageView(), new ImageView()];
         $productView->attributes = [];
 

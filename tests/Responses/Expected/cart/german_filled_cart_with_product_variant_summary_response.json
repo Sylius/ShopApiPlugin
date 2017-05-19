@@ -13,8 +13,8 @@
                 "code": "LOGAN_HAT_CODE",
                 "name": "Logan Hut",
                 "slug": "logan-hut",
-                "taxons": [
-                    {
+                "taxons": {
+                    "CATEGORY": {
                         "code": "CATEGORY",
                         "name": "Kategorien",
                         "slug": "kategorien",
@@ -23,7 +23,7 @@
                         "children": [],
                         "images": []
                     },
-                    {
+                    "HAT": {
                         "code": "CATEGORY",
                         "name": "Kategorien",
                         "slug": "kategorien",
@@ -42,7 +42,7 @@
                         ],
                         "images": []
                     }
-                ],
+                },
                 "variants": [
                     {
                         "code": "SMALL_RED_LOGAN_HAT_CODE",
