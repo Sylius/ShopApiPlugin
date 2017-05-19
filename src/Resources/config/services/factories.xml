@@ -18,7 +18,8 @@
 
         <service id="sylius.shop_api_plugin.factory.product_view_factory" class="Sylius\ShopApiPlugin\Factory\ProductViewFactory">
             <argument type="service" id="sylius.shop_api_plugin.factory.image_view_factory" />
-            <argument type="service" id="sylius.shop_api_plugin.factory.product_variant_view_factory" />
+            <argument type="service" id="sylius.shop_api_plugin.factory.product_attribute_value_view_factory" />
+            <argument>%locale%</argument>
         </service>
 
         <service id="sylius.shop_api_plugin.factory.detailed_product_view_factory" class="Sylius\ShopApiPlugin\Factory\DetailedProductViewFactory">
@@ -59,5 +60,7 @@
         </service>
 
         <service id="sylius.shop_api_plugin.factory.payment_method_view_factory" class="Sylius\ShopApiPlugin\Factory\PaymentMethodViewFactory" />
+
+        <service id="sylius.shop_api_plugin.factory.product_attribute_value_view_factory" class="Sylius\ShopApiPlugin\Factory\ProductAttributeValueViewFactory" />
     </services>
 </container>

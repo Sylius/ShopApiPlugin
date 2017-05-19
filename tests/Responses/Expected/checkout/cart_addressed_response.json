@@ -30,7 +30,18 @@
                         "appliedPromotions": []
                     }
                 ],
-                "attributes": [],
+                "attributes": [
+                    {
+                        "code": "MUG_COLLECTION_CODE",
+                        "name": "Mug collection",
+                        "value": "HOLIDAY COLLECTION"
+                    },
+                    {
+                        "code": "MUG_MATERIAL_CODE",
+                        "name": "Mug material",
+                        "value": "Wood"
+                    }
+                ],
                 "associations": [],
                 "images": [
                     {
