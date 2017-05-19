@@ -20,6 +20,7 @@ final class AppKernel extends Kernel
             new \League\Tactician\Bundle\TacticianBundle(),
 
             new \Sylius\ShopApiPlugin\ShopApiPlugin(),
+            new \Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle(),
         ]);
     }
 

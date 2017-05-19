@@ -41,6 +41,7 @@
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="tactician.commandbus" />
+            <argument type="service" id="security.token_storage" />
         </service>
     </services>
 </container>
