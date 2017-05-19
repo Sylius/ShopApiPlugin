@@ -4,7 +4,7 @@ This repository provides a ShopApi implementation on the top of [Sylius E-Commer
  
 # Beware
 
-:warning: The project is experimental and pretty unstable at this moment. Also, it will not allow using both Sylius Shop and Sylius Shop API, with the current implementation. :warning:
+:warning: The project is experimental and pretty unstable at this moment. :warning:
 
 ## Usage
 
