@@ -78,7 +78,6 @@
     },
     "attributes": [],
     "associations": {
-
         "CROSS_SELL_ASSOCIATION_TYPE": [
             {
                 "code": "LOGAN_MUG_CODE",
@@ -106,7 +105,18 @@
                         "applied_promotions": []
                     }
                 },
-                "attributes": [],
+                "attributes": [
+                    {
+                        "code": "MUG_COLLECTION_CODE",
+                        "name": "Mug collection",
+                        "value": "FEIERTAGSKOLLEKTION"
+                    },
+                    {
+                        "code": "MUG_MATERIAL_CODE",
+                        "name": "Mug material",
+                        "value": "Holz"
+                    }
+                ],
                 "associations": [],
                 "images": [
                     {

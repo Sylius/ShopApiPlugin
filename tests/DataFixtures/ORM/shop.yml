@@ -45,6 +45,11 @@ Sylius\Component\Core\Model\Product:
         mainTaxon: "@t_shirt_taxon"
         productTaxons: ["@mug_product_taxon"]
         association: ["@cross-sell-hat-association"]
+        attributes:
+            - "@en_gb_mug_holiday_collection_value"
+            - "@de_de_mug_holiday_collection_value"
+            - "@en_gb_mug_holiday_material_value"
+            - "@de_de_mug_holiday_material_value"
     t_shirt:
         code: "LOGAN_T_SHIRT_CODE"
         channels: ["@gb_web_channel"]
@@ -532,3 +537,63 @@ Sylius\Component\Product\Model\ProductAssociation:
         associatedProducts:
             - "@t_shirt"
             - "@mug"
+
+Sylius\Component\Product\Model\ProductAttributeTranslation:
+    mug_collection_de_de_translation:
+        locale: "de_DE"
+        name: "Becher Sammlung"
+        translatable: "@mug_collection"
+    mug_material_de_de_translation:
+        locale: "de_DE"
+        name: "Becher Material"
+        translatable: "@mug_material"
+    mug_collection_en_gb_translation:
+        locale: "en_GB"
+        name: "Mug collection"
+        translatable: "@mug_collection"
+    mug_material_en_gb_translation:
+        locale: "en_GB"
+        name: "Mug material"
+        translatable: "@mug_material"
+
+Sylius\Component\Product\Model\ProductAttribute:
+    mug_collection:
+        fallbackLocale: "en_GB"
+        currentLocale: "en_GB"
+        code: "MUG_COLLECTION_CODE"
+        type: "text"
+        storage_type: "text"
+        translations:
+            - "@mug_collection_en_gb_translation"
+            - "@mug_collection_de_de_translation"
+    mug_material:
+        fallbackLocale: "en_GB"
+        currentLocale: "en_GB"
+        code: "MUG_MATERIAL_CODE"
+        type: "text"
+        storage_type: "text"
+        translations:
+            - "@mug_material_en_gb_translation"
+            - "@mug_material_de_de_translation"
+
+Sylius\Component\Product\Model\ProductAttributeValue:
+    en_gb_mug_holiday_collection_value:
+        subject: "@mug"
+        attribute: "@mug_collection"
+        localeCode: "en_GB"
+        text: "HOLIDAY COLLECTION"
+    de_de_mug_holiday_collection_value:
+        subject: "@mug"
+        attribute: "@mug_collection"
+        localeCode: "de_DE"
+        text: "FEIERTAGSKOLLEKTION"
+    en_gb_mug_holiday_material_value:
+        subject: "@mug"
+        attribute: "@mug_material"
+        localeCode: "en_GB"
+        text: "Wood"
+    de_de_mug_holiday_material_value:
+        subject: "@mug"
+        attribute: "@mug_material"
+        localeCode: "de_DE"
+        text: "Holz"
