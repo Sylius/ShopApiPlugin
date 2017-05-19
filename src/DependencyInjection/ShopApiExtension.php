@@ -18,5 +18,7 @@ final class ShopApiExtension extends Extension
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
 
         $loader->load('services.xml');
+
+        $container->setParameter('sylius.shop_api.included_attributes', $config['included_attributes']);
     }
 }

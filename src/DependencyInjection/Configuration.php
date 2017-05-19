@@ -13,7 +13,11 @@ final class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('shop_api_plugin');
+        $rootNode = $treeBuilder->root('shop_api');
+        $rootNode
+            ->children()
+                ->arrayNode('included_attributes')
+                    ->prototype('scalar');
 
         return $treeBuilder;
     }

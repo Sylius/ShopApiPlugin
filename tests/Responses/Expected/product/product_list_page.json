@@ -64,11 +64,6 @@
             },
             "attributes": [
                 {
-                    "code": "MUG_COLLECTION_CODE",
-                    "name": "Mug collection",
-                    "value": "HOLIDAY COLLECTION"
-                },
-                {
                     "code": "MUG_MATERIAL_CODE",
                     "name": "Mug material",
                     "value": "Wood"
@@ -342,11 +337,6 @@
                             }
                         },
                         "attributes": [
-                            {
-                                "code": "MUG_COLLECTION_CODE",
-                                "name": "Mug collection",
-                                "value": "HOLIDAY COLLECTION"
-                            },
                             {
                                 "code": "MUG_MATERIAL_CODE",
                                 "name": "Mug material",

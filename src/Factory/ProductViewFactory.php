@@ -2,7 +2,6 @@
 
 namespace Sylius\ShopApiPlugin\Factory;
 
-use Sylius\Component\Attribute\Model\AttributeValueInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\ProductImageInterface;
 use Sylius\Component\Core\Model\ProductInterface;
@@ -18,9 +17,9 @@ final class ProductViewFactory implements ProductViewFactoryInterface
     private $imageViewFactory;
 
     /**
-     * @var ProductAttributeValueViewFactoryInterface
+     * @var ProductAttributeValuesViewFactoryInterface
      */
-    private $attributeValueViewFactory;
+    private $attributeValuesViewFactory;
 
     /**
      * @var TaxonViewFactoryInterface
@@ -34,18 +33,18 @@ final class ProductViewFactory implements ProductViewFactoryInterface
 
     /**
      * @param ImageViewFactoryInterface $imageViewFactory
-     * @param ProductAttributeValueViewFactoryInterface $attributeValueViewFactory
+     * @param ProductAttributeValuesViewFactoryInterface $attributeValuesViewFactory
      * @param TaxonViewFactoryInterface $taxonViewFactory
      * @param string $fallback
      */
     public function __construct(
         ImageViewFactoryInterface $imageViewFactory,
-        ProductAttributeValueViewFactoryInterface $attributeValueViewFactory,
+        ProductAttributeValuesViewFactoryInterface $attributeValuesViewFactory,
         TaxonViewFactoryInterface $taxonViewFactory,
         $fallback
     ) {
         $this->imageViewFactory = $imageViewFactory;
-        $this->attributeValueViewFactory = $attributeValueViewFactory;
+        $this->attributeValuesViewFactory = $attributeValuesViewFactory;
         $this->taxonViewFactory = $taxonViewFactory;
         $this->fallback = $fallback;
     }
@@ -71,10 +70,7 @@ final class ProductViewFactory implements ProductViewFactoryInterface
             $productView->taxons[] = $this->getTaxonWithAncestors($taxon, $locale);
         }
 
-        /** @var AttributeValueInterface $attribute */
-        foreach ($product->getAttributesByLocale($locale, $this->fallback) as $attribute) {
-            $productView->attributes[] = $this->attributeValueViewFactory->create($attribute);
-        }
+        $productView->attributes = $this->attributeValuesViewFactory->create($product->getAttributesByLocale($locale, $this->fallback));
 
         return $productView;
     }
