@@ -2,8 +2,8 @@
     "code": "LOGAN_MUG_CODE",
     "name": "Logan Mug",
     "slug": "logan-mug",
-    "taxons": [
-        {
+    "taxons": {
+        "CATEGORY": {
             "code": "CATEGORY",
             "name": "Categories",
             "slug": "categories",
@@ -12,7 +12,7 @@
             "children": [],
             "images": []
         },
-        {
+        "MUG": {
             "code": "CATEGORY",
             "name": "Categories",
             "slug": "categories",
@@ -31,7 +31,7 @@
             ],
             "images": []
         }
-    ],
+    },
     "variants": {
         "LOGAN_MUG_CODE": {
             "code": "LOGAN_MUG_CODE",

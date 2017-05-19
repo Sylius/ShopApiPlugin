@@ -14,8 +14,8 @@
             "code": "LOGAN_MUG_CODE",
             "name": "Logan Mug",
             "slug": "logan-mug",
-            "taxons": [
-                {
+            "taxons": {
+                "CATEGORY": {
                     "code": "CATEGORY",
                     "name": "Categories",
                     "slug": "categories",
@@ -24,7 +24,7 @@
                     "children": [],
                     "images": []
                 },
-                {
+                "MUG": {
                     "code": "CATEGORY",
                     "name": "Categories",
                     "slug": "categories",
@@ -43,7 +43,7 @@
                     ],
                     "images": []
                 }
-            ],
+            },
             "variants": {
                 "LOGAN_MUG_CODE": {
                     "code": "LOGAN_MUG_CODE",
@@ -91,8 +91,8 @@
             "code": "LOGAN_T_SHIRT_CODE",
             "name": "Logan T-Shirt",
             "slug": "logan-t-shirt",
-            "taxons": [
-                {
+            "taxons": {
+                "CATEGORY": {
                     "code": "CATEGORY",
                     "name": "Categories",
                     "slug": "categories",
@@ -101,7 +101,7 @@
                     "children": [],
                     "images": []
                 },
-                {
+                "T_SHIRTS": {
                     "code": "CATEGORY",
                     "name": "Categories",
                     "slug": "categories",
@@ -125,7 +125,7 @@
                     ],
                     "images": []
                 }
-            ],
+            },
             "variants": {
                 "SMALL_LOGAN_T_SHIRT_CODE": {
                     "code": "SMALL_LOGAN_T_SHIRT_CODE",
@@ -186,8 +186,8 @@
             "code": "LOGAN_HAT_CODE",
             "name": "Logan Hat",
             "slug": "logan-hat",
-            "taxons": [
-                {
+            "taxons": {
+                "CATEGORY": {
                     "code": "CATEGORY",
                     "name": "Categories",
                     "slug": "categories",
@@ -196,7 +196,7 @@
                     "children": [],
                     "images": []
                 },
-                {
+                "HAT": {
                     "code": "CATEGORY",
                     "name": "Categories",
                     "slug": "categories",
@@ -215,7 +215,7 @@
                     ],
                     "images": []
                 }
-            ],
+            },
             "variants": {
                 "SMALL_RED_LOGAN_HAT_CODE": {
                     "code": "SMALL_RED_LOGAN_HAT_CODE",
@@ -293,8 +293,8 @@
                         "code": "LOGAN_MUG_CODE",
                         "name": "Logan Mug",
                         "slug": "logan-mug",
-                        "taxons": [
-                            {
+                        "taxons": {
+                            "CATEGORY": {
                                 "code": "CATEGORY",
                                 "name": "Categories",
                                 "slug": "categories",
@@ -303,7 +303,7 @@
                                 "children": [],
                                 "images": []
                             },
-                            {
+                            "MUG": {
                                 "code": "CATEGORY",
                                 "name": "Categories",
                                 "slug": "categories",
@@ -322,7 +322,7 @@
                                 ],
                                 "images": []
                             }
-                        ],
+                        },
                         "variants": {
                             "LOGAN_MUG_CODE": {
                                 "code": "LOGAN_MUG_CODE",
@@ -370,8 +370,8 @@
                         "code": "LOGAN_T_SHIRT_CODE",
                         "name": "Logan T-Shirt",
                         "slug": "logan-t-shirt",
-                        "taxons": [
-                            {
+                        "taxons": {
+                            "CATEGORY": {
                                 "code": "CATEGORY",
                                 "name": "Categories",
                                 "slug": "categories",
@@ -380,7 +380,7 @@
                                 "children": [],
                                 "images": []
                             },
-                            {
+                            "T_SHIRTS": {
                                 "code": "CATEGORY",
                                 "name": "Categories",
                                 "slug": "categories",
@@ -404,7 +404,7 @@
                                 ],
                                 "images": []
                             }
-                        ],
+                        },
                         "variants": {
                             "SMALL_LOGAN_T_SHIRT_CODE": {
                                 "code": "SMALL_LOGAN_T_SHIRT_CODE",

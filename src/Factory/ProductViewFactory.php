@@ -68,7 +68,7 @@ final class ProductViewFactory implements ProductViewFactoryInterface
 
         /** @var TaxonInterface $taxon */
         foreach ($product->getTaxons() as $taxon) {
-            $productView->taxons[] = $this->getTaxonWithAncestors($taxon, $locale);
+            $productView->taxons[$taxon->getCode()] = $this->getTaxonWithAncestors($taxon, $locale);
         }
 
         /** @var AttributeValueInterface $attribute */
