@@ -14,15 +14,6 @@
                 "name": "Logan Hut",
                 "slug": "logan-hut",
                 "taxons": {
-                    "CATEGORY": {
-                        "code": "CATEGORY",
-                        "name": "Kategorien",
-                        "slug": "kategorien",
-                        "description": "@string@",
-                        "position": 0,
-                        "children": [],
-                        "images": []
-                    },
                     "HAT": {
                         "code": "CATEGORY",
                         "name": "Kategorien",
@@ -40,6 +31,15 @@
                                 "images": []
                             }
                         ],
+                        "images": []
+                    },
+                    "BRAND": {
+                        "code": "BRAND",
+                        "name": "Marken",
+                        "slug": "marken",
+                        "description": "@string@",
+                        "position": 1,
+                        "children": [],
                         "images": []
                     }
                 },

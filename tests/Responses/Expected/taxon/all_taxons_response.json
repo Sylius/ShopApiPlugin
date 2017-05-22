@@ -59,5 +59,14 @@
             }
         ],
         "images": []
+    },
+    {
+        "code": "BRAND",
+        "name": "Brands",
+        "slug": "brands",
+        "description": "@string@",
+        "position": 1,
+        "children": [],
+        "images": []
     }
 ]

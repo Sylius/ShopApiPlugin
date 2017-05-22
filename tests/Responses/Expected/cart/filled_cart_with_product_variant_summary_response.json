@@ -14,15 +14,6 @@
                 "name": "Logan T-Shirt",
                 "slug": "logan-t-shirt",
                 "taxons": {
-                    "CATEGORY": {
-                        "code": "CATEGORY",
-                        "name": "Categories",
-                        "slug": "categories",
-                        "description": "@string@",
-                        "position": 0,
-                        "children": [],
-                        "images": []
-                    },
                     "T_SHIRTS": {
                         "code": "CATEGORY",
                         "name": "Categories",
@@ -45,6 +36,15 @@
                                 ]
                             }
                         ],
+                        "images": []
+                    },
+                    "BRAND": {
+                        "code": "BRAND",
+                        "name": "Brands",
+                        "slug": "brands",
+                        "description": "@string@",
+                        "position": 1,
+                        "children": [],
                         "images": []
                     }
                 },
@@ -93,15 +93,6 @@
                 "name": "Logan Hat",
                 "slug": "logan-hat",
                 "taxons": {
-                    "CATEGORY": {
-                        "code": "CATEGORY",
-                        "name": "Categories",
-                        "slug": "categories",
-                        "description": "@string@",
-                        "position": 0,
-                        "children": [],
-                        "images": []
-                    },
                     "HAT": {
                         "code": "CATEGORY",
                         "name": "Categories",
@@ -119,6 +110,15 @@
                                 "images": []
                             }
                         ],
+                        "images": []
+                    },
+                    "BRAND": {
+                        "code": "BRAND",
+                        "name": "Brands",
+                        "slug": "brands",
+                        "description": "@string@",
+                        "position": 1,
+                        "children": [],
                         "images": []
                     }
                 },
