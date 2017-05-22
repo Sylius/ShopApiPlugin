@@ -4,10 +4,10 @@
     "pages": 1,
     "total": 3,
     "_links": {
-        "self": "\/shop-api\/taxons\/categories\/products\/?page=1&limit=10",
-        "first": "\/shop-api\/taxons\/categories\/products\/?page=1&limit=10",
-        "last": "\/shop-api\/taxons\/categories\/products\/?page=1&limit=10",
-        "next": "\/shop-api\/taxons\/categories\/products\/?page=1&limit=10"
+        "self": "\/shop-api\/taxons\/brands\/products\/?page=1&limit=10",
+        "first": "\/shop-api\/taxons\/brands\/products\/?page=1&limit=10",
+        "last": "\/shop-api\/taxons\/brands\/products\/?page=1&limit=10",
+        "next": "\/shop-api\/taxons\/brands\/products\/?page=1&limit=10"
     },
     "items": [
         {
@@ -15,15 +15,6 @@
             "name": "Logan Mug",
             "slug": "logan-mug",
             "taxons": {
-                "CATEGORY": {
-                    "code": "CATEGORY",
-                    "name": "Categories",
-                    "slug": "categories",
-                    "description": "@string@",
-                    "position": 0,
-                    "children": [],
-                    "images": []
-                },
                 "MUG": {
                     "code": "CATEGORY",
                     "name": "Categories",
@@ -41,6 +32,15 @@
                             "images": []
                         }
                     ],
+                    "images": []
+                },
+                "BRAND": {
+                    "code": "BRAND",
+                    "name": "Brands",
+                    "slug": "brands",
+                    "description": "@string@",
+                    "position": 1,
+                    "children": [],
                     "images": []
                 }
             },
@@ -87,15 +87,6 @@
             "name": "Logan T-Shirt",
             "slug": "logan-t-shirt",
             "taxons": {
-                "CATEGORY": {
-                    "code": "CATEGORY",
-                    "name": "Categories",
-                    "slug": "categories",
-                    "description": "@string@",
-                    "position": 0,
-                    "children": [],
-                    "images": []
-                },
                 "T_SHIRTS": {
                     "code": "CATEGORY",
                     "name": "Categories",
@@ -118,6 +109,15 @@
                             ]
                         }
                     ],
+                    "images": []
+                },
+                "BRAND": {
+                    "code": "BRAND",
+                    "name": "Brands",
+                    "slug": "brands",
+                    "description": "@string@",
+                    "position": 1,
+                    "children": [],
                     "images": []
                 }
             },
@@ -182,15 +182,6 @@
             "name": "Logan Hat",
             "slug": "logan-hat",
             "taxons": {
-                "CATEGORY": {
-                    "code": "CATEGORY",
-                    "name": "Categories",
-                    "slug": "categories",
-                    "description": "@string@",
-                    "position": 0,
-                    "children": [],
-                    "images": []
-                },
                 "HAT": {
                     "code": "CATEGORY",
                     "name": "Categories",
@@ -208,6 +199,15 @@
                             "images": []
                         }
                     ],
+                    "images": []
+                },
+                "BRAND": {
+                    "code": "BRAND",
+                    "name": "Brands",
+                    "slug": "brands",
+                    "description": "@string@",
+                    "position": 1,
+                    "children": [],
                     "images": []
                 }
             },
@@ -289,15 +289,6 @@
                         "name": "Logan Mug",
                         "slug": "logan-mug",
                         "taxons": {
-                            "CATEGORY": {
-                                "code": "CATEGORY",
-                                "name": "Categories",
-                                "slug": "categories",
-                                "description": "@string@",
-                                "position": 0,
-                                "children": [],
-                                "images": []
-                            },
                             "MUG": {
                                 "code": "CATEGORY",
                                 "name": "Categories",
@@ -315,6 +306,15 @@
                                         "images": []
                                     }
                                 ],
+                                "images": []
+                            },
+                            "BRAND": {
+                                "code": "BRAND",
+                                "name": "Brands",
+                                "slug": "brands",
+                                "description": "@string@",
+                                "position": 1,
+                                "children": [],
                                 "images": []
                             }
                         },
@@ -361,15 +361,6 @@
                         "name": "Logan T-Shirt",
                         "slug": "logan-t-shirt",
                         "taxons": {
-                            "CATEGORY": {
-                                "code": "CATEGORY",
-                                "name": "Categories",
-                                "slug": "categories",
-                                "description": "@string@",
-                                "position": 0,
-                                "children": [],
-                                "images": []
-                            },
                             "T_SHIRTS": {
                                 "code": "CATEGORY",
                                 "name": "Categories",
@@ -392,6 +383,15 @@
                                         ]
                                     }
                                 ],
+                                "images": []
+                            },
+                            "BRAND": {
+                                "code": "BRAND",
+                                "name": "Brands",
+                                "slug": "brands",
+                                "description": "@string@",
+                                "position": 1,
+                                "children": [],
                                 "images": []
                             }
                         },

@@ -3,15 +3,6 @@
     "name": "Logan Mug",
     "slug": "logan-mug",
     "taxons": {
-        "CATEGORY": {
-            "code": "CATEGORY",
-            "name": "Categories",
-            "slug": "categories",
-            "description": "@string@",
-            "position": 0,
-            "children": [],
-            "images": []
-        },
         "MUG": {
             "code": "CATEGORY",
             "name": "Categories",
@@ -29,6 +20,15 @@
                     "images": []
                 }
             ],
+            "images": []
+        },
+        "BRAND": {
+            "code": "BRAND",
+            "name": "Brands",
+            "slug": "brands",
+            "description": "@string@",
+            "position": 1,
+            "children": [],
             "images": []
         }
     },

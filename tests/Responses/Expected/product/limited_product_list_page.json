@@ -4,10 +4,10 @@
     "pages": 3,
     "total": 3,
     "_links": {
-        "self": "\/shop-api\/taxons\/categories\/products\/?page=2&limit=1",
-        "first": "\/shop-api\/taxons\/categories\/products\/?page=1&limit=1",
-        "last": "\/shop-api\/taxons\/categories\/products\/?page=3&limit=1",
-        "next": "\/shop-api\/taxons\/categories\/products\/?page=3&limit=1"
+        "self": "\/shop-api\/taxons\/brands\/products\/?page=2&limit=1",
+        "first": "\/shop-api\/taxons\/brands\/products\/?page=1&limit=1",
+        "last": "\/shop-api\/taxons\/brands\/products\/?page=3&limit=1",
+        "next": "\/shop-api\/taxons\/brands\/products\/?page=3&limit=1"
     },
     "items": [
         {
@@ -15,15 +15,6 @@
             "name": "Logan T-Shirt",
             "slug": "logan-t-shirt",
             "taxons": {
-                "CATEGORY": {
-                    "code": "CATEGORY",
-                    "name": "Categories",
-                    "slug": "categories",
-                    "description": "@string@",
-                    "position": 0,
-                    "children": [],
-                    "images": []
-                },
                 "T_SHIRTS": {
                     "code": "CATEGORY",
                     "name": "Categories",
@@ -46,6 +37,15 @@
                             ]
                         }
                     ],
+                    "images": []
+                },
+                "BRAND": {
+                    "code": "BRAND",
+                    "name": "Brands",
+                    "slug": "brands",
+                    "description": "@string@",
+                    "position": 1,
+                    "children": [],
                     "images": []
                 }
             },
