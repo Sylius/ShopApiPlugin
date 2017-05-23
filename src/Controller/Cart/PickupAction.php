@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
-final class PickupAction extends Controller
+final class PickupAction
 {
     /**
      * @var OrderRepositoryInterface

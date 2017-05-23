@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\RouterInterface;
 
-final class ShowProductCatalogAction extends Controller
+final class ShowProductCatalogAction
 {
     /**
      * @var ChannelRepositoryInterface
