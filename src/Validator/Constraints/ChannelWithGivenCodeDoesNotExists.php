@@ -9,7 +9,7 @@ final class ChannelWithGivenCodeDoesNotExists extends Constraint
     /**
      * @var string
      */
-    public $message = 'sylius.shop_api.pickup_cart_request.channel.not_exists';
+    public $message = 'sylius.shop_api.channel.not_exists';
 
     /**
      * {@inheritdoc}

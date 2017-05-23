@@ -15,13 +15,13 @@
     <class name="Sylius\ShopApiPlugin\Request\PickupCartRequest">
         <property name="channel">
             <constraint name="NotNull">
-                <option name="message">sylius.shop_api.pickup_cart_request.channel.not_null</option>
+                <option name="message">sylius.shop_api.channel.not_null</option>
             </constraint>
             <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\ChannelWithGivenCodeDoesNotExists" />
         </property>
         <property name="token">
             <constraint name="NotNull">
-                <option name="message">sylius.shop_api.pickup_cart_request.token.not_null</option>
+                <option name="message">sylius.shop_api.token.not_null</option>
             </constraint>
             <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\TokenAlreadyTaken" />
         </property>

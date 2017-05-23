@@ -42,7 +42,7 @@ final class ChannelWithGivenCodeDoesNotExistsValidatorSpec extends ObjectBehavio
     ) {
         $channelRepository->findOneByCode('WEB_GB')->willReturn(null);
 
-        $executionContext->addViolation('sylius.shop_api.pickup_cart_request.channel.not_exists')->shouldBeCalled();
+        $executionContext->addViolation('sylius.shop_api.channel.not_exists')->shouldBeCalled();
 
         $this->validate('WEB_GB', new ChannelWithGivenCodeDoesNotExists());
     }

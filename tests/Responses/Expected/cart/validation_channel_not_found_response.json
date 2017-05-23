@@ -3,8 +3,8 @@
     "message": "Validation failed",
     "errors": {
         "channel": [
-            "sylius.shop_api.pickup_cart_request.channel.not_null",
-            "sylius.shop_api.pickup_cart_request.channel.not_exists"
+            "sylius.shop_api.channel.not_null",
+            "sylius.shop_api.channel.not_exists"
         ]
     }
 }

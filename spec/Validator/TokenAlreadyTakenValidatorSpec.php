@@ -25,7 +25,6 @@ final class TokenAlreadyTakenValidatorSpec extends ObjectBehavior
     }
 
     function it_does_not_add_constraint_if_order_exists(
-        OrderInterface $order,
         OrderRepositoryInterface $orderRepository,
         ExecutionContextInterface $executionContext
     ) {
@@ -37,12 +36,13 @@ final class TokenAlreadyTakenValidatorSpec extends ObjectBehavior
     }
 
     function it_adds_constraint_if_order_does_not_exits_exists(
+        OrderInterface $order,
         OrderRepositoryInterface $orderRepository,
         ExecutionContextInterface $executionContext
     ) {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
 
-        $executionContext->addViolation('sylius.shop_api.pickup_cart_request.token.already_taken')->shouldBeCalled();
+        $executionContext->addViolation('sylius.shop_api.token.already_taken')->shouldBeCalled();
 
         $this->validate('ORDERTOKEN', new TokenAlreadyTaken());
     }

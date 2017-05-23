@@ -9,7 +9,7 @@ final class TokenAlreadyTaken extends Constraint
     /**
      * @var string
      */
-    public $message = 'sylius.shop_api.pickup_cart_request.token.already_taken';
+    public $message = 'sylius.shop_api.token.already_taken';
 
     /**
      * {@inheritdoc}
