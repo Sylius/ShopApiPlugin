@@ -19,7 +19,7 @@ final class PickupCartSpec extends ObjectBehavior
 
     function it_has_order_token()
     {
-        $this->token()->shouldReturn('ORDERTOKEN');
+        $this->orderToken()->shouldReturn('ORDERTOKEN');
     }
 
     function it_has_channel_code()

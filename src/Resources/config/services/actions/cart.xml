@@ -13,9 +13,9 @@
         <service id="sylius.shop_api_plugin.controller.cart.pickup_action"
                  class="Sylius\ShopApiPlugin\Controller\Cart\PickupAction"
         >
-            <argument type="service" id="sylius.repository.order" />
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="tactician.commandbus" />
+            <argument type="service" id="validator" />
         </service>
 
         <service id="sylius.shop_api_plugin.controller.cart.add_coupon_action"

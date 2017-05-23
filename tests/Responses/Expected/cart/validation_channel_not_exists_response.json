@@ -1,0 +1,9 @@
+{
+    "code": 400,
+    "message": "Validation failed",
+    "errors": {
+        "channel": [
+            "sylius.shop_api.pickup_cart_request.channel.not_exists"
+        ]
+    }
+}

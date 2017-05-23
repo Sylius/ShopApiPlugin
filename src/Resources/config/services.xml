@@ -16,5 +16,6 @@
         <import resource="services/controllers.xml"/>
         <import resource="services/factories.xml"/>
         <import resource="services/handlers.xml"/>
+        <import resource="services/validators.xml"/>
     </imports>
 </container>

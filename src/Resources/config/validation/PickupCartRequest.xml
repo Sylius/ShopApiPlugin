@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+
+ This file is part of the Sylius package.
+
+ (c) Paweł Jędrzejewski
+
+ For the full copyright and license information, please view the LICENSE
+ file that was distributed with this source code.
+
+-->
+
+<constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/services/constraint-mapping-1.0.xsd">
+    <class name="Sylius\ShopApiPlugin\Request\PickupCartRequest">
+        <property name="channel">
+            <constraint name="NotNull">
+                <option name="message">sylius.shop_api.pickup_cart_request.channel.not_null</option>
+            </constraint>
+            <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\ChannelWithGivenCodeDoesNotExists" />
+        </property>
+        <property name="token">
+            <constraint name="NotNull">
+                <option name="message">sylius.shop_api.pickup_cart_request.token.not_null</option>
+            </constraint>
+            <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\TokenAlreadyTaken" />
+        </property>
+    </class>
+</constraint-mapping>

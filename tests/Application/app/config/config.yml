@@ -24,7 +24,7 @@ framework:
         strict_requirements: "%kernel.debug%"
     form: true
     csrf_protection: true
-    validation: { enable_annotations: true }
+    validation: { enabled: true }
     templating: { engines: ["twig"] }
     default_locale: "%locale%"
     trusted_proxies: ~

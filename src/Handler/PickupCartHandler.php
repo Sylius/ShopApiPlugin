@@ -54,7 +54,7 @@ final class PickupCartHandler
         $cart->setChannel($channel);
         $cart->setCurrencyCode($channel->getBaseCurrency()->getCode());
         $cart->setLocaleCode($channel->getDefaultLocale()->getCode());
-        $cart->setTokenValue($pickupCart->token());
+        $cart->setTokenValue($pickupCart->orderToken());
 
         $this->cartRepository->add($cart);
     }
