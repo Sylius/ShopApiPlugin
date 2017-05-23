@@ -7,6 +7,7 @@ use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\ShopApiPlugin\Command\PickupCart;
+use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
 use Sylius\ShopApiPlugin\Request\PickupCartRequest;
 use Sylius\ShopApiPlugin\View\ValidationErrorView;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -34,18 +35,26 @@ final class PickupAction extends Controller
     private $validator;
 
     /**
+     * @var ValidationErrorViewFactoryInterface
+     */
+    private $validationErrorViewFactory;
+
+    /**
      * @param ViewHandlerInterface $viewHandler
      * @param CommandBus $bus
      * @param ValidatorInterface $validator
+     * @param ValidationErrorViewFactoryInterface $validationErrorViewFactory
      */
     public function __construct(
         ViewHandlerInterface $viewHandler,
         CommandBus $bus,
-        ValidatorInterface $validator
+        ValidatorInterface $validator,
+        ValidationErrorViewFactoryInterface $validationErrorViewFactory
     ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
         $this->validator = $validator;
+        $this->validationErrorViewFactory = $validationErrorViewFactory;
     }
 
     /**
@@ -65,15 +74,6 @@ final class PickupAction extends Controller
             return $this->viewHandler->handle(View::create(null, Response::HTTP_CREATED));
         }
 
-        $errorMessage = new ValidationErrorView();
-        $errorMessage->code = 400;
-        $errorMessage->message = 'Validation failed';
-        /** @var ConstraintViolationInterface $result */
-        foreach ($validationResults as $result) {
-            $errorMessage->errors[$result->getPropertyPath()][] = $result->getMessage();
-        }
-
-        return $this->viewHandler->handle(View::create($errorMessage, Response::HTTP_BAD_REQUEST));
+        return $this->viewHandler->handle(View::create($this->validationErrorViewFactory->create($validationResults), Response::HTTP_BAD_REQUEST));
     }
-
 }
