@@ -17,13 +17,13 @@
             <constraint name="NotNull">
                 <option name="message">sylius.shop_api.channel.not_null</option>
             </constraint>
-            <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\ChannelWithGivenCodeDoesNotExists" />
+            <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\ChannelWithGivenCodeExists" />
         </property>
         <property name="token">
             <constraint name="NotNull">
                 <option name="message">sylius.shop_api.token.not_null</option>
             </constraint>
-            <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\TokenAlreadyTaken" />
+            <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\TokenIsNotUsed" />
         </property>
     </class>
 </constraint-mapping>

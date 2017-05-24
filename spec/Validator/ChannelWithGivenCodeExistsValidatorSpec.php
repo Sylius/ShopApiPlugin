@@ -6,11 +6,11 @@ use Prophecy\Argument;
 use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\ChannelInterface;
-use Sylius\ShopApiPlugin\Validator\ChannelWithGivenCodeDoesNotExistsValidator;
-use Sylius\ShopApiPlugin\Validator\Constraints\ChannelWithGivenCodeDoesNotExists;
+use Sylius\ShopApiPlugin\Validator\ChannelWithGivenCodeExistsValidator;
+use Sylius\ShopApiPlugin\Validator\Constraints\ChannelWithGivenCodeExists;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
-final class ChannelWithGivenCodeDoesNotExistsValidatorSpec extends ObjectBehavior
+final class ChannelWithGivenCodeExistsValidatorSpec extends ObjectBehavior
 {
     function let(ExecutionContextInterface $executionContext, ChannelRepositoryInterface $channelRepository)
     {
@@ -21,7 +21,7 @@ final class ChannelWithGivenCodeDoesNotExistsValidatorSpec extends ObjectBehavio
 
     function it_is_initializable()
     {
-        $this->shouldHaveType(ChannelWithGivenCodeDoesNotExistsValidator::class);
+        $this->shouldHaveType(ChannelWithGivenCodeExistsValidator::class);
     }
 
     function it_does_not_add_constraint_if_channel_exists(
@@ -33,7 +33,7 @@ final class ChannelWithGivenCodeDoesNotExistsValidatorSpec extends ObjectBehavio
 
         $executionContext->addViolation(Argument::any(), Argument::any())->shouldNotBeCalled();
 
-        $this->validate('WEB_GB', new ChannelWithGivenCodeDoesNotExists());
+        $this->validate('WEB_GB', new ChannelWithGivenCodeExists());
     }
 
     function it_adds_constraint_if_channel_does_not_exits_exists(
@@ -44,6 +44,6 @@ final class ChannelWithGivenCodeDoesNotExistsValidatorSpec extends ObjectBehavio
 
         $executionContext->addViolation('sylius.shop_api.channel.not_exists')->shouldBeCalled();
 
-        $this->validate('WEB_GB', new ChannelWithGivenCodeDoesNotExists());
+        $this->validate('WEB_GB', new ChannelWithGivenCodeExists());
     }
 }

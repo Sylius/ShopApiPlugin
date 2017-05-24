@@ -6,7 +6,7 @@ use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
-final class TokenAlreadyTakenValidator extends ConstraintValidator
+final class TokenIsNotUsedValidator extends ConstraintValidator
 {
     /**
      * @var OrderRepositoryInterface

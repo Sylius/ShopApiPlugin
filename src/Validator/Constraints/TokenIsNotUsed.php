@@ -4,12 +4,12 @@ namespace Sylius\ShopApiPlugin\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 
-final class ChannelWithGivenCodeDoesNotExists extends Constraint
+final class TokenIsNotUsed extends Constraint
 {
     /**
      * @var string
      */
-    public $message = 'sylius.shop_api.channel.not_exists';
+    public $message = 'sylius.shop_api.token.already_taken';
 
     /**
      * {@inheritdoc}
@@ -24,6 +24,6 @@ final class ChannelWithGivenCodeDoesNotExists extends Constraint
      */
     public function validatedBy()
     {
-        return 'sylius_shop_api_channel_with_given_code_does_not_exists_validator';
+        return 'sylius_shop_api_token_already_taken_validator';
     }
 }
