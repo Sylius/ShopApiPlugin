@@ -5,22 +5,17 @@ namespace Sylius\ShopApiPlugin\Controller\Cart;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
-use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\Component\Core\Repository\OrderRepositoryInterface;
+use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
 use Sylius\ShopApiPlugin\Request\PutOptionBasedConfigurableItemToCartRequest;
 use Sylius\ShopApiPlugin\Request\PutSimpleItemToCartRequest;
 use Sylius\ShopApiPlugin\Request\PutVariantBasedConfigurableItemToCartRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class PutItemToCartAction
 {
-    /**
-     * @var OrderRepositoryInterface
-     */
-    private $cartRepository;
-
     /**
      * @var ViewHandlerInterface
      */
@@ -32,15 +27,31 @@ final class PutItemToCartAction
     private $bus;
 
     /**
-     * @param OrderRepositoryInterface $cartRepository
+     * @var ValidatorInterface
+     */
+    private $validator;
+
+    /**
+     * @var ValidationErrorViewFactoryInterface
+     */
+    private $validationErrorViewFactory;
+
+    /**
      * @param ViewHandlerInterface $viewHandler
      * @param CommandBus $bus
+     * @param ValidatorInterface $validator
+     * @param ValidationErrorViewFactoryInterface $validationErrorViewFactory
      */
-    public function __construct(OrderRepositoryInterface $cartRepository, ViewHandlerInterface $viewHandler, CommandBus $bus)
-    {
-        $this->cartRepository = $cartRepository;
+    public function __construct(
+        ViewHandlerInterface $viewHandler,
+        CommandBus $bus,
+        ValidatorInterface $validator,
+        ValidationErrorViewFactoryInterface $validationErrorViewFactory
+    ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
+        $this->validator = $validator;
+        $this->validationErrorViewFactory = $validationErrorViewFactory;
     }
 
     /**
@@ -50,18 +61,17 @@ final class PutItemToCartAction
      */
     public function __invoke(Request $request)
     {
-        /** @var OrderInterface $cart */
-        $cart = $this->cartRepository->findOneBy(['tokenValue' => $request->attributes->get('token')]);
+        $commandRequest = $this->provideCommandRequest($request);
 
-        if (null === $cart) {
-            throw new NotFoundHttpException('Cart with given id does not exists');
+        $validationResults = $this->validator->validate($commandRequest);
+
+        if (0 === count($validationResults)) {
+            $this->bus->handle($commandRequest->getCommand());
+
+            return $this->viewHandler->handle(View::create(null, Response::HTTP_CREATED));
         }
 
-        $command = $this->provideCommandRequest($request);
-
-        $this->bus->handle($command->getCommand());
-
-        return $this->viewHandler->handle(View::create(null, Response::HTTP_CREATED));
+        return $this->viewHandler->handle(View::create($this->validationErrorViewFactory->create($validationResults), Response::HTTP_BAD_REQUEST));
     }
 
     /**

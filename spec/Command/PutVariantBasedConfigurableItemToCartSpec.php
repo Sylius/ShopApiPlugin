@@ -39,21 +39,21 @@ final class PutVariantBasedConfigurableItemToCartSpec extends ObjectBehavior
 
     function it_throws_an_exception_if_order_token_is_not_a_string()
     {
-        $this->beConstructedWith(new \StdClass(), 'T_SHIRT_CODE', 'RED_SMALL_T_SHIRT_CODE', 1);
+        $this->beConstructedWith(new \stdClass(), 'T_SHIRT_CODE', 'RED_SMALL_T_SHIRT_CODE', 1);
 
         $this->shouldThrow(\InvalidArgumentException::class)->duringInstantiation();
     }
 
     function it_throws_an_exception_if_product_code_is_not_a_string()
     {
-        $this->beConstructedWith('ORDERTOKEN', new \StdClass(), 'RED_SMALL_T_SHIRT_CODE', 1);
+        $this->beConstructedWith('ORDERTOKEN', new \stdClass(), 'RED_SMALL_T_SHIRT_CODE', 1);
 
         $this->shouldThrow(\InvalidArgumentException::class)->duringInstantiation();
     }
 
     function it_throws_an_exception_if_product_variant_code_is_not_a_string()
     {
-        $this->beConstructedWith('ORDERTOKEN', 'T_SHIRT_CODE', new \StdClass(), 1);
+        $this->beConstructedWith('ORDERTOKEN', 'T_SHIRT_CODE', new \stdClass(), 1);
 
         $this->shouldThrow(\InvalidArgumentException::class)->duringInstantiation();
     }

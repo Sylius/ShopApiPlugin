@@ -1,0 +1,9 @@
+{
+    "code": 400,
+    "message": "Validation failed",
+    "errors": {
+        "quantity": [
+            "sylius.shop_api.quantity.greater_than_0"
+        ]
+    }
+}

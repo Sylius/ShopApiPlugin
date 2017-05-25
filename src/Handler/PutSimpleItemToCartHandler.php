@@ -82,6 +82,7 @@ final class PutSimpleItemToCartHandler
         $product = $this->productRepository->findOneBy(['code' => $putSimpleItemToCart->product()]);
 
         Assert::notNull($product, 'Product has not been found');
+        Assert::true($product->isSimple(), 'Product has to be simple');
 
         $productVariant = $product->getVariants()[0];
 

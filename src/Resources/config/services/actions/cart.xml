@@ -31,9 +31,10 @@
         <service id="sylius.shop_api_plugin.controller.cart.put_item_to_cart_action"
                  class="Sylius\ShopApiPlugin\Controller\Cart\PutItemToCartAction"
         >
-            <argument type="service" id="sylius.repository.order" />
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="tactician.commandbus" />
+            <argument type="service" id="validator" />
+            <argument type="service" id="sylius.shop_api_plugin.factory.validation_error_view_factory" />
         </service>
     </services>
 </container>

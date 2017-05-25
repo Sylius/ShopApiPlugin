@@ -18,7 +18,7 @@ final class PutOptionBasedConfigurableItemToCartRequest
     private $product;
 
     /**
-     * @var array
+     * @var array|null
      */
     private $options;
 

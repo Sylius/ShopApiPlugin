@@ -84,4 +84,21 @@ final class PutSimpleItemToCartHandlerSpec extends ObjectBehavior
             new PutSimpleItemToCart('ORDERTOKEN', 'T_SHIRT_CODE', 5),
         ]);
     }
+
+    function it_throws_an_exception_if_product_is_configurable(
+        OrderInterface $cart,
+        OrderRepositoryInterface $cartRepository,
+        ProductInterface $product,
+        ProductRepositoryInterface $productRepository,
+        ProductVariantInterface $productVariant
+    ) {
+        $cartRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($cart);
+        $productRepository->findOneBy(['code' => 'T_SHIRT_CODE'])->willReturn($product);
+        $product->getVariants()->willReturn([$productVariant]);
+        $product->isSimple()->willReturn(false);
+
+        $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [
+            new PutSimpleItemToCart('ORDERTOKEN', 'T_SHIRT_CODE', 5),
+        ]);
+    }
 }

@@ -39,14 +39,14 @@ final class PutOptionBasedConfigurableItemToCartSpec extends ObjectBehavior
 
     function it_throws_an_exception_if_order_token_is_not_a_string()
     {
-        $this->beConstructedWith(new \StdClass(), 'T_SHIRT_CODE', ['RED_OPTION_CODE'], 1);
+        $this->beConstructedWith(new \stdClass(), 'T_SHIRT_CODE', ['RED_OPTION_CODE'], 1);
 
         $this->shouldThrow(\InvalidArgumentException::class)->duringInstantiation();
     }
 
     function it_throws_an_exception_if_product_code_is_not_a_string()
     {
-        $this->beConstructedWith('ORDERTOKEN', new \StdClass(), ['RED_OPTION_CODE'], 1);
+        $this->beConstructedWith('ORDERTOKEN', new \stdClass(), ['RED_OPTION_CODE'], 1);
 
         $this->shouldThrow(\InvalidArgumentException::class)->duringInstantiation();
     }
