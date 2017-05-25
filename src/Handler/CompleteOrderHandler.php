@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Sylius\ShopApiPlugin\Handler;
 
 use SM\Factory\FactoryInterface as StateMachineFactory;

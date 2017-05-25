@@ -20,7 +20,7 @@ shop_api_drop_cart:
     path: /carts/{token}
     methods: [DELETE]
     defaults:
-        _controller: ShopApiPlugin:Cart:drop
+        _controller: sylius.shop_api_plugin.controller.cart.drop_cart_action
 
 shop_api_change_item_quantity:
     path: /carts/{token}/items/{id}

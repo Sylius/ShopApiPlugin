@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Sylius\ShopApiPlugin\Command;
 
 use Webmozart\Assert\Assert;
