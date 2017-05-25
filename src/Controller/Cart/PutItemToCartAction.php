@@ -5,27 +5,19 @@ namespace Sylius\ShopApiPlugin\Controller\Cart;
 use Doctrine\Common\Persistence\ObjectManager;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
-use Sylius\Component\Core\Factory\AddressFactoryInterface;
+use League\Tactician\CommandBus;
 use Sylius\Component\Core\Factory\CartItemFactoryInterface;
-use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
-use Sylius\Component\Core\Model\ShipmentInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Sylius\Component\Core\Repository\ProductVariantRepositoryInterface;
 use Sylius\Component\Order\Modifier\OrderItemQuantityModifierInterface;
 use Sylius\Component\Order\Processor\OrderProcessorInterface;
-use Sylius\Component\Order\Repository\OrderItemRepositoryInterface;
-use Sylius\Component\Registry\ServiceRegistryInterface;
-use Sylius\Component\Resource\Factory\FactoryInterface;
-use Sylius\Component\Shipping\Exception\UnresolvedDefaultShippingMethodException;
-use Sylius\Component\Shipping\Resolver\ShippingMethodsResolverInterface;
-use Sylius\ShopApiPlugin\Factory\PriceViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\EstimatedShippingCostView;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sylius\ShopApiPlugin\Command\PutSimpleItemToCart;
+use Sylius\ShopApiPlugin\Command\PutVariantBasedConfigurableItemToCart;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -73,6 +65,11 @@ final class PutItemToCartAction
     private $productVariantRepository;
 
     /**
+     * @var CommandBus
+     */
+    private $bus;
+
+    /**
      * @param OrderRepositoryInterface $cartRepository
      * @param ObjectManager $cartManager
      * @param ViewHandlerInterface $viewHandler
@@ -81,6 +78,7 @@ final class PutItemToCartAction
      * @param OrderProcessorInterface $orderProcessor
      * @param ProductRepositoryInterface $productRepository
      * @param ProductVariantRepositoryInterface $productVariantRepository
+     * @param CommandBus $bus
      */
     public function __construct(
         OrderRepositoryInterface $cartRepository,
@@ -90,7 +88,8 @@ final class PutItemToCartAction
         OrderItemQuantityModifierInterface $orderItemModifier,
         OrderProcessorInterface $orderProcessor,
         ProductRepositoryInterface $productRepository,
-        ProductVariantRepositoryInterface $productVariantRepository
+        ProductVariantRepositoryInterface $productVariantRepository,
+        CommandBus $bus
     ) {
         $this->cartRepository = $cartRepository;
         $this->cartManager = $cartManager;
@@ -100,6 +99,7 @@ final class PutItemToCartAction
         $this->orderProcessor = $orderProcessor;
         $this->productRepository = $productRepository;
         $this->productVariantRepository = $productVariantRepository;
+        $this->bus = $bus;
     }
 
     /**
@@ -114,6 +114,27 @@ final class PutItemToCartAction
 
         if (null === $cart) {
             throw new NotFoundHttpException('Cart with given id does not exists');
+        }
+
+        if (!$request->request->has('variantCode') && !$request->request->has('options')) {
+            $this->bus->handle(new PutSimpleItemToCart(
+                $request->attributes->get('token'),
+                $request->request->get('productCode'),
+                $request->request->getInt('quantity')
+            ));
+
+            return $this->viewHandler->handle(View::create(null, Response::HTTP_CREATED));
+        }
+
+        if ($request->request->has('variantCode') && !$request->request->has('options')) {
+            $this->bus->handle(new PutVariantBasedConfigurableItemToCart(
+                $request->attributes->get('token'),
+                $request->request->get('productCode'),
+                $request->request->get('variantCode'),
+                $request->request->getInt('quantity')
+            ));
+
+            return $this->viewHandler->handle(View::create(null, Response::HTTP_CREATED));
         }
 
         $productVariant = $this->resolveVariant($request);
@@ -146,15 +167,7 @@ final class PutItemToCartAction
         /** @var ProductInterface $product */
         $product = $this->productRepository->findOneBy(['code' => $request->request->get('productCode')]);
 
-        if ($product->isSimple()) {
-            return $product->getVariants()[0];
-        }
-
-        if ($product->hasOptions()){
-            return $this->getVariant($request->request->get('options'), $product);
-        }
-
-        return $this->productVariantRepository->findOneByCodeAndProductCode($request->request->get('variantCode'), $request->request->get('productCode'));
+        return $this->getVariant($request->request->get('options'), $product);
     }
 
     /**
