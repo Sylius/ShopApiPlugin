@@ -27,5 +27,18 @@
             <argument type="service" id="validator" />
             <argument type="service" id="sylius.shop_api_plugin.factory.validation_error_view_factory" />
         </service>
+
+        <service id="sylius.shop_api_plugin.controller.cart.put_item_to_cart_action"
+                 class="Sylius\ShopApiPlugin\Controller\Cart\PutItemToCartAction"
+        >
+            <argument type="service" id="sylius.repository.order" />
+            <argument type="service" id="sylius.manager.order" />
+            <argument type="service" id="fos_rest.view_handler" />
+            <argument type="service" id="sylius.factory.cart_item" />
+            <argument type="service" id="sylius.order_item_quantity_modifier" />
+            <argument type="service" id="sylius.order_processing.order_processor" />
+            <argument type="service" id="sylius.repository.product" />
+            <argument type="service" id="sylius.repository.product_variant" />
+        </service>
     </services>
 </container>

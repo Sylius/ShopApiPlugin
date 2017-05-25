@@ -37,53 +37,6 @@ final class CartController extends Controller
      *
      * @return Response
      */
-    public function addAction(Request $request)
-    {
-        /** @var OrderRepositoryInterface $cartRepository */
-        $cartRepository = $this->get('sylius.repository.order');
-        /** @var ObjectManager $cartManager */
-        $cartManager = $this->get('sylius.manager.order');
-        /** @var ViewHandlerInterface $viewHandler */
-        $viewHandler = $this->get('fos_rest.view_handler');
-        /** @var CartItemFactoryInterface $cartItemFactory */
-        $cartItemFactory = $this->get('sylius.factory.order_item');
-        /** @var OrderItemQuantityModifierInterface $orderItemModifier */
-        $orderItemModifier = $this->get('sylius.order_item_quantity_modifier');
-        /** @var OrderProcessorInterface $orderProcessor */
-        $orderProcessor = $this->get('sylius.order_processing.order_processor');
-
-        /** @var OrderInterface $cart */
-        $cart = $cartRepository->findOneBy(['tokenValue' => $request->attributes->get('token')]);
-
-        if (null === $cart) {
-            throw new NotFoundHttpException('Cart with given id does not exists');
-        }
-
-        $productVariant = $this->resolveVariant($request);
-
-        if (null === $productVariant) {
-            throw new NotFoundHttpException('Variant not found for given configuration');
-        }
-
-        /** @var OrderItemInterface $cartItem */
-        $cartItem = $cartItemFactory->createForCart($cart);
-        $cartItem->setVariant($productVariant);
-        $orderItemModifier->modify($cartItem, $request->request->getInt('quantity'));
-
-        $cart->addItem($cartItem);
-
-        $orderProcessor->process($cart);
-
-        $cartManager->flush();
-
-        return $viewHandler->handle(View::create(null, Response::HTTP_CREATED));
-    }
-
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     */
     public function dropAction(Request $request)
     {
         /** @var OrderRepositoryInterface $cartRepository */
@@ -230,53 +183,5 @@ final class CartController extends Controller
         $estimatedShippingCostView->price = $priceViewFactory->create($calculator->calculate($shipment, $shippingMethod->getConfiguration()));
 
         return $viewHandler->handle(View::create($estimatedShippingCostView, Response::HTTP_OK));
-    }
-
-    /**
-     * @param Request $request
-     *
-     * @return null|ProductVariantInterface
-     */
-    private function resolveVariant(Request $request)
-    {
-        /** @var ProductRepositoryInterface $productRepository */
-        $productRepository = $this->get('sylius.repository.product');
-
-        /** @var ProductInterface $product */
-        $product = $productRepository->findOneBy(['code' => $request->request->get('productCode')]);
-
-        if ($product->isSimple()) {
-            return $product->getVariants()[0];
-        }
-
-        if ($product->hasOptions()){
-            return $this->getVariant($request->request->get('options'), $product);
-        }
-
-        /** @var ProductVariantRepositoryInterface $productVariantRepository */
-        $productVariantRepository = $this->get('sylius.repository.product_variant');
-
-        return $productVariantRepository->findOneByCodeAndProductCode($request->request->get('variantCode'), $request->request->get('productCode'));
-    }
-
-    /**
-     * @param array $options
-     * @param ProductInterface $product
-     *
-     * @return null|ProductVariantInterface
-     */
-    private function getVariant(array $options, ProductInterface $product)
-    {
-        foreach ($product->getVariants() as $variant) {
-            foreach ($variant->getOptionValues() as $optionValue) {
-                if (!isset($options[$optionValue->getOptionCode()]) || $optionValue->getCode() !== $options[$optionValue->getOptionCode()]) {
-                    continue 2;
-                }
-            }
-
-            return $variant;
-        }
-
-        return null;
     }
 }
