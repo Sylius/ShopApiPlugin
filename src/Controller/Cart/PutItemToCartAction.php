@@ -2,20 +2,12 @@
 
 namespace Sylius\ShopApiPlugin\Controller\Cart;
 
-use Doctrine\Common\Persistence\ObjectManager;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
-use Sylius\Component\Core\Factory\CartItemFactoryInterface;
 use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\Component\Core\Model\OrderItemInterface;
-use Sylius\Component\Core\Model\ProductInterface;
-use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Sylius\Component\Core\Repository\ProductRepositoryInterface;
-use Sylius\Component\Core\Repository\ProductVariantRepositoryInterface;
-use Sylius\Component\Order\Modifier\OrderItemQuantityModifierInterface;
-use Sylius\Component\Order\Processor\OrderProcessorInterface;
+use Sylius\ShopApiPlugin\Command\PutOptionBasedConfigurableItemToCart;
 use Sylius\ShopApiPlugin\Command\PutSimpleItemToCart;
 use Sylius\ShopApiPlugin\Command\PutVariantBasedConfigurableItemToCart;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,39 +22,9 @@ final class PutItemToCartAction
     private $cartRepository;
 
     /**
-     * @var ObjectManager
-     */
-    private $cartManager;
-
-    /**
      * @var ViewHandlerInterface
      */
     private $viewHandler;
-
-    /**
-     * @var CartItemFactoryInterface
-     */
-    private $cartItemFactory;
-
-    /**
-     * @var OrderItemQuantityModifierInterface
-     */
-    private $orderItemModifier;
-
-    /**
-     * @var OrderProcessorInterface
-     */
-    private $orderProcessor;
-
-    /**
-     * @var ProductRepositoryInterface
-     */
-    private $productRepository;
-
-    /**
-     * @var ProductVariantRepositoryInterface
-     */
-    private $productVariantRepository;
 
     /**
      * @var CommandBus
@@ -71,34 +33,13 @@ final class PutItemToCartAction
 
     /**
      * @param OrderRepositoryInterface $cartRepository
-     * @param ObjectManager $cartManager
      * @param ViewHandlerInterface $viewHandler
-     * @param CartItemFactoryInterface $cartItemFactory
-     * @param OrderItemQuantityModifierInterface $orderItemModifier
-     * @param OrderProcessorInterface $orderProcessor
-     * @param ProductRepositoryInterface $productRepository
-     * @param ProductVariantRepositoryInterface $productVariantRepository
      * @param CommandBus $bus
      */
-    public function __construct(
-        OrderRepositoryInterface $cartRepository,
-        ObjectManager $cartManager,
-        ViewHandlerInterface $viewHandler,
-        CartItemFactoryInterface $cartItemFactory,
-        OrderItemQuantityModifierInterface $orderItemModifier,
-        OrderProcessorInterface $orderProcessor,
-        ProductRepositoryInterface $productRepository,
-        ProductVariantRepositoryInterface $productVariantRepository,
-        CommandBus $bus
-    ) {
+    public function __construct(OrderRepositoryInterface $cartRepository, ViewHandlerInterface $viewHandler, CommandBus $bus)
+    {
         $this->cartRepository = $cartRepository;
-        $this->cartManager = $cartManager;
         $this->viewHandler = $viewHandler;
-        $this->cartItemFactory = $cartItemFactory;
-        $this->orderItemModifier = $orderItemModifier;
-        $this->orderProcessor = $orderProcessor;
-        $this->productRepository = $productRepository;
-        $this->productVariantRepository = $productVariantRepository;
         $this->bus = $bus;
     }
 
@@ -137,57 +78,17 @@ final class PutItemToCartAction
             return $this->viewHandler->handle(View::create(null, Response::HTTP_CREATED));
         }
 
-        $productVariant = $this->resolveVariant($request);
+        if (!$request->request->has('variantCode') && $request->request->has('options')) {
+            $this->bus->handle(new PutOptionBasedConfigurableItemToCart(
+                $request->attributes->get('token'),
+                $request->request->get('productCode'),
+                $request->request->get('options'),
+                $request->request->getInt('quantity')
+            ));
 
-        if (null === $productVariant) {
-            throw new NotFoundHttpException('Variant not found for given configuration');
+            return $this->viewHandler->handle(View::create(null, Response::HTTP_CREATED));
         }
 
-        /** @var OrderItemInterface $cartItem */
-        $cartItem = $this->cartItemFactory->createForCart($cart);
-        $cartItem->setVariant($productVariant);
-        $this->orderItemModifier->modify($cartItem, $request->request->getInt('quantity'));
-
-        $cart->addItem($cartItem);
-
-        $this->orderProcessor->process($cart);
-
-        $this->cartManager->flush();
-
-        return $this->viewHandler->handle(View::create(null, Response::HTTP_CREATED));
-    }
-
-    /**
-     * @param Request $request
-     *
-     * @return null|ProductVariantInterface
-     */
-    private function resolveVariant(Request $request)
-    {
-        /** @var ProductInterface $product */
-        $product = $this->productRepository->findOneBy(['code' => $request->request->get('productCode')]);
-
-        return $this->getVariant($request->request->get('options'), $product);
-    }
-
-    /**
-     * @param array $options
-     * @param ProductInterface $product
-     *
-     * @return null|ProductVariantInterface
-     */
-    private function getVariant(array $options, ProductInterface $product)
-    {
-        foreach ($product->getVariants() as $variant) {
-            foreach ($variant->getOptionValues() as $optionValue) {
-                if (!isset($options[$optionValue->getOptionCode()]) || $optionValue->getCode() !== $options[$optionValue->getOptionCode()]) {
-                    continue 2;
-                }
-            }
-
-            return $variant;
-        }
-
-        return null;
+        throw new NotFoundHttpException('Variant not found for given configuration');
     }
 }

@@ -74,7 +74,7 @@ final class PutVariantBasedConfigurableItemToCartHandler
      */
     public function handle(PutVariantBasedConfigurableItemToCart $putConfigurableItemToCart)
     {
-        $cart = $this->cartRepository->findOneBy(['tokenValue' => $putConfigurableItemToCart->token()]);
+        $cart = $this->cartRepository->findOneBy(['tokenValue' => $putConfigurableItemToCart->orderToken()]);
 
         Assert::notNull($cart, 'Cart has not been found');
 

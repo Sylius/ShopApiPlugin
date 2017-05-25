@@ -9,7 +9,7 @@ final class PutVariantBasedConfigurableItemToCart
     /**
      * @var string
      */
-    private $token;
+    private $orderToken;
 
     /**
      * @var string
@@ -27,18 +27,20 @@ final class PutVariantBasedConfigurableItemToCart
     private $productVariant;
 
     /**
-     * @param string $token
+     * @param string $orderToken
      * @param string $product
      * @param string $productVariant
      * @param int $quantity
      */
-    public function __construct($token, $product, $productVariant, $quantity)
+    public function __construct($orderToken, $product, $productVariant, $quantity)
     {
-        Assert::allString([$token, $product, $productVariant]);
-        Assert::integer($quantity);
-        Assert::greaterThan($quantity, 0);
+        Assert::string($orderToken, 'Expected order token to be string, got %s');
+        Assert::string($product, 'Expected product code to be string, got %s');
+        Assert::string($productVariant, 'Expected product variant code to be string, got %s');
+        Assert::integer($quantity, 'Expected quantity to be integer, got %s');
+        Assert::greaterThan($quantity, 0, 'Quantity should be greater than 0');
 
-        $this->token = $token;
+        $this->orderToken = $orderToken;
         $this->product = $product;
         $this->quantity = $quantity;
         $this->productVariant = $productVariant;
@@ -47,9 +49,9 @@ final class PutVariantBasedConfigurableItemToCart
     /**
      * @return string
      */
-    public function token()
+    public function orderToken()
     {
-        return $this->token;
+        return $this->orderToken;
     }
 
     /**

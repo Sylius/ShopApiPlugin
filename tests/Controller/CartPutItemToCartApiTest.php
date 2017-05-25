@@ -79,9 +79,6 @@ EOT;
         $this->assertResponseCode($response, Response::HTTP_CREATED);
     }
 
-    /**
-     * @test
-     */
     public function it_throws_an_exception_if_product_variant_has_not_been_found()
     {
         $this->loadFixturesFromFile('shop.yml');
