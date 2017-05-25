@@ -1,0 +1,10 @@
+{
+    "code": 400,
+    "message": "Validation failed",
+    "errors": {
+        "channel": [
+            "sylius.shop_api.channel.not_null",
+            "sylius.shop_api.channel.not_exists"
+        ]
+    }
+}

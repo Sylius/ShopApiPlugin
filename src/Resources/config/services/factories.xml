@@ -46,6 +46,8 @@
 
         <service id="sylius.shop_api_plugin.factory.total_view_factory" class="Sylius\ShopApiPlugin\Factory\TotalViewFactory" />
 
+        <service id="sylius.shop_api_plugin.factory.validation_error_view_factory" class="Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactory" />
+
         <service id="sylius.shop_api_plugin.factory.shipping_method_view_factory" class="Sylius\ShopApiPlugin\Factory\ShippingMethodViewFactory">
             <argument type="service" id="sylius.registry.shipping_calculator" />
             <argument type="service" id="sylius.shop_api_plugin.factory.price_view_factory" />
