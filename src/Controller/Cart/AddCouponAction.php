@@ -69,6 +69,6 @@ final class AddCouponAction
             return $this->viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));
         }
 
-        return $this->viewHandler->handle(View::create($this->validationErrorViewFactory->create($validationResults), Response::HTTP_NO_CONTENT));
+        return $this->viewHandler->handle(View::create($this->validationErrorViewFactory->create($validationResults), Response::HTTP_BAD_REQUEST));
     }
 }

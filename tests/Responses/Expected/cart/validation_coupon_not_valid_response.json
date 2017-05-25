@@ -1,0 +1,9 @@
+{
+    "code": 400,
+    "message": "Validation failed",
+    "errors": {
+        "coupon": [
+            "sylius.shop_api.coupon.not_valid"
+        ]
+    }
+}
