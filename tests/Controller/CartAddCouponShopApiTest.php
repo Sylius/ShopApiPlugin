@@ -39,4 +39,132 @@ EOT;
         $response = $this->client->getResponse();
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
     }
+
+    /**
+     * @test
+     */
+    public function it_does_not_allow_to_add_promotion_if_coupon_is_not_specified()
+    {
+        $this->loadFixturesFromFile('shop.yml');
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var CommandBus $bus */
+        $bus = $this->get('tactician.commandbus');
+        $bus->handle(new PickupCart($token, 'WEB_GB'));
+        $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
+
+        $this->client->request('PUT', sprintf('/shop-api/carts/%s/coupon', $token), [], [], static::$acceptAndContentTypeHeader);
+
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'cart/validation_coupon_not_found_response', Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @test
+     */
+    public function it_does_not_allow_to_add_promotion_code_if_cart_does_not_exists()
+    {
+        $this->loadFixturesFromFile('shop.yml');
+
+        $data =
+<<<EOT
+        {
+            "coupon": "BANANAS"
+        }
+EOT;
+
+        $this->client->request('PUT','/shop-api/carts/WRONGTOKEN/coupon', [], [], static::$acceptAndContentTypeHeader, $data);
+
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'cart/validation_cart_not_exists_response', Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @test
+     */
+    public function it_does_not_allow_to_add_promotion_code_if_promotion_code_does_not_exist()
+    {
+        $this->loadFixturesFromFile('shop.yml');
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var CommandBus $bus */
+        $bus = $this->get('tactician.commandbus');
+        $bus->handle(new PickupCart($token, 'WEB_GB'));
+        $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
+
+        $data =
+<<<EOT
+        {
+            "coupon": "BANANAS"
+        }
+EOT;
+
+        $this->client->request('PUT', sprintf('/shop-api/carts/%s/coupon', $token), [], [], static::$acceptAndContentTypeHeader, $data);
+
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'cart/validation_coupon_not_valid_response', Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @test
+     */
+    public function it_does_not_allow_to_add_promotion_code_if_code_is_invalid()
+    {
+        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFile('coupon_based_promotion.yml');
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var CommandBus $bus */
+        $bus = $this->get('tactician.commandbus');
+        $bus->handle(new PickupCart($token, 'WEB_GB'));
+        $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
+
+        $data =
+<<<EOT
+        {
+            "coupon": "USED_BANANA"
+        }
+EOT;
+
+        $this->client->request('PUT', sprintf('/shop-api/carts/%s/coupon', $token), [], [], static::$acceptAndContentTypeHeader, $data);
+
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'cart/validation_coupon_not_valid_response', Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @test
+     */
+    public function it_does_not_allow_to_add_promotion_code_if_related_promotion_is_not_valid()
+    {
+        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFile('coupon_based_promotion.yml');
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var CommandBus $bus */
+        $bus = $this->get('tactician.commandbus');
+        $bus->handle(new PickupCart($token, 'WEB_GB'));
+        $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
+
+        $data =
+<<<EOT
+        {
+            "coupon": "PINEAPPLE"
+        }
+EOT;
+
+        $this->client->request('PUT', sprintf('/shop-api/carts/%s/coupon', $token), [], [], static::$acceptAndContentTypeHeader, $data);
+
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'cart/validation_coupon_not_valid_response', Response::HTTP_BAD_REQUEST);
+    }
 }

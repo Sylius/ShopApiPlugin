@@ -1,0 +1,9 @@
+{
+    "code": 400,
+    "message": "Validation failed",
+    "errors": {
+        "token": [
+            "sylius.shop_api.cart.not_exists"
+        ]
+    }
+}

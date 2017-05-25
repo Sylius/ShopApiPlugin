@@ -14,5 +14,19 @@
             <argument type="service" id="sylius.repository.order" />
             <tag name="validator.constraint_validator" alias="sylius_shop_api_token_already_taken_validator" />
         </service>
+        <service id="sylius.shop_api_plugin.validator.cart_with_given_token_does_not_exists_validator"
+                 class="Sylius\ShopApiPlugin\Validator\CartWithGivenTokenExistsValidator"
+        >
+            <argument type="service" id="sylius.repository.order" />
+            <tag name="validator.constraint_validator" alias="sylius_shop_api_cart_with_given_token_does_not_exists_validator" />
+        </service>
+        <service id="sylius.shop_api_plugin.validator.valid_promotion_coupon_code_validator"
+                 class="Sylius\ShopApiPlugin\Validator\ValidPromotionCouponCodeValidator"
+        >
+            <argument type="service" id="sylius.repository.order" />
+            <argument type="service" id="sylius.repository.promotion_coupon" />
+            <argument type="service" id="sylius.shop_api_plugin.checker.promotion_coupon_eligibility_checker" />
+            <tag name="validator.constraint_validator" alias="sylius_shop_api_valid_coupon_code_validator" />
+        </service>
     </services>
 </container>

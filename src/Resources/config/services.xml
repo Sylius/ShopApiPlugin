@@ -18,4 +18,10 @@
         <import resource="services/handlers.xml"/>
         <import resource="services/validators.xml"/>
     </imports>
+    <services>
+        <service id="sylius.shop_api_plugin.checker.promotion_coupon_eligibility_checker" class="Sylius\ShopApiPlugin\Checker\PromotionCouponEligibilityChecker">
+            <argument type="service" id="sylius.promotion_eligibility_checker"/>
+            <argument type="service" id="sylius.promotion_coupon_eligibility_checker"/>
+        </service>
+    </services>
 </container>

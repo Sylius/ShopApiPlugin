@@ -45,6 +45,7 @@
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.repository.promotion_coupon"/>
             <argument type="service" id="sylius.order_processing.order_processor"/>
+            <argument type="service" id="sylius.shop_api_plugin.checker.promotion_coupon_eligibility_checker"/>
             <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\AddCoupon"/>
         </service>
 

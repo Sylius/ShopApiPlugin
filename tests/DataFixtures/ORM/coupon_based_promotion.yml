@@ -3,8 +3,14 @@ Sylius\Component\Core\Model\Promotion:
         code: "BANANA_PROMOTION"
         name: "Banana promotion"
         couponBased: true
-        coupons: ["@some_coupon"]
+        coupons: ["@bananas_coupon", "@used_banana_coupon"]
         channels: ["@gb_web_channel"]
+        actions: ["@10_percent_order_discount"]
+    pineapple_promotion:
+        code: "PINEAPPLE_PROMOTION"
+        name: "Pineapple promotion"
+        couponBased: true
+        coupons: ["@pineapple_coupon"]
         actions: ["@10_percent_order_discount"]
 
 Sylius\Component\Promotion\Model\PromotionAction:
@@ -15,6 +21,14 @@ Sylius\Component\Promotion\Model\PromotionAction:
             percentage: 0.1
 
 Sylius\Component\Core\Model\PromotionCoupon:
-    some_coupon:
+    bananas_coupon:
         code: "BANANAS"
         promotion: "@banana_promotion"
+    used_banana_coupon:
+        code: "USED_BANANA"
+        used: 1
+        usageLimit: 1
+        promotion: "@banana_promotion"
+    pineapple_coupon:
+        code: "PINEAPPLE"
+        promotion: "@pineapple_promotion"
