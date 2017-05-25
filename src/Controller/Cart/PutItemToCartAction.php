@@ -7,9 +7,9 @@ use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\PutOptionBasedConfigurableItemToCart;
-use Sylius\ShopApiPlugin\Command\PutSimpleItemToCart;
-use Sylius\ShopApiPlugin\Command\PutVariantBasedConfigurableItemToCart;
+use Sylius\ShopApiPlugin\Request\PutOptionBasedConfigurableItemToCartRequest;
+use Sylius\ShopApiPlugin\Request\PutSimpleItemToCartRequest;
+use Sylius\ShopApiPlugin\Request\PutVariantBasedConfigurableItemToCartRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -57,36 +57,30 @@ final class PutItemToCartAction
             throw new NotFoundHttpException('Cart with given id does not exists');
         }
 
-        if (!$request->request->has('variantCode') && !$request->request->has('options')) {
-            $this->bus->handle(new PutSimpleItemToCart(
-                $request->attributes->get('token'),
-                $request->request->get('productCode'),
-                $request->request->getInt('quantity')
-            ));
+        $command = $this->provideCommandRequest($request);
 
-            return $this->viewHandler->handle(View::create(null, Response::HTTP_CREATED));
+        $this->bus->handle($command->getCommand());
+
+        return $this->viewHandler->handle(View::create(null, Response::HTTP_CREATED));
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return PutOptionBasedConfigurableItemToCartRequest|PutSimpleItemToCartRequest|PutVariantBasedConfigurableItemToCartRequest
+     */
+    private function provideCommandRequest(Request $request)
+    {
+        if (!$request->request->has('variantCode') && !$request->request->has('options')) {
+            return new PutSimpleItemToCartRequest($request);
         }
 
         if ($request->request->has('variantCode') && !$request->request->has('options')) {
-            $this->bus->handle(new PutVariantBasedConfigurableItemToCart(
-                $request->attributes->get('token'),
-                $request->request->get('productCode'),
-                $request->request->get('variantCode'),
-                $request->request->getInt('quantity')
-            ));
-
-            return $this->viewHandler->handle(View::create(null, Response::HTTP_CREATED));
+            return new PutVariantBasedConfigurableItemToCartRequest($request);
         }
 
         if (!$request->request->has('variantCode') && $request->request->has('options')) {
-            $this->bus->handle(new PutOptionBasedConfigurableItemToCart(
-                $request->attributes->get('token'),
-                $request->request->get('productCode'),
-                $request->request->get('options'),
-                $request->request->getInt('quantity')
-            ));
-
-            return $this->viewHandler->handle(View::create(null, Response::HTTP_CREATED));
+            return new PutOptionBasedConfigurableItemToCartRequest($request);
         }
 
         throw new NotFoundHttpException('Variant not found for given configuration');
