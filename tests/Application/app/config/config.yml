@@ -29,6 +29,7 @@ framework:
     default_locale: "%locale%"
     trusted_proxies: ~
     session:
+        storage_id: session.storage.mock_file
         handler_id: ~
     test: ~
 
