@@ -97,5 +97,17 @@
             <argument type="service" id="sylius.factory.product_review"/>
             <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\AddReview"/>
         </service>
+
+        <service id="sylius.shop_api_plugin.handler.send_verification_token_handler" class="Sylius\ShopApiPlugin\Handler\SendVerificationTokenHandler">
+            <argument type="service" id="sylius.repository.shop_user" />
+            <argument type="service" id="sylius.email_sender" />
+            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\SendVerificationToken" />
+        </service>
+
+        <service id="sylius.shop_api_plugin.handler.generate_verification_token_handler" class="Sylius\ShopApiPlugin\Handler\GenerateVerificationTokenHandler">
+            <argument type="service" id="sylius.repository.shop_user" />
+            <argument type="service" id="sylius.shop_user.token_generator.email_verification" />
+            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\GenerateVerificationToken" />
+        </service>
     </services>
 </container>
