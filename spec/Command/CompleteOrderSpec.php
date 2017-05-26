@@ -36,21 +36,21 @@ final class CompleteOrderSpec extends ObjectBehavior
 
     function it_throws_an_exception_if_notes_are_not_a_string()
     {
-        $this->beConstructedWith('ORDERTOKEN', 'example@customer.com', new \StdClass());
+        $this->beConstructedWith('ORDERTOKEN', 'example@customer.com', new \stdClass());
 
         $this->shouldThrow(\InvalidArgumentException::class)->duringInstantiation();
     }
 
     function it_throws_an_exception_if_order_token_is_not_a_string()
     {
-        $this->beConstructedWith(new \StdClass(), 'example@customer.com');
+        $this->beConstructedWith(new \stdClass(), 'example@customer.com');
 
         $this->shouldThrow(\InvalidArgumentException::class)->duringInstantiation();
     }
 
     function it_throws_an_exception_if_email_is_not_a_string()
     {
-        $this->beConstructedWith('ORDERTOKEN', new \StdClass());
+        $this->beConstructedWith('ORDERTOKEN', new \stdClass());
 
         $this->shouldThrow(\InvalidArgumentException::class)->duringInstantiation();
     }

@@ -74,7 +74,7 @@ final class AddressOrderSpec extends ObjectBehavior
     function it_throws_an_exception_if_order_token_is_not_a_string()
     {
         $this->beConstructedWith(
-            new \StdClass(),
+            new \stdClass(),
             Address::createFromArray([
                 'firstName' => 'Sherlock',
                 'lastName' => 'Holmes',
