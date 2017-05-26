@@ -14,7 +14,7 @@ shop_api_add_to_cart:
     path: /carts/{token}/items
     methods: [POST]
     defaults:
-        _controller: ShopApiPlugin:Cart:add
+        _controller: sylius.shop_api_plugin.controller.cart.put_item_to_cart_action
 
 shop_api_drop_cart:
     path: /carts/{token}

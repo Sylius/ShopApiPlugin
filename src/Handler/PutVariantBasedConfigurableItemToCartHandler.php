@@ -7,13 +7,13 @@ use Sylius\Component\Core\Factory\CartItemFactoryInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Sylius\Component\Core\Repository\ProductRepositoryInterface;
+use Sylius\Component\Core\Repository\ProductVariantRepositoryInterface;
 use Sylius\Component\Order\Modifier\OrderItemQuantityModifierInterface;
 use Sylius\Component\Order\Processor\OrderProcessorInterface;
-use Sylius\ShopApiPlugin\Command\PutSimpleItemToCart;
+use Sylius\ShopApiPlugin\Command\PutVariantBasedConfigurableItemToCart;
 use Webmozart\Assert\Assert;
 
-final class PutSimpleItemToCartHandler
+final class PutVariantBasedConfigurableItemToCartHandler
 {
     /**
      * @var OrderRepositoryInterface
@@ -21,9 +21,9 @@ final class PutSimpleItemToCartHandler
     private $cartRepository;
 
     /**
-     * @var ProductRepositoryInterface
+     * @var ProductVariantRepositoryInterface
      */
-    private $productRepository;
+    private $productVariantRepository;
 
     /**
      * @var CartItemFactoryInterface
@@ -47,7 +47,7 @@ final class PutSimpleItemToCartHandler
 
     /**
      * @param OrderRepositoryInterface $cartRepository
-     * @param ProductRepositoryInterface $productRepository
+     * @param ProductVariantRepositoryInterface $productVariantRepository
      * @param CartItemFactoryInterface $cartItemFactory
      * @param OrderItemQuantityModifierInterface $orderItemModifier
      * @param OrderProcessorInterface $orderProcessor
@@ -55,14 +55,14 @@ final class PutSimpleItemToCartHandler
      */
     public function __construct(
         OrderRepositoryInterface $cartRepository,
-        ProductRepositoryInterface $productRepository,
+        ProductVariantRepositoryInterface $productVariantRepository,
         CartItemFactoryInterface $cartItemFactory,
         OrderItemQuantityModifierInterface $orderItemModifier,
         OrderProcessorInterface $orderProcessor,
         ObjectManager $manager
     ) {
         $this->cartRepository = $cartRepository;
-        $this->productRepository = $productRepository;
+        $this->productVariantRepository = $productVariantRepository;
         $this->cartItemFactory = $cartItemFactory;
         $this->orderItemModifier = $orderItemModifier;
         $this->orderProcessor = $orderProcessor;
@@ -70,26 +70,23 @@ final class PutSimpleItemToCartHandler
     }
 
     /**
-     * @param PutSimpleItemToCart $putSimpleItemToCart
+     * @param PutVariantBasedConfigurableItemToCart $putConfigurableItemToCart
      */
-    public function handle(PutSimpleItemToCart $putSimpleItemToCart)
+    public function handle(PutVariantBasedConfigurableItemToCart $putConfigurableItemToCart)
     {
-        $cart = $this->cartRepository->findOneBy(['tokenValue' => $putSimpleItemToCart->orderToken()]);
+        $cart = $this->cartRepository->findOneBy(['tokenValue' => $putConfigurableItemToCart->orderToken()]);
 
         Assert::notNull($cart, 'Cart has not been found');
 
         /** @var ProductInterface $product */
-        $product = $this->productRepository->findOneBy(['code' => $putSimpleItemToCart->product()]);
+        $productVariant = $this->productVariantRepository->findOneByCodeAndProductCode($putConfigurableItemToCart->productVariant(), $putConfigurableItemToCart->product());
 
-        Assert::notNull($product, 'Product has not been found');
-        Assert::true($product->isSimple(), 'Product has to be simple');
-
-        $productVariant = $product->getVariants()[0];
+        Assert::notNull($productVariant, 'Product variant has not been found');
 
         /** @var OrderItemInterface $cartItem */
         $cartItem = $this->cartItemFactory->createForCart($cart);
         $cartItem->setVariant($productVariant);
-        $this->orderItemModifier->modify($cartItem, $putSimpleItemToCart->quantity());
+        $this->orderItemModifier->modify($cartItem, $putConfigurableItemToCart->quantity());
 
         $cart->addItem($cartItem);
 

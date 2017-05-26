@@ -4,7 +4,7 @@ namespace Sylius\ShopApiPlugin\Command;
 
 use Webmozart\Assert\Assert;
 
-final class PutSimpleItemToCart
+final class PutOptionBasedConfigurableItemToCart
 {
     /**
      * @var string
@@ -17,6 +17,11 @@ final class PutSimpleItemToCart
     private $product;
 
     /**
+     * @var array
+     */
+    private $options;
+
+    /**
      * @var int
      */
     private $quantity;
@@ -24,17 +29,20 @@ final class PutSimpleItemToCart
     /**
      * @param string $orderToken
      * @param string $product
+     * @param array $options
      * @param int $quantity
      */
-    public function __construct($orderToken, $product, $quantity)
+    public function __construct($orderToken, $product, array $options, $quantity)
     {
         Assert::string($orderToken, 'Expected order token to be string, got %s');
         Assert::string($product, 'Expected product code to be string, got %s');
+        Assert::notEmpty($options, 'Options array cannot be empty');
         Assert::integer($quantity, 'Expected quantity to be integer, got %s');
         Assert::greaterThan($quantity, 0, 'Quantity should be greater than 0');
 
         $this->orderToken = $orderToken;
         $this->product = $product;
+        $this->options = $options;
         $this->quantity = $quantity;
     }
 
@@ -52,6 +60,14 @@ final class PutSimpleItemToCart
     public function product()
     {
         return $this->product;
+    }
+
+    /**
+     * @return array
+     */
+    public function options()
+    {
+        return $this->options;
     }
 
     /**

@@ -6,32 +6,31 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Sylius\Component\Core\Factory\CartItemFactoryInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
-use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Sylius\Component\Core\Repository\ProductRepositoryInterface;
+use Sylius\Component\Core\Repository\ProductVariantRepositoryInterface;
 use Sylius\Component\Order\Modifier\OrderItemQuantityModifierInterface;
 use Sylius\Component\Order\Processor\OrderProcessorInterface;
-use Sylius\ShopApiPlugin\Command\PutSimpleItemToCart;
-use Sylius\ShopApiPlugin\Handler\PutSimpleItemToCartHandler;
+use Sylius\ShopApiPlugin\Command\PutVariantBasedConfigurableItemToCart;
+use Sylius\ShopApiPlugin\Handler\PutVariantBasedConfigurableItemToCartHandler;
 use PhpSpec\ObjectBehavior;
 
-final class PutSimpleItemToCartHandlerSpec extends ObjectBehavior
+final class PutVariantBasedConfigurableItemToCartHandlerSpec extends ObjectBehavior
 {
     function let(
         OrderRepositoryInterface $cartRepository,
-        ProductRepositoryInterface $productRepository,
+        ProductVariantRepositoryInterface $productVariantRepository,
         CartItemFactoryInterface $cartItemFactory,
         OrderItemQuantityModifierInterface $orderItemModifier,
         OrderProcessorInterface $orderProcessor,
         ObjectManager $manager
     ) {
-        $this->beConstructedWith($cartRepository, $productRepository, $cartItemFactory, $orderItemModifier, $orderProcessor, $manager);
+        $this->beConstructedWith($cartRepository, $productVariantRepository, $cartItemFactory, $orderItemModifier, $orderProcessor, $manager);
     }
 
     function it_is_initializable()
     {
-        $this->shouldHaveType(PutSimpleItemToCartHandler::class);
+        $this->shouldHaveType(PutVariantBasedConfigurableItemToCartHandler::class);
     }
 
     function it_handles_putting_new_item_to_cart(
@@ -41,14 +40,11 @@ final class PutSimpleItemToCartHandlerSpec extends ObjectBehavior
         OrderItemQuantityModifierInterface $orderItemModifier,
         OrderProcessorInterface $orderProcessor,
         OrderRepositoryInterface $cartRepository,
-        ProductInterface $product,
-        ProductRepositoryInterface $productRepository,
         ProductVariantInterface $productVariant,
+        ProductVariantRepositoryInterface $productVariantRepository,
         ObjectManager $manager
     ) {
-        $productRepository->findOneBy(['code' => 'T_SHIRT_CODE'])->willReturn($product);
-        $product->getVariants()->willReturn([$productVariant]);
-        $product->isSimple()->willReturn(true);
+        $productVariantRepository->findOneByCodeAndProductCode('RED_SMALL_T_SHIRT_CODE', 'T_SHIRT_CODE')->willReturn($productVariant);
 
         $cartRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($cart);
         $cartItemFactory->createForCart($cart)->willReturn($cartItem);
@@ -60,7 +56,7 @@ final class PutSimpleItemToCartHandlerSpec extends ObjectBehavior
 
         $manager->persist($cart)->shouldBeCalled();
 
-        $this->handle(new PutSimpleItemToCart('ORDERTOKEN', 'T_SHIRT_CODE', 5));
+        $this->handle(new PutVariantBasedConfigurableItemToCart('ORDERTOKEN', 'T_SHIRT_CODE', 'RED_SMALL_T_SHIRT_CODE', 5));
     }
 
     function it_throws_an_exception_if_cart_has_not_been_found(OrderRepositoryInterface $cartRepository)
@@ -68,37 +64,20 @@ final class PutSimpleItemToCartHandlerSpec extends ObjectBehavior
         $cartRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn(null);
 
         $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [
-            new PutSimpleItemToCart('ORDERTOKEN', 'T_SHIRT_CODE', 5),
+            new PutVariantBasedConfigurableItemToCart('ORDERTOKEN', 'T_SHIRT_CODE', 'RED_SMALL_T_SHIRT_CODE', 5),
         ]);
     }
 
     function it_throws_an_exception_if_product_has_not_been_found(
         OrderInterface $cart,
         OrderRepositoryInterface $cartRepository,
-        ProductRepositoryInterface $productRepository
+        ProductVariantRepositoryInterface $productVariantRepository
     ) {
         $cartRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($cart);
-        $productRepository->findOneBy(['code' => 'T_SHIRT_CODE'])->willReturn(null);
+        $productVariantRepository->findOneByCodeAndProductCode('RED_SMALL_T_SHIRT_CODE', 'T_SHIRT_CODE')->willReturn(null);
 
         $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [
-            new PutSimpleItemToCart('ORDERTOKEN', 'T_SHIRT_CODE', 5),
-        ]);
-    }
-
-    function it_throws_an_exception_if_product_is_configurable(
-        OrderInterface $cart,
-        OrderRepositoryInterface $cartRepository,
-        ProductInterface $product,
-        ProductRepositoryInterface $productRepository,
-        ProductVariantInterface $productVariant
-    ) {
-        $cartRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($cart);
-        $productRepository->findOneBy(['code' => 'T_SHIRT_CODE'])->willReturn($product);
-        $product->getVariants()->willReturn([$productVariant]);
-        $product->isSimple()->willReturn(false);
-
-        $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [
-            new PutSimpleItemToCart('ORDERTOKEN', 'T_SHIRT_CODE', 5),
+            new PutVariantBasedConfigurableItemToCart('ORDERTOKEN', 'T_SHIRT_CODE', 'RED_SMALL_T_SHIRT_CODE', 5),
         ]);
     }
 }
