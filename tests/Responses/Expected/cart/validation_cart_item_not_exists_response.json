@@ -2,8 +2,8 @@
     "code": 400,
     "message": "Validation failed",
     "errors": {
-        "quantity": [
-            "sylius.shop_api.quantity.not_null"
+        "id": [
+            "sylius.shop_api.cart_item.not_exists"
         ]
     }
 }

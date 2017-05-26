@@ -26,7 +26,7 @@ shop_api_change_item_quantity:
     path: /carts/{token}/items/{id}
     methods: [PUT]
     defaults:
-        _controller: ShopApiPlugin:Cart:changeItemQuantity
+        _controller: sylius.shop_api_plugin.controller.cart.change_item_quantity_action
 
 shop_api_remove_item:
     path: /carts/{token}/items/{id}

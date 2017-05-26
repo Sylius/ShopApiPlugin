@@ -2,10 +2,10 @@
 
 namespace Sylius\ShopApiPlugin\Request;
 
-use Sylius\ShopApiPlugin\Command\PutSimpleItemToCart;
+use Sylius\ShopApiPlugin\Command\ChangeItemQuantity;
 use Symfony\Component\HttpFoundation\Request;
 
-final class PutSimpleItemToCartRequest
+final class ChangeItemQuantityRequest
 {
     /**
      * @var string
@@ -13,9 +13,9 @@ final class PutSimpleItemToCartRequest
     private $token;
 
     /**
-     * @var string
+     * @var mixed
      */
-    private $product;
+    private $id;
 
     /**
      * @var int
@@ -28,15 +28,15 @@ final class PutSimpleItemToCartRequest
     public function __construct(Request $request)
     {
         $this->token = $request->attributes->get('token');
-        $this->product = $request->request->get('productCode');
+        $this->id = $request->attributes->get('id');
         $this->quantity = $request->request->get('quantity');
     }
 
     /**
-     * @return PutSimpleItemToCart
+     * @return ChangeItemQuantity
      */
     public function getCommand()
     {
-        return new PutSimpleItemToCart($this->token, $this->product, $this->quantity);
+        return new ChangeItemQuantity($this->token, $this->id, $this->quantity);
     }
 }

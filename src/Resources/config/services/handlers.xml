@@ -51,6 +51,14 @@
             <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\PutOptionBasedConfigurableItemToCart"/>
         </service>
 
+        <service id="sylius.shop_api_plugin.handler.change_item_quantity_handler" class="Sylius\ShopApiPlugin\Handler\ChangeItemQuantityHandler">
+            <argument type="service" id="sylius.repository.order_item" />
+            <argument type="service" id="sylius.repository.order" />
+            <argument type="service" id="sylius.order_item_quantity_modifier" />
+            <argument type="service" id="sylius.order_processing.order_processor" />
+            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\ChangeItemQuantity"/>
+        </service>
+
         <service id="sylius.shop_api_plugin.handler.choose_shipping_method_handler" class="Sylius\ShopApiPlugin\Handler\ChooseShippingMethodHandler">
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.repository.shipping_method"/>
