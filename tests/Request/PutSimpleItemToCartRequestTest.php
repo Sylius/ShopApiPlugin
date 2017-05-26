@@ -18,11 +18,10 @@ final class PutSimpleItemToCartRequestTest extends \PHPUnit_Framework_TestCase
             'quantity' => 4,
         ], ['token' => 'ORDERTOKEN']));
 
-        $command = $putSimpleItemToCartRequest->getCommand();
-
-        $this->assertInstanceOf(PutSimpleItemToCart::class, $command);
-        $this->assertSame('ORDERTOKEN', $command->orderToken());
-        $this->assertSame('HACKTOBERFEST_TSHIRT_CODE', $command->product());
-        $this->assertSame(4, $command->quantity());
+        $this->assertEquals($putSimpleItemToCartRequest->getCommand(), new PutSimpleItemToCart(
+            'ORDERTOKEN',
+            'HACKTOBERFEST_TSHIRT_CODE',
+            4
+        ));
     }
 }

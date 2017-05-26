@@ -65,13 +65,13 @@ final class PutItemToCartAction
 
         $validationResults = $this->validator->validate($commandRequest);
 
-        if (0 === count($validationResults)) {
-            $this->bus->handle($commandRequest->getCommand());
-
-            return $this->viewHandler->handle(View::create(null, Response::HTTP_CREATED));
+        if (0 !== count($validationResults)) {
+            return $this->viewHandler->handle(View::create($this->validationErrorViewFactory->create($validationResults), Response::HTTP_BAD_REQUEST));
         }
 
-        return $this->viewHandler->handle(View::create($this->validationErrorViewFactory->create($validationResults), Response::HTTP_BAD_REQUEST));
+        $this->bus->handle($commandRequest->getCommand());
+
+        return $this->viewHandler->handle(View::create(null, Response::HTTP_CREATED));
     }
 
     /**

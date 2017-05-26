@@ -27,7 +27,7 @@ final class ProductExistsValidatorSpec extends ObjectBehavior
 
     function it_is_constraint_validator()
     {
-        $this->shouldHaveType( ConstraintValidator::class);
+        $this->shouldHaveType(ConstraintValidator::class);
     }
 
     function it_does_not_add_constraint_if_product_exists(

@@ -13,18 +13,17 @@ final class PutOptionBasedConfigurableItemToCartRequestTest extends \PHPUnit_Fra
      */
     public function it_creates_put_simple_item_to_cart_command()
     {
-        $putSimpleItemToCartRequest = new PutOptionBasedConfigurableItemToCartRequest(new Request([], [
+        $putConfigurableItemToCartRequest = new PutOptionBasedConfigurableItemToCartRequest(new Request([], [
             'productCode' => 'HACKTOBERFEST_TSHIRT_CODE',
             'options' => ['LARGE__CODE'],
             'quantity' => 4,
         ], ['token' => 'ORDERTOKEN']));
 
-        $command = $putSimpleItemToCartRequest->getCommand();
-
-        $this->assertInstanceOf(PutOptionBasedConfigurableItemToCart::class, $command);
-        $this->assertSame('ORDERTOKEN', $command->orderToken());
-        $this->assertSame('HACKTOBERFEST_TSHIRT_CODE', $command->product());
-        $this->assertSame(['LARGE__CODE'], $command->options());
-        $this->assertSame(4, $command->quantity());
+        $this->assertEquals($putConfigurableItemToCartRequest->getCommand(), new PutOptionBasedConfigurableItemToCart(
+            'ORDERTOKEN',
+            'HACKTOBERFEST_TSHIRT_CODE',
+            ['LARGE__CODE'],
+            4
+        ));
     }
 }

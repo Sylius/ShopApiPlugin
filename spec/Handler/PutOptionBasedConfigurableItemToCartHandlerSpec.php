@@ -20,14 +20,14 @@ use PhpSpec\ObjectBehavior;
 final class PutOptionBasedConfigurableItemToCartHandlerSpec extends ObjectBehavior
 {
     function let(
-        OrderRepositoryInterface $cartRepository,
+        OrderRepositoryInterface $orderRepository,
         ProductRepositoryInterface $productRepository,
         CartItemFactoryInterface $cartItemFactory,
         OrderItemQuantityModifierInterface $orderItemModifier,
         OrderProcessorInterface $orderProcessor,
         ObjectManager $manager
     ) {
-        $this->beConstructedWith($cartRepository, $productRepository, $cartItemFactory, $orderItemModifier, $orderProcessor, $manager);
+        $this->beConstructedWith($orderRepository, $productRepository, $cartItemFactory, $orderItemModifier, $orderProcessor, $manager);
     }
 
     function it_is_initializable()
@@ -36,33 +36,33 @@ final class PutOptionBasedConfigurableItemToCartHandlerSpec extends ObjectBehavi
     }
 
     function it_handles_putting_new_item_to_cart(
-        OrderItemInterface $cartItem,
-        OrderInterface $cart,
         CartItemFactoryInterface $cartItemFactory,
+        ObjectManager $manager,
+        OrderInterface $cart,
+        OrderItemInterface $cartItem,
         OrderItemQuantityModifierInterface $orderItemModifier,
         OrderProcessorInterface $orderProcessor,
-        OrderRepositoryInterface $cartRepository,
+        OrderRepositoryInterface $orderRepository,
         ProductInterface $tShirt,
-        ProductVariantInterface $blueTShirt,
-        ProductVariantInterface $redTShirt,
-        ProductOptionValueInterface $blueOption,
-        ProductOptionValueInterface $redOption,
+        ProductOptionValueInterface $blueOptionValue,
+        ProductOptionValueInterface $redOptionValue,
         ProductRepositoryInterface $productRepository,
-        ObjectManager $manager
+        ProductVariantInterface $blueTShirt,
+        ProductVariantInterface $redTShirt
     ) {
         $productRepository->findOneByCode('T_SHIRT_CODE')->willReturn($tShirt);
 
         $tShirt->getVariants()->willReturn([$blueTShirt, $redTShirt]);
 
-        $blueTShirt->getOptionValues()->willReturn([$blueOption]);
-        $blueOption->getCode()->willReturn('BLUE_OPTION_VALUE_CODE');
-        $blueOption->getOptionCode()->willReturn('COLOR_OPTION_CODE');
+        $blueTShirt->getOptionValues()->willReturn([$blueOptionValue]);
+        $blueOptionValue->getCode()->willReturn('BLUE_OPTION_VALUE_CODE');
+        $blueOptionValue->getOptionCode()->willReturn('COLOR_OPTION_CODE');
 
-        $redTShirt->getOptionValues()->willReturn([$redOption]);
-        $redOption->getCode()->willReturn('RED_OPTION_VALUE_CODE');
-        $redOption->getOptionCode()->willReturn('COLOR_OPTION_CODE');
+        $redTShirt->getOptionValues()->willReturn([$redOptionValue]);
+        $redOptionValue->getCode()->willReturn('RED_OPTION_VALUE_CODE');
+        $redOptionValue->getOptionCode()->willReturn('COLOR_OPTION_CODE');
 
-        $cartRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($cart);
+        $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($cart);
         $cartItemFactory->createForCart($cart)->willReturn($cartItem);
 
         $cartItem->setVariant($redTShirt)->shouldBeCalled();
@@ -75,9 +75,9 @@ final class PutOptionBasedConfigurableItemToCartHandlerSpec extends ObjectBehavi
         $this->handle(new PutOptionBasedConfigurableItemToCart('ORDERTOKEN', 'T_SHIRT_CODE', ['COLOR_OPTION_CODE' => 'RED_OPTION_VALUE_CODE'], 5));
     }
 
-    function it_throws_an_exception_if_cart_has_not_been_found(OrderRepositoryInterface $cartRepository)
+    function it_throws_an_exception_if_cart_has_not_been_found(OrderRepositoryInterface $orderRepository)
     {
-        $cartRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn(null);
+        $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn(null);
 
         $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [
             new PutOptionBasedConfigurableItemToCart('ORDERTOKEN', 'T_SHIRT_CODE', ['COLOR_OPTION_CODE' => 'RED_OPTION_VALUE_CODE'], 5),
@@ -86,10 +86,10 @@ final class PutOptionBasedConfigurableItemToCartHandlerSpec extends ObjectBehavi
 
     function it_throws_an_exception_if_product_has_not_been_found(
         OrderInterface $cart,
-        OrderRepositoryInterface $cartRepository,
+        OrderRepositoryInterface $orderRepository,
         ProductRepositoryInterface $productRepository
     ) {
-        $cartRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($cart);
+        $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($cart);
         $productRepository->findOneByCode('T_SHIRT_CODE')->willReturn(null);
 
         $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [
@@ -100,27 +100,27 @@ final class PutOptionBasedConfigurableItemToCartHandlerSpec extends ObjectBehavi
     function it_throws_an_exception_if_product_variant_cannot_be_resolved(
         OrderInterface $cart,
         CartItemFactoryInterface $cartItemFactory,
-        OrderRepositoryInterface $cartRepository,
+        OrderRepositoryInterface $orderRepository,
         ProductInterface $tShirt,
         ProductVariantInterface $blueTShirt,
         ProductVariantInterface $redTShirt,
-        ProductOptionValueInterface $blueOption,
-        ProductOptionValueInterface $redOption,
+        ProductOptionValueInterface $blueOptionValue,
+        ProductOptionValueInterface $redOptionValue,
         ProductRepositoryInterface $productRepository
     ) {
         $productRepository->findOneByCode('T_SHIRT_CODE')->willReturn($tShirt);
 
         $tShirt->getVariants()->willReturn([$blueTShirt, $redTShirt]);
 
-        $blueTShirt->getOptionValues()->willReturn([$blueOption]);
-        $blueOption->getCode()->willReturn('BLUE_OPTION_VALUE_CODE');
-        $blueOption->getOptionCode()->willReturn('COLOR_OPTION_CODE');
+        $blueTShirt->getOptionValues()->willReturn([$blueOptionValue]);
+        $blueOptionValue->getCode()->willReturn('BLUE_OPTION_VALUE_CODE');
+        $blueOptionValue->getOptionCode()->willReturn('COLOR_OPTION_CODE');
 
-        $redTShirt->getOptionValues()->willReturn([$redOption]);
-        $redOption->getCode()->willReturn('GREEN_OPTION_VALUE_CODE');
-        $redOption->getOptionCode()->willReturn('COLOR_OPTION_CODE');
+        $redTShirt->getOptionValues()->willReturn([$redOptionValue]);
+        $redOptionValue->getCode()->willReturn('GREEN_OPTION_VALUE_CODE');
+        $redOptionValue->getOptionCode()->willReturn('COLOR_OPTION_CODE');
 
-        $cartRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($cart);
+        $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($cart);
         $cartItemFactory->createForCart($cart)->shouldNotBeCalled();
 
         $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [
