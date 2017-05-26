@@ -29,14 +29,14 @@ final class PickupCartSpec extends ObjectBehavior
 
     function it_throws_an_exception_if_order_token_is_not_a_string()
     {
-        $this->beConstructedWith(new \StdClass(), 'CHANNEL_CODE');
+        $this->beConstructedWith(new \stdClass(), 'CHANNEL_CODE');
 
         $this->shouldThrow(\InvalidArgumentException::class)->duringInstantiation();
     }
 
     function it_throws_an_exception_if_channel_code_is_not_a_string()
     {
-        $this->beConstructedWith('ORDERTOKEN', new \StdClass());
+        $this->beConstructedWith('ORDERTOKEN', new \stdClass());
 
         $this->shouldThrow(\InvalidArgumentException::class)->duringInstantiation();
     }
