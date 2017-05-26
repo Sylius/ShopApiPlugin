@@ -44,7 +44,7 @@ final class AddressAction
             Address::createFromArray($request->request->get('shippingAddress')),
             Address::createFromArray(
                 $request->request->has('billingAddress') ?
-                    $request->request->get('billingAddress') :
+                    $request->request->get('billingAddress'):
                     $request->request->get('shippingAddress')
             )
         ));
