@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Sylius\ShopApiPlugin\Request;
 
 use Sylius\ShopApiPlugin\Command\PutVariantBasedConfigurableItemToCart;
