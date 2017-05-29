@@ -2,11 +2,12 @@
 
 namespace Tests\Sylius\ShopApiPlugin\Request;
 
+use PHPUnit\Framework\TestCase;
 use Sylius\ShopApiPlugin\Command\PutVariantBasedConfigurableItemToCart;
 use Sylius\ShopApiPlugin\Request\PutVariantBasedConfigurableItemToCartRequest;
 use Symfony\Component\HttpFoundation\Request;
 
-final class PutVariantBasedConfigurableItemToCartRequestTest extends \PHPUnit_Framework_TestCase
+final class PutVariantBasedConfigurableItemToCartRequestTest extends TestCase
 {
     /**
      * @test

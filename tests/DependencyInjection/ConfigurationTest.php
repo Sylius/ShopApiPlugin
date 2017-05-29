@@ -3,9 +3,10 @@
 namespace Tests\Sylius\ShopApiPlugin\DependencyInjection;
 
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
+use PHPUnit\Framework\TestCase;
 use Sylius\ShopApiPlugin\DependencyInjection\Configuration;
 
-final class ConfigurationTest extends \PHPUnit_Framework_TestCase
+final class ConfigurationTest extends TestCase
 {
     use ConfigurationTestCaseTrait;
 
