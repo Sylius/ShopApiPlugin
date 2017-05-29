@@ -24,7 +24,7 @@ final class DropCartSpec extends ObjectBehavior
 
     function it_throws_an_exception_if_order_token_is_not_a_string()
     {
-        $this->beConstructedWith(new \stdClass(), 'example@customer.com');
+        $this->beConstructedWith(new \stdClass());
 
         $this->shouldThrow(\InvalidArgumentException::class)->duringInstantiation();
     }

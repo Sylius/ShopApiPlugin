@@ -17,9 +17,8 @@ final class DropCartHandler
     /**
      * @param OrderRepositoryInterface $cartRepository
      */
-    public function __construct(
-        OrderRepositoryInterface $cartRepository
-    ) {
+    public function __construct(OrderRepositoryInterface $cartRepository)
+    {
         $this->cartRepository = $cartRepository;
     }
 

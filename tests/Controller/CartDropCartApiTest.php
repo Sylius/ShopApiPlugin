@@ -77,14 +77,14 @@ final class CartDropCartApiTest extends JsonApiTestCase
                 'postcode' => 'NWB',
                 'provinceName' => 'Greater London',
             ]), Address::createFromArray([
-            'firstName' => 'Sherlock',
-            'lastName' => 'Holmes',
-            'city' => 'London',
-            'street' => 'Baker Street 221b',
-            'countryCode' => 'GB',
-            'postcode' => 'NWB',
-            'provinceName' => 'Greater London',
-        ])
+                'firstName' => 'Sherlock',
+                'lastName' => 'Holmes',
+                'city' => 'London',
+                'street' => 'Baker Street 221b',
+                'countryCode' => 'GB',
+                'postcode' => 'NWB',
+                'provinceName' => 'Greater London',
+            ])
         ));
         $bus->handle(new ChooseShippingMethod($token, 0, 'DHL'));
         $bus->handle(new ChoosePaymentMethod($token, 0, 'PBC'));
