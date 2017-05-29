@@ -12,5 +12,5 @@ interface ProductAttributeValueViewFactoryInterface
      *
      * @return ProductAttributeValueView
      */
-    public function create(ProductAttributeValueInterface $productAttributeValue);
+    public function create(ProductAttributeValueInterface $productAttributeValue): \Sylius\ShopApiPlugin\View\ProductAttributeValueView;
 }

@@ -26,7 +26,7 @@ final class PutSimpleItemToCart
      * @param string $product
      * @param int $quantity
      */
-    public function __construct($orderToken, $product, $quantity)
+    public function __construct(string $orderToken, string $product, int $quantity)
     {
         Assert::string($orderToken, 'Expected order token to be string, got %s');
         Assert::string($product, 'Expected product code to be string, got %s');
@@ -41,7 +41,7 @@ final class PutSimpleItemToCart
     /**
      * @return string
      */
-    public function orderToken()
+    public function orderToken(): string
     {
         return $this->orderToken;
     }
@@ -49,7 +49,7 @@ final class PutSimpleItemToCart
     /**
      * @return string
      */
-    public function product()
+    public function product(): string
     {
         return $this->product;
     }
@@ -57,7 +57,7 @@ final class PutSimpleItemToCart
     /**
      * @return int
      */
-    public function quantity()
+    public function quantity(): int
     {
         return $this->quantity;
     }

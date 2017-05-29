@@ -13,5 +13,5 @@ interface PaymentMethodViewFactoryInterface
      *
      * @return PaymentMethodView
      */
-    public function create(PaymentMethodInterface $paymentMethod, $locale);
+    public function create(PaymentMethodInterface $paymentMethod, string $locale): \Sylius\ShopApiPlugin\View\PaymentMethodView;
 }

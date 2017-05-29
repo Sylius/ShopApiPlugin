@@ -26,7 +26,7 @@ final class ChooseShippingMethod
      * @param mixed $shipmentIdentifier
      * @param string $shippingMethod
      */
-    public function __construct($orderToken, $shipmentIdentifier, $shippingMethod)
+    public function __construct(string $orderToken, $shipmentIdentifier, string $shippingMethod)
     {
         Assert::allString([$orderToken, $shippingMethod]);
 
@@ -38,7 +38,7 @@ final class ChooseShippingMethod
     /**
      * @return string
      */
-    public function orderToken()
+    public function orderToken(): string
     {
         return $this->orderToken;
     }
@@ -54,7 +54,7 @@ final class ChooseShippingMethod
     /**
      * @return string
      */
-    public function shippingMethod()
+    public function shippingMethod(): string
     {
         return $this->shippingMethod;
     }

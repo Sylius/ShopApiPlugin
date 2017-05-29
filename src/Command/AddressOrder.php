@@ -27,7 +27,7 @@ final class AddressOrder
      * @param Address $shippingAddress
      * @param Address $billingAddress
      */
-    public function __construct($orderToken, Address $shippingAddress, Address $billingAddress)
+    public function __construct(string $orderToken, Address $shippingAddress, Address $billingAddress)
     {
         Assert::string($orderToken);
 
@@ -39,7 +39,7 @@ final class AddressOrder
     /**
      * @return string
      */
-    public function orderToken()
+    public function orderToken(): string
     {
         return $this->orderToken;
     }
@@ -47,7 +47,7 @@ final class AddressOrder
     /**
      * @return Address
      */
-    public function shippingAddress()
+    public function shippingAddress(): \Sylius\ShopApiPlugin\Model\Address
     {
         return $this->address;
     }
@@ -55,7 +55,7 @@ final class AddressOrder
     /**
      * @return Address
      */
-    public function billingAddress()
+    public function billingAddress(): \Sylius\ShopApiPlugin\Model\Address
     {
         return $this->billingAddress;
     }

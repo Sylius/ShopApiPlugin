@@ -33,7 +33,7 @@ final class CartItemViewFactory implements CartItemViewFactoryInterface
     /**
      * {@inheritdoc}
      */
-    public function create(OrderItemInterface $item, ChannelInterface $channel, $locale)
+    public function create(OrderItemInterface $item, ChannelInterface $channel, string $locale): \Sylius\ShopApiPlugin\View\ItemView
     {
         $itemView = new ItemView();
 

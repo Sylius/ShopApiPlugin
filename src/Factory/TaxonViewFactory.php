@@ -24,7 +24,7 @@ final class TaxonViewFactory implements TaxonViewFactoryInterface
     /**
      * {@inheritdoc}
      */
-    public function create(TaxonInterface $taxon, $locale)
+    public function create(TaxonInterface $taxon, string $locale): \Sylius\ShopApiPlugin\View\TaxonView
     {
         $taxonView = new TaxonView();
         $taxonView->name = $taxon->getTranslation($locale)->getName();

@@ -12,5 +12,5 @@ interface AddressViewFactoryInterface
      *
      * @return AddressView
      */
-    public function create(AddressInterface $address);
+    public function create(AddressInterface $address): \Sylius\ShopApiPlugin\View\AddressView;
 }

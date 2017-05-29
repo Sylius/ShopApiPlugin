@@ -29,7 +29,7 @@ final class PickupCartRequest
     /**
      * @return PickupCart
      */
-    public function getCommand()
+    public function getCommand(): \Sylius\ShopApiPlugin\Command\PickupCart
     {
         return new PickupCart($this->token, $this->channel);
     }

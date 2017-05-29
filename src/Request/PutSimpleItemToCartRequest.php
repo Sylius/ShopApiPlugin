@@ -35,7 +35,7 @@ final class PutSimpleItemToCartRequest
     /**
      * @return PutSimpleItemToCart
      */
-    public function getCommand()
+    public function getCommand(): \Sylius\ShopApiPlugin\Command\PutSimpleItemToCart
     {
         return new PutSimpleItemToCart($this->token, $this->product, $this->quantity);
     }

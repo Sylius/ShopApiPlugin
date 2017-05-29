@@ -20,7 +20,7 @@ final class PickupCart
      * @param string $orderToken
      * @param string $channelCode
      */
-    public function __construct($orderToken, $channelCode)
+    public function __construct(string $orderToken, string $channelCode)
     {
         Assert::string($orderToken, 'Expected order token to be string, got %s');
         Assert::string($channelCode, 'Expected channel code to be string, got %s');
@@ -32,7 +32,7 @@ final class PickupCart
     /**
      * @return string
      */
-    public function orderToken()
+    public function orderToken(): string
     {
         return $this->orderToken;
     }
@@ -40,7 +40,7 @@ final class PickupCart
     /**
      * @return string
      */
-    public function channelCode()
+    public function channelCode(): string
     {
         return $this->channelCode;
     }

@@ -37,7 +37,7 @@ final class CartController extends Controller
      *
      * @return Response
      */
-    public function dropAction(Request $request)
+    public function dropAction(Request $request): \Symfony\Component\HttpFoundation\Response
     {
         /** @var OrderRepositoryInterface $cartRepository */
         $cartRepository = $this->get('sylius.repository.order');
@@ -60,7 +60,7 @@ final class CartController extends Controller
      *
      * @return Response
      */
-    public function changeItemQuantityAction(Request $request)
+    public function changeItemQuantityAction(Request $request): \Symfony\Component\HttpFoundation\Response
     {
         /** @var ObjectManager $cartManager */
         $cartManager = $this->get('sylius.manager.order');
@@ -102,7 +102,7 @@ final class CartController extends Controller
      *
      * @return Response
      */
-    public function removeItemAction(Request $request)
+    public function removeItemAction(Request $request): \Symfony\Component\HttpFoundation\Response
     {
         /** @var OrderRepositoryInterface $cartRepository */
         $cartRepository = $this->get('sylius.repository.order');
@@ -135,7 +135,7 @@ final class CartController extends Controller
      *
      * @return Response
      */
-    public function estimateShippingCostAction(Request $request)
+    public function estimateShippingCostAction(Request $request): \Symfony\Component\HttpFoundation\Response
     {
         /** @var OrderRepositoryInterface $cartRepository */
         $cartRepository = $this->get('sylius.repository.order');

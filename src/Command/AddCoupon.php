@@ -20,7 +20,7 @@ final class AddCoupon
      * @param string $orderToken
      * @param string $couponCode
      */
-    public function __construct($orderToken, $couponCode)
+    public function __construct(string $orderToken, string $couponCode)
     {
         Assert::allString([$orderToken, $couponCode]);
         $this->orderToken = $orderToken;
@@ -30,7 +30,7 @@ final class AddCoupon
     /**
      * @return string
      */
-    public function orderToken()
+    public function orderToken(): string
     {
         return $this->orderToken;
     }
@@ -38,7 +38,7 @@ final class AddCoupon
     /**
      * @return string
      */
-    public function couponCode()
+    public function couponCode(): string
     {
         return $this->couponCode;
     }

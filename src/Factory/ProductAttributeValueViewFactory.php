@@ -10,7 +10,7 @@ final class ProductAttributeValueViewFactory implements ProductAttributeValueVie
     /**
      * {@inheritdoc}
      */
-    public function create(ProductAttributeValueInterface $productAttributeValue)
+    public function create(ProductAttributeValueInterface $productAttributeValue): \Sylius\ShopApiPlugin\View\ProductAttributeValueView
     {
         $productAttributeValueView = new ProductAttributeValueView();
 

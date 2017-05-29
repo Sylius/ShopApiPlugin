@@ -12,5 +12,5 @@ interface ValidationErrorViewFactoryInterface
      *
      * @return ValidationErrorView
      */
-    public function create(ConstraintViolationListInterface $validationResults);
+    public function create(ConstraintViolationListInterface $validationResults): \Sylius\ShopApiPlugin\View\ValidationErrorView;
 }

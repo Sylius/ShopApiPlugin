@@ -15,5 +15,5 @@ interface CartItemViewFactoryInterface
      *
      * @return ItemView
      */
-    public function create(OrderItemInterface $item, ChannelInterface $channel, $locale);
+    public function create(OrderItemInterface $item, ChannelInterface $channel, string $locale): \Sylius\ShopApiPlugin\View\ItemView;
 }

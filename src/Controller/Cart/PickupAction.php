@@ -62,7 +62,7 @@ final class PickupAction
      *
      * @return Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): \Symfony\Component\HttpFoundation\Response
     {
         $pickupRequest = new PickupCartRequest($request);
 

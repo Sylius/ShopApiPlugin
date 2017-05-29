@@ -12,7 +12,7 @@ final class ValidationErrorViewFactory implements ValidationErrorViewFactoryInte
     /**
      * {@inheritdoc}
      */
-    public function create(ConstraintViolationListInterface $validationResults)
+    public function create(ConstraintViolationListInterface $validationResults): \Sylius\ShopApiPlugin\View\ValidationErrorView
     {
         $errorMessage = new ValidationErrorView();
         $errorMessage->code = Response::HTTP_BAD_REQUEST;

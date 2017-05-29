@@ -37,7 +37,7 @@ final class ChoosePaymentMethodAction
      *
      * @return Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): \Symfony\Component\HttpFoundation\Response
     {
         $this->bus->handle(new ChoosePaymentMethod(
             $request->attributes->get('token'),

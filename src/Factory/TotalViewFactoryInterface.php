@@ -12,5 +12,5 @@ interface TotalViewFactoryInterface
      *
      * @return TotalsView
      */
-    public function create(OrderInterface $cart);
+    public function create(OrderInterface $cart): \Sylius\ShopApiPlugin\View\TotalsView;
 }

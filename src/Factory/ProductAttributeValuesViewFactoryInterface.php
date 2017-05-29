@@ -9,5 +9,5 @@ interface ProductAttributeValuesViewFactoryInterface
      *
      * @return array
      */
-    public function create(array $attributeValues);
+    public function create(array $attributeValues): array;
 }

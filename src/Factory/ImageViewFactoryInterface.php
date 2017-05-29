@@ -12,5 +12,5 @@ interface ImageViewFactoryInterface
      *
      * @return ImageView
      */
-    public function create(ImageInterface $image);
+    public function create(ImageInterface $image): \Sylius\ShopApiPlugin\View\ImageView;
 }

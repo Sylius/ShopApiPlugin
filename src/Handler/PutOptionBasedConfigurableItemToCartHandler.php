@@ -123,7 +123,7 @@ final class PutOptionBasedConfigurableItemToCartHandler
      *
      * @return bool
      */
-    private function areOptionsMatched(array $options, ProductVariantInterface $variant)
+    private function areOptionsMatched(array $options, ProductVariantInterface $variant): bool
     {
         foreach ($variant->getOptionValues() as $optionValue) {
             if (!isset($options[$optionValue->getOptionCode()]) || $optionValue->getCode() !== $options[$optionValue->getOptionCode()]) {

@@ -9,7 +9,7 @@ final class PriceViewFactory implements PriceViewFactoryInterface
     /**
      * {@inheritdoc}
      */
-    public function create($price)
+    public function create(int $price): \Sylius\ShopApiPlugin\View\PriceView
     {
         $priceView = new PriceView();
         $priceView->current = $price;

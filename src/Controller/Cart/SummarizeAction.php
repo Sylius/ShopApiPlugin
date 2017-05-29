@@ -48,7 +48,7 @@ final class SummarizeAction
      *
      * @return Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): \Symfony\Component\HttpFoundation\Response
     {
         /** @var OrderInterface $cart */
         $cart = $this->cartRepository->findOneBy(['tokenValue' => $request->attributes->get('token')]);

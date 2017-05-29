@@ -69,7 +69,7 @@ EOT;
      *
      * @return string
      */
-    private function getPaymentUrl($token)
+    private function getPaymentUrl(string $token): string
     {
         return sprintf('/shop-api/checkout/%s/payment', $token);
     }

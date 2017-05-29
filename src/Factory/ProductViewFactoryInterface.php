@@ -15,5 +15,5 @@ interface ProductViewFactoryInterface
      *
      * @return ProductView
      */
-    public function create(ProductInterface $product, ChannelInterface $channel, $locale);
+    public function create(ProductInterface $product, ChannelInterface $channel, string $locale): \Sylius\ShopApiPlugin\View\ProductView;
 }

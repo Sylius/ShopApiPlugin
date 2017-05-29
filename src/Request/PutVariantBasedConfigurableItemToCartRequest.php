@@ -41,7 +41,7 @@ final class PutVariantBasedConfigurableItemToCartRequest
     /**
      * @return PutVariantBasedConfigurableItemToCart
      */
-    public function getCommand()
+    public function getCommand(): \Sylius\ShopApiPlugin\Command\PutVariantBasedConfigurableItemToCart
     {
         return new PutVariantBasedConfigurableItemToCart($this->token, $this->product, $this->variant, $this->quantity);
     }

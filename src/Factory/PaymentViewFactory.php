@@ -30,7 +30,7 @@ final class PaymentViewFactory implements PaymentViewFactoryInterface
     /**
      * {@inheritdoc}
      */
-    public function create(PaymentInterface $payment, $locale)
+    public function create(PaymentInterface $payment, string $locale): \Sylius\ShopApiPlugin\View\PaymentView
     {
         $paymentView = new PaymentView();
 

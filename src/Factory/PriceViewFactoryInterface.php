@@ -11,5 +11,5 @@ interface PriceViewFactoryInterface
      *
      * @return PriceView
      */
-    public function create($price);
+    public function create(int $price): \Sylius\ShopApiPlugin\View\PriceView;
 }

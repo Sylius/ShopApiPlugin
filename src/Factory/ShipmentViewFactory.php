@@ -23,7 +23,7 @@ final class ShipmentViewFactory implements ShipmentViewFactoryInterface
     /**
      * {@inheritdoc}
      */
-    public function create(ShipmentInterface $shipment, $locale)
+    public function create(ShipmentInterface $shipment, string $locale): \Sylius\ShopApiPlugin\View\ShipmentView
     {
         $shipmentView = new ShipmentView();
 

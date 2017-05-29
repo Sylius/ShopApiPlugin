@@ -13,5 +13,5 @@ interface CartViewFactoryInterface
      *
      * @return CartSummaryView
      */
-    public function create(OrderInterface $cart, $localeCode);
+    public function create(OrderInterface $cart, string $localeCode): \Sylius\ShopApiPlugin\View\CartSummaryView;
 }

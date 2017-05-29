@@ -59,7 +59,7 @@ final class PutItemToCartAction
      *
      * @return Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): \Symfony\Component\HttpFoundation\Response
     {
         $commandRequest = $this->provideCommandRequest($request);
 

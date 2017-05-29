@@ -10,7 +10,7 @@ final class AddressViewFactory implements AddressViewFactoryInterface
     /**
      * {@inheritdoc}
      */
-    public function create(AddressInterface $address)
+    public function create(AddressInterface $address): \Sylius\ShopApiPlugin\View\AddressView
     {
         $addressView = new AddressView();
 

@@ -32,7 +32,7 @@ final class PutOptionBasedConfigurableItemToCart
      * @param array $options
      * @param int $quantity
      */
-    public function __construct($orderToken, $product, array $options, $quantity)
+    public function __construct(string $orderToken, string $product, array $options, int $quantity)
     {
         Assert::string($orderToken, 'Expected order token to be string, got %s');
         Assert::string($product, 'Expected product code to be string, got %s');
@@ -49,7 +49,7 @@ final class PutOptionBasedConfigurableItemToCart
     /**
      * @return string
      */
-    public function orderToken()
+    public function orderToken(): string
     {
         return $this->orderToken;
     }
@@ -57,7 +57,7 @@ final class PutOptionBasedConfigurableItemToCart
     /**
      * @return string
      */
-    public function product()
+    public function product(): string
     {
         return $this->product;
     }
@@ -65,7 +65,7 @@ final class PutOptionBasedConfigurableItemToCart
     /**
      * @return array
      */
-    public function options()
+    public function options(): array
     {
         return $this->options;
     }
@@ -73,7 +73,7 @@ final class PutOptionBasedConfigurableItemToCart
     /**
      * @return int
      */
-    public function quantity()
+    public function quantity(): int
     {
         return $this->quantity;
     }

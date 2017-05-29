@@ -29,7 +29,7 @@ final class LimitedProductAttributeValuesViewFactory implements ProductAttribute
     /**
      * {@inheritdoc}
      */
-    public function create(array $attributeValues)
+    public function create(array $attributeValues): array
     {
         $attributeValuesView = [];
 

@@ -10,7 +10,7 @@ final class TotalViewFactory implements TotalViewFactoryInterface
     /**
      * {@inheritdoc}
      */
-    public function create(OrderInterface $cart)
+    public function create(OrderInterface $cart): \Sylius\ShopApiPlugin\View\TotalsView
     {
         $totalsView = new TotalsView();
 

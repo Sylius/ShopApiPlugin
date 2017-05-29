@@ -13,5 +13,5 @@ interface TaxonViewFactoryInterface
      *
      * @return TaxonView
      */
-    public function create(TaxonInterface $taxon, $locale);
+    public function create(TaxonInterface $taxon, string $locale): \Sylius\ShopApiPlugin\View\TaxonView;
 }

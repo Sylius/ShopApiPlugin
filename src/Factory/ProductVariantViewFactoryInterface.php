@@ -15,5 +15,5 @@ interface ProductVariantViewFactoryInterface
      *
      * @return ProductVariantView
      */
-    public function create(ProductVariantInterface $variant, ChannelInterface $channel, $locale);
+    public function create(ProductVariantInterface $variant, ChannelInterface $channel, string $locale): \Sylius\ShopApiPlugin\View\ProductVariantView;
 }
