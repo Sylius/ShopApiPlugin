@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Command;
 
-use Webmozart\Assert\Assert;
-
 final class PickupCart
 {
     /**
@@ -24,9 +22,6 @@ final class PickupCart
      */
     public function __construct(string $orderToken, string $channelCode)
     {
-        Assert::string($orderToken, 'Expected order token to be string, got %s');
-        Assert::string($channelCode, 'Expected channel code to be string, got %s');
-
         $this->orderToken = $orderToken;
         $this->channelCode = $channelCode;
     }
