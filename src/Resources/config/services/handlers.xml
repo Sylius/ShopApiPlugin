@@ -114,5 +114,17 @@
             <argument type="service" id="sylius.shop_user.token_generator.email_verification" />
             <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\GenerateVerificationToken" />
         </service>
+
+        <service id="sylius.shop_api_plugin.handler.send_reset_password_token_handler" class="Sylius\ShopApiPlugin\Handler\SendResetPasswordTokenHandler">
+            <argument type="service" id="sylius.repository.shop_user" />
+            <argument type="service" id="sylius.email_sender" />
+            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\SendResetPasswordToken" />
+        </service>
+
+        <service id="sylius.shop_api_plugin.handler.generate_reset_password_token_handler" class="Sylius\ShopApiPlugin\Handler\GenerateResetPasswordTokenHandler">
+            <argument type="service" id="sylius.repository.shop_user" />
+            <argument type="service" id="sylius.shop_user.token_generator.email_verification" />
+            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\GenerateResetPasswordToken" />
+        </service>
     </services>
 </container>

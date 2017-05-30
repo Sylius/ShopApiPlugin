@@ -21,3 +21,15 @@ sylius_shop_api_user_verification:
     methods: [PUT]
     defaults:
         _controller: sylius.shop_api_plugin.controller.customer.verify_account_action
+
+sylius_shop_api_reset_password:
+    path: /request-password-reset
+    methods: [PUT]
+    defaults:
+        _controller: sylius.shop_api_plugin.controller.customer.request_password_resetting_action
+
+sylius_shop_password_reset:
+    path: /password-reset/{token}
+    methods: [PUT]
+    defaults:
+        _controller: sylius.controller.shop_user:resetPasswordAction
