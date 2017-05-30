@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\Controller;
 
 use FOS\RestBundle\View\View;
@@ -52,7 +54,7 @@ final class TaxonController extends Controller
      *
      * @return Response
      */
-    public function showDetailsAction(Request $request)
+    public function showDetailsAction(Request $request): \Symfony\Component\HttpFoundation\Response
     {
         $taxonSlug = $request->attributes->get('slug');
         $locale = $request->query->get('locale');
@@ -70,7 +72,7 @@ final class TaxonController extends Controller
      *
      * @return Response
      */
-    public function showTreeAction(Request $request)
+    public function showTreeAction(Request $request): \Symfony\Component\HttpFoundation\Response
     {
         $locale = $request->query->get('locale');
 
@@ -91,7 +93,7 @@ final class TaxonController extends Controller
      *
      * @return TaxonView
      */
-    private function buildTaxonView(TaxonInterface $taxon, $locale)
+    private function buildTaxonView(TaxonInterface $taxon, string $locale): \Sylius\ShopApiPlugin\View\TaxonView
     {
         $taxonView = $this->taxonViewFactory->create($taxon, $locale);
 

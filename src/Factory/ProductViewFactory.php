@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\Factory;
 
 use Sylius\Component\Core\Model\ChannelInterface;
@@ -41,7 +43,7 @@ final class ProductViewFactory implements ProductViewFactoryInterface
         ImageViewFactoryInterface $imageViewFactory,
         ProductAttributeValuesViewFactoryInterface $attributeValuesViewFactory,
         TaxonViewFactoryInterface $taxonViewFactory,
-        $fallback
+        string $fallback
     ) {
         $this->imageViewFactory = $imageViewFactory;
         $this->attributeValuesViewFactory = $attributeValuesViewFactory;
@@ -52,7 +54,7 @@ final class ProductViewFactory implements ProductViewFactoryInterface
     /**
      * {@inheritdoc}
      */
-    public function create(ProductInterface $product, ChannelInterface $channel, $locale)
+    public function create(ProductInterface $product, ChannelInterface $channel, string $locale): \Sylius\ShopApiPlugin\View\ProductView
     {
         $productView = new ProductView();
         $productView->name = $product->getTranslation($locale)->getName();
@@ -81,7 +83,7 @@ final class ProductViewFactory implements ProductViewFactoryInterface
      *
      * @return TaxonView
      */
-    private function getTaxonWithAncestors(TaxonInterface $taxon, $locale)
+    private function getTaxonWithAncestors(TaxonInterface $taxon, string $locale): \Sylius\ShopApiPlugin\View\TaxonView
     {
         $currentTaxonView = $this->taxonViewFactory->create($taxon, $locale);
 

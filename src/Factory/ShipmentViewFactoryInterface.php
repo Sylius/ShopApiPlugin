@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\Factory;
 
 use Sylius\Component\Core\Model\ShipmentInterface;
@@ -13,5 +15,5 @@ interface ShipmentViewFactoryInterface
      *
      * @return ShipmentView
      */
-    public function create(ShipmentInterface $shipment, $locale);
+    public function create(ShipmentInterface $shipment, string $locale): \Sylius\ShopApiPlugin\View\ShipmentView;
 }

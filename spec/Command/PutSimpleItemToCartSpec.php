@@ -32,20 +32,6 @@ final class PutSimpleItemToCartSpec extends ObjectBehavior
         $this->quantity()->shouldReturn(5);
     }
 
-    function it_throws_an_exception_if_order_token_is_not_a_string()
-    {
-        $this->beConstructedWith(new \stdClass(), 'T_SHIRT_CODE', 1);
-
-        $this->shouldThrow(\InvalidArgumentException::class)->duringInstantiation();
-    }
-
-    function it_throws_an_exception_if_product_code_is_not_a_string()
-    {
-        $this->beConstructedWith('ORDERTOKEN', new \stdClass(), 1);
-
-        $this->shouldThrow(\InvalidArgumentException::class)->duringInstantiation();
-    }
-
     function it_throws_an_exception_if_quantity_is_not_less_then_0()
     {
         $this->beConstructedWith('ORDERTOKEN', 'T_SHIRT_CODE', 0);

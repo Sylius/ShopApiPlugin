@@ -1,8 +1,8 @@
 <?php
 
-namespace Sylius\ShopApiPlugin\Command;
+declare(strict_types=1);
 
-use Webmozart\Assert\Assert;
+namespace Sylius\ShopApiPlugin\Command;
 
 final class PickupCart
 {
@@ -20,11 +20,8 @@ final class PickupCart
      * @param string $orderToken
      * @param string $channelCode
      */
-    public function __construct($orderToken, $channelCode)
+    public function __construct(string $orderToken, string $channelCode)
     {
-        Assert::string($orderToken, 'Expected order token to be string, got %s');
-        Assert::string($channelCode, 'Expected channel code to be string, got %s');
-
         $this->orderToken = $orderToken;
         $this->channelCode = $channelCode;
     }
@@ -32,7 +29,7 @@ final class PickupCart
     /**
      * @return string
      */
-    public function orderToken()
+    public function orderToken(): string
     {
         return $this->orderToken;
     }
@@ -40,7 +37,7 @@ final class PickupCart
     /**
      * @return string
      */
-    public function channelCode()
+    public function channelCode(): string
     {
         return $this->channelCode;
     }

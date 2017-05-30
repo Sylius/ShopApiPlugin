@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\Factory;
 
 interface ProductAttributeValuesViewFactoryInterface
@@ -9,5 +11,5 @@ interface ProductAttributeValuesViewFactoryInterface
      *
      * @return array
      */
-    public function create(array $attributeValues);
+    public function create(array $attributeValues): array;
 }

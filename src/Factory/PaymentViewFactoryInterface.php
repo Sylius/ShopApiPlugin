@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\Factory;
 
 use Sylius\Component\Core\Model\PaymentInterface;
@@ -13,5 +15,5 @@ interface PaymentViewFactoryInterface
      *
      * @return PaymentView
      */
-    public function create(PaymentInterface $payment, $locale);
+    public function create(PaymentInterface $payment, string $locale): \Sylius\ShopApiPlugin\View\PaymentView;
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\Factory;
 
 use Sylius\Component\Core\Model\ChannelInterface;
@@ -15,5 +17,5 @@ interface CartItemViewFactoryInterface
      *
      * @return ItemView
      */
-    public function create(OrderItemInterface $item, ChannelInterface $channel, $locale);
+    public function create(OrderItemInterface $item, ChannelInterface $channel, string $locale): \Sylius\ShopApiPlugin\View\ItemView;
 }

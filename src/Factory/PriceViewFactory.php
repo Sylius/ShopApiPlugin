@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\Factory;
 
 use Sylius\ShopApiPlugin\View\PriceView;
@@ -9,7 +11,7 @@ final class PriceViewFactory implements PriceViewFactoryInterface
     /**
      * {@inheritdoc}
      */
-    public function create($price)
+    public function create(int $price): \Sylius\ShopApiPlugin\View\PriceView
     {
         $priceView = new PriceView();
         $priceView->current = $price;

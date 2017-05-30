@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\Factory;
 
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
@@ -13,7 +15,7 @@ final class ImageViewFactory implements ImageViewFactoryInterface
      *
      * @return ImageView
      */
-    public function create(ImageInterface $image)
+    public function create(ImageInterface $image): \Sylius\ShopApiPlugin\View\ImageView
     {
         $imageView = new ImageView();
         $imageView->code = $image->getType();

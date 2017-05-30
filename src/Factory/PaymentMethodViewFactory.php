@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\Factory;
 
 use Sylius\Component\Core\Model\PaymentMethodInterface;
@@ -10,7 +12,7 @@ final class PaymentMethodViewFactory implements PaymentMethodViewFactoryInterfac
     /**
      * {@inheritdoc}
      */
-    public function create(PaymentMethodInterface $paymentMethod, $locale)
+    public function create(PaymentMethodInterface $paymentMethod, string $locale): \Sylius\ShopApiPlugin\View\PaymentMethodView
     {
         $paymentMethodView = new PaymentMethodView();
 

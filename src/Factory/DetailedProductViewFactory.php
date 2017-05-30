@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\Factory;
 
 use Sylius\Component\Core\Model\ChannelInterface;
@@ -45,7 +47,7 @@ final class DetailedProductViewFactory implements ProductViewFactoryInterface
     /**
      * {@inheritdoc}
      */
-    public function create(ProductInterface $product, ChannelInterface $channel, $locale)
+    public function create(ProductInterface $product, ChannelInterface $channel, string $locale): \Sylius\ShopApiPlugin\View\ProductView
     {
         $productView = $this->createWithVariants($product, $channel, $locale);
 
@@ -63,7 +65,7 @@ final class DetailedProductViewFactory implements ProductViewFactoryInterface
      *
      * @return ProductView
      */
-    private function createWithVariants(ProductInterface $product, ChannelInterface $channel, $locale)
+    private function createWithVariants(ProductInterface $product, ChannelInterface $channel, string $locale): \Sylius\ShopApiPlugin\View\ProductView
     {
         $productView = $this->productViewFactory->create($product, $channel, $locale);
 
@@ -94,7 +96,7 @@ final class DetailedProductViewFactory implements ProductViewFactoryInterface
      *
      * @return array
      */
-    private function createAssociations(ProductAssociationInterface $association, ChannelInterface $channel, $locale)
+    private function createAssociations(ProductAssociationInterface $association, ChannelInterface $channel, string $locale): array
     {
         $associatedProducts = [];
 

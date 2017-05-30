@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\Request;
 
 use Sylius\ShopApiPlugin\Command\PutVariantBasedConfigurableItemToCart;
@@ -41,7 +43,7 @@ final class PutVariantBasedConfigurableItemToCartRequest
     /**
      * @return PutVariantBasedConfigurableItemToCart
      */
-    public function getCommand()
+    public function getCommand(): \Sylius\ShopApiPlugin\Command\PutVariantBasedConfigurableItemToCart
     {
         return new PutVariantBasedConfigurableItemToCart($this->token, $this->product, $this->variant, $this->quantity);
     }

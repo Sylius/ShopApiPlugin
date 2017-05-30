@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\Factory;
 
 use Sylius\Component\Core\Model\ImageInterface;
@@ -12,5 +14,5 @@ interface ImageViewFactoryInterface
      *
      * @return ImageView
      */
-    public function create(ImageInterface $image);
+    public function create(ImageInterface $image): \Sylius\ShopApiPlugin\View\ImageView;
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
 use Lakion\ApiTestCase\JsonApiTestCase;
@@ -183,7 +185,7 @@ EOT;
     /**
      * @param string $token
      */
-    private function pickupCart($token, $channelCode)
+    private function pickupCart(string $token, $channelCode)
     {
         $data =
 <<<EOT
@@ -198,7 +200,7 @@ EOT;
     /**
      * @param string $token
      */
-    private function putItemToCart($token)
+    private function putItemToCart(string $token)
     {
         $data =
 <<<EOT

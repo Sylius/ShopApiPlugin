@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\Factory;
 
 use Sylius\Component\Core\Model\ShipmentInterface;
@@ -33,7 +35,7 @@ final class ShippingMethodViewFactory implements ShippingMethodViewFactoryInterf
     /**
      * {@inheritdoc}
      */
-    public function create(ShipmentInterface $shipment, $locale)
+    public function create(ShipmentInterface $shipment, string $locale): \Sylius\ShopApiPlugin\View\ShippingMethodView
     {
         return $this->createWithShippingMethod($shipment, $shipment->getMethod(), $locale);
     }
@@ -41,7 +43,7 @@ final class ShippingMethodViewFactory implements ShippingMethodViewFactoryInterf
     /**
      * {@inheritdoc}
      */
-    public function createWithShippingMethod(ShipmentInterface $shipment, ShippingMethodInterface $shippingMethod, $locale)
+    public function createWithShippingMethod(ShipmentInterface $shipment, ShippingMethodInterface $shippingMethod, string $locale): \Sylius\ShopApiPlugin\View\ShippingMethodView
     {
         /** @var CalculatorInterface $calculator */
         $calculator = $this->calculators->get($shippingMethod->getCalculator());

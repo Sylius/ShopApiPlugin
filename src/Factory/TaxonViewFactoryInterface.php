@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\Factory;
 
 use Sylius\Component\Core\Model\TaxonInterface;
@@ -13,5 +15,5 @@ interface TaxonViewFactoryInterface
      *
      * @return TaxonView
      */
-    public function create(TaxonInterface $taxon, $locale);
+    public function create(TaxonInterface $taxon, string $locale): \Sylius\ShopApiPlugin\View\TaxonView;
 }

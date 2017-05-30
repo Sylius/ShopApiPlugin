@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\Request;
 
 use Sylius\ShopApiPlugin\Command\PutSimpleItemToCart;
@@ -35,7 +37,7 @@ final class PutSimpleItemToCartRequest
     /**
      * @return PutSimpleItemToCart
      */
-    public function getCommand()
+    public function getCommand(): \Sylius\ShopApiPlugin\Command\PutSimpleItemToCart
     {
         return new PutSimpleItemToCart($this->token, $this->product, $this->quantity);
     }

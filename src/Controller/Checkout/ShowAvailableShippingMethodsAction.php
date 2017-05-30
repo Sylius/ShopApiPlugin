@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\Controller\Checkout;
 
 use FOS\RestBundle\View\View;
@@ -58,7 +60,7 @@ final class ShowAvailableShippingMethodsAction
      *
      * @return Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): \Symfony\Component\HttpFoundation\Response
     {
         /** @var OrderInterface $cart */
         $cart = $this->cartRepository->findOneBy(['tokenValue' => $request->attributes->get('token')]);
@@ -78,7 +80,7 @@ final class ShowAvailableShippingMethodsAction
      *
      * @return array
      */
-    private function getCalculatedShippingMethods(ShipmentInterface $shipment, $locale)
+    private function getCalculatedShippingMethods(ShipmentInterface $shipment, string $locale): array
     {
         $rawShippingMethods = [];
 

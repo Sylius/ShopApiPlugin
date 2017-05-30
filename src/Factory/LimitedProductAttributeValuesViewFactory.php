@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\Factory;
 
 use Sylius\Component\Product\Model\ProductAttributeValueInterface;
@@ -29,7 +31,7 @@ final class LimitedProductAttributeValuesViewFactory implements ProductAttribute
     /**
      * {@inheritdoc}
      */
-    public function create(array $attributeValues)
+    public function create(array $attributeValues): array
     {
         $attributeValuesView = [];
 

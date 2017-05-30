@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\Factory;
 
 use Sylius\ShopApiPlugin\View\PriceView;
@@ -11,5 +13,5 @@ interface PriceViewFactoryInterface
      *
      * @return PriceView
      */
-    public function create($price);
+    public function create(int $price): \Sylius\ShopApiPlugin\View\PriceView;
 }

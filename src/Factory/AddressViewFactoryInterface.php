@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\Factory;
 
 use Sylius\Component\Core\Model\AddressInterface;
@@ -12,5 +14,5 @@ interface AddressViewFactoryInterface
      *
      * @return AddressView
      */
-    public function create(AddressInterface $address);
+    public function create(AddressInterface $address): \Sylius\ShopApiPlugin\View\AddressView;
 }

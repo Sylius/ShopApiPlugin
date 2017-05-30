@@ -1,8 +1,8 @@
 <?php
 
-namespace Sylius\ShopApiPlugin\Command;
+declare(strict_types=1);
 
-use Webmozart\Assert\Assert;
+namespace Sylius\ShopApiPlugin\Command;
 
 final class AddCoupon
 {
@@ -20,9 +20,8 @@ final class AddCoupon
      * @param string $orderToken
      * @param string $couponCode
      */
-    public function __construct($orderToken, $couponCode)
+    public function __construct(string $orderToken, string $couponCode)
     {
-        Assert::allString([$orderToken, $couponCode]);
         $this->orderToken = $orderToken;
         $this->couponCode = $couponCode;
     }
@@ -30,7 +29,7 @@ final class AddCoupon
     /**
      * @return string
      */
-    public function orderToken()
+    public function orderToken(): string
     {
         return $this->orderToken;
     }
@@ -38,7 +37,7 @@ final class AddCoupon
     /**
      * @return string
      */
-    public function couponCode()
+    public function couponCode(): string
     {
         return $this->couponCode;
     }

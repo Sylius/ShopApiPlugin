@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\Factory;
 
 use Sylius\Component\Product\Model\ProductAttributeValueInterface;
@@ -12,5 +14,5 @@ interface ProductAttributeValueViewFactoryInterface
      *
      * @return ProductAttributeValueView
      */
-    public function create(ProductAttributeValueInterface $productAttributeValue);
+    public function create(ProductAttributeValueInterface $productAttributeValue): \Sylius\ShopApiPlugin\View\ProductAttributeValueView;
 }

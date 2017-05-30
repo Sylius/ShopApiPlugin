@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\Factory;
 
 use Sylius\Component\Core\Model\OrderInterface;
@@ -59,7 +61,7 @@ final class CartViewFactory implements CartViewFactoryInterface
     /**
      * {@inheritdoc}
      */
-    public function create(OrderInterface $cart, $localeCode)
+    public function create(OrderInterface $cart, string $localeCode): \Sylius\ShopApiPlugin\View\CartSummaryView
     {
         $cartView = new CartSummaryView();
         $cartView->channel = $cart->getChannel()->getCode();

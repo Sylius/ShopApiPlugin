@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\Request;
 
 use Sylius\ShopApiPlugin\Command\PickupCart;
@@ -29,7 +31,7 @@ final class PickupCartRequest
     /**
      * @return PickupCart
      */
-    public function getCommand()
+    public function getCommand(): \Sylius\ShopApiPlugin\Command\PickupCart
     {
         return new PickupCart($this->token, $this->channel);
     }

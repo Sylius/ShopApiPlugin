@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\Controller\Product;
 
 use FOS\RestBundle\View\View;
@@ -59,7 +61,7 @@ final class ShowProductDetailsAction
      *
      * @return Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): \Symfony\Component\HttpFoundation\Response
     {
         if (!$request->query->has('channel')) {
             throw new NotFoundHttpException('Cannot find product without channel provided');

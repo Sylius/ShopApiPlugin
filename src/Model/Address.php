@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\Model;
 
 use Webmozart\Assert\Assert;
@@ -50,7 +52,7 @@ final class Address
      * @param string $postcode
      * @param string $provinceName
      */
-    private function __construct($firstName, $lastName, $city, $street, $countryCode, $postcode, $provinceName = null)
+    private function __construct(string $firstName, string $lastName, string $city, string $street, string $countryCode, string $postcode, string $provinceName = null)
     {
         $this->firstName = $firstName;
         $this->lastName = $lastName;
@@ -66,7 +68,7 @@ final class Address
      *
      * @return Address
      */
-    public static function createFromArray(array $address)
+    public static function createFromArray(array $address): \Sylius\ShopApiPlugin\Model\Address
     {
         Assert::keyExists($address, 'firstName');
         Assert::keyExists($address, 'lastName');
@@ -89,7 +91,7 @@ final class Address
     /**
      * @return string
      */
-    public function firstName()
+    public function firstName(): string
     {
         return $this->firstName;
     }
@@ -97,7 +99,7 @@ final class Address
     /**
      * @return string
      */
-    public function lastName()
+    public function lastName(): string
     {
         return $this->lastName;
     }
@@ -105,7 +107,7 @@ final class Address
     /**
      * @return string
      */
-    public function city()
+    public function city(): string
     {
         return $this->city;
     }
@@ -113,7 +115,7 @@ final class Address
     /**
      * @return string
      */
-    public function street()
+    public function street(): string
     {
         return $this->street;
     }
@@ -121,7 +123,7 @@ final class Address
     /**
      * @return string
      */
-    public function countryCode()
+    public function countryCode(): string
     {
         return $this->countryCode;
     }
@@ -129,7 +131,7 @@ final class Address
     /**
      * @return string
      */
-    public function postcode()
+    public function postcode(): string
     {
         return $this->postcode;
     }
@@ -137,7 +139,7 @@ final class Address
     /**
      * @return string
      */
-    public function provinceName()
+    public function provinceName(): string
     {
         return $this->provinceName;
     }

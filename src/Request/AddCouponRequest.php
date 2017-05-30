@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\Request;
 
 use Sylius\ShopApiPlugin\Command\AddCoupon;
@@ -29,7 +31,7 @@ final class AddCouponRequest
     /**
      * @return AddCoupon
      */
-    public function getCommand()
+    public function getCommand(): \Sylius\ShopApiPlugin\Command\AddCoupon
     {
         return new AddCoupon($this->token, $this->coupon);
     }

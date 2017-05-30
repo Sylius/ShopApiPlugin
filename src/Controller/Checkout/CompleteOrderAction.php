@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\Controller\Checkout;
 
 use FOS\RestBundle\View\View;
@@ -48,7 +50,7 @@ final class CompleteOrderAction
      *
      * @return Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): \Symfony\Component\HttpFoundation\Response
     {
         $email = $this->provideUserEmail($request);
 
@@ -66,7 +68,7 @@ final class CompleteOrderAction
      *
      * @return string
      */
-    private function provideUserEmail(Request $request)
+    private function provideUserEmail(Request $request): string
     {
         $user = $this->tokenStorage->getToken()->getUser();
 

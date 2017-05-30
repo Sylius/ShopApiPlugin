@@ -77,7 +77,7 @@ final class CompleteOrderHandler
      *
      * @return CustomerInterface
      */
-    private function provideCustometer(CompleteOrder $completeOrder)
+    private function provideCustometer(CompleteOrder $completeOrder): \Sylius\Component\Core\Model\CustomerInterface
     {
         $customer =  $this->customerRepository->findOneBy(['email' => $completeOrder->email()]);
 
