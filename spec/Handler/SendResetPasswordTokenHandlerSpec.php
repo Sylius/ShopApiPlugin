@@ -15,12 +15,12 @@ use Sylius\ShopApiPlugin\Mailer\Emails;
 
 final class SendResetPasswordTokenHandlerSpec extends ObjectBehavior
 {
-    function let(UserRepositoryInterface $userRepository, SenderInterface $sender): void
+    function let(UserRepositoryInterface $userRepository, SenderInterface $sender)
     {
         $this->beConstructedWith($userRepository, $sender);
     }
 
-    function it_is_initializable(): void
+    function it_is_initializable()
     {
         $this->shouldHaveType(SendResetPasswordTokenHandler::class);
     }
@@ -29,7 +29,7 @@ final class SendResetPasswordTokenHandlerSpec extends ObjectBehavior
         UserRepositoryInterface $userRepository,
         SenderInterface $sender,
         ShopUserInterface $user
-    ): void {
+    ) {
         $userRepository->findOneByEmail('example@customer.com')->willReturn($user);
         $user->getPasswordResetToken()->willReturn('SOMERANDOMSTRINGASDAFSASFAFAFAACEAFCCEFACVAFVSF');
 
@@ -40,7 +40,7 @@ final class SendResetPasswordTokenHandlerSpec extends ObjectBehavior
 
     function it_throws_an_exception_if_user_has_not_been_found(
         UserRepositoryInterface $userRepository
-    ): void {
+    ) {
         $userRepository->findOneByEmail('example@customer.com')->willReturn(null);
 
         $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [new SendResetPasswordToken('example@customer.com')]);
@@ -49,7 +49,7 @@ final class SendResetPasswordTokenHandlerSpec extends ObjectBehavior
     function it_throws_an_exception_if_user_has_not_verification_token(
         UserRepositoryInterface $userRepository,
         ShopUserInterface $user
-    ): void {
+    ) {
         $userRepository->findOneByEmail('example@customer.com')->willReturn($user);
         $user->getPasswordResetToken()->willReturn(null);
 

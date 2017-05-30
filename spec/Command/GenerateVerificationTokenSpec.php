@@ -9,17 +9,17 @@ use Sylius\ShopApiPlugin\Command\GenerateVerificationToken;
 
 final class GenerateVerificationTokenSpec extends ObjectBehavior
 {
-    function let(): void
+    function let()
     {
         $this->beConstructedWith('example@customer.com');
     }
 
-    function it_is_initializable(): void
+    function it_is_initializable()
     {
         $this->shouldHaveType(GenerateVerificationToken::class);
     }
 
-    function it_has_email(): void
+    function it_has_email()
     {
         $this->email()->shouldReturn('example@customer.com');
     }

@@ -16,14 +16,14 @@ final class ShopUserExistsValidatorSpec extends ObjectBehavior
 {
     private const EXAMPLE_EMAIL = 'shop@example.com';
 
-    function let(ExecutionContextInterface $executionContext, UserRepositoryInterface $userRepository): void
+    function let(ExecutionContextInterface $executionContext, UserRepositoryInterface $userRepository)
     {
         $this->beConstructedWith($userRepository);
 
         $this->initialize($executionContext);
     }
 
-    function it_is_initializable(): void
+    function it_is_initializable()
     {
         $this->shouldHaveType(ShopUserExistsValidator::class);
     }

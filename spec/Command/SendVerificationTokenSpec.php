@@ -9,17 +9,17 @@ use Sylius\ShopApiPlugin\Command\SendVerificationToken;
 
 final class SendVerificationTokenSpec extends ObjectBehavior
 {
-    function let(): void
+    function let()
     {
         $this->beConstructedWith('example@customer.com');
     }
 
-    function it_is_initializable(): void
+    function it_is_initializable()
     {
         $this->shouldHaveType(SendVerificationToken::class);
     }
 
-    function it_has_email(): void
+    function it_has_email()
     {
         $this->email()->shouldReturn('example@customer.com');
     }

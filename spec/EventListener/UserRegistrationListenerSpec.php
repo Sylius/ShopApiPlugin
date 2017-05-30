@@ -18,12 +18,12 @@ final class UserRegistrationListenerSpec extends ObjectBehavior
 {
     private const EXAMPLE_EMAIL = 'shop@example.com';
 
-    function let(CommandBus $bus): void
+    function let(CommandBus $bus)
     {
         $this->beConstructedWith($bus);
     }
 
-    function it_is_initializable(): void
+    function it_is_initializable()
     {
         $this->shouldHaveType(UserRegistrationListener::class);
     }
@@ -33,7 +33,7 @@ final class UserRegistrationListenerSpec extends ObjectBehavior
         CustomerInterface $customer,
         GenericEvent $event,
         ShopUserInterface $user
-    ): void {
+    ) {
         $event->getSubject()->willReturn($customer);
         $customer->getUser()->willReturn($user);
         $user->getEmail()->willReturn(self::EXAMPLE_EMAIL);
@@ -46,7 +46,7 @@ final class UserRegistrationListenerSpec extends ObjectBehavior
 
     function it_throws_exception_if_other_class_then_customer_is_passed_to_event(
         GenericEvent $event
-    ): void {
+    ) {
         $event->getSubject()->willReturn(new \stdClass());
 
         $this->shouldThrow(\InvalidArgumentException::class)->during('handleUserVerification', [$event]);
@@ -55,7 +55,7 @@ final class UserRegistrationListenerSpec extends ObjectBehavior
     function it_throws_exception_if_customer_does_not_have_user_assigned(
         CustomerInterface $customer,
         GenericEvent $event
-    ): void {
+    ) {
         $event->getSubject()->willReturn($customer);
         $customer->getUser()->willReturn(null);
 

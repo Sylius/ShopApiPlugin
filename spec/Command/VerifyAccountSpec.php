@@ -9,17 +9,17 @@ use Sylius\ShopApiPlugin\Command\VerifyAccount;
 
 final class VerifyAccountSpec extends ObjectBehavior
 {
-    function let(): void
+    function let()
     {
         $this->beConstructedWith('RANDOMSTRINGAFNAKJFNAKNF');
     }
 
-    function it_is_initializable(): void
+    function it_is_initializable()
     {
         $this->shouldHaveType(VerifyAccount::class);
     }
 
-    function it_has_email(): void
+    function it_has_email()
     {
         $this->token()->shouldReturn('RANDOMSTRINGAFNAKJFNAKNF');
     }

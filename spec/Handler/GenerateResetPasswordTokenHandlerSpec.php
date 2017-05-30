@@ -27,7 +27,7 @@ final class GenerateResetPasswordTokenHandlerSpec extends ObjectBehavior
         UserRepositoryInterface $userRepository,
         GeneratorInterface $tokenGenerator,
         ShopUserInterface $user
-    ): void {
+    ) {
         $userRepository->findOneByEmail('example@customer.com')->willReturn($user);
 
         $tokenGenerator->generate()->willReturn('SOMERANDOMSTRINGASDAFSASFAFAFAACEAFCCEFACVAFVSF');
@@ -40,7 +40,7 @@ final class GenerateResetPasswordTokenHandlerSpec extends ObjectBehavior
 
     function it_throws_an_exception_if_user_has_not_been_found(
         UserRepositoryInterface $userRepository
-    ): void {
+    ) {
         $userRepository->findOneByEmail('example@customer.com')->willReturn(null);
 
         $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [new GenerateResetPasswordToken('example@customer.com')]);

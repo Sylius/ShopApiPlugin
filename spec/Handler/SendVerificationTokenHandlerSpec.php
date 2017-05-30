@@ -14,12 +14,12 @@ use Sylius\ShopApiPlugin\Mailer\Emails;
 
 final class SendVerificationTokenHandlerSpec extends ObjectBehavior
 {
-    function let(UserRepositoryInterface $userRepository, SenderInterface $sender): void
+    function let(UserRepositoryInterface $userRepository, SenderInterface $sender)
     {
         $this->beConstructedWith($userRepository, $sender);
     }
 
-    function it_is_initializable(): void
+    function it_is_initializable()
     {
         $this->shouldHaveType(SendVerificationTokenHandler::class);
     }
@@ -28,7 +28,7 @@ final class SendVerificationTokenHandlerSpec extends ObjectBehavior
         UserRepositoryInterface $userRepository,
         SenderInterface $sender,
         ShopUserInterface $user
-    ): void {
+    ) {
         $userRepository->findOneByEmail('example@customer.com')->willReturn($user);
         $user->getEmailVerificationToken()->willReturn('SOMERANDOMSTRINGASDAFSASFAFAFAACEAFCCEFACVAFVSF');
 
@@ -39,7 +39,7 @@ final class SendVerificationTokenHandlerSpec extends ObjectBehavior
 
     function it_throws_an_exception_if_user_has_not_been_found(
         UserRepositoryInterface $userRepository
-    ): void {
+    ) {
         $userRepository->findOneByEmail('example@customer.com')->willReturn(null);
 
         $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [new SendVerificationToken('example@customer.com')]);
@@ -48,7 +48,7 @@ final class SendVerificationTokenHandlerSpec extends ObjectBehavior
     function it_throws_an_exception_if_user_has_not_verification_token(
         UserRepositoryInterface $userRepository,
         ShopUserInterface $user
-    ): void {
+    ) {
         $userRepository->findOneByEmail('example@customer.com')->willReturn($user);
         $user->getEmailVerificationToken()->willReturn(null);
 

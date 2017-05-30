@@ -13,12 +13,12 @@ use Sylius\ShopApiPlugin\Handler\VerifyAccountHandler;
 
 final class VerifyAccountHandlerSpec extends ObjectBehavior
 {
-    function let(UserRepositoryInterface $userRepository): void
+    function let(UserRepositoryInterface $userRepository)
     {
         $this->beConstructedWith($userRepository);
     }
 
-    function it_is_initializable(): void
+    function it_is_initializable()
     {
         $this->shouldHaveType(VerifyAccountHandler::class);
     }
@@ -26,7 +26,7 @@ final class VerifyAccountHandlerSpec extends ObjectBehavior
     function it_handles_emailing_user_with_verification_email(
         UserRepositoryInterface $userRepository,
         ShopUserInterface $user
-    ): void {
+    ) {
         $userRepository->findOneBy(['emailVerificationToken' => 'SOMERANDOMSTRINGASDAFSASFAFAFAACEAFCCEFACVAFVSF'])->willReturn($user);
 
         $user->setEmailVerificationToken(null)->shouldBeCalled();
@@ -38,7 +38,7 @@ final class VerifyAccountHandlerSpec extends ObjectBehavior
 
     function it_throws_an_exception_if_user_has_not_been_found(
         UserRepositoryInterface $userRepository
-    ): void {
+    ) {
         $userRepository->findOneBy(['emailVerificationToken' => 'SOMERANDOMSTRINGASDAFSASFAFAFAACEAFCCEFACVAFVSF'])->willReturn(null);
 
         $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [new VerifyAccount('SOMERANDOMSTRINGASDAFSASFAFAFAACEAFCCEFACVAFVSF')]);
