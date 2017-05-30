@@ -6,7 +6,7 @@ use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
-final class ChannelWithGivenCodeExistsValidator extends ConstraintValidator
+final class ChannelExistsValidator extends ConstraintValidator
 {
     /**
      * @var ChannelRepositoryInterface
