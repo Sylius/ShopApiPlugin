@@ -20,11 +20,6 @@ final class CartApiTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFile('shop.yml');
 
-        $this->client->request('DELETE', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json']);
-        $response = $this->client->getResponse();
-
-        $this->assertResponse($response, 'cart/cart_has_not_been_found_response', Response::HTTP_NOT_FOUND);
-
         $this->client->request('PUT', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/items/1', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
@@ -34,24 +29,6 @@ final class CartApiTest extends JsonApiTestCase
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/cart_has_not_been_found_response', Response::HTTP_NOT_FOUND);
-    }
-
-    /**
-     * @test
-     */
-    public function it_deletes_a_cart()
-    {
-        $this->loadFixturesFromFile('shop.yml');
-
-        $token = 'SDAOSLEFNWU35H3QLI5325';
-
-        $this->pickupCart($token, 'WEB_GB');
-        $this->putItemToCart($token);
-
-        $this->client->request('DELETE', '/shop-api/carts/' . $token, [], [], ['ACCEPT' => 'application/json']);
-        $response = $this->client->getResponse();
-
-        $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
     }
 
     /**

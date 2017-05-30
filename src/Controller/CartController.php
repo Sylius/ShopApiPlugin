@@ -37,29 +37,6 @@ final class CartController extends Controller
      *
      * @return Response
      */
-    public function dropAction(Request $request)
-    {
-        /** @var OrderRepositoryInterface $cartRepository */
-        $cartRepository = $this->get('sylius.repository.order');
-        /** @var ViewHandlerInterface $viewHandler */
-        $viewHandler = $this->get('fos_rest.view_handler');
-
-        $cart = $cartRepository->findOneBy(['tokenValue' => $request->attributes->get('token')]);
-
-        if (null === $cart) {
-            throw new NotFoundHttpException('Cart with given id does not exists');
-        }
-
-        $cartRepository->remove($cart);
-
-        return $viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));
-    }
-
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     */
     public function changeItemQuantityAction(Request $request)
     {
         /** @var ObjectManager $cartManager */
