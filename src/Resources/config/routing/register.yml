@@ -17,7 +17,7 @@ sylius_shop_api_resend_verification_token:
             event: api_registered
 
 sylius_shop_api_user_verification:
-    path: /verify/{token}
-    methods: [GET]
+    path: /verify-account
+    methods: [PUT]
     defaults:
-        _controller: sylius.controller.shop_user:verifyAction
+        _controller: sylius.shop_api_plugin.controller.customer.verify_account_action
