@@ -1,36 +1,23 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
 use Lakion\ApiTestCase\JsonApiTestCase;
-use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Sylius\Component\Core\Test\Services\EmailCheckerInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Tests\Sylius\ShopApiPlugin\Controller\Utils\PurgeSpooledMessagesTrait;
 
 final class CustomerResendVerificationTokenApiTest extends JsonApiTestCase
 {
-    /**
-     * @var EmailCheckerInterface
-     */
-    private $emailChecker;
-
-    /**
-     * @before
-     */
-    public function purgeSpooledMessages()
-    {
-        $this->emailChecker = static::$sharedKernel->getContainer()->get('sylius.behat.email_checker');
-
-        /** @var Filesystem $filesystem */
-        $filesystem = static::$sharedKernel->getContainer()->get('filesystem');
-
-        $filesystem->remove($this->emailChecker->getSpoolDirectory());
-    }
+    use PurgeSpooledMessagesTrait;
 
     /**
      * @test
      */
-    public function it_allows_to_resend_verification_token()
+    public function it_allows_to_resend_verification_token(): void
     {
         $data =
 <<<EOT
@@ -56,13 +43,16 @@ EOT;
         $response = $this->client->getResponse();
         $this->assertResponseCode($response, Response::HTTP_CREATED);
 
-        $this->assertSame(2, $this->emailChecker->countMessagesTo('vinny@fandf.com'));
+        /** @var EmailCheckerInterface $emailChecker */
+        $emailChecker = $this->get('sylius.behat.email_checker');
+
+        $this->assertSame(2, $emailChecker->countMessagesTo('vinny@fandf.com'));
     }
 
     /**
      * @test
      */
-    public function it_does_not_allow_to_resend_verification_email_if_email_is_not_defined()
+    public function it_does_not_allow_to_resend_verification_email_if_email_is_not_defined(): void
     {
         $this->client->request('POST', '/shop-api/resend-verification-link', [], [], ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json']);
 
@@ -73,7 +63,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_allow_to_resend_verification_email_if_email_is_not_malformed()
+    public function it_does_not_allow_to_resend_verification_email_if_email_is_not_malformed(): void
     {
         $resendForEmail = '{"email": "vinnyfandf.com"}';
 
@@ -86,7 +76,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_allow_to_resend_verification_email_if_customer_does_not_exists()
+    public function it_does_not_allow_to_resend_verification_email_if_customer_does_not_exists(): void
     {
         $resendForEmail = '{"email": "vinny@fandf.com"}';
 
@@ -94,5 +84,10 @@ EOT;
 
         $response = $this->client->getResponse();
         $this->assertResponse($response, 'customer/validation_email_not_found_response', Response::HTTP_BAD_REQUEST);
+    }
+
+    protected function getContainer(): ContainerInterface
+    {
+        return static::$sharedKernel->getContainer();
     }
 }
