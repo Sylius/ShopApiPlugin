@@ -8,7 +8,7 @@ use Sylius\Component\Product\Repository\ProductAssociationTypeRepositoryInterfac
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Component\HttpFoundation\Response;
 
-final class ShowProductDetailsApiTest extends JsonApiTestCase
+final class ProductShowDetailsApiTest extends JsonApiTestCase
 {
     /**
      * @test
