@@ -29,10 +29,15 @@ This repository provides a ShopApi implementation on the top of [Sylius E-Commer
             return array_merge(parent::registerBundles(), $bundles);
         }
     ```
-    2. Add `- { path: '^/shop-api', priorities: ['json'], fallback_format: json, prefer_extension: true }` to `fos_rest.format_listener.rules` section in `app/config/config.yml` file.
+    2. Add `- { path: '^/shop-api', priorities: ['json'], fallback_format: json, prefer_extension: true }` to `fos_rest.format_listener.rules` 
+    section in `app/config/config.yml` file and import config from Plugin.
     ```yml
     # app/config/config.yml
     
+    imports:
+        # ...
+        - { resource: "@ShopApiPlugin/Resources/config/app/config.yml" }
+
     # ...
     
     fos_rest:
@@ -59,6 +64,13 @@ This repository provides a ShopApi implementation on the top of [Sylius E-Commer
         2. Add ShopAPI regex parameter `shop_api.security.regex: "^/shop-api"`
         3. Add ShopAPI firewall config:
     ```yml
+    parameters:
+        # ...
+    
+        shop_api.security.regex: "^/shop-api"
+
+    # ... 
+
     security:
         firewalls:
             // ...
@@ -72,10 +84,36 @@ This repository provides a ShopApi implementation on the top of [Sylius E-Commer
     5. Adjust checkout configuration to not collide with Sylius shop API. For example
     (assuming, that you are using regular Sylius security definition):
     ```yml
+    # app/config/config.yml
+
+    # ...
+
     sylius_shop:
         checkout_resolver:
             pattern: "%sylius.security.shop_regex%/checkout/"
     ```
+
+## Additional features
+
+### Attributes
+
+If you would like to receive serialized attributes you need to define an array of theirs codes under `shop_api.included_attributes` key. E.g.
+     ```yml
+    shop_api:
+        included_attributes:
+            - "MUG_MATERIAL_CODE"
+     ```
+
+### Authorization
+
+By default no authorization is provided together with this bundle. But it is tested to work along with [LexikJWTAuthenticationBundle](https://github.com/lexik/LexikJWTAuthenticationBundle)
+In order to check example configuration check 
+ - [security.yml](https://github.com/Sylius/SyliusShopApiPlugin/blob/master/tests/Application/app/config/security.yml)
+ - [jwt parameters](https://github.com/Sylius/SyliusShopApiPlugin/blob/master/tests/Application/app/config/config.yml#L4-L7) and [jwt config](https://github.com/Sylius/SyliusShopApiPlugin/blob/master/tests/Application/app/config/config.yml#L55-L59) in config.yml
+ - [example rsa keys](https://github.com/Sylius/SyliusShopApiPlugin/tree/master/tests/Application/app/config/jwt)
+ - [login request](https://github.com/Sylius/SyliusShopApiPlugin/blob/master/tests/Controller/CustomerShopApiTest.php#L52-L68)
+ 
+From the test app.
 
 ## Testing
 
