@@ -6,6 +6,25 @@ This repository provides a ShopApi implementation on the top of [Sylius E-Commer
 
 :warning: The project is experimental and pretty unstable at this moment. :warning:
 
+It is also just an addition to Sylius - Standard. Please, check [official documentation](http://docs.sylius.org/en/latest/) in order to understand the basic concepts.
+
+## Pre - requirements
+ 
+In order to run this plugin you need to fulfill following requirements:
+1. Installed composer [Composer](https://getcomposer.org/).
+    ```bash
+    $ wget http://getcomposer.org/composer.phar
+    $ php composer.phar create-project -s beta sylius/sylius-standard project
+    ```
+
+2. Installed Sylius
+    ```bash
+    $ cd project
+    $ php bin/console sylius:install
+    ```
+
+Rest of the command are executed inside `project` folder.
+
 ## Usage
 
 1. Run `composer require sylius/shop-api-plugin`.
