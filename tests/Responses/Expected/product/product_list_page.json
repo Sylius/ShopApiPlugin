@@ -14,6 +14,7 @@
             "code": "LOGAN_MUG_CODE",
             "name": "Logan Mug",
             "slug": "logan-mug",
+            "averageRating": 0,
             "taxons": {
                 "MUG": {
                     "code": "CATEGORY",
@@ -86,6 +87,7 @@
             "code": "LOGAN_T_SHIRT_CODE",
             "name": "Logan T-Shirt",
             "slug": "logan-t-shirt",
+            "averageRating": 0,
             "taxons": {
                 "T_SHIRTS": {
                     "code": "CATEGORY",
@@ -181,6 +183,7 @@
             "code": "LOGAN_HAT_CODE",
             "name": "Logan Hat",
             "slug": "logan-hat",
+            "averageRating": 0,
             "taxons": {
                 "HAT": {
                     "code": "CATEGORY",
@@ -288,6 +291,7 @@
                         "code": "LOGAN_MUG_CODE",
                         "name": "Logan Mug",
                         "slug": "logan-mug",
+                        "averageRating": 0,
                         "taxons": {
                             "MUG": {
                                 "code": "CATEGORY",
@@ -360,6 +364,7 @@
                         "code": "LOGAN_T_SHIRT_CODE",
                         "name": "Logan T-Shirt",
                         "slug": "logan-t-shirt",
+                        "averageRating": 0,
                         "taxons": {
                             "T_SHIRTS": {
                                 "code": "CATEGORY",

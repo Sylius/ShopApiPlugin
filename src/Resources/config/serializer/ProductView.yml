@@ -11,6 +11,9 @@ Sylius\ShopApiPlugin\View\ProductView:
         slug:
             expose: true
             type: string
+        averageRating:
+            expose: true
+            type: integer
         taxons:
             expose: true
             type: array

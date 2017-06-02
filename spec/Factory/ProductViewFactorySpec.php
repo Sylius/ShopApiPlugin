@@ -53,6 +53,7 @@ final class ProductViewFactorySpec extends ObjectBehavior
     ) {
         $product->getTranslation('en_GB')->willReturn($productTranslation);
         $product->getCode()->willReturn('HAT_CODE');
+        $product->getAverageRating()->willReturn(5);
         $product->getTranslation('en_GB')->willReturn($productTranslation);
         $product->getImages()->willReturn([$firstProductImage, $secondProductImage]);
         $product->getTaxons()->willReturn([$taxon]);
@@ -83,6 +84,7 @@ final class ProductViewFactorySpec extends ObjectBehavior
         $productView = new ProductView();
         $productView->name = 'Hat';
         $productView->code = 'HAT_CODE';
+        $productView->averageRating = 5;
         $productView->slug = 'hat';
         $productView->taxons = ['CHILD' => $parentalTaxonView];
         $productView->images = [new ImageView(), new ImageView()];

@@ -2,6 +2,7 @@
     "code": "LOGAN_MUG_CODE",
     "name": "Logan Becher",
     "slug": "logan-becher",
+    "averageRating": 0,
     "taxons": {
         "MUG": {
             "code": "CATEGORY",
