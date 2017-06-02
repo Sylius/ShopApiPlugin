@@ -73,7 +73,7 @@ final class ShowProductDetailsAction
             throw new NotFoundHttpException(sprintf('Channel with code %s has not been found', $channelCode));
         }
 
-        $locale = $request->query->has('locale') ? $request->query->get('locale') : $channel->getDefaultLocale()->getCode();
+        $locale = $request->query->get('locale') ?: $channel->getDefaultLocale()->getCode();
 
         $productSlug = $request->attributes->get('slug');
         $product = $this->productRepository->findOneByChannelAndSlug($channel, $locale, $productSlug);
