@@ -4,6 +4,12 @@ shop_api_product_show_details:
     defaults:
         _controller: sylius.shop_api_plugin.controller.product.show_product_details_action
 
+shop_api_add_product_review:
+    path: /products/{slug}/reviews
+    methods: [POST]
+    defaults:
+        _controller: sylius.shop_api_plugin.controller.product.add_review_action
+
 shop_api_product_show_catalog:
     path: /taxons/{taxonomy}/products/
     methods: [GET]

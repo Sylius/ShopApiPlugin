@@ -23,5 +23,12 @@
             <argument type="service" id="sylius.promotion_eligibility_checker"/>
             <argument type="service" id="sylius.promotion_coupon_eligibility_checker"/>
         </service>
+        <service id="sylius.shop_api_plugin.provider.customer_provider" class="Sylius\ShopApiPlugin\Provider\CustomerProvider">
+            <argument type="service" id="sylius.repository.customer"/>
+            <argument type="service" id="sylius.factory.customer"/>
+        </service>
+        <service id="sylius.shop_api_plugin.provider.product_reviewer_provider" class="Sylius\ShopApiPlugin\Provider\ProductReviewerProvider">
+            <argument type="service" id="sylius.shop_api_plugin.provider.customer_provider"/>
+        </service>
     </services>
 </container>
