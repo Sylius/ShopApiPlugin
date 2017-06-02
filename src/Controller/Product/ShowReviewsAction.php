@@ -72,7 +72,7 @@ final class ShowReviewsAction
             throw new NotFoundHttpException(sprintf('Channel with code %s has not been found', $channelCode));
         }
 
-        $locale = $request->query->has('locale') ? $request->query->get('locale') : $channel->getDefaultLocale()->getCode();
+        $locale = $request->query->get('locale') ?: $channel->getDefaultLocale()->getCode();
 
         $reviews = $this->productReviewRepository->findAcceptedByProductSlugAndChannel($request->attributes->get('slug'), $locale, $channel);
 

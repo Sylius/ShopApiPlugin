@@ -89,7 +89,7 @@ final class ShowProductCatalogAction
             throw new NotFoundHttpException(sprintf('Channel with code %s has not been found', $channelCode));
         }
 
-        $locale = $request->query->has('locale') ? $request->query->get('locale') : $channel->getDefaultLocale()->getCode();
+        $locale = $request->query->get('locale') ?: $channel->getDefaultLocale()->getCode();
 
         $taxonSlug = $request->attributes->get('taxonomy');
         /** @var TaxonInterface $taxon */
