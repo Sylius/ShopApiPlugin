@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\Factory;
 
 use Sylius\Component\Core\Model\ChannelInterface;
@@ -8,12 +10,5 @@ use Sylius\ShopApiPlugin\View\ProductView;
 
 interface ProductViewFactoryInterface
 {
-    /**
-     * @param ProductInterface $product
-     * @param ChannelInterface $channel
-     * @param string $locale
-     *
-     * @return ProductView
-     */
-    public function create(ProductInterface $product, ChannelInterface $channel, $locale);
+    public function create(ProductInterface $product, ChannelInterface $channel, string $locale): ProductView;
 }

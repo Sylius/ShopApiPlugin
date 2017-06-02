@@ -20,6 +20,11 @@ class ProductView
     public $slug;
 
     /**
+     * @var string
+     */
+    public $averageRating;
+
+    /**
      * @var array
      */
     public $taxons = [];

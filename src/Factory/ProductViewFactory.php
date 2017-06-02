@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\Factory;
 
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\ProductImageInterface;
 use Sylius\Component\Core\Model\ProductInterface;
+use Sylius\Component\Core\Model\ProductTranslationInterface;
 use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\ShopApiPlugin\View\ProductView;
 use Sylius\ShopApiPlugin\View\TaxonView;
@@ -52,12 +55,16 @@ final class ProductViewFactory implements ProductViewFactoryInterface
     /**
      * {@inheritdoc}
      */
-    public function create(ProductInterface $product, ChannelInterface $channel, $locale)
+    public function create(ProductInterface $product, ChannelInterface $channel, string $locale): ProductView
     {
         $productView = new ProductView();
-        $productView->name = $product->getTranslation($locale)->getName();
         $productView->code = $product->getCode();
-        $productView->slug = $product->getTranslation($locale)->getSlug();
+        $productView->averageRating = $product->getAverageRating();
+
+        /** @var ProductTranslationInterface $translation */
+        $translation = $product->getTranslation($locale);
+        $productView->name = $translation->getName();
+        $productView->slug = $translation->getSlug();
 
         /** @var ProductImageInterface $image */
         foreach ($product->getImages() as $image) {
@@ -75,13 +82,7 @@ final class ProductViewFactory implements ProductViewFactoryInterface
         return $productView;
     }
 
-    /**
-     * @param TaxonInterface $taxon
-     * @param string $locale
-     *
-     * @return TaxonView
-     */
-    private function getTaxonWithAncestors(TaxonInterface $taxon, $locale)
+    private function getTaxonWithAncestors(TaxonInterface $taxon, $locale): TaxonView
     {
         $currentTaxonView = $this->taxonViewFactory->create($taxon, $locale);
 

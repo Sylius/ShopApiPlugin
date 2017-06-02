@@ -13,6 +13,7 @@
                 "code": "LOGAN_HAT_CODE",
                 "name": "Logan Hut",
                 "slug": "logan-hut",
+                "averageRating": 0,
                 "taxons": {
                     "HAT": {
                         "code": "CATEGORY",

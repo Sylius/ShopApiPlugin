@@ -13,6 +13,7 @@
                 "code": "LOGAN_T_SHIRT_CODE",
                 "name": "Logan T-Shirt",
                 "slug": "logan-t-shirt",
+                "averageRating": 0,
                 "taxons": {
                     "T_SHIRTS": {
                         "code": "CATEGORY",
@@ -92,6 +93,7 @@
                 "code": "LOGAN_HAT_CODE",
                 "name": "Logan Hat",
                 "slug": "logan-hat",
+                "averageRating": 0,
                 "taxons": {
                     "HAT": {
                         "code": "CATEGORY",
