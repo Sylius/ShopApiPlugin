@@ -13,6 +13,7 @@ imports:
     - { resource: "@SyliusAdminApiBundle/Resources/config/app/config.yml" }
 
     - { resource: "@ShopApiPlugin/Resources/config/app/config.yml" }
+    - { resource: "@ShopApiPlugin/Resources/config/app/sylius_mailer.yml" }
 
     - { resource: "security.yml" }
 
@@ -61,3 +62,10 @@ lexik_jwt_authentication:
 shop_api:
     included_attributes:
         - "MUG_MATERIAL_CODE"
+
+swiftmailer:
+    disable_delivery: true
+    logging: true
+    spool:
+        type: file
+        path: "%kernel.cache_dir%/spool"

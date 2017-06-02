@@ -1,0 +1,9 @@
+{
+    "code": 400,
+    "message": "Validation failed",
+    "errors": {
+        "email": [
+            "sylius.shop_api.email.not_found"
+        ]
+    }
+}
