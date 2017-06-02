@@ -1,16 +1,22 @@
 Sylius\Component\Core\Model\ShopUser:
     user_oliver:
-        plainPassword: '123pa$$word'
-        roles: [ROLE_USER]
-        enabled: true
+        plainPassword: "123pa$$word"
+        roles: "[ROLE_USER]"
+        enabled: "true"
         customer: "@customer_oliver"
-        username: oliver@queen.com
-        usernameCanonical: oliver@queen.com
+        username: "oliver@queen.com"
+        usernameCanonical: "oliver@queen.com"
 
 Sylius\Component\Core\Model\Customer:
     customer_oliver:
-        firstName: Oliver
-        lastName: Queen
-        email: oliver@queen.com
-        emailCanonical: oliver@queen.com
-        birthday: <date()>
+        firstName: "Oliver"
+        lastName: "Queen"
+        email: "oliver@queen.com"
+        emailCanonical: "oliver@queen.com"
+        birthday: "<date()>"
+    hater:
+        firstName: "Slade"
+        lastName: "Wilson"
+        email: "slade@wilson.com"
+        emailCanonical: "oliver@queen.com"
+        birthday: "<date()>"
