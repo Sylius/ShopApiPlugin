@@ -1,7 +1,7 @@
 Sylius\Component\Core\Model\ShopUser:
     user_oliver:
         plainPassword: "123pa$$word"
-        roles: "[ROLE_USER]"
+        roles: ["ROLE_USER"]
         enabled: "true"
         customer: "@customer_oliver"
         username: "oliver@queen.com"
