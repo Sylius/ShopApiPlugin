@@ -29,7 +29,7 @@ final class SendVerificationTokenHandler
         $this->sender = $sender;
     }
 
-    public function handle(SendVerificationToken $resendVerificationToken): void
+    public function handle(SendVerificationToken $resendVerificationToken)
     {
         $email = $resendVerificationToken->email();
 

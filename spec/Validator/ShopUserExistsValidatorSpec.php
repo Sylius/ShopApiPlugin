@@ -14,8 +14,6 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 final class ShopUserExistsValidatorSpec extends ObjectBehavior
 {
-    private const EXAMPLE_EMAIL = 'shop@example.com';
-
     function let(ExecutionContextInterface $executionContext, UserRepositoryInterface $userRepository)
     {
         $this->beConstructedWith($userRepository);
@@ -33,21 +31,21 @@ final class ShopUserExistsValidatorSpec extends ObjectBehavior
         UserRepositoryInterface $userRepository,
         ExecutionContextInterface $executionContext
     ) {
-        $userRepository->findOneByEmail(self::EXAMPLE_EMAIL)->willReturn($user);
+        $userRepository->findOneByEmail('shop@example.com')->willReturn($user);
 
-        $executionContext->addViolation(Argument::any(), Argument::any())->shouldNotBeCalled();
+        $executionContext->addViolation(Argument::cetera())->shouldNotBeCalled();
 
-        $this->validate('' . self::EXAMPLE_EMAIL . '', new ShopUserExists());
+        $this->validate('shop@example.com', new ShopUserExists());
     }
 
     function it_adds_constraint_if_user_does_not_exits_exists(
         UserRepositoryInterface $userRepository,
         ExecutionContextInterface $executionContext
     ) {
-        $userRepository->findOneByEmail(self::EXAMPLE_EMAIL)->willReturn(null);
+        $userRepository->findOneByEmail('shop@example.com')->willReturn(null);
 
         $executionContext->addViolation('sylius.shop_api.email.not_found')->shouldBeCalled();
 
-        $this->validate(self::EXAMPLE_EMAIL, new ShopUserExists());
+        $this->validate('shop@example.com', new ShopUserExists());
     }
 }

@@ -42,11 +42,7 @@ final class AddressAction
         $this->bus->handle(new AddressOrder(
             $request->attributes->get('token'),
             Address::createFromArray($request->request->get('shippingAddress')),
-            Address::createFromArray(
-                $request->request->has('billingAddress') ?
-                    $request->request->get('billingAddress'):
-                    $request->request->get('shippingAddress')
-            )
+            Address::createFromArray($request->request->get('billingAddress') ?: $request->request->get('shippingAddress'))
         ));
 
         return $this->viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));

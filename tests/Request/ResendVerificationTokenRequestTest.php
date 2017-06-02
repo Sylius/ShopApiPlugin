@@ -14,7 +14,7 @@ final class ResendVerificationTokenRequestTest extends TestCase
     /**
      * @test
      */
-    public function it_creates_put_simple_item_to_cart_command(): void
+    public function it_creates_put_simple_item_to_cart_command()
     {
         $putSimpleItemToCartRequest = new ResendVerificationTokenRequest(new Request([], ['email' => 'daffy@the-duck.com'], []));
 

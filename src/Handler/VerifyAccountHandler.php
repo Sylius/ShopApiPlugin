@@ -21,7 +21,7 @@ final class VerifyAccountHandler
         $this->userRepository = $userRepository;
     }
 
-    public function handle(VerifyAccount $resendVerificationToken): void
+    public function handle(VerifyAccount $resendVerificationToken)
     {
         /** @var ShopUserInterface $user */
         $user = $this->userRepository->findOneBy(['emailVerificationToken' => $resendVerificationToken->token()]);

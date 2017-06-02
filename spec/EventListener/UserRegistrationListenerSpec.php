@@ -16,8 +16,6 @@ use Symfony\Component\EventDispatcher\GenericEvent;
 
 final class UserRegistrationListenerSpec extends ObjectBehavior
 {
-    private const EXAMPLE_EMAIL = 'shop@example.com';
-
     function let(CommandBus $bus)
     {
         $this->beConstructedWith($bus);
@@ -36,10 +34,10 @@ final class UserRegistrationListenerSpec extends ObjectBehavior
     ) {
         $event->getSubject()->willReturn($customer);
         $customer->getUser()->willReturn($user);
-        $user->getEmail()->willReturn(self::EXAMPLE_EMAIL);
+        $user->getEmail()->willReturn('shop@example.com');
 
-        $bus->handle(new GenerateVerificationToken(self::EXAMPLE_EMAIL))->shouldBeCalled();
-        $bus->handle(new SendVerificationToken(self::EXAMPLE_EMAIL))->shouldBeCalled();
+        $bus->handle(new GenerateVerificationToken('shop@example.com'))->shouldBeCalled();
+        $bus->handle(new SendVerificationToken('shop@example.com'))->shouldBeCalled();
 
         $this->handleUserVerification($event);
     }

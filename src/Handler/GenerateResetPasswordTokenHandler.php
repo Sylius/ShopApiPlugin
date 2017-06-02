@@ -28,7 +28,7 @@ final class GenerateResetPasswordTokenHandler
         $this->tokenGenerator = $tokenGenerator;
     }
 
-    public function handle(GenerateResetPasswordToken $generateResetPasswordToken): void
+    public function handle(GenerateResetPasswordToken $generateResetPasswordToken)
     {
         $email = $generateResetPasswordToken->email();
 

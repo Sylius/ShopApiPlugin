@@ -14,7 +14,8 @@ use Sylius\ShopApiPlugin\Handler\GenerateResetPasswordTokenHandler;
 
 final class GenerateResetPasswordTokenHandlerSpec extends ObjectBehavior
 {
-    function let(UserRepositoryInterface $userRepository, GeneratorInterface $tokenGenerator) {
+    function let(UserRepositoryInterface $userRepository, GeneratorInterface $tokenGenerator)
+    {
         $this->beConstructedWith($userRepository, $tokenGenerator);
     }
 
@@ -30,9 +31,9 @@ final class GenerateResetPasswordTokenHandlerSpec extends ObjectBehavior
     ) {
         $userRepository->findOneByEmail('example@customer.com')->willReturn($user);
 
-        $tokenGenerator->generate()->willReturn('SOMERANDOMSTRINGASDAFSASFAFAFAACEAFCCEFACVAFVSF');
+        $tokenGenerator->generate()->willReturn('RANDOM_TOKEN');
 
-        $user->setPasswordResetToken('SOMERANDOMSTRINGASDAFSASFAFAFAACEAFCCEFACVAFVSF')->shouldBeCalled();
+        $user->setPasswordResetToken('RANDOM_TOKEN')->shouldBeCalled();
         $user->setPasswordRequestedAt(Argument::type(\DateTime::class))->shouldBeCalled();
 
         $this->handle(new GenerateResetPasswordToken('example@customer.com'));

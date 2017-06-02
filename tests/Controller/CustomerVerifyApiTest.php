@@ -15,7 +15,7 @@ final class CustomerVerifyApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_allows_to_verify_customer(): void
+    public function it_allows_to_verify_customer()
     {
         $data =
 <<<EOT

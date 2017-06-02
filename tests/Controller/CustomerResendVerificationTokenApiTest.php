@@ -17,7 +17,7 @@ final class CustomerResendVerificationTokenApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_allows_to_resend_verification_token(): void
+    public function it_allows_to_resend_verification_token()
     {
         $data =
 <<<EOT
@@ -52,7 +52,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_allow_to_resend_verification_email_if_email_is_not_defined(): void
+    public function it_does_not_allow_to_resend_verification_email_if_email_is_not_defined()
     {
         $this->client->request('POST', '/shop-api/resend-verification-link', [], [], ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json']);
 
@@ -63,7 +63,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_allow_to_resend_verification_email_if_email_is_not_malformed(): void
+    public function it_does_not_allow_to_resend_verification_email_if_email_is_not_malformed()
     {
         $resendForEmail = '{"email": "vinnyfandf.com"}';
 
@@ -76,7 +76,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_allow_to_resend_verification_email_if_customer_does_not_exists(): void
+    public function it_does_not_allow_to_resend_verification_email_if_customer_does_not_exists()
     {
         $resendForEmail = '{"email": "vinny@fandf.com"}';
 

@@ -16,7 +16,7 @@ final class CustomerResetPasswordApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_allows_to_verify_customer(): void
+    public function it_allows_to_verify_customer()
     {
         $this->loadFixturesFromFile('customer.yml');
 

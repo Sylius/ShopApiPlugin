@@ -24,7 +24,7 @@ final class UserRegistrationListener
         $this->bus = $bus;
     }
 
-    public function handleUserVerification(GenericEvent $event): void
+    public function handleUserVerification(GenericEvent $event)
     {
         $customer = $event->getSubject();
         Assert::isInstanceOf($customer, CustomerInterface::class);

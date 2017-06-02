@@ -17,7 +17,7 @@ final class CustomerRegisterApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_allows_to_register_in_shop(): void
+    public function it_allows_to_register_in_shop()
     {
         $data =
 <<<EOT

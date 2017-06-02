@@ -19,7 +19,7 @@ final class CustomerLoginApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_allows_to_log_customer_in(): void
+    public function it_allows_to_log_customer_in()
     {
         $this->loadFixturesFromFile('customer.yml');
 
@@ -40,7 +40,7 @@ EOT;
     /**
      * @test
      */
-    public function it_requires_to_verify_email_address_for_newly_created_customers(): void
+    public function it_requires_to_verify_email_address_for_newly_created_customers()
     {
         $data =
 <<<EOT

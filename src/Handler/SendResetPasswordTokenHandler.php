@@ -29,7 +29,7 @@ final class SendResetPasswordTokenHandler
         $this->sender = $sender;
     }
 
-    public function handle(SendResetPasswordToken $resendResetPasswordToken): void
+    public function handle(SendResetPasswordToken $resendResetPasswordToken)
     {
         $email = $resendResetPasswordToken->email();
 

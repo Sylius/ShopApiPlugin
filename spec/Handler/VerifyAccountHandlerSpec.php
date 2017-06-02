@@ -27,20 +27,20 @@ final class VerifyAccountHandlerSpec extends ObjectBehavior
         UserRepositoryInterface $userRepository,
         ShopUserInterface $user
     ) {
-        $userRepository->findOneBy(['emailVerificationToken' => 'SOMERANDOMSTRINGASDAFSASFAFAFAACEAFCCEFACVAFVSF'])->willReturn($user);
+        $userRepository->findOneBy(['emailVerificationToken' => 'RANDOM_TOKEN'])->willReturn($user);
 
         $user->setEmailVerificationToken(null)->shouldBeCalled();
         $user->setVerifiedAt(Argument::type(\DateTime::class))->shouldBeCalled();
         $user->enable()->shouldBeCalled();
 
-        $this->handle(new VerifyAccount('SOMERANDOMSTRINGASDAFSASFAFAFAACEAFCCEFACVAFVSF'));
+        $this->handle(new VerifyAccount('RANDOM_TOKEN'));
     }
 
     function it_throws_an_exception_if_user_has_not_been_found(
         UserRepositoryInterface $userRepository
     ) {
-        $userRepository->findOneBy(['emailVerificationToken' => 'SOMERANDOMSTRINGASDAFSASFAFAFAACEAFCCEFACVAFVSF'])->willReturn(null);
+        $userRepository->findOneBy(['emailVerificationToken' => 'RANDOM_TOKEN'])->willReturn(null);
 
-        $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [new VerifyAccount('SOMERANDOMSTRINGASDAFSASFAFAFAACEAFCCEFACVAFVSF')]);
+        $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [new VerifyAccount('RANDOM_TOKEN')]);
     }
 }
