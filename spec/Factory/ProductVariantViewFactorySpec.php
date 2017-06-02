@@ -24,11 +24,6 @@ final class ProductVariantViewFactorySpec extends ObjectBehavior
         $this->beConstructedWith($priceViewFactory);
     }
 
-    function it_is_initializable()
-    {
-        $this->shouldHaveType(ProductVariantViewFactory::class);
-    }
-
     function it_is_price_view_factory()
     {
         $this->shouldHaveType(ProductVariantViewFactoryInterface::class);

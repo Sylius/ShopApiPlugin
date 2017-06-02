@@ -30,11 +30,6 @@ final class PutOptionBasedConfigurableItemToCartHandlerSpec extends ObjectBehavi
         $this->beConstructedWith($orderRepository, $productRepository, $cartItemFactory, $orderItemModifier, $orderProcessor, $manager);
     }
 
-    function it_is_initializable()
-    {
-        $this->shouldHaveType(PutOptionBasedConfigurableItemToCartHandler::class);
-    }
-
     function it_handles_putting_new_item_to_cart(
         CartItemFactoryInterface $cartItemFactory,
         ObjectManager $manager,

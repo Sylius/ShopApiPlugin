@@ -12,11 +12,6 @@ final class ChangeItemQuantitySpec extends ObjectBehavior
         $this->beConstructedWith('ORDERTOKEN', 1, 5);
     }
 
-    function it_is_initializable()
-    {
-        $this->shouldHaveType(ChangeItemQuantity::class);
-    }
-
     function it_has_order_token()
     {
         $this->orderToken()->shouldReturn('ORDERTOKEN');

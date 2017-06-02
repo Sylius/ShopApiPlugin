@@ -25,11 +25,6 @@ final class CartItemViewFactorySpec extends ObjectBehavior
         $this->beConstructedWith($productViewFactory, $productVariantViewFactory);
     }
 
-    function it_is_initializable()
-    {
-        $this->shouldHaveType(CartItemViewFactory::class);
-    }
-
     function it_is_cart_item_view_factory()
     {
         $this->shouldImplement(CartItemViewFactoryInterface::class);

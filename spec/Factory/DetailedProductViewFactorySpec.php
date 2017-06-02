@@ -27,11 +27,6 @@ final class DetailedProductViewFactorySpec extends ObjectBehavior
         $this->beConstructedWith($imageViewFactory, $productViewFactory, $variantViewFactory);
     }
 
-    function it_is_initializable()
-    {
-        $this->shouldHaveType(DetailedProductViewFactory::class);
-    }
-
     function it_is_product_view_factory()
     {
         $this->shouldHaveType(ProductViewFactoryInterface::class);

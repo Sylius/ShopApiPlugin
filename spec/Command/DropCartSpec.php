@@ -12,11 +12,6 @@ final class DropCartSpec extends ObjectBehavior
         $this->beConstructedWith('ORDERTOKEN');
     }
 
-    function it_is_initializable()
-    {
-        $this->shouldHaveType(DropCart::class);
-    }
-
     function it_has_order_token()
     {
         $this->orderToken()->shouldReturn('ORDERTOKEN');

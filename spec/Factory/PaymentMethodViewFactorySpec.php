@@ -12,10 +12,6 @@ use Sylius\ShopApiPlugin\View\PaymentMethodView;
 
 class PaymentMethodViewFactorySpec extends ObjectBehavior
 {
-    function it_is_initializable()
-    {
-        $this->shouldHaveType(PaymentMethodViewFactory::class);
-    }
 
     function it_is_payment_method_view_factory()
     {

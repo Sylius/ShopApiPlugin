@@ -19,11 +19,6 @@ final class CartItemExistsValidatorSpec extends ObjectBehavior
         $this->initialize($executionContext);
     }
 
-    function it_is_initializable()
-    {
-        $this->shouldHaveType(CartItemExistsValidator::class);
-    }
-
     function it_does_not_add_constraint_if_order_item_exists(
         OrderItemInterface $orderItem,
         OrderItemRepositoryInterface $orderItemRepository,

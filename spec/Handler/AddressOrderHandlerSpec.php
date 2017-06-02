@@ -21,11 +21,6 @@ final class AddressOrderHandlerSpec extends ObjectBehavior
         $this->beConstructedWith($orderRepository, $addressFactory, $stateMachineFactory);
     }
 
-    function it_is_initializable()
-    {
-        $this->shouldHaveType(AddressOrderHandler::class);
-    }
-
     function it_handles_order_shipment_addressing(
         AddressFactoryInterface $addressFactory,
         AddressInterface $shippingAddress,

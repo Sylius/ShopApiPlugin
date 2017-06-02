@@ -19,11 +19,6 @@ final class ShipmentViewFactorySpec extends ObjectBehavior
         $this->beConstructedWith($shippingMethodViewFactory);
     }
 
-    function it_is_initializable()
-    {
-        $this->shouldHaveType(ShipmentViewFactory::class);
-    }
-
     function it_is_shipment_view_factory()
     {
         $this->shouldImplement(ShipmentViewFactoryInterface::class);

@@ -19,11 +19,6 @@ final class ChannelExistsValidatorSpec extends ObjectBehavior
         $this->initialize($executionContext);
     }
 
-    function it_is_initializable()
-    {
-        $this->shouldHaveType(ChannelExistsValidator::class);
-    }
-
     function it_does_not_add_constraint_if_channel_exists(
         ChannelInterface $channel,
         ChannelRepositoryInterface $channelRepository,

@@ -11,10 +11,6 @@ use Sylius\ShopApiPlugin\View\ProductAttributeValueView;
 
 final class ProductAttributeValueViewFactorySpec extends ObjectBehavior
 {
-    function it_is_initializable()
-    {
-        $this->shouldHaveType(ProductAttributeValueViewFactory::class);
-    }
 
     function it_is_product_attribute_view_factory()
     {

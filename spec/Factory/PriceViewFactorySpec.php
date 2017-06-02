@@ -9,10 +9,6 @@ use Sylius\ShopApiPlugin\View\PriceView;
 
 final class PriceViewFactorySpec extends ObjectBehavior
 {
-    function it_is_initializable()
-    {
-        $this->shouldHaveType(PriceViewFactory::class);
-    }
 
     function it_is_price_view_factory()
     {

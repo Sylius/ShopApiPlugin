@@ -19,11 +19,6 @@ final class TaxonViewFactorySpec extends ObjectBehavior
         $this->beConstructedWith($imageViewFactory);
     }
 
-    function it_is_initializable()
-    {
-        $this->shouldHaveType(TaxonViewFactory::class);
-    }
-
     function it_is_taxon_view_factory()
     {
         $this->shouldImplement(TaxonViewFactoryInterface::class);

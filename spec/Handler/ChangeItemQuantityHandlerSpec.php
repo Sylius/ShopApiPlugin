@@ -23,11 +23,6 @@ final class ChangeItemQuantityHandlerSpec extends ObjectBehavior
         $this->beConstructedWith($orderItemRepository, $orderRepository, $orderItemModifier, $orderProcessor);
     }
 
-    function it_is_initializable()
-    {
-        $this->shouldHaveType(ChangeItemQuantityHandler::class);
-    }
-
     function it_handles_putting_new_item_to_cart(
         OrderInterface $order,
         OrderItemInterface $orderItem,

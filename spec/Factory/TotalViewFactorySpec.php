@@ -11,10 +11,6 @@ use Sylius\ShopApiPlugin\View\TotalsView;
 
 final class TotalViewFactorySpec extends ObjectBehavior
 {
-    function it_is_initializable()
-    {
-        $this->shouldHaveType(TotalViewFactory::class);
-    }
 
     function it_is_total_view_factory()
     {

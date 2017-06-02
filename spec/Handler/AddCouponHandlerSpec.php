@@ -27,11 +27,6 @@ final class AddCouponHandlerSpec extends ObjectBehavior
         $this->beConstructedWith($orderRepository, $couponRepository, $orderProcessor, $couponEligibilityChecker);
     }
 
-    function it_is_initializable()
-    {
-        $this->shouldHaveType(AddCouponHandler::class);
-    }
-
     function it_handles_adding_coupon_to_cart(
         ChannelInterface $channel,
         PromotionCouponInterface $coupon,

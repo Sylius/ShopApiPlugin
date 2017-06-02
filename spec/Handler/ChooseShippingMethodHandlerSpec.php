@@ -27,11 +27,6 @@ final class ChooseShippingMethodHandlerSpec extends ObjectBehavior
         $this->beConstructedWith($orderRepository, $shippingMethodRepository, $eligibilityChecker, $stateMachineFactory);
     }
 
-    function it_is_initializable()
-    {
-        $this->shouldHaveType(ChooseShippingMethodHandler::class);
-    }
-
     function it_assignes_choosen_shipping_method_to_specified_shipment(
         OrderRepositoryInterface $orderRepository,
         OrderInterface $order,

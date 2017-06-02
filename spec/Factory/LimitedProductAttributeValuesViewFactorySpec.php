@@ -17,11 +17,6 @@ final class LimitedProductAttributeValuesViewFactorySpec extends ObjectBehavior
         $this->beConstructedWith($productAttributeValueViewFactory, ['CERTIFICATE_ATTRIBUTE']);
     }
 
-    function it_is_initializable()
-    {
-        $this->shouldHaveType(LimitedProductAttributeValuesViewFactory::class);
-    }
-
     function it_is_product_attribute_values_view_facotry()
     {
         $this->shouldHaveType(ProductAttributeValuesViewFactoryInterface::class);
