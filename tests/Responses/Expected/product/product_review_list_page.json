@@ -1,0 +1,74 @@
+{
+    "page": 1,
+    "limit": 10,
+    "pages": 3,
+    "total": 23,
+    "_links": {
+        "self": "\/shop-api\/products\/logan-mug\/reviews?channel=WEB_GB&page=1&limit=10",
+        "first": "\/shop-api\/products\/logan-mug\/reviews?channel=WEB_GB&page=1&limit=10",
+        "last": "\/shop-api\/products\/logan-mug\/reviews?channel=WEB_GB&page=3&limit=10",
+        "next": "\/shop-api\/products\/logan-mug\/reviews?channel=WEB_GB&page=2&limit=10"
+    },
+    "items": [
+        {
+            "title": "Nice mug",
+            "rating": @integer@,
+            "comment": "@string@",
+            "author": "oliver@queen.com"
+        },
+        {
+            "title": "Nice mug",
+            "rating": @integer@,
+            "comment": "@string@",
+            "author": "oliver@queen.com"
+        },
+        {
+            "title": "Nice mug",
+            "rating": @integer@,
+            "comment": "@string@",
+            "author": "oliver@queen.com"
+        },
+        {
+            "title": "Nice mug",
+            "rating": @integer@,
+            "comment": "@string@",
+            "author": "oliver@queen.com"
+        },
+        {
+            "title": "Nice mug",
+            "rating": @integer@,
+            "comment": "@string@",
+            "author": "oliver@queen.com"
+        },
+        {
+            "title": "Nice mug",
+            "rating": @integer@,
+            "comment": "@string@",
+            "author": "oliver@queen.com"
+        },
+        {
+            "title": "Nice mug",
+            "rating": @integer@,
+            "comment": "@string@",
+            "author": "oliver@queen.com"
+        },
+        {
+            "title": "Nice mug",
+            "rating": @integer@,
+            "comment": "@string@",
+            "author": "oliver@queen.com"
+        },
+        {
+            "title": "Nice mug",
+            "rating": @integer@,
+            "comment": "@string@",
+            "author": "oliver@queen.com"
+        },
+        {
+            "title": "Nice mug",
+            "rating": @integer@,
+            "comment": "@string@",
+            "author": "oliver@queen.com"
+        }
+    ]
+}
