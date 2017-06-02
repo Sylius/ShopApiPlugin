@@ -21,11 +21,6 @@ final class PromotionCouponEligibilityCheckerSpec extends ObjectBehavior
         $this->beConstructedWith($promotionEligibilityChecker, $couponEligibilityChecker);
     }
 
-    function it_is_initializable()
-    {
-        $this->shouldHaveType(PromotionCouponEligibilityChecker::class);
-    }
-
     function it_is_promotion_coupon_eligiblity_checker()
     {
         $this->shouldImplement(PromotionCouponEligibilityCheckerInterface::class);

@@ -25,11 +25,6 @@ final class ChoosePaymentMethodHandlerSpec extends ObjectBehavior
         $this->beConstructedWith($orderRepository, $paymentMethodRepository, $stateMachineFactory);
     }
 
-    function it_is_initializable()
-    {
-        $this->shouldHaveType(ChoosePaymentMethodHandler::class);
-    }
-
     function it_assignes_choosen_payment_method_to_specified_payment(
         OrderRepositoryInterface $orderRepository,
         OrderInterface $order,

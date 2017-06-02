@@ -20,11 +20,6 @@ final class SimpleProductValidatorSpec extends ObjectBehavior
         $this->initialize($executionContext);
     }
 
-    function it_is_initializable()
-    {
-        $this->shouldHaveType(SimpleProductValidator::class);
-    }
-
     function it_is_constraint_validator()
     {
         $this->shouldHaveType( ConstraintValidator::class);

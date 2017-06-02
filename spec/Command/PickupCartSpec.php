@@ -12,11 +12,6 @@ final class PickupCartSpec extends ObjectBehavior
         $this->beConstructedWith('ORDERTOKEN', 'CHANNEL_CODE');
     }
 
-    function it_is_initializable()
-    {
-        $this->shouldHaveType(PickupCart::class);
-    }
-
     function it_has_order_token()
     {
         $this->orderToken()->shouldReturn('ORDERTOKEN');

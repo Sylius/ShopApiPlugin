@@ -14,10 +14,6 @@ use Sylius\ShopApiPlugin\View\ProductReviewView;
 
 final class ProductReviewViewFactorySpec extends ObjectBehavior
 {
-    function it_is_initializable()
-    {
-        $this->shouldHaveType(ProductReviewViewFactory::class);
-    }
 
     function it_is_product_review_view_factory()
     {

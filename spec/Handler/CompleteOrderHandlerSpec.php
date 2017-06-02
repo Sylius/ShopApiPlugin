@@ -25,11 +25,6 @@ final class CompleteOrderHandlerSpec extends ObjectBehavior
         $this->beConstructedWith($orderRepository, $customerRepository, $customerFactory, $stateMachineFactory);
     }
 
-    function it_is_initializable()
-    {
-        $this->shouldHaveType(CompleteOrderHandler::class);
-    }
-
     function it_handles_order_completion_for_existing_customer(
         CustomerInterface $customer,
         CustomerRepositoryInterface $customerRepository,

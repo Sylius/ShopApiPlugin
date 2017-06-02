@@ -28,11 +28,6 @@ final class ProductViewFactorySpec extends ObjectBehavior
         $this->beConstructedWith($imageViewFactory, $attributeValuesViewFactory, $taxonViewFactory, 'en_GB');
     }
 
-    function it_is_initializable()
-    {
-        $this->shouldHaveType(ProductViewFactory::class);
-    }
-
     function it_is_price_view_factory()
     {
         $this->shouldHaveType(ProductViewFactoryInterface::class);

@@ -14,11 +14,6 @@ final class DropCartHandlerSpec extends ObjectBehavior
         $this->beConstructedWith($cartRepository);
     }
 
-    function it_is_initializable()
-    {
-        $this->shouldHaveType(DropCartHandler::class);
-    }
-
     function it_handles_droping_a_cart(OrderInterface $cart, OrderRepositoryInterface $cartRepository)
     {
         $cartRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($cart);

@@ -20,11 +20,6 @@ final class PickupCartHandlerSpec extends ObjectBehavior
         $this->beConstructedWith($cartFactory, $cartRepository, $channelRepository);
     }
 
-    function it_is_initializable()
-    {
-        $this->shouldHaveType(PickupCartHandler::class);
-    }
-
     function it_handles_cart_pickup(
         ChannelInterface $channel,
         CurrencyInterface  $currency,

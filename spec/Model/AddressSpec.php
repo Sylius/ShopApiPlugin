@@ -19,11 +19,6 @@ final class AddressSpec extends ObjectBehavior
         ]]);
     }
 
-    function it_is_initializable()
-    {
-        $this->shouldHaveType(Address::class);
-    }
-
     function it_has_first_name()
     {
         $this->firstName()->shouldReturn('Sherlock');

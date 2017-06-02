@@ -12,11 +12,6 @@ final class CompleteOrderSpec extends ObjectBehavior
         $this->beConstructedWith('ORDERTOKEN', 'example@customer.com');
     }
 
-    function it_is_initializable()
-    {
-        $this->shouldHaveType(CompleteOrder::class);
-    }
-
     function it_has_order_token()
     {
         $this->orderToken()->shouldReturn('ORDERTOKEN');

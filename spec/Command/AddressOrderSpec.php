@@ -35,11 +35,6 @@ final class AddressOrderSpec extends ObjectBehavior
         );
     }
 
-    function it_is_initializable()
-    {
-        $this->shouldHaveType(AddressOrder::class);
-    }
-
     function it_has_order_token()
     {
         $this->orderToken()->shouldReturn('ORDERTOKEN');

@@ -12,11 +12,6 @@ final class ChooseShippingMethodSpec extends ObjectBehavior
         $this->beConstructedWith('ORDERTOKEN', 1, 'DHL_SHIPPING_METHOD');
     }
 
-    function it_is_initializable()
-    {
-        $this->shouldHaveType(ChooseShippingMethod::class);
-    }
-
     function it_has_order_token()
     {
         $this->orderToken()->shouldReturn('ORDERTOKEN');

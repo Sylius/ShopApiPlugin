@@ -21,11 +21,6 @@ final class PaymentViewFactorySpec extends ObjectBehavior
         $this->beConstructedWith($paymentMethodViewFactory, $priceViewFactory);
     }
 
-    function it_is_initializable()
-    {
-        $this->shouldHaveType(PaymentViewFactory::class);
-    }
-
     function it_is_payment_view_factory()
     {
         $this->shouldImplement(PaymentViewFactoryInterface::class);
