@@ -4,25 +4,20 @@ namespace Sylius\ShopApiPlugin\Controller\Product;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
-use Pagerfanta\Adapter\DoctrineORMAdapter;
+use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
-use Sylius\Component\Core\Model\TaxonInterface;
-use Sylius\Component\Core\Repository\ProductRepositoryInterface;
-use Sylius\Component\Taxonomy\Repository\TaxonRepositoryInterface;
+use Sylius\Component\Core\Repository\ProductReviewRepositoryInterface;
 use Sylius\ShopApiPlugin\Factory\PageViewFactoryInterface;
+use Sylius\ShopApiPlugin\Factory\ProductReviewViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\ProductViewFactoryInterface;
 use Sylius\ShopApiPlugin\Request\PageViewRequest;
-use Sylius\ShopApiPlugin\View\PageLinksView;
-use Sylius\ShopApiPlugin\View\PageView;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Routing\RouterInterface;
 
-final class ShowProductCatalogAction
+final class ShowReviewsAction
 {
     /**
      * @var ChannelRepositoryInterface
@@ -30,14 +25,9 @@ final class ShowProductCatalogAction
     private $channelRepository;
 
     /**
-     * @var ProductRepositoryInterface
+     * @var ProductReviewRepositoryInterface
      */
-    private $productRepository;
-
-    /**
-     * @var TaxonRepositoryInterface
-     */
-    private $taxonRepository;
+    private $productReviewRepository;
 
     /**
      * @var ViewHandlerInterface
@@ -45,9 +35,9 @@ final class ShowProductCatalogAction
     private $viewHandler;
 
     /**
-     * @var ProductViewFactoryInterface
+     * @var ProductReviewViewFactoryInterface
      */
-    private $productViewFactory;
+    private $productReviewViewFactory;
 
     /**
      * @var PageViewFactoryInterface
@@ -56,26 +46,19 @@ final class ShowProductCatalogAction
 
     public function __construct(
         ChannelRepositoryInterface $channelRepository,
-        ProductRepositoryInterface $productRepository,
-        TaxonRepositoryInterface $taxonRepository,
+        ProductReviewRepositoryInterface $productReviewRepository,
         ViewHandlerInterface $viewHandler,
-        ProductViewFactoryInterface $productViewFactory,
+        ProductReviewViewFactoryInterface $productReviewViewFactory,
         PageViewFactoryInterface $pageViewFactory
     ) {
         $this->channelRepository = $channelRepository;
-        $this->productRepository = $productRepository;
-        $this->taxonRepository = $taxonRepository;
+        $this->productReviewRepository = $productReviewRepository;
         $this->viewHandler = $viewHandler;
-        $this->productViewFactory = $productViewFactory;
+        $this->productReviewViewFactory = $productReviewViewFactory;
         $this->pageViewFactory = $pageViewFactory;
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): Response
     {
         if (!$request->query->has('channel')) {
             throw new NotFoundHttpException('Cannot find product without channel provided');
@@ -91,28 +74,20 @@ final class ShowProductCatalogAction
 
         $locale = $request->query->has('locale') ? $request->query->get('locale') : $channel->getDefaultLocale()->getCode();
 
-        $taxonSlug = $request->attributes->get('taxonomy');
-        /** @var TaxonInterface $taxon */
-        $taxon = $this->taxonRepository->findOneBySlug($taxonSlug, $locale);
+        $reviews = $this->productReviewRepository->findAcceptedByProductSlugAndChannel($request->attributes->get('slug'), $locale, $channel);
 
-        if (null === $taxon) {
-            throw new NotFoundHttpException(sprintf('Taxon with slug %s in locale %s has not been found', $taxonSlug, $locale));
-        }
-
-        $queryBuilder = $this->productRepository->createShopListQueryBuilder($channel, $taxon, $locale);
-
-        $pagerfanta = new Pagerfanta(new DoctrineORMAdapter($queryBuilder));
+        $pagerfanta = new Pagerfanta(new ArrayAdapter($reviews));
 
         $pagerfanta->setMaxPerPage($request->query->get('limit', 10));
         $pagerfanta->setCurrentPage($request->query->get('page', 1));
 
         $page = $this->pageViewFactory->create($pagerfanta, $request->attributes->get('_route'), array_merge(
             $request->query->all(),
-            ['taxonomy' => $taxonSlug]
+            ['slug' => $request->attributes->get('slug')]
         ));
 
         foreach ($pagerfanta->getCurrentPageResults() as $currentPageResult) {
-            $page->items[] = $this->productViewFactory->create($currentPageResult, $channel, $locale);
+            $page->items[] = $this->productReviewViewFactory->create($currentPageResult);
         }
 
         return $this->viewHandler->handle(View::create($page, Response::HTTP_OK));
