@@ -57,6 +57,10 @@
             <argument type="service" id="sylius.shop_api_plugin.factory.shipping_method_view_factory" />
         </service>
 
+        <service id="sylius.shop_api_plugin.factory.page_view_factory" class="Sylius\ShopApiPlugin\Factory\PageViewFactory">
+            <argument type="service" id="router" />
+        </service>
+
         <service id="sylius.shop_api_plugin.factory.payment_view_factory" class="Sylius\ShopApiPlugin\Factory\PaymentViewFactory">
             <argument type="service" id="sylius.shop_api_plugin.factory.payment_method_view_factory" />
             <argument type="service" id="sylius.shop_api_plugin.factory.price_view_factory" />

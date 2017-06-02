@@ -11,7 +11,9 @@ use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Sylius\Component\Taxonomy\Repository\TaxonRepositoryInterface;
+use Sylius\ShopApiPlugin\Factory\PageViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\ProductViewFactoryInterface;
+use Sylius\ShopApiPlugin\Request\PageViewRequest;
 use Sylius\ShopApiPlugin\View\PageLinksView;
 use Sylius\ShopApiPlugin\View\PageView;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -48,32 +50,24 @@ final class ShowProductCatalogAction
     private $productViewFactory;
 
     /**
-     * @var RouterInterface
+     * @var PageViewFactoryInterface
      */
-    private $router;
+    private $pageViewFactory;
 
-    /**
-     * @param ChannelRepositoryInterface $channelRepository
-     * @param ProductRepositoryInterface $productRepository
-     * @param TaxonRepositoryInterface $taxonRepository
-     * @param ViewHandlerInterface $viewHandler
-     * @param ProductViewFactoryInterface $productViewFactory
-     * @param RouterInterface $router
-     */
     public function __construct(
         ChannelRepositoryInterface $channelRepository,
         ProductRepositoryInterface $productRepository,
         TaxonRepositoryInterface $taxonRepository,
         ViewHandlerInterface $viewHandler,
         ProductViewFactoryInterface $productViewFactory,
-        RouterInterface $router
+        PageViewFactoryInterface $pageViewFactory
     ) {
         $this->channelRepository = $channelRepository;
         $this->productRepository = $productRepository;
         $this->taxonRepository = $taxonRepository;
         $this->viewHandler = $viewHandler;
         $this->productViewFactory = $productViewFactory;
-        $this->router = $router;
+        $this->pageViewFactory = $pageViewFactory;
     }
 
     /**
@@ -106,40 +100,16 @@ final class ShowProductCatalogAction
         }
 
         $queryBuilder = $this->productRepository->createShopListQueryBuilder($channel, $taxon, $locale);
-        $adapter = new DoctrineORMAdapter($queryBuilder);
-        $pagerfanta = new Pagerfanta($adapter);
+
+        $pagerfanta = new Pagerfanta(new DoctrineORMAdapter($queryBuilder));
 
         $pagerfanta->setMaxPerPage($request->query->get('limit', 10));
         $pagerfanta->setCurrentPage($request->query->get('page', 1));
 
-        $page = new PageView();
-        $page->page = $pagerfanta->getCurrentPage();
-        $page->limit = $pagerfanta->getMaxPerPage();
-        $page->pages = $pagerfanta->getNbPages();
-        $page->total = $pagerfanta->getNbResults();
-
-        $page->links = new PageLinksView();
-
-        $page->links->self = $this->router->generate('shop_api_product_show_catalog', [
-            'taxonomy' => $taxonSlug,
-            'page' => $pagerfanta->getCurrentPage(),
-            'limit' => $pagerfanta->getMaxPerPage(),
-        ]);
-        $page->links->first = $this->router->generate('shop_api_product_show_catalog', [
-            'taxonomy' => $taxonSlug,
-            'page' => 1,
-            'limit' => $pagerfanta->getMaxPerPage(),
-        ]);
-        $page->links->last = $this->router->generate('shop_api_product_show_catalog', [
-            'taxonomy' => $taxonSlug,
-            'page' => $pagerfanta->getNbPages(),
-            'limit' => $pagerfanta->getMaxPerPage(),
-        ]);
-        $page->links->next = $this->router->generate('shop_api_product_show_catalog', [
-            'taxonomy' => $taxonSlug,
-            'page' => ($pagerfanta->getCurrentPage() < $pagerfanta->getNbPages()) ? $pagerfanta->getCurrentPage() + 1 : $pagerfanta->getCurrentPage(),
-            'limit' => $pagerfanta->getMaxPerPage(),
-        ]);
+        $page = $this->pageViewFactory->create($pagerfanta, $request->attributes->get('_route'), array_merge(
+            $request->query->all(),
+            ['taxonomy' => $taxonSlug]
+        ));
 
         foreach ($pagerfanta->getCurrentPageResults() as $currentPageResult) {
             $page->items[] = $this->productViewFactory->create($currentPageResult, $channel, $locale);
