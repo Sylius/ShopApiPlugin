@@ -36,7 +36,7 @@ final class ShowReviewsAction
     private $viewHandler;
 
     /**
-     * @var ProductViewFactoryInterface
+     * @var ProductReviewViewFactoryInterface
      */
     private $productReviewViewFactory;
 
