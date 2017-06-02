@@ -20,6 +20,12 @@
             <argument type="service" id="sylius.repository.order" />
             <tag name="validator.constraint_validator" alias="sylius_shop_api_cart_exists_validator" />
         </service>
+        <service id="sylius.shop_api_plugin.validator.cart_item_exists_validator"
+                 class="Sylius\ShopApiPlugin\Validator\CartItemExistsValidator"
+        >
+            <argument type="service" id="sylius.repository.order_item" />
+            <tag name="validator.constraint_validator" alias="sylius_shop_api_cart_item_exists_validator" />
+        </service>
         <service id="sylius.shop_api_plugin.validator.valid_promotion_coupon_code_validator"
                  class="Sylius\ShopApiPlugin\Validator\ValidPromotionCouponCodeValidator"
         >
