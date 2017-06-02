@@ -1,0 +1,8 @@
+# This file is part of the Sylius package.
+# (c) Paweł Jędrzejewski
+
+sylius_mailer:
+    emails:
+        api_verification_token:
+            subject: sylius.emails.user.verification_token.subject
+            template: "ShopApiPlugin:Email:verification.html.twig"

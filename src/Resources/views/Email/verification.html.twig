@@ -1,0 +1,10 @@
+{% block subject %}
+    Email address verification
+{% endblock %}
+
+{% block body %}
+    {% set url = url('sylius_shop_api_user_verification', { 'token': user.emailVerificationToken}) %}
+    {% autoescape %}
+        To verify your email address - please visit {{ url|raw }}
+    {% endautoescape %}
+{% endblock %}
