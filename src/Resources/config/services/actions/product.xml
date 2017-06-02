@@ -21,5 +21,15 @@
             <argument type="service" id="sylius.shop_api_plugin.factory.detailed_product_view_factory" />
             <argument type="service" id="router" />
         </service>
+
+        <service id="sylius.shop_api_plugin.controller.product.show_reviews_action"
+                 class="Sylius\ShopApiPlugin\Controller\Product\ShowReviewsAction"
+        >
+            <argument type="service" id="sylius.repository.channel" />
+            <argument type="service" id="sylius.repository.product_review" />
+            <argument type="service" id="fos_rest.view_handler" />
+            <argument type="service" id="sylius.shop_api_plugin.factory.product_review_view_factory" />
+            <argument type="service" id="router" />
+        </service>
     </services>
 </container>

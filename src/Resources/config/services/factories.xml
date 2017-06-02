@@ -66,6 +66,8 @@
 
         <service id="sylius.shop_api_plugin.factory.product_attribute_value_view_factory" class="Sylius\ShopApiPlugin\Factory\ProductAttributeValueViewFactory" />
 
+        <service id="sylius.shop_api_plugin.factory.product_review_view_factory" class="Sylius\ShopApiPlugin\Factory\ProductReviewViewFactory" />
+
         <service id="sylius.shop_api_plugin.factory.limited_product_attribute_values_view_factory" class="Sylius\ShopApiPlugin\Factory\LimitedProductAttributeValuesViewFactory" >
             <argument type="service" id="sylius.shop_api_plugin.factory.product_attribute_value_view_factory" />
             <argument>%sylius.shop_api.included_attributes%</argument>
