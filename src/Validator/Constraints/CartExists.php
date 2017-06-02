@@ -4,7 +4,7 @@ namespace Sylius\ShopApiPlugin\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 
-final class CartWithGivenTokenExists extends Constraint
+final class CartExists extends Constraint
 {
     /**
      * @var string
@@ -24,6 +24,6 @@ final class CartWithGivenTokenExists extends Constraint
      */
     public function validatedBy()
     {
-        return 'sylius_shop_api_cart_with_given_token_does_not_exists_validator';
+        return 'sylius_shop_api_cart_exists_validator';
     }
 }

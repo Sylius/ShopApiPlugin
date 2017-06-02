@@ -23,7 +23,7 @@
             <constraint name="NotNull">
                 <option name="message">sylius.shop_api.token.not_null</option>
             </constraint>
-            <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\CartWithGivenTokenExists" />
+            <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\CartExists" />
         </property>
     </class>
 </constraint-mapping>

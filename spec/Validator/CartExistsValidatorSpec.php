@@ -6,11 +6,11 @@ use Prophecy\Argument;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Sylius\ShopApiPlugin\Validator\CartWithGivenTokenExistsValidator;
-use Sylius\ShopApiPlugin\Validator\Constraints\CartWithGivenTokenExists;
+use Sylius\ShopApiPlugin\Validator\CartExistsValidator;
+use Sylius\ShopApiPlugin\Validator\Constraints\CartExists;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
-final class CartWithGivenTokenExistsValidatorSpec extends ObjectBehavior
+final class CartExistsValidatorSpec extends ObjectBehavior
 {
     function let(ExecutionContextInterface $executionContext, OrderRepositoryInterface $orderRepository)
     {
@@ -21,7 +21,7 @@ final class CartWithGivenTokenExistsValidatorSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType(CartWithGivenTokenExistsValidator::class);
+        $this->shouldHaveType(CartExistsValidator::class);
     }
 
     function it_does_not_add_constraint_if_order_exists(
@@ -33,7 +33,7 @@ final class CartWithGivenTokenExistsValidatorSpec extends ObjectBehavior
 
         $executionContext->addViolation(Argument::any(), Argument::any())->shouldNotBeCalled();
 
-        $this->validate('ORDERTOKEN', new CartWithGivenTokenExists());
+        $this->validate('ORDERTOKEN', new CartExists());
     }
 
     function it_adds_constraint_if_order_does_not_exits_exists(
@@ -44,6 +44,6 @@ final class CartWithGivenTokenExistsValidatorSpec extends ObjectBehavior
 
         $executionContext->addViolation('sylius.shop_api.cart.not_exists')->shouldBeCalled();
 
-        $this->validate('ORDERTOKEN', new CartWithGivenTokenExists());
+        $this->validate('ORDERTOKEN', new CartExists());
     }
 }

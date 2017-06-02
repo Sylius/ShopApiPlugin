@@ -7,7 +7,7 @@ use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
-final class CartWithGivenTokenExistsValidator extends ConstraintValidator
+final class CartExistsValidator extends ConstraintValidator
 {
     /**
      * @var OrderRepositoryInterface

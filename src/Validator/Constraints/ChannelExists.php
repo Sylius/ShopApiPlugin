@@ -4,7 +4,7 @@ namespace Sylius\ShopApiPlugin\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 
-final class ChannelWithGivenCodeExists extends Constraint
+final class ChannelExists extends Constraint
 {
     /**
      * @var string
@@ -24,6 +24,6 @@ final class ChannelWithGivenCodeExists extends Constraint
      */
     public function validatedBy()
     {
-        return 'sylius_shop_api_channel_with_given_code_does_not_exists_validator';
+        return 'sylius_shop_api_channel_exists_validator';
     }
 }

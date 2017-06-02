@@ -24,6 +24,6 @@ final class TokenIsNotUsed extends Constraint
      */
     public function validatedBy()
     {
-        return 'sylius_shop_api_token_already_taken_validator';
+        return 'sylius_shop_api_token_is_not_used_validator';
     }
 }
