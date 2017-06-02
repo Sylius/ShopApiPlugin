@@ -5,7 +5,7 @@ namespace Tests\Sylius\ShopApiPlugin\Controller;
 use Lakion\ApiTestCase\JsonApiTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
-final class ShowProductCatalogApiTest extends JsonApiTestCase
+final class ProductShowCatalogApiTest extends JsonApiTestCase
 {
     /**
      * @test
