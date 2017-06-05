@@ -73,31 +73,30 @@ Sylius\Component\Core\Model\ProductTranslation:
         slug: "logan-mug"
         locale: "en_GB"
         name: "Logan Mug"
-        description: <paragraph(2)>
+        description: "Some description Lorem ipsum dolor sit amet."
         translatable: "@mug"
     de_de_mug_product_translation:
         slug: "logan-becher"
         locale: "de_DE"
         name: "Logan Becher"
-        description: <paragraph(2)>
         translatable: "@mug"
     t_shirt_translation:
         slug: "logan-t-shirt"
         locale: "en_GB"
         name: "Logan T-Shirt"
-        description: <paragraph(2)>
+        description: "Some description Lorem ipsum dolor sit amet."
         translatable: "@t_shirt"
     en_gb_hat_product_translation:
         slug: "logan-hat"
         locale: "en_GB"
         name: "Logan Hat"
-        description: <paragraph(2)>
+        description: "Some description Lorem ipsum dolor sit amet."
         translatable: "@hat"
     de_de_hat_product_translation:
         slug: "logan-hut"
         locale: "de_DE"
         name: "Logan Hut"
-        description: <paragraph(2)>
+        description: "Einige Beschreibung Lorem ipsum dolor sit amet."
         translatable: "@hat"
 
 Sylius\Component\Core\Model\ProductVariant:
@@ -142,7 +141,7 @@ Sylius\Component\Core\Model\ProductVariant:
         optionValues: ["@hat_size_l", "@hat_color_red"]
         currentLocale: "en_GB"
         currentTranslation: "@large_red_en_gb_hat_translation"
-        translations: ["@large_red_en_gb_hat_translation", "@large_red_de_de_hat_translation"]
+        translations: ["@large_red_en_gb_hat_translation"]
         channelPricings:
             WEB_GB: "@gb_large_red_hat_web_channel_pricing"
             WEB_DE: "@de_large_red_hat_web_channel_pricing"
@@ -204,10 +203,6 @@ Sylius\Component\Product\Model\ProductVariantTranslation:
         locale: "de_DE"
         name: "Klein Rot Logan Hut"
         translatable: "@hat_red_small"
-    large_red_de_de_hat_translation:
-        locale: "de_DE"
-        name: "Großes Rot Logan Hut"
-        translatable: "@hat_red_large"
     small_blue_de_de_hat_translation:
         locale: "de_DE"
         name: "Klein Blau Logan Hut"
@@ -267,7 +262,7 @@ Sylius\Component\Product\Model\ProductOption:
         fallbackLocale: "en_GB"
         code: "HAT_SIZE"
         currentTranslation: "@en_gb_hat_size_translations"
-        translations: ["@en_gb_hat_size_translations", "@de_de_hat_size_translations"]
+        translations: ["@en_gb_hat_size_translations"]
     hat_color:
         currentLocale: "en_GB"
         fallbackLocale: "en_GB"
@@ -284,10 +279,6 @@ Sylius\Component\Product\Model\ProductOptionTranslation:
         locale: "en_GB"
         name: "Color"
         translatable: "@hat_color"
-    de_de_hat_size_translations:
-        locale: "de_DE"
-        name: "Größe"
-        translatable: "@hat_size"
     de_de_hat_color_translations:
         locale: "de_DE"
         name: "Farbe"
@@ -379,7 +370,7 @@ Sylius\Component\Core\Model\Taxon:
         code: "CATEGORY"
         currentLocale: "en_GB"
         currentTranslation: "@en_gb_category_translation"
-        translations: ["@en_gb_category_translation", "@de_de_category_translation"]
+        translations: ["@en_gb_category_translation"]
         children: ["@mug_taxon", "@hat_taxon", "@t_shirt_taxon"]
     mug_taxon:
         code: "MUG"
@@ -429,85 +420,78 @@ Sylius\Component\Taxonomy\Model\TaxonTranslation:
         slug: "categories"
         locale: "en_GB"
         name: "Categories"
-        description: <paragraph(2)>
+        description: "Some description Lorem ipsum dolor sit amet."
         translatable: "@category_taxon"
     en_gb_mug_taxon_translation:
         slug: "mugs"
         locale: "en_GB"
         name: "Mugs"
-        description: <paragraph(2)>
+        description: "Some description Lorem ipsum dolor sit amet."
         translatable: "@mug_taxon"
     en_gb_hat_translation:
         slug: "hats"
         locale: "en_GB"
         name: "Hats"
-        description: <paragraph(2)>
+        description: "Some description Lorem ipsum dolor sit amet."
         translatable: "@hat_taxon"
     en_gb_t_shirt_taxon_translation:
         slug: "t-shirts"
         locale: "en_GB"
         name: "T-Shirts"
-        description: <paragraph(2)>
+        description: "Some description Lorem ipsum dolor sit amet."
         translatable: "@t_shirt_taxon"
     en_gb_men_t_shirt_translation:
         slug: "men-t-shirts"
         locale: "en_GB"
         name: "Men T-Shirts"
-        description: <paragraph(2)>
+        description: "Some description Lorem ipsum dolor sit amet."
         translatable: "@men_t_shirt_taxon"
     en_gb_women_t_shirt_translation:
         slug: "women-t-shirts"
         locale: "en_GB"
         name: "Women T-Shirts"
-        description: <paragraph(2)>
+        description: "Some description Lorem ipsum dolor sit amet."
         translatable: "@women_t_shirt_taxon"
     en_gb_brand_translation:
         slug: "brands"
         locale: "en_GB"
         name: "Brands"
-        description: <paragraph(2)>
+        description: "Some description Lorem ipsum dolor sit amet."
         translatable: "@brand_taxon"
-    de_de_category_translation:
-        slug: "kategorien"
-        locale: "de_DE"
-        name: "Kategorien"
-        description: <paragraph(2)>
-        translatable: "@category_taxon"
     de_de_mug_taxon_translation:
         slug: "tassen"
         locale: "de_DE"
         name: "Tassen"
-        description: <paragraph(2)>
+        description: "Einige Beschreibung Lorem ipsum dolor sit amet."
         translatable: "@mug_taxon"
     de_de_hat_translation:
         slug: "hute"
         locale: "de_DE"
         name: "Hüte"
-        description: <paragraph(2)>
         translatable: "@hat_taxon"
     de_de_t_shirt_taxon_translation:
         slug: "t-shirts"
         locale: "de_DE"
         name: "T-Shirts"
-        description: <paragraph(2)>
+        description: "Einige Beschreibung Lorem ipsum dolor sit amet."
         translatable: "@t_shirt_taxon"
     de_de_men_t_shirt_translation:
         slug: "männer-t-shirts"
         locale: "de_DE"
         name: "Männer T-Shirts"
-        description: <paragraph(2)>
+        description: "Einige Beschreibung Lorem ipsum dolor sit amet."
         translatable: "@men_t_shirt_taxon"
     de_de_women_t_shirt_translation:
         slug: "frauen-t-shirts"
         locale: "de_DE"
         name: "Frauen T-Shirts"
-        description: <paragraph(2)>
+        description: "Einige Beschreibung Lorem ipsum dolor sit amet."
         translatable: "@women_t_shirt_taxon"
     de_de_brand_translation:
         slug: "marken"
         locale: "de_DE"
         name: "Marken"
-        description: <paragraph(2)>
+        description: "Einige Beschreibung Lorem ipsum dolor sit amet."
         translatable: "@brand_taxon"
 
 Sylius\Component\Core\Model\ProductTaxon:

@@ -1,16 +1,16 @@
 [
     {
         "code": "CATEGORY",
-        "name": "Kategorien",
-        "slug": "kategorien",
-        "description": "@string@",
+        "name": "Categories",
+        "slug": "categories",
+        "description": "Some description Lorem ipsum dolor sit amet.",
         "position": 0,
         "children": [
             {
                 "code": "MUG",
                 "name": "Tassen",
                 "slug": "tassen",
-                "description": "@string@",
+                "description": "Einige Beschreibung Lorem ipsum dolor sit amet.",
                 "position": 0,
                 "children": [],
                 "images": []
@@ -19,7 +19,6 @@
                 "code": "HAT",
                 "name": "H\u00fcte",
                 "slug": "hute",
-                "description": "@string@",
                 "position": 1,
                 "children": [],
                 "images": []
@@ -28,14 +27,14 @@
                 "code": "T_SHIRTS",
                 "name": "T-Shirts",
                 "slug": "t-shirts",
-                "description": "@string@",
+                "description": "Einige Beschreibung Lorem ipsum dolor sit amet.",
                 "position": 2,
                 "children": [
                     {
                         "code": "MEN_T_SHIRTS",
                         "name": "M\u00e4nner T-Shirts",
                         "slug": "m\u00e4nner-t-shirts",
-                        "description": "@string@",
+                        "description": "Einige Beschreibung Lorem ipsum dolor sit amet.",
                         "position": 0,
                         "children": [],
                         "images": []
@@ -64,7 +63,7 @@
         "code": "BRAND",
         "name": "Marken",
         "slug": "marken",
-        "description": "@string@",
+        "description": "Einige Beschreibung Lorem ipsum dolor sit amet.",
         "position": 1,
         "children": [],
         "images": []

@@ -17,16 +17,16 @@
                 "taxons": {
                     "MUG": {
                         "code": "CATEGORY",
-                        "name": "Kategorien",
-                        "slug": "kategorien",
-                        "description": "@string@",
+                        "name": "Categories",
+                        "slug": "categories",
+                        "description": "Some description Lorem ipsum dolor sit amet.",
                         "position": 0,
                         "children": [
                             {
                                 "code": "MUG",
                                 "name": "Tassen",
                                 "slug": "tassen",
-                                "description": "@string@",
+                                "description": "Einige Beschreibung Lorem ipsum dolor sit amet.",
                                 "position": 0,
                                 "children": [],
                                 "images": []
@@ -38,7 +38,7 @@
                         "code": "BRAND",
                         "name": "Marken",
                         "slug": "marken",
-                        "description": "@string@",
+                        "description": "Einige Beschreibung Lorem ipsum dolor sit amet.",
                         "position": 1,
                         "children": [],
                         "images": []

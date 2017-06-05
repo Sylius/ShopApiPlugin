@@ -6,16 +6,15 @@
     "taxons": {
         "HAT": {
             "code": "CATEGORY",
-            "name": "Kategorien",
-            "slug": "kategorien",
-            "description": "@string@",
+            "name": "Categories",
+            "slug": "categories",
+            "description": "Some description Lorem ipsum dolor sit amet.",
             "position": 0,
             "children": [
                 {
                     "code": "HAT",
                     "name": "H\u00fcte",
                     "slug": "hute",
-                    "description": "@string@",
                     "position": 1,
                     "children": [],
                     "images": []
@@ -27,7 +26,7 @@
             "code": "BRAND",
             "name": "Marken",
             "slug": "marken",
-            "description": "@string@",
+            "description": "Einige Beschreibung Lorem ipsum dolor sit amet.",
             "position": 1,
             "children": [],
             "images": []
@@ -42,7 +41,7 @@
                 "HAT_COLOR_RED"
             ],
             "nameAxis": {
-                "HAT_SIZE_S": "Gr\u00f6\u00dfe S",
+                "HAT_SIZE_S": "Size S",
                 "HAT_COLOR_RED": "Farbe Rot"
             },
             "price": {
@@ -53,13 +52,13 @@
         },
         "LARGE_RED_LOGAN_HAT_CODE": {
             "code": "LARGE_RED_LOGAN_HAT_CODE",
-            "name": "Gro\u00dfes Rot Logan Hut",
+            "name": "Large Red Logan Hat",
             "axis": [
                 "HAT_SIZE_L",
                 "HAT_COLOR_RED"
             ],
             "nameAxis": {
-                "HAT_SIZE_L": "Gr\u00f6\u00dfe L",
+                "HAT_SIZE_L": "Size L",
                 "HAT_COLOR_RED": "Farbe Rot"
             },
             "price": {
@@ -76,7 +75,7 @@
                 "HAT_COLOR_BLUE"
             ],
             "nameAxis": {
-                "HAT_SIZE_S": "Gr\u00f6\u00dfe S",
+                "HAT_SIZE_S": "Size S",
                 "HAT_COLOR_BLUE": "Farbe Blau"
             },
             "price": {
@@ -93,7 +92,7 @@
                 "HAT_COLOR_BLUE"
             ],
             "nameAxis": {
-                "HAT_SIZE_L": "Gr\u00f6\u00dfe L",
+                "HAT_SIZE_L": "Size L",
                 "HAT_COLOR_BLUE": "Farbe Blau"
             },
             "price": {
@@ -114,16 +113,16 @@
                 "taxons": {
                     "MUG": {
                         "code": "CATEGORY",
-                        "name": "Kategorien",
-                        "slug": "kategorien",
-                        "description": "@string@",
+                        "name": "Categories",
+                        "slug": "categories",
+                        "description": "Some description Lorem ipsum dolor sit amet.",
                         "position": 0,
                         "children": [
                             {
                                 "code": "MUG",
                                 "name": "Tassen",
                                 "slug": "tassen",
-                                "description": "@string@",
+                                "description": "Einige Beschreibung Lorem ipsum dolor sit amet.",
                                 "position": 0,
                                 "children": [],
                                 "images": []
@@ -135,7 +134,7 @@
                         "code": "BRAND",
                         "name": "Marken",
                         "slug": "marken",
-                        "description": "@string@",
+                        "description": "Einige Beschreibung Lorem ipsum dolor sit amet.",
                         "position": 1,
                         "children": [],
                         "images": []
@@ -187,16 +186,16 @@
                 "taxons": {
                     "T_SHIRTS": {
                         "code": "CATEGORY",
-                        "name": "Kategorien",
-                        "slug": "kategorien",
-                        "description": "@string@",
+                        "name": "Categories",
+                        "slug": "categories",
+                        "description": "Some description Lorem ipsum dolor sit amet.",
                         "position": 0,
                         "children": [
                             {
                                 "code": "T_SHIRTS",
                                 "name": "T-Shirts",
                                 "slug": "t-shirts",
-                                "description": "@string@",
+                                "description": "Einige Beschreibung Lorem ipsum dolor sit amet.",
                                 "position": 2,
                                 "children": [],
                                 "images": [
@@ -213,7 +212,7 @@
                         "code": "BRAND",
                         "name": "Marken",
                         "slug": "marken",
-                        "description": "@string@",
+                        "description": "Einige Beschreibung Lorem ipsum dolor sit amet.",
                         "position": 1,
                         "children": [],
                         "images": []

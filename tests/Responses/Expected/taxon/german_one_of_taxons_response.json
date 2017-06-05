@@ -2,14 +2,14 @@
     "code": "T_SHIRTS",
     "name": "T-Shirts",
     "slug": "t-shirts",
-    "description": "@string@",
+    "description": "Einige Beschreibung Lorem ipsum dolor sit amet.",
     "position": 2,
     "children": [
         {
             "code": "MEN_T_SHIRTS",
             "name": "M\u00e4nner T-Shirts",
             "slug": "m\u00e4nner-t-shirts",
-            "description": "@string@",
+            "description": "Einige Beschreibung Lorem ipsum dolor sit amet.",
             "position": 0,
             "children": [],
             "images": []
