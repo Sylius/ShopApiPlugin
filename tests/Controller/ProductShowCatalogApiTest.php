@@ -20,12 +20,17 @@ final class ProductShowCatalogApiTest extends JsonApiTestCase
         $this->assertResponse($response, 'product/product_list_page', Response::HTTP_OK);
     }
 
+    /**
+     * @test
+     */
     public function it_shows_paginated_products_from_some_taxon_in_different_language()
     {
-        $this->client->request('GET', '/shop-api/taxons/x-man/products/?channel=WEB_GB&language=de_DE', [], [], ['ACCEPT' => 'application/json']);
+        $this->loadFixturesFromFile('shop.yml');
+
+        $this->client->request('GET', '/shop-api/taxons/marken/products/?channel=WEB_GB&locale=de_DE', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
-        $this->assertResponse($response, 'product/product_list_page', Response::HTTP_OK);
+        $this->assertResponse($response, 'product/german_product_list_page', Response::HTTP_OK);
     }
 
     /**

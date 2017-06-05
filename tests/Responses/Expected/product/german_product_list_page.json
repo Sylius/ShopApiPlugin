@@ -1,0 +1,372 @@
+{
+    "page": 1,
+    "limit": 10,
+    "pages": 1,
+    "total": 2,
+    "_links": {
+        "self": "\/shop-api\/taxons\/marken\/products\/?channel=WEB_GB&locale=de_DE&page=1&limit=10",
+        "first": "\/shop-api\/taxons\/marken\/products\/?channel=WEB_GB&locale=de_DE&page=1&limit=10",
+        "last": "\/shop-api\/taxons\/marken\/products\/?channel=WEB_GB&locale=de_DE&page=1&limit=10",
+        "next": "\/shop-api\/taxons\/marken\/products\/?channel=WEB_GB&locale=de_DE&page=1&limit=10"
+    },
+    "items": [
+        {
+            "code": "LOGAN_MUG_CODE",
+            "name": "Logan Becher",
+            "slug": "logan-becher",
+            "averageRating": 0,
+            "taxons": {
+                "MUG": {
+                    "code": "CATEGORY",
+                    "name": "Categories",
+                    "slug": "categories",
+                    "description": "Some description Lorem ipsum dolor sit amet.",
+                    "position": 0,
+                    "children": [
+                        {
+                            "code": "MUG",
+                            "name": "Tassen",
+                            "slug": "tassen",
+                            "description": "Einige Beschreibung Lorem ipsum dolor sit amet.",
+                            "position": 0,
+                            "children": [],
+                            "images": []
+                        }
+                    ],
+                    "images": []
+                },
+                "BRAND": {
+                    "code": "BRAND",
+                    "name": "Marken",
+                    "slug": "marken",
+                    "description": "Einige Beschreibung Lorem ipsum dolor sit amet.",
+                    "position": 1,
+                    "children": [],
+                    "images": []
+                }
+            },
+            "variants": {
+                "LOGAN_MUG_CODE": {
+                    "code": "LOGAN_MUG_CODE",
+                    "name": "Logan Becher",
+                    "axis": [],
+                    "nameAxis": {},
+                    "price": {
+                        "current": 1999
+                    },
+                    "images": [
+                        {
+                            "code": "thumbnail",
+                            "path": "\/uo\/mug.jpg"
+                        }
+                    ],
+                    "appliedPromotions": []
+                }
+            },
+            "attributes": [
+                {
+                    "code": "MUG_MATERIAL_CODE",
+                    "name": "Mug material",
+                    "value": "Holz"
+                }
+            ],
+            "associations": [],
+            "images": [
+                {
+                    "code": "thumbnail",
+                    "path": "\/uo\/mug.jpg"
+                }
+            ],
+            "_links": {
+                "self": {
+                    "href": "\/shop-api\/products\/logan-becher"
+                }
+            }
+        },
+        {
+            "code": "LOGAN_HAT_CODE",
+            "name": "Logan Hut",
+            "slug": "logan-hut",
+            "averageRating": 0,
+            "taxons": {
+                "HAT": {
+                    "code": "CATEGORY",
+                    "name": "Categories",
+                    "slug": "categories",
+                    "description": "Some description Lorem ipsum dolor sit amet.",
+                    "position": 0,
+                    "children": [
+                        {
+                            "code": "HAT",
+                            "name": "H\u00fcte",
+                            "slug": "hute",
+                            "position": 1,
+                            "children": [],
+                            "images": []
+                        }
+                    ],
+                    "images": []
+                },
+                "BRAND": {
+                    "code": "BRAND",
+                    "name": "Marken",
+                    "slug": "marken",
+                    "description": "Einige Beschreibung Lorem ipsum dolor sit amet.",
+                    "position": 1,
+                    "children": [],
+                    "images": []
+                }
+            },
+            "variants": {
+                "SMALL_RED_LOGAN_HAT_CODE": {
+                    "code": "SMALL_RED_LOGAN_HAT_CODE",
+                    "name": "Klein Rot Logan Hut",
+                    "axis": [
+                        "HAT_SIZE_S",
+                        "HAT_COLOR_RED"
+                    ],
+                    "nameAxis": {
+                        "HAT_SIZE_S": "Size S",
+                        "HAT_COLOR_RED": "Farbe Rot"
+                    },
+                    "price": {
+                        "current": 500
+                    },
+                    "images": [],
+                    "appliedPromotions": []
+                },
+                "LARGE_RED_LOGAN_HAT_CODE": {
+                    "code": "LARGE_RED_LOGAN_HAT_CODE",
+                    "name": "Large Red Logan Hat",
+                    "axis": [
+                        "HAT_SIZE_L",
+                        "HAT_COLOR_RED"
+                    ],
+                    "nameAxis": {
+                        "HAT_SIZE_L": "Size L",
+                        "HAT_COLOR_RED": "Farbe Rot"
+                    },
+                    "price": {
+                        "current": 999
+                    },
+                    "images": [],
+                    "appliedPromotions": []
+                },
+                "SMALL_BLUE_LOGAN_HAT_CODE": {
+                    "code": "SMALL_BLUE_LOGAN_HAT_CODE",
+                    "name": "Klein Blau Logan Hut",
+                    "axis": [
+                        "HAT_SIZE_S",
+                        "HAT_COLOR_BLUE"
+                    ],
+                    "nameAxis": {
+                        "HAT_SIZE_S": "Size S",
+                        "HAT_COLOR_BLUE": "Farbe Blau"
+                    },
+                    "price": {
+                        "current": 1500
+                    },
+                    "images": [],
+                    "appliedPromotions": []
+                },
+                "LARGE_BLUE_LOGAN_HAT_CODE": {
+                    "code": "LARGE_BLUE_LOGAN_HAT_CODE",
+                    "name": "Gro\u00dfes Blau Logan Hut",
+                    "axis": [
+                        "HAT_SIZE_L",
+                        "HAT_COLOR_BLUE"
+                    ],
+                    "nameAxis": {
+                        "HAT_SIZE_L": "Size L",
+                        "HAT_COLOR_BLUE": "Farbe Blau"
+                    },
+                    "price": {
+                        "current": 2599
+                    },
+                    "images": [],
+                    "appliedPromotions": []
+                }
+            },
+            "attributes": [],
+            "associations": {
+                "CROSS_SELL_ASSOCIATION_TYPE": [
+                    {
+                        "code": "LOGAN_MUG_CODE",
+                        "name": "Logan Becher",
+                        "slug": "logan-becher",
+                        "averageRating": 0,
+                        "taxons": {
+                            "MUG": {
+                                "code": "CATEGORY",
+                                "name": "Categories",
+                                "slug": "categories",
+                                "description": "Some description Lorem ipsum dolor sit amet.",
+                                "position": 0,
+                                "children": [
+                                    {
+                                        "code": "MUG",
+                                        "name": "Tassen",
+                                        "slug": "tassen",
+                                        "description": "Einige Beschreibung Lorem ipsum dolor sit amet.",
+                                        "position": 0,
+                                        "children": [],
+                                        "images": []
+                                    }
+                                ],
+                                "images": []
+                            },
+                            "BRAND": {
+                                "code": "BRAND",
+                                "name": "Marken",
+                                "slug": "marken",
+                                "description": "Einige Beschreibung Lorem ipsum dolor sit amet.",
+                                "position": 1,
+                                "children": [],
+                                "images": []
+                            }
+                        },
+                        "variants": {
+                            "LOGAN_MUG_CODE": {
+                                "code": "LOGAN_MUG_CODE",
+                                "name": "Logan Becher",
+                                "axis": [],
+                                "nameAxis": {},
+                                "price": {
+                                    "current": 1999
+                                },
+                                "images": [
+                                    {
+                                        "code": "thumbnail",
+                                        "path": "\/uo\/mug.jpg"
+                                    }
+                                ],
+                                "appliedPromotions": []
+                            }
+                        },
+                        "attributes": [
+                            {
+                                "code": "MUG_MATERIAL_CODE",
+                                "name": "Mug material",
+                                "value": "Holz"
+                            }
+                        ],
+                        "associations": [],
+                        "images": [
+                            {
+                                "code": "thumbnail",
+                                "path": "\/uo\/mug.jpg"
+                            }
+                        ],
+                        "_links": {
+                            "self": {
+                                "href": "\/shop-api\/products\/logan-becher"
+                            }
+                        }
+                    },
+                    {
+                        "code": "LOGAN_T_SHIRT_CODE",
+                        "name": "Logan T-Shirt",
+                        "slug": "logan-t-shirt",
+                        "averageRating": 0,
+                        "taxons": {
+                            "T_SHIRTS": {
+                                "code": "CATEGORY",
+                                "name": "Categories",
+                                "slug": "categories",
+                                "description": "Some description Lorem ipsum dolor sit amet.",
+                                "position": 0,
+                                "children": [
+                                    {
+                                        "code": "T_SHIRTS",
+                                        "name": "T-Shirts",
+                                        "slug": "t-shirts",
+                                        "description": "Einige Beschreibung Lorem ipsum dolor sit amet.",
+                                        "position": 2,
+                                        "children": [],
+                                        "images": [
+                                            {
+                                                "code": "thumbnail",
+                                                "path": "\/uo\/t-shirt.jpg"
+                                            }
+                                        ]
+                                    }
+                                ],
+                                "images": []
+                            },
+                            "BRAND": {
+                                "code": "BRAND",
+                                "name": "Marken",
+                                "slug": "marken",
+                                "description": "Einige Beschreibung Lorem ipsum dolor sit amet.",
+                                "position": 1,
+                                "children": [],
+                                "images": []
+                            }
+                        },
+                        "variants": {
+                            "SMALL_LOGAN_T_SHIRT_CODE": {
+                                "code": "SMALL_LOGAN_T_SHIRT_CODE",
+                                "name": "Small Logan T-Shirt",
+                                "axis": [],
+                                "nameAxis": {},
+                                "price": {
+                                    "current": 1999
+                                },
+                                "images": [
+                                    {
+                                        "code": "thumbnail",
+                                        "path": "\/uo\/samll-tshirt.jpg"
+                                    }
+                                ],
+                                "appliedPromotions": []
+                            },
+                            "LARGE_LOGAN_T_SHIRT_CODE": {
+                                "code": "LARGE_LOGAN_T_SHIRT_CODE",
+                                "name": "Large Logan T-Shirt",
+                                "axis": [],
+                                "nameAxis": {},
+                                "price": {
+                                    "current": 2999
+                                },
+                                "images": [
+                                    {
+                                        "code": "thumbnail",
+                                        "path": "\/uo\/large-tshirt.jpg"
+                                    }
+                                ],
+                                "appliedPromotions": []
+                            }
+                        },
+                        "attributes": [],
+                        "associations": [],
+                        "images": [
+                            {
+                                "code": "thumbnail",
+                                "path": "\/uo\/tshirt.jpg"
+                            },
+                            {
+                                "code": "thumbnail",
+                                "path": "\/uo\/samll-tshirt.jpg"
+                            },
+                            {
+                                "code": "thumbnail",
+                                "path": "\/uo\/large-tshirt.jpg"
+                            }
+                        ],
+                        "_links": {
+                            "self": {
+                                "href": "\/shop-api\/products\/logan-t-shirt"
+                            }
+                        }
+                    }
+                ]
+            },
+            "images": [],
+            "_links": {
+                "self": {
+                    "href": "\/shop-api\/products\/logan-hut"
+                }
+            }
+        }
+    ]
+}
