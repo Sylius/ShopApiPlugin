@@ -19,14 +19,14 @@
                         "code": "CATEGORY",
                         "name": "Categories",
                         "slug": "categories",
-                        "description": "@string@",
+                        "description": "Some description Lorem ipsum dolor sit amet.",
                         "position": 0,
                         "children": [
                             {
                                 "code": "MUG",
                                 "name": "Mugs",
                                 "slug": "mugs",
-                                "description": "@string@",
+                                "description": "Some description Lorem ipsum dolor sit amet.",
                                 "position": 0,
                                 "children": [],
                                 "images": []
@@ -38,7 +38,7 @@
                         "code": "BRAND",
                         "name": "Brands",
                         "slug": "brands",
-                        "description": "@string@",
+                        "description": "Some description Lorem ipsum dolor sit amet.",
                         "position": 1,
                         "children": [],
                         "images": []

@@ -17,16 +17,15 @@
                 "taxons": {
                     "HAT": {
                         "code": "CATEGORY",
-                        "name": "Kategorien",
-                        "slug": "kategorien",
-                        "description": "@string@",
+                        "name": "Categories",
+                        "slug": "categories",
+                        "description": "Some description Lorem ipsum dolor sit amet.",
                         "position": 0,
                         "children": [
                             {
                                 "code": "HAT",
                                 "name": "H\u00fcte",
                                 "slug": "hute",
-                                "description": "@string@",
                                 "position": 1,
                                 "children": [],
                                 "images": []
@@ -38,7 +37,7 @@
                         "code": "BRAND",
                         "name": "Marken",
                         "slug": "marken",
-                        "description": "@string@",
+                        "description": "Einige Beschreibung Lorem ipsum dolor sit amet.",
                         "position": 1,
                         "children": [],
                         "images": []
@@ -53,7 +52,7 @@
                             "HAT_COLOR_RED"
                         ],
                         "nameAxis": {
-                            "HAT_SIZE_S": "Gr\u00f6\u00dfe S",
+                            "HAT_SIZE_S": "Size S",
                             "HAT_COLOR_RED": "Farbe Rot"
                         },
                         "price": {

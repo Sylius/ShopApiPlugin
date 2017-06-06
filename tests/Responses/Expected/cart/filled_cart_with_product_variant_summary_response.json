@@ -19,14 +19,14 @@
                         "code": "CATEGORY",
                         "name": "Categories",
                         "slug": "categories",
-                        "description": "@string@",
+                        "description": "Some description Lorem ipsum dolor sit amet.",
                         "position": 0,
                         "children": [
                             {
                                 "code": "T_SHIRTS",
                                 "name": "T-Shirts",
                                 "slug": "t-shirts",
-                                "description": "@string@",
+                                "description": "Some description Lorem ipsum dolor sit amet.",
                                 "position": 2,
                                 "children": [],
                                 "images": [
@@ -43,7 +43,7 @@
                         "code": "BRAND",
                         "name": "Brands",
                         "slug": "brands",
-                        "description": "@string@",
+                        "description": "Some description Lorem ipsum dolor sit amet.",
                         "position": 1,
                         "children": [],
                         "images": []
@@ -99,14 +99,14 @@
                         "code": "CATEGORY",
                         "name": "Categories",
                         "slug": "categories",
-                        "description": "@string@",
+                        "description": "Some description Lorem ipsum dolor sit amet.",
                         "position": 0,
                         "children": [
                             {
                                 "code": "HAT",
                                 "name": "Hats",
                                 "slug": "hats",
-                                "description": "@string@",
+                                "description": "Some description Lorem ipsum dolor sit amet.",
                                 "position": 1,
                                 "children": [],
                                 "images": []
@@ -118,7 +118,7 @@
                         "code": "BRAND",
                         "name": "Brands",
                         "slug": "brands",
-                        "description": "@string@",
+                        "description": "Some description Lorem ipsum dolor sit amet.",
                         "position": 1,
                         "children": [],
                         "images": []
