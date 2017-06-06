@@ -1,0 +1,469 @@
+swagger: "2.0"
+info:
+  description: "Sylius Shop API documentation"
+  version: "1.0.0"
+  title: "Sylius Shop API"
+  contact:
+    email: "lukasz.chrusciel@sylius.com"
+  license:
+    name: "MIT"
+    url: "https://opensource.org/licenses/MIT"
+host: "demo.sylius.org"
+basePath: "/shop-api"
+tags:
+- name: "cart"
+  description: "All actions related to cart management."
+  externalDocs:
+    description: "Find out more"
+    url: "http://docs.sylius.org/en/latest/book/orders/index.html"
+schemes:
+- "https"
+paths:
+  /cart/{token}:
+    parameters:
+    - name: "token"
+      in: "path"
+      description: "Cart identifier."
+      required: true
+      type: "string"
+    post:
+      tags:
+      - "cart"
+      summary: "Pickup your cart from store"
+      description: "This endpoint will allow you to assign a new cart to provided token. We recommend to use uuid as a token to avoid duplication. If any of previous cart or order will have same token value an exception will be thrown."
+      operationId: "cartPickUp"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "content"
+        description: "Contains an information about channel which should be associated with newly created cart"
+        required: true
+        schema:
+          $ref: "#/definitions/PickupCartRequest"
+      responses:
+        201:
+          description: "Cart has been picked up and assigned to given token"
+        400:
+          description: "Invalid input"
+          schema:
+            $ref: "#/definitions/GeneralError"
+    get:
+      tags:
+      - "cart"
+      summary: "Show summarized cart."
+      description: "This endpoint show you current calculated state of cart."
+      operationId: "cartSummarize"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "Current state of cart, with calculated prices and related items."
+          schema:
+            $ref: "#/definitions/Cart"
+        400:
+          description: "Invalid input (E.g. token has not been found)"
+          schema:
+            $ref: "#/definitions/GeneralError"
+    delete:
+      tags:
+      - "cart"
+      summary: "Drop your cart."
+      description: "This endpoint will remove cart and all of related cart items."
+      operationId: "cartDrop"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        204:
+          description: "Cart has been dropped."
+        400:
+          description: "Invalid input (E.g. token has not been found)"
+          schema:
+            $ref: "#/definitions/GeneralError"
+  /cart/{token}/items:
+    parameters:
+    - name: "token"
+      in: "path"
+      description: "Cart identifier."
+      required: true
+      type: "string"
+    post:
+      tags:
+      - "cart"
+      summary: "Add an item to your cart."
+      description: "This endpoint will allow you put a new item to your cart."
+      operationId: "cartPutItem"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "content"
+        description: "Description of an item. The smallest required amount of data is a product code and quantity for simple product. Configurable products will require additional `variant_code` or `options` but never both."
+        required: true
+        schema:
+          $ref: "#/definitions/PutItemToCartRequest"
+      responses:
+        201:
+          description: "Item has been added to the cart"
+        400:
+          description: "Invalid input, validation failed."
+          schema:
+            $ref: "#/definitions/GeneralError"
+  /cart/{token}/items/{identifier}:
+    parameters:
+    - name: "token"
+      in: "path"
+      description: "Cart identifier."
+      required: true
+      type: "string"
+    - name: "identifier"
+      in: "path"
+      description: "Identifier of specific item. Can be found on cart summarizon."
+      required: true
+      type: "string"
+    put:
+      tags:
+      - "cart"
+      summary: "Change quantity of cart item."
+      operationId: "cartPutItem"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "content"
+        required: true
+        schema:
+          $ref: "#/definitions/ChangeItemQuantityRequest"
+      responses:
+        204:
+          description: "Quantity has been changed."
+        400:
+          description: "Invalid input, validation failed."
+          schema:
+            $ref: "#/definitions/GeneralError"
+    delete:
+      tags:
+      - "cart"
+      summary: "Remove cart item."
+      description: "This endpoint will remove one item from your cart"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        204:
+          description: "Cart item has been removed."
+        400:
+          description: "Invalid input (E.g. token has not been found)"
+          schema:
+            $ref: "#/definitions/GeneralError"
+  /cart/{token}/coupon:
+    parameters:
+    - name: "token"
+      in: "path"
+      description: "Cart identifier."
+      required: true
+      type: "string"
+    put:
+      tags:
+      - "cart"
+      summary: "Add a promotion coupon code to the cart."
+      description: "This endpoint will allow you to add a promotion coupon code to the cart and receive the discount."
+      operationId: "cartAddCoupon"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "content"
+        required: true
+        schema:
+          $ref: "#/definitions/AddCouponRequest"
+      responses:
+        204:
+          description: "Coupon has been assigned to the cart."
+        400:
+          description: "Invalid input, validation failed."
+          schema:
+            $ref: "#/definitions/GeneralError"
+definitions:
+  PickupCartRequest:
+    type: "object"
+    description: "Body of request with a channel code."
+    required:
+    - "channel"
+    properties:
+      channel:
+        type: "string"
+        example: "WEB_GB"
+  PutItemToCartRequest:
+    type: "object"
+    description: "Body of request used to put item to the cart."
+    required:
+    - "productCode"
+    - "quantity"
+    properties:
+      productCode:
+        type: "string"
+        example: "LOGAN_HAT_CODE"
+      quantity:
+        type: "integer"
+        minimum: 1
+        example: 3
+      variantCode:
+        type: "string"
+        example: "SMALL_LOGAN_T_SHIRT_CODE"
+      options:
+        type: "object"
+        description: "Keys reference to the code of an option and values to the code of option value."
+        additionalProperties:
+          type: "string"
+          example: "HAT_SIZE_S"
+  ChangeItemQuantityRequest:
+    type: "object"
+    description: "Body of request used to change quantity of an item."
+    required:
+    - "quantity"
+    properties:
+      quantity:
+        type: "integer"
+        example: 2
+  AddCouponRequest:
+    type: "object"
+    description: "Body of request used to add promotion coupon code to cart."
+    required:
+    - "coupon"
+    properties:
+      coupon:
+        type: "string"
+        example: "BANANAS"
+  Cart:
+    type: "object"
+    description: "Serialized cart response."
+    properties:
+      tokenValue:
+        type: "string"
+        example: "SDAOSLEFNWU35H3QLI5325"
+      channel:
+        type: "string"
+        example: "WEB_GB"
+        externalDocs:
+          description: "Find out more about channels in Sylius documentation."
+          url: "http://docs.sylius.org/en/latest/book/configuration/channels.html"
+      currency:
+        description: "Code of cart currency according to ISO 4217. This value is inheriteted from channel"
+        type: "string"
+        example: "GBP"
+      locale:
+        description: "Code of cart locale. This value is inheriteted from channel"
+        type: "string"
+        example: "en_GB"
+      checkoutState:
+        description: "Current state of a checkout."
+        type: "string"
+        default: "cart"
+        externalDocs:
+          description: "Find out more about checkout states in Sylius documentation."
+          url: "http://docs.sylius.org/en/latest/book/orders/checkout.html#checkout-state-machine"
+        enum:
+        - "cart"
+        - "addressed"
+        - "shipping_selected"
+        - "payment_selected"
+        - "completed"
+      items:
+        type: "array"
+        items:
+          $ref: '#/definitions/Item'
+      totals:
+        type: "object"
+        properties:
+          total:
+            description: "Total cost of the cart. Sum of the all of below properties"
+            type: "integer"
+            default: 0
+          items:
+            description: "Total cost of the cart items."
+            type: "integer"
+            default: 0
+          taxes:
+            description: "Total amount of cart taxes."
+            type: "integer"
+            default: 0
+          shipping:
+            description: "Total cost of the cart shipment."
+            type: "integer"
+            default: 0
+          promotion:
+            description: "Total amount of cart promotions."
+            type: "integer"
+            default: 0
+      payments:
+        type: "array"
+      shipments:
+        type: "array"
+  Item:
+    type: "object"
+    description: "Cart item with calculated prices, quantity and related variant."
+    properties:
+      id:
+        type: "integer"
+        example: 1
+      quantity:
+        type: "integer"
+        example: 2
+      total:
+        type: "object"
+        example: 1000
+      product:
+        $ref: '#/definitions/Product'
+  Product:
+    type: "object"
+    description: "Cart item with calculated prices, quantity and related variant."
+    properties:
+      code:
+        type: "string"
+        example: "LOGAN_MUG_CODE"
+      name:
+        type: "string"
+        example: "Logan Mug"
+      slug:
+        type: "string"
+        example: "logan-mug"
+      averageRating:
+        type: "integer"
+        example: 4.5
+      taxons:
+        type: "array"
+        items:
+          $ref: '#/definitions/Taxon'
+      variants:
+        description: "Keys reference to code of variant."
+        type: "object"
+        additionalProperties:
+          type: "array"
+          items:
+            $ref: '#/definitions/Variant'
+      attributes:
+        type: "array"
+        items:
+          $ref: '#/definitions/Attribute'
+      associations:
+        description: "Keys reference to code of association."
+        type: "object"
+        additionalProperties:
+          type: "array"
+          items:
+            $ref: '#/definitions/Product'
+      images:
+        type: "array"
+        items:
+          $ref: '#/definitions/Image'
+  Image:
+    type: "object"
+    properties:
+      code:
+        type: "string"
+        example: "thumbnail"
+      path:
+        type: "string"
+        example: "\/uo\/mug.jpg"
+  Variant:
+    type: "object"
+    description: "If the product is simple it will have only one variant with the same code and name. Otherwise, product can have list of variants with different fields."
+    properties:
+      code:
+        type: "string"
+        example: "LOGAN_MUG_CODE"
+      name:
+        type: "string"
+        example: "Logan Mug"
+      axis:
+          type: "array"
+          description: "List of codes of associated product options."
+          items:
+            type: "string"
+            example: "HAT_SIZE_S"
+      nameAxis:
+        description: "Map of keys from previous field to translated values of given variant."
+        type: "object"
+        additionalProperties:
+          type: "string"
+      price:
+        type: "object"
+        properties:
+          total:
+            description: "Calculated price for given channel. Price is stored as an integer, so by default it should be devided by 100."
+            type: "integer"
+            default: 1000
+      images:
+        type: "array"
+        items:
+          $ref: '#/definitions/Image'
+  Attribute:
+    type: "object"
+    properties:
+      code:
+        type: "string"
+        description: "Code of an attribute"
+        example: "MUG_MATERIAL_CODE"
+      name:
+        type: "string"
+        description: "Name of an attribute"
+        example: "Mug material"
+      value:
+        type: "string"
+        description: "Value of an attribute value"
+        example: "Wood"
+  Taxon:
+    type: "object"
+    properties:
+      code:
+        type: "string"
+        example: "CATEGORIES_CODE"
+      name:
+        type: "string"
+        example: "Categories"
+      slug:
+        type: "string"
+        example: "categories"
+      description:
+        type: "string"
+        example: "General category for all products."
+      children:
+        type: "array"
+        description: "This array will contain only one or none child if taxon is presented as a part of product. Based on this tree one can build a breadcrumb on a frontend. Otherwise (e.g. presenting a tree of all taxons) children will contain all children of given taxon."
+        items:
+          $ref: '#/definitions/Taxon'
+      images:
+        type: "array"
+        items:
+          $ref: '#/definitions/Image'
+  GeneralError:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        example: 400
+      message:
+        type: "string"
+        example: "Validation failed"
+      errors:
+        description: "Keys reference to fields send"
+        type: "object"
+        additionalProperties:
+          type: "array"
+          items:
+            type: "string"
+            example: "sylius.shop_api.additionalProp.not_null"
