@@ -16,6 +16,21 @@ tags:
   externalDocs:
     description: "Find out more"
     url: "http://docs.sylius.org/en/latest/book/orders/index.html"
+- name: "product"
+  description: "Show product catalog and add product reviews."
+  externalDocs:
+    description: "Find out more"
+    url: "http://docs.sylius.org/en/latest/book/products/index.html"
+- name: "taxon"
+  description: "Show taxon tree"
+  externalDocs:
+    description: "Find out more"
+    url: "http://docs.sylius.org/en/latest/book/products/taxons.html"
+- name: "checkout"
+  description: "All actions related to checkout fulfillment."
+  externalDocs:
+    description: "Find out more"
+    url: "http://docs.sylius.org/en/latest/book/orders/checkout.html"
 schemes:
 - "https"
 paths:
@@ -197,6 +212,63 @@ paths:
           description: "Invalid input, validation failed."
           schema:
             $ref: "#/definitions/GeneralError"
+  /taxons:
+    get:
+      tags:
+      - "taxons"
+      summary: "Show taxon tree."
+      description: "This endpoint will return array of all available taxon roots with all of it children."
+      operationId: "taxonTree"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "locale"
+        in: "query"
+        description: "Locale in which taxons should be shown."
+        required: false
+        type: "string"
+        example: "en_GB"
+      responses:
+        200:
+          description: "Array of all available taxons."
+          schema:
+            type: "array"
+            items:
+              type: "object"
+              $ref: "#/definitions/Taxon"
+  /taxons/{slug}:
+    get:
+      tags:
+      - "taxons"
+      summary: "Show taxon with given slug."
+      description: "This endpoint will return taxon with given name and all its children."
+      operationId: "oneTaxon"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "slug"
+        in: "path"
+        description: "Slug of expected taxon."
+        required: true
+        type: "string"
+        example: "categories"
+      - name: "locale"
+        in: "query"
+        description: "Locale in which taxons should be shown."
+        required: false
+        type: "string"
+        example: "en_GB"
+      responses:
+        200:
+          description: "Array of all available taxons."
+          schema:
+            type: "object"
+            $ref: "#/definitions/Taxon"
+
 definitions:
   PickupCartRequest:
     type: "object"
