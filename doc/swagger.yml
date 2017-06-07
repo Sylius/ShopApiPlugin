@@ -212,6 +212,84 @@ paths:
           description: "Invalid input, validation failed."
           schema:
             $ref: "#/definitions/GeneralError"
+  /products:
+    get:
+      tags:
+      - "products"
+      summary: "Show product tree."
+      description: "This endpoint will return paginated list of products."
+      operationId: "productCatalog"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "channel"
+        in: "query"
+        description: "Channel from which product should be gathered."
+        required: true
+        type: "string"
+        example: "en_GB"
+      - name: "locale"
+        in: "query"
+        description: "Locale in which products should be shown."
+        required: false
+        type: "string"
+        example: "en_GB"
+      - name: "limit"
+        in: "query"
+        description: "Number of expected products per page."
+        required: false
+        type: "integer"
+        example: 5
+      - name: "page"
+        in: "query"
+        description: "Page number."
+        required: false
+        type: "integer"
+        example: 2
+      responses:
+        200:
+          description: "Paginated product list."
+          schema:
+            type: "object"
+            $ref: "#/definitions/ProductPage"
+  /products/{slug}:
+    get:
+      tags:
+      - "products"
+      summary: "Show product with given slug."
+      description: "This endpoint will return product with given slug."
+      operationId: "productDetails"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "slug"
+        in: "path"
+        description: "Slug of expected product."
+        required: true
+        type: "string"
+        example: "categories"
+      - name: "channel"
+        in: "query"
+        description: "Channel from which product should be gathered."
+        required: true
+        type: "string"
+        example: "en_GB"
+      - name: "locale"
+        in: "query"
+        description: "Locale in which products should be shown."
+        required: false
+        type: "string"
+        example: "en_GB"
+      responses:
+        200:
+          description: "Array of all available products."
+          schema:
+            type: "object"
+            $ref: "#/definitions/Product"
   /taxons:
     get:
       tags:
@@ -244,7 +322,7 @@ paths:
       - "taxons"
       summary: "Show taxon with given slug."
       description: "This endpoint will return taxon with given name and all its children."
-      operationId: "oneTaxon"
+      operationId: "taxonDetails"
       consumes:
       - "application/json"
       produces:
@@ -264,7 +342,7 @@ paths:
         example: "en_GB"
       responses:
         200:
-          description: "Array of all available taxons."
+          description: "Requested taxon with children."
           schema:
             type: "object"
             $ref: "#/definitions/Taxon"
@@ -522,6 +600,35 @@ definitions:
         type: "array"
         items:
           $ref: '#/definitions/Image'
+  Page:
+    type: "object"
+    description: "Generic page object."
+    properties:
+      page:
+        description: "Current page number."
+        type: "integer"
+        example: 1
+      limit:
+        description: "Number of items per page."
+        type: "integer"
+        example: 10
+      pages:
+        description: "Number of available pages for given limit."
+        type: "object"
+        example: 3
+      total:
+        description: "Amount of all paginated resources."
+        type: "object"
+        example: 25
+  ProductPage:
+    allOf:
+    - $ref: '#/definitions/Page'
+    - type: object
+      properties:
+        items:
+          type: "array"
+          items:
+            $ref: '#/definitions/Product'
   GeneralError:
     type: "object"
     properties:
