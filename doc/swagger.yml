@@ -112,7 +112,7 @@ paths:
       tags:
       - "cart"
       summary: "Add an item to your cart."
-      description: "This endpoint will allow you put a new item to your cart."
+      description: "This endpoint will allow you to put a new item to your cart."
       operationId: "cartPutItem"
       consumes:
       - "application/json"
@@ -253,7 +253,7 @@ paths:
           description: "Paginated product list."
           schema:
             type: "object"
-            $ref: "#/definitions/ProductPage"
+            $ref: "#/definitions/ProductsPage"
   /products/{slug}:
     get:
       tags:
@@ -286,10 +286,63 @@ paths:
         example: "en_GB"
       responses:
         200:
-          description: "Array of all available products."
           schema:
             type: "object"
             $ref: "#/definitions/Product"
+  /products/{slug}/reviews:
+    parameters:
+    - name: "slug"
+      in: "path"
+      description: "Slug of expected product."
+      required: true
+      type: "string"
+      example: "categories"
+    post:
+      tags:
+      - "products"
+      summary: "Add a review to the product."
+      description: "This endpoint will allow you to add a new review to the product. Remember, that it should be accepted by administrator before it will be available on review list."
+      operationId: "productAddReview"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "content"
+        description: "Description of an item. The smallest required amount of data is a product code and quantity for simple product. Configurable products will require additional `variant_code` or `options` but never both."
+        required: true
+        schema:
+          $ref: "#/definitions/AddReviewRequest"
+      responses:
+        201:
+          description: "Review has been added to the product."
+        400:
+          description: "Invalid input, validation failed."
+          schema:
+            $ref: "#/definitions/GeneralError"
+    get:
+      tags:
+      - "products"
+      summary: "Show reviews."
+      description: "This endpoint will return paginated list of all reviews related to the product identified by slug."
+      operationId: "productReviews"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "channel"
+        in: "query"
+        description: "Channel from which product should be gathered."
+        required: true
+        type: "string"
+        example: "en_GB"
+      responses:
+        200:
+          schema:
+            type: "object"
+            $ref: "#/definitions/ProductReviewsPage"
   /taxons:
     get:
       tags:
@@ -357,6 +410,32 @@ definitions:
       channel:
         type: "string"
         example: "WEB_GB"
+  AddReviewRequest:
+    type: "object"
+    description: "Body of request with a channel code."
+    required:
+    - "channelCode"
+    - "title"
+    - "rating"
+    - "comment"
+    - "email"
+    properties:
+      channelCode:
+        type: "string"
+        example: "WEB_GB"
+      title:
+        type: "string"
+        example: "Awesome product"
+      rating:
+        type: "integer"
+        example: 5
+      comment:
+        type: "string"
+        example: "If I were a mug, I would like to be like this one!"
+      email:
+        type: "string"
+        description: "Email of an author."
+        example: "customer@example.com"
   PutItemToCartRequest:
     type: "object"
     description: "Body of request used to put item to the cart."
@@ -442,23 +521,23 @@ definitions:
           total:
             description: "Total cost of the cart. Sum of the all of below properties"
             type: "integer"
-            default: 0
+            example: 0
           items:
             description: "Total cost of the cart items."
             type: "integer"
-            default: 0
+            example: 0
           taxes:
             description: "Total amount of cart taxes."
             type: "integer"
-            default: 0
+            example: 0
           shipping:
             description: "Total cost of the cart shipment."
             type: "integer"
-            default: 0
+            example: 0
           promotion:
             description: "Total amount of cart promotions."
             type: "integer"
-            default: 0
+            example: 0
       payments:
         type: "array"
       shipments:
@@ -620,7 +699,26 @@ definitions:
         description: "Amount of all paginated resources."
         type: "object"
         example: 25
-  ProductPage:
+      _links:
+        type: "object"
+        properties:
+          self:
+            description: "Link to the current page."
+            type: "integer"
+            example: "\/shop-api\/some-path?page=1&limit=10"
+          first:
+            description: "Link to the fist page."
+            type: "string"
+            example: "\/shop-api\/some-path?page=1&limit=10"
+          last:
+            description: "Link to the last page."
+            type: "string"
+            example: "\/shop-api\/some-path?page=1&limit=10"
+          next:
+            description: "Link to the next page."
+            type: "string"
+            example: "\/shop-api\/some-path?page=1&limit=10"
+  ProductsPage:
     allOf:
     - $ref: '#/definitions/Page'
     - type: object
@@ -629,6 +727,23 @@ definitions:
           type: "array"
           items:
             $ref: '#/definitions/Product'
+  ProductReviewsPage:
+    allOf:
+    - $ref: '#/definitions/Page'
+    - type: object
+      properties:
+        title:
+          type: "string"
+          example: "Nice mug"
+        rating:
+          type: "integer"
+          example: 5
+        comment:
+          type: "string"
+          example: "It is a really nice mug."
+        author:
+          type: "string"
+          example: "example@shop.com"
   GeneralError:
     type: "object"
     properties:
