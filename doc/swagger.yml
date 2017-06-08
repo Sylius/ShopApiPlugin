@@ -27,7 +27,7 @@ tags:
     description: "Find out more"
     url: "http://docs.sylius.org/en/latest/book/products/taxons.html"
 - name: "checkout"
-  description: "All actions related to checkout fulfillment."
+  description: "All actions related to checkout fulfillment. It is important , to execute them in given order (address, choose shipment, choose payment and complete)."
   externalDocs:
     description: "Find out more"
     url: "http://docs.sylius.org/en/latest/book/orders/checkout.html"
@@ -44,8 +44,8 @@ paths:
     post:
       tags:
       - "cart"
-      summary: "Pickup your cart from store"
-      description: "This endpoint will allow you to assign a new cart to provided token. We recommend to use uuid as a token to avoid duplication. If any of previous cart or order will have same token value an exception will be thrown."
+      summary: "Pick up your cart from the store"
+      description: "This endpoint will allow you to assign a new cart to provided token. We recommend using UUID as a token to avoid duplication. If any of previous cart or order will have same token value an exception will be thrown."
       operationId: "cartPickUp"
       consumes:
       - "application/json"
@@ -208,6 +208,208 @@ paths:
       responses:
         204:
           description: "Coupon has been assigned to the cart."
+        400:
+          description: "Invalid input, validation failed."
+          schema:
+            $ref: "#/definitions/GeneralError"
+  /checkout/{token}:
+    get:
+      tags:
+      - "checkout"
+      summary: "Show checkout summarizon"
+      description: "This endpoint will show summarized cart during checkout. This action is an equivalent of cart summarize action."
+      operationId: "checkoutSummarize"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "token"
+        in: "path"
+        description: "Cart identifier."
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Current state of cart, with calculated prices and related items."
+          schema:
+            $ref: "#/definitions/Cart"
+        400:
+          description: "Invalid input (E.g. token has not been found)"
+          schema:
+            $ref: "#/definitions/GeneralError"
+  /checkout/{token}/address:
+    put:
+      tags:
+      - "checkout"
+      summary: "Address cart."
+      description: "This endpoint will allow you to address cart and begin the checkout process. You can either define same shipping and billing addresses or send specify them separately."
+      operationId: "checkoutAddress"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "token"
+        in: "path"
+        description: "Cart identifier."
+        required: true
+        type: "string"
+      - in: "body"
+        name: "content"
+        required: true
+        schema:
+          $ref: "#/definitions/CheckoutAddressRequest"
+      responses:
+        204:
+          description: "Cart has been addressed."
+        400:
+          description: "Invalid input, validation failed."
+          schema:
+            $ref: "#/definitions/GeneralError"
+  /checkout/{token}/shipping/:
+    get:
+      tags:
+      - "checkout"
+      summary: "Get available shipping methods."
+      description: "This endpoint will show you available shipping methods for all cart shipments."
+      operationId: "checkoutShowAvailableShippingMethods"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "token"
+        in: "path"
+        description: "Cart identifier."
+        required: true
+        type: "string"
+      responses:
+        200:
+          schema:
+            $ref: "#/definitions/AvailableShippingMethods"
+        400:
+          description: "Invalid input, validation failed."
+          schema:
+            $ref: "#/definitions/GeneralError"
+  /checkout/{token}/shipping/{id}:
+    put:
+      tags:
+      - "checkout"
+      summary: "Choosing cart shipping method."
+      description: "This endpoint will allow you to choose cart shipping method."
+      operationId: "checkoutChooseShippingMethod"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "token"
+        in: "path"
+        description: "Cart identifier."
+        required: true
+        type: "string"
+      - name: "id"
+        in: "path"
+        description: "Identifier of shipment. When the shipping methods are listed, they are presented for each of shipment. Id is a number of shipment in that list."
+        required: true
+        type: "string"
+      - in: "body"
+        name: "content"
+        required: true
+        schema:
+          $ref: "#/definitions/CheckoutChooseShippingMethodRequest"
+      responses:
+        204:
+          description: "Shipping method has been chosen."
+        400:
+          description: "Invalid input, validation failed."
+          schema:
+            $ref: "#/definitions/GeneralError"
+  /checkout/{token}/payment/:
+    get:
+      tags:
+      - "checkout"
+      summary: "Get available payment methods."
+      description: "This endpoint will show you available payment methods for all cart payments."
+      operationId: "checkoutShowAvailablePaymentMethods"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "token"
+        in: "path"
+        description: "Cart identifier."
+        required: true
+        type: "string"
+      responses:
+        200:
+          schema:
+            $ref: "#/definitions/AvailablePaymentMethods"
+        400:
+          description: "Invalid input, validation failed."
+          schema:
+            $ref: "#/definitions/GeneralError"
+  /checkout/{token}/payment/{id}:
+    put:
+      tags:
+      - "checkout"
+      summary: "Choosing cart payment method."
+      description: "This endpoint will allow you to choose cart payment method."
+      operationId: "checkoutChoosePaymentMethod"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "token"
+        in: "path"
+        description: "Cart identifier."
+        required: true
+        type: "string"
+      - name: "id"
+        in: "path"
+        description: "Similar to the shipment, it is identifier of payment. When the payment methods are listed, they are presented for each of payment. Id is a number of payment in that list."
+        required: true
+        type: "string"
+      - in: "body"
+        name: "content"
+        required: true
+        schema:
+          $ref: "#/definitions/CheckoutChoosePaymentMethodRequest"
+      responses:
+        204:
+          description: "Payment method has been chosen."
+        400:
+          description: "Invalid input, validation failed."
+          schema:
+            $ref: "#/definitions/GeneralError"
+  /checkout/{token}/complete:
+    put:
+      tags:
+      - "checkout"
+      summary: "Compliting checkout."
+      description: "This endpoint will allow you to complete the checkout."
+      operationId: "checkoutComplete"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "token"
+        in: "path"
+        description: "Cart identifier."
+        required: true
+        type: "string"
+      - in: "body"
+        name: "content"
+        required: true
+        schema:
+          $ref: "#/definitions/CheckoutCompleteRequest"
+      responses:
+        204:
+          description: "Checkout has been completed."
         400:
           description: "Invalid input, validation failed."
           schema:
@@ -477,6 +679,79 @@ definitions:
       coupon:
         type: "string"
         example: "BANANAS"
+  CheckoutAddressRequest:
+    type: "object"
+    description: "Body of request used for cart addressing."
+    required:
+    - "shippingAddress"
+    properties:
+      shippingAddress:
+        type: "object"
+        $ref: "#/definitions/Address"
+      billingAddress:
+        type: "object"
+        $ref: "#/definitions/Address"
+  CheckoutChooseShippingMethodRequest:
+    type: "object"
+    description: "Body of request used to choose shipping method."
+    required:
+    - "method"
+    properties:
+      method:
+        type: "string"
+        description: "Code of chosen shipping method."
+        example: "DHL"
+  CheckoutChoosePaymentMethodRequest:
+    type: "object"
+    description: "Body of request used to choose payment method."
+    required:
+    - "method"
+    properties:
+      method:
+        type: "string"
+        description: "Code of chosen payment method."
+        example: "PBC"
+  CheckoutCompleteRequest:
+    type: "object"
+    description: "Body of request used to complete checkout."
+    required:
+    - "email"
+    properties:
+      email:
+        type: "string"
+        description: "Email of a customer."
+        example: "customer@example.com"
+      notes:
+        type: "string"
+        description: "Additional notes."
+        example: "I'm only available between 3 and 8 PM."
+
+  AvailableShippingMethods:
+    type: "object"
+    description: "Available shipping methods for each shipment."
+    properties:
+      shipments:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            methods:
+              type: "object"
+              $ref: "#/definitions/ShippingMethod"
+  AvailablePaymentMethods:
+    type: "object"
+    description: "Available payment methods for each payment."
+    properties:
+      payments:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            methods:
+              type: "object"
+              additionalProperties:
+                type: "object"
+                $ref: "#/definitions/PaymentMethod"
   Cart:
     type: "object"
     description: "Serialized cart response."
@@ -538,10 +813,55 @@ definitions:
             description: "Total amount of cart promotions."
             type: "integer"
             example: 0
+      shippingAddress:
+        type: "object"
+        $ref: "#/definitions/Address"
+      billingAddress:
+        type: "object"
+        $ref: "#/definitions/Address"
       payments:
         type: "array"
+        items:
+          type: "object"
+          properties:
+            state:
+              description: "Current state of a payment."
+              type: "string"
+              default: "cart"
+              externalDocs:
+                description: "Find out more about payment states in Sylius documentation."
+                url: "http://docs.sylius.org/en/latest/book/orders/payments.html#payment-state-machine"
+              enum:
+              - "cart"
+              - "new"
+              - "processing"
+              - "completed"
+              - "failed"
+              - "cancelled"
+              - "refunded"
+            method:
+              type: "object"
+              $ref: "#/definitions/PaymentMethod"
       shipments:
         type: "array"
+        items:
+          type: "object"
+          properties:
+            state:
+              description: "Current state of a shipment."
+              type: "string"
+              default: "cart"
+              externalDocs:
+                description: "Find out more about shipment states in Sylius documentation."
+                url: "http://docs.sylius.org/en/latest/book/orders/shipments.html#the-shipment-state-machine"
+              enum:
+              - "cart"
+              - "ready"
+              - "cancelled"
+              - "shipped"
+            method:
+              type: "object"
+              $ref: "#/definitions/ShippingMethod"
   Item:
     type: "object"
     description: "Cart item with calculated prices, quantity and related variant."
@@ -630,12 +950,7 @@ definitions:
         additionalProperties:
           type: "string"
       price:
-        type: "object"
-        properties:
-          total:
-            description: "Calculated price for given channel. Price is stored as an integer, so by default it should be devided by 100."
-            type: "integer"
-            default: 1000
+        $ref: '#/definitions/Price'
       images:
         type: "array"
         items:
@@ -744,6 +1059,63 @@ definitions:
         author:
           type: "string"
           example: "example@shop.com"
+  Price:
+    type: "object"
+    properties:
+      total:
+        description: "Calculated price for given channel. Price is stored as an integer, so by default it should be devided by 100."
+        type: "integer"
+        default: 1000
+  Address:
+    type: "object"
+    properties:
+      firstName:
+        type: "string"
+        example: "Sherlock"
+      lastName:
+        type: "string"
+        example: "Holmes"
+      countryCode:
+        type: "string"
+        example: "GB"
+      street:
+        type: "string"
+        example: "Baker Street 221b"
+      city:
+        type: "string"
+        example: "London"
+      postcode:
+        type: "string"
+        example: "NW1"
+      provinceName:
+        type: "string"
+        example: "Greater London"
+  PaymentMethod:
+    type: "object"
+    properties:
+      code:
+        type: "string"
+        example: "PBC"
+      name:
+        type: "string"
+        example: "Pay by check"
+      description:
+        type: "string"
+        example: "Some strange description."
+  ShippingMethod:
+    type: "object"
+    properties:
+      code:
+        type: "string"
+        example: "DHL"
+      name:
+        type: "string"
+        example: "DHL Delivery"
+      description:
+        type: "string"
+        example: "DHL Delivery will deliver your parcel even next day!"
+      price:
+        $ref: '#/definitions/Price'
   GeneralError:
     type: "object"
     properties:
