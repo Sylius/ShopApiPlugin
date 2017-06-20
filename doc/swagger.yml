@@ -27,14 +27,14 @@ tags:
     description: "Find out more"
     url: "http://docs.sylius.org/en/latest/book/products/taxons.html"
 - name: "checkout"
-  description: "All actions related to checkout fulfillment. It is important , to execute them in given order (address, choose shipment, choose payment and complete)."
+  description: "All actions related to checkout fulfillment. It is important, to execute them in given order (address, choose shipment, choose payment and complete)."
   externalDocs:
     description: "Find out more"
     url: "http://docs.sylius.org/en/latest/book/orders/checkout.html"
 schemes:
 - "https"
 paths:
-  /cart/{token}:
+  /carts/{token}:
     parameters:
     - name: "token"
       in: "path"
@@ -45,7 +45,7 @@ paths:
       tags:
       - "cart"
       summary: "Pick up your cart from the store"
-      description: "This endpoint will allow you to assign a new cart to provided token. We recommend using UUID as a token to avoid duplication. If any of previous cart or order will have same token value an exception will be thrown."
+      description: "This endpoint will allow you to assign a new cart to the provided token. We recommend using UUID as a token to avoid duplication. If any of previous carts or orders already have the same token value an exception will be thrown."
       operationId: "cartPickUp"
       consumes:
       - "application/json"
@@ -54,7 +54,7 @@ paths:
       parameters:
       - in: "body"
         name: "content"
-        description: "Contains an information about channel which should be associated with newly created cart"
+        description: "Contains an information about the channel which should be associated with the newly created cart"
         required: true
         schema:
           $ref: "#/definitions/PickupCartRequest"
@@ -69,7 +69,7 @@ paths:
       tags:
       - "cart"
       summary: "Show summarized cart."
-      description: "This endpoint show you current calculated state of cart."
+      description: "This endpoint shows you the current calculated state of cart."
       operationId: "cartSummarize"
       consumes:
       - "application/json"
@@ -77,7 +77,7 @@ paths:
       - "application/json"
       responses:
         200:
-          description: "Current state of cart, with calculated prices and related items."
+          description: "Current state of the cart, with calculated prices and related items."
           schema:
             $ref: "#/definitions/Cart"
         400:
@@ -88,7 +88,7 @@ paths:
       tags:
       - "cart"
       summary: "Drop your cart."
-      description: "This endpoint will remove cart and all of related cart items."
+      description: "This endpoint will remove the cart and all of the related cart items."
       operationId: "cartDrop"
       consumes:
       - "application/json"
@@ -101,7 +101,7 @@ paths:
           description: "Invalid input (E.g. token has not been found)"
           schema:
             $ref: "#/definitions/GeneralError"
-  /cart/{token}/items:
+  /carts/{token}/items:
     parameters:
     - name: "token"
       in: "path"
@@ -112,7 +112,7 @@ paths:
       tags:
       - "cart"
       summary: "Add an item to your cart."
-      description: "This endpoint will allow you to put a new item to your cart."
+      description: "This endpoint will allow you to add a new item to your cart."
       operationId: "cartPutItem"
       consumes:
       - "application/json"
@@ -121,7 +121,7 @@ paths:
       parameters:
       - in: "body"
         name: "content"
-        description: "Description of an item. The smallest required amount of data is a product code and quantity for simple product. Configurable products will require additional `variant_code` or `options` but never both."
+        description: "Description of an item. The smallest required amount of data is a product code and quantity for a simple product. Configurable products will require an additional `variant_code` or `options` field, but never both."
         required: true
         schema:
           $ref: "#/definitions/PutItemToCartRequest"
@@ -132,7 +132,7 @@ paths:
           description: "Invalid input, validation failed."
           schema:
             $ref: "#/definitions/GeneralError"
-  /cart/{token}/items/{identifier}:
+  /carts/{token}/items/{identifier}:
     parameters:
     - name: "token"
       in: "path"
@@ -141,13 +141,13 @@ paths:
       type: "string"
     - name: "identifier"
       in: "path"
-      description: "Identifier of specific item. Can be found on cart summarizon."
+      description: "Identifier of a specific item. Can be found in the cart summary."
       required: true
       type: "string"
     put:
       tags:
       - "cart"
-      summary: "Change quantity of cart item."
+      summary: "Change quantity of a cart item."
       operationId: "cartPutItem"
       consumes:
       - "application/json"
@@ -182,7 +182,7 @@ paths:
           description: "Invalid input (E.g. token has not been found)"
           schema:
             $ref: "#/definitions/GeneralError"
-  /cart/{token}/coupon:
+  /carts/{token}/coupon:
     parameters:
     - name: "token"
       in: "path"
@@ -216,8 +216,8 @@ paths:
     get:
       tags:
       - "checkout"
-      summary: "Show checkout summarizon"
-      description: "This endpoint will show summarized cart during checkout. This action is an equivalent of cart summarize action."
+      summary: "Show checkout summary"
+      description: "This endpoint will show the summarized cart during checkout. This action is an equivalent of cart summarize action."
       operationId: "checkoutSummarize"
       consumes:
       - "application/json"
@@ -231,7 +231,7 @@ paths:
         type: "string"
       responses:
         200:
-          description: "Current state of cart, with calculated prices and related items."
+          description: "Current state of the cart, with calculated prices and related items."
           schema:
             $ref: "#/definitions/Cart"
         400:
@@ -243,7 +243,7 @@ paths:
       tags:
       - "checkout"
       summary: "Address cart."
-      description: "This endpoint will allow you to address cart and begin the checkout process. You can either define same shipping and billing addresses or send specify them separately."
+      description: "This endpoint will allow you to add billing and shipping addresses to the cart and begin the checkout process. You can either define the same shipping and billing address or specify them separately."
       operationId: "checkoutAddress"
       consumes:
       - "application/json"
@@ -296,8 +296,8 @@ paths:
     put:
       tags:
       - "checkout"
-      summary: "Choosing cart shipping method."
-      description: "This endpoint will allow you to choose cart shipping method."
+      summary: "Choosing a cart shipping method."
+      description: "This endpoint will allow you to choose a cart shipping method."
       operationId: "checkoutChooseShippingMethod"
       consumes:
       - "application/json"
@@ -311,7 +311,7 @@ paths:
         type: "string"
       - name: "id"
         in: "path"
-        description: "Identifier of shipment. When the shipping methods are listed, they are presented for each of shipment. Id is a number of shipment in that list."
+        description: "Order number of shipment for which shipping method should be specified."
         required: true
         type: "string"
       - in: "body"
@@ -356,7 +356,7 @@ paths:
       tags:
       - "checkout"
       summary: "Choosing cart payment method."
-      description: "This endpoint will allow you to choose cart payment method."
+      description: "This endpoint will allow you to choose cart a payment method."
       operationId: "checkoutChoosePaymentMethod"
       consumes:
       - "application/json"
@@ -370,7 +370,7 @@ paths:
         type: "string"
       - name: "id"
         in: "path"
-        description: "Similar to the shipment, it is identifier of payment. When the payment methods are listed, they are presented for each of payment. Id is a number of payment in that list."
+        description: "Order number of payment for which payment method should be specified."
         required: true
         type: "string"
       - in: "body"
@@ -389,7 +389,7 @@ paths:
     put:
       tags:
       - "checkout"
-      summary: "Compliting checkout."
+      summary: "Completing checkout."
       description: "This endpoint will allow you to complete the checkout."
       operationId: "checkoutComplete"
       consumes:
@@ -418,8 +418,8 @@ paths:
     get:
       tags:
       - "products"
-      summary: "Show product tree."
-      description: "This endpoint will return paginated list of products."
+      summary: "Show product catalog."
+      description: "This endpoint will return a paginated list of products."
       operationId: "productCatalog"
       consumes:
       - "application/json"
@@ -428,7 +428,7 @@ paths:
       parameters:
       - name: "channel"
         in: "query"
-        description: "Channel from which product should be gathered."
+        description: "Channel from which products should be gathered."
         required: true
         type: "string"
         example: "en_GB"
@@ -460,8 +460,8 @@ paths:
     get:
       tags:
       - "products"
-      summary: "Show product with given slug."
-      description: "This endpoint will return product with given slug."
+      summary: "Show a product with the given slug."
+      description: "This endpoint will return ą product with the given slug."
       operationId: "productDetails"
       consumes:
       - "application/json"
@@ -476,7 +476,7 @@ paths:
         example: "categories"
       - name: "channel"
         in: "query"
-        description: "Channel from which product should be gathered."
+        description: "Channel from which products should be gathered."
         required: true
         type: "string"
         example: "en_GB"
@@ -503,7 +503,7 @@ paths:
       tags:
       - "products"
       summary: "Add a review to the product."
-      description: "This endpoint will allow you to add a new review to the product. Remember, that it should be accepted by administrator before it will be available on review list."
+      description: "This endpoint will allow you to add a new review to the product. Remember, that it should be accepted by an administrator before it will be available in the review list."
       operationId: "productAddReview"
       consumes:
       - "application/json"
@@ -512,7 +512,7 @@ paths:
       parameters:
       - in: "body"
         name: "content"
-        description: "Description of an item. The smallest required amount of data is a product code and quantity for simple product. Configurable products will require additional `variant_code` or `options` but never both."
+        description: "Description of an item. The smallest required amount of data is a product code and quantity for a simple product. Configurable products will require an additional `variant_code` or `options` fields, but never both."
         required: true
         schema:
           $ref: "#/definitions/AddReviewRequest"
@@ -527,7 +527,7 @@ paths:
       tags:
       - "products"
       summary: "Show reviews."
-      description: "This endpoint will return paginated list of all reviews related to the product identified by slug."
+      description: "This endpoint will return a paginated list of all reviews related to the product identified by slug."
       operationId: "productReviews"
       consumes:
       - "application/json"
@@ -536,7 +536,7 @@ paths:
       parameters:
       - name: "channel"
         in: "query"
-        description: "Channel from which product should be gathered."
+        description: "Channel from which products should be gathered."
         required: true
         type: "string"
         example: "en_GB"
@@ -550,7 +550,7 @@ paths:
       tags:
       - "taxons"
       summary: "Show taxon tree."
-      description: "This endpoint will return array of all available taxon roots with all of it children."
+      description: "This endpoint will return an array of all available taxon roots with all of its children."
       operationId: "taxonTree"
       consumes:
       - "application/json"
@@ -576,7 +576,7 @@ paths:
       tags:
       - "taxons"
       summary: "Show taxon with given slug."
-      description: "This endpoint will return taxon with given name and all its children."
+      description: "This endpoint will return a taxon with given slug and all its children."
       operationId: "taxonDetails"
       consumes:
       - "application/json"
@@ -754,7 +754,7 @@ definitions:
                 $ref: "#/definitions/PaymentMethod"
   Cart:
     type: "object"
-    description: "Serialized cart response."
+    description: "Cart with information about items, current state, totals and more."
     properties:
       tokenValue:
         type: "string"
@@ -763,14 +763,14 @@ definitions:
         type: "string"
         example: "WEB_GB"
         externalDocs:
-          description: "Find out more about channels in Sylius documentation."
+          description: "Find out more about channels in the Sylius documentation."
           url: "http://docs.sylius.org/en/latest/book/configuration/channels.html"
       currency:
-        description: "Code of cart currency according to ISO 4217. This value is inheriteted from channel"
+        description: "Code of the cart currency according to ISO 4217. This value is inherited from channel"
         type: "string"
         example: "GBP"
       locale:
-        description: "Code of cart locale. This value is inheriteted from channel"
+        description: "Code of the cart locale. This value is inherited from channel"
         type: "string"
         example: "en_GB"
       checkoutState:
@@ -778,7 +778,7 @@ definitions:
         type: "string"
         default: "cart"
         externalDocs:
-          description: "Find out more about checkout states in Sylius documentation."
+          description: "Find out more about checkout states in the Sylius documentation."
           url: "http://docs.sylius.org/en/latest/book/orders/checkout.html#checkout-state-machine"
         enum:
         - "cart"
@@ -789,12 +789,12 @@ definitions:
       items:
         type: "array"
         items:
-          $ref: '#/definitions/Item'
+          $ref: '#/definitions/CartItem'
       totals:
         type: "object"
         properties:
           total:
-            description: "Total cost of the cart. Sum of the all of below properties"
+            description: "Total cost of the cart. The sum of all properties below."
             type: "integer"
             example: 0
           items:
@@ -829,7 +829,7 @@ definitions:
               type: "string"
               default: "cart"
               externalDocs:
-                description: "Find out more about payment states in Sylius documentation."
+                description: "Find out more about payment states in the Sylius documentation."
                 url: "http://docs.sylius.org/en/latest/book/orders/payments.html#payment-state-machine"
               enum:
               - "cart"
@@ -852,7 +852,7 @@ definitions:
               type: "string"
               default: "cart"
               externalDocs:
-                description: "Find out more about shipment states in Sylius documentation."
+                description: "Find out more about shipment states in the Sylius documentation."
                 url: "http://docs.sylius.org/en/latest/book/orders/shipments.html#the-shipment-state-machine"
               enum:
               - "cart"
@@ -862,9 +862,9 @@ definitions:
             method:
               type: "object"
               $ref: "#/definitions/ShippingMethod"
-  Item:
+  CartItem:
     type: "object"
-    description: "Cart item with calculated prices, quantity and related variant."
+    description: "Cart item with calculated prices, quantity and related product."
     properties:
       id:
         type: "integer"
@@ -879,7 +879,7 @@ definitions:
         $ref: '#/definitions/Product'
   Product:
     type: "object"
-    description: "Cart item with calculated prices, quantity and related variant."
+    description: "Product with its basic information, variants, attributes, association and images."
     properties:
       code:
         type: "string"
@@ -898,7 +898,7 @@ definitions:
         items:
           $ref: '#/definitions/Taxon'
       variants:
-        description: "Keys reference to code of variant."
+        description: "Keys reference to code of a variant."
         type: "object"
         additionalProperties:
           type: "array"
@@ -909,7 +909,7 @@ definitions:
         items:
           $ref: '#/definitions/Attribute'
       associations:
-        description: "Keys reference to code of association."
+        description: "Keys reference to code of an association."
         type: "object"
         additionalProperties:
           type: "array"
@@ -930,7 +930,7 @@ definitions:
         example: "\/uo\/mug.jpg"
   Variant:
     type: "object"
-    description: "If the product is simple it will have only one variant with the same code and name. Otherwise, product can have list of variants with different fields."
+    description: "If the product is simple it will have only one variant with the same code and name. Otherwise, the product can have a list of variants with different fields."
     properties:
       code:
         type: "string"
@@ -960,15 +960,12 @@ definitions:
     properties:
       code:
         type: "string"
-        description: "Code of an attribute"
         example: "MUG_MATERIAL_CODE"
       name:
         type: "string"
-        description: "Name of an attribute"
         example: "Mug material"
       value:
         type: "string"
-        description: "Value of an attribute value"
         example: "Wood"
   Taxon:
     type: "object"
@@ -987,7 +984,7 @@ definitions:
         example: "General category for all products."
       children:
         type: "array"
-        description: "This array will contain only one or none child if taxon is presented as a part of product. Based on this tree one can build a breadcrumb on a frontend. Otherwise (e.g. presenting a tree of all taxons) children will contain all children of given taxon."
+        description: "Based on this tree one can build a breadcrumb on a frontend. Otherwise (e.g. presenting a tree of all taxons) children will contain all children of given taxon."
         items:
           $ref: '#/definitions/Taxon'
       images:
@@ -1063,7 +1060,7 @@ definitions:
     type: "object"
     properties:
       total:
-        description: "Calculated price for given channel. Price is stored as an integer, so by default it should be devided by 100."
+        description: "Calculated price for given channel. Price is stored as an integer, so by default it should be divided by 100."
         type: "integer"
         default: 1000
   Address:
@@ -1126,7 +1123,7 @@ definitions:
         type: "string"
         example: "Validation failed"
       errors:
-        description: "Keys reference to fields send"
+        description: "Keys reference to the fields where the error occurred."
         type: "object"
         additionalProperties:
           type: "array"
