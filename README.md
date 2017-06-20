@@ -86,6 +86,7 @@ Rest of the command are executed inside `project` folder.
     parameters:
         # ...
     
+        sylius.security.shop_regex: "^/(?!admin|api|shop-api)[^/]++" # shop-api has been added inside the brackets 
         shop_api.security.regex: "^/shop-api"
 
     # ... 
