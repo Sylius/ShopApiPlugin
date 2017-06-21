@@ -35,7 +35,7 @@ final class PutVariantBasedConfigurableItemToCartRequest
         $this->token = $request->attributes->get('token');
         $this->product = $request->request->get('productCode');
         $this->variant = $request->request->get('variantCode');
-        $this->quantity = $request->request->getInt('quantity');
+        $this->quantity = $request->request->get('quantity');
     }
 
     /**
