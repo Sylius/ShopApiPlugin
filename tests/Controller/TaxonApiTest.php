@@ -14,7 +14,7 @@ final class TaxonApiTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFile('shop.yml');
 
-        $this->client->request('GET', '/shop-api/taxons/t-shirts?locale=en_GB', [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('GET', '/shop-api/taxons/categories/t-shirts?locale=en_GB', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'taxon/one_of_taxons_response', Response::HTTP_OK);

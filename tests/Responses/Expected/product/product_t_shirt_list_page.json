@@ -1,13 +1,13 @@
 {
-    "page": 2,
-    "limit": 1,
-    "pages": 3,
-    "total": 3,
+    "page": 1,
+    "limit": 10,
+    "pages": 1,
+    "total": 1,
     "_links": {
-        "self": "\/shop-api\/taxons\/brands\/products\/?channel=WEB_GB&limit=1&page=2",
-        "first": "\/shop-api\/taxons\/brands\/products\/?channel=WEB_GB&limit=1&page=1",
-        "last": "\/shop-api\/taxons\/brands\/products\/?channel=WEB_GB&limit=1&page=3",
-        "next": "\/shop-api\/taxons\/brands\/products\/?channel=WEB_GB&limit=1&page=3"
+        "self": "\/shop-api\/taxons\/categories\/t-shirts\/products\/?channel=WEB_GB&page=1&limit=10",
+        "first": "\/shop-api\/taxons\/categories\/t-shirts\/products\/?channel=WEB_GB&page=1&limit=10",
+        "last": "\/shop-api\/taxons\/categories\/t-shirts\/products\/?channel=WEB_GB&page=1&limit=10",
+        "next": "\/shop-api\/taxons\/categories\/t-shirts\/products\/?channel=WEB_GB&page=1&limit=10"
     },
     "items": [
         {

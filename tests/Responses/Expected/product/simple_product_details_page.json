@@ -14,7 +14,7 @@
                 {
                     "code": "MUG",
                     "name": "Mugs",
-                    "slug": "mugs",
+                    "slug": "categories\/mugs",
                     "description": "Some description Lorem ipsum dolor sit amet.",
                     "position": 0,
                     "children": [],
