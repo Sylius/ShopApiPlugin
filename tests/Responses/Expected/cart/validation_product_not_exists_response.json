@@ -2,7 +2,7 @@
     "code": 400,
     "message": "Validation failed",
     "errors": {
-        "product": [
+        "productCode": [
             "sylius.shop_api.product.exists"
         ]
     }

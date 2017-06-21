@@ -34,14 +34,14 @@
                 <option name="message">sylius.shop_api.quantity.not_null</option>
             </constraint>
         </property>
-        <property name="product">
+        <property name="productCode">
             <constraint name="NotNull">
                 <option name="message">sylius.shop_api.product.not_null</option>
             </constraint>
             <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\ProductExists" />
             <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\ConfigurableProduct" />
         </property>
-        <property name="variant">
+        <property name="variantCode">
             <constraint name="NotNull">
                 <option name="message">sylius.shop_api.product.not_null</option>
             </constraint>

@@ -15,7 +15,7 @@ final class PutOptionBasedConfigurableItemToCartRequest
     /**
      * @var string
      */
-    private $product;
+    private $productCode;
 
     /**
      * @var array|null
@@ -33,7 +33,7 @@ final class PutOptionBasedConfigurableItemToCartRequest
     public function __construct(Request $request)
     {
         $this->token = $request->attributes->get('token');
-        $this->product = $request->request->get('productCode');
+        $this->productCode = $request->request->get('productCode');
         $this->options = $request->request->get('options');
         $this->quantity = $request->request->getInt('quantity');
     }
@@ -43,6 +43,6 @@ final class PutOptionBasedConfigurableItemToCartRequest
      */
     public function getCommand()
     {
-        return new PutOptionBasedConfigurableItemToCart($this->token, $this->product, $this->options, $this->quantity);
+        return new PutOptionBasedConfigurableItemToCart($this->token, $this->productCode, $this->options, $this->quantity);
     }
 }
