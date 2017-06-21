@@ -117,11 +117,11 @@ Rest of the command are executed inside `project` folder.
 ### Attributes
 
 If you would like to receive serialized attributes you need to define an array of theirs codes under `shop_api.included_attributes` key. E.g.
-     ```yml
-    shop_api:
-        included_attributes:
-            - "MUG_MATERIAL_CODE"
-     ```
+```yml
+shop_api:
+    included_attributes:
+        - "MUG_MATERIAL_CODE"
+```
 
 ### Authorization
 
