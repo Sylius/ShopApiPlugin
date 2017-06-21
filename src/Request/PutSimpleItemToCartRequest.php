@@ -15,7 +15,7 @@ final class PutSimpleItemToCartRequest
     /**
      * @var string
      */
-    private $product;
+    private $productCode;
 
     /**
      * @var int
@@ -28,7 +28,7 @@ final class PutSimpleItemToCartRequest
     public function __construct(Request $request)
     {
         $this->token = $request->attributes->get('token');
-        $this->product = $request->request->get('productCode');
+        $this->productCode = $request->request->get('productCode');
         $this->quantity = $request->request->get('quantity');
     }
 
@@ -37,6 +37,6 @@ final class PutSimpleItemToCartRequest
      */
     public function getCommand()
     {
-        return new PutSimpleItemToCart($this->token, $this->product, $this->quantity);
+        return new PutSimpleItemToCart($this->token, $this->productCode, $this->quantity);
     }
 }
