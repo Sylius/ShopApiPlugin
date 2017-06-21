@@ -125,6 +125,32 @@ EOT;
     /**
      * @test
      */
+    public function it_validates_if_quantity_is_is_an_integer_during_add_simple_product()
+    {
+        $this->loadFixturesFromFile('shop.yml');
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var CommandBus $bus */
+        $bus = $this->get('tactician.commandbus');
+        $bus->handle(new PickupCart($token, 'WEB_GB'));
+
+        $data =
+<<<EOT
+        {
+            "productCode": "LOGAN_MUG_CODE",
+            "quantity": "3"
+        }
+EOT;
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], static::$acceptAndContentTypeHeader, $data);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'cart/validation_quantity_not_integer_response', Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @test
+     */
     public function it_validates_if_product_code_is_defined_during_add_simple_product()
     {
         $this->loadFixturesFromFile('shop.yml');
@@ -222,14 +248,14 @@ EOT;
                 'postcode' => 'NWB',
                 'provinceName' => 'Greater London',
             ]), Address::createFromArray([
-            'firstName' => 'Sherlock',
-            'lastName' => 'Holmes',
-            'city' => 'London',
-            'street' => 'Baker Street 221b',
-            'countryCode' => 'GB',
-            'postcode' => 'NWB',
-            'provinceName' => 'Greater London',
-        ])
+                'firstName' => 'Sherlock',
+                'lastName' => 'Holmes',
+                'city' => 'London',
+                'street' => 'Baker Street 221b',
+                'countryCode' => 'GB',
+                'postcode' => 'NWB',
+                'provinceName' => 'Greater London',
+            ])
         ));
         $bus->handle(new ChooseShippingMethod($token, 0, 'DHL'));
         $bus->handle(new ChoosePaymentMethod($token, 0, 'PBC'));
@@ -277,6 +303,193 @@ EOT;
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_CREATED);
+    }
+
+    /**
+     * @test
+     */
+    public function it_validates_if_request_has_quantity_during_add_variant_based_configurable_product()
+    {
+        $this->loadFixturesFromFile('shop.yml');
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var CommandBus $bus */
+        $bus = $this->get('tactician.commandbus');
+        $bus->handle(new PickupCart($token, 'WEB_GB'));
+
+        $data =
+<<<EOT
+        {
+            "productCode": "LOGAN_T_SHIRT_CODE",
+            "variantCode": "SMALL_LOGAN_T_SHIRT_CODE"
+        }
+EOT;
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], static::$acceptAndContentTypeHeader, $data);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'cart/validation_quantity_not_defined_response', Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @test
+     */
+    public function it_validates_if_quantity_is_larger_than_0_during_add_variant_based_configurable_product()
+    {
+        $this->loadFixturesFromFile('shop.yml');
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var CommandBus $bus */
+        $bus = $this->get('tactician.commandbus');
+        $bus->handle(new PickupCart($token, 'WEB_GB'));
+
+        $data =
+<<<EOT
+        {
+            "productCode": "LOGAN_T_SHIRT_CODE",
+            "variantCode": "SMALL_LOGAN_T_SHIRT_CODE",
+            "quantity": 0
+        }
+EOT;
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], static::$acceptAndContentTypeHeader, $data);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'cart/validation_quantity_lower_than_one_response', Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @test
+     */
+    public function it_validates_if_quantity_is_is_an_integer_during_add_variant_based_configurable_product()
+    {
+        $this->loadFixturesFromFile('shop.yml');
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var CommandBus $bus */
+        $bus = $this->get('tactician.commandbus');
+        $bus->handle(new PickupCart($token, 'WEB_GB'));
+
+        $data =
+<<<EOT
+        {
+            "productCode": "LOGAN_T_SHIRT_CODE",
+            "variantCode": "SMALL_LOGAN_T_SHIRT_CODE",
+            "quantity": "3"
+        }
+EOT;
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], static::$acceptAndContentTypeHeader, $data);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'cart/validation_quantity_not_integer_response', Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @test
+     */
+    public function it_validates_if_product_code_is_defined_during_add_variant_based_configurable_product()
+    {
+        $this->loadFixturesFromFile('shop.yml');
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var CommandBus $bus */
+        $bus = $this->get('tactician.commandbus');
+        $bus->handle(new PickupCart($token, 'WEB_GB'));
+
+        $data =
+<<<EOT
+        {
+            "variantCode": "SMALL_LOGAN_T_SHIRT_CODE",
+            "quantity": 3
+        }
+EOT;
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], static::$acceptAndContentTypeHeader, $data);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'cart/validation_product_not_defined_response', Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @test
+     */
+    public function it_validates_if_product_exists_during_add_variant_based_configurable_product()
+    {
+        $this->loadFixturesFromFile('shop.yml');
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var CommandBus $bus */
+        $bus = $this->get('tactician.commandbus');
+        $bus->handle(new PickupCart($token, 'WEB_GB'));
+
+        $data =
+<<<EOT
+        {
+            "productCode": "BARBECUE_CODE",
+            "variantCode": "SMALL_LOGAN_T_SHIRT_CODE",
+            "quantity": 3
+        }
+EOT;
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], static::$acceptAndContentTypeHeader, $data);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'cart/validation_product_not_exists_response', Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @test
+     */
+    public function it_validates_if_product_is_configurable_during_add_variant_based_configurable_product()
+    {
+        $this->loadFixturesFromFile('shop.yml');
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var CommandBus $bus */
+        $bus = $this->get('tactician.commandbus');
+        $bus->handle(new PickupCart($token, 'WEB_GB'));
+
+        $data =
+<<<EOT
+        {
+            "productCode": "LOGAN_MUG_CODE",
+            "variantCode": "SMALL_LOGAN_T_SHIRT_CODE",
+            "quantity": 3
+        }
+EOT;
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], static::$acceptAndContentTypeHeader, $data);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'cart/validation_product_not_configurable_response', Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @test
+     */
+    public function it_validates_if_product_variant_exist_during_add_variant_based_configurable_product()
+    {
+        $this->loadFixturesFromFile('shop.yml');
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var CommandBus $bus */
+        $bus = $this->get('tactician.commandbus');
+        $bus->handle(new PickupCart($token, 'WEB_GB'));
+
+        $data =
+<<<EOT
+        {
+            "productCode": "LOGAN_T_SHIRT_CODE",
+            "variantCode": "BARBECUE_CODE",
+            "quantity": 3
+        }
+EOT;
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], static::$acceptAndContentTypeHeader, $data);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'cart/validation_product_variant_not_exists_response', Response::HTTP_BAD_REQUEST);
     }
 
     public function it_throws_an_exception_if_product_variant_has_not_been_found()
