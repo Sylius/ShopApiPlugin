@@ -9,7 +9,7 @@
             {
                 "code": "MUG",
                 "name": "Mugs",
-                "slug": "mugs",
+                "slug": "categories\/mugs",
                 "description": "Some description Lorem ipsum dolor sit amet.",
                 "position": 0,
                 "children": [],
@@ -18,7 +18,7 @@
             {
                 "code": "HAT",
                 "name": "Hats",
-                "slug": "hats",
+                "slug": "categories\/hats",
                 "description": "Some description Lorem ipsum dolor sit amet.",
                 "position": 1,
                 "children": [],
@@ -27,14 +27,14 @@
             {
                 "code": "T_SHIRTS",
                 "name": "T-Shirts",
-                "slug": "t-shirts",
+                "slug": "categories\/t-shirts",
                 "description": "Some description Lorem ipsum dolor sit amet.",
                 "position": 2,
                 "children": [
                     {
                         "code": "MEN_T_SHIRTS",
                         "name": "Men T-Shirts",
-                        "slug": "men-t-shirts",
+                        "slug": "categories\/t-shirts\/men-t-shirts",
                         "description": "Some description Lorem ipsum dolor sit amet.",
                         "position": 0,
                         "children": [],
@@ -43,7 +43,7 @@
                     {
                         "code": "WOMEN_T_SHIRTS",
                         "name": "Women T-Shirts",
-                        "slug": "women-t-shirts",
+                        "slug": "categories\/t-shirts\/women-t-shirts",
                         "description": "Some description Lorem ipsum dolor sit amet.",
                         "position": 1,
                         "children": [],

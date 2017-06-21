@@ -26,7 +26,7 @@
                         {
                             "code": "MUG",
                             "name": "Mugs",
-                            "slug": "mugs",
+                            "slug": "categories\/mugs",
                             "description": "Some description Lorem ipsum dolor sit amet.",
                             "position": 0,
                             "children": [],
@@ -99,7 +99,7 @@
                         {
                             "code": "T_SHIRTS",
                             "name": "T-Shirts",
-                            "slug": "t-shirts",
+                            "slug": "categories\/t-shirts",
                             "description": "Some description Lorem ipsum dolor sit amet.",
                             "position": 2,
                             "children": [],
@@ -195,7 +195,7 @@
                         {
                             "code": "HAT",
                             "name": "Hats",
-                            "slug": "hats",
+                            "slug": "categories\/hats",
                             "description": "Some description Lorem ipsum dolor sit amet.",
                             "position": 1,
                             "children": [],
@@ -303,7 +303,7 @@
                                     {
                                         "code": "MUG",
                                         "name": "Mugs",
-                                        "slug": "mugs",
+                                        "slug": "categories\/mugs",
                                         "description": "Some description Lorem ipsum dolor sit amet.",
                                         "position": 0,
                                         "children": [],
@@ -376,7 +376,7 @@
                                     {
                                         "code": "T_SHIRTS",
                                         "name": "T-Shirts",
-                                        "slug": "t-shirts",
+                                        "slug": "categories\/t-shirts",
                                         "description": "Some description Lorem ipsum dolor sit amet.",
                                         "position": 2,
                                         "children": [],

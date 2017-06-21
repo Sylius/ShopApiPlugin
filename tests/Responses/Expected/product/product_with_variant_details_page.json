@@ -14,7 +14,7 @@
                 {
                     "code": "T_SHIRTS",
                     "name": "T-Shirts",
-                    "slug": "t-shirts",
+                    "slug": "categories\/t-shirts",
                     "description": "Some description Lorem ipsum dolor sit amet.",
                     "position": 2,
                     "children": [],

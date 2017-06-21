@@ -86,7 +86,7 @@ final class ShowProductCatalogAction
 
         $locale = $request->query->get('locale') ?: $channel->getDefaultLocale()->getCode();
 
-        $taxonSlug = $request->attributes->get('taxonomy');
+        $taxonSlug = $request->attributes->get('taxonomySlug');
         /** @var TaxonInterface $taxon */
         $taxon = $this->taxonRepository->findOneBySlug($taxonSlug, $locale);
 
@@ -103,7 +103,7 @@ final class ShowProductCatalogAction
 
         $page = $this->pageViewFactory->create($pagerfanta, $request->attributes->get('_route'), array_merge(
             $request->query->all(),
-            ['taxonomy' => $taxonSlug]
+            ['taxonomySlug' => $taxonSlug]
         ));
 
         foreach ($pagerfanta->getCurrentPageResults() as $currentPageResult) {

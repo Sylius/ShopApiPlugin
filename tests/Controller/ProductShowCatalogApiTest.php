@@ -23,6 +23,19 @@ final class ProductShowCatalogApiTest extends JsonApiTestCase
     /**
      * @test
      */
+    public function it_shows_product_for_sub_taxons()
+    {
+        $this->loadFixturesFromFile('shop.yml');
+
+        $this->client->request('GET', '/shop-api/taxons/categories/t-shirts/products/?channel=WEB_GB', [], [], ['ACCEPT' => 'application/json']);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'product/product_t_shirt_list_page', Response::HTTP_OK);
+    }
+
+    /**
+     * @test
+     */
     public function it_shows_paginated_products_from_some_taxon_in_different_language()
     {
         $this->loadFixturesFromFile('shop.yml');

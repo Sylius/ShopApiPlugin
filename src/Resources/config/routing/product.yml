@@ -11,10 +11,12 @@ shop_api_add_product_review:
         _controller: sylius.shop_api_plugin.controller.product.add_review_action
 
 shop_api_product_show_catalog:
-    path: /taxons/{taxonomy}/products/
+    path: /taxons/{taxonomySlug}/products/
     methods: [GET]
     defaults:
         _controller: sylius.shop_api_plugin.controller.product.show_product_catalog_action
+    requirements:
+        taxonomySlug: .+
 
 shop_api_product_show_reviews:
     path: /products/{slug}/reviews
