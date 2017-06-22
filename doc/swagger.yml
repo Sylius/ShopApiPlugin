@@ -414,18 +414,24 @@ paths:
           description: "Invalid input, validation failed."
           schema:
             $ref: "#/definitions/GeneralError"
-  /products:
+  /taxon-products/{slug}:
     get:
       tags:
       - "products"
       summary: "Show product catalog."
-      description: "This endpoint will return a paginated list of products."
+      description: "This endpoint will return a paginated list of products for given taxon."
       operationId: "productCatalog"
       consumes:
       - "application/json"
       produces:
       - "application/json"
       parameters:
+      - name: "slug"
+        in: "path"
+        description: "Slug of taxonomy for which products should be listed."
+        required: true
+        type: "string"
+        example: "categories/t-shirts"
       - name: "channel"
         in: "query"
         description: "Channel from which products should be gathered."
