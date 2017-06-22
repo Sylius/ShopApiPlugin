@@ -86,13 +86,14 @@ final class ProductViewFactory implements ProductViewFactoryInterface
     {
         $currentTaxonView = $this->taxonViewFactory->create($taxon, $locale);
 
-        if (null === $taxon->getParent()) {
-            return $currentTaxonView;
+        while (null !== $taxon->getParent()) {
+            $taxon = $taxon->getParent();
+
+            $taxonView = $this->taxonViewFactory->create($taxon, $locale);
+            $taxonView->children[] = $currentTaxonView;
+            $currentTaxonView = $taxonView;
         }
 
-        $taxonView = $this->getTaxonWithAncestors($taxon->getParent(), $locale);
-        $taxonView->children[] = $currentTaxonView;
-
-        return $taxonView;
+        return $currentTaxonView;
     }
 }

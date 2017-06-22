@@ -27,7 +27,7 @@ final class ProductShowCatalogApiTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFile('shop.yml');
 
-        $this->client->request('GET', '/shop-api/taxon-products/categories/t-shirts?channel=WEB_GB', [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('GET', '/shop-api/taxon-products/categories/t-shirts/women-t-shirts?channel=WEB_GB', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'product/product_t_shirt_list_page', Response::HTTP_OK);
