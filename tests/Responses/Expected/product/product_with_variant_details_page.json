@@ -4,7 +4,7 @@
     "slug": "logan-t-shirt",
     "averageRating": 0,
     "taxons": {
-        "T_SHIRTS": {
+        "WOMEN_T_SHIRTS": {
             "code": "CATEGORY",
             "name": "Categories",
             "slug": "categories",
@@ -17,7 +17,17 @@
                     "slug": "categories\/t-shirts",
                     "description": "Some description Lorem ipsum dolor sit amet.",
                     "position": 2,
-                    "children": [],
+                    "children": [
+                        {
+                            "code": "WOMEN_T_SHIRTS",
+                            "name": "Women T-Shirts",
+                            "slug": "categories\/t-shirts\/women-t-shirts",
+                            "description": "Some description Lorem ipsum dolor sit amet.",
+                            "position": 1,
+                            "children": [],
+                            "images": []
+                        }
+                    ],
                     "images": [
                         {
                             "code": "thumbnail",

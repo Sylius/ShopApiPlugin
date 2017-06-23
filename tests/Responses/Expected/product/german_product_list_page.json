@@ -269,7 +269,7 @@
                         "slug": "logan-t-shirt",
                         "averageRating": 0,
                         "taxons": {
-                            "T_SHIRTS": {
+                            "WOMEN_T_SHIRTS": {
                                 "code": "CATEGORY",
                                 "name": "Categories",
                                 "slug": "categories",
@@ -282,7 +282,17 @@
                                         "slug": "t-shirts",
                                         "description": "Einige Beschreibung Lorem ipsum dolor sit amet.",
                                         "position": 2,
-                                        "children": [],
+                                        "children": [
+                                            {
+                                                "code": "WOMEN_T_SHIRTS",
+                                                "name": "Frauen T-Shirts",
+                                                "slug": "frauen-t-shirts",
+                                                "description": "Einige Beschreibung Lorem ipsum dolor sit amet.",
+                                                "position": 1,
+                                                "children": [],
+                                                "images": []
+                                            }
+                                        ],
                                         "images": [
                                             {
                                                 "code": "thumbnail",
