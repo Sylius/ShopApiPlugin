@@ -2,6 +2,7 @@
     "code": "LOGAN_T_SHIRT_CODE",
     "name": "Logan T-Shirt",
     "slug": "logan-t-shirt",
+    "breadcrumb": "categories\/t-shirts\/logan-t-shirt",
     "averageRating": 0,
     "taxons": {
         "WOMEN_T_SHIRTS": {

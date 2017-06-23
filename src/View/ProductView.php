@@ -22,6 +22,11 @@ class ProductView
     /**
      * @var string
      */
+    public $breadcrumb;
+
+    /**
+     * @var string
+     */
     public $averageRating;
 
     /**

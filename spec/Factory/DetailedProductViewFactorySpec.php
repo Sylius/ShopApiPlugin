@@ -13,18 +13,16 @@ use Sylius\ShopApiPlugin\Factory\ImageViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\ProductVariantViewFactoryInterface;
 use PhpSpec\ObjectBehavior;
 use Sylius\ShopApiPlugin\Factory\ProductViewFactoryInterface;
+use Sylius\ShopApiPlugin\Generator\ProductBreadcrumbGeneratorInterface;
 use Sylius\ShopApiPlugin\View\ImageView;
 use Sylius\ShopApiPlugin\View\ProductVariantView;
 use Sylius\ShopApiPlugin\View\ProductView;
 
 final class DetailedProductViewFactorySpec extends ObjectBehavior
 {
-    function let(
-        ImageViewFactoryInterface $imageViewFactory,
-        ProductViewFactoryInterface $productViewFactory,
-        ProductVariantViewFactoryInterface $variantViewFactory
-    ) {
-        $this->beConstructedWith($imageViewFactory, $productViewFactory, $variantViewFactory);
+    function let(ProductViewFactoryInterface $productViewFactory, ProductBreadcrumbGeneratorInterface $breadcrumbGenerator)
+    {
+        $this->beConstructedWith($productViewFactory, $breadcrumbGenerator);
     }
 
     function it_is_product_view_factory()
@@ -34,54 +32,15 @@ final class DetailedProductViewFactorySpec extends ObjectBehavior
 
     function it_builds_product_view_with_variants_and_associations(
         ChannelInterface $channel,
-        ProductAssociationInterface $productAssociation,
         ProductInterface $product,
-        ProductInterface $associatedProduct,
-        ProductAssociationTypeInterface $associationType,
         ProductViewFactoryInterface $productViewFactory,
-        ProductVariantInterface $associatedProductVariant,
-        ProductVariantInterface $firstProductVariant,
-        ProductVariantInterface $secondProductVariant,
-        ProductVariantViewFactoryInterface $variantViewFactory
+        ProductBreadcrumbGeneratorInterface $breadcrumbGenerator
     ) {
-        $product->getVariants()->willReturn([$firstProductVariant, $secondProductVariant]);
-        $product->getImages()->willReturn([]);
-        $product->getAssociations()->willReturn([$productAssociation]);
-
-        $firstProductVariant->getCode()->willReturn('S_HAT_CODE');
-        $secondProductVariant->getCode()->willReturn('L_HAT_CODE');
-        $associatedProductVariant->getCode()->willReturn('SMALL_MUG_CODE');
-
-        $productAssociation->getType()->willReturn($associationType);
-        $productAssociation->getAssociatedProducts()->willReturn([$associatedProduct]);
-        $associatedProduct->getVariants()->willReturn([$associatedProductVariant]);
-
-        $associatedProduct->getImages()->willReturn([]);
-
-        $associationType->getCode()->willReturn('ASSOCIATION_TYPE');
-
         $productViewFactory->create($product, $channel, 'en_GB')->willReturn(new ProductView());
-        $productViewFactory->create($associatedProduct, $channel, 'en_GB')->willReturn(new ProductView());
-
-        $variantViewFactory->create($firstProductVariant, $channel, 'en_GB')->willReturn(new ProductVariantView());
-        $variantViewFactory->create($secondProductVariant, $channel, 'en_GB')->willReturn(new ProductVariantView());
-        $variantViewFactory->create($associatedProductVariant, $channel, 'en_GB')->willReturn(new ProductVariantView());
-
-        $associatedProductView = new ProductView();
-        $associatedProductView->variants = [
-            'SMALL_MUG_CODE' => new ProductVariantView(),
-        ];
+        $breadcrumbGenerator->generate($product, 'en_GB')->willReturn('taxon/product');
 
         $productView = new ProductView();
-        $productView->variants = [
-            'S_HAT_CODE' => new ProductVariantView(),
-            'L_HAT_CODE' => new ProductVariantView(),
-        ];
-        $productView->associations = [
-            'ASSOCIATION_TYPE' => [
-                $associatedProductView,
-            ],
-        ];
+        $productView->breadcrumb = 'taxon/product';
 
         $this->create($product, $channel, 'en_GB')->shouldBeLike($productView);
     }

@@ -2,6 +2,7 @@
     "code": "LOGAN_MUG_CODE",
     "name": "Logan Mug",
     "slug": "logan-mug",
+    "breadcrumb": "categories\/mugs\/logan-mug",
     "averageRating": 0,
     "taxons": {
         "MUG": {
