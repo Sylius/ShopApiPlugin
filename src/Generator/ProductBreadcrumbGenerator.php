@@ -12,11 +12,8 @@ final class ProductBreadcrumbGenerator implements ProductBreadcrumbGeneratorInte
     {
         $breadcrumb = $product->getTranslation($locale)->getSlug();
 
-        if (null !== $taxon = $product->getMainTaxon())
-        {
-            $breadcrumb = sprintf('%s/%s', $taxon->getTranslation($locale)->getSlug(), $breadcrumb);
-        }
+        $taxon = $product->getMainTaxon();
 
-        return $breadcrumb;
+        return $taxon ? sprintf('%s/%s', $taxon->getTranslation($locale)->getSlug(), $breadcrumb) : $breadcrumb;
     }
 }
