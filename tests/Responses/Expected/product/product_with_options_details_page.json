@@ -2,6 +2,7 @@
     "code": "LOGAN_HAT_CODE",
     "name": "Logan Hat",
     "slug": "logan-hat",
+    "breadcrumb": "categories\/hats\/logan-hat",
     "averageRating": 0,
     "taxons": {
         "HAT": {

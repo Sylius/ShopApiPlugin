@@ -42,7 +42,7 @@ Sylius\Component\Core\Model\Product:
         currentTranslation: "@en_gb_mug_product_translation"
         translations: ["@en_gb_mug_product_translation", "@de_de_mug_product_translation"]
         images: ["@mug_thumbnail"]
-        mainTaxon: "@t_shirt_taxon"
+        mainTaxon: "@mug_taxon"
         productTaxons: ["@mug_product_taxon"]
         association: ["@cross-sell-hat-association"]
         attributes:
@@ -65,7 +65,7 @@ Sylius\Component\Core\Model\Product:
         currentLocale: "en_GB"
         currentTranslation: "@en_gb_hat_product_translation"
         translations: ["@en_gb_hat_product_translation", "@de_de_hat_product_translation"]
-        mainTaxon: "@t_shirt_taxon"
+        mainTaxon: "@hat_taxon"
         productTaxons: ["@hat_product_taxon"]
 
 Sylius\Component\Core\Model\ProductTranslation:

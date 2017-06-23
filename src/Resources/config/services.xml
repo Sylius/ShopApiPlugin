@@ -37,5 +37,7 @@
             <argument type="service" id="tactician.commandbus" />
             <tag name="kernel.event_listener" event="sylius.customer.post_api_registered" method="handleUserVerification" />
         </service>
+
+        <service id="sylius.shop_api_plugin.generator.product_breadcrumb_generator" class="Sylius\ShopApiPlugin\Generator\ProductBreadcrumbGenerator" />
     </services>
 </container>
