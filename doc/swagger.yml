@@ -496,7 +496,7 @@ paths:
         200:
           schema:
             type: "object"
-            $ref: "#/definitions/Product"
+            $ref: "#/definitions/ProductDetails"
   /products/{slug}/reviews:
     parameters:
     - name: "slug"
@@ -1045,6 +1045,14 @@ definitions:
           type: "array"
           items:
             $ref: '#/definitions/Product'
+  ProductDetails:
+    allOf:
+    - $ref: '#/definitions/Product'
+    - type: object
+      properties:
+        breadcrumb:
+          type: "string"
+          example: "categories/mugs/logan-mug"
   ProductReviewsPage:
     allOf:
     - $ref: '#/definitions/Page'
