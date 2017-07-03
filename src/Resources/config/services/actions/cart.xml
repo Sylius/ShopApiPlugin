@@ -5,9 +5,8 @@
         <service id="sylius.shop_api_plugin.controller.cart.summarize_action"
                  class="Sylius\ShopApiPlugin\Controller\Cart\SummarizeAction"
         >
-            <argument type="service" id="sylius.repository.order" />
+            <argument type="service" id="sylius.shop_api_plugin.query.cart_query" />
             <argument type="service" id="fos_rest.view_handler" />
-            <argument type="service" id="sylius.shop_api_plugin.factory.cart_view_factory" />
         </service>
 
         <service id="sylius.shop_api_plugin.controller.cart.drop_cart_action"
@@ -53,6 +52,7 @@
             <argument type="service" id="tactician.commandbus" />
             <argument type="service" id="validator" />
             <argument type="service" id="sylius.shop_api_plugin.factory.validation_error_view_factory" />
+            <argument type="service" id="sylius.shop_api_plugin.query.cart_query" />
         </service>
     </services>
 </container>
