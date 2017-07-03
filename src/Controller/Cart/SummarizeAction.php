@@ -4,9 +4,7 @@ namespace Sylius\ShopApiPlugin\Controller\Cart;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
-use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Sylius\ShopApiPlugin\Factory\CartViewFactoryInterface;
+use Sylius\ShopApiPlugin\Query\CartQueryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -14,9 +12,9 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 final class SummarizeAction
 {
     /**
-     * @var OrderRepositoryInterface
+     * @var CartQueryInterface
      */
-    private $cartRepository;
+    private $cartQuery;
 
     /**
      * @var ViewHandlerInterface
@@ -24,23 +22,15 @@ final class SummarizeAction
     private $viewHandler;
 
     /**
-     * @var CartViewFactoryInterface
-     */
-    private $cartViewFactory;
-
-    /**
-     * @param OrderRepositoryInterface $cartRepository
+     * @param CartQueryInterface $cartQuery
      * @param ViewHandlerInterface $viewHandler
-     * @param CartViewFactoryInterface $cartViewFactory
      */
     public function __construct(
-        OrderRepositoryInterface $cartRepository,
-        ViewHandlerInterface $viewHandler,
-        CartViewFactoryInterface $cartViewFactory
+        CartQueryInterface $cartQuery,
+        ViewHandlerInterface $viewHandler
     ) {
-        $this->cartRepository = $cartRepository;
+        $this->cartQuery = $cartQuery;
         $this->viewHandler = $viewHandler;
-        $this->cartViewFactory = $cartViewFactory;
     }
 
     /**
@@ -50,15 +40,12 @@ final class SummarizeAction
      */
     public function __invoke(Request $request)
     {
-        /** @var OrderInterface $cart */
-        $cart = $this->cartRepository->findOneBy(['tokenValue' => $request->attributes->get('token')]);
-
-        if (null === $cart) {
-            throw new NotFoundHttpException('Cart with given id does not exists');
+        try {
+            return $this->viewHandler->handle(
+                View::create($this->cartQuery->findByToken($request->attributes->get('token')), Response::HTTP_OK)
+            );
+        } catch (\InvalidArgumentException $exception) {
+            throw new NotFoundHttpException($exception->getMessage());
         }
-
-        return $this->viewHandler->handle(
-            View::create($this->cartViewFactory->create($cart, $cart->getLocaleCode()), Response::HTTP_OK)
-        );
     }
 }

@@ -42,7 +42,7 @@ EOT;
         $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], static::$acceptAndContentTypeHeader, $data);
         $response = $this->client->getResponse();
 
-        $this->assertResponseCode($response, Response::HTTP_CREATED);
+        $this->assertResponse($response, 'cart/add_simple_product_to_cart_response',Response::HTTP_CREATED);
     }
 
     /**
