@@ -999,6 +999,13 @@ definitions:
         type: "array"
         items:
           $ref: '#/definitions/Image'
+  TaxonDetails:
+    type: "object"
+    properties:
+      self:
+        $ref: '#/definitions/Taxon'
+      parentTree:
+        $ref: '#/definitions/Taxon'
   Page:
     type: "object"
     description: "Generic page object."

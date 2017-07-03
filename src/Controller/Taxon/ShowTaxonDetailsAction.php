@@ -4,10 +4,8 @@ namespace Sylius\ShopApiPlugin\Controller\Taxon;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
-use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Taxonomy\Repository\TaxonRepositoryInterface;
-use Sylius\ShopApiPlugin\Factory\TaxonViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\TaxonView;
+use Sylius\ShopApiPlugin\Factory\TaxonDetailsViewFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -25,14 +23,14 @@ final class ShowTaxonDetailsAction
     private $viewHandler;
 
     /**
-     * @var TaxonViewFactoryInterface
+     * @var TaxonDetailsViewFactoryInterface
      */
     private $taxonViewFactory;
 
     public function __construct(
         TaxonRepositoryInterface $taxonRepository,
         ViewHandlerInterface $viewHandler,
-        TaxonViewFactoryInterface $taxonViewFactory
+        TaxonDetailsViewFactoryInterface $taxonViewFactory
     ) {
         $this->taxonRepository = $taxonRepository;
         $this->viewHandler = $viewHandler;
@@ -50,17 +48,6 @@ final class ShowTaxonDetailsAction
             throw new NotFoundHttpException(sprintf('Taxon with slug %s has not been found in %s locale.', $taxonSlug, $locale));
         }
 
-        return $this->viewHandler->handle(View::create($this->buildTaxonView($taxon, $locale), Response::HTTP_OK));
-    }
-
-    private function buildTaxonView(TaxonInterface $taxon, $locale): TaxonView
-    {
-        $taxonView = $this->taxonViewFactory->create($taxon, $locale);
-
-        foreach ($taxon->getChildren() as $childTaxon) {
-            $taxonView->children[] = $this->buildTaxonView($childTaxon, $locale);
-        }
-
-        return $taxonView;
+        return $this->viewHandler->handle(View::create($this->taxonViewFactory->create($taxon, $locale), Response::HTTP_OK));
     }
 }

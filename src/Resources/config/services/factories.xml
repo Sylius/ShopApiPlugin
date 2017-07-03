@@ -10,6 +10,10 @@
             <argument type="service" id="sylius.shop_api_plugin.factory.image_view_factory" />
         </service>
 
+        <service id="sylius.shop_api_plugin.factory.taxon_details_view_factory" class="Sylius\ShopApiPlugin\Factory\TaxonDetailsViewFactory">
+            <argument type="service" id="sylius.shop_api_plugin.factory.taxon_view_factory" />
+        </service>
+
         <service id="sylius.shop_api_plugin.factory.price_view_factory" class="Sylius\ShopApiPlugin\Factory\PriceViewFactory" />
 
         <service id="sylius.shop_api_plugin.factory.product_variant_view_factory" class="Sylius\ShopApiPlugin\Factory\ProductVariantViewFactory">
