@@ -14,10 +14,23 @@ final class TaxonShowDetailsApiTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFile('shop.yml');
 
-        $this->client->request('GET', '/shop-api/taxons/categories/t-shirts?locale=en_GB', [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('GET', '/shop-api/taxons/T_SHIRTS?locale=en_GB', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'taxon/one_of_taxons_response', Response::HTTP_OK);
+    }
+
+    /**
+     * @test
+     */
+    public function it_shows_summary_of_a_chosen_taxon_with_strange_code()
+    {
+        $this->loadFixturesFromFile('shop.yml');
+
+        $this->client->request('GET', '/shop-api/taxons/de%3Flol%3Dxd%23boom?locale=en_GB', [], [], ['ACCEPT' => 'application/json']);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'taxon/strange_taxon_code_response', Response::HTTP_OK);
     }
 
     /**
@@ -27,7 +40,7 @@ final class TaxonShowDetailsApiTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFile('shop.yml');
 
-        $this->client->request('GET', '/shop-api/taxons/t-shirts?locale=de_DE', [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('GET', '/shop-api/taxons/T_SHIRTS?locale=de_DE', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'taxon/german_one_of_taxons_response', Response::HTTP_OK);

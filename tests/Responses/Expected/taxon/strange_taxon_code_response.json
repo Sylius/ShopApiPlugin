@@ -1,0 +1,20 @@
+{
+    "self": {
+        "code": "de?lol=xd#boom",
+        "name": "Yet another taxon",
+        "slug": "yet_another_taxons",
+        "description": "Some description Lorem ipsum dolor sit amet.",
+        "position": 2,
+        "children": [],
+        "images": []
+    },
+    "parentTree": {
+        "code": "de?lol=xd#boom",
+        "name": "Yet another taxon",
+        "slug": "yet_another_taxons",
+        "description": "Some description Lorem ipsum dolor sit amet.",
+        "position": 2,
+        "children": [],
+        "images": []
+    }
+}

@@ -13,39 +13,33 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class ShowTaxonTreeAction
 {
-    /**
-     * @var TaxonRepositoryInterface
-     */
+    /** @var TaxonRepositoryInterface */
     private $taxonRepository;
 
-    /**
-     * @var ViewHandlerInterface
-     */
+    /** @var ViewHandlerInterface */
     private $viewHandler;
 
-    /**
-     * @var TaxonViewFactoryInterface
-     */
+    /** @var TaxonViewFactoryInterface */
     private $taxonViewFactory;
+
+    /** @var string */
+    private $fallbackLocale;
 
     public function __construct(
         TaxonRepositoryInterface $taxonRepository,
         ViewHandlerInterface $viewHandler,
-        TaxonViewFactoryInterface $taxonViewFactory
+        TaxonViewFactoryInterface $taxonViewFactory,
+        string $fallbackLocale
     ) {
         $this->taxonRepository = $taxonRepository;
         $this->viewHandler = $viewHandler;
         $this->taxonViewFactory = $taxonViewFactory;
+        $this->fallbackLocale = $fallbackLocale;
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     */
     public function __invoke(Request $request): Response
     {
-        $locale = $request->query->get('locale');
+        $locale = $request->query->get('locale', $this->fallbackLocale);
 
         $taxons = $this->taxonRepository->findRootNodes();
         $taxonViews = [];

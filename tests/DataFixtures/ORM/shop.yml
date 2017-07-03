@@ -414,6 +414,11 @@ Sylius\Component\Core\Model\Taxon:
         currentLocale: "en_GB"
         currentTranslation: "@en_gb_brand_translation"
         translations: ["@en_gb_brand_translation", "@de_de_brand_translation"]
+    yet_another_taxon:
+        code: "de?lol=xd#boom"
+        currentLocale: "en_GB"
+        currentTranslation: "@en_gb_yet_another_taxon_translation"
+        translations: ["@en_gb_yet_another_taxon_translation"]
 
 Sylius\Component\Taxonomy\Model\TaxonTranslation:
     en_gb_category_translation:
@@ -457,7 +462,12 @@ Sylius\Component\Taxonomy\Model\TaxonTranslation:
         locale: "en_GB"
         name: "Brands"
         description: "Some description Lorem ipsum dolor sit amet."
-        translatable: "@brand_taxon"
+    en_gb_yet_another_taxon_translation:
+        slug: "yet_another_taxons"
+        locale: "en_GB"
+        name: "Yet another taxon"
+        description: "Some description Lorem ipsum dolor sit amet."
+        translatable: "@yet_another_taxon"
     de_de_mug_taxon_translation:
         slug: "tassen"
         locale: "de_DE"

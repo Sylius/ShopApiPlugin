@@ -24,14 +24,19 @@ final class TaxonDetailsViewFactorySpec extends ObjectBehavior
     function it_creates_taxon_view(
         TaxonInterface $taxon,
         TaxonInterface $parentTaxon,
+        TaxonInterface $childrenTaxon,
         TaxonViewFactoryInterface $taxonViewFactory
     ) {
         $taxon->getParent()->willReturn($parentTaxon);
-        $taxonViewFactory->create($taxon, 'en_GB')->willReturn(new TaxonView());
+        $taxon->getChildren()->willReturn([$childrenTaxon]);
+        $childrenTaxon->getChildren()->willReturn([]);
+        $taxonViewFactory->create($taxon, 'en_GB')->willReturn(new TaxonView(), new TaxonView());
         $taxonViewFactory->create($parentTaxon, 'en_GB')->willReturn(new TaxonView());
+        $taxonViewFactory->create($childrenTaxon, 'en_GB')->willReturn(new TaxonView());
 
         $taxonView = new TaxonDetailsView();
         $taxonView->self = new TaxonView();
+        $taxonView->self->children[] = new TaxonView();
         $taxonView->parentTree = new TaxonView();
         $taxonView->parentTree->children[] = new TaxonView();
 

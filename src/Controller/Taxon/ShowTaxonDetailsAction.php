@@ -39,13 +39,13 @@ final class ShowTaxonDetailsAction
 
     public function __invoke(Request $request): Response
     {
-        $taxonSlug = $request->attributes->get('slug');
+        $code = $request->attributes->get('code');
         $locale = $request->query->get('locale');
 
-        $taxon = $this->taxonRepository->findOneBySlug($taxonSlug, $locale);
+        $taxon = $this->taxonRepository->findOneBy(['code' => $code]);
 
         if (null === $taxon) {
-            throw new NotFoundHttpException(sprintf('Taxon with slug %s has not been found in %s locale.', $taxonSlug, $locale));
+            throw new NotFoundHttpException(sprintf('Taxon with code %s has not been found.', $code));
         }
 
         return $this->viewHandler->handle(View::create($this->taxonViewFactory->create($taxon, $locale), Response::HTTP_OK));

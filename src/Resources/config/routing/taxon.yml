@@ -1,10 +1,8 @@
 shop_api_taxon_show_details:
-    path: /taxons/{slug}
+    path: /taxons/{code}
     methods: [GET]
     defaults:
         _controller: sylius.shop_api_plugin.controller.taxon.show_taxon_details_action
-    requirements:
-        slug: .+
 
 shop_api_taxon_show_tree:
     path: /taxons/
