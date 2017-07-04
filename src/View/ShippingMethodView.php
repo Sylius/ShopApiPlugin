@@ -23,4 +23,9 @@ class ShippingMethodView
      * @var PriceView
      */
     public $price;
+
+    public function __construct()
+    {
+        $this->price = new PriceView();
+    }
 }

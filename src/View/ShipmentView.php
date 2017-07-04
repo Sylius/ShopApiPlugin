@@ -13,4 +13,9 @@ class ShipmentView
      * @var ShippingMethodView
      */
     public $method;
+
+    public function __construct()
+    {
+        $this->method = new ShippingMethodView();
+    }
 }

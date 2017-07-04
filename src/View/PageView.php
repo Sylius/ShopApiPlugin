@@ -32,5 +32,10 @@ class PageView
     /**
      * @var array
      */
-    public $items;
+    public $items = [];
+
+    public function __construct()
+    {
+        $this->links = new PageLinksView();
+    }
 }

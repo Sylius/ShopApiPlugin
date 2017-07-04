@@ -38,4 +38,9 @@ class ProductVariantView
      * @var array
      */
     public $appliedPromotions = [];
+
+    public function __construct()
+    {
+        $this->price = new PriceView();
+    }
 }
