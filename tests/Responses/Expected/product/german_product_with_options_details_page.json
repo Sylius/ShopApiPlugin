@@ -5,33 +5,11 @@
     "breadcrumb": "hute\/logan-hut",
     "averageRating": 0,
     "taxons": {
-        "HAT": {
-            "code": "CATEGORY",
-            "name": "Categories",
-            "slug": "categories",
-            "description": "Some description Lorem ipsum dolor sit amet.",
-            "position": 0,
-            "children": [
-                {
-                    "code": "HAT",
-                    "name": "H\u00fcte",
-                    "slug": "hute",
-                    "position": 1,
-                    "children": [],
-                    "images": []
-                }
-            ],
-            "images": []
-        },
-        "BRAND": {
-            "code": "BRAND",
-            "name": "Marken",
-            "slug": "marken",
-            "description": "Einige Beschreibung Lorem ipsum dolor sit amet.",
-            "position": 1,
-            "children": [],
-            "images": []
-        }
+        "main": "HAT",
+        "others": [
+            "HAT",
+            "BRAND"
+        ]
     },
     "variants": {
         "SMALL_RED_LOGAN_HAT_CODE": {
@@ -112,34 +90,11 @@
                 "slug": "logan-becher",
                 "averageRating": 0,
                 "taxons": {
-                    "MUG": {
-                        "code": "CATEGORY",
-                        "name": "Categories",
-                        "slug": "categories",
-                        "description": "Some description Lorem ipsum dolor sit amet.",
-                        "position": 0,
-                        "children": [
-                            {
-                                "code": "MUG",
-                                "name": "Tassen",
-                                "slug": "tassen",
-                                "description": "Einige Beschreibung Lorem ipsum dolor sit amet.",
-                                "position": 0,
-                                "children": [],
-                                "images": []
-                            }
-                        ],
-                        "images": []
-                    },
-                    "BRAND": {
-                        "code": "BRAND",
-                        "name": "Marken",
-                        "slug": "marken",
-                        "description": "Einige Beschreibung Lorem ipsum dolor sit amet.",
-                        "position": 1,
-                        "children": [],
-                        "images": []
-                    }
+                    "main": "MUG",
+                    "others": [
+                        "MUG",
+                        "BRAND"
+                    ]
                 },
                 "variants": {
                     "LOGAN_MUG_CODE": {
@@ -185,49 +140,11 @@
                 "slug": "logan-t-shirt",
                 "averageRating": 0,
                 "taxons": {
-                    "WOMEN_T_SHIRTS": {
-                        "code": "CATEGORY",
-                        "name": "Categories",
-                        "slug": "categories",
-                        "description": "Some description Lorem ipsum dolor sit amet.",
-                        "position": 0,
-                        "children": [
-                            {
-                                "code": "T_SHIRTS",
-                                "name": "T-Shirts",
-                                "slug": "t-shirts",
-                                "description": "Einige Beschreibung Lorem ipsum dolor sit amet.",
-                                "position": 2,
-                                "children": [
-                                    {
-                                        "code": "WOMEN_T_SHIRTS",
-                                        "name": "Frauen T-Shirts",
-                                        "slug": "frauen-t-shirts",
-                                        "description": "Einige Beschreibung Lorem ipsum dolor sit amet.",
-                                        "position": 1,
-                                        "children": [],
-                                        "images": []
-                                    }
-                                ],
-                                "images": [
-                                    {
-                                        "code": "thumbnail",
-                                        "path": "\/uo\/t-shirt.jpg"
-                                    }
-                                ]
-                            }
-                        ],
-                        "images": []
-                    },
-                    "BRAND": {
-                        "code": "BRAND",
-                        "name": "Marken",
-                        "slug": "marken",
-                        "description": "Einige Beschreibung Lorem ipsum dolor sit amet.",
-                        "position": 1,
-                        "children": [],
-                        "images": []
-                    }
+                    "main": "T_SHIRTS",
+                    "others": [
+                        "WOMEN_T_SHIRTS",
+                        "BRAND"
+                    ]
                 },
                 "variants": {
                     "SMALL_LOGAN_T_SHIRT_CODE": {

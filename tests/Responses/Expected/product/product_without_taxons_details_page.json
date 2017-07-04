@@ -1,0 +1,19 @@
+{
+    "code": "LOGAN_SHOES_CODE",
+    "name": "Logan Shoes",
+    "slug": "logan-shoes",
+    "breadcrumb": "logan-shoes",
+    "averageRating": 0,
+    "taxons": {
+        "others": []
+    },
+    "variants": [],
+    "attributes": [],
+    "associations": [],
+    "images": [],
+    "_links": {
+        "self": {
+            "href": "\/shop-api\/products\/logan-shoes"
+        }
+    }
+}

@@ -9,6 +9,7 @@ use Sylius\Component\Core\Model\ProductImageInterface;
 use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Model\ProductTranslationInterface;
 use Sylius\Component\Core\Model\TaxonInterface;
+use Sylius\ShopApiPlugin\View\ProductTaxonView;
 use Sylius\ShopApiPlugin\View\ProductView;
 use Sylius\ShopApiPlugin\View\TaxonView;
 
@@ -25,11 +26,6 @@ final class ProductViewFactory implements ProductViewFactoryInterface
     private $attributeValuesViewFactory;
 
     /**
-     * @var TaxonViewFactoryInterface
-     */
-    private $taxonViewFactory;
-
-    /**
      * @var string
      */
     private $fallback;
@@ -37,18 +33,15 @@ final class ProductViewFactory implements ProductViewFactoryInterface
     /**
      * @param ImageViewFactoryInterface $imageViewFactory
      * @param ProductAttributeValuesViewFactoryInterface $attributeValuesViewFactory
-     * @param TaxonViewFactoryInterface $taxonViewFactory
      * @param string $fallback
      */
     public function __construct(
         ImageViewFactoryInterface $imageViewFactory,
         ProductAttributeValuesViewFactoryInterface $attributeValuesViewFactory,
-        TaxonViewFactoryInterface $taxonViewFactory,
         $fallback
     ) {
         $this->imageViewFactory = $imageViewFactory;
         $this->attributeValuesViewFactory = $attributeValuesViewFactory;
-        $this->taxonViewFactory = $taxonViewFactory;
         $this->fallback = $fallback;
     }
 
@@ -72,28 +65,20 @@ final class ProductViewFactory implements ProductViewFactoryInterface
             $productView->images[] = $imageView;
         }
 
+        $taxons = new ProductTaxonView();
+        if (null !== $product->getMainTaxon()) {
+            $taxons->main = $product->getMainTaxon()->getCode();
+        }
+
         /** @var TaxonInterface $taxon */
         foreach ($product->getTaxons() as $taxon) {
-            $productView->taxons[$taxon->getCode()] = $this->getTaxonWithAncestors($taxon, $locale);
+            $taxons->others[] = $taxon->getCode();
         }
+
+        $productView->taxons = $taxons;
 
         $productView->attributes = $this->attributeValuesViewFactory->create($product->getAttributesByLocale($locale, $this->fallback));
 
         return $productView;
-    }
-
-    private function getTaxonWithAncestors(TaxonInterface $taxon, $locale): TaxonView
-    {
-        $currentTaxonView = $this->taxonViewFactory->create($taxon, $locale);
-
-        while (null !== $taxon->getParent()) {
-            $taxon = $taxon->getParent();
-
-            $taxonView = $this->taxonViewFactory->create($taxon, $locale);
-            $taxonView->children[] = $currentTaxonView;
-            $currentTaxonView = $taxonView;
-        }
-
-        return $currentTaxonView;
     }
 }

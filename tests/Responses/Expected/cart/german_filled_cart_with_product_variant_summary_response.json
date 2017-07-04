@@ -15,33 +15,11 @@
                 "slug": "logan-hut",
                 "averageRating": 0,
                 "taxons": {
-                    "HAT": {
-                        "code": "CATEGORY",
-                        "name": "Categories",
-                        "slug": "categories",
-                        "description": "Some description Lorem ipsum dolor sit amet.",
-                        "position": 0,
-                        "children": [
-                            {
-                                "code": "HAT",
-                                "name": "H\u00fcte",
-                                "slug": "hute",
-                                "position": 1,
-                                "children": [],
-                                "images": []
-                            }
-                        ],
-                        "images": []
-                    },
-                    "BRAND": {
-                        "code": "BRAND",
-                        "name": "Marken",
-                        "slug": "marken",
-                        "description": "Einige Beschreibung Lorem ipsum dolor sit amet.",
-                        "position": 1,
-                        "children": [],
-                        "images": []
-                    }
+                    "main": "HAT",
+                    "others": [
+                        "HAT",
+                        "BRAND"
+                    ]
                 },
                 "variants": [
                     {

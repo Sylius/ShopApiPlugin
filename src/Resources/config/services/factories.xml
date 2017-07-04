@@ -23,7 +23,6 @@
         <service id="sylius.shop_api_plugin.factory.product_view_factory" class="Sylius\ShopApiPlugin\Factory\ProductViewFactory">
             <argument type="service" id="sylius.shop_api_plugin.factory.image_view_factory" />
             <argument type="service" id="sylius.shop_api_plugin.factory.limited_product_attribute_values_view_factory" />
-            <argument type="service" id="sylius.shop_api_plugin.factory.taxon_view_factory" />
             <argument>%locale%</argument>
         </service>
 
