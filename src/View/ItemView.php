@@ -23,4 +23,9 @@ class ItemView
      * @var ProductView
      */
     public $product;
+
+    public function __construct()
+    {
+        $this->product = new ProductView();
+    }
 }
