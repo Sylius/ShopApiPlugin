@@ -902,9 +902,7 @@ definitions:
                 type: "integer"
                 example: 4.5
             taxons:
-                type: "array"
-                items:
-                    $ref: '#/definitions/Taxon'
+                $ref: '#/definitions/ProductTaxon'
             variants:
                 description: "Keys reference to code of a variant."
                 type: "object"
@@ -1006,6 +1004,17 @@ definitions:
                 $ref: '#/definitions/Taxon'
             parentTree:
                 $ref: '#/definitions/Taxon'
+    ProductTaxon:
+        type: "object"
+        properties:
+            main:
+                type: "string"
+                example: "MAIN_TAXON_CODE"
+            others:
+                type: "array"
+                items:
+                    type: string
+                    example: "OTHER_TAXON_CODE"
     Page:
         type: "object"
         description: "Generic page object."

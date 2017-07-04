@@ -19,7 +19,6 @@ Sylius\ShopApiPlugin\View\ProductView:
             type: integer
         taxons:
             expose: true
-            type: array
         variants:
             expose: true
             type: array

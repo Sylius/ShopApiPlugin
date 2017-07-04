@@ -15,34 +15,11 @@
                 "slug": "logan-becher",
                 "averageRating": 0,
                 "taxons": {
-                    "MUG": {
-                        "code": "CATEGORY",
-                        "name": "Categories",
-                        "slug": "categories",
-                        "description": "Some description Lorem ipsum dolor sit amet.",
-                        "position": 0,
-                        "children": [
-                            {
-                                "code": "MUG",
-                                "name": "Tassen",
-                                "slug": "tassen",
-                                "description": "Einige Beschreibung Lorem ipsum dolor sit amet.",
-                                "position": 0,
-                                "children": [],
-                                "images": []
-                            }
-                        ],
-                        "images": []
-                    },
-                    "BRAND": {
-                        "code": "BRAND",
-                        "name": "Marken",
-                        "slug": "marken",
-                        "description": "Einige Beschreibung Lorem ipsum dolor sit amet.",
-                        "position": 1,
-                        "children": [],
-                        "images": []
-                    }
+                    "main": "MUG",
+                    "others": [
+                        "MUG",
+                        "BRAND"
+                    ]
                 },
                 "variants": [
                     {
