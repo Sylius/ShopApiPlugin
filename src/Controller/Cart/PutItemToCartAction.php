@@ -6,7 +6,7 @@ use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
-use Sylius\ShopApiPlugin\Query\CartQueryInterface;
+use Sylius\ShopApiPlugin\ViewRepository\CartViewRepositoryInterface;
 use Sylius\ShopApiPlugin\Request\PutOptionBasedConfigurableItemToCartRequest;
 use Sylius\ShopApiPlugin\Request\PutSimpleItemToCartRequest;
 use Sylius\ShopApiPlugin\Request\PutVariantBasedConfigurableItemToCartRequest;
@@ -38,7 +38,7 @@ final class PutItemToCartAction
     private $validationErrorViewFactory;
 
     /**
-     * @var CartQueryInterface
+     * @var CartViewRepositoryInterface
      */
     private $cartQuery;
 
@@ -47,14 +47,14 @@ final class PutItemToCartAction
      * @param CommandBus $bus
      * @param ValidatorInterface $validator
      * @param ValidationErrorViewFactoryInterface $validationErrorViewFactory
-     * @param CartQueryInterface $cartQuery
+     * @param CartViewRepositoryInterface $cartQuery
      */
     public function __construct(
         ViewHandlerInterface $viewHandler,
         CommandBus $bus,
         ValidatorInterface $validator,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
-        CartQueryInterface $cartQuery
+        CartViewRepositoryInterface $cartQuery
     ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
@@ -83,7 +83,7 @@ final class PutItemToCartAction
 
         try {
             return $this->viewHandler->handle(
-                View::create($this->cartQuery->findByToken($command->orderToken()), Response::HTTP_CREATED)
+                View::create($this->cartQuery->getOneByToken($command->orderToken()), Response::HTTP_CREATED)
             );
         } catch (\InvalidArgumentException $exception) {
             throw new NotFoundHttpException($exception->getMessage());
