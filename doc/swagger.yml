@@ -579,24 +579,24 @@ paths:
             items:
               type: "object"
               $ref: "#/definitions/Taxon"
-  /taxons/{slug}:
+  /taxons/{code}:
     get:
       tags:
       - "taxons"
-      summary: "Show taxon with given slug."
-      description: "This endpoint will return a taxon with given slug and all its children."
+      summary: "Show taxon with given code."
+      description: "This endpoint will return a taxon with given code, children and the root node with direct path to this taxon."
       operationId: "taxonDetails"
       consumes:
       - "application/json"
       produces:
       - "application/json"
       parameters:
-      - name: "slug"
+      - name: "code"
         in: "path"
-        description: "Slug of expected taxon."
+        description: "Code of expected taxon."
         required: true
         type: "string"
-        example: "categories"
+        example: "CATEGORIES_CODE"
       - name: "locale"
         in: "query"
         description: "Locale in which taxons should be shown."
@@ -999,6 +999,13 @@ definitions:
         type: "array"
         items:
           $ref: '#/definitions/Image'
+  TaxonDetails:
+    type: "object"
+    properties:
+      self:
+        $ref: '#/definitions/Taxon'
+      parentTree:
+        $ref: '#/definitions/Taxon'
   Page:
     type: "object"
     description: "Generic page object."

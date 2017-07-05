@@ -6,14 +6,6 @@
         <import resource="actions/cart.xml"/>
         <import resource="actions/product.xml"/>
         <import resource="actions/customer.xml"/>
+        <import resource="actions/taxon.xml"/>
     </imports>
-    <services>
-        <service id="sylius.shop_api_plugin.controller.taxon_controller"
-                 class="Sylius\ShopApiPlugin\Controller\TaxonController"
-        >
-            <argument type="service" id="sylius.repository.taxon" />
-            <argument type="service" id="fos_rest.view_handler" />
-            <argument type="service" id="sylius.shop_api_plugin.factory.taxon_view_factory" />
-        </service>
-    </services>
 </container>

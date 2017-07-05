@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Sylius\ShopApiPlugin\Factory;
 
 use Sylius\Component\Core\Model\ImageInterface;
@@ -22,10 +24,7 @@ final class TaxonViewFactory implements TaxonViewFactoryInterface
         $this->imageViewFactory = $imageViewFactory;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function create(TaxonInterface $taxon, $locale)
+    public function create(TaxonInterface $taxon, string $locale): TaxonView
     {
         /** @var TaxonTranslationInterface $taxonTranslation */
         $taxonTranslation = $taxon->getTranslation($locale);
