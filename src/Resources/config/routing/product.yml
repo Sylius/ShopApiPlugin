@@ -1,8 +1,8 @@
-shop_api_product_show_details:
+shop_api_product_show_details_by_slug:
     path: /products-by-slug/{slug}
     methods: [GET]
     defaults:
-        _controller: sylius.shop_api_plugin.controller.product.show_product_details_action
+        _controller: sylius.shop_api_plugin.controller.product.show_product_details_by_slug_action
 
 shop_api_add_product_review:
     path: /products-by-slug/{slug}/reviews

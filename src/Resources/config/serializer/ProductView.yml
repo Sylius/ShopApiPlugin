@@ -34,6 +34,6 @@ Sylius\ShopApiPlugin\View\ProductView:
     relations:
         -   rel: self
             href:
-                route: shop_api_product_show_details
+                route: shop_api_product_show_details_by_slug
                 parameters:
                     slug: expr(object.slug)
