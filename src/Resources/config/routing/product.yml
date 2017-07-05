@@ -1,17 +1,17 @@
 shop_api_product_show_details:
-    path: /products/{slug}
+    path: /products-by-slug/{slug}
     methods: [GET]
     defaults:
         _controller: sylius.shop_api_plugin.controller.product.show_product_details_action
 
 shop_api_add_product_review:
-    path: /products/{slug}/reviews
+    path: /products-by-slug/{slug}/reviews
     methods: [POST]
     defaults:
         _controller: sylius.shop_api_plugin.controller.product.add_review_action
 
 shop_api_product_show_catalog:
-    path: /taxon-products/{taxonomySlug}
+    path: /taxon-products-by-slug/{taxonomySlug}
     methods: [GET]
     defaults:
         _controller: sylius.shop_api_plugin.controller.product.show_product_catalog_action
@@ -19,7 +19,7 @@ shop_api_product_show_catalog:
         taxonomySlug: .+
 
 shop_api_product_show_reviews:
-    path: /products/{slug}/reviews
+    path: /products-by-slug/{slug}/reviews
     methods: [GET]
     defaults:
         _controller: sylius.shop_api_plugin.controller.product.show_reviews_action
