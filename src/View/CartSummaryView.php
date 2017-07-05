@@ -58,4 +58,9 @@ class CartSummaryView
      * @var array
      */
     public $shipments = array();
+
+    public function __construct()
+    {
+        $this->totals = new TotalsView();
+    }
 }

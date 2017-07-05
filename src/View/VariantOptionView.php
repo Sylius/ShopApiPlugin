@@ -13,4 +13,9 @@ class VariantOptionView
      * @var VariantOptionValueView
      */
     public $value;
+
+    public function __construct($value)
+    {
+        $this->value = new VariantOptionValueView();
+    }
 }

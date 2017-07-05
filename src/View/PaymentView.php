@@ -18,4 +18,10 @@ class PaymentView
      * @var PriceView
      */
     public $price;
+
+    public function __construct()
+    {
+        $this->method = new PaymentMethodView();
+        $this->price = new PriceView();
+    }
 }
