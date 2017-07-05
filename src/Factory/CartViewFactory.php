@@ -2,64 +2,51 @@
 
 namespace Sylius\ShopApiPlugin\Factory;
 
+use Sylius\Component\Core\Model\AdjustmentInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\ShopApiPlugin\View\CartSummaryView;
-use Sylius\ShopApiPlugin\View\TotalsView;
-use Sylius\ShopApiPlugin\View\ItemView;
 
 final class CartViewFactory implements CartViewFactoryInterface
 {
-    /**
-     * @var CartItemViewFactoryInterface
-     */
+    /** @var CartItemViewFactoryInterface */
     private $cartItemFactory;
 
-    /**
-     * @var AddressViewFactoryInterface
-     */
+    /** @var AddressViewFactoryInterface */
     private $addressViewFactory;
 
-    /**
-     * @var TotalViewFactoryInterface
-     */
+    /** @var TotalViewFactoryInterface */
     private $totalViewFactory;
 
-    /**
-     * @var ShipmentViewFactoryInterface
-     */
+    /** @var ShipmentViewFactoryInterface */
     private $shipmentViewFactory;
 
-    /**
-     * @var PaymentViewFactoryInterface
-     */
+    /** @var PaymentViewFactoryInterface */
     private $paymentViewFactory;
 
-    /**
-     * @param CartItemViewFactoryInterface $cartItemFactory
-     * @param AddressViewFactoryInterface $addressViewFactory
-     * @param TotalViewFactoryInterface $totalViewFactory
-     * @param ShipmentViewFactoryInterface $shipmentViewFactory
-     * @param PaymentViewFactoryInterface $paymentViewFactory
-     */
+    /** @var AdjustmentViewFactoryInterface */
+    private $adjustmentViewFactory;
+
     public function __construct(
         CartItemViewFactoryInterface $cartItemFactory,
         AddressViewFactoryInterface $addressViewFactory,
         TotalViewFactoryInterface $totalViewFactory,
         ShipmentViewFactoryInterface $shipmentViewFactory,
-        PaymentViewFactoryInterface $paymentViewFactory
+        PaymentViewFactoryInterface $paymentViewFactory,
+        AdjustmentViewFactoryInterface $adjustmentViewFactory
     ) {
         $this->cartItemFactory = $cartItemFactory;
         $this->addressViewFactory = $addressViewFactory;
         $this->totalViewFactory = $totalViewFactory;
         $this->shipmentViewFactory = $shipmentViewFactory;
         $this->paymentViewFactory = $paymentViewFactory;
+        $this->adjustmentViewFactory = $adjustmentViewFactory;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function create(OrderInterface $cart, $localeCode)
+    public function create(OrderInterface $cart, string $localeCode): CartSummaryView
     {
         $cartView = new CartSummaryView();
         $cartView->channel = $cart->getChannel()->getCode();
@@ -81,6 +68,17 @@ final class CartViewFactory implements CartViewFactoryInterface
         foreach ($cart->getPayments() as $payment) {
             $cartView->payments[] = $this->paymentViewFactory->create($payment, $localeCode);
         }
+
+        $discounts = [];
+        /** @var AdjustmentInterface $adjustment */
+        foreach ($cart->getAdjustmentsRecursively(AdjustmentInterface::ORDER_PROMOTION_ADJUSTMENT) as $adjustment) {
+            $originCode = $adjustment->getOriginCode();
+            $additionalAmount = isset($discounts[$originCode]) ? $discounts[$originCode]->amount->current : 0;
+
+            $discounts[$originCode] = $this->adjustmentViewFactory->create($adjustment, $additionalAmount);
+        }
+
+        $cartView->discounts = $discounts;
 
         if (null !== $cart->getShippingAddress()) {
             $cartView->shippingAddress = $this->addressViewFactory->create($cart->getShippingAddress());

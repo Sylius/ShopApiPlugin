@@ -4,60 +4,41 @@ namespace Sylius\ShopApiPlugin\View;
 
 class CartSummaryView
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     public $tokenValue;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $channel;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $currency;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $locale;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $checkoutState;
 
-    /**
-     * @var array
-     */
-    public $items = array();
+    /** @var array|ItemView[[ */
+    public $items = [];
 
-    /**
-     * @var TotalsView
-     */
+    /** @var TotalsView */
     public $totals;
 
-    /**
-     * @var AddressView
-     */
+    /** @var AddressView */
     public $shippingAddress;
 
-    /**
-     * @var AddressView
-     */
+    /** @var AddressView */
     public $billingAddress;
 
-    /**
-     * @var array
-     */
-    public $payments = array();
+    /** @var array|PaymentView[] */
+    public $payments = [];
 
-    /**
-     * @var array
-     */
-    public $shipments = array();
+    /** @var array|ShipmentView[] */
+    public $shipments = [];
+
+    /** @var array|AdjustmentView[] */
+    public $discounts = [];
 
     public function __construct()
     {

@@ -59,5 +59,6 @@
         "promotion": 0
     },
     "payments": [],
-    "shipments": []
+    "shipments": [],
+    "discounts":[]
 }

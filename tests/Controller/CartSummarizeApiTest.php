@@ -4,6 +4,7 @@ namespace Tests\Sylius\ShopApiPlugin\Controller;
 
 use Lakion\ApiTestCase\JsonApiTestCase;
 use League\Tactician\CommandBus;
+use Sylius\ShopApiPlugin\Command\AddCoupon;
 use Sylius\ShopApiPlugin\Command\PickupCart;
 use Sylius\ShopApiPlugin\Command\PutSimpleItemToCart;
 use Symfony\Component\HttpFoundation\Response;
@@ -157,5 +158,27 @@ EOT;
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/german_filled_cart_with_product_variant_summary_response', Response::HTTP_OK);
+    }
+
+    /**
+     * @test
+     */
+    public function it_shows_summary_of_a_cart_with_coupon_applied()
+    {
+        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFile('coupon_based_promotion.yml');
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var CommandBus $bus */
+        $bus = $this->get('tactician.commandbus');
+        $bus->handle(new PickupCart($token, 'WEB_GB'));
+        $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
+        $bus->handle(new AddCoupon($token, 'BANANAS'));
+
+        $this->client->request('GET', '/shop-api/carts/' . $token, [], [], ['ACCEPT' => 'application/json']);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'cart/cart_with_coupon_based_promotion_applied_response', Response::HTTP_OK);
     }
 }
