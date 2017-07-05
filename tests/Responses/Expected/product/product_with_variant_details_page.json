@@ -63,7 +63,7 @@
     ],
     "_links": {
         "self": {
-            "href": "\/shop-api\/products\/logan-t-shirt"
+            "href": "\/shop-api\/products-by-slug\/logan-t-shirt"
         }
     }
 }
