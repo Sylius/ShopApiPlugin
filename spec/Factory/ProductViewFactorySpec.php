@@ -15,6 +15,7 @@ use PhpSpec\ObjectBehavior;
 use Sylius\ShopApiPlugin\Factory\ProductViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\TaxonViewFactoryInterface;
 use Sylius\ShopApiPlugin\View\ImageView;
+use Sylius\ShopApiPlugin\View\ProductTaxonView;
 use Sylius\ShopApiPlugin\View\ProductView;
 use Sylius\ShopApiPlugin\View\TaxonView;
 
@@ -22,10 +23,9 @@ final class ProductViewFactorySpec extends ObjectBehavior
 {
     function let(
         ImageViewFactoryInterface $imageViewFactory,
-        ProductAttributeValuesViewFactoryInterface $attributeValuesViewFactory,
-        TaxonViewFactoryInterface $taxonViewFactory
+        ProductAttributeValuesViewFactoryInterface $attributeValuesViewFactory
     ) {
-        $this->beConstructedWith($imageViewFactory, $attributeValuesViewFactory, $taxonViewFactory, 'en_GB');
+        $this->beConstructedWith($imageViewFactory, $attributeValuesViewFactory, 'en_GB');
     }
 
     function it_is_price_view_factory()
@@ -41,10 +41,9 @@ final class ProductViewFactorySpec extends ObjectBehavior
         ProductImageInterface $firstProductImage,
         ProductImageInterface $secondProductImage,
         ProductInterface $product,
-        TaxonInterface $parentalTaxon,
         TaxonInterface $taxon,
-        ProductTranslationInterface $productTranslation,
-        TaxonViewFactoryInterface $taxonViewFactory
+        TaxonInterface $mainTaxon,
+        ProductTranslationInterface $productTranslation
     ) {
         $product->getTranslation('en_GB')->willReturn($productTranslation);
         $product->getCode()->willReturn('HAT_CODE');
@@ -52,12 +51,11 @@ final class ProductViewFactorySpec extends ObjectBehavior
         $product->getTranslation('en_GB')->willReturn($productTranslation);
         $product->getImages()->willReturn([$firstProductImage, $secondProductImage]);
         $product->getTaxons()->willReturn([$taxon]);
+        $product->getMainTaxon()->willReturn($mainTaxon);
         $product->getAttributesByLocale('en_GB', 'en_GB')->willReturn([$productAttributeValue]);
 
-        $taxon->getParent()->willReturn($parentalTaxon);
-        $taxon->getCode()->willReturn('CHILD');
-        $parentalTaxon->getParent()->willReturn(null);
-        $parentalTaxon->getCode()->willReturn('PARENT');
+        $taxon->getCode()->willReturn('TAXON');
+        $mainTaxon->getCode()->willReturn('MAIN');
 
         $firstProductImage->getProductVariants()->willReturn([]);
         $secondProductImage->getProductVariants()->willReturn([]);
@@ -67,21 +65,19 @@ final class ProductViewFactorySpec extends ObjectBehavior
 
         $attributeValuesViewFactory->create([$productAttributeValue])->willReturn([]);
 
-        $taxonViewFactory->create($taxon, 'en_GB')->willReturn(new TaxonView());
-        $taxonViewFactory->create($parentalTaxon, 'en_GB')->willReturn(new TaxonView());
-
         $productTranslation->getName()->willReturn('Hat');
         $productTranslation->getSlug()->willReturn('hat');
 
-        $parentalTaxonView = new TaxonView();
-        $parentalTaxonView->children = [new TaxonView()];
+        $taxonView = new ProductTaxonView();
+        $taxonView->main = 'MAIN';
+        $taxonView->others = ['TAXON'];
 
         $productView = new ProductView();
         $productView->name = 'Hat';
         $productView->code = 'HAT_CODE';
         $productView->averageRating = 5;
         $productView->slug = 'hat';
-        $productView->taxons = ['CHILD' => $parentalTaxonView];
+        $productView->taxons = $taxonView;
         $productView->images = [new ImageView(), new ImageView()];
         $productView->attributes = [];
 

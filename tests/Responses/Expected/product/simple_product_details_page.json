@@ -5,34 +5,11 @@
     "breadcrumb": "categories\/mugs\/logan-mug",
     "averageRating": 0,
     "taxons": {
-        "MUG": {
-            "code": "CATEGORY",
-            "name": "Categories",
-            "slug": "categories",
-            "description": "Some description Lorem ipsum dolor sit amet.",
-            "position": 0,
-            "children": [
-                {
-                    "code": "MUG",
-                    "name": "Mugs",
-                    "slug": "categories\/mugs",
-                    "description": "Some description Lorem ipsum dolor sit amet.",
-                    "position": 0,
-                    "children": [],
-                    "images": []
-                }
-            ],
-            "images": []
-        },
-        "BRAND": {
-            "code": "BRAND",
-            "name": "Brands",
-            "slug": "brands",
-            "description": "Some description Lorem ipsum dolor sit amet.",
-            "position": 1,
-            "children": [],
-            "images": []
-        }
+        "main": "MUG",
+        "others": [
+            "MUG",
+            "BRAND"
+        ]
     },
     "variants": {
         "LOGAN_MUG_CODE": {

@@ -67,6 +67,12 @@ Sylius\Component\Core\Model\Product:
         translations: ["@en_gb_hat_product_translation", "@de_de_hat_product_translation"]
         mainTaxon: "@hat_taxon"
         productTaxons: ["@hat_product_taxon"]
+    shoes:
+        code: "LOGAN_SHOES_CODE"
+        channels: ["@gb_web_channel"]
+        currentLocale: "en_GB"
+        currentTranslation: "@en_gb_shoes_product_translation"
+        translations: ["@en_gb_shoes_product_translation"]
 
 Sylius\Component\Core\Model\ProductTranslation:
     en_gb_mug_product_translation:
@@ -98,6 +104,12 @@ Sylius\Component\Core\Model\ProductTranslation:
         name: "Logan Hut"
         description: "Einige Beschreibung Lorem ipsum dolor sit amet."
         translatable: "@hat"
+    en_gb_shoes_product_translation:
+        slug: "logan-shoes"
+        locale: "en_GB"
+        name: "Logan Shoes"
+        description: "Some description Lorem ipsum dolor sit amet."
+        translatable: "@shoes"
 
 Sylius\Component\Core\Model\ProductVariant:
     mug_variant:

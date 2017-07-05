@@ -26,6 +26,19 @@ final class ProductShowDetailsApiTest extends JsonApiTestCase
     /**
      * @test
      */
+    public function it_shows_product_without_taxon_details_page()
+    {
+        $this->loadFixturesFromFile('shop.yml');
+
+        $this->client->request('GET', '/shop-api/products/logan-shoes?channel=WEB_GB', [], [], ['ACCEPT' => 'application/json']);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'product/product_without_taxons_details_page', Response::HTTP_OK);
+    }
+
+    /**
+     * @test
+     */
     public function it_throws_a_not_found_exception_if_channel_has_not_been_found()
     {
         $this->client->request('GET', '/shop-api/products/logan-mug?channel=WEB_GB', [], [], ['ACCEPT' => 'application/json']);

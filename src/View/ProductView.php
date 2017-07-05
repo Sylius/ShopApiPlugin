@@ -30,9 +30,9 @@ class ProductView
     public $averageRating;
 
     /**
-     * @var array
+     * @var ProductTaxonView
      */
-    public $taxons = [];
+    public $taxons;
 
     /**
      * @var array
@@ -53,4 +53,9 @@ class ProductView
      * @var array
      */
     public $images = [];
+
+    public function __construct()
+    {
+        $this->taxons = new ProductTaxonView();
+    }
 }
