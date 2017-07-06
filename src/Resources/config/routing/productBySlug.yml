@@ -14,7 +14,7 @@ shop_api_product_show_catalog_by_slug:
     path: /taxon-products-by-slug/{taxonomySlug}
     methods: [GET]
     defaults:
-        _controller: sylius.shop_api_plugin.controller.product.show_product_catalog_action
+        _controller: sylius.shop_api_plugin.controller.product.show_product_catalog_by_slug_action
     requirements:
         taxonomySlug: .+
 
