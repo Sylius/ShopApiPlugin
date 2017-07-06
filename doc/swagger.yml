@@ -416,7 +416,7 @@ paths:
                     description: "Invalid input, validation failed."
                     schema:
                         $ref: "#/definitions/GeneralError"
-    /taxon-products/{slug}:
+    /taxon-products-by-slug/{slug}:
         get:
             tags:
             - "products"
@@ -464,12 +464,12 @@ paths:
                     schema:
                         type: "object"
                         $ref: "#/definitions/ProductsPage"
-    /products/{slug}:
+    /products-by-slug/{slug}:
         get:
             tags:
             - "products"
             summary: "Show a product with the given slug."
-            description: "This endpoint will return ą product with the given slug."
+            description: "This endpoint will return a product with the given slug."
             operationId: "productDetails"
             consumes:
             - "application/json"
@@ -481,7 +481,7 @@ paths:
               description: "Slug of expected product."
               required: true
               type: "string"
-              example: "categories"
+              example: "king-arthurs-mug"
             - name: "channel"
               in: "query"
               description: "Channel from which products should be gathered."
@@ -499,7 +499,42 @@ paths:
                     schema:
                         type: "object"
                         $ref: "#/definitions/ProductDetails"
-    /products/{slug}/reviews:
+    /products/{code}:
+        get:
+            tags:
+            - "products"
+            summary: "Show a product with the given code."
+            description: "This endpoint will return a product with the given code."
+            operationId: "productDetails"
+            consumes:
+            - "application/json"
+            produces:
+            - "application/json"
+            parameters:
+            - name: "code"
+              in: "path"
+              description: "Code of expected product."
+              required: true
+              type: "string"
+              example: "AWESOME_KING_ARTHURS_MUG"
+            - name: "channel"
+              in: "query"
+              description: "Channel from which products should be gathered."
+              required: true
+              type: "string"
+              example: "en_GB"
+            - name: "locale"
+              in: "query"
+              description: "Locale in which products should be shown."
+              required: false
+              type: "string"
+              example: "en_GB"
+            responses:
+                200:
+                    schema:
+                        type: "object"
+                        $ref: "#/definitions/ProductDetails"
+    /products-by-slug/{slug}/reviews:
         parameters:
         - name: "slug"
           in: "path"
