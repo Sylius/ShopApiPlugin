@@ -13,7 +13,7 @@
     "images": [],
     "_links": {
         "self": {
-            "href": "\/shop-api\/products\/logan-shoes"
+            "href": "\/shop-api\/products-by-slug\/logan-shoes"
         }
     }
 }

@@ -9,4 +9,6 @@ use Sylius\ShopApiPlugin\View\ProductView;
 interface ProductDetailsQueryInterface
 {
     public function findOneBySlug(string $channelCode, string $productSlug, ?string $localeCode): ProductView;
+
+    public function findOneByCode(string $channelCode, string $productCode, ?string $localeCode): ProductView;
 }

@@ -8,12 +8,12 @@ use Sylius\Component\Product\Repository\ProductAssociationTypeRepositoryInterfac
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Component\HttpFoundation\Response;
 
-final class ProductShowDetailsApiTest extends JsonApiTestCase
+final class ProductShowDetailsBySlugApiTest extends JsonApiTestCase
 {
     /**
      * @test
      */
-    public function it_shows_simple_product_details_page_by_slug()
+    public function it_shows_simple_product_details_page()
     {
         $this->loadFixturesFromFile('shop.yml');
 
@@ -30,7 +30,7 @@ final class ProductShowDetailsApiTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFile('shop.yml');
 
-        $this->client->request('GET', '/shop-api/products/logan-shoes?channel=WEB_GB', [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('GET', '/shop-api/products-by-slug/logan-shoes?channel=WEB_GB', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'product/product_without_taxons_details_page', Response::HTTP_OK);
@@ -57,13 +57,13 @@ final class ProductShowDetailsApiTest extends JsonApiTestCase
         $this->client->request('GET', '/shop-api/products-by-slug/some-weird-stuff?channel=WEB_GB', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
-        $this->assertResponse($response, 'product/product_has_not_been_found_response', Response::HTTP_NOT_FOUND);
+        $this->assertResponse($response, 'product/product_has_not_been_found_for_given_slug_response', Response::HTTP_NOT_FOUND);
     }
 
     /**
      * @test
      */
-    public function it_shows_simple_product_details_page_by_slug_in_different_locale()
+    public function it_shows_simple_product_details_page_in_different_locale()
     {
         $this->loadFixturesFromFile('shop.yml');
 
@@ -76,7 +76,7 @@ final class ProductShowDetailsApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_shows_product_with_variant_details_page_by_slug()
+    public function it_shows_product_with_variant_details_page()
     {
         $this->loadFixturesFromFile('shop.yml');
 
@@ -89,7 +89,7 @@ final class ProductShowDetailsApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_shows_product_with_options_details_page_by_slug()
+    public function it_shows_product_with_options_details_page()
     {
         $this->loadFixturesFromFile('shop.yml');
 
@@ -102,7 +102,7 @@ final class ProductShowDetailsApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_shows_product_with_options_details_page_by_slug_in_different_locale()
+    public function it_shows_product_with_options_details_page_in_different_locale()
     {
         $this->loadFixturesFromFile('shop.yml');
 

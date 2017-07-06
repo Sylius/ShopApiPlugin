@@ -2,8 +2,12 @@ shop_api_cart:
     resource: "@ShopApiPlugin/Resources/config/routing/cart.yml"
     prefix: /shop-api
 
-shop_api_product:
-    resource: "@ShopApiPlugin/Resources/config/routing/product.yml"
+shop_api_product_by_slug:
+    resource: "@ShopApiPlugin/Resources/config/routing/productBySlug.yml"
+    prefix: /shop-api
+
+shop_api_product_by_code:
+    resource: "@ShopApiPlugin/Resources/config/routing/productByCode.yml"
     prefix: /shop-api
 
 shop_api_taxon:

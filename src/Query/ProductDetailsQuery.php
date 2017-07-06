@@ -35,17 +35,25 @@ final class ProductDetailsQuery implements ProductDetailsQueryInterface
 
     public function findOneBySlug(string $channelCode, string $productSlug, ?string $localeCode): ProductView
     {
-        /** @var ChannelInterface $channel */
-        $channel = $this->channelRepository->findOneByCode($channelCode);
-
-        Assert::notNull($channel, sprintf('Channel with code %s has not been found', $channelCode));
-
-        $localeCode = $localeCode ?? $channel->getDefaultLocale()->getCode();
-        $this->assertLocaleSupport($localeCode, $channel->getLocales());
+        $channel = $this->getChannel($channelCode);
+        $localeCode = $this->getLocaleCode($localeCode, $channel);
 
         $product = $this->productRepository->findOneByChannelAndSlug($channel, $localeCode, $productSlug);
 
         Assert::notNull($product, sprintf('Product with slug %s has not been found in %s locale.', $productSlug, $localeCode));
+
+        return $this->productViewFactory->create($product, $channel, $localeCode);
+    }
+
+    public function findOneByCode(string $channelCode, string $productCode, ?string $localeCode): ProductView
+    {
+        $channel = $this->getChannel($channelCode);
+        $localeCode = $this->getLocaleCode($localeCode, $channel);
+
+        $product = $this->productRepository->findOneByCode($productCode);
+
+        Assert::notNull($product, sprintf('Product with code %s has not been found.', $productCode));
+        Assert::true($product->hasChannel($channel), sprintf('Channel with code %s has not been found.', $channelCode));
 
         return $this->productViewFactory->create($product, $channel, $localeCode);
     }
@@ -62,5 +70,23 @@ final class ProductDetailsQuery implements ProductDetailsQueryInterface
         }
 
         Assert::oneOf($localeCode, $supportedLocaleCodes);
+    }
+
+    private function getChannel(?string $channelCode): ChannelInterface
+    {
+        /** @var ChannelInterface $channel */
+        $channel = $this->channelRepository->findOneByCode($channelCode);
+
+        Assert::notNull($channel, sprintf('Channel with code %s has not been found.', $channelCode));
+
+        return $channel;
+    }
+
+    private function getLocaleCode(?string $localeCode, ChannelInterface $channel): string
+    {
+        $localeCode = $localeCode ?? $channel->getDefaultLocale()->getCode();
+        $this->assertLocaleSupport($localeCode, $channel->getLocales());
+
+        return $localeCode;
     }
 }
