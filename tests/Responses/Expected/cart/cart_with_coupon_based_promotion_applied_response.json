@@ -65,8 +65,8 @@
     },
     "payments": [],
     "shipments": [],
-    "discounts":[],
-    "discounts": {
+    "cartDiscounts":[],
+    "cartDiscounts": {
         "BANANA_PROMOTION": {
             "name": "Banana promotion",
             "amount": {

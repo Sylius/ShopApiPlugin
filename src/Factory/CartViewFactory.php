@@ -5,6 +5,7 @@ namespace Sylius\ShopApiPlugin\Factory;
 use Sylius\Component\Core\Model\AdjustmentInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
+use Sylius\ShopApiPlugin\View\AdjustmentView;
 use Sylius\ShopApiPlugin\View\CartSummaryView;
 
 final class CartViewFactory implements CartViewFactoryInterface
@@ -69,16 +70,17 @@ final class CartViewFactory implements CartViewFactoryInterface
             $cartView->payments[] = $this->paymentViewFactory->create($payment, $localeCode);
         }
 
-        $discounts = [];
+        /** @var AdjustmentView[] $cartDiscounts */
+        $cartDiscounts = [];
         /** @var AdjustmentInterface $adjustment */
         foreach ($cart->getAdjustmentsRecursively(AdjustmentInterface::ORDER_PROMOTION_ADJUSTMENT) as $adjustment) {
             $originCode = $adjustment->getOriginCode();
-            $additionalAmount = isset($discounts[$originCode]) ? $discounts[$originCode]->amount->current : 0;
+            $additionalAmount = isset($cartDiscounts[$originCode]) ? $cartDiscounts[$originCode]->amount->current : 0;
 
-            $discounts[$originCode] = $this->adjustmentViewFactory->create($adjustment, $additionalAmount);
+            $cartDiscounts[$originCode] = $this->adjustmentViewFactory->create($adjustment, $additionalAmount);
         }
 
-        $cartView->discounts = $discounts;
+        $cartView->cartDiscounts = $cartDiscounts;
 
         if (null !== $cart->getShippingAddress()) {
             $cartView->shippingAddress = $this->addressViewFactory->create($cart->getShippingAddress());

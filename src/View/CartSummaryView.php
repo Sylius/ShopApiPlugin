@@ -19,7 +19,7 @@ class CartSummaryView
     /** @var string */
     public $checkoutState;
 
-    /** @var array|ItemView[[ */
+    /** @var array|ItemView[] */
     public $items = [];
 
     /** @var TotalsView */
@@ -38,7 +38,7 @@ class CartSummaryView
     public $shipments = [];
 
     /** @var array|AdjustmentView[] */
-    public $discounts = [];
+    public $cartDiscounts = [];
 
     public function __construct()
     {

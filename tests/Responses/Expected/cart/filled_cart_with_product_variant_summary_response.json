@@ -112,5 +112,5 @@
     },
     "payments": [],
     "shipments": [],
-    "discounts":[]
+    "cartDiscounts":[]
 }

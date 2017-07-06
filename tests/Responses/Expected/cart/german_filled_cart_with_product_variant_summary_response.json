@@ -60,5 +60,5 @@
     },
     "payments": [],
     "shipments": [],
-    "discounts":[]
+    "cartDiscounts":[]
 }

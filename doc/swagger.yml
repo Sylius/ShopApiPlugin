@@ -870,7 +870,7 @@ definitions:
                         method:
                             type: "object"
                             $ref: "#/definitions/ShippingMethod"
-            discounts:
+            cartDiscounts:
                 type: "array"
                 items:
                     type: "object"

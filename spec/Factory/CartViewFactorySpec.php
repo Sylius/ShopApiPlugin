@@ -261,7 +261,7 @@ final class CartViewFactorySpec extends ObjectBehavior
         $cartView->tokenValue = 'ORDERTOKEN';
         $cartView->items = [new ItemView()];
         $cartView->totals = new TotalsView();
-        $cartView->discounts = ['PROMOTION_CODE' => new AdjustmentView()];
+        $cartView->cartDiscounts = ['PROMOTION_CODE' => new AdjustmentView()];
 
         $this->create($cart, 'en_GB')->shouldBeLike($cartView);
     }
@@ -313,7 +313,7 @@ final class CartViewFactorySpec extends ObjectBehavior
         $cartView->tokenValue = 'ORDERTOKEN';
         $cartView->items = [new ItemView()];
         $cartView->totals = new TotalsView();
-        $cartView->discounts = ['PROMOTION_CODE' => new AdjustmentView()];
+        $cartView->cartDiscounts = ['PROMOTION_CODE' => new AdjustmentView()];
 
         $this->create($cart, 'en_GB')->shouldBeLike($cartView);
     }
