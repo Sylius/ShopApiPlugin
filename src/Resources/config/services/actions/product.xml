@@ -8,6 +8,12 @@
             <argument type="service" id="sylius.shop_api_plugin.query.product_details_query" />
             <argument type="service" id="fos_rest.view_handler" />
         </service>
+        <service id="sylius.shop_api_plugin.controller.product.show_product_details_by_code_action"
+                 class="Sylius\ShopApiPlugin\Controller\Product\ShowProductDetailsByCodeAction"
+        >
+            <argument type="service" id="sylius.shop_api_plugin.query.product_details_query" />
+            <argument type="service" id="fos_rest.view_handler" />
+        </service>
 
         <service id="sylius.shop_api_plugin.controller.product.show_product_catalog_action"
                  class="Sylius\ShopApiPlugin\Controller\Product\ShowProductCatalogAction"

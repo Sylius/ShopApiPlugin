@@ -49,7 +49,7 @@ final class ProductDetailsQuerySpec extends ObjectBehavior
         $this->findOneBySlug('WEB_GB', 'logan-mug', 'en_GB')->shouldReturn($productView);
     }
 
-    function it_provides_product_view_by_slug_in_defaul_channel_locale(
+    function it_provides_product_view_by_slug_in_default_channel_locale(
         ChannelRepositoryInterface $channelRepository,
         ProductRepositoryInterface $productRepository,
         ProductViewFactoryInterface $productViewFactory,
@@ -81,5 +81,109 @@ final class ProductDetailsQuerySpec extends ObjectBehavior
         $locale->getCode()->willReturn('en_GB');
 
         $this->shouldThrow(\InvalidArgumentException::class)->during('findOneBySlug', ['WEB_GB', 'logan-mug', 'de_DE']);
+        $this->shouldThrow(\InvalidArgumentException::class)->during('findOneByCode', ['WEB_GB', 'LOGAN_MUG_CODE', 'de_DE']);
+    }
+
+    function it_throws_an_exception_if_channel_was_not_found(ChannelRepositoryInterface $channelRepository)
+    {
+        $channelRepository->findOneByCode('WEB_GB')->willReturn(null);
+
+        $this->shouldThrow(\InvalidArgumentException::class)->during('findOneBySlug', ['WEB_GB', 'logan-mug', 'de_DE']);
+        $this->shouldThrow(\InvalidArgumentException::class)->during('findOneByCode', ['WEB_GB', 'LOGAN_MUG_CODE', 'de_DE']);
+    }
+
+    function it_throws_an_exception_if_product_was_not_found_by_slug(
+        ChannelRepositoryInterface $channelRepository,
+        ProductRepositoryInterface $productRepository,
+        ChannelInterface $channel,
+        LocaleInterface $locale
+    ) {
+        $channel->getLocales()->willReturn([$locale]);
+        $locale->getCode()->willReturn('en_GB');
+
+        $channelRepository->findOneByCode('WEB_GB')->willReturn($channel);
+        $productRepository->findOneByChannelAndSlug($channel, 'en_GB', 'logan-mug')->willReturn(null);
+
+        $this->shouldThrow(\InvalidArgumentException::class)->during('findOneBySlug', ['WEB_GB', 'logan-mug', 'de_DE']);
+    }
+
+    function it_provides_product_view_by_code_in_given_locale(
+        ChannelRepositoryInterface $channelRepository,
+        ProductRepositoryInterface $productRepository,
+        ProductViewFactoryInterface $productViewFactory,
+        ChannelInterface $channel,
+        LocaleInterface $locale,
+        ProductInterface $product,
+        ProductView $productView
+    ) {
+        $channel->getLocales()->willReturn([$locale]);
+        $locale->getCode()->willReturn('en_GB');
+
+        $product->hasChannel($channel)->willReturn(true);
+
+        $channelRepository->findOneByCode('WEB_GB')->willReturn($channel);
+        $productRepository->findOneByCode('LOGAN_MUG_CODE')->willReturn($product);
+
+        $productViewFactory->create($product, $channel, 'en_GB')->willReturn($productView);
+
+        $this->findOneByCode('WEB_GB', 'LOGAN_MUG_CODE', 'en_GB')->shouldReturn($productView);
+    }
+
+    function it_provides_product_view_by_code_in_default_channel_locale(
+        ChannelRepositoryInterface $channelRepository,
+        ProductRepositoryInterface $productRepository,
+        ProductViewFactoryInterface $productViewFactory,
+        ChannelInterface $channel,
+        LocaleInterface $locale,
+        ProductInterface $product,
+        ProductView $productView
+    ) {
+        $channel->getLocales()->willReturn([$locale]);
+        $channel->getDefaultLocale()->willReturn($locale);
+        $locale->getCode()->willReturn('en_GB');
+
+        $product->hasChannel($channel)->willReturn(true);
+
+        $channelRepository->findOneByCode('WEB_GB')->willReturn($channel);
+        $productRepository->findOneByCode('LOGAN_MUG_CODE')->willReturn($product);
+
+        $productViewFactory->create($product, $channel, 'en_GB')->willReturn($productView);
+
+        $this->findOneByCode('WEB_GB', 'LOGAN_MUG_CODE', null)->shouldReturn($productView);
+    }
+
+    function it_throws_an_exception_if_product_was_not_found_by_code(
+        ChannelRepositoryInterface $channelRepository,
+        ProductRepositoryInterface $productRepository,
+        ChannelInterface $channel,
+        LocaleInterface $locale
+    ) {
+        $channel->getLocales()->willReturn([$locale]);
+        $locale->getCode()->willReturn('en_GB');
+
+        $channelRepository->findOneByCode('WEB_GB')->willReturn($channel);
+        $productRepository->findOneByCode('LOGAN_MUG_CODE')->willReturn(null);
+
+        $this->shouldThrow(\InvalidArgumentException::class)->during('findOneByCode', ['WEB_GB', 'LOGAN_MUG_CODE', 'de_DE']);
+    }
+
+    function it_throws_an_exception_if_product_is_not_activated_in_channel(
+        ChannelRepositoryInterface $channelRepository,
+        ProductRepositoryInterface $productRepository,
+        ProductViewFactoryInterface $productViewFactory,
+        ChannelInterface $channel,
+        LocaleInterface $locale,
+        ProductInterface $product,
+        ProductView $productView
+    ) {
+        $channel->getLocales()->willReturn([$locale]);
+        $locale->getCode()->willReturn('en_GB');
+
+        $product->hasChannel($channel)->willReturn(false);
+
+        $channelRepository->findOneByCode('WEB_GB')->willReturn($channel);
+        $productRepository->findOneByCode('LOGAN_MUG_CODE')->willReturn($product);
+
+        $this->shouldThrow(\InvalidArgumentException::class)->during('findOneByCode', ['WEB_GB', 'LOGAN_MUG_CODE', 'de_DE']);
     }
 }
