@@ -2,24 +2,31 @@
 
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="sylius.shop_api_plugin.controller.product.show_product_details_action"
-                 class="Sylius\ShopApiPlugin\Controller\Product\ShowProductDetailsAction"
+        <service id="sylius.shop_api_plugin.controller.product.show_product_details_by_slug_action"
+                 class="Sylius\ShopApiPlugin\Controller\Product\ShowProductDetailsBySlugAction"
         >
-            <argument type="service" id="sylius.repository.channel" />
-            <argument type="service" id="sylius.repository.product" />
+            <argument type="service" id="sylius.shop_api_plugin.query.product_details_query" />
             <argument type="service" id="fos_rest.view_handler" />
-            <argument type="service" id="sylius.shop_api_plugin.factory.detailed_product_view_factory" />
+        </service>
+        <service id="sylius.shop_api_plugin.controller.product.show_product_details_by_code_action"
+                 class="Sylius\ShopApiPlugin\Controller\Product\ShowProductDetailsByCodeAction"
+        >
+            <argument type="service" id="sylius.shop_api_plugin.query.product_details_query" />
+            <argument type="service" id="fos_rest.view_handler" />
         </service>
 
-        <service id="sylius.shop_api_plugin.controller.product.show_product_catalog_action"
-                 class="Sylius\ShopApiPlugin\Controller\Product\ShowProductCatalogAction"
+        <service id="sylius.shop_api_plugin.controller.product.show_product_catalog_by_slug_action"
+                 class="Sylius\ShopApiPlugin\Controller\Product\ShowProductCatalogBySlugAction"
         >
-            <argument type="service" id="sylius.repository.channel" />
-            <argument type="service" id="sylius.repository.product" />
-            <argument type="service" id="sylius.repository.taxon" />
             <argument type="service" id="fos_rest.view_handler" />
-            <argument type="service" id="sylius.shop_api_plugin.factory.list_product_view_factory" />
-            <argument type="service" id="sylius.shop_api_plugin.factory.page_view_factory" />
+            <argument type="service" id="sylius.shop_api_plugin.query.product_catalog_query" />
+        </service>
+
+        <service id="sylius.shop_api_plugin.controller.product.show_product_catalog_by_code_action"
+                 class="Sylius\ShopApiPlugin\Controller\Product\ShowProductCatalogByCodeAction"
+        >
+            <argument type="service" id="fos_rest.view_handler" />
+            <argument type="service" id="sylius.shop_api_plugin.query.product_catalog_query" />
         </service>
 
         <service id="sylius.shop_api_plugin.controller.product.show_reviews_action"

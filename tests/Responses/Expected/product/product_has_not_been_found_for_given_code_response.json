@@ -1,0 +1,4 @@
+{
+    "code": 404,
+    "message": "Product with code WRONG_PRODUCT_CODE has not been found."
+}

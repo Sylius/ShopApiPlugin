@@ -416,7 +416,7 @@ paths:
                     description: "Invalid input, validation failed."
                     schema:
                         $ref: "#/definitions/GeneralError"
-    /taxon-products/{slug}:
+    /taxon-products-by-slug/{slug}:
         get:
             tags:
             - "products"
@@ -464,12 +464,60 @@ paths:
                     schema:
                         type: "object"
                         $ref: "#/definitions/ProductsPage"
-    /products/{slug}:
+    /taxon-products/{code}:
+        get:
+            tags:
+            - "products"
+            summary: "Show product catalog."
+            description: "This endpoint will return a paginated list of products for given taxon."
+            operationId: "productCatalog"
+            consumes:
+            - "application/json"
+            produces:
+            - "application/json"
+            parameters:
+            - name: "code"
+                in: "path"
+                description: "Code of taxonomy for which products should be listed."
+                required: true
+                type: "string"
+                example: "T_SHIRT_TAXONOMY_CODE"
+            - name: "channel"
+                in: "query"
+                description: "Channel from which products should be gathered."
+                required: true
+                type: "string"
+                example: "en_GB"
+            - name: "locale"
+                in: "query"
+                description: "Locale in which products should be shown."
+                required: false
+                type: "string"
+                example: "en_GB"
+            - name: "limit"
+                in: "query"
+                description: "Number of expected products per page."
+                required: false
+                type: "integer"
+                example: 5
+            - name: "page"
+                in: "query"
+                description: "Page number."
+                required: false
+                type: "integer"
+                example: 2
+            responses:
+                200:
+                    description: "Paginated product list."
+                    schema:
+                        type: "object"
+                        $ref: "#/definitions/ProductsPage"
+    /products-by-slug/{slug}:
         get:
             tags:
             - "products"
             summary: "Show a product with the given slug."
-            description: "This endpoint will return ą product with the given slug."
+            description: "This endpoint will return a product with the given slug."
             operationId: "productDetails"
             consumes:
             - "application/json"
@@ -481,7 +529,7 @@ paths:
                 description: "Slug of expected product."
                 required: true
                 type: "string"
-                example: "categories"
+                example: "king-arthurs-mug"
             - name: "channel"
                 in: "query"
                 description: "Channel from which products should be gathered."
@@ -499,7 +547,42 @@ paths:
                     schema:
                         type: "object"
                         $ref: "#/definitions/ProductDetails"
-    /products/{slug}/reviews:
+    /products/{code}:
+        get:
+            tags:
+            - "products"
+            summary: "Show a product with the given code."
+            description: "This endpoint will return a product with the given slug."
+            operationId: "productDetails"
+            consumes:
+            - "application/json"
+            produces:
+            - "application/json"
+            parameters:
+            - name: "code"
+                in: "path"
+                description: "Code of expected product."
+                required: true
+                type: "string"
+                example: "AWESOME_KING_ARTHURS_MUG"
+            - name: "channel"
+                in: "query"
+                description: "Channel from which products should be gathered."
+                required: true
+                type: "string"
+                example: "en_GB"
+            - name: "locale"
+                in: "query"
+                description: "Locale in which products should be shown."
+                required: false
+                type: "string"
+                example: "en_GB"
+            responses:
+                200:
+                    schema:
+                        type: "object"
+                        $ref: "#/definitions/ProductDetails"
+    /products-by-slug/{slug}/reviews:
         parameters:
         - name: "slug"
             in: "path"
