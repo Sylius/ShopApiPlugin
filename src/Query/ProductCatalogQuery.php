@@ -18,7 +18,7 @@ use Sylius\ShopApiPlugin\Model\PaginatorDetails;
 use Sylius\ShopApiPlugin\View\PageView;
 use Webmozart\Assert\Assert;
 
-final class ProductCatalogQuery
+final class ProductCatalogQuery implements ProductCatalogQueryInterface
 {
     /** @var ChannelRepositoryInterface */
     private $channelRepository;
@@ -49,12 +49,8 @@ final class ProductCatalogQuery
         $this->pageViewFactory = $pageViewFactory;
     }
 
-    public function findByTaxonSlug(
-        string $taxonSlug,
-        ?string $localeCode,
-        string $channelCode,
-        PaginatorDetails $paginatorDetails
-    ): PageView {
+    public function findByTaxonSlug(string $taxonSlug, ?string $localeCode, string $channelCode, PaginatorDetails $paginatorDetails): PageView
+    {
         $channel = $this->getChannel($channelCode);
         $localeCode = $this->getLocaleCode($localeCode, $channel);
 
@@ -63,6 +59,25 @@ final class ProductCatalogQuery
 
         Assert::notNull($taxon, sprintf('Taxon with slug %s in locale %s has not been found', $taxonSlug, $localeCode));
         $paginatorDetails->addParameter('taxonomySlug', $taxonSlug);
+
+        return $this->findByTaxon(
+            $localeCode,
+            $paginatorDetails,
+            $channel,
+            $taxon
+        );
+    }
+
+    public function findByTaxonCode(string $taxonCode, ?string $localeCode, string $channelCode, PaginatorDetails $paginatorDetails): PageView
+    {
+        $channel = $this->getChannel($channelCode);
+        $localeCode = $this->getLocaleCode($localeCode, $channel);
+
+        /** @var TaxonInterface $taxon */
+        $taxon = $this->taxonRepository->findOneBy(['code' => $taxonCode]);
+
+        Assert::notNull($taxon, sprintf('Taxon with code %s has not been found', $taxonCode));
+        $paginatorDetails->addParameter('code', $taxonCode);
 
         return $this->findByTaxon(
             $localeCode,

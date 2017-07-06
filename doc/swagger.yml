@@ -464,6 +464,54 @@ paths:
                     schema:
                         type: "object"
                         $ref: "#/definitions/ProductsPage"
+    /taxon-products/{code}:
+        get:
+            tags:
+            - "products"
+            summary: "Show product catalog."
+            description: "This endpoint will return a paginated list of products for given taxon."
+            operationId: "productCatalog"
+            consumes:
+            - "application/json"
+            produces:
+            - "application/json"
+            parameters:
+            - name: "code"
+                in: "path"
+                description: "Code of taxonomy for which products should be listed."
+                required: true
+                type: "string"
+                example: "T_SHIRT_TAXONOMY_CODE"
+            - name: "channel"
+                in: "query"
+                description: "Channel from which products should be gathered."
+                required: true
+                type: "string"
+                example: "en_GB"
+            - name: "locale"
+                in: "query"
+                description: "Locale in which products should be shown."
+                required: false
+                type: "string"
+                example: "en_GB"
+            - name: "limit"
+                in: "query"
+                description: "Number of expected products per page."
+                required: false
+                type: "integer"
+                example: 5
+            - name: "page"
+                in: "query"
+                description: "Page number."
+                required: false
+                type: "integer"
+                example: 2
+            responses:
+                200:
+                    description: "Paginated product list."
+                    schema:
+                        type: "object"
+                        $ref: "#/definitions/ProductsPage"
     /products-by-slug/{slug}:
         get:
             tags:

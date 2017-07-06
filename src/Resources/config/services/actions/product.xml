@@ -22,6 +22,13 @@
             <argument type="service" id="sylius.shop_api_plugin.query.product_catalog_query" />
         </service>
 
+        <service id="sylius.shop_api_plugin.controller.product.show_product_catalog_by_code_action"
+                 class="Sylius\ShopApiPlugin\Controller\Product\ShowProductCatalogByCodeAction"
+        >
+            <argument type="service" id="fos_rest.view_handler" />
+            <argument type="service" id="sylius.shop_api_plugin.query.product_catalog_query" />
+        </service>
+
         <service id="sylius.shop_api_plugin.controller.product.show_reviews_action"
                  class="Sylius\ShopApiPlugin\Controller\Product\ShowReviewsAction"
         >
