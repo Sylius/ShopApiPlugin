@@ -5,13 +5,13 @@
         <service id="sylius.shop_api_plugin.controller.product.show_product_details_by_slug_action"
                  class="Sylius\ShopApiPlugin\Controller\Product\ShowProductDetailsBySlugAction"
         >
-            <argument type="service" id="sylius.shop_api_plugin.query.product_details_query" />
+            <argument type="service" id="sylius.shop_api_plugin.view_repository.product_details_view_repository" />
             <argument type="service" id="fos_rest.view_handler" />
         </service>
         <service id="sylius.shop_api_plugin.controller.product.show_product_details_by_code_action"
                  class="Sylius\ShopApiPlugin\Controller\Product\ShowProductDetailsByCodeAction"
         >
-            <argument type="service" id="sylius.shop_api_plugin.query.product_details_query" />
+            <argument type="service" id="sylius.shop_api_plugin.view_repository.product_details_view_repository" />
             <argument type="service" id="fos_rest.view_handler" />
         </service>
 
@@ -19,14 +19,14 @@
                  class="Sylius\ShopApiPlugin\Controller\Product\ShowProductCatalogBySlugAction"
         >
             <argument type="service" id="fos_rest.view_handler" />
-            <argument type="service" id="sylius.shop_api_plugin.query.product_catalog_query" />
+            <argument type="service" id="sylius.shop_api_plugin.view_repository.product_catalog_view_repository" />
         </service>
 
         <service id="sylius.shop_api_plugin.controller.product.show_product_catalog_by_code_action"
                  class="Sylius\ShopApiPlugin\Controller\Product\ShowProductCatalogByCodeAction"
         >
             <argument type="service" id="fos_rest.view_handler" />
-            <argument type="service" id="sylius.shop_api_plugin.query.product_catalog_query" />
+            <argument type="service" id="sylius.shop_api_plugin.view_repository.product_catalog_view_repository" />
         </service>
 
         <service id="sylius.shop_api_plugin.controller.product.show_reviews_action"

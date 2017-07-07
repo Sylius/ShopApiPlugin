@@ -484,10 +484,10 @@ paths:
                 example: "T_SHIRT_TAXONOMY_CODE"
             - name: "channel"
                 in: "query"
-                description: "Channel from which products should be gathered."
+                description: "Channel code from which products should be gathered."
                 required: true
                 type: "string"
-                example: "en_GB"
+                example: "WEB_UK"
             - name: "locale"
                 in: "query"
                 description: "Locale in which products should be shown."

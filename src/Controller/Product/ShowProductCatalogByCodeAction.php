@@ -5,8 +5,7 @@ namespace Sylius\ShopApiPlugin\Controller\Product;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Sylius\ShopApiPlugin\Model\PaginatorDetails;
-use Sylius\ShopApiPlugin\Query\ProductCatalogQuery;
-use Sylius\ShopApiPlugin\Query\ProductCatalogQueryInterface;
+use Sylius\ShopApiPlugin\ViewRepository\ProductCatalogViewRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -16,12 +15,12 @@ final class ShowProductCatalogByCodeAction
     /** @var ViewHandlerInterface */
     private $viewHandler;
 
-    /** @var ProductCatalogQueryInterface */
+    /** @var ProductCatalogViewRepositoryInterface */
     private $productCatalogQuery;
 
     public function __construct(
         ViewHandlerInterface $viewHandler,
-        ProductCatalogQueryInterface $productCatalogQuery
+        ProductCatalogViewRepositoryInterface $productCatalogQuery
     ) {
         $this->viewHandler = $viewHandler;
         $this->productCatalogQuery = $productCatalogQuery;
