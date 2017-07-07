@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Sylius\ShopApiPlugin\Query;
+namespace Sylius\ShopApiPlugin\ViewRepository;
 
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
@@ -18,7 +18,7 @@ use Sylius\ShopApiPlugin\Model\PaginatorDetails;
 use Sylius\ShopApiPlugin\View\PageView;
 use Webmozart\Assert\Assert;
 
-final class ProductCatalogQuery implements ProductCatalogQueryInterface
+final class ProductCatalogViewRepository implements ProductCatalogViewRepositoryInterface
 {
     /** @var ChannelRepositoryInterface */
     private $channelRepository;
@@ -101,7 +101,7 @@ final class ProductCatalogQuery implements ProductCatalogQueryInterface
         Assert::oneOf($localeCode, $supportedLocaleCodes);
     }
 
-    private function getChannel(?string $channelCode): ChannelInterface
+    private function getChannel(string $channelCode): ChannelInterface
     {
         /** @var ChannelInterface $channel */
         $channel = $this->channelRepository->findOneByCode($channelCode);

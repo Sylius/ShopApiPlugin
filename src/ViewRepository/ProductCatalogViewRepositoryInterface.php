@@ -1,11 +1,11 @@
 <?php
 
-namespace Sylius\ShopApiPlugin\Query;
+namespace Sylius\ShopApiPlugin\ViewRepository;
 
 use Sylius\ShopApiPlugin\Model\PaginatorDetails;
 use Sylius\ShopApiPlugin\View\PageView;
 
-interface ProductCatalogQueryInterface
+interface ProductCatalogViewRepositoryInterface
 {
     public function findByTaxonSlug(string $taxonSlug, ?string $localeCode, string $channelCode, PaginatorDetails $paginatorDetails): PageView;
 

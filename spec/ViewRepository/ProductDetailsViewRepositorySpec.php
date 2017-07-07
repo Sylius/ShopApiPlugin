@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace spec\Sylius\ShopApiPlugin\Query;
+namespace spec\Sylius\ShopApiPlugin\ViewRepository;
 
 use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
@@ -11,10 +11,10 @@ use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Sylius\Component\Locale\Model\LocaleInterface;
 use Sylius\ShopApiPlugin\Factory\ProductViewFactoryInterface;
 use PhpSpec\ObjectBehavior;
-use Sylius\ShopApiPlugin\Query\ProductDetailsQueryInterface;
+use Sylius\ShopApiPlugin\ViewRepository\ProductDetailsViewRepositoryInterface;
 use Sylius\ShopApiPlugin\View\ProductView;
 
-final class ProductDetailsQuerySpec extends ObjectBehavior
+final class ProductDetailsViewRepositorySpec extends ObjectBehavior
 {
     function let(
         ChannelRepositoryInterface $channelRepository,
@@ -26,7 +26,7 @@ final class ProductDetailsQuerySpec extends ObjectBehavior
 
     function it_is_product_catalog()
     {
-        $this->shouldImplement(ProductDetailsQueryInterface::class);
+        $this->shouldImplement(ProductDetailsViewRepositoryInterface::class);
     }
 
     function it_provides_product_view_by_slug_in_given_locale(
@@ -170,11 +170,9 @@ final class ProductDetailsQuerySpec extends ObjectBehavior
     function it_throws_an_exception_if_product_is_not_activated_in_channel(
         ChannelRepositoryInterface $channelRepository,
         ProductRepositoryInterface $productRepository,
-        ProductViewFactoryInterface $productViewFactory,
         ChannelInterface $channel,
         LocaleInterface $locale,
-        ProductInterface $product,
-        ProductView $productView
+        ProductInterface $product
     ) {
         $channel->getLocales()->willReturn([$locale]);
         $locale->getCode()->willReturn('en_GB');

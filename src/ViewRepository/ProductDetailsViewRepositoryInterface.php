@@ -2,11 +2,11 @@
 
 declare(strict_types = 1);
 
-namespace Sylius\ShopApiPlugin\Query;
+namespace Sylius\ShopApiPlugin\ViewRepository;
 
 use Sylius\ShopApiPlugin\View\ProductView;
 
-interface ProductDetailsQueryInterface
+interface ProductDetailsViewRepositoryInterface
 {
     public function findOneBySlug(string $channelCode, string $productSlug, ?string $localeCode): ProductView;
 

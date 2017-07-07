@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Sylius\ShopApiPlugin\Query;
+namespace Sylius\ShopApiPlugin\ViewRepository;
 
 use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
@@ -12,7 +12,7 @@ use Sylius\ShopApiPlugin\Factory\ProductViewFactoryInterface;
 use Sylius\ShopApiPlugin\View\ProductView;
 use Webmozart\Assert\Assert;
 
-final class ProductDetailsQuery implements ProductDetailsQueryInterface
+final class ProductDetailsViewRepository implements ProductDetailsViewRepositoryInterface
 {
     /** @var ChannelRepositoryInterface */
     private $channelRepository;
@@ -72,7 +72,7 @@ final class ProductDetailsQuery implements ProductDetailsQueryInterface
         Assert::oneOf($localeCode, $supportedLocaleCodes);
     }
 
-    private function getChannel(?string $channelCode): ChannelInterface
+    private function getChannel(string $channelCode): ChannelInterface
     {
         /** @var ChannelInterface $channel */
         $channel = $this->channelRepository->findOneByCode($channelCode);
