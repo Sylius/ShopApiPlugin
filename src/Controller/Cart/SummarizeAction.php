@@ -4,7 +4,7 @@ namespace Sylius\ShopApiPlugin\Controller\Cart;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
-use Sylius\ShopApiPlugin\Query\CartQueryInterface;
+use Sylius\ShopApiPlugin\ViewRepository\CartViewRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -12,7 +12,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 final class SummarizeAction
 {
     /**
-     * @var CartQueryInterface
+     * @var CartViewRepositoryInterface
      */
     private $cartQuery;
 
@@ -22,11 +22,11 @@ final class SummarizeAction
     private $viewHandler;
 
     /**
-     * @param CartQueryInterface $cartQuery
+     * @param CartViewRepositoryInterface $cartQuery
      * @param ViewHandlerInterface $viewHandler
      */
     public function __construct(
-        CartQueryInterface $cartQuery,
+        CartViewRepositoryInterface $cartQuery,
         ViewHandlerInterface $viewHandler
     ) {
         $this->cartQuery = $cartQuery;
@@ -42,7 +42,7 @@ final class SummarizeAction
     {
         try {
             return $this->viewHandler->handle(
-                View::create($this->cartQuery->findByToken($request->attributes->get('token')), Response::HTTP_OK)
+                View::create($this->cartQuery->getOneByToken($request->attributes->get('token')), Response::HTTP_OK)
             );
         } catch (\InvalidArgumentException $exception) {
             throw new NotFoundHttpException($exception->getMessage());

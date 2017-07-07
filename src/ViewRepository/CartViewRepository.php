@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Sylius\ShopApiPlugin\Query;
+namespace Sylius\ShopApiPlugin\ViewRepository;
 
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
@@ -10,7 +10,7 @@ use Sylius\ShopApiPlugin\Factory\CartViewFactoryInterface;
 use Sylius\ShopApiPlugin\View\CartSummaryView;
 use Webmozart\Assert\Assert;
 
-final class CartQuery implements CartQueryInterface
+final class CartViewRepository implements CartViewRepositoryInterface
 {
     /**
      * @var OrderRepositoryInterface
@@ -34,7 +34,7 @@ final class CartQuery implements CartQueryInterface
         $this->cartViewFactory = $cartViewFactory;
     }
 
-    public function findByToken(?string $orderToken): CartSummaryView
+    public function getOneByToken(string $orderToken): CartSummaryView
     {
         /** @var OrderInterface $cart */
         $cart = $this->cartRepository->findOneBy(['tokenValue' => $orderToken]);
