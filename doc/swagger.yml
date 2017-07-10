@@ -12,35 +12,35 @@ host: "demo.sylius.org"
 basePath: "/shop-api"
 tags:
 - name: "cart"
-    description: "All actions related to cart management."
-    externalDocs:
-        description: "Find out more"
-        url: "http://docs.sylius.org/en/latest/book/orders/index.html"
+  description: "All actions related to cart management."
+  externalDocs:
+      description: "Find out more"
+      url: "http://docs.sylius.org/en/latest/book/orders/index.html"
 - name: "product"
-    description: "Show product catalog and add product reviews."
-    externalDocs:
-        description: "Find out more"
-        url: "http://docs.sylius.org/en/latest/book/products/index.html"
+  description: "Show product catalog and add product reviews."
+  externalDocs:
+      description: "Find out more"
+      url: "http://docs.sylius.org/en/latest/book/products/index.html"
 - name: "taxon"
-    description: "Show taxon tree"
-    externalDocs:
-        description: "Find out more"
-        url: "http://docs.sylius.org/en/latest/book/products/taxons.html"
+  description: "Show taxon tree"
+  externalDocs:
+      description: "Find out more"
+      url: "http://docs.sylius.org/en/latest/book/products/taxons.html"
 - name: "checkout"
-    description: "All actions related to checkout fulfillment. It is important, to execute them in given order (address, choose shipment, choose payment and complete)."
-    externalDocs:
-        description: "Find out more"
-        url: "http://docs.sylius.org/en/latest/book/orders/checkout.html"
+  description: "All actions related to checkout fulfillment. It is important, to execute them in given order (address, choose shipment, choose payment and complete)."
+  externalDocs:
+      description: "Find out more"
+      url: "http://docs.sylius.org/en/latest/book/orders/checkout.html"
 schemes:
 - "https"
 paths:
     /carts/{token}:
         parameters:
         - name: "token"
-            in: "path"
-            description: "Cart identifier."
-            required: true
-            type: "string"
+          in: "path"
+          description: "Cart identifier."
+          required: true
+          type: "string"
         post:
             tags:
             - "cart"
@@ -53,11 +53,11 @@ paths:
             - "application/json"
             parameters:
             - in: "body"
-                name: "content"
-                description: "Contains an information about the channel which should be associated with the newly created cart"
-                required: true
-                schema:
-                    $ref: "#/definitions/PickupCartRequest"
+              name: "content"
+              description: "Contains an information about the channel which should be associated with the newly created cart"
+              required: true
+              schema:
+                $ref: "#/definitions/PickupCartRequest"
             responses:
                 201:
                     description: "Cart has been picked up and assigned to given token"
@@ -104,10 +104,10 @@ paths:
     /carts/{token}/items:
         parameters:
         - name: "token"
-            in: "path"
-            description: "Cart identifier."
-            required: true
-            type: "string"
+          in: "path"
+          description: "Cart identifier."
+          required: true
+          type: "string"
         post:
             tags:
             - "cart"
@@ -120,11 +120,11 @@ paths:
             - "application/json"
             parameters:
             - in: "body"
-                name: "content"
-                description: "Description of an item. The smallest required amount of data is a product code and quantity for a simple product. Configurable products will require an additional `variant_code` or `options` field, but never both."
-                required: true
-                schema:
-                    $ref: "#/definitions/PutItemToCartRequest"
+              name: "content"
+              description: "Description of an item. The smallest required amount of data is a product code and quantity for a simple product. Configurable products will require an additional `variant_code` or `options` field, but never both."
+              required: true
+              schema:
+                $ref: "#/definitions/PutItemToCartRequest"
             responses:
                 201:
                     description: "Item has been added to the cart"
@@ -137,15 +137,15 @@ paths:
     /carts/{token}/items/{identifier}:
         parameters:
         - name: "token"
-            in: "path"
-            description: "Cart identifier."
-            required: true
-            type: "string"
+          in: "path"
+          description: "Cart identifier."
+          required: true
+          type: "string"
         - name: "identifier"
-            in: "path"
-            description: "Identifier of a specific item. Can be found in the cart summary."
-            required: true
-            type: "string"
+          in: "path"
+          description: "Identifier of a specific item. Can be found in the cart summary."
+          required: true
+          type: "string"
         put:
             tags:
             - "cart"
@@ -157,10 +157,10 @@ paths:
             - "application/json"
             parameters:
             - in: "body"
-                name: "content"
-                required: true
-                schema:
-                    $ref: "#/definitions/ChangeItemQuantityRequest"
+              name: "content"
+              required: true
+              schema:
+                $ref: "#/definitions/ChangeItemQuantityRequest"
             responses:
                 204:
                     description: "Quantity has been changed."
@@ -187,10 +187,10 @@ paths:
     /carts/{token}/coupon:
         parameters:
         - name: "token"
-            in: "path"
-            description: "Cart identifier."
-            required: true
-            type: "string"
+          in: "path"
+          description: "Cart identifier."
+          required: true
+          type: "string"
         put:
             tags:
             - "cart"
@@ -203,10 +203,10 @@ paths:
             - "application/json"
             parameters:
             - in: "body"
-                name: "content"
-                required: true
-                schema:
-                    $ref: "#/definitions/AddCouponRequest"
+              name: "content"
+              required: true
+              schema:
+                  $ref: "#/definitions/AddCouponRequest"
             responses:
                 204:
                     description: "Coupon has been assigned to the cart."
@@ -227,10 +227,10 @@ paths:
             - "application/json"
             parameters:
             - name: "token"
-                in: "path"
-                description: "Cart identifier."
-                required: true
-                type: "string"
+              in: "path"
+              description: "Cart identifier."
+              required: true
+              type: "string"
             responses:
                 200:
                     description: "Current state of the cart, with calculated prices and related items."
@@ -253,15 +253,15 @@ paths:
             - "application/json"
             parameters:
             - name: "token"
-                in: "path"
-                description: "Cart identifier."
-                required: true
-                type: "string"
+              in: "path"
+              description: "Cart identifier."
+              required: true
+              type: "string"
             - in: "body"
-                name: "content"
-                required: true
-                schema:
-                    $ref: "#/definitions/CheckoutAddressRequest"
+              name: "content"
+              required: true
+              schema:
+                  $ref: "#/definitions/CheckoutAddressRequest"
             responses:
                 204:
                     description: "Cart has been addressed."
@@ -282,10 +282,10 @@ paths:
             - "application/json"
             parameters:
             - name: "token"
-                in: "path"
-                description: "Cart identifier."
-                required: true
-                type: "string"
+              in: "path"
+              description: "Cart identifier."
+              required: true
+              type: "string"
             responses:
                 200:
                     schema:
@@ -307,20 +307,20 @@ paths:
             - "application/json"
             parameters:
             - name: "token"
-                in: "path"
-                description: "Cart identifier."
-                required: true
-                type: "string"
+              in: "path"
+              description: "Cart identifier."
+              required: true
+              type: "string"
             - name: "id"
-                in: "path"
-                description: "Order number of shipment for which shipping method should be specified."
-                required: true
-                type: "string"
+              in: "path"
+              description: "Order number of shipment for which shipping method should be specified."
+              required: true
+              type: "string"
             - in: "body"
-                name: "content"
-                required: true
-                schema:
-                    $ref: "#/definitions/CheckoutChooseShippingMethodRequest"
+              name: "content"
+              required: true
+              schema:
+                  $ref: "#/definitions/CheckoutChooseShippingMethodRequest"
             responses:
                 204:
                     description: "Shipping method has been chosen."
@@ -341,10 +341,10 @@ paths:
             - "application/json"
             parameters:
             - name: "token"
-                in: "path"
-                description: "Cart identifier."
-                required: true
-                type: "string"
+              in: "path"
+              description: "Cart identifier."
+              required: true
+              type: "string"
             responses:
                 200:
                     schema:
@@ -366,20 +366,20 @@ paths:
             - "application/json"
             parameters:
             - name: "token"
-                in: "path"
-                description: "Cart identifier."
-                required: true
-                type: "string"
+              in: "path"
+              description: "Cart identifier."
+              required: true
+              type: "string"
             - name: "id"
-                in: "path"
-                description: "Order number of payment for which payment method should be specified."
-                required: true
-                type: "string"
+              in: "path"
+              description: "Order number of payment for which payment method should be specified."
+              required: true
+              type: "string"
             - in: "body"
-                name: "content"
-                required: true
-                schema:
-                    $ref: "#/definitions/CheckoutChoosePaymentMethodRequest"
+              name: "content"
+              required: true
+              schema:
+                  $ref: "#/definitions/CheckoutChoosePaymentMethodRequest"
             responses:
                 204:
                     description: "Payment method has been chosen."
@@ -400,15 +400,15 @@ paths:
             - "application/json"
             parameters:
             - name: "token"
-                in: "path"
-                description: "Cart identifier."
-                required: true
-                type: "string"
+              in: "path"
+              description: "Cart identifier."
+              required: true
+              type: "string"
             - in: "body"
-                name: "content"
-                required: true
-                schema:
-                    $ref: "#/definitions/CheckoutCompleteRequest"
+              name: "content"
+              required: true
+              schema:
+                  $ref: "#/definitions/CheckoutCompleteRequest"
             responses:
                 204:
                     description: "Checkout has been completed."
@@ -429,35 +429,35 @@ paths:
             - "application/json"
             parameters:
             - name: "slug"
-                in: "path"
-                description: "Slug of taxonomy for which products should be listed."
-                required: true
-                type: "string"
-                example: "categories/t-shirts"
+              in: "path"
+              description: "Slug of taxonomy for which products should be listed."
+              required: true
+              type: "string"
+              example: "categories/t-shirts"
             - name: "channel"
-                in: "query"
-                description: "Channel from which products should be gathered."
-                required: true
-                type: "string"
-                example: "en_GB"
+              in: "query"
+              description: "Channel from which products should be gathered."
+              required: true
+              type: "string"
+              example: "en_GB"
             - name: "locale"
-                in: "query"
-                description: "Locale in which products should be shown."
-                required: false
-                type: "string"
-                example: "en_GB"
+              in: "query"
+              description: "Locale in which products should be shown."
+              required: false
+              type: "string"
+              example: "en_GB"
             - name: "limit"
-                in: "query"
-                description: "Number of expected products per page."
-                required: false
-                type: "integer"
-                example: 5
+              in: "query"
+              description: "Number of expected products per page."
+              required: false
+              type: "integer"
+              example: 5
             - name: "page"
-                in: "query"
-                description: "Page number."
-                required: false
-                type: "integer"
-                example: 2
+              in: "query"
+              description: "Page number."
+              required: false
+              type: "integer"
+              example: 2
             responses:
                 200:
                     description: "Paginated product list."
@@ -477,23 +477,23 @@ paths:
             - "application/json"
             parameters:
             - name: "slug"
-                in: "path"
-                description: "Slug of expected product."
-                required: true
-                type: "string"
-                example: "categories"
+              in: "path"
+              description: "Slug of expected product."
+              required: true
+              type: "string"
+              example: "categories"
             - name: "channel"
-                in: "query"
-                description: "Channel from which products should be gathered."
-                required: true
-                type: "string"
-                example: "en_GB"
+              in: "query"
+              description: "Channel from which products should be gathered."
+              required: true
+              type: "string"
+              example: "en_GB"
             - name: "locale"
-                in: "query"
-                description: "Locale in which products should be shown."
-                required: false
-                type: "string"
-                example: "en_GB"
+              in: "query"
+              description: "Locale in which products should be shown."
+              required: false
+              type: "string"
+              example: "en_GB"
             responses:
                 200:
                     schema:
@@ -502,11 +502,11 @@ paths:
     /products/{slug}/reviews:
         parameters:
         - name: "slug"
-            in: "path"
-            description: "Slug of expected product."
-            required: true
-            type: "string"
-            example: "categories"
+          in: "path"
+          description: "Slug of expected product."
+          required: true
+          type: "string"
+          example: "categories"
         post:
             tags:
             - "products"
@@ -519,11 +519,11 @@ paths:
             - "application/json"
             parameters:
             - in: "body"
-                name: "content"
-                description: "Description of an item. The smallest required amount of data is a product code and quantity for a simple product. Configurable products will require an additional `variant_code` or `options` fields, but never both."
-                required: true
-                schema:
-                    $ref: "#/definitions/AddReviewRequest"
+              name: "content"
+              description: "Description of an item. The smallest required amount of data is a product code and quantity for a simple product. Configurable products will require an additional `variant_code` or `options` fields, but never both."
+              required: true
+              schema:
+                  $ref: "#/definitions/AddReviewRequest"
             responses:
                 201:
                     description: "Review has been added to the product."
@@ -543,11 +543,11 @@ paths:
             - "application/json"
             parameters:
             - name: "channel"
-                in: "query"
-                description: "Channel from which products should be gathered."
-                required: true
-                type: "string"
-                example: "en_GB"
+              in: "query"
+              description: "Channel from which products should be gathered."
+              required: true
+              type: "string"
+              example: "en_GB"
             responses:
                 200:
                     schema:
@@ -566,11 +566,11 @@ paths:
             - "application/json"
             parameters:
             - name: "locale"
-                in: "query"
-                description: "Locale in which taxons should be shown."
-                required: false
-                type: "string"
-                example: "en_GB"
+              in: "query"
+              description: "Locale in which taxons should be shown."
+              required: false
+              type: "string"
+              example: "en_GB"
             responses:
                 200:
                     description: "Array of all available taxons."
@@ -592,17 +592,17 @@ paths:
             - "application/json"
             parameters:
             - name: "code"
-                in: "path"
-                description: "Code of expected taxon."
-                required: true
-                type: "string"
-                example: "CATEGORIES_CODE"
+              in: "path"
+              description: "Code of expected taxon."
+              required: true
+              type: "string"
+              example: "CATEGORIES_CODE"
             - name: "locale"
-                in: "query"
-                description: "Locale in which taxons should be shown."
-                required: false
-                type: "string"
-                example: "en_GB"
+              in: "query"
+              description: "Locale in which taxons should be shown."
+              required: false
+              type: "string"
+              example: "en_GB"
             responses:
                 200:
                     description: "Requested taxon with children."
@@ -1058,36 +1058,36 @@ definitions:
         allOf:
         - $ref: '#/definitions/Page'
         - type: object
-            properties:
-                items:
-                    type: "array"
-                    items:
-                        $ref: '#/definitions/Product'
+          properties:
+              items:
+                  type: "array"
+                  items:
+                      $ref: '#/definitions/Product'
     ProductDetails:
         allOf:
         - $ref: '#/definitions/Product'
         - type: object
-            properties:
-                breadcrumb:
-                    type: "string"
-                    example: "categories/mugs/logan-mug"
+          properties:
+              breadcrumb:
+                  type: "string"
+                  example: "categories/mugs/logan-mug"
     ProductReviewsPage:
         allOf:
         - $ref: '#/definitions/Page'
         - type: object
-            properties:
-                title:
-                    type: "string"
-                    example: "Nice mug"
-                rating:
-                    type: "integer"
-                    example: 5
-                comment:
-                    type: "string"
-                    example: "It is a really nice mug."
-                author:
-                    type: "string"
-                    example: "example@shop.com"
+          properties:
+              title:
+                  type: "string"
+                  example: "Nice mug"
+              rating:
+                  type: "integer"
+                  example: 5
+              comment:
+                  type: "string"
+                  example: "It is a really nice mug."
+              author:
+                  type: "string"
+                  example: "example@shop.com"
     Price:
         type: "object"
         properties:
