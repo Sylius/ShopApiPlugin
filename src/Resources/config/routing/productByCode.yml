@@ -9,3 +9,9 @@ shop_api_product_show_catalog_by_code:
     methods: [GET]
     defaults:
         _controller: sylius.shop_api_plugin.controller.product.show_product_catalog_by_code_action
+
+shop_api_product_show_reviews_by_code:
+    path: /products/{code}/reviews
+    methods: [GET]
+    defaults:
+        _controller: sylius.shop_api_plugin.controller.product.show_product_reviews_by_code_action
