@@ -16,7 +16,7 @@ final class ProductShowReviewsBySlugApiTest extends JsonApiTestCase
         $this->loadFixturesFromFile('customer.yml');
         $this->loadFixturesFromFile('mug_review.yml');
 
-        $this->client->request('GET', '/shop-api/products-by-slug/logan-mug/reviews?channel=WEB_GB', [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('GET', '/shop-api/product-reviews-by-slug/logan-mug?channel=WEB_GB', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'product/product_review_list_page_by_slug_response', Response::HTTP_OK);

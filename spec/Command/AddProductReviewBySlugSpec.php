@@ -4,11 +4,10 @@ declare(strict_types = 1);
 
 namespace spec\Sylius\ShopApiPlugin\Command;
 
-use Sylius\ShopApiPlugin\Command\AddReview;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
-final class AddReviewSpec extends ObjectBehavior
+final class AddProductReviewBySlugSpec extends ObjectBehavior
 {
     function let()
     {

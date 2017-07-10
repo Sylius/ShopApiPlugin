@@ -8,31 +8,23 @@ use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
-use Sylius\ShopApiPlugin\Request\AddReviewRequest;
+use Sylius\ShopApiPlugin\Request\AddProductReviewByCodeRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-final class AddReviewAction
+final class AddReviewByCodeAction
 {
-    /**
-     * @var ViewHandlerInterface
-     */
+    /** @var ViewHandlerInterface */
     private $viewHandler;
 
-    /**
-     * @var CommandBus
-     */
+    /** @var CommandBus */
     private $bus;
 
-    /**
-     * @var ValidatorInterface
-     */
+    /** @var ValidatorInterface */
     private $validator;
 
-    /**
-     * @var ValidationErrorViewFactoryInterface
-     */
+    /** @var ValidationErrorViewFactoryInterface */
     private $validationErrorViewFactory;
 
     public function __construct(
@@ -49,7 +41,7 @@ final class AddReviewAction
 
     public function __invoke(Request $request): Response
     {
-        $addReviewRequest = new AddReviewRequest($request);
+        $addReviewRequest = new AddProductReviewByCodeRequest($request);
 
         $validationResults = $this->validator->validate($addReviewRequest);
 

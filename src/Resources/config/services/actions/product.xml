@@ -43,8 +43,17 @@
             <argument type="service" id="sylius.shop_api_plugin.view_repository.product_reviews_view_repository" />
         </service>
 
-        <service id="sylius.shop_api_plugin.controller.product.add_review_action"
-                 class="Sylius\ShopApiPlugin\Controller\Product\AddReviewAction"
+        <service id="sylius.shop_api_plugin.controller.product.add_review_by_slug_action"
+                 class="Sylius\ShopApiPlugin\Controller\Product\AddReviewBySlugAction"
+        >
+            <argument type="service" id="fos_rest.view_handler" />
+            <argument type="service" id="tactician.commandbus" />
+            <argument type="service" id="validator" />
+            <argument type="service" id="sylius.shop_api_plugin.factory.validation_error_view_factory" />
+        </service>
+
+        <service id="sylius.shop_api_plugin.controller.product.add_review_by_code_action"
+                 class="Sylius\ShopApiPlugin\Controller\Product\AddReviewByCodeAction"
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="tactician.commandbus" />
