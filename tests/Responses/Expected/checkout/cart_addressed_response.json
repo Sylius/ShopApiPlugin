@@ -82,5 +82,6 @@
         "provinceName": "Greater London"
     },
     "payments": [],
-    "shipments": []
+    "shipments": [],
+    "cartDiscounts":[]
 }

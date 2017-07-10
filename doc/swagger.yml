@@ -870,6 +870,14 @@ definitions:
                         method:
                             type: "object"
                             $ref: "#/definitions/ShippingMethod"
+            cartDiscounts:
+                type: "array"
+                items:
+                    type: "object"
+                    properties:
+                        additionalProperties:
+                            type: "object"
+                            $ref: "#/definitions/Discount"
     CartItem:
         type: "object"
         description: "Cart item with calculated prices, quantity and related product."
@@ -1015,6 +1023,15 @@ definitions:
                 items:
                     type: string
                     example: "OTHER_TAXON_CODE"
+    Discount:
+        type: "object"
+        properties:
+            name:
+                description: "Name of promotion."
+                type: "string"
+                example: "Summer sale"
+            amount:
+                $ref: '#/definitions/Price'
     Page:
         type: "object"
         description: "Generic page object."

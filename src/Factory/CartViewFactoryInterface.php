@@ -7,11 +7,5 @@ use Sylius\ShopApiPlugin\View\CartSummaryView;
 
 interface CartViewFactoryInterface
 {
-    /**
-     * @param OrderInterface $cart
-     * @param string $localeCode
-     *
-     * @return CartSummaryView
-     */
-    public function create(OrderInterface $cart, $localeCode);
+    public function create(OrderInterface $cart, string $localeCode): CartSummaryView;
 }
