@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\Controller\Cart;
 
 use FOS\RestBundle\View\View;
@@ -12,43 +14,27 @@ use Sylius\ShopApiPlugin\Request\PutSimpleItemToCartRequest;
 use Sylius\ShopApiPlugin\Request\PutVariantBasedConfigurableItemToCartRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class PutItemToCartAction
 {
-    /**
-     * @var ViewHandlerInterface
-     */
+    /** @var ViewHandlerInterface */
     private $viewHandler;
 
-    /**
-     * @var CommandBus
-     */
+    /** @var CommandBus */
     private $bus;
 
-    /**
-     * @var ValidatorInterface
-     */
+    /** @var ValidatorInterface */
     private $validator;
 
-    /**
-     * @var ValidationErrorViewFactoryInterface
-     */
+    /** @var ValidationErrorViewFactoryInterface */
     private $validationErrorViewFactory;
 
-    /**
-     * @var CartViewRepositoryInterface
-     */
+    /** @var CartViewRepositoryInterface */
     private $cartQuery;
 
-    /**
-     * @param ViewHandlerInterface $viewHandler
-     * @param CommandBus $bus
-     * @param ValidatorInterface $validator
-     * @param ValidationErrorViewFactoryInterface $validationErrorViewFactory
-     * @param CartViewRepositoryInterface $cartQuery
-     */
     public function __construct(
         ViewHandlerInterface $viewHandler,
         CommandBus $bus,
@@ -63,12 +49,7 @@ final class PutItemToCartAction
         $this->cartQuery = $cartQuery;
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): Response
     {
         $commandRequest = $this->provideCommandRequest($request);
 
@@ -86,7 +67,7 @@ final class PutItemToCartAction
                 View::create($this->cartQuery->getOneByToken($command->orderToken()), Response::HTTP_CREATED)
             );
         } catch (\InvalidArgumentException $exception) {
-            throw new NotFoundHttpException($exception->getMessage());
+            throw new BadRequestHttpException($exception->getMessage());
         }
     }
 

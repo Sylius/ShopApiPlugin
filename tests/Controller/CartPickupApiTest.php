@@ -29,7 +29,7 @@ EOT;
 
         $response = $this->client->getResponse();
 
-        $this->assertResponseCode($response, Response::HTTP_CREATED);
+        $this->assertResponse($response, 'cart/empty_response', Response::HTTP_CREATED);
     }
 
     /**

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\Controller\Cart;
 
 use FOS\RestBundle\View\View;
@@ -10,6 +12,7 @@ use Sylius\ShopApiPlugin\Command\PickupCart;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
 use Sylius\ShopApiPlugin\Request\PickupCartRequest;
 use Sylius\ShopApiPlugin\View\ValidationErrorView;
+use Sylius\ShopApiPlugin\ViewRepository\CartViewRepositoryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,59 +22,53 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class PickupAction
 {
-    /**
-     * @var ViewHandlerInterface
-     */
+    /** @var ViewHandlerInterface */
     private $viewHandler;
 
-    /**
-     * @var CommandBus
-     */
+    /** @var CommandBus */
     private $bus;
 
-    /**
-     * @var ValidatorInterface
-     */
+    /** @var ValidatorInterface */
     private $validator;
 
-    /**
-     * @var ValidationErrorViewFactoryInterface
-     */
+    /** @var ValidationErrorViewFactoryInterface */
     private $validationErrorViewFactory;
 
-    /**
-     * @param ViewHandlerInterface $viewHandler
-     * @param CommandBus $bus
-     * @param ValidatorInterface $validator
-     * @param ValidationErrorViewFactoryInterface $validationErrorViewFactory
-     */
+    /** @var CartViewRepositoryInterface */
+    private $cartQuery;
+
     public function __construct(
         ViewHandlerInterface $viewHandler,
         CommandBus $bus,
         ValidatorInterface $validator,
-        ValidationErrorViewFactoryInterface $validationErrorViewFactory
+        ValidationErrorViewFactoryInterface $validationErrorViewFactory,
+        CartViewRepositoryInterface $cartQuery
     ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
         $this->validator = $validator;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
+        $this->cartQuery = $cartQuery;
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): Response
     {
         $pickupRequest = new PickupCartRequest($request);
 
         $validationResults = $this->validator->validate($pickupRequest);
 
         if (0 === count($validationResults)) {
-            $this->bus->handle($pickupRequest->getCommand());
+            $pickupCartCommand = $pickupRequest->getCommand();
 
-            return $this->viewHandler->handle(View::create(null, Response::HTTP_CREATED));
+            $this->bus->handle($pickupCartCommand);
+
+            try {
+                return $this->viewHandler->handle(
+                    View::create($this->cartQuery->getOneByToken($pickupCartCommand->orderToken()), Response::HTTP_CREATED)
+                );
+            } catch (\InvalidArgumentException $exception) {
+                throw new BadRequestHttpException($exception->getMessage());
+            }
         }
 
         return $this->viewHandler->handle(View::create($this->validationErrorViewFactory->create($validationResults), Response::HTTP_BAD_REQUEST));
