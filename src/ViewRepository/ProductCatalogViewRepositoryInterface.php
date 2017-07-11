@@ -7,7 +7,7 @@ use Sylius\ShopApiPlugin\View\PageView;
 
 interface ProductCatalogViewRepositoryInterface
 {
-    public function findByTaxonSlug(string $taxonSlug, ?string $localeCode, string $channelCode, PaginatorDetails $paginatorDetails): PageView;
+    public function findByTaxonSlug(string $taxonSlug, string $channelCode, PaginatorDetails $paginatorDetails, ?string $localeCode): PageView;
 
-    public function findByTaxonCode(string $taxonCode, ?string $localeCode, string $channelCode, PaginatorDetails $paginatorDetails): PageView;
+    public function findByTaxonCode(string $taxonCode, string $channelCode, PaginatorDetails $paginatorDetails, ?string $localeCode): PageView;
 }

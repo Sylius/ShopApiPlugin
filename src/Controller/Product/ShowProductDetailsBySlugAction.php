@@ -33,8 +33,8 @@ final class ShowProductDetailsBySlugAction
 
         try {
             return $this->viewHandler->handle(View::create($this->productCatalog->findOneBySlug(
-                $request->query->get('channel'),
                 $request->attributes->get('slug'),
+                $request->query->get('channel'),
                 $request->query->get('locale')
             ), Response::HTTP_OK));
         } catch (\InvalidArgumentException $exception) {

@@ -49,7 +49,7 @@ final class ProductReviewsViewRepository implements ProductReviewsViewRepository
         $this->pageViewFactory = $pageViewFactory;
     }
 
-    public function getByProductSlug(string $productSlug, ?string $localeCode, string $channelCode, PaginatorDetails $paginatorDetails): PageView
+    public function getByProductSlug(string $productSlug, string $channelCode, PaginatorDetails $paginatorDetails, ?string $localeCode): PageView
     {
         $channel = $this->getChannel($channelCode);
         $localeCode = $localeCode ?? $channel->getDefaultLocale()->getCode();

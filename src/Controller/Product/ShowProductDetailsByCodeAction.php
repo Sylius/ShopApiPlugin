@@ -33,8 +33,8 @@ final class ShowProductDetailsByCodeAction
 
         try {
             return $this->viewHandler->handle(View::create($this->productCatalog->findOneByCode(
-                $request->query->get('channel'),
                 $request->attributes->get('code'),
+                $request->query->get('channel'),
                 $request->query->get('locale')
             ), Response::HTTP_OK));
         } catch (\InvalidArgumentException $exception) {

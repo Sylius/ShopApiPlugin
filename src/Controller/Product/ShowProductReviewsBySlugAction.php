@@ -34,9 +34,9 @@ final class ShowProductReviewsBySlugAction
 
         $page = $this->productReviewsViewRepository->getByProductSlug(
             $request->attributes->get('slug'),
-            $request->query->get('locale'),
             $request->query->get('channel'),
-            new PaginatorDetails($request->attributes->get('_route'), $request->query->all())
+            new PaginatorDetails($request->attributes->get('_route'), $request->query->all()),
+            $request->query->get('locale')
         );
 
         return $this->viewHandler->handle(View::create($page, Response::HTTP_OK));

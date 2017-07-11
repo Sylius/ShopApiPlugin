@@ -49,7 +49,7 @@ final class ProductCatalogViewRepository implements ProductCatalogViewRepository
         $this->pageViewFactory = $pageViewFactory;
     }
 
-    public function findByTaxonSlug(string $taxonSlug, ?string $localeCode, string $channelCode, PaginatorDetails $paginatorDetails): PageView
+    public function findByTaxonSlug(string $taxonSlug, string $channelCode, PaginatorDetails $paginatorDetails, ?string $localeCode): PageView
     {
         $channel = $this->getChannel($channelCode);
         $localeCode = $this->getLocaleCode($localeCode, $channel);
@@ -60,15 +60,10 @@ final class ProductCatalogViewRepository implements ProductCatalogViewRepository
         Assert::notNull($taxon, sprintf('Taxon with slug %s in locale %s has not been found', $taxonSlug, $localeCode));
         $paginatorDetails->addToParameters('taxonSlug', $taxonSlug);
 
-        return $this->findByTaxon(
-            $localeCode,
-            $paginatorDetails,
-            $channel,
-            $taxon
-        );
+        return $this->findByTaxon($taxon, $channel, $paginatorDetails, $localeCode);
     }
 
-    public function findByTaxonCode(string $taxonCode, ?string $localeCode, string $channelCode, PaginatorDetails $paginatorDetails): PageView
+    public function findByTaxonCode(string $taxonCode, string $channelCode, PaginatorDetails $paginatorDetails, ?string $localeCode): PageView
     {
         $channel = $this->getChannel($channelCode);
         $localeCode = $this->getLocaleCode($localeCode, $channel);
@@ -79,12 +74,7 @@ final class ProductCatalogViewRepository implements ProductCatalogViewRepository
         Assert::notNull($taxon, sprintf('Taxon with code %s has not been found', $taxonCode));
         $paginatorDetails->addToParameters('code', $taxonCode);
 
-        return $this->findByTaxon(
-            $localeCode,
-            $paginatorDetails,
-            $channel,
-            $taxon
-        );
+        return $this->findByTaxon($taxon, $channel, $paginatorDetails, $localeCode);
     }
 
     /**
@@ -119,15 +109,7 @@ final class ProductCatalogViewRepository implements ProductCatalogViewRepository
         return $localeCode;
     }
 
-    /**
-     * @param string $localeCode
-     * @param PaginatorDetails $paginatorDetails
-     * @param ChannelInterface $channel
-     * @param TaxonInterface $taxon
-     *
-     * @return PageView
-     */
-    private function findByTaxon(string $localeCode, PaginatorDetails $paginatorDetails, ChannelInterface $channel, TaxonInterface $taxon): PageView
+    private function findByTaxon(TaxonInterface $taxon, ChannelInterface $channel, PaginatorDetails $paginatorDetails, string $localeCode): PageView
     {
         $queryBuilder = $this->productRepository->createShopListQueryBuilder($channel, $taxon, $localeCode);
 

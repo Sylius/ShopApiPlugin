@@ -9,7 +9,7 @@ use Sylius\ShopApiPlugin\View\PageView;
 
 interface ProductReviewsViewRepositoryInterface
 {
-    public function getByProductSlug(string $productSlug, ?string $localeCode, string $channelCode, PaginatorDetails $paginatorDetails): PageView;
+    public function getByProductSlug(string $productSlug, string $channelCode, PaginatorDetails $paginatorDetails, ?string $localeCode): PageView;
 
     public function getByProductCode(string $productCode, string $channelCode, PaginatorDetails $paginatorDetails): PageView;
 }

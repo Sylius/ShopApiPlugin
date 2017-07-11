@@ -33,7 +33,7 @@ final class ProductDetailsViewRepository implements ProductDetailsViewRepository
         $this->productViewFactory = $productViewFactory;
     }
 
-    public function findOneBySlug(string $channelCode, string $productSlug, ?string $localeCode): ProductView
+    public function findOneBySlug(string $productSlug, string $channelCode, ?string $localeCode): ProductView
     {
         $channel = $this->getChannel($channelCode);
         $localeCode = $this->getLocaleCode($localeCode, $channel);
@@ -45,7 +45,7 @@ final class ProductDetailsViewRepository implements ProductDetailsViewRepository
         return $this->productViewFactory->create($product, $channel, $localeCode);
     }
 
-    public function findOneByCode(string $channelCode, string $productCode, ?string $localeCode): ProductView
+    public function findOneByCode(string $productCode, string $channelCode, ?string $localeCode): ProductView
     {
         $channel = $this->getChannel($channelCode);
         $localeCode = $this->getLocaleCode($localeCode, $channel);
