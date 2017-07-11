@@ -15,15 +15,15 @@
             <argument type="service" id="fos_rest.view_handler" />
         </service>
 
-        <service id="sylius.shop_api_plugin.controller.product.show_product_catalog_by_slug_action"
-                 class="Sylius\ShopApiPlugin\Controller\Product\ShowProductCatalogBySlugAction"
+        <service id="sylius.shop_api_plugin.controller.product.show_product_catalog_by_taxon_slug_action"
+                 class="Sylius\ShopApiPlugin\Controller\Product\ShowProductCatalogByTaxonSlugAction"
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="sylius.shop_api_plugin.view_repository.product_catalog_view_repository" />
         </service>
 
-        <service id="sylius.shop_api_plugin.controller.product.show_product_catalog_by_code_action"
-                 class="Sylius\ShopApiPlugin\Controller\Product\ShowProductCatalogByCodeAction"
+        <service id="sylius.shop_api_plugin.controller.product.show_product_catalog_by_taxon_code_action"
+                 class="Sylius\ShopApiPlugin\Controller\Product\ShowProductCatalogByTaxonCodeAction"
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="sylius.shop_api_plugin.view_repository.product_catalog_view_repository" />

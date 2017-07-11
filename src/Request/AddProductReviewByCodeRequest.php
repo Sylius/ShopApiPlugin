@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 final class AddProductReviewByCodeRequest
 {
     /** @var string */
-    private $slug;
+    private $code;
 
     /** @var string */
     private $channelCode;
@@ -29,7 +29,7 @@ final class AddProductReviewByCodeRequest
 
     public function __construct(Request $request)
     {
-        $this->slug = $request->attributes->get('code');
+        $this->code = $request->attributes->get('code');
 
         $this->title = $request->request->get('title');
         $this->channelCode = $request->request->get('channelCode');
@@ -40,6 +40,6 @@ final class AddProductReviewByCodeRequest
 
     public function getCommand(): AddProductReviewByCode
     {
-        return new AddProductReviewByCode($this->slug, $this->channelCode, $this->title, $this->rating, $this->comment, $this->email);
+        return new AddProductReviewByCode($this->code, $this->channelCode, $this->title, $this->rating, $this->comment, $this->email);
     }
 }

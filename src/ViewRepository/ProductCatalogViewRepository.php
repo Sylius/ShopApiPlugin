@@ -58,7 +58,7 @@ final class ProductCatalogViewRepository implements ProductCatalogViewRepository
         $taxon = $this->taxonRepository->findOneBySlug($taxonSlug, $localeCode);
 
         Assert::notNull($taxon, sprintf('Taxon with slug %s in locale %s has not been found', $taxonSlug, $localeCode));
-        $paginatorDetails->addParameter('taxonomySlug', $taxonSlug);
+        $paginatorDetails->addToParameters('taxonSlug', $taxonSlug);
 
         return $this->findByTaxon(
             $localeCode,
@@ -77,7 +77,7 @@ final class ProductCatalogViewRepository implements ProductCatalogViewRepository
         $taxon = $this->taxonRepository->findOneBy(['code' => $taxonCode]);
 
         Assert::notNull($taxon, sprintf('Taxon with code %s has not been found', $taxonCode));
-        $paginatorDetails->addParameter('code', $taxonCode);
+        $paginatorDetails->addToParameters('code', $taxonCode);
 
         return $this->findByTaxon(
             $localeCode,
@@ -136,7 +136,7 @@ final class ProductCatalogViewRepository implements ProductCatalogViewRepository
         $pagerfanta->setMaxPerPage($paginatorDetails->limit());
         $pagerfanta->setCurrentPage($paginatorDetails->page());
 
-        $pageView = $this->pageViewFactory->create($pagerfanta, $paginatorDetails->route(), $paginatorDetails->getParameters());
+        $pageView = $this->pageViewFactory->create($pagerfanta, $paginatorDetails->route(), $paginatorDetails->parameters());
 
         foreach ($pagerfanta->getCurrentPageResults() as $currentPageResult) {
             $pageView->items[] = $this->productViewFactory->create($currentPageResult, $channel, $localeCode);

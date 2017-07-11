@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-final class ShowProductCatalogByCodeAction
+final class ShowProductCatalogByTaxonCodeAction
 {
     /** @var ViewHandlerInterface */
     private $viewHandler;

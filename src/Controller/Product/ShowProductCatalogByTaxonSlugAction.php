@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-final class ShowProductCatalogBySlugAction
+final class ShowProductCatalogByTaxonSlugAction
 {
     /** @var ViewHandlerInterface */
     private $viewHandler;
@@ -32,13 +32,15 @@ final class ShowProductCatalogBySlugAction
             throw new NotFoundHttpException('Cannot find product without channel provided');
         }
 
-        $page = $this->productCatalogQuery->findByTaxonSlug(
-            $request->attributes->get('taxonomySlug'),
-            $request->query->get('locale'),
-            $request->query->get('channel'),
-            new PaginatorDetails($request->attributes->get('_route'), $request->query->all())
-        );
-
-        return $this->viewHandler->handle(View::create($page, Response::HTTP_OK));
+        try {
+            return $this->viewHandler->handle(View::create($this->productCatalogQuery->findByTaxonSlug(
+                $request->attributes->get('taxonSlug'),
+                $request->query->get('locale'),
+                $request->query->get('channel'),
+                new PaginatorDetails($request->attributes->get('_route'), $request->query->all())
+            ), Response::HTTP_OK));
+        } catch (\InvalidArgumentException $exception) {
+            throw new NotFoundHttpException($exception->getMessage());
+        }
     }
 }

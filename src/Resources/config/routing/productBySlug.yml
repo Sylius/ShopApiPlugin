@@ -15,12 +15,12 @@ shop_api_add_product_review_by_slug:
         slug: .+
 
 shop_api_product_show_catalog_by_slug:
-    path: /taxon-products-by-slug/{taxonomySlug}
+    path: /taxon-products-by-slug/{taxonSlug}
     methods: [GET]
     defaults:
-        _controller: sylius.shop_api_plugin.controller.product.show_product_catalog_by_slug_action
+        _controller: sylius.shop_api_plugin.controller.product.show_product_catalog_by_taxon_slug_action
     requirements:
-        taxonomySlug: .+
+        taxonSlug: .+
 
 shop_api_product_show_reviews_by_slug:
     path: /product-reviews-by-slug/{slug}

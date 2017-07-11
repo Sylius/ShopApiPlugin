@@ -57,7 +57,7 @@ final class ProductReviewsViewRepository implements ProductReviewsViewRepository
 
         $reviews = $this->productReviewRepository->findAcceptedByProductSlugAndChannel($productSlug, $localeCode, $channel);
 
-        $paginatorDetails->addParameter('slug', $productSlug);
+        $paginatorDetails->addToParameters('slug', $productSlug);
 
         return $this->createProductReviewPage($reviews, $paginatorDetails);
     }
@@ -71,7 +71,7 @@ final class ProductReviewsViewRepository implements ProductReviewsViewRepository
 
         $reviews = $this->productReviewRepository->findBy(['reviewSubject' => $product->getId(), 'status' => ReviewInterface::STATUS_ACCEPTED]);
 
-        $paginatorDetails->addParameter('code', $productCode);
+        $paginatorDetails->addToParameters('code', $productCode);
 
         return $this->createProductReviewPage($reviews, $paginatorDetails);
     }
@@ -107,7 +107,7 @@ final class ProductReviewsViewRepository implements ProductReviewsViewRepository
         $pagerfanta->setMaxPerPage($paginatorDetails->limit());
         $pagerfanta->setCurrentPage($paginatorDetails->page());
 
-        $pageView = $this->pageViewFactory->create($pagerfanta, $paginatorDetails->route(), $paginatorDetails->getParameters());
+        $pageView = $this->pageViewFactory->create($pagerfanta, $paginatorDetails->route(), $paginatorDetails->parameters());
 
         foreach ($pagerfanta->getCurrentPageResults() as $currentPageResult) {
             $pageView->items[] = $this->productReviewViewFactory->create($currentPageResult);
