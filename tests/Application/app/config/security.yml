@@ -53,7 +53,7 @@ security:
             stateless:  true
             anonymous:  true
 
-        shop-api-login:
+        shop_api_login:
             pattern:  "%shop_api.security.regex%/login"
             stateless: true
             anonymous: true
