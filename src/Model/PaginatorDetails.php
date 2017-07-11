@@ -16,14 +16,14 @@ final class PaginatorDetails
     private $page;
 
     /** @var array */
-    private $getParameters;
+    private $parameters;
 
-    public function __construct(string $route, array $getParameters)
+    public function __construct(string $route, array $parameters)
     {
         $this->route = $route;
-        $this->limit = $getParameters['limit'] ?? 10;
-        $this->page = $getParameters['page'] ?? 1;
-        $this->getParameters = $getParameters;
+        $this->limit = $parameters['limit'] ?? 10;
+        $this->page = $parameters['page'] ?? 1;
+        $this->parameters = $parameters;
     }
 
     public function route(): string
@@ -41,15 +41,15 @@ final class PaginatorDetails
         return $this->page;
     }
 
-    public function getParameters(): array
+    public function parameters(): array
     {
-        return $this->getParameters;
+        return $this->parameters;
     }
 
-    public function addParameter(string $key, string $value)
+    public function addToParameters(string $key, $value): void
     {
-        Assert::keyNotExists($this->getParameters, $key);
+        Assert::keyNotExists($this->parameters, $key);
 
-        $this->getParameters[$key] = $value;
+        $this->parameters[$key] = $value;
     }
 }
