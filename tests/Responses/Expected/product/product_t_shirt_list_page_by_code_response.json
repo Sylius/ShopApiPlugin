@@ -1,13 +1,13 @@
 {
-    "page": 2,
-    "limit": 1,
-    "pages": 3,
-    "total": 3,
+    "page": 1,
+    "limit": 10,
+    "pages": 1,
+    "total": 1,
     "_links": {
-        "self": "\/shop-api\/taxon-products\/brands?channel=WEB_GB&limit=1&page=2",
-        "first": "\/shop-api\/taxon-products\/brands?channel=WEB_GB&limit=1&page=1",
-        "last": "\/shop-api\/taxon-products\/brands?channel=WEB_GB&limit=1&page=3",
-        "next": "\/shop-api\/taxon-products\/brands?channel=WEB_GB&limit=1&page=3"
+        "self": "\/shop-api\/taxon-products\/WOMEN_T_SHIRTS?channel=WEB_GB&page=1&limit=10",
+        "first": "\/shop-api\/taxon-products\/WOMEN_T_SHIRTS?channel=WEB_GB&page=1&limit=10",
+        "last": "\/shop-api\/taxon-products\/WOMEN_T_SHIRTS?channel=WEB_GB&page=1&limit=10",
+        "next": "\/shop-api\/taxon-products\/WOMEN_T_SHIRTS?channel=WEB_GB&page=1&limit=10"
     },
     "items": [
         {
@@ -74,7 +74,7 @@
             ],
             "_links": {
                 "self": {
-                    "href": "\/shop-api\/products\/logan-t-shirt"
+                    "href": "\/shop-api\/products-by-slug\/logan-t-shirt"
                 }
             }
         }

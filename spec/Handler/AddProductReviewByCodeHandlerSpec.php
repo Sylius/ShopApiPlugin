@@ -14,11 +14,10 @@ use Sylius\Component\Locale\Model\LocaleInterface;
 use Sylius\Component\Review\Factory\ReviewFactoryInterface;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Review\Model\ReviewInterface;
-use Sylius\ShopApiPlugin\Command\AddReview;
-use Sylius\ShopApiPlugin\Handler\AddReviewHandler;
+use Sylius\ShopApiPlugin\Command\AddProductReviewByCode;
 use Sylius\ShopApiPlugin\Provider\ProductReviewerProviderInterface;
 
-final class AddReviewHandlerSpec extends ObjectBehavior
+final class AddProductReviewByCodeHandlerSpec extends ObjectBehavior
 {
     function let(
         ProductReviewRepositoryInterface $productReviewRepository,
@@ -39,14 +38,12 @@ final class AddReviewHandlerSpec extends ObjectBehavior
         ProductInterface $product,
         ChannelInterface $channel,
         ProductReviewerInterface $productReviewer,
-        LocaleInterface $locale,
         ReviewInterface $productReview
     ) {
         $channelRepository->findOneByCode('WEB_GB')->willReturn($channel);
-        $channel->getDefaultLocale()->willReturn($locale);
-        $locale->getCode()->willReturn('en_GB');
+        $product->hasChannel($channel)->willReturn(true);
 
-        $productRepository->findOneByChannelAndSlug($channel, 'en_GB', 'logan-mug')->willReturn($product);
+        $productRepository->findOneByCode('LOGAN_MUG_CODE')->willReturn($product);
         $reviewFactory->createForSubjectWithReviewer($product, $productReviewer)->willReturn($productReview);
 
         $productReviewerProvider->provide('example@shop.com')->willReturn($productReviewer);
@@ -57,7 +54,7 @@ final class AddReviewHandlerSpec extends ObjectBehavior
 
         $productReviewRepository->add($productReview)->shouldBeCalled();
 
-        $this->handle(new AddReview('logan-mug','WEB_GB', 'Perfect product', 5, 'It is so awesome :)', 'example@shop.com'));
+        $this->handle(new AddProductReviewByCode('LOGAN_MUG_CODE','WEB_GB', 'Perfect product', 5, 'It is so awesome :)', 'example@shop.com'));
     }
 
     function it_throws_an_exception_if_channel_has_not_been_found(ChannelRepositoryInterface $channelRepository)
@@ -67,7 +64,7 @@ final class AddReviewHandlerSpec extends ObjectBehavior
         $this
             ->shouldThrow(\InvalidArgumentException::class)
             ->during('handle', [
-                new AddReview('logan-mug','WEB_GB', 'Perfect product', 5, 'It is so awesome :)', 'example@shop.com')
+                new AddProductReviewByCode('LOGAN_MUG_CODE','WEB_GB', 'Perfect product', 5, 'It is so awesome :)', 'example@shop.com')
             ])
         ;
     }
@@ -75,19 +72,35 @@ final class AddReviewHandlerSpec extends ObjectBehavior
     function it_throws_an_exception_if_product_has_not_been_found(
         ChannelRepositoryInterface $channelRepository,
         ProductRepositoryInterface $productRepository,
-        ChannelInterface $channel,
-        LocaleInterface $locale
+        ChannelInterface $channel
     ) {
         $channelRepository->findOneByCode('WEB_GB')->willReturn($channel);
-        $channel->getDefaultLocale()->willReturn($locale);
-        $locale->getCode()->willReturn('en_GB');
 
-        $productRepository->findOneByChannelAndSlug($channel, 'en_GB', 'logan-mug')->willReturn(null);
+        $productRepository->findOneByCode('LOGAN_MUG_CODE')->willReturn(null);
 
         $this
             ->shouldThrow(\InvalidArgumentException::class)
             ->during('handle', [
-                new AddReview('logan-mug','WEB_GB', 'Perfect product', 5, 'It is so awesome :)', 'example@shop.com')
+                new AddProductReviewByCode('LOGAN_MUG_CODE','WEB_GB', 'Perfect product', 5, 'It is so awesome :)', 'example@shop.com')
+            ])
+        ;
+    }
+
+    function it_throws_an_exception_if_product_has_not_been_enabled_for_given_channel(
+        ChannelRepositoryInterface $channelRepository,
+        ProductRepositoryInterface $productRepository,
+        ChannelInterface $channel,
+        ProductInterface $product
+    ) {
+        $channelRepository->findOneByCode('WEB_GB')->willReturn($channel);
+        $product->hasChannel($channel)->willReturn(false);
+
+        $productRepository->findOneByCode('LOGAN_MUG_CODE')->willReturn($product);
+
+        $this
+            ->shouldThrow(\InvalidArgumentException::class)
+            ->during('handle', [
+                new AddProductReviewByCode('LOGAN_MUG_CODE','WEB_GB', 'Perfect product', 5, 'It is so awesome :)', 'example@shop.com')
             ])
         ;
     }

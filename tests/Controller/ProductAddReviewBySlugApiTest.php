@@ -7,7 +7,7 @@ namespace Tests\Sylius\ShopApiPlugin\Controller;
 use Lakion\ApiTestCase\JsonApiTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
-final class ProductAddReviewApiTest extends JsonApiTestCase
+final class ProductAddReviewBySlugApiTest extends JsonApiTestCase
 {
     private static $acceptAndContentTypeHeader = ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'];
 
@@ -28,7 +28,7 @@ final class ProductAddReviewApiTest extends JsonApiTestCase
             "email": "oliver@example.com"
         }
 EOT;
-        $this->client->request('POST', '/shop-api/products/logan-mug/reviews', [], [], self::$acceptAndContentTypeHeader, $data);
+        $this->client->request('POST', '/shop-api/product-reviews-by-slug/logan-mug', [], [], self::$acceptAndContentTypeHeader, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_CREATED);
@@ -52,7 +52,7 @@ EOT;
             "email": "oliver@example.com"
         }
 EOT;
-        $this->client->request('POST', '/shop-api/products/logan-mug/reviews', [], [], self::$acceptAndContentTypeHeader, $data);
+        $this->client->request('POST', '/shop-api/product-reviews-by-slug/logan-mug', [], [], self::$acceptAndContentTypeHeader, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_CREATED);

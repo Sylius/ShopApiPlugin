@@ -130,7 +130,7 @@
                 ],
                 "_links": {
                     "self": {
-                        "href": "\/shop-api\/products\/logan-becher"
+                        "href": "\/shop-api\/products-by-slug\/logan-becher"
                     }
                 }
             },
@@ -198,7 +198,7 @@
                 ],
                 "_links": {
                     "self": {
-                        "href": "\/shop-api\/products\/logan-t-shirt"
+                        "href": "\/shop-api\/products-by-slug\/logan-t-shirt"
                     }
                 }
             }
@@ -207,7 +207,7 @@
     "images": [],
     "_links": {
         "self": {
-            "href": "\/shop-api\/products\/logan-hut"
+            "href": "\/shop-api\/products-by-slug\/logan-hut"
         }
     }
 }
