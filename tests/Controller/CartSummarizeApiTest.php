@@ -176,9 +176,9 @@ EOT;
         $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
         $bus->handle(new AddCoupon($token, 'BANANAS'));
 
-        $this->client->request('GET', '/shop-api/carts/' . $token, [], [], ['ACCEPT' => 'application/json']);
-        $response = $this->client->getResponse();
+        $this->client->request('GET', '/shop-api/checkout/' . $token, [], [], static::$acceptAndContentTypeHeader);
 
+        $response = $this->client->getResponse();
         $this->assertResponse($response, 'cart/cart_with_coupon_based_promotion_applied_response', Response::HTTP_OK);
     }
 }

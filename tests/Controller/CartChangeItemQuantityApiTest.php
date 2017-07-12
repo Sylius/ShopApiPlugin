@@ -55,7 +55,7 @@ EOT;
         $this->client->request('PUT', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/items/1', [], [], static::$acceptAndContentTypeHeader, $data);
         $response = $this->client->getResponse();
 
-        $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
+        $this->assertResponse($response, 'cart/filled_cart_with_simple_product_summary_response', Response::HTTP_OK);
     }
 
     /**
