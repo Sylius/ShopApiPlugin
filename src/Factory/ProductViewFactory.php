@@ -28,21 +28,21 @@ final class ProductViewFactory implements ProductViewFactoryInterface
     /**
      * @var string
      */
-    private $fallback;
+    private $fallbackLocale;
 
     /**
      * @param ImageViewFactoryInterface $imageViewFactory
      * @param ProductAttributeValuesViewFactoryInterface $attributeValuesViewFactory
-     * @param string $fallback
+     * @param string $fallbackLocale
      */
     public function __construct(
         ImageViewFactoryInterface $imageViewFactory,
         ProductAttributeValuesViewFactoryInterface $attributeValuesViewFactory,
-        $fallback
+        $fallbackLocale
     ) {
         $this->imageViewFactory = $imageViewFactory;
         $this->attributeValuesViewFactory = $attributeValuesViewFactory;
-        $this->fallback = $fallback;
+        $this->fallbackLocale = $fallbackLocale;
     }
 
     /**
@@ -77,7 +77,7 @@ final class ProductViewFactory implements ProductViewFactoryInterface
 
         $productView->taxons = $taxons;
 
-        $productView->attributes = $this->attributeValuesViewFactory->create($product->getAttributesByLocale($locale, $this->fallback));
+        $productView->attributes = $this->attributeValuesViewFactory->create($product->getAttributesByLocale($locale, $this->fallbackLocale));
 
         return $productView;
     }
