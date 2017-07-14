@@ -11,17 +11,16 @@ use Sylius\ShopApiPlugin\View\TaxonView;
 
 final class TaxonViewFactory implements TaxonViewFactoryInterface
 {
-    /**
-     * @var ImageViewFactoryInterface
-     */
+    /** @var ImageViewFactoryInterface */
     private $imageViewFactory;
 
-    /**
-     * @param ImageViewFactoryInterface $imageViewFactory
-     */
-    public function __construct(ImageViewFactoryInterface $imageViewFactory)
+    /** @var string */
+    private $taxonViewClass;
+
+    public function __construct(ImageViewFactoryInterface $imageViewFactory, string $taxonViewClass)
     {
         $this->imageViewFactory = $imageViewFactory;
+        $this->taxonViewClass = $taxonViewClass;
     }
 
     public function create(TaxonInterface $taxon, string $locale): TaxonView
@@ -29,7 +28,8 @@ final class TaxonViewFactory implements TaxonViewFactoryInterface
         /** @var TaxonTranslationInterface $taxonTranslation */
         $taxonTranslation = $taxon->getTranslation($locale);
 
-        $taxonView = new TaxonView();
+        /** @var TaxonView $taxonView */
+        $taxonView = new $this->taxonViewClass();
 
         $taxonView->code = $taxon->getCode();
         $taxonView->position = $taxon->getPosition();

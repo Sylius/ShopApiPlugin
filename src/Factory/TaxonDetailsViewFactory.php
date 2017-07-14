@@ -10,19 +10,22 @@ use Sylius\ShopApiPlugin\View\TaxonView;
 
 final class TaxonDetailsViewFactory implements TaxonDetailsViewFactoryInterface
 {
-    /**
-     * @var TaxonViewFactoryInterface
-     */
+    /** @var TaxonViewFactoryInterface */
     private $taxonViewFactory;
 
-    public function __construct(TaxonViewFactoryInterface $taxonViewFactory)
+    /** @var string */
+    private $taxonDetailsViewClass;
+
+    public function __construct(TaxonViewFactoryInterface $taxonViewFactory, string $taxonDetailsViewClass)
     {
         $this->taxonViewFactory = $taxonViewFactory;
+        $this->taxonDetailsViewClass = $taxonDetailsViewClass;
     }
 
     public function create(TaxonInterface $taxon, string $localeCode): TaxonDetailsView
     {
-        $detailTaxonView = new TaxonDetailsView();
+        /** @var TaxonDetailsView $detailTaxonView */
+        $detailTaxonView = new $this->taxonDetailsViewClass();
 
         $detailTaxonView->self = $this->buildTaxonView($taxon, $localeCode);
         $detailTaxonView->parentTree = $this->getTaxonWithAncestors($taxon, $localeCode);

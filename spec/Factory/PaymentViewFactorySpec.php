@@ -18,7 +18,7 @@ final class PaymentViewFactorySpec extends ObjectBehavior
 {
     function let(PaymentMethodViewFactoryInterface $paymentMethodViewFactory, PriceViewFactoryInterface $priceViewFactory)
     {
-        $this->beConstructedWith($paymentMethodViewFactory, $priceViewFactory);
+        $this->beConstructedWith($paymentMethodViewFactory, $priceViewFactory, PaymentView::class);
     }
 
     function it_is_payment_view_factory()

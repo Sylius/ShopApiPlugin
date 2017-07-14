@@ -7,32 +7,32 @@ use Sylius\ShopApiPlugin\View\PaymentView;
 
 final class PaymentViewFactory implements PaymentViewFactoryInterface
 {
-    /**
-     * @var PaymentMethodViewFactoryInterface
-     */
+    /** @var PaymentMethodViewFactoryInterface */
     private $paymentMethodViewFactory;
 
-    /**
-     * @var PriceViewFactoryInterface
-     */
+    /** @var PriceViewFactoryInterface */
     private $priceViewFactory;
 
-    /**
-     * @param PaymentMethodViewFactoryInterface $paymentMethodViewFactory
-     * @param PriceViewFactoryInterface $priceViewFactory
-     */
-    public function __construct(PaymentMethodViewFactoryInterface $paymentMethodViewFactory, PriceViewFactoryInterface $priceViewFactory)
-    {
+    /** @var string */
+    private $paymentViewClass;
+
+    public function __construct(
+        PaymentMethodViewFactoryInterface $paymentMethodViewFactory,
+        PriceViewFactoryInterface $priceViewFactory,
+        string $paymentViewClass
+    ) {
         $this->paymentMethodViewFactory = $paymentMethodViewFactory;
         $this->priceViewFactory = $priceViewFactory;
+        $this->paymentViewClass = $paymentViewClass;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function create(PaymentInterface $payment, $locale)
+    public function create(PaymentInterface $payment, string $locale): PaymentView
     {
-        $paymentView = new PaymentView();
+        /** @var PaymentView $paymentView */
+        $paymentView = new $this->paymentViewClass();
 
         $paymentView->state = $payment->getState();
         $paymentView->method = $this->paymentMethodViewFactory->create($payment->getMethod(), $locale);

@@ -25,7 +25,13 @@ final class ProductViewFactorySpec extends ObjectBehavior
         ImageViewFactoryInterface $imageViewFactory,
         ProductAttributeValuesViewFactoryInterface $attributeValuesViewFactory
     ) {
-        $this->beConstructedWith($imageViewFactory, $attributeValuesViewFactory, 'en_GB');
+        $this->beConstructedWith(
+            $imageViewFactory,
+            $attributeValuesViewFactory,
+            ProductView::class,
+            ProductTaxonView::class,
+            'en_GB'
+        );
     }
 
     function it_is_price_view_factory()

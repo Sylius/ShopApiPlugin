@@ -7,10 +7,5 @@ use Sylius\ShopApiPlugin\View\ImageView;
 
 interface ImageViewFactoryInterface
 {
-    /**
-     * @param ImageInterface $image
-     *
-     * @return ImageView
-     */
-    public function create(ImageInterface $image);
+    public function create(ImageInterface $image): ImageView;
 }

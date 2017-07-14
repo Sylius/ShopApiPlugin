@@ -8,25 +8,25 @@ use Sylius\ShopApiPlugin\View\ProductVariantView;
 
 final class ProductVariantViewFactory implements ProductVariantViewFactoryInterface
 {
-    /**
-     * @var PriceViewFactoryInterface
-     */
+    /** @var PriceViewFactoryInterface */
     private $priceViewFactory;
 
-    /**
-     * @param PriceViewFactoryInterface $priceViewFactory
-     */
-    public function __construct(PriceViewFactoryInterface $priceViewFactory)
+    /** @var string */
+    private $productVariantViewClass;
+
+    public function __construct(PriceViewFactoryInterface $priceViewFactory, string $productVariantViewClass)
     {
         $this->priceViewFactory = $priceViewFactory;
+        $this->productVariantViewClass = $productVariantViewClass;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function create(ProductVariantInterface $variant, ChannelInterface $channel, $locale)
+    public function create(ProductVariantInterface $variant, ChannelInterface $channel, string $locale): ProductVariantView
     {
-        $variantView = new ProductVariantView();
+        /** @var ProductVariantView $variantView */
+        $variantView = new $this->productVariantViewClass();
 
         $variantView->code = $variant->getCode();
         $variantView->name = $variant->getTranslation($locale)->getName();

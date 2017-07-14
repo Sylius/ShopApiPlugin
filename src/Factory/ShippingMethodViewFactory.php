@@ -10,30 +10,29 @@ use Sylius\ShopApiPlugin\View\ShippingMethodView;
 
 final class ShippingMethodViewFactory implements ShippingMethodViewFactoryInterface
 {
-    /**
-     * @var ServiceRegistry
-     */
-    private $calculators;
+    /** @var ServiceRegistry */
+    private $calculatorRegistry;
 
-    /**
-     * @var PriceViewFactoryInterface
-     */
+    /** @var PriceViewFactoryInterface */
     private $priceViewFactory;
 
-    /**
-     * @param ServiceRegistry $calculators
-     * @param PriceViewFactoryInterface $priceViewFactory
-     */
-    public function __construct(ServiceRegistry $calculators, PriceViewFactoryInterface $priceViewFactory)
-    {
-        $this->calculators = $calculators;
+    /** @var string */
+    private $shippingMethodViewClass;
+
+    public function __construct(
+        ServiceRegistry $calculatorRegistry,
+        PriceViewFactoryInterface $priceViewFactory,
+        string $shippingMethodViewClass
+    ) {
+        $this->calculatorRegistry = $calculatorRegistry;
         $this->priceViewFactory = $priceViewFactory;
+        $this->shippingMethodViewClass = $shippingMethodViewClass;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function create(ShipmentInterface $shipment, $locale)
+    public function create(ShipmentInterface $shipment, string $locale): ShippingMethodView
     {
         return $this->createWithShippingMethod($shipment, $shipment->getMethod(), $locale);
     }
@@ -41,12 +40,16 @@ final class ShippingMethodViewFactory implements ShippingMethodViewFactoryInterf
     /**
      * {@inheritdoc}
      */
-    public function createWithShippingMethod(ShipmentInterface $shipment, ShippingMethodInterface $shippingMethod, $locale)
-    {
+    public function createWithShippingMethod(
+        ShipmentInterface $shipment,
+        ShippingMethodInterface $shippingMethod,
+        string $locale
+    ): ShippingMethodView {
         /** @var CalculatorInterface $calculator */
-        $calculator = $this->calculators->get($shippingMethod->getCalculator());
+        $calculator = $this->calculatorRegistry->get($shippingMethod->getCalculator());
 
-        $shippingMethodView = new ShippingMethodView();
+        /** @var ShippingMethodView $shippingMethodView */
+        $shippingMethodView = new $this->shippingMethodViewClass();
 
         $shippingMethodView->code = $shippingMethod->getCode();
         $shippingMethodView->name = $shippingMethod->getTranslation($locale)->getName();

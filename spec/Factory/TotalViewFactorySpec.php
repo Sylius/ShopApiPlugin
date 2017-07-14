@@ -11,6 +11,10 @@ use Sylius\ShopApiPlugin\View\TotalsView;
 
 final class TotalViewFactorySpec extends ObjectBehavior
 {
+    function let()
+    {
+        $this->beConstructedWith(TotalsView::class);
+    }
 
     function it_is_total_view_factory()
     {

@@ -9,32 +9,20 @@ use Sylius\Component\Core\Model\ProductImageInterface;
 use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Product\Model\ProductAssociationInterface;
-use Sylius\ShopApiPlugin\Generator\ProductBreadcrumbGeneratorInterface;
 use Sylius\ShopApiPlugin\View\ProductVariantView;
 use Sylius\ShopApiPlugin\View\ProductView;
 
 final class ListProductViewFactory implements ProductViewFactoryInterface
 {
-    /**
-     * @var ImageViewFactoryInterface
-     */
+    /** @var ImageViewFactoryInterface */
     private $imageViewFactory;
 
-    /**
-     * @var ProductViewFactoryInterface
-     */
+    /** @var ProductViewFactoryInterface */
     private $productViewFactory;
 
-    /**
-     * @var ProductVariantViewFactoryInterface
-     */
+    /** @var ProductVariantViewFactoryInterface */
     private $variantViewFactory;
 
-    /**
-     * @param ImageViewFactoryInterface $imageViewFactory
-     * @param ProductViewFactoryInterface $productViewFactory
-     * @param ProductVariantViewFactoryInterface $variantViewFactory
-     */
     public function __construct(
         ImageViewFactoryInterface $imageViewFactory,
         ProductViewFactoryInterface $productViewFactory,

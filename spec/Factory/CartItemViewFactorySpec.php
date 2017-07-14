@@ -22,7 +22,7 @@ final class CartItemViewFactorySpec extends ObjectBehavior
         ProductViewFactoryInterface $productViewFactory,
         ProductVariantViewFactoryInterface $productVariantViewFactory
     ) {
-        $this->beConstructedWith($productViewFactory, $productVariantViewFactory);
+        $this->beConstructedWith($productViewFactory, $productVariantViewFactory, ItemView::class);
     }
 
     function it_is_cart_item_view_factory()

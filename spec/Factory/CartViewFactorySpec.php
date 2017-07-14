@@ -36,7 +36,7 @@ final class CartViewFactorySpec extends ObjectBehavior
         PaymentViewFactoryInterface $paymentViewFactory,
         AdjustmentViewFactoryInterface $adjustmentViewFactory
     ) {
-        $this->beConstructedWith($cartItemViewFactory, $addressViewFactory, $totalViewFactory, $shipmentViewFactory, $paymentViewFactory, $adjustmentViewFactory);
+        $this->beConstructedWith($cartItemViewFactory, $addressViewFactory, $totalViewFactory, $shipmentViewFactory, $paymentViewFactory, $adjustmentViewFactory, CartSummaryView::class);
     }
 
     function it_is_cart_factory()

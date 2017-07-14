@@ -3,26 +3,33 @@
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <service id="sylius.shop_api_plugin.factory.image_view_factory" class="Sylius\ShopApiPlugin\Factory\ImageViewFactory">
-            <argument type="service" id="liip_imagine.cache.manager" />
+            <argument type="string">%sylius.shop_api.view.image.class%</argument>
         </service>
 
         <service id="sylius.shop_api_plugin.factory.taxon_view_factory" class="Sylius\ShopApiPlugin\Factory\TaxonViewFactory">
             <argument type="service" id="sylius.shop_api_plugin.factory.image_view_factory" />
+            <argument type="string">%sylius.shop_api.view.taxon.class%</argument>
         </service>
 
         <service id="sylius.shop_api_plugin.factory.taxon_details_view_factory" class="Sylius\ShopApiPlugin\Factory\TaxonDetailsViewFactory">
             <argument type="service" id="sylius.shop_api_plugin.factory.taxon_view_factory" />
+            <argument type="string">%sylius.shop_api.view.taxon_details.class%</argument>
         </service>
 
-        <service id="sylius.shop_api_plugin.factory.price_view_factory" class="Sylius\ShopApiPlugin\Factory\PriceViewFactory" />
+        <service id="sylius.shop_api_plugin.factory.price_view_factory" class="Sylius\ShopApiPlugin\Factory\PriceViewFactory">
+            <argument type="string">%sylius.shop_api.view.price.class%</argument>
+        </service>
 
         <service id="sylius.shop_api_plugin.factory.product_variant_view_factory" class="Sylius\ShopApiPlugin\Factory\ProductVariantViewFactory">
             <argument type="service" id="sylius.shop_api_plugin.factory.price_view_factory" />
+            <argument type="string">%sylius.shop_api.view.product_variant.class%</argument>
         </service>
 
         <service id="sylius.shop_api_plugin.factory.product_view_factory" class="Sylius\ShopApiPlugin\Factory\ProductViewFactory">
             <argument type="service" id="sylius.shop_api_plugin.factory.image_view_factory" />
             <argument type="service" id="sylius.shop_api_plugin.factory.limited_product_attribute_values_view_factory" />
+            <argument type="string">%sylius.shop_api.view.product.class%</argument>
+            <argument type="string">%sylius.shop_api.view.product_taxon.class%</argument>
             <argument>%locale%</argument>
         </service>
 
@@ -44,46 +51,66 @@
             <argument type="service" id="sylius.shop_api_plugin.factory.shipment_view_factory" />
             <argument type="service" id="sylius.shop_api_plugin.factory.payment_view_factory" />
             <argument type="service" id="sylius.shop_api_plugin.factory.adjustment_view_factory" />
+            <argument type="string">%sylius.shop_api.view.cart_summary.class%</argument>
         </service>
 
         <service id="sylius.shop_api_plugin.factory.adjustment_view_factory" class="Sylius\ShopApiPlugin\Factory\AdjustmentViewFactory">
             <argument type="service" id="sylius.shop_api_plugin.factory.price_view_factory" />
+            <argument type="string">%sylius.shop_api.view.adjustment.class%</argument>
         </service>
 
         <service id="sylius.shop_api_plugin.factory.cart_item_view_factory" class="Sylius\ShopApiPlugin\Factory\CartItemViewFactory">
             <argument type="service" id="sylius.shop_api_plugin.factory.product_view_factory" />
             <argument type="service" id="sylius.shop_api_plugin.factory.product_variant_view_factory" />
+            <argument type="string">%sylius.shop_api.view.cart_item.class%</argument>
         </service>
 
-        <service id="sylius.shop_api_plugin.factory.address_view_factory" class="Sylius\ShopApiPlugin\Factory\AddressViewFactory" />
+        <service id="sylius.shop_api_plugin.factory.address_view_factory" class="Sylius\ShopApiPlugin\Factory\AddressViewFactory">
+            <argument type="string">%sylius.shop_api.view.address.class%</argument>
+        </service>
 
-        <service id="sylius.shop_api_plugin.factory.total_view_factory" class="Sylius\ShopApiPlugin\Factory\TotalViewFactory" />
+        <service id="sylius.shop_api_plugin.factory.total_view_factory" class="Sylius\ShopApiPlugin\Factory\TotalViewFactory">
+            <argument type="string">%sylius.shop_api.view.totals.class%</argument>
+        </service>
 
-        <service id="sylius.shop_api_plugin.factory.validation_error_view_factory" class="Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactory" />
+        <service id="sylius.shop_api_plugin.factory.validation_error_view_factory" class="Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactory">
+            <argument type="string">%sylius.shop_api.view.validation_error.class%</argument>
+        </service>
 
         <service id="sylius.shop_api_plugin.factory.shipping_method_view_factory" class="Sylius\ShopApiPlugin\Factory\ShippingMethodViewFactory">
             <argument type="service" id="sylius.registry.shipping_calculator" />
             <argument type="service" id="sylius.shop_api_plugin.factory.price_view_factory" />
+            <argument type="string">%sylius.shop_api.view.shipping_method.class%</argument>
         </service>
 
         <service id="sylius.shop_api_plugin.factory.shipment_view_factory" class="Sylius\ShopApiPlugin\Factory\ShipmentViewFactory">
             <argument type="service" id="sylius.shop_api_plugin.factory.shipping_method_view_factory" />
+            <argument type="string">%sylius.shop_api.view.shipment.class%</argument>
         </service>
 
         <service id="sylius.shop_api_plugin.factory.page_view_factory" class="Sylius\ShopApiPlugin\Factory\PageViewFactory">
             <argument type="service" id="router" />
+            <argument type="string">%sylius.shop_api.view.page.class%</argument>
+            <argument type="string">%sylius.shop_api.view.page_links.class%</argument>
         </service>
 
         <service id="sylius.shop_api_plugin.factory.payment_view_factory" class="Sylius\ShopApiPlugin\Factory\PaymentViewFactory">
             <argument type="service" id="sylius.shop_api_plugin.factory.payment_method_view_factory" />
             <argument type="service" id="sylius.shop_api_plugin.factory.price_view_factory" />
+            <argument type="string">%sylius.shop_api.view.payment.class%</argument>
         </service>
 
-        <service id="sylius.shop_api_plugin.factory.payment_method_view_factory" class="Sylius\ShopApiPlugin\Factory\PaymentMethodViewFactory" />
+        <service id="sylius.shop_api_plugin.factory.payment_method_view_factory" class="Sylius\ShopApiPlugin\Factory\PaymentMethodViewFactory">
+            <argument type="string">%sylius.shop_api.view.payment_method.class%</argument>
+        </service>
 
-        <service id="sylius.shop_api_plugin.factory.product_attribute_value_view_factory" class="Sylius\ShopApiPlugin\Factory\ProductAttributeValueViewFactory" />
+        <service id="sylius.shop_api_plugin.factory.product_attribute_value_view_factory" class="Sylius\ShopApiPlugin\Factory\ProductAttributeValueViewFactory">
+            <argument type="string">%sylius.shop_api.view.product_attribute_value.class%</argument>
+        </service>
 
-        <service id="sylius.shop_api_plugin.factory.product_review_view_factory" class="Sylius\ShopApiPlugin\Factory\ProductReviewViewFactory" />
+        <service id="sylius.shop_api_plugin.factory.product_review_view_factory" class="Sylius\ShopApiPlugin\Factory\ProductReviewViewFactory">
+            <argument type="string">%sylius.shop_api.view.product_review.class%</argument>
+        </service>
 
         <service id="sylius.shop_api_plugin.factory.limited_product_attribute_values_view_factory" class="Sylius\ShopApiPlugin\Factory\LimitedProductAttributeValuesViewFactory" >
             <argument type="service" id="sylius.shop_api_plugin.factory.product_attribute_value_view_factory" />

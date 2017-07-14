@@ -7,10 +7,5 @@ use Sylius\ShopApiPlugin\View\TotalsView;
 
 interface TotalViewFactoryInterface
 {
-    /**
-     * @param OrderInterface $cart
-     *
-     * @return TotalsView
-     */
-    public function create(OrderInterface $cart);
+    public function create(OrderInterface $cart): TotalsView;
 }

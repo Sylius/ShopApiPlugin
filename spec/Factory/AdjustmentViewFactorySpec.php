@@ -13,7 +13,7 @@ final class AdjustmentViewFactorySpec extends ObjectBehavior
 {
     function let(PriceViewFactoryInterface $priceViewFactory)
     {
-        $this->beConstructedWith($priceViewFactory);
+        $this->beConstructedWith($priceViewFactory, AdjustmentView::class);
     }
 
     function it_is_adjustment_view_factory()

@@ -10,8 +10,12 @@ use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Sylius\ShopApiPlugin\View\PaymentMethodView;
 
-class PaymentMethodViewFactorySpec extends ObjectBehavior
+final class PaymentMethodViewFactorySpec extends ObjectBehavior
 {
+    function let()
+    {
+        $this->beConstructedWith(PaymentMethodView::class);
+    }
 
     function it_is_payment_method_view_factory()
     {

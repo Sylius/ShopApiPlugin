@@ -7,12 +7,21 @@ use Sylius\ShopApiPlugin\View\AddressView;
 
 final class AddressViewFactory implements AddressViewFactoryInterface
 {
+    /** @var string */
+    private $addressViewClass;
+
+    public function __construct(string $addressViewClass)
+    {
+        $this->addressViewClass = $addressViewClass;
+    }
+
     /**
      * {@inheritdoc}
      */
-    public function create(AddressInterface $address)
+    public function create(AddressInterface $address): AddressView
     {
-        $addressView = new AddressView();
+        /** @var AddressView $addressView */
+        $addressView = new $this->addressViewClass();
 
         $addressView->firstName = $address->getFirstName();
         $addressView->lastName = $address->getLastName();

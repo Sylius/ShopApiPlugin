@@ -9,9 +9,21 @@ use Sylius\ShopApiPlugin\View\ProductReviewView;
 
 final class ProductReviewViewFactory implements ProductReviewViewFactoryInterface
 {
+    /** @var string */
+    private $productReviewViewClass;
+
+    public function __construct(string $productReviewViewClass)
+    {
+        $this->productReviewViewClass = $productReviewViewClass;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function create(ProductReview $productReview): ProductReviewView
     {
-        $productReviewView = new ProductReviewView();
+        /** @var ProductReviewView $productReviewView */
+        $productReviewView = new $this->productReviewViewClass();
 
         $productReviewView->author = $productReview->getAuthor()->getEmail();
         $productReviewView->comment = $productReview->getComment();

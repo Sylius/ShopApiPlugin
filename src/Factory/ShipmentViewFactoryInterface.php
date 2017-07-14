@@ -7,11 +7,5 @@ use Sylius\ShopApiPlugin\View\ShipmentView;
 
 interface ShipmentViewFactoryInterface
 {
-    /**
-     * @param ShipmentInterface $shipment
-     * @param string $locale
-     *
-     * @return ShipmentView
-     */
-    public function create(ShipmentInterface $shipment, $locale);
+    public function create(ShipmentInterface $shipment, string $locale): ShipmentView;
 }

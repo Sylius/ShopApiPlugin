@@ -10,6 +10,10 @@ use Sylius\ShopApiPlugin\View\AddressView;
 
 final class AddressViewFactorySpec extends ObjectBehavior
 {
+    function let()
+    {
+        $this->beConstructedWith(AddressView::class);
+    }
 
     function it_is_image_view_builder()
     {

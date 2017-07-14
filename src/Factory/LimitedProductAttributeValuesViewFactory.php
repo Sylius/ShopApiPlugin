@@ -6,20 +6,12 @@ use Sylius\Component\Product\Model\ProductAttributeValueInterface;
 
 final class LimitedProductAttributeValuesViewFactory implements ProductAttributeValuesViewFactoryInterface
 {
-    /**
-     * @var ProductAttributeValueViewFactoryInterface
-     */
+    /** @var ProductAttributeValueViewFactoryInterface */
     private $productAttributeValueViewFactory;
 
-    /**
-     * @var string[]
-     */
+    /** @var string[] */
     private $allowedAttributesCodes;
 
-    /**
-     * @param ProductAttributeValueViewFactoryInterface $productAttributeValueViewFactory
-     * @param string[] $allowedAttributesCodes
-     */
     public function __construct(ProductAttributeValueViewFactoryInterface $productAttributeValueViewFactory, array $allowedAttributesCodes)
     {
         $this->productAttributeValueViewFactory = $productAttributeValueViewFactory;
@@ -29,7 +21,7 @@ final class LimitedProductAttributeValuesViewFactory implements ProductAttribute
     /**
      * {@inheritdoc}
      */
-    public function create(array $attributeValues)
+    public function create(array $attributeValues): array
     {
         $attributeValuesView = [];
 
