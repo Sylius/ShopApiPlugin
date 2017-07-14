@@ -21,7 +21,7 @@ final class ProductVariantViewFactorySpec extends ObjectBehavior
 {
     function let(PriceViewFactoryInterface $priceViewFactory)
     {
-        $this->beConstructedWith($priceViewFactory);
+        $this->beConstructedWith($priceViewFactory, ProductVariantView::class);
     }
 
     function it_is_price_view_factory()

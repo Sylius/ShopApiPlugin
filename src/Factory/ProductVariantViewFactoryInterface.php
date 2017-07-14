@@ -8,12 +8,5 @@ use Sylius\ShopApiPlugin\View\ProductVariantView;
 
 interface ProductVariantViewFactoryInterface
 {
-    /**
-     * @param ProductVariantInterface $variant
-     * @param ChannelInterface $channel
-     * @param string $locale
-     *
-     * @return ProductVariantView
-     */
-    public function create(ProductVariantInterface $variant, ChannelInterface $channel, $locale);
+    public function create(ProductVariantInterface $variant, ChannelInterface $channel, string $locale): ProductVariantView;
 }

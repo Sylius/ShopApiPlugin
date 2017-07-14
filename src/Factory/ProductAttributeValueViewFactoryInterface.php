@@ -7,10 +7,5 @@ use Sylius\ShopApiPlugin\View\ProductAttributeValueView;
 
 interface ProductAttributeValueViewFactoryInterface
 {
-    /**
-     * @param ProductAttributeValueInterface $productAttributeValue
-     *
-     * @return ProductAttributeValueView
-     */
-    public function create(ProductAttributeValueInterface $productAttributeValue);
+    public function create(ProductAttributeValueInterface $productAttributeValue): ProductAttributeValueView;
 }

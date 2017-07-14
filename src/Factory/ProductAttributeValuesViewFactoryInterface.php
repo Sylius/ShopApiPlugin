@@ -2,12 +2,15 @@
 
 namespace Sylius\ShopApiPlugin\Factory;
 
+use Sylius\Component\Attribute\Model\AttributeValueInterface;
+use Sylius\ShopApiPlugin\View\ProductAttributeValueView;
+
 interface ProductAttributeValuesViewFactoryInterface
 {
     /**
-     * @param array $attributeValues
+     * @param array|AttributeValueInterface[] $attributeValues
      *
-     * @return array
+     * @return array|ProductAttributeValueView[]
      */
-    public function create(array $attributeValues);
+    public function create(array $attributeValues): array;
 }

@@ -7,25 +7,25 @@ use Sylius\ShopApiPlugin\View\ShipmentView;
 
 final class ShipmentViewFactory implements ShipmentViewFactoryInterface
 {
-    /**
-     * @var ShippingMethodViewFactoryInterface
-     */
+    /** @var ShippingMethodViewFactoryInterface */
     private $shippingMethodViewFactory;
 
-    /**
-     * @param ShippingMethodViewFactoryInterface $shippingMethodViewFactory
-     */
-    public function __construct(ShippingMethodViewFactoryInterface $shippingMethodViewFactory)
+    /** @var string */
+    private $shipmentViewClass;
+
+    public function __construct(ShippingMethodViewFactoryInterface $shippingMethodViewFactory, string $shipmentViewClass)
     {
         $this->shippingMethodViewFactory = $shippingMethodViewFactory;
+        $this->shipmentViewClass = $shipmentViewClass;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function create(ShipmentInterface $shipment, $locale)
+    public function create(ShipmentInterface $shipment, string $locale): ShipmentView
     {
-        $shipmentView = new ShipmentView();
+        /** @var ShipmentView $shipmentView */
+        $shipmentView = new $this->shipmentViewClass();
 
         $shipmentView->state = $shipment->getState();
         $shipmentView->method = $this->shippingMethodViewFactory->create($shipment, $locale);

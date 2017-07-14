@@ -28,13 +28,17 @@ final class CartViewFactory implements CartViewFactoryInterface
     /** @var AdjustmentViewFactoryInterface */
     private $adjustmentViewFactory;
 
+    /** @var string */
+    private $cartSummaryViewClass;
+
     public function __construct(
         CartItemViewFactoryInterface $cartItemFactory,
         AddressViewFactoryInterface $addressViewFactory,
         TotalViewFactoryInterface $totalViewFactory,
         ShipmentViewFactoryInterface $shipmentViewFactory,
         PaymentViewFactoryInterface $paymentViewFactory,
-        AdjustmentViewFactoryInterface $adjustmentViewFactory
+        AdjustmentViewFactoryInterface $adjustmentViewFactory,
+        string $cartSummaryViewClass
     ) {
         $this->cartItemFactory = $cartItemFactory;
         $this->addressViewFactory = $addressViewFactory;
@@ -42,6 +46,7 @@ final class CartViewFactory implements CartViewFactoryInterface
         $this->shipmentViewFactory = $shipmentViewFactory;
         $this->paymentViewFactory = $paymentViewFactory;
         $this->adjustmentViewFactory = $adjustmentViewFactory;
+        $this->cartSummaryViewClass = $cartSummaryViewClass;
     }
 
     /**
@@ -49,7 +54,8 @@ final class CartViewFactory implements CartViewFactoryInterface
      */
     public function create(OrderInterface $cart, string $localeCode): CartSummaryView
     {
-        $cartView = new CartSummaryView();
+        /** @var CartSummaryView $cartView */
+        $cartView = new $this->cartSummaryViewClass();
         $cartView->channel = $cart->getChannel()->getCode();
         $cartView->currency = $cart->getCurrencyCode();
         $cartView->locale = $localeCode;

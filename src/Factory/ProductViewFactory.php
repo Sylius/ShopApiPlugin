@@ -11,38 +11,36 @@ use Sylius\Component\Core\Model\ProductTranslationInterface;
 use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\ShopApiPlugin\View\ProductTaxonView;
 use Sylius\ShopApiPlugin\View\ProductView;
-use Sylius\ShopApiPlugin\View\TaxonView;
 
 final class ProductViewFactory implements ProductViewFactoryInterface
 {
-    /**
-     * @var ImageViewFactoryInterface
-     */
+    /** @var ImageViewFactoryInterface */
     private $imageViewFactory;
 
-    /**
-     * @var ProductAttributeValuesViewFactoryInterface
-     */
+    /** @var ProductAttributeValuesViewFactoryInterface */
     private $attributeValuesViewFactory;
 
-    /**
-     * @var string
-     */
-    private $fallback;
+    /** @var string */
+    private $productViewClass;
 
-    /**
-     * @param ImageViewFactoryInterface $imageViewFactory
-     * @param ProductAttributeValuesViewFactoryInterface $attributeValuesViewFactory
-     * @param string $fallback
-     */
+    /** @var string */
+    private $productTaxonViewClass;
+
+    /** @var string */
+    private $fallbackLocale;
+
     public function __construct(
         ImageViewFactoryInterface $imageViewFactory,
         ProductAttributeValuesViewFactoryInterface $attributeValuesViewFactory,
-        $fallback
+        string $productViewClass,
+        string $productTaxonViewClass,
+        string $fallbackLocale
     ) {
         $this->imageViewFactory = $imageViewFactory;
         $this->attributeValuesViewFactory = $attributeValuesViewFactory;
-        $this->fallback = $fallback;
+        $this->productViewClass = $productViewClass;
+        $this->productTaxonViewClass = $productTaxonViewClass;
+        $this->fallbackLocale = $fallbackLocale;
     }
 
     /**
@@ -50,7 +48,8 @@ final class ProductViewFactory implements ProductViewFactoryInterface
      */
     public function create(ProductInterface $product, ChannelInterface $channel, string $locale): ProductView
     {
-        $productView = new ProductView();
+        /** @var ProductView $productView */
+        $productView = new $this->productViewClass();
         $productView->code = $product->getCode();
         $productView->averageRating = $product->getAverageRating();
 
@@ -65,7 +64,8 @@ final class ProductViewFactory implements ProductViewFactoryInterface
             $productView->images[] = $imageView;
         }
 
-        $taxons = new ProductTaxonView();
+        /** @var ProductTaxonView $taxons */
+        $taxons = new $this->productTaxonViewClass();
         if (null !== $product->getMainTaxon()) {
             $taxons->main = $product->getMainTaxon()->getCode();
         }
@@ -77,7 +77,7 @@ final class ProductViewFactory implements ProductViewFactoryInterface
 
         $productView->taxons = $taxons;
 
-        $productView->attributes = $this->attributeValuesViewFactory->create($product->getAttributesByLocale($locale, $this->fallback));
+        $productView->attributes = $this->attributeValuesViewFactory->create($product->getAttributesByLocale($locale, $this->fallbackLocale));
 
         return $productView;
     }

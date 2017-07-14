@@ -8,34 +8,32 @@ use Sylius\ShopApiPlugin\View\ItemView;
 
 final class CartItemViewFactory implements CartItemViewFactoryInterface
 {
-    /**
-     * @var ProductViewFactoryInterface
-     */
+    /** @var ProductViewFactoryInterface */
     private $productViewFactory;
 
-    /**
-     * @var ProductVariantViewFactoryInterface
-     */
+    /** @var ProductVariantViewFactoryInterface */
     private $productVariantViewFactory;
 
-    /**
-     * @param ProductViewFactoryInterface $productViewFactory
-     * @param ProductVariantViewFactoryInterface $productVariantViewFactory
-     */
+    /** @var string */
+    private $cartItemViewClass;
+
     public function __construct(
         ProductViewFactoryInterface $productViewFactory,
-        ProductVariantViewFactoryInterface $productVariantViewFactory
+        ProductVariantViewFactoryInterface $productVariantViewFactory,
+        string $cartItemViewClass
     ) {
         $this->productViewFactory = $productViewFactory;
         $this->productVariantViewFactory = $productVariantViewFactory;
+        $this->cartItemViewClass = $cartItemViewClass;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function create(OrderItemInterface $item, ChannelInterface $channel, $locale)
+    public function create(OrderItemInterface $item, ChannelInterface $channel, string $locale): ItemView
     {
-        $itemView = new ItemView();
+        /** @var ItemView $itemView */
+        $itemView = new $this->cartItemViewClass();
 
         $itemView->id = $item->getId();
         $itemView->quantity = $item->getQuantity();

@@ -13,7 +13,7 @@ final class TaxonDetailsViewFactorySpec extends ObjectBehavior
 {
     function let(TaxonViewFactoryInterface $taxonViewFactory)
     {
-        $this->beConstructedWith($taxonViewFactory);
+        $this->beConstructedWith($taxonViewFactory, TaxonDetailsView::class);
     }
 
     function it_is_taxon_view_factory()

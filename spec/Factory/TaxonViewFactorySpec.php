@@ -16,7 +16,7 @@ final class TaxonViewFactorySpec extends ObjectBehavior
 {
     function let(ImageViewFactoryInterface $imageViewFactory)
     {
-        $this->beConstructedWith($imageViewFactory);
+        $this->beConstructedWith($imageViewFactory, TaxonView::class);
     }
 
     function it_is_taxon_view_factory()

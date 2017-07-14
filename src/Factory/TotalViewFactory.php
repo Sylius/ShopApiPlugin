@@ -7,12 +7,21 @@ use Sylius\ShopApiPlugin\View\TotalsView;
 
 final class TotalViewFactory implements TotalViewFactoryInterface
 {
+    /** @var string */
+    private $totalsViewClass;
+
+    public function __construct(string $totalsViewClass)
+    {
+        $this->totalsViewClass = $totalsViewClass;
+    }
+
     /**
      * {@inheritdoc}
      */
-    public function create(OrderInterface $cart)
+    public function create(OrderInterface $cart): TotalsView
     {
-        $totalsView = new TotalsView();
+        /** @var TotalsView $totalsView */
+        $totalsView = new $this->totalsViewClass();
 
         $totalsView->promotion = $cart->getOrderPromotionTotal();
         $totalsView->total = $cart->getTotal();

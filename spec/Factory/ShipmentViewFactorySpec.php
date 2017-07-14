@@ -16,7 +16,7 @@ final class ShipmentViewFactorySpec extends ObjectBehavior
 {
     function let(ShippingMethodViewFactoryInterface $shippingMethodViewFactory)
     {
-        $this->beConstructedWith($shippingMethodViewFactory);
+        $this->beConstructedWith($shippingMethodViewFactory, ShipmentView::class);
     }
 
     function it_is_shipment_view_factory()

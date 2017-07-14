@@ -8,12 +8,5 @@ use Sylius\ShopApiPlugin\View\ItemView;
 
 interface CartItemViewFactoryInterface
 {
-    /**
-     * @param OrderItemInterface $item
-     * @param ChannelInterface $channel
-     * @param string $locale
-     *
-     * @return ItemView
-     */
-    public function create(OrderItemInterface $item, ChannelInterface $channel, $locale);
+    public function create(OrderItemInterface $item, ChannelInterface $channel, string $locale): ItemView;
 }

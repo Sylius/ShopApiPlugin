@@ -17,9 +17,9 @@ use Sylius\ShopApiPlugin\View\ShippingMethodView;
 
 final class ShippingMethodViewFactorySpec extends ObjectBehavior
 {
-    function let(ServiceRegistry $calculators, PriceViewFactoryInterface $priceViewFactory)
+    function let(ServiceRegistry $calculatorRegistry, PriceViewFactoryInterface $priceViewFactory)
     {
-        $this->beConstructedWith($calculators, $priceViewFactory);
+        $this->beConstructedWith($calculatorRegistry, $priceViewFactory, ShippingMethodView::class);
     }
 
     function it_is_shipping_method_view_factory()
@@ -31,7 +31,7 @@ final class ShippingMethodViewFactorySpec extends ObjectBehavior
         ShipmentInterface $shipment,
         CalculatorInterface $calculator,
         PriceViewFactoryInterface $priceViewFactory,
-        ServiceRegistry $calculators,
+        ServiceRegistry $calculatorRegistry,
         ShippingMethodInterface $shippingMethod,
         ShippingMethodTranslationInterface $shippingMethodTranslation
     ) {
@@ -43,7 +43,7 @@ final class ShippingMethodViewFactorySpec extends ObjectBehavior
         $shippingMethodTranslation->getName()->willReturn('Cash on delivery');
         $shippingMethodTranslation->getDescription()->willReturn('Really nice shipping method');
 
-        $calculators->get('flat_calculator')->willReturn($calculator);
+        $calculatorRegistry->get('flat_calculator')->willReturn($calculator);
 
         $calculator->calculate($shipment, [])->willReturn(2000);
 
@@ -63,7 +63,7 @@ final class ShippingMethodViewFactorySpec extends ObjectBehavior
         ShipmentInterface $shipment,
         CalculatorInterface $calculator,
         PriceViewFactoryInterface $priceViewFactory,
-        ServiceRegistry $calculators,
+        ServiceRegistry $calculatorRegistry,
         ShippingMethodInterface $shippingMethod,
         ShippingMethodTranslationInterface $shippingMethodTranslation
     ) {
@@ -77,7 +77,7 @@ final class ShippingMethodViewFactorySpec extends ObjectBehavior
         $shippingMethodTranslation->getName()->willReturn('Cash on delivery');
         $shippingMethodTranslation->getDescription()->willReturn('Really nice shipping method');
 
-        $calculators->get('flat_calculator')->willReturn($calculator);
+        $calculatorRegistry->get('flat_calculator')->willReturn($calculator);
 
         $calculator->calculate($shipment, [])->willReturn(2000);
 

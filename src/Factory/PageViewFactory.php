@@ -4,32 +4,40 @@ namespace Sylius\ShopApiPlugin\Factory;
 
 use Pagerfanta\Pagerfanta;
 use Sylius\ShopApiPlugin\Request\PageViewRequestInterface;
-use Sylius\ShopApiPlugin\View\PageLinksView;
 use Sylius\ShopApiPlugin\View\PageView;
 use Symfony\Component\Routing\RouterInterface;
 
 final class PageViewFactory implements PageViewFactoryInterface
 {
-    /**
-     * @var RouterInterface
-     */
+    /** @var RouterInterface */
     private $router;
 
-    public function __construct(RouterInterface $router)
-    {
+    /** @var string */
+    private $pageViewClass;
+
+    /** @var string */
+    private $pageLinksViewClass;
+
+    public function __construct(
+        RouterInterface $router,
+        string $pageViewClass,
+        string $pageLinksViewClass
+    ) {
         $this->router = $router;
+        $this->pageViewClass = $pageViewClass;
+        $this->pageLinksViewClass = $pageLinksViewClass;
     }
 
     public function create(Pagerfanta $pagerfanta, string $route, array $parameters): PageView
     {
-        $page = new PageView();
+        /** @var PageView $page */
+        $page = new $this->pageViewClass();
         $page->page = $pagerfanta->getCurrentPage();
         $page->limit = $pagerfanta->getMaxPerPage();
         $page->pages = $pagerfanta->getNbPages();
         $page->total = $pagerfanta->getNbResults();
 
-        $page->links = new PageLinksView();
-
+        $page->links = new $this->pageLinksViewClass();
         $page->links->self = $this->router->generate($route, array_merge($parameters, [
             'page' => $pagerfanta->getCurrentPage(),
             'limit' => $pagerfanta->getMaxPerPage(),

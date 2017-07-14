@@ -7,10 +7,5 @@ use Sylius\ShopApiPlugin\View\AddressView;
 
 interface AddressViewFactoryInterface
 {
-    /**
-     * @param AddressInterface $address
-     *
-     * @return AddressView
-     */
-    public function create(AddressInterface $address);
+    public function create(AddressInterface $address): AddressView;
 }

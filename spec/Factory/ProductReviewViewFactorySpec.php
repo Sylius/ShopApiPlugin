@@ -14,6 +14,10 @@ use Sylius\ShopApiPlugin\View\ProductReviewView;
 
 final class ProductReviewViewFactorySpec extends ObjectBehavior
 {
+    function let()
+    {
+        $this->beConstructedWith(ProductReviewView::class);
+    }
 
     function it_is_product_review_view_factory()
     {

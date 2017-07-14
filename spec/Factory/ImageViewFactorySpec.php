@@ -12,6 +12,10 @@ use Sylius\ShopApiPlugin\View\ImageView;
 
 final class ImageViewFactorySpec extends ObjectBehavior
 {
+    function let()
+    {
+        $this->beConstructedWith(ImageView::class);
+    }
 
     function it_is_image_view_factory()
     {

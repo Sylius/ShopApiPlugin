@@ -12,14 +12,19 @@ final class AdjustmentViewFactory implements AdjustmentViewFactoryInterface
     /** @var PriceViewFactoryInterface */
     private $priceViewFactory;
 
-    public function __construct(PriceViewFactoryInterface $priceViewFactory)
+    /** @var string */
+    private $adjustmentViewClass;
+
+    public function __construct(PriceViewFactoryInterface $priceViewFactory, string $adjustmentViewClass)
     {
         $this->priceViewFactory = $priceViewFactory;
+        $this->adjustmentViewClass = $adjustmentViewClass;
     }
 
     public function create(AdjustmentInterface $adjustment, int $additionalAmount = 0): AdjustmentView
     {
-        $adjustmentView = new AdjustmentView();
+        /** @var AdjustmentView $adjustmentView */
+        $adjustmentView = new $this->adjustmentViewClass();
 
         $adjustmentView->name = $adjustment->getLabel();
         $adjustmentView->amount = $this->priceViewFactory->create($adjustment->getAmount() + $additionalAmount);
