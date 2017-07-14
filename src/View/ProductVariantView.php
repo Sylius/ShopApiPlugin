@@ -30,14 +30,9 @@ class ProductVariantView
     public $price;
 
     /**
-     * @var array
+     * @var ImageView[]
      */
     public $images = [];
-
-    /**
-     * @var array
-     */
-    public $appliedPromotions = [];
 
     public function __construct()
     {

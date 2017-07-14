@@ -36,8 +36,7 @@
                             "code": "thumbnail",
                             "path": "\/uo\/mug.jpg"
                         }
-                    ],
-                    "appliedPromotions": []
+                    ]
                 }
             },
             "attributes": [
@@ -87,8 +86,7 @@
                     "price": {
                         "current": 500
                     },
-                    "images": [],
-                    "appliedPromotions": []
+                    "images": []
                 },
                 "LARGE_RED_LOGAN_HAT_CODE": {
                     "code": "LARGE_RED_LOGAN_HAT_CODE",
@@ -104,8 +102,7 @@
                     "price": {
                         "current": 999
                     },
-                    "images": [],
-                    "appliedPromotions": []
+                    "images": []
                 },
                 "SMALL_BLUE_LOGAN_HAT_CODE": {
                     "code": "SMALL_BLUE_LOGAN_HAT_CODE",
@@ -121,8 +118,7 @@
                     "price": {
                         "current": 1500
                     },
-                    "images": [],
-                    "appliedPromotions": []
+                    "images": []
                 },
                 "LARGE_BLUE_LOGAN_HAT_CODE": {
                     "code": "LARGE_BLUE_LOGAN_HAT_CODE",
@@ -138,8 +134,7 @@
                     "price": {
                         "current": 2599
                     },
-                    "images": [],
-                    "appliedPromotions": []
+                    "images": []
                 }
             },
             "attributes": [],
@@ -171,8 +166,7 @@
                                         "code": "thumbnail",
                                         "path": "\/uo\/mug.jpg"
                                     }
-                                ],
-                                "appliedPromotions": []
+                                ]
                             }
                         },
                         "attributes": [
@@ -221,8 +215,7 @@
                                         "code": "thumbnail",
                                         "path": "\/uo\/samll-tshirt.jpg"
                                     }
-                                ],
-                                "appliedPromotions": []
+                                ]
                             },
                             "LARGE_LOGAN_T_SHIRT_CODE": {
                                 "code": "LARGE_LOGAN_T_SHIRT_CODE",
@@ -237,8 +230,7 @@
                                         "code": "thumbnail",
                                         "path": "\/uo\/large-tshirt.jpg"
                                     }
-                                ],
-                                "appliedPromotions": []
+                                ]
                             }
                         },
                         "attributes": [],

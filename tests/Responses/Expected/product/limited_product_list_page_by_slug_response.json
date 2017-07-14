@@ -36,8 +36,7 @@
                             "code": "thumbnail",
                             "path": "\/uo\/samll-tshirt.jpg"
                         }
-                    ],
-                    "appliedPromotions": []
+                    ]
                 },
                 "LARGE_LOGAN_T_SHIRT_CODE": {
                     "code": "LARGE_LOGAN_T_SHIRT_CODE",
@@ -52,8 +51,7 @@
                             "code": "thumbnail",
                             "path": "\/uo\/large-tshirt.jpg"
                         }
-                    ],
-                    "appliedPromotions": []
+                    ]
                 }
             },
             "attributes": [],
