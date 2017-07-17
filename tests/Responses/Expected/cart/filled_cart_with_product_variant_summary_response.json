@@ -30,8 +30,7 @@
                         "price": {
                             "current": 1999
                         },
-                        "images": [],
-                        "appliedPromotions": []
+                        "images": []
                     }
                 ],
                 "attributes": [],
@@ -88,8 +87,7 @@
                         "price": {
                             "current": 500
                         },
-                        "images": [],
-                        "appliedPromotions": []
+                        "images": []
                     }
                 ],
                 "attributes": [],
