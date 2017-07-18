@@ -1,0 +1,4 @@
+sylius:
+    shop_api:
+        cart:
+            not_exists: Warenkorb existiert nicht.

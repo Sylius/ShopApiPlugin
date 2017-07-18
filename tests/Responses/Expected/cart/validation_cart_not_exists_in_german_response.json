@@ -3,7 +3,7 @@
     "message": "Validation failed",
     "errors": {
         "token": [
-            "Cart does not exists."
+            "Warenkorb existiert nicht."
         ]
     }
 }

@@ -3,7 +3,7 @@
     "message": "Validation failed",
     "errors": {
         "token": [
-            "sylius.shop_api.cart.not_exists"
+            "Cart does not exists."
         ],
         "id": [
             "sylius.shop_api.cart_item.not_exists"
