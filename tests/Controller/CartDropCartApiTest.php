@@ -28,6 +28,11 @@ final class CartDropCartApiTest extends JsonApiTestCase
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/validation_cart_not_exists_response', Response::HTTP_BAD_REQUEST);
+
+        $this->client->request('DELETE', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325?_locale=de_DE', [], [], ['ACCEPT' => 'application/json']);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'cart/validation_cart_not_exists_in_german_response', Response::HTTP_BAD_REQUEST);
     }
 
     /**
