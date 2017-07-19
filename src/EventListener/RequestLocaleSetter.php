@@ -23,7 +23,7 @@ final class RequestLocaleSetter
 
         $request->setDefaultLocale($this->localeProvider->getDefaultLocaleCode());
 
-        $localeCode = $request->get('_locale');
+        $localeCode = $request->get('locale');
         if (null === $localeCode) {
             return;
         }
