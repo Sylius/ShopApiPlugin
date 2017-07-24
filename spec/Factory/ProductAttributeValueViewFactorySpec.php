@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Sylius\ShopApiPlugin\Factory;
 
+use Sylius\Component\Product\Model\ProductAttributeInterface;
+use Sylius\Component\Product\Model\ProductAttributeTranslationInterface;
 use Sylius\Component\Product\Model\ProductAttributeValueInterface;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
-use Sylius\ShopApiPlugin\Factory\ProductAttributeValueViewFactory;
 use Sylius\ShopApiPlugin\Factory\ProductAttributeValueViewFactoryInterface;
 use Sylius\ShopApiPlugin\View\ProductAttributeValueView;
 
@@ -21,17 +23,24 @@ final class ProductAttributeValueViewFactorySpec extends ObjectBehavior
         $this->shouldImplement(ProductAttributeValueViewFactoryInterface::class);
     }
 
-    function it_creates_product_attribute_value_view(ProductAttributeValueInterface $productAttributeValue)
-    {
+    function it_creates_product_attribute_value_view(
+        ProductAttributeValueInterface $productAttributeValue,
+        ProductAttributeInterface $productAttribute,
+        ProductAttributeTranslationInterface $productAttributeTranslation
+    ) {
         $productAttributeValue->getCode()->willReturn('CERTIFICATE_1');
-        $productAttributeValue->getName()->willReturn('Certificate XPTO');
         $productAttributeValue->getValue()->willReturn('Nice, shinny certificate.');
+        $productAttributeValue->getAttribute()->willReturn($productAttribute);
+
+        $productAttribute->getTranslation('en_GB')->willReturn($productAttributeTranslation);
+
+        $productAttributeTranslation->getName()->willReturn('Certificate XPTO');
 
         $productAttributeValueView = new ProductAttributeValueView();
         $productAttributeValueView->code = 'CERTIFICATE_1';
         $productAttributeValueView->name = 'Certificate XPTO';
         $productAttributeValueView->value = 'Nice, shinny certificate.';
 
-        $this->create($productAttributeValue)->shouldBeLike($productAttributeValueView);
+        $this->create($productAttributeValue, 'en_GB')->shouldBeLike($productAttributeValueView);
     }
 }

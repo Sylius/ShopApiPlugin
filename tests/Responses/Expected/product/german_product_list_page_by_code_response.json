@@ -42,7 +42,7 @@
             "attributes": [
                 {
                     "code": "MUG_MATERIAL_CODE",
-                    "name": "Mug material",
+                    "name": "Becher Material",
                     "value": "Holz"
                 }
             ],
@@ -172,7 +172,7 @@
                         "attributes": [
                             {
                                 "code": "MUG_MATERIAL_CODE",
-                                "name": "Mug material",
+                                "name": "Becher Material",
                                 "value": "Holz"
                             }
                         ],
