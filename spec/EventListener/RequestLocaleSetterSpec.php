@@ -30,7 +30,7 @@ final class RequestLocaleSetterSpec extends ObjectBehavior
     ) {
         $event->getRequest()->willReturn($request);
 
-        $request->get('_locale')->willReturn(null);
+        $request->get('locale')->willReturn(null);
 
         $localeProvider->getDefaultLocaleCode()->willReturn('en_US');
 
@@ -47,7 +47,7 @@ final class RequestLocaleSetterSpec extends ObjectBehavior
     ) {
         $event->getRequest()->willReturn($request);
 
-        $request->get('_locale')->willReturn('pl_PL');
+        $request->get('locale')->willReturn('pl_PL');
 
         $localeProvider->getDefaultLocaleCode()->willReturn('en_US');
         $localeProvider->getAvailableLocalesCodes()->willReturn(['en_US']);
@@ -65,7 +65,7 @@ final class RequestLocaleSetterSpec extends ObjectBehavior
     ) {
         $event->getRequest()->willReturn($request);
 
-        $request->get('_locale')->willReturn('pl_PL');
+        $request->get('locale')->willReturn('pl_PL');
 
         $localeProvider->getDefaultLocaleCode()->willReturn('en_US');
         $localeProvider->getAvailableLocalesCodes()->willReturn(['en_US', 'pl_PL']);
