@@ -27,12 +27,12 @@ final class LimitedProductAttributeValuesViewFactorySpec extends ObjectBehavior
         ProductAttributeValueInterface $serializedValue,
         ProductAttributeValueViewFactoryInterface $productAttributeValueViewFactory
     ) {
-        $productAttributeValueViewFactory->create($skippedValue)->shouldNotBeCalled();
-        $productAttributeValueViewFactory->create($serializedValue)->willReturn(new ProductAttributeValueView());
+        $productAttributeValueViewFactory->create($skippedValue, 'en_GB')->shouldNotBeCalled();
+        $productAttributeValueViewFactory->create($serializedValue, 'en_GB')->willReturn(new ProductAttributeValueView());
 
         $serializedValue->getCode()->willReturn('CERTIFICATE_ATTRIBUTE');
         $skippedValue->getCode()->willReturn('THIS_CODE_SHOULD_NOT_BE_PARSED');
 
-        $this->create([$skippedValue, $serializedValue])->shouldBeLike([new ProductAttributeValueView()]);
+        $this->create([$skippedValue, $serializedValue], 'en_GB')->shouldBeLike([new ProductAttributeValueView()]);
     }
 }

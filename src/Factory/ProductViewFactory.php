@@ -77,7 +77,7 @@ final class ProductViewFactory implements ProductViewFactoryInterface
 
         $productView->taxons = $taxons;
 
-        $productView->attributes = $this->attributeValuesViewFactory->create($product->getAttributesByLocale($locale, $this->fallbackLocale));
+        $productView->attributes = $this->attributeValuesViewFactory->create($product->getAttributesByLocale($locale, $this->fallbackLocale), $locale);
 
         return $productView;
     }

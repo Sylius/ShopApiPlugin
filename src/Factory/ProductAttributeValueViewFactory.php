@@ -2,6 +2,7 @@
 
 namespace Sylius\ShopApiPlugin\Factory;
 
+use Sylius\Component\Product\Model\ProductAttributeTranslationInterface;
 use Sylius\Component\Product\Model\ProductAttributeValueInterface;
 use Sylius\ShopApiPlugin\View\ProductAttributeValueView;
 
@@ -18,14 +19,19 @@ final class ProductAttributeValueViewFactory implements ProductAttributeValueVie
     /**
      * {@inheritdoc}
      */
-    public function create(ProductAttributeValueInterface $productAttributeValue): ProductAttributeValueView
+    public function create(ProductAttributeValueInterface $productAttributeValue, string $locale): ProductAttributeValueView
     {
         /** @var ProductAttributeValueView $productAttributeValueView */
         $productAttributeValueView = new $this->productAttributeValueViewClass();
 
         $productAttributeValueView->code = $productAttributeValue->getCode();
-        $productAttributeValueView->name = $productAttributeValue->getName();
         $productAttributeValueView->value = $productAttributeValue->getValue();
+
+        $productAttribute = $productAttributeValue->getAttribute();
+
+        /** @var ProductAttributeTranslationInterface $productAttributeTranslation */
+        $productAttributeTranslation = $productAttribute->getTranslation($locale);
+        $productAttributeValueView->name = $productAttributeTranslation->getName();
 
         return $productAttributeValueView;
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\Factory;
 
 use Sylius\Component\Product\Model\ProductAttributeValueInterface;
@@ -18,10 +20,7 @@ final class LimitedProductAttributeValuesViewFactory implements ProductAttribute
         $this->allowedAttributesCodes = $allowedAttributesCodes;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function create(array $attributeValues): array
+    public function create(array $attributeValues, string $locale): array
     {
         $attributeValuesView = [];
 
@@ -31,7 +30,7 @@ final class LimitedProductAttributeValuesViewFactory implements ProductAttribute
                 continue;
             }
 
-            $attributeValuesView[] = $this->productAttributeValueViewFactory->create($attributeValue);
+            $attributeValuesView[] = $this->productAttributeValueViewFactory->create($attributeValue, $locale);
         }
 
         return $attributeValuesView;

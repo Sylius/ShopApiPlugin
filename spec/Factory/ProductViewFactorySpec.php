@@ -69,7 +69,7 @@ final class ProductViewFactorySpec extends ObjectBehavior
         $imageViewFactory->create($firstProductImage)->willReturn(new ImageView());
         $imageViewFactory->create($secondProductImage)->willReturn(new ImageView());
 
-        $attributeValuesViewFactory->create([$productAttributeValue])->willReturn([]);
+        $attributeValuesViewFactory->create([$productAttributeValue], 'en_GB')->willReturn([]);
 
         $productTranslation->getName()->willReturn('Hat');
         $productTranslation->getSlug()->willReturn('hat');

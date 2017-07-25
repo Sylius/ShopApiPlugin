@@ -36,7 +36,7 @@
                 "attributes": [
                     {
                         "code": "MUG_MATERIAL_CODE",
-                        "name": "Mug material",
+                        "name": "Becher Material",
                         "value": "Holz"
                     }
                 ],
@@ -64,5 +64,5 @@
     },
     "payments": [],
     "shipments": [],
-    "cartDiscounts":[]
+    "cartDiscounts": []
 }
