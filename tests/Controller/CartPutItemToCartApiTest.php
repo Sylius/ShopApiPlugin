@@ -547,4 +547,31 @@ EOT;
 
         $this->assertResponseCode($response, Response::HTTP_CREATED);
     }
+
+    /**
+     * @test
+     */
+    function it_increases_quantity_of_already_added_product_if_the_same_product_is_added_to_the_cart()
+    {
+        $this->loadFixturesFromFile('shop.yml');
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var CommandBus $bus */
+        $bus = $this->get('tactician.commandbus');
+        $bus->handle(new PickupCart($token, 'WEB_GB'));
+
+        $data =
+<<<EOT
+        {
+            "productCode": "LOGAN_MUG_CODE",
+            "quantity": 1
+        }
+EOT;
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], static::$acceptAndContentTypeHeader, $data);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'cart/add_simple_product_multiple_times_to_cart_response',Response::HTTP_CREATED);
+    }
 }
