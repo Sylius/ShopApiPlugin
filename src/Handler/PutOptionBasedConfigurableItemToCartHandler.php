@@ -89,6 +89,14 @@ final class PutOptionBasedConfigurableItemToCartHandler
         $productVariant = $this->getVariant($putConfigurableItemToCart->options(), $product);
 
         /** @var OrderItemInterface $cartItem */
+        $cartItem = $this->getCartItemToModify($cart, $productVariant);
+        if (null !== $cartItem) {
+            $this->orderItemModifier->modify($cartItem, $cartItem->getQuantity() + $putConfigurableItemToCart->quantity());
+            $this->orderProcessor->process($cart);
+
+            return;
+        }
+
         $cartItem = $this->cartItemFactory->createForCart($cart);
         $cartItem->setVariant($productVariant);
         $this->orderItemModifier->modify($cartItem, $putConfigurableItemToCart->quantity());
@@ -132,5 +140,17 @@ final class PutOptionBasedConfigurableItemToCartHandler
         }
 
         return true;
+    }
+
+    private function getCartItemToModify(OrderInterface $cart, ProductVariantInterface $productVariant) : ?OrderItemInterface
+    {
+        /** @var OrderItemInterface $cartItem */
+        foreach ($cart->getItems() as $cartItem) {
+            if ($productVariant === $cartItem->getVariant()) {
+                return $cartItem;
+            }
+        }
+
+        return null;
     }
 }

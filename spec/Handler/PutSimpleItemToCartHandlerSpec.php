@@ -61,7 +61,7 @@ final class PutSimpleItemToCartHandlerSpec extends ObjectBehavior
         $this->handle(new PutSimpleItemToCart('ORDERTOKEN', 'T_SHIRT_CODE', 5));
     }
 
-    function it_modify_existing_item_quantity_if_the_same_variant_is_put_to_cart(
+    function it_modifies_existing_item_quantity_if_the_same_variant_is_put_to_cart(
         OrderItemInterface $existingItem,
         OrderInterface $cart,
         CartItemFactoryInterface $cartItemFactory,
