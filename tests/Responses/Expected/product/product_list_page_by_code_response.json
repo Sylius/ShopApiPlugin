@@ -83,7 +83,7 @@
                     "images": [
                         {
                             "code": "thumbnail",
-                            "path": "\/uo\/samll-tshirt.jpg"
+                            "path": "\/uo\/small-tshirt.jpg"
                         }
                     ]
                 },
@@ -112,7 +112,7 @@
                 },
                 {
                     "code": "thumbnail",
-                    "path": "\/uo\/samll-tshirt.jpg"
+                    "path": "\/uo\/small-tshirt.jpg"
                 },
                 {
                     "code": "thumbnail",
@@ -279,7 +279,7 @@
                                 "images": [
                                     {
                                         "code": "thumbnail",
-                                        "path": "\/uo\/samll-tshirt.jpg"
+                                        "path": "\/uo\/small-tshirt.jpg"
                                     }
                                 ]
                             },
@@ -308,7 +308,7 @@
                             },
                             {
                                 "code": "thumbnail",
-                                "path": "\/uo\/samll-tshirt.jpg"
+                                "path": "\/uo\/small-tshirt.jpg"
                             },
                             {
                                 "code": "thumbnail",

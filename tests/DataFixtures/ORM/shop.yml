@@ -370,7 +370,7 @@ Sylius\Component\Core\Model\ProductImage:
         path: "/uo/tshirt.jpg"
     small_t_shirt_thumbnail:
         type: "thumbnail"
-        path: "/uo/samll-tshirt.jpg"
+        path: "/uo/small-tshirt.jpg"
         productVariants: ["@t_shirt_small"]
     large_t_shirt_thumbnail:
         type: "thumbnail"
