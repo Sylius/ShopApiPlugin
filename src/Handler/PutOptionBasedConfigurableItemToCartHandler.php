@@ -2,17 +2,13 @@
 
 namespace Sylius\ShopApiPlugin\Handler;
 
-use Doctrine\Common\Persistence\ObjectManager;
-use Sylius\Component\Core\Factory\CartItemFactoryInterface;
 use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
-use Sylius\Component\Order\Modifier\OrderItemQuantityModifierInterface;
-use Sylius\Component\Order\Processor\OrderProcessorInterface;
 use Sylius\Component\Product\Model\ProductInterface;
 use Sylius\ShopApiPlugin\Command\PutOptionBasedConfigurableItemToCart;
+use Sylius\ShopApiPlugin\Modifier\OrderModifierInterface;
 use Webmozart\Assert\Assert;
 
 final class PutOptionBasedConfigurableItemToCartHandler
@@ -28,52 +24,20 @@ final class PutOptionBasedConfigurableItemToCartHandler
     private $productRepository;
 
     /**
-     * @var CartItemFactoryInterface
+     * @var OrderModifierInterface
      */
-    private $cartItemFactory;
+    private $orderModifier;
 
-    /**
-     * @var OrderItemQuantityModifierInterface
-     */
-    private $orderItemModifier;
-
-    /**
-     * @var OrderProcessorInterface
-     */
-    private $orderProcessor;
-
-    /**
-     * @var ObjectManager
-     */
-    private $manager;
-
-    /**
-     * @param OrderRepositoryInterface $cartRepository
-     * @param ProductRepositoryInterface $productRepository
-     * @param CartItemFactoryInterface $cartItemFactory
-     * @param OrderItemQuantityModifierInterface $orderItemModifier
-     * @param OrderProcessorInterface $orderProcessor
-     * @param ObjectManager $manager
-     */
     public function __construct(
         OrderRepositoryInterface $cartRepository,
         ProductRepositoryInterface $productRepository,
-        CartItemFactoryInterface $cartItemFactory,
-        OrderItemQuantityModifierInterface $orderItemModifier,
-        OrderProcessorInterface $orderProcessor,
-        ObjectManager $manager
+        OrderModifierInterface $orderModifier
     ) {
         $this->cartRepository = $cartRepository;
         $this->productRepository = $productRepository;
-        $this->cartItemFactory = $cartItemFactory;
-        $this->orderItemModifier = $orderItemModifier;
-        $this->orderProcessor = $orderProcessor;
-        $this->manager = $manager;
+        $this->orderModifier = $orderModifier;
     }
 
-    /**
-     * @param PutOptionBasedConfigurableItemToCart $putConfigurableItemToCart
-     */
     public function handle(PutOptionBasedConfigurableItemToCart $putConfigurableItemToCart)
     {
         /** @var OrderInterface $cart */
@@ -88,24 +52,7 @@ final class PutOptionBasedConfigurableItemToCartHandler
 
         $productVariant = $this->getVariant($putConfigurableItemToCart->options(), $product);
 
-        /** @var OrderItemInterface $cartItem */
-        $cartItem = $this->getCartItemToModify($cart, $productVariant);
-        if (null !== $cartItem) {
-            $this->orderItemModifier->modify($cartItem, $cartItem->getQuantity() + $putConfigurableItemToCart->quantity());
-            $this->orderProcessor->process($cart);
-
-            return;
-        }
-
-        $cartItem = $this->cartItemFactory->createForCart($cart);
-        $cartItem->setVariant($productVariant);
-        $this->orderItemModifier->modify($cartItem, $putConfigurableItemToCart->quantity());
-
-        $cart->addItem($cartItem);
-
-        $this->orderProcessor->process($cart);
-
-        $this->manager->persist($cart);
+        $this->orderModifier->modify($cart, $productVariant, $putConfigurableItemToCart->quantity());
     }
 
     /**
@@ -140,17 +87,5 @@ final class PutOptionBasedConfigurableItemToCartHandler
         }
 
         return true;
-    }
-
-    private function getCartItemToModify(OrderInterface $cart, ProductVariantInterface $productVariant) : ?OrderItemInterface
-    {
-        /** @var OrderItemInterface $cartItem */
-        foreach ($cart->getItems() as $cartItem) {
-            if ($productVariant === $cartItem->getVariant()) {
-                return $cartItem;
-            }
-        }
-
-        return null;
     }
 }

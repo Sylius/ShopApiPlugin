@@ -2,16 +2,12 @@
 
 namespace Sylius\ShopApiPlugin\Handler;
 
-use Doctrine\Common\Persistence\ObjectManager;
-use Sylius\Component\Core\Factory\CartItemFactoryInterface;
 use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\ProductVariantRepositoryInterface;
-use Sylius\Component\Order\Modifier\OrderItemQuantityModifierInterface;
-use Sylius\Component\Order\Processor\OrderProcessorInterface;
 use Sylius\ShopApiPlugin\Command\PutVariantBasedConfigurableItemToCart;
+use Sylius\ShopApiPlugin\Modifier\OrderModifierInterface;
 use Webmozart\Assert\Assert;
 
 final class PutVariantBasedConfigurableItemToCartHandler
@@ -27,52 +23,20 @@ final class PutVariantBasedConfigurableItemToCartHandler
     private $productVariantRepository;
 
     /**
-     * @var CartItemFactoryInterface
+     * @var OrderModifierInterface
      */
-    private $cartItemFactory;
+    private $orderModifier;
 
-    /**
-     * @var OrderItemQuantityModifierInterface
-     */
-    private $orderItemModifier;
-
-    /**
-     * @var OrderProcessorInterface
-     */
-    private $orderProcessor;
-
-    /**
-     * @var ObjectManager
-     */
-    private $manager;
-
-    /**
-     * @param OrderRepositoryInterface $cartRepository
-     * @param ProductVariantRepositoryInterface $productVariantRepository
-     * @param CartItemFactoryInterface $cartItemFactory
-     * @param OrderItemQuantityModifierInterface $orderItemModifier
-     * @param OrderProcessorInterface $orderProcessor
-     * @param ObjectManager $manager
-     */
     public function __construct(
         OrderRepositoryInterface $cartRepository,
         ProductVariantRepositoryInterface $productVariantRepository,
-        CartItemFactoryInterface $cartItemFactory,
-        OrderItemQuantityModifierInterface $orderItemModifier,
-        OrderProcessorInterface $orderProcessor,
-        ObjectManager $manager
+        OrderModifierInterface $orderModifier
     ) {
         $this->cartRepository = $cartRepository;
         $this->productVariantRepository = $productVariantRepository;
-        $this->cartItemFactory = $cartItemFactory;
-        $this->orderItemModifier = $orderItemModifier;
-        $this->orderProcessor = $orderProcessor;
-        $this->manager = $manager;
+        $this->orderModifier = $orderModifier;
     }
 
-    /**
-     * @param PutVariantBasedConfigurableItemToCart $putConfigurableItemToCart
-     */
     public function handle(PutVariantBasedConfigurableItemToCart $putConfigurableItemToCart)
     {
         /** @var OrderInterface $cart */
@@ -85,36 +49,6 @@ final class PutVariantBasedConfigurableItemToCartHandler
 
         Assert::notNull($productVariant, 'Product variant has not been found');
 
-        /** @var OrderItemInterface $cartItem */
-        $cartItem = $this->getCartItemToModify($cart, $productVariant);
-        if (null !== $cartItem) {
-            $this->orderItemModifier->modify($cartItem, $cartItem->getQuantity() + $putConfigurableItemToCart->quantity());
-            $this->orderProcessor->process($cart);
-
-            return;
-        }
-
-        /** @var OrderItemInterface $cartItem */
-        $cartItem = $this->cartItemFactory->createForCart($cart);
-        $cartItem->setVariant($productVariant);
-        $this->orderItemModifier->modify($cartItem, $putConfigurableItemToCart->quantity());
-
-        $cart->addItem($cartItem);
-
-        $this->orderProcessor->process($cart);
-
-        $this->manager->persist($cart);
-    }
-
-    private function getCartItemToModify(OrderInterface $cart, ProductVariantInterface $productVariant) : ?OrderItemInterface
-    {
-        /** @var OrderItemInterface $cartItem */
-        foreach ($cart->getItems() as $cartItem) {
-            if ($productVariant === $cartItem->getVariant()) {
-                return $cartItem;
-            }
-        }
-
-        return null;
+        $this->orderModifier->modify($cart, $productVariant, $putConfigurableItemToCart->quantity());
     }
 }

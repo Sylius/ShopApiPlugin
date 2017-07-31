@@ -2,76 +2,32 @@
 
 namespace spec\Sylius\ShopApiPlugin\Handler;
 
-use Doctrine\Common\Persistence\ObjectManager;
-use Sylius\Component\Core\Factory\CartItemFactoryInterface;
+use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
-use Sylius\Component\Order\Modifier\OrderItemQuantityModifierInterface;
-use Sylius\Component\Order\Processor\OrderProcessorInterface;
 use Sylius\ShopApiPlugin\Command\PutSimpleItemToCart;
-use Sylius\ShopApiPlugin\Handler\PutSimpleItemToCartHandler;
-use PhpSpec\ObjectBehavior;
+use Sylius\ShopApiPlugin\Modifier\OrderModifierInterface;
 
 final class PutSimpleItemToCartHandlerSpec extends ObjectBehavior
 {
     function let(
         OrderRepositoryInterface $cartRepository,
         ProductRepositoryInterface $productRepository,
-        CartItemFactoryInterface $cartItemFactory,
-        OrderItemQuantityModifierInterface $orderItemModifier,
-        OrderProcessorInterface $orderProcessor,
-        ObjectManager $manager
+        OrderModifierInterface $orderModifier
     ) {
-        $this->beConstructedWith($cartRepository, $productRepository, $cartItemFactory, $orderItemModifier, $orderProcessor, $manager);
+        $this->beConstructedWith($cartRepository, $productRepository, $orderModifier);
     }
 
     function it_handles_putting_new_item_to_cart(
-        OrderItemInterface $cartItem,
         OrderInterface $cart,
-        CartItemFactoryInterface $cartItemFactory,
-        OrderItemQuantityModifierInterface $orderItemModifier,
-        OrderProcessorInterface $orderProcessor,
         OrderRepositoryInterface $cartRepository,
         ProductInterface $product,
         ProductRepositoryInterface $productRepository,
         ProductVariantInterface $productVariant,
-        ObjectManager $manager
-    ) {
-        $productRepository->findOneBy(['code' => 'T_SHIRT_CODE'])->willReturn($product);
-        $product->getVariants()->willReturn([$productVariant]);
-        $product->isSimple()->willReturn(true);
-
-        $cartRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($cart);
-        $cart->getItems()->willReturn([]);
-
-        $cartItemFactory->createForCart($cart)->willReturn($cartItem);
-
-        $cartItem->setVariant($productVariant)->shouldBeCalled();
-        $orderItemModifier->modify($cartItem, 5)->shouldBeCalled();
-
-        $cart->addItem($cartItem)->shouldBeCalled();
-        $orderProcessor->process($cart)->shouldBeCalled();
-
-        $manager->persist($cart)->shouldBeCalled();
-
-        $this->handle(new PutSimpleItemToCart('ORDERTOKEN', 'T_SHIRT_CODE', 5));
-    }
-
-    function it_modifies_existing_item_quantity_if_the_same_variant_is_put_to_cart(
-        OrderItemInterface $existingItem,
-        OrderInterface $cart,
-        CartItemFactoryInterface $cartItemFactory,
-        OrderItemQuantityModifierInterface $orderItemModifier,
-        OrderProcessorInterface $orderProcessor,
-        OrderRepositoryInterface $cartRepository,
-        ProductInterface $product,
-        ProductRepositoryInterface $productRepository,
-        ProductVariantInterface $productVariant,
-        ObjectManager $manager
+        OrderModifierInterface $orderModifier
     ) {
         $productRepository->findOneBy(['code' => 'T_SHIRT_CODE'])->willReturn($product);
         $product->getVariants()->willReturn([$productVariant]);
@@ -79,17 +35,7 @@ final class PutSimpleItemToCartHandlerSpec extends ObjectBehavior
 
         $cartRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($cart);
 
-        $cart->getItems()->willReturn([$existingItem]);
-        $existingItem->getVariant()->willReturn($productVariant);
-        $existingItem->getQuantity()->willReturn(4);
-
-        $cartItemFactory->createForCart($cart)->shouldNotBeCalled();
-
-        $orderItemModifier->modify($existingItem, 9)->shouldBeCalled();
-
-        $orderProcessor->process($cart)->shouldBeCalled();
-
-        $manager->persist($cart)->shouldNotBeCalled();
+        $orderModifier->modify($cart, $productVariant, 5)->shouldBeCalled();
 
         $this->handle(new PutSimpleItemToCart('ORDERTOKEN', 'T_SHIRT_CODE', 5));
     }

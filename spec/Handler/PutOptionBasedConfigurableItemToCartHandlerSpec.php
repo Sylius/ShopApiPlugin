@@ -2,86 +2,31 @@
 
 namespace spec\Sylius\ShopApiPlugin\Handler;
 
-use Doctrine\Common\Persistence\ObjectManager;
+use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Factory\CartItemFactoryInterface;
 use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
-use Sylius\Component\Order\Modifier\OrderItemQuantityModifierInterface;
-use Sylius\Component\Order\Processor\OrderProcessorInterface;
 use Sylius\Component\Product\Model\ProductOptionValueInterface;
 use Sylius\ShopApiPlugin\Command\PutOptionBasedConfigurableItemToCart;
-use Sylius\ShopApiPlugin\Handler\PutOptionBasedConfigurableItemToCartHandler;
-use PhpSpec\ObjectBehavior;
+use Sylius\ShopApiPlugin\Modifier\OrderModifierInterface;
 
 final class PutOptionBasedConfigurableItemToCartHandlerSpec extends ObjectBehavior
 {
     function let(
         OrderRepositoryInterface $orderRepository,
         ProductRepositoryInterface $productRepository,
-        CartItemFactoryInterface $cartItemFactory,
-        OrderItemQuantityModifierInterface $orderItemModifier,
-        OrderProcessorInterface $orderProcessor,
-        ObjectManager $manager
+        OrderModifierInterface $orderModifier
     ) {
-        $this->beConstructedWith($orderRepository, $productRepository, $cartItemFactory, $orderItemModifier, $orderProcessor, $manager);
+        $this->beConstructedWith($orderRepository, $productRepository, $orderModifier);
     }
 
     function it_handles_putting_new_item_to_cart(
-        CartItemFactoryInterface $cartItemFactory,
-        ObjectManager $manager,
         OrderInterface $cart,
-        OrderItemInterface $cartItem,
-        OrderItemQuantityModifierInterface $orderItemModifier,
-        OrderProcessorInterface $orderProcessor,
         OrderRepositoryInterface $orderRepository,
-        ProductInterface $tShirt,
-        ProductOptionValueInterface $blueOptionValue,
-        ProductOptionValueInterface $redOptionValue,
-        ProductRepositoryInterface $productRepository,
-        ProductVariantInterface $blueTShirt,
-        ProductVariantInterface $redTShirt
-    ) {
-        $productRepository->findOneByCode('T_SHIRT_CODE')->willReturn($tShirt);
-
-        $tShirt->getVariants()->willReturn([$blueTShirt, $redTShirt]);
-
-        $blueTShirt->getOptionValues()->willReturn([$blueOptionValue]);
-        $blueOptionValue->getCode()->willReturn('BLUE_OPTION_VALUE_CODE');
-        $blueOptionValue->getOptionCode()->willReturn('COLOR_OPTION_CODE');
-
-        $redTShirt->getOptionValues()->willReturn([$redOptionValue]);
-        $redOptionValue->getCode()->willReturn('RED_OPTION_VALUE_CODE');
-        $redOptionValue->getOptionCode()->willReturn('COLOR_OPTION_CODE');
-
-        $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($cart);
-        $cart->getItems()->willReturn([]);
-
-        $cartItemFactory->createForCart($cart)->willReturn($cartItem);
-
-        $cartItem->setVariant($redTShirt)->shouldBeCalled();
-        $orderItemModifier->modify($cartItem, 5)->shouldBeCalled();
-
-        $cart->addItem($cartItem)->shouldBeCalled();
-
-        $orderProcessor->process($cart)->shouldBeCalled();
-
-        $manager->persist($cart)->shouldBeCalled();
-
-        $this->handle(new PutOptionBasedConfigurableItemToCart('ORDERTOKEN', 'T_SHIRT_CODE', ['COLOR_OPTION_CODE' => 'RED_OPTION_VALUE_CODE'], 5));
-    }
-
-    function it_modifies_existing_item_quantity_if_the_same_variant_is_put_to_cart(
-        CartItemFactoryInterface $cartItemFactory,
-        ObjectManager $manager,
-        OrderInterface $cart,
-        OrderItemInterface $existingCartItem,
-        OrderItemQuantityModifierInterface $orderItemModifier,
-        OrderProcessorInterface $orderProcessor,
-        OrderRepositoryInterface $orderRepository,
+        OrderModifierInterface $orderModifier,
         ProductInterface $tShirt,
         ProductOptionValueInterface $blueOptionValue,
         ProductOptionValueInterface $redOptionValue,
@@ -103,17 +48,7 @@ final class PutOptionBasedConfigurableItemToCartHandlerSpec extends ObjectBehavi
 
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($cart);
 
-        $cart->getItems()->willReturn([$existingCartItem]);
-        $existingCartItem->getVariant()->willReturn($redTShirt);
-        $existingCartItem->getQuantity()->willReturn(3);
-
-        $cartItemFactory->createForCart($cart)->shouldNotBeCalled();
-
-        $orderItemModifier->modify($existingCartItem, 8)->shouldBeCalled();
-
-        $orderProcessor->process($cart)->shouldBeCalled();
-
-        $manager->persist($cart)->shouldNotBeCalled();
+        $orderModifier->modify($cart, $redTShirt, 5)->shouldBeCalled();
 
         $this->handle(new PutOptionBasedConfigurableItemToCart('ORDERTOKEN', 'T_SHIRT_CODE', ['COLOR_OPTION_CODE' => 'RED_OPTION_VALUE_CODE'], 5));
     }
