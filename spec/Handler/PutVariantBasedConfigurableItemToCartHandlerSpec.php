@@ -42,14 +42,47 @@ final class PutVariantBasedConfigurableItemToCartHandlerSpec extends ObjectBehav
         $productVariantRepository->findOneByCodeAndProductCode('RED_SMALL_T_SHIRT_CODE', 'T_SHIRT_CODE')->willReturn($productVariant);
 
         $cartRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($cart);
+        $cart->getItems()->willReturn([]);
+
         $cartItemFactory->createForCart($cart)->willReturn($cartItem);
 
         $cartItem->setVariant($productVariant)->shouldBeCalled();
         $orderItemModifier->modify($cartItem, 5)->shouldBeCalled();
 
+        $cart->addItem($cartItem)->shouldBeCalled();
         $orderProcessor->process($cart)->shouldBeCalled();
 
         $manager->persist($cart)->shouldBeCalled();
+
+        $this->handle(new PutVariantBasedConfigurableItemToCart('ORDERTOKEN', 'T_SHIRT_CODE', 'RED_SMALL_T_SHIRT_CODE', 5));
+    }
+
+    function it_modifies_existing_item_quantity_if_the_same_variant_is_put_to_cart(
+        OrderItemInterface $existingCartItem,
+        OrderInterface $cart,
+        CartItemFactoryInterface $cartItemFactory,
+        OrderItemQuantityModifierInterface $orderItemModifier,
+        OrderProcessorInterface $orderProcessor,
+        OrderRepositoryInterface $cartRepository,
+        ProductVariantInterface $productVariant,
+        ProductVariantRepositoryInterface $productVariantRepository,
+        ObjectManager $manager
+    ) {
+        $productVariantRepository->findOneByCodeAndProductCode('RED_SMALL_T_SHIRT_CODE', 'T_SHIRT_CODE')->willReturn($productVariant);
+
+        $cartRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($cart);
+
+        $cart->getItems()->willReturn([$existingCartItem]);
+        $existingCartItem->getVariant()->willReturn($productVariant);
+        $existingCartItem->getQuantity()->willReturn(3);
+
+        $cartItemFactory->createForCart($cart)->shouldNotBeCalled();
+
+        $orderItemModifier->modify($existingCartItem, 8)->shouldBeCalled();
+
+        $orderProcessor->process($cart)->shouldBeCalled();
+
+        $manager->persist($cart)->shouldNotBeCalled();
 
         $this->handle(new PutVariantBasedConfigurableItemToCart('ORDERTOKEN', 'T_SHIRT_CODE', 'RED_SMALL_T_SHIRT_CODE', 5));
     }
