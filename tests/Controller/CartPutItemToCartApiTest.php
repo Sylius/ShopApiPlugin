@@ -617,7 +617,7 @@ EOT;
         $bus->handle(new PickupCart($token, 'WEB_GB'));
 
         $data =
-            <<<EOT
+<<<EOT
         {
             "productCode": "LOGAN_HAT_CODE",
             "options": {

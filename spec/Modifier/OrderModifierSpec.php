@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Sylius\ShopApiPlugin\Modifier;
 
 use Doctrine\Common\Persistence\ObjectManager;
@@ -21,16 +23,16 @@ final class OrderModifierSpec extends ObjectBehavior
         OrderItemQuantityModifierInterface $orderItemQuantityModifier,
         OrderProcessorInterface $orderProcessor,
         ObjectManager $orderManager
-    ) {
+    ): void {
         $this->beConstructedWith($cartItemFactory, $orderItemQuantityModifier, $orderProcessor, $orderManager);
     }
 
-    function it_is_initializable()
+    function it_is_initializable(): void
     {
         $this->shouldHaveType(OrderModifier::class);
     }
 
-    function it_is_an_order_modifier_interface()
+    function it_is_an_order_modifier_interface(): void
     {
         $this->shouldImplement(OrderModifierInterface::class);
     }
@@ -42,7 +44,7 @@ final class OrderModifierSpec extends ObjectBehavior
         OrderInterface $order,
         OrderItemInterface $existingItem,
         ProductVariantInterface $productVariant
-    ) {
+    ): void {
         $order->getItems()->willReturn([$existingItem]);
 
         $existingItem->getVariant()->willReturn($productVariant);
@@ -64,7 +66,7 @@ final class OrderModifierSpec extends ObjectBehavior
         OrderInterface $order,
         OrderItemInterface $cartItem,
         ProductVariantInterface $productVariant
-    ) {
+    ): void {
         $order->getItems()->willReturn([]);
 
         $cartItemFactory->createForCart($order)->willReturn($cartItem);
