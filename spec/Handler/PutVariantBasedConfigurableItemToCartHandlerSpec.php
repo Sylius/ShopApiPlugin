@@ -2,54 +2,36 @@
 
 namespace spec\Sylius\ShopApiPlugin\Handler;
 
-use Doctrine\Common\Persistence\ObjectManager;
-use Sylius\Component\Core\Factory\CartItemFactoryInterface;
+use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\ProductVariantRepositoryInterface;
-use Sylius\Component\Order\Modifier\OrderItemQuantityModifierInterface;
-use Sylius\Component\Order\Processor\OrderProcessorInterface;
 use Sylius\ShopApiPlugin\Command\PutVariantBasedConfigurableItemToCart;
-use Sylius\ShopApiPlugin\Handler\PutVariantBasedConfigurableItemToCartHandler;
-use PhpSpec\ObjectBehavior;
+use Sylius\ShopApiPlugin\Modifier\OrderModifierInterface;
 
 final class PutVariantBasedConfigurableItemToCartHandlerSpec extends ObjectBehavior
 {
     function let(
         OrderRepositoryInterface $cartRepository,
         ProductVariantRepositoryInterface $productVariantRepository,
-        CartItemFactoryInterface $cartItemFactory,
-        OrderItemQuantityModifierInterface $orderItemModifier,
-        OrderProcessorInterface $orderProcessor,
-        ObjectManager $manager
+        OrderModifierInterface $orderModifier
     ) {
-        $this->beConstructedWith($cartRepository, $productVariantRepository, $cartItemFactory, $orderItemModifier, $orderProcessor, $manager);
+        $this->beConstructedWith($cartRepository, $productVariantRepository, $orderModifier);
     }
 
     function it_handles_putting_new_item_to_cart(
-        OrderItemInterface $cartItem,
         OrderInterface $cart,
-        CartItemFactoryInterface $cartItemFactory,
-        OrderItemQuantityModifierInterface $orderItemModifier,
-        OrderProcessorInterface $orderProcessor,
+        OrderModifierInterface $orderModifier,
         OrderRepositoryInterface $cartRepository,
         ProductVariantInterface $productVariant,
-        ProductVariantRepositoryInterface $productVariantRepository,
-        ObjectManager $manager
+        ProductVariantRepositoryInterface $productVariantRepository
     ) {
         $productVariantRepository->findOneByCodeAndProductCode('RED_SMALL_T_SHIRT_CODE', 'T_SHIRT_CODE')->willReturn($productVariant);
 
         $cartRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($cart);
-        $cartItemFactory->createForCart($cart)->willReturn($cartItem);
 
-        $cartItem->setVariant($productVariant)->shouldBeCalled();
-        $orderItemModifier->modify($cartItem, 5)->shouldBeCalled();
-
-        $orderProcessor->process($cart)->shouldBeCalled();
-
-        $manager->persist($cart)->shouldBeCalled();
+        $orderModifier->modify($cart, $productVariant, 5)->shouldBeCalled();
 
         $this->handle(new PutVariantBasedConfigurableItemToCart('ORDERTOKEN', 'T_SHIRT_CODE', 'RED_SMALL_T_SHIRT_CODE', 5));
     }

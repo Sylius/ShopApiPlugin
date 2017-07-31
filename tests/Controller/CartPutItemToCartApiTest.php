@@ -48,6 +48,33 @@ EOT;
     /**
      * @test
      */
+    function it_increases_quantity_of_existing_item_if_the_same_product_is_added_to_the_cart()
+    {
+        $this->loadFixturesFromFile('shop.yml');
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var CommandBus $bus */
+        $bus = $this->get('tactician.commandbus');
+        $bus->handle(new PickupCart($token, 'WEB_GB'));
+
+        $data =
+<<<EOT
+        {
+            "productCode": "LOGAN_MUG_CODE",
+            "quantity": 1
+        }
+EOT;
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], static::$acceptAndContentTypeHeader, $data);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'cart/add_simple_product_multiple_times_to_cart_response',Response::HTTP_CREATED);
+    }
+
+    /**
+     * @test
+     */
     public function it_validates_if_product_is_simple_during_add_simple_product()
     {
         $this->loadFixturesFromFile('shop.yml');
@@ -299,10 +326,38 @@ EOT;
             "quantity": 3
         }
 EOT;
-        $this->client->request('POST', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/items', [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], static::$acceptAndContentTypeHeader, $data);
         $response = $this->client->getResponse();
 
-        $this->assertResponseCode($response, Response::HTTP_CREATED);
+        $this->assertResponse($response, 'cart/add_product_variant_to_cart_response', Response::HTTP_CREATED);
+    }
+
+    /**
+     * @test
+     */
+    public function it_increases_quantity_of_existing_item_if_the_same_variant_is_added_to_the_cart()
+    {
+        $this->loadFixturesFromFile('shop.yml');
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var CommandBus $bus */
+        $bus = $this->get('tactician.commandbus');
+        $bus->handle(new PickupCart($token, 'WEB_GB'));
+
+        $data =
+<<<EOT
+        {
+            "productCode": "LOGAN_T_SHIRT_CODE",
+            "variantCode": "SMALL_LOGAN_T_SHIRT_CODE",
+            "quantity": 3
+        }
+EOT;
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], static::$acceptAndContentTypeHeader, $data);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'cart/add_product_variant_multiple_times_to_cart_response', Response::HTTP_CREATED);
     }
 
     /**
@@ -521,7 +576,7 @@ EOT;
     /**
      * @test
      */
-    public function it_adds_a_product_variant_based_on_option_to_the_cart()
+    public function it_adds_a_product_variant_based_on_options_to_the_cart()
     {
         $this->loadFixturesFromFile('shop.yml');
 
@@ -545,6 +600,37 @@ EOT;
         $this->client->request('POST', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/items', [], [], static::$acceptAndContentTypeHeader, $data);
         $response = $this->client->getResponse();
 
-        $this->assertResponseCode($response, Response::HTTP_CREATED);
+        $this->assertResponse($response, 'cart/add_product_variant_based_on_options_to_cart_response', Response::HTTP_CREATED);
+    }
+
+    /**
+     * @test
+     */
+    public function it_increases_quantity_of_existing_item_while_adding_the_same_product_variant_based_on_option_to_the_cart()
+    {
+        $this->loadFixturesFromFile('shop.yml');
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var CommandBus $bus */
+        $bus = $this->get('tactician.commandbus');
+        $bus->handle(new PickupCart($token, 'WEB_GB'));
+
+        $data =
+<<<EOT
+        {
+            "productCode": "LOGAN_HAT_CODE",
+            "options": {
+                "HAT_SIZE": "HAT_SIZE_S",
+                "HAT_COLOR": "HAT_COLOR_RED"
+            },
+            "quantity": 3
+        }
+EOT;
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], static::$acceptAndContentTypeHeader, $data);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'cart/add_product_variant_based_on_options_multiple_times_to_cart_response', Response::HTTP_CREATED);
     }
 }

@@ -1,0 +1,70 @@
+{
+    "tokenValue": "SDAOSLEFNWU35H3QLI5325",
+    "channel": "WEB_GB",
+    "currency": "GBP",
+    "locale": "en_GB",
+    "checkoutState": "cart",
+    "items": [
+        {
+            "id": 1,
+            "quantity": 6,
+            "total": 11994,
+            "product": {
+                "code": "LOGAN_T_SHIRT_CODE",
+                "name": "Logan T-Shirt",
+                "slug": "logan-t-shirt",
+                "averageRating": 0,
+                "taxons": {
+                    "main": "T_SHIRTS",
+                    "others": [
+                        "WOMEN_T_SHIRTS",
+                        "BRAND"
+                    ]
+                },
+                "variants": [
+                    {
+                        "code": "SMALL_LOGAN_T_SHIRT_CODE",
+                        "name": "Small Logan T-Shirt",
+                        "axis": [],
+                        "nameAxis": {},
+                        "price": {
+                            "current": 1999
+                        },
+                        "images": []
+                    }
+                ],
+                "attributes": [],
+                "associations": [],
+                "images": [
+                    {
+                        "code": "thumbnail",
+                        "path": "\/uo\/tshirt.jpg"
+                    },
+                    {
+                        "code": "thumbnail",
+                        "path": "\/uo\/small-tshirt.jpg"
+                    },
+                    {
+                        "code": "thumbnail",
+                        "path": "\/uo\/large-tshirt.jpg"
+                    }
+                ],
+                "_links": {
+                    "self": {
+                        "href": "\/shop-api\/products-by-slug\/logan-t-shirt"
+                    }
+                }
+            }
+        }
+    ],
+    "totals": {
+        "total": 11994,
+        "items": 11994,
+        "taxes": 0,
+        "shipping": 0,
+        "promotion": 0
+    },
+    "payments": [],
+    "shipments": [],
+    "cartDiscounts":[]
+}
