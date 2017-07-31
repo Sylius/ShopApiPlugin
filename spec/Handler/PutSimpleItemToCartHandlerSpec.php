@@ -46,14 +46,50 @@ final class PutSimpleItemToCartHandlerSpec extends ObjectBehavior
         $product->isSimple()->willReturn(true);
 
         $cartRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($cart);
+        $cart->getItems()->willReturn([]);
+
         $cartItemFactory->createForCart($cart)->willReturn($cartItem);
 
         $cartItem->setVariant($productVariant)->shouldBeCalled();
         $orderItemModifier->modify($cartItem, 5)->shouldBeCalled();
 
+        $cart->addItem($cartItem)->shouldBeCalled();
         $orderProcessor->process($cart)->shouldBeCalled();
 
         $manager->persist($cart)->shouldBeCalled();
+
+        $this->handle(new PutSimpleItemToCart('ORDERTOKEN', 'T_SHIRT_CODE', 5));
+    }
+
+    function it_modify_existing_item_quantity_if_the_same_variant_is_put_to_cart(
+        OrderItemInterface $existingItem,
+        OrderInterface $cart,
+        CartItemFactoryInterface $cartItemFactory,
+        OrderItemQuantityModifierInterface $orderItemModifier,
+        OrderProcessorInterface $orderProcessor,
+        OrderRepositoryInterface $cartRepository,
+        ProductInterface $product,
+        ProductRepositoryInterface $productRepository,
+        ProductVariantInterface $productVariant,
+        ObjectManager $manager
+    ) {
+        $productRepository->findOneBy(['code' => 'T_SHIRT_CODE'])->willReturn($product);
+        $product->getVariants()->willReturn([$productVariant]);
+        $product->isSimple()->willReturn(true);
+
+        $cartRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($cart);
+
+        $cart->getItems()->willReturn([$existingItem]);
+        $existingItem->getVariant()->willReturn($productVariant);
+        $existingItem->getQuantity()->willReturn(4);
+
+        $cartItemFactory->createForCart($cart)->shouldNotBeCalled();
+
+        $orderItemModifier->modify($existingItem, 9)->shouldBeCalled();
+
+        $orderProcessor->process($cart)->shouldBeCalled();
+
+        $manager->persist($cart)->shouldNotBeCalled();
 
         $this->handle(new PutSimpleItemToCart('ORDERTOKEN', 'T_SHIRT_CODE', 5));
     }

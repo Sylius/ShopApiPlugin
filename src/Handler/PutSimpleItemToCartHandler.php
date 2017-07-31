@@ -4,8 +4,10 @@ namespace Sylius\ShopApiPlugin\Handler;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Sylius\Component\Core\Factory\CartItemFactoryInterface;
+use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Core\Model\ProductInterface;
+use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Sylius\Component\Order\Modifier\OrderItemQuantityModifierInterface;
@@ -74,6 +76,7 @@ final class PutSimpleItemToCartHandler
      */
     public function handle(PutSimpleItemToCart $putSimpleItemToCart)
     {
+        /** @var OrderInterface $cart */
         $cart = $this->cartRepository->findOneBy(['tokenValue' => $putSimpleItemToCart->orderToken()]);
 
         Assert::notNull($cart, 'Cart has not been found');
@@ -87,6 +90,14 @@ final class PutSimpleItemToCartHandler
         $productVariant = $product->getVariants()[0];
 
         /** @var OrderItemInterface $cartItem */
+        $cartItem = $this->getCartItemToModify($cart, $productVariant);
+        if (null !== $cartItem) {
+            $this->orderItemModifier->modify($cartItem, $cartItem->getQuantity() + $putSimpleItemToCart->quantity());
+            $this->orderProcessor->process($cart);
+
+            return;
+        }
+
         $cartItem = $this->cartItemFactory->createForCart($cart);
         $cartItem->setVariant($productVariant);
         $this->orderItemModifier->modify($cartItem, $putSimpleItemToCart->quantity());
@@ -96,5 +107,17 @@ final class PutSimpleItemToCartHandler
         $this->orderProcessor->process($cart);
 
         $this->manager->persist($cart);
+    }
+
+    private function getCartItemToModify(OrderInterface $cart, ProductVariantInterface $productVariant) : ?OrderItemInterface
+    {
+        /** @var OrderItemInterface $cartItem */
+        foreach ($cart->getItems() as $cartItem) {
+            if ($productVariant === $cartItem->getVariant()) {
+                return $cartItem;
+            }
+        }
+
+        return null;
     }
 }
