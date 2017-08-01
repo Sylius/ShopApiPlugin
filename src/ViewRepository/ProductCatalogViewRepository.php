@@ -10,7 +10,7 @@ use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
-use Sylius\Component\Locale\Model\Locale;
+use Sylius\Component\Locale\Model\LocaleInterface;
 use Sylius\Component\Taxonomy\Repository\TaxonRepositoryInterface;
 use Sylius\ShopApiPlugin\Factory\PageViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\ProductViewFactoryInterface;
@@ -79,7 +79,7 @@ final class ProductCatalogViewRepository implements ProductCatalogViewRepository
 
     /**
      * @param string $localeCode
-     * @param iterable|Locale[] $supportedLocales
+     * @param iterable|LocaleInterface[] $supportedLocales
      */
     private function assertLocaleSupport(string $localeCode, iterable $supportedLocales)
     {
