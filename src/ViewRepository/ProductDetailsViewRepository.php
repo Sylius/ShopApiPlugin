@@ -7,7 +7,7 @@ namespace Sylius\ShopApiPlugin\ViewRepository;
 use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
-use Sylius\Component\Locale\Model\Locale;
+use Sylius\Component\Locale\Model\LocaleInterface;
 use Sylius\ShopApiPlugin\Factory\ProductViewFactoryInterface;
 use Sylius\ShopApiPlugin\View\ProductView;
 use Webmozart\Assert\Assert;
@@ -60,7 +60,7 @@ final class ProductDetailsViewRepository implements ProductDetailsViewRepository
 
     /**
      * @param string $localeCode
-     * @param iterable|Locale[] $supportedLocales
+     * @param iterable|LocaleInterface[] $supportedLocales
      */
     private function assertLocaleSupport(string $localeCode, iterable $supportedLocales)
     {
