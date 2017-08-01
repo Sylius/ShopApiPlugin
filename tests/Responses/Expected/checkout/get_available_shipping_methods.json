@@ -9,6 +9,14 @@
                     "price": {
                         "current": 1500
                     }
+                },
+                "FED-EX": {
+                    "code": "FED-EX",
+                    "name": "FedEx",
+                    "description": "@string@",
+                    "price": {
+                        "current": 2500
+                    }
                 }
             }
         }
