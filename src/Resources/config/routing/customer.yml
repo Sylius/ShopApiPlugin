@@ -1,0 +1,5 @@
+shop_api_me:
+    path: /me
+    methods: [GET]
+    defaults:
+        _controller: sylius.shop_api_plugin.controller.customer.logged_in_customer_details_action

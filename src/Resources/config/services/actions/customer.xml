@@ -26,5 +26,12 @@
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="tactician.commandbus" />
         </service>
+
+        <service id="sylius.shop_api_plugin.controller.customer.logged_in_customer_details_action"
+                 class="Sylius\ShopApiPlugin\Controller\Customer\LoggedInCustomerDetailsAction"
+        >
+            <argument type="service" id="fos_rest.view_handler" />
+            <argument type="service" id="security.token_storage" />
+        </service>
     </services>
 </container>

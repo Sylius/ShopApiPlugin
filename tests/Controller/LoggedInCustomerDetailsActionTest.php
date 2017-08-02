@@ -29,12 +29,12 @@ EOT;
         $response = json_decode($this->client->getResponse()->getContent(), true);
         $this->client->setServerParameter('HTTP_Authorization', sprintf('Bearer %s', $response['token']));
 
-        $this->client->request('GET', '/me', [], [], [
+        $this->client->request('GET', '/shop-api/me', [], [], [
             'CONTENT_TYPE' => 'application/json',
             'ACCEPT' => 'application/json',
         ]);
 
         $response = $this->client->getResponse();
-        $this->assertResponse($response, 'customer/logged_in_customer_detail_response', Response::HTTP_OK);
+        $this->assertResponse($response, 'customer/logged_in_customer_details_response', Response::HTTP_OK);
     }
 }
