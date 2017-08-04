@@ -23,6 +23,18 @@ Sylius\Component\Core\Model\ShippingMethod:
         currentTranslation: "@dhl_translation"
         translations: ["@dhl_translation"]
         channels: ["@gb_web_channel"]
+    fedEx:
+        code: "FED-EX"
+        enabled: true
+        calculator: "per_unit_rate"
+        configuration:
+            WEB_GB:
+                amount: 500
+        zone: "@zone_gb"
+        currentLocale: "en_GB"
+        currentTranslation: "@fed_ex_translation"
+        translations: ["@fed_ex_translation"]
+        channels: ["@gb_web_channel"]
 
 Sylius\Component\Shipping\Model\ShippingMethodTranslation:
     ups_translation:
@@ -35,6 +47,11 @@ Sylius\Component\Shipping\Model\ShippingMethodTranslation:
         locale: "en_GB"
         description: <paragraph(2)>
         translatable: "@dhl"
+    fed_ex_translation:
+        name: "FedEx"
+        locale: "en_GB"
+        description: <paragraph(2)>
+        translatable: "@fedEx"
 
 Sylius\Component\Addressing\Model\Zone:
     zone_gb_scotland:

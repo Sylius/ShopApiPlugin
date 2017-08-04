@@ -52,5 +52,12 @@
             <argument type="service" id="sylius.order_processing.order_processor.composite" />
             <argument type="service" id="sylius.manager.order" />
         </service>
+
+        <!--This is just a temporary override of service, until it would be merged to Sylius -->
+        <service id="sylius.order_processing.order_shipment_processor" class="Sylius\ShopApiPlugin\Processor\OrderShipmentProcessor">
+            <argument type="service" id="sylius.shipping_method_resolver.default" />
+            <argument type="service" id="sylius.factory.shipment" />
+            <tag name="sylius.order_processor" priority="50"/>
+        </service>
     </services>
 </container>

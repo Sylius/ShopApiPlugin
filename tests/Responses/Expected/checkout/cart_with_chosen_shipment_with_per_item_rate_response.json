@@ -1,0 +1,98 @@
+{
+    "tokenValue": "SDAOSLEFNWU35H3QLI5325",
+    "channel": "WEB_GB",
+    "currency": "GBP",
+    "locale": "en_GB",
+    "checkoutState": "shipping_selected",
+    "items": [
+        {
+            "id": 1,
+            "quantity": 5,
+            "total": 9995,
+            "product": {
+                "code": "LOGAN_MUG_CODE",
+                "name": "Logan Mug",
+                "slug": "logan-mug",
+                "averageRating": 0,
+                "taxons": {
+                    "main": "MUG",
+                    "others": [
+                        "MUG",
+                        "BRAND"
+                    ]
+                },
+                "variants": [
+                    {
+                        "code": "LOGAN_MUG_CODE",
+                        "name": "Logan Mug",
+                        "axis": [],
+                        "nameAxis": {},
+                        "price": {
+                            "current": 1999
+                        },
+                        "images": []
+                    }
+                ],
+                "attributes": [
+                    {
+                        "code": "MUG_MATERIAL_CODE",
+                        "name": "Mug material",
+                        "value": "Wood"
+                    }
+                ],
+                "associations": [],
+                "images": [
+                    {
+                        "code": "thumbnail",
+                        "path": "\/uo\/mug.jpg"
+                    }
+                ],
+                "_links": {
+                    "self": {
+                        "href": "\/shop-api\/products-by-slug\/logan-mug"
+                    }
+                }
+            }
+        }
+    ],
+    "totals": {
+        "total": 12495,
+        "items": 9995,
+        "taxes": 0,
+        "shipping": 2500,
+        "promotion": 0
+    },
+    "shippingAddress": {
+        "firstName": "Sherlock",
+        "lastName": "Holmes",
+        "countryCode": "GB",
+        "street": "Baker Street 221b",
+        "city": "London",
+        "postcode": "NW1",
+        "provinceName": "Greater London"
+    },
+    "billingAddress": {
+        "firstName": "Sherlock",
+        "lastName": "Holmes",
+        "countryCode": "GB",
+        "street": "Baker Street 221b",
+        "city": "London",
+        "postcode": "NW1",
+        "provinceName": "Greater London"
+    },
+    "payments": [],
+    "shipments": [
+        {
+            "state": "cart",
+            "method": {
+                "code": "FED-EX",
+                "name": "FedEx",
+                "description": "@string@",
+                "price": {
+                    "current": 2500
+                }
+            }
+        }
+    ],
+    "cartDiscounts": []
+}
