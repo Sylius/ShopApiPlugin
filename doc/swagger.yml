@@ -16,12 +16,12 @@ tags:
   externalDocs:
       description: "Find out more"
       url: "http://docs.sylius.org/en/latest/book/orders/index.html"
-- name: "product"
+- name: "products"
   description: "Show product catalog and add product reviews."
   externalDocs:
       description: "Find out more"
       url: "http://docs.sylius.org/en/latest/book/products/index.html"
-- name: "taxon"
+- name: "taxons"
   description: "Show taxon tree"
   externalDocs:
       description: "Find out more"
@@ -31,6 +31,12 @@ tags:
   externalDocs:
       description: "Find out more"
       url: "http://docs.sylius.org/en/latest/book/orders/checkout.html"
+- name: "users"
+  description: "All actions related to user functionality."
+  externalDocs:
+      description: "Find out more"
+      url: "http://docs.sylius.org/en/latest/book/customers/customer_and_shopuser.html"
+
 schemes:
 - "https"
 paths:
@@ -744,6 +750,27 @@ paths:
                     schema:
                         type: "object"
                         $ref: "#/definitions/Taxon"
+    /request-password-reset:
+        put:
+            tags:
+            - "users"
+            summary: "Request resetting password of user with passed email."
+            description: "Email with reset password path will be sent to user. Default path for password resetting is `/password-reset/{token}`. To change it, you need to override template `@SyliusShopApi\\Email\\passwordReset.html.twig`."
+            opearationId: "requestPasswordReset"
+            consumes:
+            - "application/json"
+            parameters:
+            - name: "email"
+              in: "body"
+              description: "Email of user which want to reset password."
+              required: true
+              schama:
+                $ref: "#/definitions/RequestPasswordResetting"
+            responses:
+              204:
+                description: "Reset password request has been sent."
+              500:
+                description: "User with provided email has not been found."
 
 definitions:
     PickupCartRequest:
@@ -1297,6 +1324,12 @@ definitions:
                 example: "DHL Delivery will deliver your parcel even next day!"
             price:
                 $ref: '#/definitions/Price'
+    RequestPasswordResetting:
+        type: "object"
+        properties:
+            email:
+                type: "string"
+                example: "test@example.com"
     GeneralError:
         type: "object"
         properties:
