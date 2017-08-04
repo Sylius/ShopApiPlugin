@@ -45,6 +45,32 @@ EOT;
         $this->assertTrue($emailChecker->hasRecipient('vinny@fandf.com'));
     }
 
+    /**
+     * @test
+     */
+    public function it_does_not_allow_to_register_in_shop_without_passing_required_data()
+    {
+        $data =
+<<<EOT
+        {
+            "firstName": "Vin",
+            "promotionCode": "TEST",
+            "user": {
+                "plainPassword" : {
+                    "first": "somepass",
+                    "second": "somepass"
+                }
+            }
+        }
+EOT;
+
+        $this->client->request('POST', '/shop-api/register', [], [], ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'], $data);
+
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'customer/validation_registration_data_response', Response::HTTP_BAD_REQUEST);
+    }
+
     protected function getContainer(): ContainerInterface
     {
         return static::$sharedKernel->getContainer();

@@ -10,3 +10,9 @@ tactician:
             middleware:
                 - tactician.middleware.doctrine
                 - tactician.middleware.command_handler
+
+sylius_customer:
+    resources:
+        customer:
+            classes:
+                controller: Sylius\ShopApiPlugin\Controller\Customer\CustomerController
