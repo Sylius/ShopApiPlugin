@@ -756,7 +756,7 @@ paths:
             - "users"
             summary: "Request resetting password of user with passed email."
             description: "Email with reset password path will be sent to user. Default path for password resetting is `/password-reset/{token}`. To change it, you need to override template `@SyliusShopApi\\Email\\passwordReset.html.twig`."
-            opearationId: "requestPasswordReset"
+            operationId: "requestPasswordReset"
             consumes:
             - "application/json"
             parameters:
@@ -764,13 +764,26 @@ paths:
               in: "body"
               description: "Email of user which want to reset password."
               required: true
-              schama:
+              schema:
                 $ref: "#/definitions/RequestPasswordResetting"
             responses:
               204:
                 description: "Reset password request has been sent."
               500:
                 description: "User with provided email has not been found."
+    /me:
+        get:
+            tags:
+            - "users"
+            summary: "Provides currently logged in user details."
+            operationId: "me"
+            responses:
+                200:
+                    schema:
+                        type: "object"
+                        $ref: "#/definitions/LoggedInCustomerDetails"
+                500:
+                    description: "There is no currently logged in user."
 
 definitions:
     PickupCartRequest:
@@ -1330,6 +1343,18 @@ definitions:
             email:
                 type: "string"
                 example: "test@example.com"
+    LoggedInCustomerDetails:
+        type: "object"
+        properties:
+            firstName:
+                type: "string"
+                example: "Sherlock"
+            lastName:
+                type: "string"
+                example: "Holmes"
+            email:
+                type: "string"
+                example: "sherlock@holmes.com"
     GeneralError:
         type: "object"
         properties:
