@@ -26,13 +26,13 @@ final class AdjustmentViewFactorySpec extends ObjectBehavior
         $adjustment->getLabel()->willReturn('Bananas promotion');
         $adjustment->getAmount()->willReturn(500);
 
-        $priceViewFactory->create(500)->willReturn(new PriceView());
+        $priceViewFactory->create(500, 'AUD')->willReturn(new PriceView());
 
         $adjustmentView = new AdjustmentView();
         $adjustmentView->name = 'Bananas promotion';
         $adjustmentView->amount = new PriceView();
 
-        $this->create($adjustment, 0)->shouldBeLike($adjustmentView);
+        $this->create($adjustment, 0, 'AUD')->shouldBeLike($adjustmentView);
     }
 
     function it_builds_adjustment_view_with_additional_amount(AdjustmentInterface $adjustment, PriceViewFactoryInterface $priceViewFactory)
@@ -40,12 +40,12 @@ final class AdjustmentViewFactorySpec extends ObjectBehavior
         $adjustment->getLabel()->willReturn('Bananas promotion');
         $adjustment->getAmount()->willReturn(500);
 
-        $priceViewFactory->create(1000)->willReturn(new PriceView());
+        $priceViewFactory->create(1000, 'GEL')->willReturn(new PriceView());
 
         $adjustmentView = new AdjustmentView();
         $adjustmentView->name = 'Bananas promotion';
         $adjustmentView->amount = new PriceView();
 
-        $this->create($adjustment, 500)->shouldBeLike($adjustmentView);
+        $this->create($adjustment, 500, 'GEL')->shouldBeLike($adjustmentView);
     }
 }

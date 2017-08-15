@@ -2,12 +2,11 @@
 
 namespace spec\Sylius\ShopApiPlugin\Factory;
 
+use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\ShipmentInterface;
 use Sylius\Component\Core\Model\ShippingMethodInterface;
-use Sylius\ShopApiPlugin\Factory\ShipmentViewFactory;
 use Sylius\ShopApiPlugin\Factory\ShipmentViewFactoryInterface;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Sylius\ShopApiPlugin\Factory\ShippingMethodViewFactoryInterface;
 use Sylius\ShopApiPlugin\View\ShipmentView;
 use Sylius\ShopApiPlugin\View\ShippingMethodView;
@@ -25,14 +24,18 @@ final class ShipmentViewFactorySpec extends ObjectBehavior
     }
 
     function it_creates_shipment_view(
+        ShippingMethodViewFactoryInterface $shippingMethodViewFactory,
         ShipmentInterface $shipment,
-        ShippingMethodInterface $shippingMethod,
-        ShippingMethodViewFactoryInterface $shippingMethodViewFactory
+        OrderInterface $order,
+        ShippingMethodInterface $shippingMethod
     ) {
         $shipment->getState()->willReturn('cart');
         $shipment->getMethod()->willReturn($shippingMethod);
+        $shipment->getOrder()->willReturn($order);
 
-        $shippingMethodViewFactory->create($shipment, 'en_GB')->willReturn(new ShippingMethodView());
+        $order->getCurrencyCode()->willReturn('USD');
+
+        $shippingMethodViewFactory->create($shipment, 'en_GB', 'USD')->willReturn(new ShippingMethodView());
 
         $shipmentView = new ShipmentView();
         $shipmentView->state = 'cart';

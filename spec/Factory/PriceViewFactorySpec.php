@@ -22,7 +22,8 @@ final class PriceViewFactorySpec extends ObjectBehavior
     {
         $priceView = new PriceView();
         $priceView->current = 500;
+        $priceView->currency = 'BTC';
 
-        $this->create(500)->shouldBeLike($priceView);
+        $this->create(500, 'BTC')->shouldBeLike($priceView);
     }
 }

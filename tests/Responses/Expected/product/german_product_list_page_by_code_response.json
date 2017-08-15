@@ -29,7 +29,8 @@
                     "axis": [],
                     "nameAxis": {},
                     "price": {
-                        "current": 1999
+                        "current": 1999,
+                        "currency": "GBP"
                     },
                     "images": [
                         {
@@ -84,7 +85,8 @@
                         "HAT_COLOR_RED": "Farbe Rot"
                     },
                     "price": {
-                        "current": 500
+                        "current": 500,
+                        "currency": "GBP"
                     },
                     "images": []
                 },
@@ -100,7 +102,8 @@
                         "HAT_COLOR_RED": "Farbe Rot"
                     },
                     "price": {
-                        "current": 999
+                        "current": 999,
+                        "currency": "GBP"
                     },
                     "images": []
                 },
@@ -116,7 +119,8 @@
                         "HAT_COLOR_BLUE": "Farbe Blau"
                     },
                     "price": {
-                        "current": 1500
+                        "current": 1500,
+                        "currency": "GBP"
                     },
                     "images": []
                 },
@@ -132,7 +136,8 @@
                         "HAT_COLOR_BLUE": "Farbe Blau"
                     },
                     "price": {
-                        "current": 2599
+                        "current": 2599,
+                        "currency": "GBP"
                     },
                     "images": []
                 }
@@ -159,7 +164,8 @@
                                 "axis": [],
                                 "nameAxis": {},
                                 "price": {
-                                    "current": 1999
+                                    "current": 1999,
+                                    "currency": "GBP"
                                 },
                                 "images": [
                                     {
@@ -208,7 +214,8 @@
                                 "axis": [],
                                 "nameAxis": {},
                                 "price": {
-                                    "current": 1999
+                                    "current": 1999,
+                                    "currency": "GBP"
                                 },
                                 "images": [
                                     {
@@ -223,7 +230,8 @@
                                 "axis": [],
                                 "nameAxis": {},
                                 "price": {
-                                    "current": 2999
+                                    "current": 2999,
+                                    "currency": "GBP"
                                 },
                                 "images": [
                                     {

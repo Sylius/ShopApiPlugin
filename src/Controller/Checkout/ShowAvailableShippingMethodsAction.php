@@ -84,8 +84,15 @@ final class ShowAvailableShippingMethodsAction
 
         /** @var ShippingMethodInterface $shippingMethod */
         foreach ($this->shippingMethodsResolver->getSupportedMethods($shipment) as $shippingMethod) {
+            /** @var OrderInterface $order */
+            $order = $shipment->getOrder();
 
-            $rawShippingMethods['methods'][$shippingMethod->getCode()] = $this->shippingMethodViewFactory->createWithShippingMethod($shipment, $shippingMethod, $locale);
+            $rawShippingMethods['methods'][$shippingMethod->getCode()] = $this->shippingMethodViewFactory->createWithShippingMethod(
+                $shipment,
+                $shippingMethod,
+                $locale,
+                $order->getCurrencyCode()
+            );
         }
 
         return $rawShippingMethods;

@@ -249,7 +249,7 @@ final class CartViewFactorySpec extends ObjectBehavior
         $cartItemViewFactory->create($orderItem, $channel, 'en_GB')->willReturn(new ItemView());
 
         $adjustment->getOriginCode()->willReturn('PROMOTION_CODE');
-        $adjustmentViewFactory->create($adjustment, 0)->willReturn(new AdjustmentView());
+        $adjustmentViewFactory->create($adjustment, 0, 'GBP')->willReturn(new AdjustmentView());
 
         $totalViewFactory->create($cart)->willReturn(new TotalsView());
 
@@ -298,10 +298,10 @@ final class CartViewFactorySpec extends ObjectBehavior
         $adjustmentView->amount->current = 500;
 
         $adjustment->getOriginCode()->willReturn('PROMOTION_CODE');
-        $adjustmentViewFactory->create($adjustment, 0)->willReturn($adjustmentView);
+        $adjustmentViewFactory->create($adjustment, 0, 'GBP')->willReturn($adjustmentView);
 
         $similarAdjustment->getOriginCode()->willReturn('PROMOTION_CODE');
-        $adjustmentViewFactory->create($similarAdjustment, 500)->willReturn(new AdjustmentView());
+        $adjustmentViewFactory->create($similarAdjustment, 500, 'GBP')->willReturn(new AdjustmentView());
 
         $totalViewFactory->create($cart)->willReturn(new TotalsView());
 

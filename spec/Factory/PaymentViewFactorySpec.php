@@ -35,9 +35,10 @@ final class PaymentViewFactorySpec extends ObjectBehavior
         $payment->getState()->willReturn('cart');
         $payment->getMethod()->willReturn($paymentMethod);
         $payment->getAmount()->willReturn(900);
+        $payment->getCurrencyCode()->willReturn('GBP');
 
         $paymentMethodViewFactory->create($paymentMethod, 'en_GB')->willReturn(new PaymentMethodView());
-        $priceViewFactory->create(900)->willReturn(new PriceView());
+        $priceViewFactory->create(900, 'GBP')->willReturn(new PriceView());
 
         $paymentView = new PaymentView();
         $paymentView->state = 'cart';

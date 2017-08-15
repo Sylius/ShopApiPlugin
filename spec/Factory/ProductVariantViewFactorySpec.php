@@ -5,6 +5,7 @@ namespace spec\Sylius\ShopApiPlugin\Factory;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\ChannelPricingInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
+use Sylius\Component\Currency\Model\CurrencyInterface;
 use Sylius\Component\Product\Model\ProductOptionInterface;
 use Sylius\Component\Product\Model\ProductOptionTranslationInterface;
 use Sylius\Component\Product\Model\ProductOptionValueInterface;
@@ -30,9 +31,10 @@ final class ProductVariantViewFactorySpec extends ObjectBehavior
     }
 
     function it_builds_product_variant_view(
-        ChannelInterface $channel,
-        ChannelPricingInterface $channelPrice,
         PriceViewFactoryInterface $priceViewFactory,
+        ChannelInterface $channel,
+        CurrencyInterface $currency,
+        ChannelPricingInterface $channelPrice,
         ProductOptionInterface $firstOption,
         ProductOptionInterface $secondOption,
         ProductOptionTranslationInterface $firstOptionTranslation,
@@ -51,7 +53,7 @@ final class ProductVariantViewFactorySpec extends ObjectBehavior
         $variant->getChannelPricingForChannel($channel)->willReturn($channelPrice);
         $variant->getOptionValues()->willReturn([$firstOptionValue, $secondOptionValue]);
 
-        $priceViewFactory->create(500)->willReturn(new PriceView());
+        $priceViewFactory->create(500, 'PLN')->willReturn(new PriceView());
 
         $firstOptionValue->getCode()->willReturn('HAT_SIZE_S');
         $firstOptionValue->getTranslation('en_GB')->willReturn($firstOptionValueTranslation);
@@ -69,6 +71,8 @@ final class ProductVariantViewFactorySpec extends ObjectBehavior
 
         $productVariantTranslation->getName()->willReturn('Small red Logan hat code');
 
+        $channel->getBaseCurrency()->willReturn($currency);
+        $currency->getCode()->willReturn('PLN');
         $channelPrice->getPrice()->willReturn(500);
 
         $variantView->code = 'SMALL_RED_LOGAN_HAT_CODE';

@@ -34,7 +34,8 @@
                             "HAT_COLOR_RED": "Farbe Rot"
                         },
                         "price": {
-                            "current": 590
+                            "current": 590,
+                            "currency": "EUR"
                         },
                         "images": []
                     }
@@ -59,5 +60,5 @@
     },
     "payments": [],
     "shipments": [],
-    "cartDiscounts":[]
+    "cartDiscounts": []
 }

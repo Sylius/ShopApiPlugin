@@ -21,13 +21,13 @@ final class AdjustmentViewFactory implements AdjustmentViewFactoryInterface
         $this->adjustmentViewClass = $adjustmentViewClass;
     }
 
-    public function create(AdjustmentInterface $adjustment, int $additionalAmount = 0): AdjustmentView
+    public function create(AdjustmentInterface $adjustment, int $additionalAmount, string $currency): AdjustmentView
     {
         /** @var AdjustmentView $adjustmentView */
         $adjustmentView = new $this->adjustmentViewClass();
 
         $adjustmentView->name = $adjustment->getLabel();
-        $adjustmentView->amount = $this->priceViewFactory->create($adjustment->getAmount() + $additionalAmount);
+        $adjustmentView->amount = $this->priceViewFactory->create($adjustment->getAmount() + $additionalAmount, $currency);
 
         return $adjustmentView;
     }

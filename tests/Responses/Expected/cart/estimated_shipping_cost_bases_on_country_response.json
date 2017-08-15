@@ -1,5 +1,6 @@
 {
     "price": {
-        "current": 1500
+        "current": 1500,
+        "currency": "GBP"
     }
 }

@@ -106,7 +106,10 @@ final class CartController extends Controller
         $estimatedShippingCostView = new EstimatedShippingCostView();
         $calculator = $calculators->get($shippingMethod->getCalculator());
 
-        $estimatedShippingCostView->price = $priceViewFactory->create($calculator->calculate($shipment, $shippingMethod->getConfiguration()));
+        $estimatedShippingCostView->price = $priceViewFactory->create(
+            $calculator->calculate($shipment, $shippingMethod->getConfiguration()),
+            $cart->getCurrencyCode()
+        );
 
         return $viewHandler->handle(View::create($estimatedShippingCostView, Response::HTTP_OK));
     }

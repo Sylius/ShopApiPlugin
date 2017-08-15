@@ -47,7 +47,7 @@ final class ShippingMethodViewFactorySpec extends ObjectBehavior
 
         $calculator->calculate($shipment, [])->willReturn(2000);
 
-        $priceViewFactory->create(2000)->willReturn(new PriceView());
+        $priceViewFactory->create(2000, 'CAD')->willReturn(new PriceView());
 
         $shippingMethodView = new ShippingMethodView();
 
@@ -56,7 +56,7 @@ final class ShippingMethodViewFactorySpec extends ObjectBehavior
         $shippingMethodView->description = 'Really nice shipping method';
         $shippingMethodView->price = new PriceView();
 
-        $this->createWithShippingMethod($shipment, $shippingMethod, 'en_GB')->shouldBeLike($shippingMethodView);
+        $this->createWithShippingMethod($shipment, $shippingMethod, 'en_GB', 'CAD')->shouldBeLike($shippingMethodView);
     }
 
     function it_build_shipping_method_view_only_for_shipment(
@@ -81,7 +81,7 @@ final class ShippingMethodViewFactorySpec extends ObjectBehavior
 
         $calculator->calculate($shipment, [])->willReturn(2000);
 
-        $priceViewFactory->create(2000)->willReturn(new PriceView());
+        $priceViewFactory->create(2000, 'CNY')->willReturn(new PriceView());
 
         $shippingMethodView = new ShippingMethodView();
 
@@ -90,6 +90,6 @@ final class ShippingMethodViewFactorySpec extends ObjectBehavior
         $shippingMethodView->description = 'Really nice shipping method';
         $shippingMethodView->price = new PriceView();
 
-        $this->create($shipment,'en_GB')->shouldBeLike($shippingMethodView);
+        $this->create($shipment, 'en_GB', 'CNY')->shouldBeLike($shippingMethodView);
     }
 }

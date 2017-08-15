@@ -18,7 +18,8 @@
             "axis": [],
             "nameAxis": {},
             "price": {
-                "current": 1999
+                "current": 1999,
+                "currency": "GBP"
             },
             "images": [
                 {
@@ -33,7 +34,8 @@
             "axis": [],
             "nameAxis": {},
             "price": {
-                "current": 2999
+                "current": 2999,
+                "currency": "GBP"
             },
             "images": [
                 {

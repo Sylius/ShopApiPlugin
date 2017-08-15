@@ -7,7 +7,8 @@
                     "name": "DHL",
                     "description": "@string@",
                     "price": {
-                        "current": 1500
+                        "current": 1500,
+                        "currency": "GBP"
                     }
                 },
                 "FED-EX": {
@@ -15,7 +16,8 @@
                     "name": "FedEx",
                     "description": "@string@",
                     "price": {
-                        "current": 2500
+                        "current": 2500,
+                        "currency": "GBP"
                     }
                 }
             }
