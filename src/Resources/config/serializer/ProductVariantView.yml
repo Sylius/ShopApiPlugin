@@ -20,7 +20,3 @@ Sylius\ShopApiPlugin\View\ProductVariantView:
         images:
             expose: true
             type: array
-        appliedPromotions:
-            expose: true
-            type: array
-
