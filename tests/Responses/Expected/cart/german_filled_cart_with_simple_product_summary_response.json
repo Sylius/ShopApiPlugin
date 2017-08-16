@@ -28,7 +28,8 @@
                         "axis": [],
                         "nameAxis": {},
                         "price": {
-                            "current": 2099
+                            "current": 2099,
+                            "currency": "EUR"
                         },
                         "images": []
                     }

@@ -17,11 +17,12 @@ final class PriceViewFactory implements PriceViewFactoryInterface
     /**
      * {@inheritdoc}
      */
-    public function create(int $price): PriceView
+    public function create(int $price, string $currency): PriceView
     {
         /** @var PriceView $priceView */
         $priceView = new $this->priceViewClass();
         $priceView->current = $price;
+        $priceView->currency = $currency;
 
         return $priceView;
     }

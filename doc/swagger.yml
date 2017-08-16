@@ -1283,10 +1283,13 @@ definitions:
     Price:
         type: "object"
         properties:
-            total:
+            current:
                 description: "Calculated price for given channel. Price is stored as an integer, so by default it should be divided by 100."
                 type: "integer"
-                default: 1000
+                example: 1000
+            currency:
+                type: "string"
+                example: "PLN"
     Address:
         type: "object"
         properties:

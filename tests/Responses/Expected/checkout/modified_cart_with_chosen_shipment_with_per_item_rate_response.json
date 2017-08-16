@@ -28,7 +28,8 @@
                         "axis": [],
                         "nameAxis": {},
                         "price": {
-                            "current": 1999
+                            "current": 1999,
+                            "currency": "GBP"
                         },
                         "images": []
                     }
@@ -89,7 +90,8 @@
                 "name": "FedEx",
                 "description": "@string@",
                 "price": {
-                    "current": 1000
+                    "current": 1000,
+                    "currency": "GBP"
                 }
             }
         }

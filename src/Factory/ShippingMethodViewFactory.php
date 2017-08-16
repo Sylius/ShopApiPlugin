@@ -32,9 +32,9 @@ final class ShippingMethodViewFactory implements ShippingMethodViewFactoryInterf
     /**
      * {@inheritdoc}
      */
-    public function create(ShipmentInterface $shipment, string $locale): ShippingMethodView
+    public function create(ShipmentInterface $shipment, string $locale, string $currency): ShippingMethodView
     {
-        return $this->createWithShippingMethod($shipment, $shipment->getMethod(), $locale);
+        return $this->createWithShippingMethod($shipment, $shipment->getMethod(), $locale, $currency);
     }
 
     /**
@@ -43,7 +43,8 @@ final class ShippingMethodViewFactory implements ShippingMethodViewFactoryInterf
     public function createWithShippingMethod(
         ShipmentInterface $shipment,
         ShippingMethodInterface $shippingMethod,
-        string $locale
+        string $locale,
+        string $currency
     ): ShippingMethodView {
         /** @var CalculatorInterface $calculator */
         $calculator = $this->calculatorRegistry->get($shippingMethod->getCalculator());
@@ -55,7 +56,8 @@ final class ShippingMethodViewFactory implements ShippingMethodViewFactoryInterf
         $shippingMethodView->name = $shippingMethod->getTranslation($locale)->getName();
         $shippingMethodView->description = $shippingMethod->getTranslation($locale)->getDescription();
         $shippingMethodView->price = $this->priceViewFactory->create(
-            $calculator->calculate($shipment, $shippingMethod->getConfiguration())
+            $calculator->calculate($shipment, $shippingMethod->getConfiguration()),
+            $currency
         );
 
         return $shippingMethodView;

@@ -6,5 +6,5 @@ use Sylius\ShopApiPlugin\View\PriceView;
 
 interface PriceViewFactoryInterface
 {
-    public function create(int $price): PriceView;
+    public function create(int $price, string $currency): PriceView;
 }

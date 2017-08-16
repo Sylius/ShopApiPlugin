@@ -28,7 +28,8 @@
                         "axis": [],
                         "nameAxis": {},
                         "price": {
-                            "current": 1999
+                            "current": 1999,
+                            "currency": "GBP"
                         },
                         "images": []
                     }
@@ -89,10 +90,11 @@
                 "name": "DHL",
                 "description": "@string@",
                 "price": {
-                    "current": 1500
+                    "current": 1500,
+                    "currency": "GBP"
                 }
             }
         }
     ],
-    "cartDiscounts":[]
+    "cartDiscounts": []
 }

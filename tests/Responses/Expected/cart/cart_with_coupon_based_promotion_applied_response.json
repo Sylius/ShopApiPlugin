@@ -28,7 +28,8 @@
                         "axis": [],
                         "nameAxis": {},
                         "price": {
-                            "current": 1999
+                            "current": 1999,
+                            "currency": "GBP"
                         },
                         "images": []
                     }
@@ -64,12 +65,12 @@
     },
     "payments": [],
     "shipments": [],
-    "cartDiscounts":[],
     "cartDiscounts": {
         "BANANA_PROMOTION": {
             "name": "Banana promotion",
             "amount": {
-                "current": -1000
+                "current": -1000,
+                "currency": "GBP"
             }
         }
     }

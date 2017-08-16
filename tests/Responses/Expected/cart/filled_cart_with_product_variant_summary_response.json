@@ -28,7 +28,8 @@
                         "axis": [],
                         "nameAxis": {},
                         "price": {
-                            "current": 1999
+                            "current": 1999,
+                            "currency": "GBP"
                         },
                         "images": []
                     }
@@ -85,7 +86,8 @@
                             "HAT_COLOR_RED": "Color Red"
                         },
                         "price": {
-                            "current": 500
+                            "current": 500,
+                            "currency": "GBP"
                         },
                         "images": []
                     }
@@ -110,5 +112,5 @@
     },
     "payments": [],
     "shipments": [],
-    "cartDiscounts":[]
+    "cartDiscounts": []
 }

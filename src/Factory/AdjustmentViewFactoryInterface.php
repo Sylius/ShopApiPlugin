@@ -9,5 +9,5 @@ use Sylius\ShopApiPlugin\View\AdjustmentView;
 
 interface AdjustmentViewFactoryInterface
 {
-    public function create(AdjustmentInterface $adjustment, int $additionalAmount): AdjustmentView;
+    public function create(AdjustmentInterface $adjustment, int $additionalAmount, string $currency): AdjustmentView;
 }

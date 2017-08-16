@@ -83,7 +83,7 @@ final class CartViewFactory implements CartViewFactoryInterface
             $originCode = $adjustment->getOriginCode();
             $additionalAmount = isset($cartDiscounts[$originCode]) ? $cartDiscounts[$originCode]->amount->current : 0;
 
-            $cartDiscounts[$originCode] = $this->adjustmentViewFactory->create($adjustment, $additionalAmount);
+            $cartDiscounts[$originCode] = $this->adjustmentViewFactory->create($adjustment, $additionalAmount, $cart->getCurrencyCode());
         }
 
         $cartView->cartDiscounts = $cartDiscounts;
