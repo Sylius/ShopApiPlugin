@@ -1,0 +1,18 @@
+{
+    "code": 400,
+    "message": "Validation failed",
+    "errors": [
+        {
+        },
+        {
+            "quantity": [
+                "sylius.shop_api.quantity.not_null"
+            ]
+        },
+        {
+            "quantity": [
+                "sylius.shop_api.quantity.not_null"
+            ]
+        }
+    ]
+}
