@@ -140,6 +140,39 @@ paths:
                     description: "Invalid input, validation failed."
                     schema:
                         $ref: "#/definitions/GeneralError"
+    /carts/{token}/multiple-items:
+        parameters:
+        - name: "token"
+          in: "path"
+          description: "Cart identifier."
+          required: true
+          type: "string"
+        post:
+            tags:
+            - "cart"
+            summary: "Add multiple items to your cart."
+            description: "This endpoint will allow you to add a new item to your cart."
+            operationId: "cartPutItems"
+            consumes:
+            - "application/json"
+            produces:
+            - "application/json"
+            parameters:
+            - in: "body"
+              name: "content"
+              description: "Description of items. The same rules applied to each of the array values as to the previous point."
+              required: true
+              schema:
+                $ref: "#/definitions/PutItemsToCartRequest"
+            responses:
+                201:
+                    description: "Item has been added to the cart"
+                    schema:
+                        $ref: "#/definitions/Cart"
+                400:
+                    description: "Invalid input, validation failed."
+                    schema:
+                        $ref: "#/definitions/GeneralError"
     /carts/{token}/items/{identifier}:
         parameters:
         - name: "token"
@@ -844,6 +877,12 @@ definitions:
                 additionalProperties:
                     type: "string"
                     example: "HAT_SIZE_S"
+    PutItemsToCartRequest:
+        type: "array"
+        description: "Body of request used to put item to the cart."
+        items:
+            type: "object"
+            $ref: "#/definitions/PutItemToCartRequest"
     ChangeItemQuantityRequest:
         type: "object"
         description: "Body of request used to change quantity of an item."

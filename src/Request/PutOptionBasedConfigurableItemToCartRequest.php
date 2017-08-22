@@ -27,15 +27,22 @@ final class PutOptionBasedConfigurableItemToCartRequest
      */
     private $quantity;
 
-    /**
-     * @param Request $request
-     */
-    public function __construct(Request $request)
+    private function __construct($token, $productCode, $options, $quantity)
     {
-        $this->token = $request->attributes->get('token');
-        $this->productCode = $request->request->get('productCode');
-        $this->options = $request->request->get('options');
-        $this->quantity = $request->request->getInt('quantity');
+        $this->token = $token;
+        $this->productCode = $productCode;
+        $this->options = $options;
+        $this->quantity = $quantity;
+    }
+
+    public static function fromArray(array $item)
+    {
+        return new self($item['token'] ?? null, $item['productCode'] ?? null, $item['options'] ?? null, $item['quantity'] ?? null);
+    }
+
+    public static function fromRequest(Request $request)
+    {
+        return new self($request->attributes->get('token'), $request->request->get('productCode'), $request->request->get('options'), $request->request->get('quantity'));
     }
 
     /**

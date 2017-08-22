@@ -22,14 +22,21 @@ final class PutSimpleItemToCartRequest
      */
     private $quantity;
 
-    /**
-     * @param Request $request
-     */
-    public function __construct(Request $request)
+    private function __construct($token, $productCode, $quantity)
     {
-        $this->token = $request->attributes->get('token');
-        $this->productCode = $request->request->get('productCode');
-        $this->quantity = $request->request->get('quantity');
+        $this->token = $token;
+        $this->productCode = $productCode;
+        $this->quantity = $quantity;
+    }
+
+    public static function fromArray(array $item)
+    {
+        return new self($item['token'] ?? null, $item['productCode'] ?? null, $item['quantity'] ?? null);
+    }
+
+    public static function fromRequest(Request $request)
+    {
+        return new self($request->attributes->get('token'), $request->request->get('productCode'), $request->request->get('quantity'));
     }
 
     /**

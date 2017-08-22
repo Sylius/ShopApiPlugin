@@ -79,15 +79,15 @@ final class PutItemToCartAction
     private function provideCommandRequest(Request $request)
     {
         if (!$request->request->has('variantCode') && !$request->request->has('options')) {
-            return new PutSimpleItemToCartRequest($request);
+            return PutSimpleItemToCartRequest::fromRequest($request);
         }
 
         if ($request->request->has('variantCode') && !$request->request->has('options')) {
-            return new PutVariantBasedConfigurableItemToCartRequest($request);
+            return PutVariantBasedConfigurableItemToCartRequest::fromRequest($request);
         }
 
         if (!$request->request->has('variantCode') && $request->request->has('options')) {
-            return new PutOptionBasedConfigurableItemToCartRequest($request);
+            return PutOptionBasedConfigurableItemToCartRequest::fromRequest($request);
         }
 
         throw new NotFoundHttpException('Variant not found for given configuration');

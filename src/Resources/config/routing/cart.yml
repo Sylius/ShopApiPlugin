@@ -16,6 +16,12 @@ shop_api_add_to_cart:
     defaults:
         _controller: sylius.shop_api_plugin.controller.cart.put_item_to_cart_action
 
+shop_api_add_multiple_items_to_cart:
+    path: /carts/{token}/multiple-items
+    methods: [POST]
+    defaults:
+        _controller: sylius.shop_api_plugin.controller.cart.put_items_to_cart_action
+
 shop_api_drop_cart:
     path: /carts/{token}
     methods: [DELETE]
