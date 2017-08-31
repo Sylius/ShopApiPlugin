@@ -253,6 +253,23 @@ paths:
                     description: "Invalid input, validation failed."
                     schema:
                         $ref: "#/definitions/GeneralError"
+        delete:
+            tags:
+            - "cart"
+            summary: "Remove a promotion coupon code from the cart."
+            description: "This endpoint will allow you to remove a promotion coupon code from the cart."
+            operationId: "cartRemoveCoupon"
+            consumes:
+            - "application/json"
+            produces:
+            - "application/json"
+            responses:
+                204:
+                    description: "Coupon has been removed from the cart."
+                400:
+                    description: "Invalid input, validation failed."
+                    schema:
+                        $ref: "#/definitions/GeneralError"
     /checkout/{token}:
         get:
             tags:
