@@ -73,6 +73,12 @@
             <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\AddCoupon"/>
         </service>
 
+        <service id="sylius.shop_api_plugin.handler.remove_coupon_handler" class="Sylius\ShopApiPlugin\Handler\RemoveCouponHandler">
+            <argument type="service" id="sylius.repository.order"/>
+            <argument type="service" id="sylius.order_processing.order_processor"/>
+            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\RemoveCoupon"/>
+        </service>
+
         <service id="sylius.shop_api_plugin.handler.complete_order_handler" class="Sylius\ShopApiPlugin\Handler\CompleteOrderHandler">
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.shop_api_plugin.provider.customer_provider"/>

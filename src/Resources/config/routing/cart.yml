@@ -51,3 +51,9 @@ shop_api_add_coupon_to_cart:
     methods: [PUT]
     defaults:
         _controller: sylius.shop_api_plugin.controller.cart.add_coupon_action
+
+shop_api_remove_coupon_to_cart:
+    path: /carts/{token}/coupon
+    methods: [DELETE]
+    defaults:
+        _controller: sylius.shop_api_plugin.controller.cart.remove_coupon_action
