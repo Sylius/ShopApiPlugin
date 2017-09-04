@@ -15,6 +15,7 @@ use Sylius\ShopApiPlugin\Factory\PriceViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\ProductVariantViewFactory;
 use PhpSpec\ObjectBehavior;
 use Sylius\ShopApiPlugin\Factory\ProductVariantViewFactoryInterface;
+use Sylius\ShopApiPlugin\Factory\ViewCreationException;
 use Sylius\ShopApiPlugin\View\PriceView;
 use Sylius\ShopApiPlugin\View\ProductVariantView;
 
@@ -85,5 +86,46 @@ final class ProductVariantViewFactorySpec extends ObjectBehavior
         ];
 
         $this->create($variant, $channel, 'en_GB')->shouldBeLike($variantView);
+    }
+
+    function it_throws_an_exception_if_there_is_no_price(
+        ChannelInterface $channel,
+        CurrencyInterface $currency,
+        ProductOptionInterface $firstOption,
+        ProductOptionInterface $secondOption,
+        ProductOptionTranslationInterface $firstOptionTranslation,
+        ProductOptionTranslationInterface $secondOptionTranslation,
+        ProductOptionValueInterface $firstOptionValue,
+        ProductOptionValueInterface $secondOptionValue,
+        ProductOptionValueTranslationInterface $firstOptionValueTranslation,
+        ProductOptionValueTranslationInterface $secondOptionValueTranslation,
+        ProductVariantInterface $variant,
+        ProductVariantTranslationInterface $productVariantTranslation
+    ) {
+        $variant->getCode()->willReturn('SMALL_RED_LOGAN_HAT_CODE');
+        $variant->getTranslation('en_GB')->willReturn($productVariantTranslation);
+        $variant->getChannelPricingForChannel($channel)->willReturn(null);
+        $variant->getOptionValues()->willReturn([$firstOptionValue, $secondOptionValue]);
+
+        $firstOptionValue->getCode()->willReturn('HAT_SIZE_S');
+        $firstOptionValue->getTranslation('en_GB')->willReturn($firstOptionValueTranslation);
+        $firstOptionValue->getOption()->willReturn($firstOption);
+        $firstOption->getTranslation('en_GB')->willReturn($firstOptionTranslation);
+        $firstOptionTranslation->getName()->willReturn('Size');
+        $firstOptionValueTranslation->getValue()->willReturn('S');
+
+        $secondOptionValue->getCode()->willReturn('HAT_COLOR_RED');
+        $secondOptionValue->getTranslation('en_GB')->willReturn($secondOptionValueTranslation);
+        $secondOptionValue->getOption()->willReturn($secondOption);
+        $secondOption->getTranslation('en_GB')->willReturn($secondOptionTranslation);
+        $secondOptionTranslation->getName()->willReturn('Color');
+        $secondOptionValueTranslation->getValue()->willReturn('Red');
+
+        $productVariantTranslation->getName()->willReturn('Small red Logan hat code');
+
+        $channel->getBaseCurrency()->willReturn($currency);
+        $currency->getCode()->willReturn('PLN');
+
+        $this->shouldThrow(ViewCreationException::class)->during('create', [$variant, $channel, 'en_GB']);
     }
 }

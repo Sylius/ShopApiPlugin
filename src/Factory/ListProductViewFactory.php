@@ -53,7 +53,11 @@ final class ListProductViewFactory implements ProductViewFactoryInterface
 
         /** @var ProductVariantInterface $variant */
         foreach ($product->getVariants() as $variant) {
-            $productView->variants[$variant->getCode()] = $this->variantViewFactory->create($variant, $channel, $locale);
+            try {
+                $productView->variants[$variant->getCode()] = $this->variantViewFactory->create($variant, $channel, $locale);
+            } catch (ViewCreationException $exception) {
+                continue;
+            }
         }
 
         /** @var ProductImageInterface $image */
