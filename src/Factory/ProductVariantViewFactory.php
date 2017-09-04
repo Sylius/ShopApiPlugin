@@ -28,10 +28,15 @@ final class ProductVariantViewFactory implements ProductVariantViewFactoryInterf
         /** @var ProductVariantView $variantView */
         $variantView = new $this->productVariantViewClass();
 
+        $channelPricing = $variant->getChannelPricingForChannel($channel);
+        if (null === $channelPricing) {
+            throw new ViewCreationException('Variant does not have pricing.');
+        }
+
         $variantView->code = $variant->getCode();
         $variantView->name = $variant->getTranslation($locale)->getName();
         $variantView->price = $this->priceViewFactory->create(
-            $variant->getChannelPricingForChannel($channel)->getPrice(),
+            $channelPricing->getPrice(),
             $channel->getBaseCurrency()->getCode()
         );
 

@@ -13,6 +13,7 @@ use Sylius\ShopApiPlugin\Factory\ImageViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\ProductVariantViewFactoryInterface;
 use PhpSpec\ObjectBehavior;
 use Sylius\ShopApiPlugin\Factory\ProductViewFactoryInterface;
+use Sylius\ShopApiPlugin\Factory\ViewCreationException;
 use Sylius\ShopApiPlugin\Generator\ProductBreadcrumbGeneratorInterface;
 use Sylius\ShopApiPlugin\View\ImageView;
 use Sylius\ShopApiPlugin\View\ProductVariantView;
@@ -68,6 +69,62 @@ final class ListProductViewFactorySpec extends ObjectBehavior
         $variantViewFactory->create($secondProductVariant, $channel, 'en_GB')->willReturn(new ProductVariantView());
         $variantViewFactory->create($associatedProductVariant, $channel, 'en_GB')->willReturn(new ProductVariantView());
 
+        $associatedProductView = new ProductView();
+        $associatedProductView->variants = [
+            'SMALL_MUG_CODE' => new ProductVariantView(),
+        ];
+
+        $productView = new ProductView();
+        $productView->variants = [
+            'S_HAT_CODE' => new ProductVariantView(),
+            'L_HAT_CODE' => new ProductVariantView(),
+        ];
+        $productView->associations = [
+            'ASSOCIATION_TYPE' => [
+                $associatedProductView,
+            ],
+        ];
+
+        $this->create($product, $channel, 'en_GB')->shouldBeLike($productView);
+    }
+
+    function it_skips_invalid_product_variants(
+        ChannelInterface $channel,
+        ProductAssociationInterface $productAssociation,
+        ProductInterface $product,
+        ProductInterface $associatedProduct,
+        ProductAssociationTypeInterface $associationType,
+        ProductViewFactoryInterface $productViewFactory,
+        ProductVariantInterface $associatedProductVariant,
+        ProductVariantInterface $firstProductVariant,
+        ProductVariantInterface $secondProductVariant,
+        ProductVariantInterface $thirdProductVariant,
+        ProductVariantViewFactoryInterface $variantViewFactory
+    ) {
+        $product->getVariants()->willReturn([$firstProductVariant, $secondProductVariant]);
+        $product->getImages()->willReturn([]);
+        $product->getAssociations()->willReturn([$productAssociation]);
+
+        $firstProductVariant->getCode()->willReturn('S_HAT_CODE');
+        $secondProductVariant->getCode()->willReturn('L_HAT_CODE');
+        $thirdProductVariant->getCode()->willReturn('XL_HAT_CODE');
+        $associatedProductVariant->getCode()->willReturn('SMALL_MUG_CODE');
+
+        $productAssociation->getType()->willReturn($associationType);
+        $productAssociation->getAssociatedProducts()->willReturn([$associatedProduct]);
+        $associatedProduct->getVariants()->willReturn([$associatedProductVariant]);
+
+        $associatedProduct->getImages()->willReturn([]);
+
+        $associationType->getCode()->willReturn('ASSOCIATION_TYPE');
+
+        $productViewFactory->create($product, $channel, 'en_GB')->willReturn(new ProductView());
+        $productViewFactory->create($associatedProduct, $channel, 'en_GB')->willReturn(new ProductView());
+
+        $variantViewFactory->create($firstProductVariant, $channel, 'en_GB')->willReturn(new ProductVariantView());
+        $variantViewFactory->create($secondProductVariant, $channel, 'en_GB')->willReturn(new ProductVariantView());
+        $variantViewFactory->create($thirdProductVariant, $channel, 'en_GB')->willThrow(ViewCreationException::class);
+        $variantViewFactory->create($associatedProductVariant, $channel, 'en_GB')->willReturn(new ProductVariantView());
 
         $associatedProductView = new ProductView();
         $associatedProductView->variants = [
