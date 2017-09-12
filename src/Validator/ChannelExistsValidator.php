@@ -26,7 +26,7 @@ final class ChannelExistsValidator extends ConstraintValidator
      */
     public function validate($token, Constraint $constraint)
     {
-        if (null === $this->channelRepository->findOneByCode($token)) {
+        if (null === $token || null === $this->channelRepository->findOneByCode($token)) {
             $this->context->addViolation($constraint->message);
         }
     }
