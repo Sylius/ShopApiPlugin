@@ -3,6 +3,7 @@
 namespace spec\Sylius\ShopApiPlugin\Factory;
 
 use Sylius\Component\Core\Model\PaymentMethodInterface;
+use Sylius\Component\Payment\Model\PaymentMethodTranslation;
 use Sylius\Component\Payment\Model\PaymentMethodTranslationInterface;
 use Sylius\ShopApiPlugin\Factory\PaymentMethodViewFactory;
 use Sylius\ShopApiPlugin\Factory\PaymentMethodViewFactoryInterface;
@@ -22,7 +23,10 @@ final class PaymentMethodViewFactorySpec extends ObjectBehavior
         $this->shouldImplement(PaymentMethodViewFactoryInterface::class);
     }
 
-    function it_build_payment_method_view(PaymentMethodInterface $paymentMethod, PaymentMethodTranslationInterface $paymentMethodTranslation)
+    /**
+     * @TODO Change `PaymentMethodTranslation` to `PaymentMethodTranslationInterface` when possible
+     */
+    function it_build_payment_method_view(PaymentMethodInterface $paymentMethod, PaymentMethodTranslation $paymentMethodTranslation)
     {
         $paymentMethod->getCode()->willReturn('COD_CODE');
         $paymentMethod->getTranslation('en_GB')->willReturn($paymentMethodTranslation);

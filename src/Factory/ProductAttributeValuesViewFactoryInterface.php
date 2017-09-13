@@ -10,10 +10,10 @@ use Sylius\ShopApiPlugin\View\ProductAttributeValueView;
 interface ProductAttributeValuesViewFactoryInterface
 {
     /**
-     * @param array|AttributeValueInterface[] $attributeValues
+     * @param iterable|AttributeValueInterface[] $attributeValues
      * @param string $locale
      *
      * @return array|ProductAttributeValueView[]
      */
-    public function create(array $attributeValues, string $locale): array;
+    public function create(iterable $attributeValues, string $locale): array;
 }

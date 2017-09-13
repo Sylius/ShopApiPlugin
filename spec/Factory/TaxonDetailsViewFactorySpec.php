@@ -2,6 +2,7 @@
 
 namespace spec\Sylius\ShopApiPlugin\Factory;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\ShopApiPlugin\Factory\TaxonDetailsViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\TaxonViewFactoryInterface;
@@ -28,8 +29,8 @@ final class TaxonDetailsViewFactorySpec extends ObjectBehavior
         TaxonViewFactoryInterface $taxonViewFactory
     ) {
         $taxon->getParent()->willReturn($parentTaxon);
-        $taxon->getChildren()->willReturn([$childrenTaxon]);
-        $childrenTaxon->getChildren()->willReturn([]);
+        $taxon->getChildren()->willReturn(new ArrayCollection([$childrenTaxon->getWrappedObject()]));
+        $childrenTaxon->getChildren()->willReturn(new ArrayCollection());
         $taxonViewFactory->create($taxon, 'en_GB')->willReturn(new TaxonView(), new TaxonView());
         $taxonViewFactory->create($parentTaxon, 'en_GB')->willReturn(new TaxonView());
         $taxonViewFactory->create($childrenTaxon, 'en_GB')->willReturn(new TaxonView());

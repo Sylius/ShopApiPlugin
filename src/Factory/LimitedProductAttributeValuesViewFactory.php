@@ -20,7 +20,7 @@ final class LimitedProductAttributeValuesViewFactory implements ProductAttribute
         $this->allowedAttributesCodes = $allowedAttributesCodes;
     }
 
-    public function create(array $attributeValues, string $locale): array
+    public function create(iterable $attributeValues, string $locale): array
     {
         $attributeValuesView = [];
 

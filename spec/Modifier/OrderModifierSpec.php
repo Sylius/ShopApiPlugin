@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Modifier;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -45,7 +46,7 @@ final class OrderModifierSpec extends ObjectBehavior
         OrderItemInterface $existingItem,
         ProductVariantInterface $productVariant
     ): void {
-        $order->getItems()->willReturn([$existingItem]);
+        $order->getItems()->willReturn(new ArrayCollection([$existingItem->getWrappedObject()]));
 
         $existingItem->getVariant()->willReturn($productVariant);
         $existingItem->getQuantity()->willReturn(3);
@@ -67,7 +68,7 @@ final class OrderModifierSpec extends ObjectBehavior
         OrderItemInterface $cartItem,
         ProductVariantInterface $productVariant
     ): void {
-        $order->getItems()->willReturn([]);
+        $order->getItems()->willReturn(new ArrayCollection([]));
 
         $cartItemFactory->createForCart($order)->willReturn($cartItem);
         $cartItem->setVariant($productVariant)->shouldBeCalled();
