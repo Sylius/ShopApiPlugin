@@ -5,7 +5,7 @@ declare(strict_types = 1);
 namespace spec\Sylius\ShopApiPlugin\Generator;
 
 use Sylius\Component\Core\Model\ProductInterface;
-use Sylius\Component\Core\Model\ProductTranslationInterface;
+use Sylius\Component\Core\Model\ProductTranslation;
 use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Taxonomy\Model\TaxonTranslationInterface;
 use Sylius\ShopApiPlugin\Generator\ProductBreadcrumbGeneratorInterface;
@@ -19,9 +19,12 @@ final class ProductBreadcrumbGeneratorSpec extends ObjectBehavior
         $this->shouldImplement(ProductBreadcrumbGeneratorInterface::class);
     }
 
+    /**
+     * @TODO Change `ProductTranslation` to `ProductTranslationInterface` when possible
+     */
     function it_generates_breadcrumb(
         ProductInterface $product,
-        ProductTranslationInterface $productTranslation,
+        ProductTranslation $productTranslation,
         TaxonInterface $mainTaxon,
         TaxonTranslationInterface $mainTaxonTranslation
     ) {
@@ -36,9 +39,12 @@ final class ProductBreadcrumbGeneratorSpec extends ObjectBehavior
         $this->generate($product, 'en_GB')->shouldReturn('t-shirts/logan-t-shirt');
     }
 
+    /**
+     * @TODO Change `ProductTranslation` to `ProductTranslationInterface` when possible
+     */
     function it_returns_product_slug_if_product_does_not_have_main_taxon(
         ProductInterface $product,
-        ProductTranslationInterface $productTranslation
+        ProductTranslation $productTranslation
     ) {
         $product->getTranslation('en_GB')->willReturn($productTranslation);
         $product->getMainTaxon()->willReturn(null);

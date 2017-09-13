@@ -6,7 +6,7 @@ use Sylius\Component\Core\Model\ShipmentInterface;
 use Sylius\Component\Core\Model\ShippingMethodInterface;
 use Sylius\Component\Registry\ServiceRegistry;
 use Sylius\Component\Shipping\Calculator\CalculatorInterface;
-use Sylius\Component\Shipping\Model\ShippingMethodTranslationInterface;
+use Sylius\Component\Shipping\Model\ShippingMethodTranslation;
 use Sylius\ShopApiPlugin\Factory\PriceViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\ShippingMethodViewFactory;
 use PhpSpec\ObjectBehavior;
@@ -27,13 +27,16 @@ final class ShippingMethodViewFactorySpec extends ObjectBehavior
         $this->shouldImplement(ShippingMethodViewFactoryInterface::class);
     }
 
+    /**
+     * @TODO Change `ShippingMethodTranslation` to `ShippingMethodTranslationInterface` when possible
+     */
     function it_build_shipping_method_view_for_chosen_shipping_method(
         ShipmentInterface $shipment,
         CalculatorInterface $calculator,
         PriceViewFactoryInterface $priceViewFactory,
         ServiceRegistry $calculatorRegistry,
         ShippingMethodInterface $shippingMethod,
-        ShippingMethodTranslationInterface $shippingMethodTranslation
+        ShippingMethodTranslation $shippingMethodTranslation
     ) {
         $shippingMethod->getCode()->willReturn('COD_CODE');
         $shippingMethod->getTranslation('en_GB')->willReturn($shippingMethodTranslation);
@@ -59,13 +62,16 @@ final class ShippingMethodViewFactorySpec extends ObjectBehavior
         $this->createWithShippingMethod($shipment, $shippingMethod, 'en_GB', 'CAD')->shouldBeLike($shippingMethodView);
     }
 
+    /**
+     * @TODO Change `ShippingMethodTranslation` to `ShippingMethodTranslationInterface` when possible
+     */
     function it_build_shipping_method_view_only_for_shipment(
         ShipmentInterface $shipment,
         CalculatorInterface $calculator,
         PriceViewFactoryInterface $priceViewFactory,
         ServiceRegistry $calculatorRegistry,
         ShippingMethodInterface $shippingMethod,
-        ShippingMethodTranslationInterface $shippingMethodTranslation
+        ShippingMethodTranslation $shippingMethodTranslation
     ) {
         $shipment->getMethod()->willReturn($shippingMethod);
 

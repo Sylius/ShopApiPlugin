@@ -2,6 +2,7 @@
 
 namespace spec\Sylius\ShopApiPlugin\Handler;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Prophecy\Argument;
 use SM\Factory\FactoryInterface;
 use SM\StateMachine\StateMachineInterface;
@@ -35,7 +36,7 @@ final class ChoosePaymentMethodHandlerSpec extends ObjectBehavior
         StateMachineInterface $stateMachine
     ) {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
-        $order->getPayments()->willReturn([$payment]);
+        $order->getPayments()->willReturn(new ArrayCollection([$payment->getWrappedObject()]));
         $paymentMethodRepository->findOneBy(['code' => 'CASH_ON_DELIVERY_METHOD'])->willReturn($paymentMethod);
 
         $stateMachineFactory->get($order, OrderCheckoutTransitions::GRAPH)->willReturn($stateMachine);
@@ -122,7 +123,7 @@ final class ChoosePaymentMethodHandlerSpec extends ObjectBehavior
     ) {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
         $paymentMethodRepository->findOneBy(['code' => 'CASH_ON_DELIVERY_METHOD'])->willReturn($paymentMethod);
-        $order->getPayments()->willReturn([]);
+        $order->getPayments()->willReturn(new ArrayCollection());
         $stateMachineFactory->get($order, OrderCheckoutTransitions::GRAPH)->willReturn($stateMachine);
         $stateMachine->can('select_payment')->willReturn(true);
 

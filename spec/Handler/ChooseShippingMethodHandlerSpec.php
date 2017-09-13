@@ -2,6 +2,7 @@
 
 namespace spec\Sylius\ShopApiPlugin\Handler;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Prophecy\Argument;
 use SM\Factory\FactoryInterface;
 use SM\StateMachine\StateMachineInterface;
@@ -38,7 +39,7 @@ final class ChooseShippingMethodHandlerSpec extends ObjectBehavior
         StateMachineInterface $stateMachine
     ) {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
-        $order->getShipments()->willReturn([$shipment]);
+        $order->getShipments()->willReturn(new ArrayCollection([$shipment->getWrappedObject()]));
         $shippingMethodRepository->findOneBy(['code' => 'DHL_SHIPPING_METHOD'])->willReturn($shippingMethod);
 
         $eligibilityChecker->isEligible($shipment, $shippingMethod)->willReturn(true);
@@ -63,7 +64,7 @@ final class ChooseShippingMethodHandlerSpec extends ObjectBehavior
         StateMachineInterface $stateMachine
     ) {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
-        $order->getShipments()->willReturn([$shipment]);
+        $order->getShipments()->willReturn(new ArrayCollection([$shipment->getWrappedObject()]));
         $shippingMethodRepository->findOneBy(['code' => 'DHL_SHIPPING_METHOD'])->willReturn($shippingMethod);
 
         $eligibilityChecker->isEligible($shipment, $shippingMethod)->willReturn(false);
@@ -156,7 +157,7 @@ final class ChooseShippingMethodHandlerSpec extends ObjectBehavior
     ) {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
         $shippingMethodRepository->findOneBy(['code' => 'DHL_SHIPPING_METHOD'])->willReturn($shippingMethod);
-        $order->getShipments()->willReturn([]);
+        $order->getShipments()->willReturn(new ArrayCollection());
         $stateMachineFactory->get($order, OrderCheckoutTransitions::GRAPH)->willReturn($stateMachine);
         $stateMachine->can('select_shipping')->willReturn(true);
 

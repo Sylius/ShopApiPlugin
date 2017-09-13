@@ -2,9 +2,11 @@
 
 namespace spec\Sylius\ShopApiPlugin\Factory;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\ProductImageInterface;
 use Sylius\Component\Core\Model\ProductInterface;
+use Sylius\Component\Core\Model\ProductTranslation;
 use Sylius\Component\Core\Model\ProductTranslationInterface;
 use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Product\Model\ProductAttributeValueInterface;
@@ -39,6 +41,9 @@ final class ProductViewFactorySpec extends ObjectBehavior
         $this->shouldHaveType(ProductViewFactoryInterface::class);
     }
 
+    /**
+     * @TODO Change `ProductTranslation` to `ProductTranslationInterface` when possible
+     */
     function it_builds_product_view(
         ChannelInterface $channel,
         ImageViewFactoryInterface $imageViewFactory,
@@ -49,16 +54,16 @@ final class ProductViewFactorySpec extends ObjectBehavior
         ProductInterface $product,
         TaxonInterface $taxon,
         TaxonInterface $mainTaxon,
-        ProductTranslationInterface $productTranslation
+        ProductTranslation $productTranslation
     ) {
         $product->getTranslation('en_GB')->willReturn($productTranslation);
         $product->getCode()->willReturn('HAT_CODE');
         $product->getAverageRating()->willReturn(5);
         $product->getTranslation('en_GB')->willReturn($productTranslation);
-        $product->getImages()->willReturn([$firstProductImage, $secondProductImage]);
-        $product->getTaxons()->willReturn([$taxon]);
+        $product->getImages()->willReturn(new ArrayCollection([$firstProductImage->getWrappedObject(), $secondProductImage->getWrappedObject()]));
+        $product->getTaxons()->willReturn(new ArrayCollection([$taxon->getWrappedObject()]));
         $product->getMainTaxon()->willReturn($mainTaxon);
-        $product->getAttributesByLocale('en_GB', 'en_GB')->willReturn([$productAttributeValue]);
+        $product->getAttributesByLocale('en_GB', 'en_GB')->willReturn(new ArrayCollection([$productAttributeValue->getWrappedObject()]));
 
         $taxon->getCode()->willReturn('TAXON');
         $mainTaxon->getCode()->willReturn('MAIN');
@@ -69,7 +74,7 @@ final class ProductViewFactorySpec extends ObjectBehavior
         $imageViewFactory->create($firstProductImage)->willReturn(new ImageView());
         $imageViewFactory->create($secondProductImage)->willReturn(new ImageView());
 
-        $attributeValuesViewFactory->create([$productAttributeValue], 'en_GB')->willReturn([]);
+        $attributeValuesViewFactory->create(new ArrayCollection([$productAttributeValue->getWrappedObject()]), 'en_GB')->willReturn([]);
 
         $productTranslation->getName()->willReturn('Hat');
         $productTranslation->getSlug()->willReturn('hat');

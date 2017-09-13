@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace spec\Sylius\ShopApiPlugin\Factory;
 
 use Sylius\Component\Product\Model\ProductAttributeInterface;
+use Sylius\Component\Product\Model\ProductAttributeTranslation;
 use Sylius\Component\Product\Model\ProductAttributeTranslationInterface;
 use Sylius\Component\Product\Model\ProductAttributeValueInterface;
 use PhpSpec\ObjectBehavior;
@@ -23,10 +24,13 @@ final class ProductAttributeValueViewFactorySpec extends ObjectBehavior
         $this->shouldImplement(ProductAttributeValueViewFactoryInterface::class);
     }
 
+    /**
+     * @TODO Change `ProductAttributeTranslation` to `ProductAttributeTranslationInterface` when possible
+     */
     function it_creates_product_attribute_value_view(
         ProductAttributeValueInterface $productAttributeValue,
         ProductAttributeInterface $productAttribute,
-        ProductAttributeTranslationInterface $productAttributeTranslation
+        ProductAttributeTranslation $productAttributeTranslation
     ) {
         $productAttributeValue->getCode()->willReturn('CERTIFICATE_1');
         $productAttributeValue->getValue()->willReturn('Nice, shinny certificate.');

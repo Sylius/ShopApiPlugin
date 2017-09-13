@@ -2,6 +2,7 @@
 
 namespace spec\Sylius\ShopApiPlugin\Handler;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Factory\CartItemFactoryInterface;
 use Sylius\Component\Core\Model\OrderInterface;
@@ -36,13 +37,13 @@ final class PutOptionBasedConfigurableItemToCartHandlerSpec extends ObjectBehavi
     ) {
         $productRepository->findOneByCode('T_SHIRT_CODE')->willReturn($tShirt);
 
-        $tShirt->getVariants()->willReturn([$blueTShirt, $redTShirt]);
+        $tShirt->getVariants()->willReturn(new ArrayCollection([$blueTShirt->getWrappedObject(), $redTShirt->getWrappedObject()]));
 
-        $blueTShirt->getOptionValues()->willReturn([$blueOptionValue]);
+        $blueTShirt->getOptionValues()->willReturn(new ArrayCollection([$blueOptionValue->getWrappedObject()]));
         $blueOptionValue->getCode()->willReturn('BLUE_OPTION_VALUE_CODE');
         $blueOptionValue->getOptionCode()->willReturn('COLOR_OPTION_CODE');
 
-        $redTShirt->getOptionValues()->willReturn([$redOptionValue]);
+        $redTShirt->getOptionValues()->willReturn(new ArrayCollection([$redOptionValue->getWrappedObject()]));
         $redOptionValue->getCode()->willReturn('RED_OPTION_VALUE_CODE');
         $redOptionValue->getOptionCode()->willReturn('COLOR_OPTION_CODE');
 
@@ -81,22 +82,22 @@ final class PutOptionBasedConfigurableItemToCartHandlerSpec extends ObjectBehavi
         OrderRepositoryInterface $orderRepository,
         ProductInterface $tShirt,
         ProductVariantInterface $blueTShirt,
-        ProductVariantInterface $redTShirt,
+        ProductVariantInterface $greenTShirt,
         ProductOptionValueInterface $blueOptionValue,
-        ProductOptionValueInterface $redOptionValue,
+        ProductOptionValueInterface $greenOptionValue,
         ProductRepositoryInterface $productRepository
     ) {
         $productRepository->findOneByCode('T_SHIRT_CODE')->willReturn($tShirt);
 
-        $tShirt->getVariants()->willReturn([$blueTShirt, $redTShirt]);
+        $tShirt->getVariants()->willReturn(new ArrayCollection([$blueTShirt->getWrappedObject(), $greenTShirt->getWrappedObject()]));
 
-        $blueTShirt->getOptionValues()->willReturn([$blueOptionValue]);
+        $blueTShirt->getOptionValues()->willReturn(new ArrayCollection([$blueOptionValue->getWrappedObject()]));
         $blueOptionValue->getCode()->willReturn('BLUE_OPTION_VALUE_CODE');
         $blueOptionValue->getOptionCode()->willReturn('COLOR_OPTION_CODE');
 
-        $redTShirt->getOptionValues()->willReturn([$redOptionValue]);
-        $redOptionValue->getCode()->willReturn('GREEN_OPTION_VALUE_CODE');
-        $redOptionValue->getOptionCode()->willReturn('COLOR_OPTION_CODE');
+        $greenTShirt->getOptionValues()->willReturn(new ArrayCollection([$greenOptionValue->getWrappedObject()]));
+        $greenOptionValue->getCode()->willReturn('GREEN_OPTION_VALUE_CODE');
+        $greenOptionValue->getOptionCode()->willReturn('COLOR_OPTION_CODE');
 
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($cart);
         $cartItemFactory->createForCart($cart)->shouldNotBeCalled();

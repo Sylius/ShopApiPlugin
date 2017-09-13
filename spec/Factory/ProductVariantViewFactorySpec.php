@@ -2,14 +2,18 @@
 
 namespace spec\Sylius\ShopApiPlugin\Factory;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\ChannelPricingInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Currency\Model\CurrencyInterface;
 use Sylius\Component\Product\Model\ProductOptionInterface;
+use Sylius\Component\Product\Model\ProductOptionTranslation;
 use Sylius\Component\Product\Model\ProductOptionTranslationInterface;
 use Sylius\Component\Product\Model\ProductOptionValueInterface;
+use Sylius\Component\Product\Model\ProductOptionValueTranslation;
 use Sylius\Component\Product\Model\ProductOptionValueTranslationInterface;
+use Sylius\Component\Product\Model\ProductVariantTranslation;
 use Sylius\Component\Product\Model\ProductVariantTranslationInterface;
 use Sylius\ShopApiPlugin\Factory\PriceViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\ProductVariantViewFactory;
@@ -30,6 +34,11 @@ final class ProductVariantViewFactorySpec extends ObjectBehavior
         $this->shouldHaveType(ProductVariantViewFactoryInterface::class);
     }
 
+    /**
+     * @TODO Change `ProductVariantTranslation` to `ProductVariantTranslationInterface` when possible
+     * @TODO Change `ProductOptionTranslation` to `ProductOptionTranslationInterface` when possible
+     * @TODO Change `ProductOptionValueTranslation` to `ProductOptionValueTranslationInterface` when possible
+     */
     function it_builds_product_variant_view(
         PriceViewFactoryInterface $priceViewFactory,
         ChannelInterface $channel,
@@ -37,21 +46,21 @@ final class ProductVariantViewFactorySpec extends ObjectBehavior
         ChannelPricingInterface $channelPrice,
         ProductOptionInterface $firstOption,
         ProductOptionInterface $secondOption,
-        ProductOptionTranslationInterface $firstOptionTranslation,
-        ProductOptionTranslationInterface $secondOptionTranslation,
+        ProductOptionTranslation $firstOptionTranslation,
+        ProductOptionTranslation $secondOptionTranslation,
         ProductOptionValueInterface $firstOptionValue,
         ProductOptionValueInterface $secondOptionValue,
-        ProductOptionValueTranslationInterface $firstOptionValueTranslation,
-        ProductOptionValueTranslationInterface $secondOptionValueTranslation,
+        ProductOptionValueTranslation $firstOptionValueTranslation,
+        ProductOptionValueTranslation $secondOptionValueTranslation,
         ProductVariantInterface $variant,
-        ProductVariantTranslationInterface $productVariantTranslation
+        ProductVariantTranslation $productVariantTranslation
     ) {
         $variantView = new ProductVariantView();
 
         $variant->getCode()->willReturn('SMALL_RED_LOGAN_HAT_CODE');
         $variant->getTranslation('en_GB')->willReturn($productVariantTranslation);
         $variant->getChannelPricingForChannel($channel)->willReturn($channelPrice);
-        $variant->getOptionValues()->willReturn([$firstOptionValue, $secondOptionValue]);
+        $variant->getOptionValues()->willReturn(new ArrayCollection([$firstOptionValue->getWrappedObject(), $secondOptionValue->getWrappedObject()]));
 
         $priceViewFactory->create(500, 'PLN')->willReturn(new PriceView());
 

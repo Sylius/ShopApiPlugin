@@ -2,11 +2,12 @@
 
 namespace spec\Sylius\ShopApiPlugin\Factory;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Sylius\Component\Core\Model\ImageInterface;
 use Sylius\Component\Core\Model\TaxonInterface;
+use Sylius\Component\Taxonomy\Model\TaxonTranslation;
 use Sylius\Component\Taxonomy\Model\TaxonTranslationInterface;
 use Sylius\ShopApiPlugin\Factory\ImageViewFactoryInterface;
-use Sylius\ShopApiPlugin\Factory\TaxonViewFactory;
 use Sylius\ShopApiPlugin\Factory\TaxonViewFactoryInterface;
 use PhpSpec\ObjectBehavior;
 use Sylius\ShopApiPlugin\View\ImageView;
@@ -24,16 +25,19 @@ final class TaxonViewFactorySpec extends ObjectBehavior
         $this->shouldImplement(TaxonViewFactoryInterface::class);
     }
 
+    /**
+     * @TODO Change `TaxonTranslation` to `TaxonTranslationInterface` when possible
+     */
     function it_creates_taxon_view(
         TaxonInterface $taxon,
-        TaxonTranslationInterface $taxonTranslation,
+        TaxonTranslation $taxonTranslation,
         ImageInterface $image,
         ImageViewFactoryInterface $imageViewFactory
     ) {
         $taxon->getCode()->willReturn('CATEGORY_CODE');
         $taxon->getPosition()->willReturn(0);
         $taxon->getTranslation('en_GB')->willReturn($taxonTranslation);
-        $taxon->getImages()->willReturn([$image]);
+        $taxon->getImages()->willReturn(new ArrayCollection([$image->getWrappedObject()]));
 
         $taxonTranslation->getName()->willReturn('Category');
         $taxonTranslation->getSlug()->willReturn('category');

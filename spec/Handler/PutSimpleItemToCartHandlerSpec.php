@@ -2,6 +2,7 @@
 
 namespace spec\Sylius\ShopApiPlugin\Handler;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\ProductInterface;
@@ -30,7 +31,7 @@ final class PutSimpleItemToCartHandlerSpec extends ObjectBehavior
         OrderModifierInterface $orderModifier
     ) {
         $productRepository->findOneBy(['code' => 'T_SHIRT_CODE'])->willReturn($product);
-        $product->getVariants()->willReturn([$productVariant]);
+        $product->getVariants()->willReturn(new ArrayCollection([$productVariant->getWrappedObject()]));
         $product->isSimple()->willReturn(true);
 
         $cartRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($cart);
@@ -66,12 +67,10 @@ final class PutSimpleItemToCartHandlerSpec extends ObjectBehavior
         OrderInterface $cart,
         OrderRepositoryInterface $cartRepository,
         ProductInterface $product,
-        ProductRepositoryInterface $productRepository,
-        ProductVariantInterface $productVariant
+        ProductRepositoryInterface $productRepository
     ) {
         $cartRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($cart);
         $productRepository->findOneBy(['code' => 'T_SHIRT_CODE'])->willReturn($product);
-        $product->getVariants()->willReturn([$productVariant]);
         $product->isSimple()->willReturn(false);
 
         $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [

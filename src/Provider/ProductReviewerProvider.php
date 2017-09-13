@@ -21,11 +21,6 @@ final class ProductReviewerProvider implements ProductReviewerProviderInterface
 
     public function provide(string $email): ProductReviewerInterface
     {
-        /** @var ProductReviewerInterface $reviewer */
-        $reviewer = $this->customerProvider->provide($email);
-
-        Assert::isInstanceOf($reviewer, ProductReviewerInterface::class);
-
-        return $reviewer;
+        return $this->customerProvider->provide($email);
     }
 }
