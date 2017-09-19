@@ -4,9 +4,7 @@ This repository provides a ShopApi implementation on the top of [Sylius E-Commer
  
 # Beware
 
-:warning: The project is experimental and pretty unstable at this moment. :warning:
-
-It is also just an addition to Sylius - Standard. Please, check [official documentation](http://docs.sylius.org/en/latest/) in order to understand the basic concepts.
+This plugin is just an addition to Sylius - Standard. Please, check [official documentation](http://docs.sylius.org/en/latest/) in order to understand the basic concepts.
 
 ## Pre - requirements
  
