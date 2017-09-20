@@ -48,6 +48,35 @@ EOT;
     /**
      * @test
      */
+    public function it_does_not_allow_to_register_in_shop_if_email_is_already_taken()
+    {
+        $this->loadFixturesFromFile('customer.yml');
+
+        $data =
+<<<EOT
+        {
+            "firstName": "Vin",
+            "lastName": "Diesel",
+            "email": "oliver@queen.com",
+            "user": {
+                "plainPassword" : {
+                    "first": "somepass",
+                    "second": "somepass"
+                }
+            }
+        }
+EOT;
+
+        $this->client->request('POST', '/shop-api/register', [], [], ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'], $data);
+
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'customer/validation_registration_email_taken_response', Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @test
+     */
     public function it_does_not_allow_to_register_in_shop_without_passing_required_data()
     {
         $data =
