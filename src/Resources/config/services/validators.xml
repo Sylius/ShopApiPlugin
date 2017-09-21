@@ -32,6 +32,12 @@
             <argument type="service" id="sylius.repository.shop_user" />
             <tag name="validator.constraint_validator" alias="sylius_shop_api_shop_user_exists_validator" />
         </service>
+        <service id="sylius.shop_api_plugin.validator.shop_user_does_not_exist_validator"
+                 class="Sylius\ShopApiPlugin\Validator\ShopUserDoesNotExistValidator"
+        >
+            <argument type="service" id="sylius.repository.shop_user" />
+            <tag name="validator.constraint_validator" alias="sylius_shop_api_shop_user_does_not_exist_validator" />
+        </service>
         <service id="sylius.shop_api_plugin.validator.valid_promotion_coupon_code_validator"
                  class="Sylius\ShopApiPlugin\Validator\ValidPromotionCouponCodeValidator"
         >

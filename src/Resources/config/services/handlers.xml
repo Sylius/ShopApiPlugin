@@ -104,6 +104,15 @@
             <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\AddProductReviewByCode"/>
         </service>
 
+        <service id="sylius.shop_api_plugin.handler.register_customer" class="Sylius\ShopApiPlugin\Handler\RegisterCustomerHandler">
+            <argument type="service" id="sylius.repository.shop_user" />
+            <argument type="service" id="sylius.repository.channel" />
+            <argument type="service" id="sylius.factory.shop_user" />
+            <argument type="service" id="sylius.factory.customer" />
+            <argument type="service" id="event_dispatcher" />
+            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\RegisterCustomer" />
+        </service>
+
         <service id="sylius.shop_api_plugin.handler.send_verification_token_handler" class="Sylius\ShopApiPlugin\Handler\SendVerificationTokenHandler">
             <argument type="service" id="sylius.repository.shop_user" />
             <argument type="service" id="sylius.email_sender" />

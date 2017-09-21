@@ -6,7 +6,7 @@
     "require": {
         "php": "^7.1",
 
-        "sylius/sylius": "^1.0.0@beta",
+        "sylius/sylius": "^1.0.0@beta, <1.0.0@rc",
         "league/tactician-bundle": "~0.4",
         "league/tactician-doctrine": "^1.1"
     },
