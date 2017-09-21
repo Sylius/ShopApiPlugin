@@ -19,18 +19,16 @@ final class CustomerResendVerificationTokenApiTest extends JsonApiTestCase
      */
     public function it_allows_to_resend_verification_token()
     {
+        $this->loadFixturesFromFile('channel.yml');
+
         $data =
 <<<EOT
         {
             "firstName": "Vin",
             "lastName": "Diesel",
             "email": "vinny@fandf.com",
-            "user": {
-                "plainPassword" : {
-                    "first": "somepass",
-                    "second": "somepass"
-                }
-            }
+            "plainPassword": "somepass",
+            "channel": "WEB_GB"
         }
 EOT;
 

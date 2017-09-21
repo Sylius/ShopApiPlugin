@@ -2,3 +2,13 @@ sylius:
     shop_api:
         cart:
             not_exists: Cart does not exists.
+        email:
+            not_blank: Please enter your email.
+            invalid: This email is invalid.
+            unique: This email is already used.
+        password:
+            not_blank: Please enter your password.
+        first_name:
+            not_blank: Please enter your first name.
+        last_name:
+            not_blank: Please enter your last name.

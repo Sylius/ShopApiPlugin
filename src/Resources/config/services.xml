@@ -36,6 +36,9 @@
 
         <service id="sylius.shop_api_plugin.event_listener.user_registration_listener" class="Sylius\ShopApiPlugin\EventListener\UserRegistrationListener">
             <argument type="service" id="tactician.commandbus" />
+            <argument type="service" id="sylius.repository.channel"/>
+            <argument type="service" id="sylius.repository.shop_user"/>
+            <argument type="service" id="sylius.manager.shop_user"/>
             <tag name="kernel.event_listener" event="sylius.customer.post_api_registered" method="handleUserVerification" />
         </service>
 

@@ -17,27 +17,25 @@ final class CustomerRegisterApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_allows_to_register_in_shop()
+    public function it_allows_to_register_in_shop_and_sends_a_verification_email()
     {
+        $this->loadFixturesFromFile('channel.yml');
+
         $data =
 <<<EOT
         {
             "firstName": "Vin",
             "lastName": "Diesel",
             "email": "vinny@fandf.com",
-            "user": {
-                "plainPassword" : {
-                    "first": "somepass",
-                    "second": "somepass"
-                }
-            }
+            "plainPassword": "somepass",
+            "channel": "WEB_GB"
         }
 EOT;
 
         $this->client->request('POST', '/shop-api/register', [], [], ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'], $data);
 
         $response = $this->client->getResponse();
-        $this->assertResponseCode($response, Response::HTTP_CREATED);
+        $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
 
         /** @var EmailCheckerInterface $emailChecker */
         $emailChecker = $this->get('sylius.behat.email_checker');
@@ -51,19 +49,16 @@ EOT;
     public function it_does_not_allow_to_register_in_shop_if_email_is_already_taken()
     {
         $this->loadFixturesFromFile('customer.yml');
+        $this->loadFixturesFromFile('channel.yml');
 
         $data =
 <<<EOT
         {
-            "firstName": "Vin",
-            "lastName": "Diesel",
+            "firstName": "Oliver",
+            "lastName": "Queen",
             "email": "oliver@queen.com",
-            "user": {
-                "plainPassword" : {
-                    "first": "somepass",
-                    "second": "somepass"
-                }
-            }
+            "plainPassword": "somepass",
+            "channel": "WEB_GB"
         }
 EOT;
 
@@ -79,17 +74,15 @@ EOT;
      */
     public function it_does_not_allow_to_register_in_shop_without_passing_required_data()
     {
+        $this->loadFixturesFromFile('channel.yml');
+
         $data =
 <<<EOT
         {
             "firstName": "Vin",
-            "promotionCode": "TEST",
-            "user": {
-                "plainPassword" : {
-                    "first": "somepass",
-                    "second": "somepass"
-                }
-            }
+            "lastName": "Diesel",
+            "plainPassword": "somepass",
+            "channel": "WEB_GB"
         }
 EOT;
 

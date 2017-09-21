@@ -2,19 +2,13 @@ sylius_shop_api_register:
     path: /register
     methods: [POST]
     defaults:
-        _controller: sylius.controller.customer:createAction
-        _sylius:
-            form: Sylius\Bundle\CoreBundle\Form\Type\Customer\CustomerRegistrationType
-            event: api_registered
+        _controller: sylius.shop_api_plugin.controller.customer.register_customer_action
 
 sylius_shop_api_resend_verification_token:
     path: /resend-verification-link
     methods: [POST]
     defaults:
         _controller: sylius.shop_api_plugin.controller.customer.resend_verification_token_action
-        _sylius:
-            form: Sylius\Bundle\CoreBundle\Form\Type\Customer\CustomerRegistrationType
-            event: api_registered
 
 sylius_shop_api_user_verification:
     path: /verify-account

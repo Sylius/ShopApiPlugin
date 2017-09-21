@@ -2,12 +2,6 @@
     "code": 400,
     "message": "Validation failed",
     "errors": {
-        "errors": [
-            "This form should not contain extra fields."
-        ],
-        "lastName": [
-            "Please enter your last name."
-        ],
         "email": [
             "Please enter your email."
         ]
