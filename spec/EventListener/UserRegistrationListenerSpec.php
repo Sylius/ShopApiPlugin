@@ -4,59 +4,84 @@ declare(strict_types = 1);
 
 namespace spec\Sylius\ShopApiPlugin\EventListener;
 
+use Doctrine\Common\Persistence\ObjectManager;
 use League\Tactician\CommandBus;
+use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
+use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\ShopUserInterface;
+use Sylius\Component\User\Repository\UserRepositoryInterface;
 use Sylius\ShopApiPlugin\Command\GenerateVerificationToken;
 use Sylius\ShopApiPlugin\Command\SendVerificationToken;
-use Sylius\ShopApiPlugin\EventListener\UserRegistrationListener;
+use Sylius\ShopApiPlugin\Event\CustomerRegistered;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Symfony\Component\EventDispatcher\GenericEvent;
 
 final class UserRegistrationListenerSpec extends ObjectBehavior
 {
-    function let(CommandBus $bus)
-    {
-        $this->beConstructedWith($bus);
-    }
-
-    function it_is_initializable()
-    {
-        $this->shouldHaveType(UserRegistrationListener::class);
-    }
-
-    function it_generates_and_sends_verification_token(
+    function let(
         CommandBus $bus,
-        CustomerInterface $customer,
-        GenericEvent $event,
-        ShopUserInterface $user
+        ChannelRepositoryInterface $channelRepository,
+        UserRepositoryInterface $userRepository,
+        ObjectManager $userManager
     ) {
-        $event->getSubject()->willReturn($customer);
-        $customer->getUser()->willReturn($user);
-        $user->getEmail()->willReturn('shop@example.com');
+        $this->beConstructedWith($bus, $channelRepository, $userRepository, $userManager);
+    }
+
+    function it_generates_and_sends_verification_token_if_channel_requires_verification(
+        CommandBus $bus,
+        ChannelRepositoryInterface $channelRepository,
+        ChannelInterface $channel
+    ) {
+        $channelRepository->findOneByCode('FOOBAR')->willReturn($channel);
+
+        $channel->isAccountVerificationRequired()->willReturn(true);
 
         $bus->handle(new GenerateVerificationToken('shop@example.com'))->shouldBeCalled();
         $bus->handle(new SendVerificationToken('shop@example.com'))->shouldBeCalled();
 
-        $this->handleUserVerification($event);
+        $this->handleUserVerification(new CustomerRegistered(
+            'shop@example.com',
+            'Shop',
+            'Example',
+            'FOOBAR'
+        ));
     }
 
-    function it_throws_exception_if_other_class_then_customer_is_passed_to_event(
-        GenericEvent $event
+    function it_enables_user_if_channel_does_not_require_verification(
+        ChannelRepositoryInterface $channelRepository,
+        UserRepositoryInterface $userRepository,
+        ObjectManager $userManager,
+        ShopUserInterface $user,
+        ChannelInterface $channel
     ) {
-        $event->getSubject()->willReturn(new \stdClass());
+        $userRepository->findOneByEmail('shop@example.com')->willReturn($user);
+        $channelRepository->findOneByCode('FOOBAR')->willReturn($channel);
 
-        $this->shouldThrow(\InvalidArgumentException::class)->during('handleUserVerification', [$event]);
+        $channel->isAccountVerificationRequired()->willReturn(false);
+
+        $user->enable()->shouldBeCalled();
+
+        $userManager->persist($user)->shouldBeCalled();
+        $userManager->flush()->shouldBeCalled();
+
+        $this->handleUserVerification(new CustomerRegistered(
+            'shop@example.com',
+            'Shop',
+            'Example',
+            'FOOBAR'
+        ));
     }
 
-    function it_throws_exception_if_customer_does_not_have_user_assigned(
-        CustomerInterface $customer,
-        GenericEvent $event
-    ) {
-        $event->getSubject()->willReturn($customer);
-        $customer->getUser()->willReturn(null);
+    function it_throws_an_exception_if_channel_cannot_be_found(ChannelRepositoryInterface $channelRepository)
+    {
+        $channelRepository->findOneByCode('FOOBAR')->willReturn(null);
 
-        $this->shouldThrow(\InvalidArgumentException::class)->during('handleUserVerification', [$event]);
+        $this->shouldThrow(\InvalidArgumentException::class)->during('handleUserVerification', [new CustomerRegistered(
+            'shop@example.com',
+            'Shop',
+            'Example',
+            'FOOBAR'
+        )]);
     }
 }

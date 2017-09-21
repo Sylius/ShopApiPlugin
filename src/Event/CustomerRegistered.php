@@ -12,9 +12,6 @@ final class CustomerRegistered extends Event
     private $email;
 
     /** @var string */
-    private $plainPassword;
-
-    /** @var string */
     private $firstName;
 
     /** @var string */
@@ -23,10 +20,9 @@ final class CustomerRegistered extends Event
     /** @var string */
     private $channelCode;
 
-    public function __construct(string $email, string $plainPassword, string $firstName, string $lastName, string $channelCode)
+    public function __construct(string $email, string $firstName, string $lastName, string $channelCode)
     {
         $this->email = $email;
-        $this->plainPassword = $plainPassword;
         $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->channelCode = $channelCode;
@@ -35,11 +31,6 @@ final class CustomerRegistered extends Event
     public function email(): string
     {
         return $this->email;
-    }
-
-    public function plainPassword(): string
-    {
-        return $this->plainPassword;
     }
 
     public function firstName(): string

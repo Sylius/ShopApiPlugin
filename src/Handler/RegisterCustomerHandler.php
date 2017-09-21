@@ -66,7 +66,6 @@ final class RegisterCustomerHandler
 
         $this->eventDispatcher->dispatch('sylius.customer.post_api_registered', new CustomerRegistered(
             $command->email(),
-            $command->plainPassword(),
             $command->firstName(),
             $command->lastName(),
             $command->channelCode()
