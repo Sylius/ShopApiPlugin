@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
 use Lakion\ApiTestCase\JsonApiTestCase;
+use PHPUnit\Framework\Assert;
 use Sylius\Component\Core\Test\Services\EmailCheckerInterface;
+use Sylius\Component\User\Repository\UserRepositoryInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\Sylius\ShopApiPlugin\Controller\Utils\PurgeSpooledMessagesTrait;
@@ -17,7 +19,7 @@ final class CustomerRegisterApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_allows_to_register_in_shop_and_sends_a_verification_email()
+    public function it_allows_to_register_in_shop_and_sends_a_verification_email_if_channel_requires_verification()
     {
         $this->loadFixturesFromFile('channel.yml');
 
@@ -37,10 +39,57 @@ EOT;
         $response = $this->client->getResponse();
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
 
+        /** @var UserRepositoryInterface $userRepository */
+        $userRepository = $this->get('sylius.repository.shop_user');
+        $user = $userRepository->findOneByEmail('vinny@fandf.com');
+
+        Assert::assertNotNull($user);
+        Assert::assertFalse($user->isEnabled());
+
         /** @var EmailCheckerInterface $emailChecker */
         $emailChecker = $this->get('sylius.behat.email_checker');
+        Assert::assertTrue($emailChecker->hasRecipient('vinny@fandf.com'));
+    }
 
-        $this->assertTrue($emailChecker->hasRecipient('vinny@fandf.com'));
+    /**
+     * @test
+     */
+    public function it_allows_to_register_in_shop_and_automatically_enables_user_if_channel_does_not_require_verification()
+    {
+        $this->loadFixturesFromFile('channel.yml');
+
+        $data =
+            <<<EOT
+        {
+            "firstName": "Vin",
+            "lastName": "Diesel",
+            "email": "vinny@fandf.com",
+            "plainPassword": "somepass",
+            "channel": "WEB_DE"
+        }
+EOT;
+
+        $this->client->request('POST', '/shop-api/register', [], [], ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'], $data);
+
+        $response = $this->client->getResponse();
+        $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
+
+        /** @var UserRepositoryInterface $userRepository */
+        $userRepository = $this->get('sylius.repository.shop_user');
+        $user = $userRepository->findOneByEmail('vinny@fandf.com');
+
+        Assert::assertNotNull($user);
+        Assert::assertTrue($user->isEnabled());
+
+        /** @var EmailCheckerInterface $emailChecker */
+        $emailChecker = $this->get('sylius.behat.email_checker');
+        try {
+            Assert::assertFalse($emailChecker->hasRecipient('vinny@fandf.com'));
+        } catch (\InvalidArgumentException $exception) {
+            // Email checker throws an invalid argument exception if spool directory does not exist
+            // It means no mails were sent
+            // Should be fixed in Sylius though
+        }
     }
 
     /**
