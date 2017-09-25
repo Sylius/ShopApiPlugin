@@ -1,0 +1,69 @@
+{
+    "tokenValue": "SDAOSLEFNWU35H3QLI5325",
+    "channel": "WEB_GB",
+    "currency": "GBP",
+    "locale": "en_GB",
+    "checkoutState": "cart",
+    "items": [
+        {
+            "id": 1,
+            "quantity": 1,
+            "total": 1999,
+            "product": {
+                "code": "LOGAN_MUG_CODE",
+                "name": "Logan Mug",
+                "slug": "logan-mug",
+                "averageRating": 0,
+                "taxons": {
+                    "main": "MUG",
+                    "others": [
+                        "MUG",
+                        "BRAND"
+                    ]
+                },
+                "variants": [
+                    {
+                        "code": "LOGAN_MUG_CODE",
+                        "name": "Logan Mug",
+                        "axis": [],
+                        "nameAxis": {},
+                        "price": {
+                            "current": 1999,
+                            "currency": "GBP"
+                        },
+                        "images": []
+                    }
+                ],
+                "attributes": [
+                    {
+                        "code": "MUG_MATERIAL_CODE",
+                        "name": "Mug material",
+                        "value": "Wood"
+                    }
+                ],
+                "associations": [],
+                "images": [
+                    {
+                        "code": "thumbnail",
+                        "path": "\/uo\/mug.jpg"
+                    }
+                ],
+                "_links": {
+                    "self": {
+                        "href": "\/shop-api\/products-by-slug\/logan-mug"
+                    }
+                }
+            }
+        }
+    ],
+    "totals": {
+        "total": 1999,
+        "items": 1999,
+        "taxes": 0,
+        "shipping": 0,
+        "promotion": 0
+    },
+    "payments": [],
+    "shipments": [],
+    "cartDiscounts": []
+}

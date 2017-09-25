@@ -3,10 +3,6 @@
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
 use Lakion\ApiTestCase\JsonApiTestCase;
-use League\Tactician\CommandBus;
-use Sylius\ShopApiPlugin\Command\AddCoupon;
-use Sylius\ShopApiPlugin\Command\PickupCart;
-use Sylius\ShopApiPlugin\Command\PutSimpleItemToCart;
 use Symfony\Component\HttpFoundation\Response;
 
 final class CartApiTest extends JsonApiTestCase
@@ -24,41 +20,6 @@ final class CartApiTest extends JsonApiTestCase
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/cart_has_not_been_found_response', Response::HTTP_NOT_FOUND);
-    }
-
-    /**
-     * @test
-     */
-    public function it_deletes_item()
-    {
-        $this->loadFixturesFromFile('shop.yml');
-
-        $token = 'SDAOSLEFNWU35H3QLI5325';
-
-        $this->pickupCart($token, 'WEB_GB');
-        $this->putItemToCart($token);
-
-        $this->client->request('DELETE', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/items/1', [], [], ['ACCEPT' => 'application/json']);
-        $response = $this->client->getResponse();
-
-        $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
-    }
-
-    /**
-     * @test
-     */
-    public function it_returns_not_found_exception_if_cart_item_has_not_been_found()
-    {
-        $this->loadFixturesFromFile('shop.yml');
-
-        $token = 'SDAOSLEFNWU35H3QLI5325';
-
-        $this->pickupCart($token, 'WEB_GB');
-
-        $this->client->request('DELETE', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/items/1', [], [], ['ACCEPT' => 'application/json']);
-        $response = $this->client->getResponse();
-
-        $this->assertResponse($response, 'cart/cart_item_has_not_been_found_response', Response::HTTP_NOT_FOUND);
     }
 
     /**

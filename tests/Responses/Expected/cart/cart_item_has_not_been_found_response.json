@@ -1,4 +1,9 @@
 {
-    "code": 404,
-    "message": "Cart item with given id does not exists"
+    "code": 400,
+    "message": "Validation failed",
+    "errors": {
+        "id": [
+            "sylius.shop_api.cart_item.not_exists"
+        ]
+    }
 }
