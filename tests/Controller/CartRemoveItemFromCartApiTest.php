@@ -30,9 +30,6 @@ final class CartRemoveItemFromCartApiTest extends JsonApiTestCase
         $this->client->request('DELETE', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/items/1', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
-        $this->client->request('GET', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json']);
-        $response = $this->client->getResponse();
-
         $this->assertResponse($response, 'cart/cart_after_deleting_an_item', Response::HTTP_OK);
     }
 
@@ -52,7 +49,7 @@ final class CartRemoveItemFromCartApiTest extends JsonApiTestCase
         $this->client->request('DELETE', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/items/1', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
-        $this->assertResponse($response, 'cart/cart_item_has_not_been_found_response', Response::HTTP_NOT_FOUND);
+        $this->assertResponse($response, 'cart/cart_item_has_not_been_found_response', Response::HTTP_BAD_REQUEST);
     }
 
     /**
@@ -72,9 +69,6 @@ final class CartRemoveItemFromCartApiTest extends JsonApiTestCase
         $bus->handle(new PutVariantBasedConfigurableItemToCart($token, 'LOGAN_HAT_CODE', 'SMALL_RED_LOGAN_HAT_CODE', 10));
 
         $this->client->request('DELETE', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/items/2', [], [], ['ACCEPT' => 'application/json']);
-        $response = $this->client->getResponse();
-
-        $this->client->request('GET', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/reprocessed_cart_after_deleting_an_item', Response::HTTP_OK);

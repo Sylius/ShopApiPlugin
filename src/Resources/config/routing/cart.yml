@@ -34,11 +34,11 @@ shop_api_change_item_quantity:
     defaults:
         _controller: sylius.shop_api_plugin.controller.cart.change_item_quantity_action
 
-shop_api_remove_item:
+shop_api_remove_item_from_cart:
     path: /carts/{token}/items/{id}
     methods: [DELETE]
     defaults:
-        _controller: ShopApiPlugin:Cart:removeItem
+        _controller: sylius.shop_api_plugin.controller.cart.remove_item_from_cart_action
 
 shop_api_estimated_shipping_cost:
     path: /carts/{token}/estimated-shipping-cost
