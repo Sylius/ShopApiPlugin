@@ -23,8 +23,8 @@ final class PaginatorDetails
     public function __construct(string $route, array $parameters)
     {
         $this->route = $route;
-        $this->limit = $parameters['limit'] ?? 10;
-        $this->page = $parameters['page'] ?? 1;
+        $this->limit = (int) ($parameters['limit'] ?? 10);
+        $this->page = (int) ($parameters['page'] ?? 1);
         $this->parameters = $parameters;
     }
 
