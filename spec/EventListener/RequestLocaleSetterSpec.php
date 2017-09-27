@@ -1,11 +1,10 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\EventListener;
 
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Sylius\Component\Locale\Provider\LocaleProviderInterface;
 use Sylius\ShopApiPlugin\EventListener\RequestLocaleSetter;
 use Symfony\Component\HttpFoundation\Request;

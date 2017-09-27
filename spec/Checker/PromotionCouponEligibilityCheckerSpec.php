@@ -1,16 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Sylius\ShopApiPlugin\Checker;
 
+use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PromotionCouponInterface;
 use Sylius\Component\Core\Model\PromotionInterface;
 use Sylius\Component\Promotion\Checker\Eligibility\PromotionCouponEligibilityCheckerInterface;
 use Sylius\Component\Promotion\Checker\Eligibility\PromotionEligibilityCheckerInterface;
-use Sylius\ShopApiPlugin\Checker\PromotionCouponEligibilityChecker;
-use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 final class PromotionCouponEligibilityCheckerSpec extends ObjectBehavior
 {

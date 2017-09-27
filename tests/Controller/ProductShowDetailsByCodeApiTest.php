@@ -1,11 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
 use Lakion\ApiTestCase\JsonApiTestCase;
-use Sylius\Component\Core\Model\ProductInterface;
-use Sylius\Component\Product\Repository\ProductAssociationTypeRepositoryInterface;
-use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 final class ProductShowDetailsByCodeApiTest extends JsonApiTestCase

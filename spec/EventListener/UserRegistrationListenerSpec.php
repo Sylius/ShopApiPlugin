@@ -1,21 +1,19 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\EventListener;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use League\Tactician\CommandBus;
+use PhpSpec\ObjectBehavior;
 use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
-use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
 use Sylius\ShopApiPlugin\Command\GenerateVerificationToken;
 use Sylius\ShopApiPlugin\Command\SendVerificationToken;
 use Sylius\ShopApiPlugin\Event\CustomerRegistered;
-use PhpSpec\ObjectBehavior;
-use Symfony\Component\EventDispatcher\GenericEvent;
 
 final class UserRegistrationListenerSpec extends ObjectBehavior
 {

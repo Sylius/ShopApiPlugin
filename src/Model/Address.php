@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\Model;
 
 use Webmozart\Assert\Assert;
@@ -75,14 +77,14 @@ final class Address
         Assert::keyExists($address, 'countryCode');
         Assert::keyExists($address, 'postcode');
 
-        return new Address(
+        return new self(
             $address['firstName'],
             $address['lastName'],
             $address['city'],
             $address['street'],
             $address['countryCode'],
             $address['postcode'],
-            isset($address['provinceName']) ? $address['provinceName'] : null
+            $address['provinceName'] ?? null
         );
     }
 

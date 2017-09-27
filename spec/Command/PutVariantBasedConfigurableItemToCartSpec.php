@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Sylius\ShopApiPlugin\Command;
 
 use PhpSpec\ObjectBehavior;
-use Sylius\ShopApiPlugin\Command\PutVariantBasedConfigurableItemToCart;
 
 final class PutVariantBasedConfigurableItemToCartSpec extends ObjectBehavior
 {

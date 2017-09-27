@@ -1,14 +1,12 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Factory;
 
+use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\ProductReview;
 use Sylius\Component\Core\Model\ProductReviewerInterface;
-use Sylius\ShopApiPlugin\Factory\ProductReviewViewFactory;
-use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Sylius\ShopApiPlugin\Factory\ProductReviewViewFactoryInterface;
 use Sylius\ShopApiPlugin\View\ProductReviewView;
 

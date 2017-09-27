@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
 use Lakion\ApiTestCase\JsonApiTestCase;
@@ -61,7 +63,7 @@ final class CheckoutCompleteOrderApiTest extends JsonApiTestCase
 EOT;
         $this->client->request('PUT', sprintf('/shop-api/checkout/%s/complete', $token), [], [], [
             'CONTENT_TYPE' => 'application/json',
-            'ACCEPT' => 'application/json'
+            'ACCEPT' => 'application/json',
         ], $data);
 
         $response = $this->client->getResponse();
@@ -116,7 +118,7 @@ EOT;
 EOT;
         $this->client->request('PUT', sprintf('/shop-api/checkout/%s/complete', $token), [], [], [
             'CONTENT_TYPE' => 'application/json',
-            'ACCEPT' => 'application/json'
+            'ACCEPT' => 'application/json',
         ], $data);
 
         $response = $this->client->getResponse();

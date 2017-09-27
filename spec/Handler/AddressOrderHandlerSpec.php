@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Sylius\ShopApiPlugin\Handler;
 
+use PhpSpec\ObjectBehavior;
 use SM\Factory\FactoryInterface;
 use SM\StateMachine\StateMachineInterface;
 use Sylius\Component\Core\Factory\AddressFactoryInterface;
@@ -10,8 +13,6 @@ use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\OrderCheckoutTransitions;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\ShopApiPlugin\Command\AddressOrder as AddressShipmentCommand;
-use PhpSpec\ObjectBehavior;
-use Sylius\ShopApiPlugin\Handler\AddressOrderHandler;
 use Sylius\ShopApiPlugin\Model\Address;
 
 final class AddressOrderHandlerSpec extends ObjectBehavior
@@ -105,7 +106,7 @@ final class AddressOrderHandlerSpec extends ObjectBehavior
                     'postcode' => 'NWB',
                     'provinceName' => 'Greater London',
                 ])
-            )
+            ),
         ]);
     }
 
@@ -141,7 +142,7 @@ final class AddressOrderHandlerSpec extends ObjectBehavior
                     'postcode' => 'NWB',
                     'provinceName' => 'Greater London',
                 ])
-            )
+            ),
         ]);
     }
 }

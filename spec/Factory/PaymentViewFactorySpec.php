@@ -1,17 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Sylius\ShopApiPlugin\Factory;
 
+use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
-use Sylius\ShopApiPlugin\Factory\PaymentViewFactory;
-use Sylius\ShopApiPlugin\Factory\PaymentViewFactoryInterface;
-use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Sylius\ShopApiPlugin\Factory\PaymentMethodViewFactoryInterface;
+use Sylius\ShopApiPlugin\Factory\PaymentViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\PriceViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\PaymentView;
 use Sylius\ShopApiPlugin\View\PaymentMethodView;
+use Sylius\ShopApiPlugin\View\PaymentView;
 use Sylius\ShopApiPlugin\View\PriceView;
 
 final class PaymentViewFactorySpec extends ObjectBehavior

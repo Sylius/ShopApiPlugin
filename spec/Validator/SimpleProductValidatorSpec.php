@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Sylius\ShopApiPlugin\Validator;
 
-use Prophecy\Argument;
 use PhpSpec\ObjectBehavior;
+use Prophecy\Argument;
 use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
-use Sylius\ShopApiPlugin\Validator\SimpleProductValidator;
 use Sylius\ShopApiPlugin\Validator\Constraints\SimpleProduct;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
@@ -22,7 +23,7 @@ final class SimpleProductValidatorSpec extends ObjectBehavior
 
     function it_is_constraint_validator()
     {
-        $this->shouldHaveType( ConstraintValidator::class);
+        $this->shouldHaveType(ConstraintValidator::class);
     }
 
     function it_does_not_add_constraint_if_product_is_simple(

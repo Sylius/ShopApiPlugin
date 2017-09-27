@@ -1,21 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Sylius\ShopApiPlugin\Handler;
 
+use PhpSpec\ObjectBehavior;
 use SM\Factory\FactoryInterface as StateMachineFactoryInterface;
 use SM\StateMachine\StateMachineInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\OrderCheckoutTransitions;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use PhpSpec\ObjectBehavior;
 use Sylius\ShopApiPlugin\Command\CompleteOrder;
-use Sylius\ShopApiPlugin\Handler\CompleteOrderHandler;
 use Sylius\ShopApiPlugin\Provider\CustomerProviderInterface;
 
 final class CompleteOrderHandlerSpec extends ObjectBehavior
 {
-    function let(OrderRepositoryInterface $orderRepository, CustomerProviderInterface $customerProvider, StateMachineFactoryInterface $stateMachineFactory) {
+    function let(OrderRepositoryInterface $orderRepository, CustomerProviderInterface $customerProvider, StateMachineFactoryInterface $stateMachineFactory)
+    {
         $this->beConstructedWith($orderRepository, $customerProvider, $stateMachineFactory);
     }
 

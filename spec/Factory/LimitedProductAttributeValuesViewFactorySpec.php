@@ -1,11 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Sylius\ShopApiPlugin\Factory;
 
-use Sylius\Component\Product\Model\ProductAttributeValueInterface;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
-use Sylius\ShopApiPlugin\Factory\LimitedProductAttributeValuesViewFactory;
+use Sylius\Component\Product\Model\ProductAttributeValueInterface;
 use Sylius\ShopApiPlugin\Factory\ProductAttributeValuesViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\ProductAttributeValueViewFactoryInterface;
 use Sylius\ShopApiPlugin\View\ProductAttributeValueView;

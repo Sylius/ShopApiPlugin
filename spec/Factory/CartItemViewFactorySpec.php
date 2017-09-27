@@ -1,14 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Sylius\ShopApiPlugin\Factory;
 
+use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
-use Sylius\ShopApiPlugin\Factory\CartItemViewFactory;
-use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Sylius\ShopApiPlugin\Factory\CartItemViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\ProductVariantViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\ProductViewFactoryInterface;
@@ -44,7 +44,7 @@ final class CartItemViewFactorySpec extends ObjectBehavior
         $cartItem->getProduct()->willReturn($tshirt);
         $cartItem->getVariant()->willReturn($tshirtVariant);
 
-        $productViewFactory->create($tshirt, $channel,'en_GB')->willReturn(new ProductView());
+        $productViewFactory->create($tshirt, $channel, 'en_GB')->willReturn(new ProductView());
 
         $productVariantViewFactory->create($tshirtVariant, $channel, 'en_GB')->willReturn(new ProductVariantView());
 

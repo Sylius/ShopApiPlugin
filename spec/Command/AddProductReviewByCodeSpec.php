@@ -1,11 +1,10 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Command;
 
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 final class AddProductReviewByCodeSpec extends ObjectBehavior
 {

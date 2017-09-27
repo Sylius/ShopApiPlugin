@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
 use Lakion\ApiTestCase\JsonApiTestCase;
 use League\Tactician\CommandBus;
 use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\ShopApiPlugin\Command\AddCoupon;
 use Sylius\ShopApiPlugin\Command\AddressOrder;
 use Sylius\ShopApiPlugin\Command\ChoosePaymentMethod;
 use Sylius\ShopApiPlugin\Command\ChooseShippingMethod;

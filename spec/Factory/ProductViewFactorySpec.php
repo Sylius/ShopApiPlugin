@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Sylius\ShopApiPlugin\Factory;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\ProductImageInterface;
 use Sylius\Component\Core\Model\ProductInterface;
@@ -11,14 +14,10 @@ use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Product\Model\ProductAttributeValueInterface;
 use Sylius\ShopApiPlugin\Factory\ImageViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\ProductAttributeValuesViewFactoryInterface;
-use Sylius\ShopApiPlugin\Factory\ProductViewFactory;
-use PhpSpec\ObjectBehavior;
 use Sylius\ShopApiPlugin\Factory\ProductViewFactoryInterface;
-use Sylius\ShopApiPlugin\Factory\TaxonViewFactoryInterface;
 use Sylius\ShopApiPlugin\View\ImageView;
 use Sylius\ShopApiPlugin\View\ProductTaxonView;
 use Sylius\ShopApiPlugin\View\ProductView;
-use Sylius\ShopApiPlugin\View\TaxonView;
 
 final class ProductViewFactorySpec extends ObjectBehavior
 {

@@ -1,16 +1,14 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Provider;
 
+use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
-use Sylius\ShopApiPlugin\Provider\CustomerProvider;
 use Sylius\ShopApiPlugin\Provider\CustomerProviderInterface;
-use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 final class CustomerProviderSpec extends ObjectBehavior
 {

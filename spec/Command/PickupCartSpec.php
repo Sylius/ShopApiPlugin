@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Sylius\ShopApiPlugin\Command;
 
-use Sylius\ShopApiPlugin\Command\PickupCart;
 use PhpSpec\ObjectBehavior;
 
 final class PickupCartSpec extends ObjectBehavior

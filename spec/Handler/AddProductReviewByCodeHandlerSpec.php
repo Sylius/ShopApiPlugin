@@ -1,18 +1,17 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Handler;
 
+use PhpSpec\ObjectBehavior;
 use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Model\ProductReviewerInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Sylius\Component\Core\Repository\ProductReviewRepositoryInterface;
-use Sylius\Component\Locale\Model\LocaleInterface;
 use Sylius\Component\Review\Factory\ReviewFactoryInterface;
-use PhpSpec\ObjectBehavior;
 use Sylius\Component\Review\Model\ReviewInterface;
 use Sylius\ShopApiPlugin\Command\AddProductReviewByCode;
 use Sylius\ShopApiPlugin\Provider\ProductReviewerProviderInterface;
@@ -54,7 +53,7 @@ final class AddProductReviewByCodeHandlerSpec extends ObjectBehavior
 
         $productReviewRepository->add($productReview)->shouldBeCalled();
 
-        $this->handle(new AddProductReviewByCode('LOGAN_MUG_CODE','WEB_GB', 'Perfect product', 5, 'It is so awesome :)', 'example@shop.com'));
+        $this->handle(new AddProductReviewByCode('LOGAN_MUG_CODE', 'WEB_GB', 'Perfect product', 5, 'It is so awesome :)', 'example@shop.com'));
     }
 
     function it_throws_an_exception_if_channel_has_not_been_found(ChannelRepositoryInterface $channelRepository)
@@ -64,7 +63,7 @@ final class AddProductReviewByCodeHandlerSpec extends ObjectBehavior
         $this
             ->shouldThrow(\InvalidArgumentException::class)
             ->during('handle', [
-                new AddProductReviewByCode('LOGAN_MUG_CODE','WEB_GB', 'Perfect product', 5, 'It is so awesome :)', 'example@shop.com')
+                new AddProductReviewByCode('LOGAN_MUG_CODE', 'WEB_GB', 'Perfect product', 5, 'It is so awesome :)', 'example@shop.com'),
             ])
         ;
     }
@@ -81,7 +80,7 @@ final class AddProductReviewByCodeHandlerSpec extends ObjectBehavior
         $this
             ->shouldThrow(\InvalidArgumentException::class)
             ->during('handle', [
-                new AddProductReviewByCode('LOGAN_MUG_CODE','WEB_GB', 'Perfect product', 5, 'It is so awesome :)', 'example@shop.com')
+                new AddProductReviewByCode('LOGAN_MUG_CODE', 'WEB_GB', 'Perfect product', 5, 'It is so awesome :)', 'example@shop.com'),
             ])
         ;
     }
@@ -100,7 +99,7 @@ final class AddProductReviewByCodeHandlerSpec extends ObjectBehavior
         $this
             ->shouldThrow(\InvalidArgumentException::class)
             ->during('handle', [
-                new AddProductReviewByCode('LOGAN_MUG_CODE','WEB_GB', 'Perfect product', 5, 'It is so awesome :)', 'example@shop.com')
+                new AddProductReviewByCode('LOGAN_MUG_CODE', 'WEB_GB', 'Perfect product', 5, 'It is so awesome :)', 'example@shop.com'),
             ])
         ;
     }

@@ -1,18 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
 use Lakion\ApiTestCase\JsonApiTestCase;
 use League\Tactician\CommandBus;
-use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\ShopApiPlugin\Command\AddCoupon;
-use Sylius\ShopApiPlugin\Command\AddressOrder;
-use Sylius\ShopApiPlugin\Command\ChoosePaymentMethod;
-use Sylius\ShopApiPlugin\Command\ChooseShippingMethod;
-use Sylius\ShopApiPlugin\Command\CompleteOrder;
 use Sylius\ShopApiPlugin\Command\PickupCart;
-use Sylius\ShopApiPlugin\Command\PutSimpleItemToCart;
-use Sylius\ShopApiPlugin\Model\Address;
 use Symfony\Component\HttpFoundation\Response;
 
 final class CartPutItemsToCartApiTest extends JsonApiTestCase
@@ -57,7 +51,7 @@ EOT;
         $this->client->request('POST', sprintf('/shop-api/carts/%s/multiple-items', $token), [], [], static::$acceptAndContentTypeHeader, $data);
         $response = $this->client->getResponse();
 
-        $this->assertResponse($response, 'cart/add_multiple_products_to_cart_response',Response::HTTP_CREATED);
+        $this->assertResponse($response, 'cart/add_multiple_products_to_cart_response', Response::HTTP_CREATED);
     }
 
     /**
@@ -98,7 +92,7 @@ EOT;
         $this->client->request('GET', sprintf('/shop-api/carts/%s', $token), [], [], static::$acceptAndContentTypeHeader, $data);
         $response = $this->client->getResponse();
 
-        $this->assertResponse($response, 'cart/empty_response',Response::HTTP_OK);
+        $this->assertResponse($response, 'cart/empty_response', Response::HTTP_OK);
     }
 
     /**
@@ -137,6 +131,6 @@ EOT;
         $this->client->request('POST', sprintf('/shop-api/carts/%s/multiple-items', $token), [], [], static::$acceptAndContentTypeHeader, $data);
         $response = $this->client->getResponse();
 
-        $this->assertResponse($response, 'cart/add_multiple_products_to_cart_validation_error_response',Response::HTTP_BAD_REQUEST);
+        $this->assertResponse($response, 'cart/add_multiple_products_to_cart_validation_error_response', Response::HTTP_BAD_REQUEST);
     }
 }

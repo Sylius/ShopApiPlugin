@@ -83,6 +83,7 @@ EOT;
 
         /** @var EmailCheckerInterface $emailChecker */
         $emailChecker = $this->get('sylius.behat.email_checker');
+
         try {
             Assert::assertFalse($emailChecker->hasRecipient('vinny@fandf.com'));
         } catch (\InvalidArgumentException $exception) {

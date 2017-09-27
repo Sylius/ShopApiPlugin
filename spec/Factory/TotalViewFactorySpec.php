@@ -1,12 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Sylius\ShopApiPlugin\Factory;
 
-use Sylius\Component\Core\Model\Order;
-use Sylius\ShopApiPlugin\Factory\TotalViewFactory;
-use Sylius\ShopApiPlugin\Factory\TotalViewFactoryInterface;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
+use Sylius\Component\Core\Model\Order;
+use Sylius\ShopApiPlugin\Factory\TotalViewFactoryInterface;
 use Sylius\ShopApiPlugin\View\TotalsView;
 
 final class TotalViewFactorySpec extends ObjectBehavior

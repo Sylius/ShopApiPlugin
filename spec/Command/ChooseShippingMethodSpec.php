@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Sylius\ShopApiPlugin\Command;
 
-use Sylius\ShopApiPlugin\Command\ChooseShippingMethod;
 use PhpSpec\ObjectBehavior;
 
 final class ChooseShippingMethodSpec extends ObjectBehavior

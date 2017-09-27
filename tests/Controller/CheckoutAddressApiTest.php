@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
 use Lakion\ApiTestCase\JsonApiTestCase;
@@ -127,7 +129,7 @@ EOT;
         }
 EOT;
 
-        $this->client->request('PUT', sprintf('/shop-api/checkout/%s/address', $token) , [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('PUT', sprintf('/shop-api/checkout/%s/address', $token), [], [], static::$acceptAndContentTypeHeader, $data);
 
         $response = $this->client->getResponse();
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);

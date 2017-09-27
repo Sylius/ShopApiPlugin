@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\Command;
 
 use Webmozart\Assert\Assert;
@@ -17,7 +19,7 @@ final class CompleteOrder
     private $email;
 
     /**
-     * @var null|string
+     * @var string|null
      */
     private $notes;
 

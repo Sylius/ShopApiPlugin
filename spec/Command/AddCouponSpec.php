@@ -1,10 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Sylius\ShopApiPlugin\Command;
 
-use Sylius\ShopApiPlugin\Command\AddCoupon;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 final class AddCouponSpec extends ObjectBehavior
 {

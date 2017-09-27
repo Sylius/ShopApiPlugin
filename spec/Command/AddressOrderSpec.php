@@ -1,11 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Sylius\ShopApiPlugin\Command;
 
-use Sylius\ShopApiPlugin\Command\AddressCart;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
-use Sylius\ShopApiPlugin\Command\AddressOrder;
 use Sylius\ShopApiPlugin\Model\Address;
 
 final class AddressOrderSpec extends ObjectBehavior

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Provider;
 
@@ -28,7 +28,7 @@ final class CustomerProvider implements CustomerProviderInterface
 
     public function provide(string $email): CustomerInterface
     {
-        $customer =  $this->customerRepository->findOneBy(['email' => $email]);
+        $customer = $this->customerRepository->findOneBy(['email' => $email]);
 
         if (null === $customer) {
             /** @var CustomerInterface $customer */

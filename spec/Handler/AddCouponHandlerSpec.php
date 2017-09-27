@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Sylius\ShopApiPlugin\Handler;
 
-use Prophecy\Argument;
+use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PromotionCouponInterface;
@@ -13,8 +15,6 @@ use Sylius\Component\Promotion\Checker\Eligibility\PromotionCouponEligibilityChe
 use Sylius\Component\Promotion\Checker\Eligibility\PromotionEligibilityCheckerInterface;
 use Sylius\Component\Promotion\Repository\PromotionCouponRepositoryInterface;
 use Sylius\ShopApiPlugin\Command\AddCoupon;
-use PhpSpec\ObjectBehavior;
-use Sylius\ShopApiPlugin\Handler\AddCouponHandler;
 
 final class AddCouponHandlerSpec extends ObjectBehavior
 {
