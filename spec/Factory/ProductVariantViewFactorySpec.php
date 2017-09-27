@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Sylius\ShopApiPlugin\Factory;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\ChannelPricingInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
@@ -12,7 +15,6 @@ use Sylius\Component\Product\Model\ProductOptionValueInterface;
 use Sylius\Component\Product\Model\ProductOptionValueTranslationInterface;
 use Sylius\Component\Product\Model\ProductVariantTranslationInterface;
 use Sylius\ShopApiPlugin\Factory\PriceViewFactoryInterface;
-use Sylius\ShopApiPlugin\Factory\ProductVariantViewFactory;
 use PhpSpec\ObjectBehavior;
 use Sylius\ShopApiPlugin\Factory\ProductVariantViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\ViewCreationException;
@@ -52,7 +54,10 @@ final class ProductVariantViewFactorySpec extends ObjectBehavior
         $variant->getCode()->willReturn('SMALL_RED_LOGAN_HAT_CODE');
         $variant->getTranslation('en_GB')->willReturn($productVariantTranslation);
         $variant->getChannelPricingForChannel($channel)->willReturn($channelPrice);
-        $variant->getOptionValues()->willReturn([$firstOptionValue, $secondOptionValue]);
+        $variant->getOptionValues()->willReturn(new ArrayCollection([
+            $firstOptionValue->getWrappedObject(),
+            $secondOptionValue->getWrappedObject(),
+        ]));
 
         $priceViewFactory->create(500, 'PLN')->willReturn(new PriceView());
 
@@ -105,7 +110,10 @@ final class ProductVariantViewFactorySpec extends ObjectBehavior
         $variant->getCode()->willReturn('SMALL_RED_LOGAN_HAT_CODE');
         $variant->getTranslation('en_GB')->willReturn($productVariantTranslation);
         $variant->getChannelPricingForChannel($channel)->willReturn(null);
-        $variant->getOptionValues()->willReturn([$firstOptionValue, $secondOptionValue]);
+        $variant->getOptionValues()->willReturn(new ArrayCollection([
+            $firstOptionValue->getWrappedObject(),
+            $secondOptionValue->getWrappedObject(),
+        ]));
 
         $firstOptionValue->getCode()->willReturn('HAT_SIZE_S');
         $firstOptionValue->getTranslation('en_GB')->willReturn($firstOptionValueTranslation);

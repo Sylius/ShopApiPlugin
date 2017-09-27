@@ -30,13 +30,4 @@ final class ProductReviewerProviderSpec extends ObjectBehavior
 
         $this->provide('example@customer.com')->shouldReturn($reviewer);
     }
-
-    function it_throws_an_exception_if_customer_provider_will_not_provide_product_reviewer(
-        CustomerInterface $customer,
-        CustomerProviderInterface $customerProvider
-    ) {
-        $customerProvider->provide('example@customer.com')->willReturn($customer);
-
-        $this->shouldThrow(\InvalidArgumentException::class)->during('provide', ['example@customer.com']);
-    }
 }

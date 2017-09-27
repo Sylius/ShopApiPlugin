@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace spec\Sylius\ShopApiPlugin\ViewRepository;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\ProductInterface;
@@ -38,7 +39,7 @@ final class ProductDetailsViewRepositorySpec extends ObjectBehavior
         ProductInterface $product,
         ProductView $productView
     ) {
-        $channel->getLocales()->willReturn([$locale]);
+        $channel->getLocales()->willReturn(new ArrayCollection([$locale->getWrappedObject()]));
         $locale->getCode()->willReturn('en_GB');
 
         $channelRepository->findOneByCode('WEB_GB')->willReturn($channel);
@@ -58,7 +59,7 @@ final class ProductDetailsViewRepositorySpec extends ObjectBehavior
         ProductInterface $product,
         ProductView $productView
     ) {
-        $channel->getLocales()->willReturn([$locale]);
+        $channel->getLocales()->willReturn(new ArrayCollection([$locale->getWrappedObject()]));
 
         $channel->getDefaultLocale()->willReturn($locale);
         $locale->getCode()->willReturn('en_GB');
@@ -76,7 +77,7 @@ final class ProductDetailsViewRepositorySpec extends ObjectBehavior
         LocaleInterface $locale
     ) {
         $channelRepository->findOneByCode('WEB_GB')->willReturn($channel);
-        $channel->getLocales()->willReturn([$locale]);
+        $channel->getLocales()->willReturn(new ArrayCollection([$locale->getWrappedObject()]));
 
         $locale->getCode()->willReturn('en_GB');
 
@@ -98,7 +99,7 @@ final class ProductDetailsViewRepositorySpec extends ObjectBehavior
         ChannelInterface $channel,
         LocaleInterface $locale
     ) {
-        $channel->getLocales()->willReturn([$locale]);
+        $channel->getLocales()->willReturn(new ArrayCollection([$locale->getWrappedObject()]));
         $locale->getCode()->willReturn('en_GB');
 
         $channelRepository->findOneByCode('WEB_GB')->willReturn($channel);
@@ -116,7 +117,7 @@ final class ProductDetailsViewRepositorySpec extends ObjectBehavior
         ProductInterface $product,
         ProductView $productView
     ) {
-        $channel->getLocales()->willReturn([$locale]);
+        $channel->getLocales()->willReturn(new ArrayCollection([$locale->getWrappedObject()]));
         $locale->getCode()->willReturn('en_GB');
 
         $product->hasChannel($channel)->willReturn(true);
@@ -138,7 +139,7 @@ final class ProductDetailsViewRepositorySpec extends ObjectBehavior
         ProductInterface $product,
         ProductView $productView
     ) {
-        $channel->getLocales()->willReturn([$locale]);
+        $channel->getLocales()->willReturn(new ArrayCollection([$locale->getWrappedObject()]));
         $channel->getDefaultLocale()->willReturn($locale);
         $locale->getCode()->willReturn('en_GB');
 
@@ -158,7 +159,7 @@ final class ProductDetailsViewRepositorySpec extends ObjectBehavior
         ChannelInterface $channel,
         LocaleInterface $locale
     ) {
-        $channel->getLocales()->willReturn([$locale]);
+        $channel->getLocales()->willReturn(new ArrayCollection([$locale->getWrappedObject()]));
         $locale->getCode()->willReturn('en_GB');
 
         $channelRepository->findOneByCode('WEB_GB')->willReturn($channel);
@@ -174,7 +175,7 @@ final class ProductDetailsViewRepositorySpec extends ObjectBehavior
         LocaleInterface $locale,
         ProductInterface $product
     ) {
-        $channel->getLocales()->willReturn([$locale]);
+        $channel->getLocales()->willReturn(new ArrayCollection([$locale->getWrappedObject()]));
         $locale->getCode()->willReturn('en_GB');
 
         $product->hasChannel($channel)->willReturn(false);

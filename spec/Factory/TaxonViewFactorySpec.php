@@ -2,6 +2,7 @@
 
 namespace spec\Sylius\ShopApiPlugin\Factory;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Sylius\Component\Core\Model\ImageInterface;
 use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Taxonomy\Model\TaxonTranslationInterface;
@@ -33,7 +34,7 @@ final class TaxonViewFactorySpec extends ObjectBehavior
         $taxon->getCode()->willReturn('CATEGORY_CODE');
         $taxon->getPosition()->willReturn(0);
         $taxon->getTranslation('en_GB')->willReturn($taxonTranslation);
-        $taxon->getImages()->willReturn([$image]);
+        $taxon->getImages()->willReturn(new ArrayCollection([$image->getWrappedObject()]));
 
         $taxonTranslation->getName()->willReturn('Category');
         $taxonTranslation->getSlug()->willReturn('category');

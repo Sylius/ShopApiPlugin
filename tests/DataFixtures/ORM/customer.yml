@@ -13,10 +13,8 @@ Sylius\Component\Core\Model\Customer:
         lastName: "Queen"
         email: "oliver@queen.com"
         emailCanonical: "oliver@queen.com"
-        birthday: "<date()>"
     hater:
         firstName: "Slade"
         lastName: "Wilson"
         email: "slade@wilson.com"
         emailCanonical: "oliver@queen.com"
-        birthday: "<date()>"

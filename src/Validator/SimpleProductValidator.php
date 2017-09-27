@@ -26,6 +26,10 @@ final class SimpleProductValidator extends ConstraintValidator
      */
     public function validate($productCode, Constraint $constraint)
     {
+        if (null === $productCode) {
+            return;
+        }
+
         $product = $this->productRepository->findOneByCode($productCode);
 
         if (null === $product || $product->isSimple()) {
