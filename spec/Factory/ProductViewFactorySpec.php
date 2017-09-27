@@ -2,6 +2,7 @@
 
 namespace spec\Sylius\ShopApiPlugin\Factory;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\ProductImageInterface;
 use Sylius\Component\Core\Model\ProductInterface;
@@ -55,16 +56,19 @@ final class ProductViewFactorySpec extends ObjectBehavior
         $product->getCode()->willReturn('HAT_CODE');
         $product->getAverageRating()->willReturn(5);
         $product->getTranslation('en_GB')->willReturn($productTranslation);
-        $product->getImages()->willReturn([$firstProductImage, $secondProductImage]);
-        $product->getTaxons()->willReturn([$taxon]);
+        $product->getImages()->willReturn(new ArrayCollection([
+            $firstProductImage->getWrappedObject(),
+            $secondProductImage->getWrappedObject(),
+        ]));
+        $product->getTaxons()->willReturn(new ArrayCollection([$taxon->getWrappedObject()]));
         $product->getMainTaxon()->willReturn($mainTaxon);
-        $product->getAttributesByLocale('en_GB', 'en_GB')->willReturn([$productAttributeValue]);
+        $product->getAttributesByLocale('en_GB', 'en_GB')->willReturn(new ArrayCollection([$productAttributeValue->getWrappedObject()]));
 
         $taxon->getCode()->willReturn('TAXON');
         $mainTaxon->getCode()->willReturn('MAIN');
 
-        $firstProductImage->getProductVariants()->willReturn([]);
-        $secondProductImage->getProductVariants()->willReturn([]);
+        $firstProductImage->getProductVariants()->willReturn(new ArrayCollection([]));
+        $secondProductImage->getProductVariants()->willReturn(new ArrayCollection([]));
 
         $imageViewFactory->create($firstProductImage)->willReturn(new ImageView());
         $imageViewFactory->create($secondProductImage)->willReturn(new ImageView());

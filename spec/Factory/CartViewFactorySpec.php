@@ -2,6 +2,7 @@
 
 namespace spec\Sylius\ShopApiPlugin\Factory;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\AdjustmentInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
@@ -12,7 +13,6 @@ use Sylius\Component\Core\Model\ShipmentInterface;
 use Sylius\ShopApiPlugin\Factory\AddressViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\AdjustmentViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\CartItemViewFactoryInterface;
-use Sylius\ShopApiPlugin\Factory\CartViewFactory;
 use PhpSpec\ObjectBehavior;
 use Sylius\ShopApiPlugin\Factory\CartViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\PaymentViewFactoryInterface;
@@ -56,12 +56,18 @@ final class CartViewFactorySpec extends ObjectBehavior
         $cart->getCurrencyCode()->willReturn('GBP');
         $cart->getCheckoutState()->willReturn('cart');
         $cart->getTokenValue()->willReturn('ORDERTOKEN');
-        $cart->getItems()->willReturn([$firstOrderItem, $secondOrderItem]);
+        $cart->getItems()->willReturn(new ArrayCollection([
+            $firstOrderItem->getWrappedObject(),
+            $secondOrderItem->getWrappedObject(),
+        ]));
         $cart->getShippingAddress()->willReturn(null);
         $cart->getBillingAddress()->willReturn(null);
-        $cart->getShipments()->willReturn([]);
-        $cart->getPayments()->willReturn([]);
-        $cart->getAdjustmentsRecursively(AdjustmentInterface::ORDER_PROMOTION_ADJUSTMENT)->willReturn([]);
+        $cart->getShipments()->willReturn(new ArrayCollection([]));
+        $cart->getPayments()->willReturn(new ArrayCollection([]));
+        $cart
+            ->getAdjustmentsRecursively(AdjustmentInterface::ORDER_PROMOTION_ADJUSTMENT)
+            ->willReturn(new ArrayCollection([]))
+        ;
 
         $channel->getCode()->willReturn('WEB_GB');
 
@@ -97,12 +103,18 @@ final class CartViewFactorySpec extends ObjectBehavior
         $cart->getCurrencyCode()->willReturn('GBP');
         $cart->getCheckoutState()->willReturn('cart');
         $cart->getTokenValue()->willReturn('ORDERTOKEN');
-        $cart->getItems()->willReturn([$firstOrderItem, $secondOrderItem]);
+        $cart->getItems()->willReturn(new ArrayCollection([
+            $firstOrderItem->getWrappedObject(),
+            $secondOrderItem->getWrappedObject(),
+        ]));
         $cart->getShippingAddress()->willReturn($shippingAddress);
         $cart->getBillingAddress()->willReturn($billingAddress);
-        $cart->getShipments()->willReturn([]);
-        $cart->getPayments()->willReturn([]);
-        $cart->getAdjustmentsRecursively(AdjustmentInterface::ORDER_PROMOTION_ADJUSTMENT)->willReturn([]);
+        $cart->getShipments()->willReturn(new ArrayCollection([]));
+        $cart->getPayments()->willReturn(new ArrayCollection([]));
+        $cart
+            ->getAdjustmentsRecursively(AdjustmentInterface::ORDER_PROMOTION_ADJUSTMENT)
+            ->willReturn(new ArrayCollection([]))
+        ;
 
         $channel->getCode()->willReturn('WEB_GB');
 
@@ -146,12 +158,18 @@ final class CartViewFactorySpec extends ObjectBehavior
         $cart->getTokenValue()->willReturn('ORDERTOKEN');
         $cart->getShippingTotal()->willReturn(500);
         $cart->getTaxTotal()->willReturn(600);
-        $cart->getItems()->willReturn([$firstOrderItem, $secondOrderItem]);
+        $cart->getItems()->willReturn(new ArrayCollection([
+            $firstOrderItem->getWrappedObject(),
+            $secondOrderItem->getWrappedObject(),
+        ]));
         $cart->getShippingAddress()->willReturn(null);
         $cart->getBillingAddress()->willReturn(null);
-        $cart->getShipments()->willReturn([$shipment]);
-        $cart->getPayments()->willReturn([]);
-        $cart->getAdjustmentsRecursively(AdjustmentInterface::ORDER_PROMOTION_ADJUSTMENT)->willReturn([]);
+        $cart->getShipments()->willReturn(new ArrayCollection([$shipment->getWrappedObject()]));
+        $cart->getPayments()->willReturn(new ArrayCollection([]));
+        $cart
+            ->getAdjustmentsRecursively(AdjustmentInterface::ORDER_PROMOTION_ADJUSTMENT)
+            ->willReturn(new ArrayCollection([]))
+        ;
 
         $channel->getCode()->willReturn('WEB_GB');
 
@@ -192,12 +210,18 @@ final class CartViewFactorySpec extends ObjectBehavior
         $cart->getTokenValue()->willReturn('ORDERTOKEN');
         $cart->getShippingTotal()->willReturn(500);
         $cart->getTaxTotal()->willReturn(600);
-        $cart->getItems()->willReturn([$firstOrderItem, $secondOrderItem]);
+        $cart->getItems()->willReturn(new ArrayCollection([
+            $firstOrderItem->getWrappedObject(),
+            $secondOrderItem->getWrappedObject(),
+        ]));
         $cart->getShippingAddress()->willReturn(null);
         $cart->getBillingAddress()->willReturn(null);
-        $cart->getShipments()->willReturn([]);
-        $cart->getPayments()->willReturn([$payment]);
-        $cart->getAdjustmentsRecursively(AdjustmentInterface::ORDER_PROMOTION_ADJUSTMENT)->willReturn([]);
+        $cart->getShipments()->willReturn(new ArrayCollection([]));
+        $cart->getPayments()->willReturn(new ArrayCollection([$payment->getWrappedObject()]));
+        $cart
+            ->getAdjustmentsRecursively(AdjustmentInterface::ORDER_PROMOTION_ADJUSTMENT)
+            ->willReturn(new ArrayCollection([]))
+        ;
 
         $channel->getCode()->willReturn('WEB_GB');
 
@@ -237,12 +261,15 @@ final class CartViewFactorySpec extends ObjectBehavior
         $cart->getTokenValue()->willReturn('ORDERTOKEN');
         $cart->getShippingTotal()->willReturn(500);
         $cart->getTaxTotal()->willReturn(600);
-        $cart->getItems()->willReturn([$orderItem]);
+        $cart->getItems()->willReturn(new ArrayCollection([$orderItem->getWrappedObject()]));
         $cart->getShippingAddress()->willReturn(null);
         $cart->getBillingAddress()->willReturn(null);
-        $cart->getShipments()->willReturn([]);
-        $cart->getPayments()->willReturn([]);
-        $cart->getAdjustmentsRecursively(AdjustmentInterface::ORDER_PROMOTION_ADJUSTMENT)->willReturn([$adjustment]);
+        $cart->getShipments()->willReturn(new ArrayCollection([]));
+        $cart->getPayments()->willReturn(new ArrayCollection([]));
+        $cart
+            ->getAdjustmentsRecursively(AdjustmentInterface::ORDER_PROMOTION_ADJUSTMENT)
+            ->willReturn(new ArrayCollection([$adjustment->getWrappedObject()]))
+        ;
 
         $channel->getCode()->willReturn('WEB_GB');
 
@@ -283,12 +310,15 @@ final class CartViewFactorySpec extends ObjectBehavior
         $cart->getTokenValue()->willReturn('ORDERTOKEN');
         $cart->getShippingTotal()->willReturn(500);
         $cart->getTaxTotal()->willReturn(600);
-        $cart->getItems()->willReturn([$orderItem]);
+        $cart->getItems()->willReturn(new ArrayCollection([$orderItem->getWrappedObject()]));
         $cart->getShippingAddress()->willReturn(null);
         $cart->getBillingAddress()->willReturn(null);
-        $cart->getShipments()->willReturn([]);
-        $cart->getPayments()->willReturn([]);
-        $cart->getAdjustmentsRecursively(AdjustmentInterface::ORDER_PROMOTION_ADJUSTMENT)->willReturn([$adjustment, $similarAdjustment]);
+        $cart->getShipments()->willReturn(new ArrayCollection([]));
+        $cart->getPayments()->willReturn(new ArrayCollection([]));
+        $cart
+            ->getAdjustmentsRecursively(AdjustmentInterface::ORDER_PROMOTION_ADJUSTMENT)
+            ->willReturn(new ArrayCollection([$adjustment->getWrappedObject(), $similarAdjustment->getWrappedObject()]))
+        ;
 
         $channel->getCode()->willReturn('WEB_GB');
 

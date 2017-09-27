@@ -43,7 +43,7 @@ final class OrderShipmentProcessor implements OrderProcessorInterface
     /**
      * {@inheritdoc}
      */
-    public function process(BaseOrderInterface $order)
+    public function process(BaseOrderInterface $order): void
     {
         /** @var OrderInterface $order */
         Assert::isInstanceOf($order, OrderInterface::class);
@@ -72,11 +72,11 @@ final class OrderShipmentProcessor implements OrderProcessorInterface
     }
 
     /**
-     * @param BaseOrderInterface $order
+     * @param OrderInterface $order
      *
-     * @return ShipmentInterface
+     * @return ShipmentInterface|null
      */
-    private function getOrderShipment(BaseOrderInterface $order)
+    private function getOrderShipment(OrderInterface $order): ?ShipmentInterface
     {
         if ($order->hasShipments()) {
             return $order->getShipments()->first();

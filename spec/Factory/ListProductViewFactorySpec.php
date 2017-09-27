@@ -2,6 +2,7 @@
 
 namespace spec\Sylius\ShopApiPlugin\Factory;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\ProductImageInterface;
 use Sylius\Component\Core\Model\ProductInterface;
@@ -46,19 +47,22 @@ final class ListProductViewFactorySpec extends ObjectBehavior
         ProductVariantInterface $secondProductVariant,
         ProductVariantViewFactoryInterface $variantViewFactory
     ) {
-        $product->getVariants()->willReturn([$firstProductVariant, $secondProductVariant]);
-        $product->getImages()->willReturn([]);
-        $product->getAssociations()->willReturn([$productAssociation]);
+        $product->getVariants()->willReturn(new ArrayCollection([
+            $firstProductVariant->getWrappedObject(),
+            $secondProductVariant->getWrappedObject(),
+        ]));
+        $product->getImages()->willReturn(new ArrayCollection([]));
+        $product->getAssociations()->willReturn(new ArrayCollection([$productAssociation->getWrappedObject()]));
 
         $firstProductVariant->getCode()->willReturn('S_HAT_CODE');
         $secondProductVariant->getCode()->willReturn('L_HAT_CODE');
         $associatedProductVariant->getCode()->willReturn('SMALL_MUG_CODE');
 
         $productAssociation->getType()->willReturn($associationType);
-        $productAssociation->getAssociatedProducts()->willReturn([$associatedProduct]);
-        $associatedProduct->getVariants()->willReturn([$associatedProductVariant]);
+        $productAssociation->getAssociatedProducts()->willReturn(new ArrayCollection([$associatedProduct->getWrappedObject()]));
+        $associatedProduct->getVariants()->willReturn(new ArrayCollection([$associatedProductVariant->getWrappedObject()]));
 
-        $associatedProduct->getImages()->willReturn([]);
+        $associatedProduct->getImages()->willReturn(new ArrayCollection([]));
 
         $associationType->getCode()->willReturn('ASSOCIATION_TYPE');
 
@@ -101,9 +105,12 @@ final class ListProductViewFactorySpec extends ObjectBehavior
         ProductVariantInterface $thirdProductVariant,
         ProductVariantViewFactoryInterface $variantViewFactory
     ) {
-        $product->getVariants()->willReturn([$firstProductVariant, $secondProductVariant]);
-        $product->getImages()->willReturn([]);
-        $product->getAssociations()->willReturn([$productAssociation]);
+        $product->getVariants()->willReturn(new ArrayCollection([
+            $firstProductVariant->getWrappedObject(),
+            $secondProductVariant->getWrappedObject(),
+        ]));
+        $product->getImages()->willReturn(new ArrayCollection([]));
+        $product->getAssociations()->willReturn(new ArrayCollection([$productAssociation->getWrappedObject()]));
 
         $firstProductVariant->getCode()->willReturn('S_HAT_CODE');
         $secondProductVariant->getCode()->willReturn('L_HAT_CODE');
@@ -111,10 +118,10 @@ final class ListProductViewFactorySpec extends ObjectBehavior
         $associatedProductVariant->getCode()->willReturn('SMALL_MUG_CODE');
 
         $productAssociation->getType()->willReturn($associationType);
-        $productAssociation->getAssociatedProducts()->willReturn([$associatedProduct]);
-        $associatedProduct->getVariants()->willReturn([$associatedProductVariant]);
+        $productAssociation->getAssociatedProducts()->willReturn(new ArrayCollection([$associatedProduct->getWrappedObject()]));
+        $associatedProduct->getVariants()->willReturn(new ArrayCollection([$associatedProductVariant->getWrappedObject()]));
 
-        $associatedProduct->getImages()->willReturn([]);
+        $associatedProduct->getImages()->willReturn(new ArrayCollection([]));
 
         $associationType->getCode()->willReturn('ASSOCIATION_TYPE');
 

@@ -37,7 +37,7 @@ final class PromotionCouponEligibilityChecker implements PromotionCouponEligibil
     /**
      * {@inheritdoc}
      */
-    public function isEligible(PromotionSubjectInterface $cart, PromotionCouponInterface $coupon)
+    public function isEligible(PromotionSubjectInterface $cart, PromotionCouponInterface $coupon): bool
     {
         /** @var OrderInterface $cart */
         Assert::isInstanceOf($cart, OrderInterface::class);
