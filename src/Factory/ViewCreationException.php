@@ -6,5 +6,4 @@ namespace Sylius\ShopApiPlugin\Factory;
 
 final class ViewCreationException extends \DomainException
 {
-
 }

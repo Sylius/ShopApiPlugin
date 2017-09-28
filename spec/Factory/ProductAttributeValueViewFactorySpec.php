@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Factory;
 
+use PhpSpec\ObjectBehavior;
 use Sylius\Component\Product\Model\ProductAttributeInterface;
 use Sylius\Component\Product\Model\ProductAttributeTranslationInterface;
 use Sylius\Component\Product\Model\ProductAttributeValueInterface;
-use PhpSpec\ObjectBehavior;
 use Sylius\ShopApiPlugin\Factory\ProductAttributeValueViewFactoryInterface;
 use Sylius\ShopApiPlugin\View\ProductAttributeValueView;
 

@@ -1,16 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Sylius\ShopApiPlugin\Handler;
 
+use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use PhpSpec\ObjectBehavior;
 use Sylius\ShopApiPlugin\Command\DropCart;
-use Sylius\ShopApiPlugin\Handler\DropCartHandler;
 
 final class DropCartHandlerSpec extends ObjectBehavior
 {
-    function let(OrderRepositoryInterface $cartRepository) {
+    function let(OrderRepositoryInterface $cartRepository)
+    {
         $this->beConstructedWith($cartRepository);
     }
 

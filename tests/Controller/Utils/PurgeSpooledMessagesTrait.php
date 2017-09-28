@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Sylius\ShopApiPlugin\Controller\Utils;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;

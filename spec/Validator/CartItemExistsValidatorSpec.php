@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Sylius\ShopApiPlugin\Validator;
 
-use Prophecy\Argument;
 use PhpSpec\ObjectBehavior;
+use Prophecy\Argument;
 use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Order\Repository\OrderItemRepositoryInterface;
-use Sylius\ShopApiPlugin\Validator\CartItemExistsValidator;
 use Sylius\ShopApiPlugin\Validator\Constraints\CartItemExists;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 

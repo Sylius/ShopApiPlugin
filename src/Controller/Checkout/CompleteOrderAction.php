@@ -1,14 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\Controller\Checkout;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
 use Sylius\Component\Core\Model\ShopUserInterface;
-use Sylius\Component\User\Model\UserInterface;
-use Sylius\ShopApiPlugin\Command\ChoosePaymentMethod;
-use Sylius\ShopApiPlugin\Command\ChooseShippingMethod;
 use Sylius\ShopApiPlugin\Command\CompleteOrder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

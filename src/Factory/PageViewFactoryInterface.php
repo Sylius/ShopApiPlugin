@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\Factory;
 
 use Pagerfanta\Pagerfanta;
-use Sylius\ShopApiPlugin\Request\PageViewRequestInterface;
 use Sylius\ShopApiPlugin\View\PageView;
 
 interface PageViewFactoryInterface

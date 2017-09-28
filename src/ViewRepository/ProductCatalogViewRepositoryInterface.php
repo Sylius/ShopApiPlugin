@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\ViewRepository;
 
 use Sylius\ShopApiPlugin\Model\PaginatorDetails;

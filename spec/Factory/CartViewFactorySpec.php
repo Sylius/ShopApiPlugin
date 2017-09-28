@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Sylius\ShopApiPlugin\Factory;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\AdjustmentInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
@@ -13,15 +16,14 @@ use Sylius\Component\Core\Model\ShipmentInterface;
 use Sylius\ShopApiPlugin\Factory\AddressViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\AdjustmentViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\CartItemViewFactoryInterface;
-use PhpSpec\ObjectBehavior;
 use Sylius\ShopApiPlugin\Factory\CartViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\PaymentViewFactoryInterface;
+use Sylius\ShopApiPlugin\Factory\ShipmentViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\TotalViewFactoryInterface;
 use Sylius\ShopApiPlugin\View\AddressView;
 use Sylius\ShopApiPlugin\View\AdjustmentView;
 use Sylius\ShopApiPlugin\View\CartSummaryView;
 use Sylius\ShopApiPlugin\View\ItemView;
-use Sylius\ShopApiPlugin\Factory\ShipmentViewFactoryInterface;
 use Sylius\ShopApiPlugin\View\PaymentView;
 use Sylius\ShopApiPlugin\View\ShipmentView;
 use Sylius\ShopApiPlugin\View\TotalsView;

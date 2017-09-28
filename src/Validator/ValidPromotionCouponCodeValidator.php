@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\Validator;
 
 use Sylius\Component\Core\Model\OrderInterface;
@@ -70,8 +72,7 @@ final class ValidPromotionCouponCodeValidator extends ConstraintValidator
         /** @var PromotionCouponInterface $coupon */
         $coupon = $this->promotionCouponRepository->findOneBy(['code' => $command->couponCode()]);
 
-        if (null === $coupon || !$this->couponEligibilityChecker->isEligible($cart, $coupon))
-        {
+        if (null === $coupon || !$this->couponEligibilityChecker->isEligible($cart, $coupon)) {
             $this->buildViolation($constraint);
 
             return;

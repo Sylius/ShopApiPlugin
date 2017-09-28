@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
 use Lakion\ApiTestCase\JsonApiTestCase;
@@ -69,7 +71,6 @@ final class CheckoutShowAvailablePaymentMethodsShopApiTest extends JsonApiTestCa
                 'provinceName' => 'Greater London',
             ])
         ));
-
 
         $this->client->request('GET', $this->getPaymentUrl($token), [], []);
 

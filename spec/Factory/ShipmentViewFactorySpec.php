@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Sylius\ShopApiPlugin\Factory;
 
+use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\ShipmentInterface;
 use Sylius\Component\Core\Model\ShippingMethodInterface;
 use Sylius\ShopApiPlugin\Factory\ShipmentViewFactoryInterface;
-use PhpSpec\ObjectBehavior;
 use Sylius\ShopApiPlugin\Factory\ShippingMethodViewFactoryInterface;
 use Sylius\ShopApiPlugin\View\ShipmentView;
 use Sylius\ShopApiPlugin\View\ShippingMethodView;

@@ -1,11 +1,11 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Handler;
 
-use Sylius\Component\Core\Model\ShopUserInterface;
 use PhpSpec\ObjectBehavior;
+use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
 use Sylius\Component\User\Security\Generator\GeneratorInterface;
 use Sylius\ShopApiPlugin\Command\GenerateVerificationToken;
@@ -13,7 +13,8 @@ use Sylius\ShopApiPlugin\Handler\GenerateVerificationTokenHandler;
 
 final class GenerateVerificationTokenHandlerSpec extends ObjectBehavior
 {
-    function let(UserRepositoryInterface $userRepository, GeneratorInterface $tokenGenerator) {
+    function let(UserRepositoryInterface $userRepository, GeneratorInterface $tokenGenerator)
+    {
         $this->beConstructedWith($userRepository, $tokenGenerator);
     }
 

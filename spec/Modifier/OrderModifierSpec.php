@@ -14,7 +14,6 @@ use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Order\Modifier\OrderItemQuantityModifierInterface;
 use Sylius\Component\Order\Processor\OrderProcessorInterface;
-use Sylius\ShopApiPlugin\Modifier\OrderModifier;
 use Sylius\ShopApiPlugin\Modifier\OrderModifierInterface;
 
 final class OrderModifierSpec extends ObjectBehavior

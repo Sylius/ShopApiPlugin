@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Sylius\ShopApiPlugin\Handler;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use SM\Factory\FactoryInterface;
 use SM\StateMachine\StateMachineInterface;
@@ -14,8 +17,6 @@ use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\ShippingMethodRepositoryInterface;
 use Sylius\Component\Shipping\Checker\ShippingMethodEligibilityCheckerInterface;
 use Sylius\ShopApiPlugin\Command\ChooseShippingMethod;
-use Sylius\ShopApiPlugin\Handler\ChooseShippingMethodHandler;
-use PhpSpec\ObjectBehavior;
 
 final class ChooseShippingMethodHandlerSpec extends ObjectBehavior
 {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
 use Lakion\ApiTestCase\JsonApiTestCase;
@@ -76,7 +78,7 @@ EOT;
         }
 EOT;
 
-        $this->client->request('PUT','/shop-api/carts/WRONGTOKEN/coupon', [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('PUT', '/shop-api/carts/WRONGTOKEN/coupon', [], [], static::$acceptAndContentTypeHeader, $data);
 
         $response = $this->client->getResponse();
 

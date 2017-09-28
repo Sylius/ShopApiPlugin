@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
 use Lakion\ApiTestCase\JsonApiTestCase;
@@ -135,7 +137,6 @@ EOT;
             ])
         ));
 
-
         $data =
 <<<EOT
         {
@@ -188,7 +189,6 @@ EOT;
             ])
         ));
 
-
         $data =
 <<<EOT
         {
@@ -213,7 +213,6 @@ EOT;
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'checkout/modified_cart_with_chosen_shipment_with_per_item_rate_response', Response::HTTP_OK);
-
     }
 
     /**
@@ -254,7 +253,6 @@ EOT;
             ])
         ));
         $bus->handle(new ChooseShippingMethod($token, 0, 'DHL'));
-
 
         $data =
 <<<EOT

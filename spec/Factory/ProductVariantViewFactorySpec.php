@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace spec\Sylius\ShopApiPlugin\Factory;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\ChannelPricingInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
@@ -15,7 +16,6 @@ use Sylius\Component\Product\Model\ProductOptionValueInterface;
 use Sylius\Component\Product\Model\ProductOptionValueTranslationInterface;
 use Sylius\Component\Product\Model\ProductVariantTranslationInterface;
 use Sylius\ShopApiPlugin\Factory\PriceViewFactoryInterface;
-use PhpSpec\ObjectBehavior;
 use Sylius\ShopApiPlugin\Factory\ProductVariantViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\ViewCreationException;
 use Sylius\ShopApiPlugin\View\PriceView;

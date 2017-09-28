@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
 use Lakion\ApiTestCase\JsonApiTestCase;
@@ -65,7 +67,7 @@ final class CartRemoveCouponShopApiTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFile('shop.yml');
 
-        $this->client->request('DELETE','/shop-api/carts/WRONGTOKEN/coupon', [], [], static::$acceptAndContentTypeHeader, null);
+        $this->client->request('DELETE', '/shop-api/carts/WRONGTOKEN/coupon', [], [], static::$acceptAndContentTypeHeader, null);
 
         $response = $this->client->getResponse();
 

@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Sylius\ShopApiPlugin\Model;
 
-use Sylius\ShopApiPlugin\Model\Address;
 use PhpSpec\ObjectBehavior;
 
 final class AddressSpec extends ObjectBehavior

@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\Controller\Cart;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
-use Sylius\ShopApiPlugin\Request\ChangeItemQuantityRequest;
 use Sylius\ShopApiPlugin\Request\RemoveItemFromCartRequest;
 use Sylius\ShopApiPlugin\ViewRepository\CartViewRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;

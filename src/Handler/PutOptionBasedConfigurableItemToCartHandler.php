@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\Handler;
 
 use Sylius\Component\Core\Model\OrderInterface;
@@ -59,7 +61,7 @@ final class PutOptionBasedConfigurableItemToCartHandler
      * @param array $options
      * @param ProductInterface $product
      *
-     * @return null|ProductVariantInterface
+     * @return ProductVariantInterface|null
      */
     private function getVariant(array $options, ProductInterface $product)
     {

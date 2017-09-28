@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Sylius\ShopApiPlugin\Factory;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\ShopApiPlugin\Factory\TaxonDetailsViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\TaxonViewFactoryInterface;
-use PhpSpec\ObjectBehavior;
 use Sylius\ShopApiPlugin\View\TaxonDetailsView;
 use Sylius\ShopApiPlugin\View\TaxonView;
 

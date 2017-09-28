@@ -1,16 +1,15 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Generator;
 
+use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Model\ProductTranslationInterface;
 use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Taxonomy\Model\TaxonTranslationInterface;
 use Sylius\ShopApiPlugin\Generator\ProductBreadcrumbGeneratorInterface;
-use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 final class ProductBreadcrumbGeneratorSpec extends ObjectBehavior
 {

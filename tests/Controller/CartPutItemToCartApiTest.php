@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
 use Lakion\ApiTestCase\JsonApiTestCase;
 use League\Tactician\CommandBus;
 use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\ShopApiPlugin\Command\AddCoupon;
 use Sylius\ShopApiPlugin\Command\AddressOrder;
 use Sylius\ShopApiPlugin\Command\ChoosePaymentMethod;
 use Sylius\ShopApiPlugin\Command\ChooseShippingMethod;
@@ -42,13 +43,13 @@ EOT;
         $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], static::$acceptAndContentTypeHeader, $data);
         $response = $this->client->getResponse();
 
-        $this->assertResponse($response, 'cart/add_simple_product_to_cart_response',Response::HTTP_CREATED);
+        $this->assertResponse($response, 'cart/add_simple_product_to_cart_response', Response::HTTP_CREATED);
     }
 
     /**
      * @test
      */
-    function it_increases_quantity_of_existing_item_if_the_same_product_is_added_to_the_cart()
+    public function it_increases_quantity_of_existing_item_if_the_same_product_is_added_to_the_cart()
     {
         $this->loadFixturesFromFile('shop.yml');
 
@@ -69,7 +70,7 @@ EOT;
         $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], static::$acceptAndContentTypeHeader, $data);
         $response = $this->client->getResponse();
 
-        $this->assertResponse($response, 'cart/add_simple_product_multiple_times_to_cart_response',Response::HTTP_CREATED);
+        $this->assertResponse($response, 'cart/add_simple_product_multiple_times_to_cart_response', Response::HTTP_CREATED);
     }
 
     /**

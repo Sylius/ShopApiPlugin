@@ -1,12 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Sylius\ShopApiPlugin\Factory;
 
-use Liip\ImagineBundle\Imagine\Cache\CacheManager;
-use Sylius\Component\Core\Model\ImageInterface;
-use Sylius\ShopApiPlugin\Factory\ImageViewFactory;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
+use Sylius\Component\Core\Model\ImageInterface;
 use Sylius\ShopApiPlugin\Factory\ImageViewFactoryInterface;
 use Sylius\ShopApiPlugin\View\ImageView;
 
