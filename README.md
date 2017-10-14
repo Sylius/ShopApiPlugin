@@ -112,6 +112,59 @@ Rest of the command are executed inside `project` folder.
         checkout_resolver:
             pattern: "%sylius.security.shop_regex%/checkout/"
     ```
+    
+    6. (optional) if you have installed `nelmio/NelmioCorsBundle` for Support of Cross-Origin Ajax Request,
+        1. Add the NelmioCorsBundle to the AppKernel
+    
+        ```php
+        // app/AppKernel.php
+        
+        /**
+         * {@inheritdoc}
+         */
+        public function registerBundles()
+        {
+            $bundles = array(
+                // ...
+                new Nelmio\CorsBundle\NelmioCorsBundle(),
+                // ...
+            );
+            // ...
+        }
+        ```
+    
+        2. Add the configuration to the `config.yml  
+    
+        ```yml
+        # app/config/config.yml
+        
+        # ...
+        
+        nelmio_cors:
+            defaults:
+                allow_credentials: false
+                allow_origin: []
+                allow_headers: []
+                allow_methods: []
+                expose_headers: []
+                max_age: 0
+                hosts: []
+                origin_regex: false
+                forced_allow_origin_value: ~
+            paths:
+                '^/shop-api/':
+                    allow_origin: ['*']
+                    allow_headers: ['X-Custom-Auth']
+                    allow_methods: ['POST', 'PUT', 'GET', 'DELETE']
+                    max_age: 3600
+                '^/':
+                    origin_regex: true
+                    allow_origin: ['^http://localhost:[0-9]+']
+                    allow_headers: ['X-Custom-Auth']
+                    allow_methods: ['POST', 'PUT', 'GET', 'DELETE']
+                    max_age: 3600
+                    hosts: ['^api\.']
+        ```
 
 ## Additional features
 
