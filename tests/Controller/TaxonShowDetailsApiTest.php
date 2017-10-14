@@ -25,6 +25,19 @@ final class TaxonShowDetailsApiTest extends JsonApiTestCase
     /**
      * @test
      */
+    public function it_shows_not_found_exception_if_locale_is_not_provided()
+    {
+        $this->loadFixturesFromFile('shop.yml');
+
+        $this->client->request('GET', '/shop-api/taxons/T_SHIRTS', [], [], ['ACCEPT' => 'application/json']);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'taxon/missing_locale_exception_response', Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @test
+     */
     public function it_shows_summary_of_a_chosen_taxon_with_strange_code()
     {
         $this->loadFixturesFromFile('shop.yml');

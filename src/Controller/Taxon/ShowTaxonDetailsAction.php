@@ -10,7 +10,9 @@ use Sylius\Component\Taxonomy\Repository\TaxonRepositoryInterface;
 use Sylius\ShopApiPlugin\Factory\TaxonDetailsViewFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Webmozart\Assert\Assert;
 
 final class ShowTaxonDetailsAction
 {
@@ -43,6 +45,10 @@ final class ShowTaxonDetailsAction
     {
         $code = $request->attributes->get('code');
         $locale = $request->query->get('locale');
+
+        if (null === $locale) {
+            throw new BadRequestHttpException('You didn\'t provide a locale!');
+        }
 
         $taxon = $this->taxonRepository->findOneBy(['code' => $code]);
 
