@@ -154,7 +154,7 @@ Rest of the command are executed inside `project` folder.
             paths:
                 '^/shop-api/':
                     allow_origin: ['*']
-                    allow_headers: ['X-Custom-Auth']
+                    allow_headers: ['Content-Type']
                     allow_methods: ['POST', 'PUT', 'GET', 'DELETE']
                     max_age: 3600
                 '^/':
