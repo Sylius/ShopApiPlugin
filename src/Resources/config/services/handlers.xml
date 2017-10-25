@@ -153,5 +153,14 @@
             <argument type="service" id="sylius.shop_user.token_generator.email_verification" />
             <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\GenerateResetPasswordToken" />
         </service>
+
+        <service id="sylius.shop_api_plugin.handler.create_address_handler" class="Sylius\ShopApiPlugin\Handler\CreateAddressHandler">
+            <argument type="service" id="sylius.repository.address" />
+            <argument type="service" id="sylius.repository.country" />
+            <argument type="service" id="sylius.repository.province" />
+            <argument type="service" id="sylius.factory.address" />
+            <argument type="service" id="security.token_storage" />
+            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\CreateAddress" />
+        </service>
     </services>
 </container>

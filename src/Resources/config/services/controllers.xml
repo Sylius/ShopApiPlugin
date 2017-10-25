@@ -7,5 +7,6 @@
         <import resource="actions/product.xml"/>
         <import resource="actions/customer.xml"/>
         <import resource="actions/taxon.xml"/>
+        <import resource="actions/address_book.xml"/>
     </imports>
 </container>

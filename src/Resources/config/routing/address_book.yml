@@ -1,0 +1,5 @@
+sylius_shop_create_address_book_entry:
+    path: /address-book
+    methods: [POST]
+    defaults:
+        _controller: sylius.shop_api_plugin.controller.address_book.create_address_action
