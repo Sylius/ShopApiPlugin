@@ -2,6 +2,7 @@
 
 namespace Sylius\ShopApiPlugin\Handler;
 
+use Sylius\Component\Addressing\Model\ProvinceInterface;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
@@ -79,10 +80,11 @@ final class CreateAddressHandler
         $address->setPostcode($command->postcode());
         $address->setPhoneNumber($command->phoneNumber());
 
-        if($command->provinceName()) {
-            $this->assertProvinceExists($command->provinceName());
-            $address->setProvinceName($command->provinceName());
-            $address->setProvinceCode($this->getProvinceCode($command->provinceName()));
+        if($command->provinceCode()) {
+            $province = $this->getProvince($command->provinceCode());
+            $this->assertProvinceExists($province);
+            $address->setProvinceCode($province->getCode());
+            $address->setProvinceName($province->getName());
         }
 
         $customer->addAddress($address);
@@ -98,21 +100,20 @@ final class CreateAddressHandler
     }
 
     /**
-     * @param string $provinceName
+     * @param $province
      */
-    private function assertProvinceExists(string $provinceName): void
+    private function assertProvinceExists($province): void
     {
-        Assert::notNull($this->provinceRepository->findOneBy(["name" => $provinceName]), 'Province does not exist.');
+        Assert::notNull($province, 'Province does not exist.');
     }
 
     /**
-     * @param string $provinceName
-     * @return mixed
+     * @param string $provinceCode
+     * @return ProvinceInterface|object
      */
-    private function getProvinceCode(string $provinceName)
+    private function getProvince(string $provinceCode)
     {
-        $province = $this->provinceRepository->findOneBy(["name" => $provinceName]);
-        return $province->getCode();
+        return $this->provinceRepository->findOneBy(["code" => $provinceCode]);
     }
 
     /**

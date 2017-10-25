@@ -35,7 +35,7 @@ class CreateAddressRequest
     /**
      * @var string
      */
-    private $provinceName;
+    private $provinceCode;
 
     /**
      * @var string
@@ -63,7 +63,7 @@ class CreateAddressRequest
         $this->company = $request->request->get('company');
         $this->street = $request->request->get('street');
         $this->countryCode = $request->request->get('countryCode');
-        $this->provinceName = $request->request->get('provinceName');
+        $this->provinceCode = $request->request->get('provinceCode');
         $this->city = $request->request->get('city');
         $this->postcode = $request->request->get('postcode');
         $this->phoneNumber = $request->request->get('phoneNumber');
@@ -80,7 +80,7 @@ class CreateAddressRequest
             $this->company,
             $this->street,
             $this->countryCode,
-            $this->provinceName,
+            $this->provinceCode,
             $this->city,
             $this->postcode,
             $this->phoneNumber

@@ -34,7 +34,7 @@ final class CreateAddress
     /**
      * @var string
      */
-    private $provinceName;
+    private $provinceCode;
 
     /**
      * @var string
@@ -57,12 +57,12 @@ final class CreateAddress
      * @param $company
      * @param $street
      * @param $countryCode
-     * @param $provinceName
+     * @param $provinceCode
      * @param $city
      * @param $postcode
      * @param $phoneNumber
      */
-    public function __construct($firstName, $lastName, $company, $street, $countryCode, $provinceName, $city, $postcode, $phoneNumber)
+    public function __construct($firstName, $lastName, $company, $street, $countryCode, $provinceCode, $city, $postcode, $phoneNumber)
     {
         Assert::allString([
             $firstName,
@@ -74,7 +74,7 @@ final class CreateAddress
         ]);
 
         Assert::nullOrString($company);
-        Assert::nullOrString($provinceName);
+        Assert::nullOrString($provinceCode);
         Assert::nullOrString($phoneNumber);
 
         $this->firstName = $firstName;
@@ -82,7 +82,7 @@ final class CreateAddress
         $this->company = $company;
         $this->street = $street;
         $this->countryCode = $countryCode;
-        $this->provinceName = $provinceName;
+        $this->provinceCode = $provinceCode;
         $this->city = $city;
         $this->postcode = $postcode;
         $this->phoneNumber = $phoneNumber;
@@ -131,9 +131,9 @@ final class CreateAddress
     /**
      * @return string|null
      */
-    public function provinceName(): ?string
+    public function provinceCode(): ?string
     {
-        return $this->provinceName;
+        return $this->provinceCode;
     }
 
     /**
