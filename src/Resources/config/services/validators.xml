@@ -70,5 +70,11 @@
             <argument type="service" id="sylius.repository.product" />
             <tag name="validator.constraint_validator" alias="sylius_shop_api_product_exists_validator" />
         </service>
+        <service id="sylius.shop_api_plugin.validator.address_exists_validator"
+                 class="Sylius\ShopApiPlugin\Validator\AddressExistsValidator"
+        >
+            <argument type="service" id="sylius.repository.address" />
+            <tag name="validator.constraint_validator" alias="sylius_shop_api_address_exists_validator" />
+        </service>
     </services>
 </container>

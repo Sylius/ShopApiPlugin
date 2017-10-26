@@ -1,5 +1,17 @@
+sylius_shop_show_address_book:
+    path: /address-book
+    methods: [GET]
+    defaults:
+        _controller: sylius.shop_api_plugin.controller.address_book.show_address_book_action
+
 sylius_shop_create_address_book_entry:
     path: /address-book
     methods: [POST]
     defaults:
         _controller: sylius.shop_api_plugin.controller.address_book.create_address_action
+
+sylius_shop_remove_address_book_entry:
+    path: /address-book/{id}
+    methods: [DELETE]
+    defaults:
+        _controller: sylius.shop_api_plugin.controller.address_book.remove_address_action

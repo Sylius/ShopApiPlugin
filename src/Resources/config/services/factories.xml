@@ -120,5 +120,9 @@
         <service id="sylius.shop_api_plugin.factory.customer_view_factory" class="Sylius\ShopApiPlugin\Factory\CustomerViewFactory" >
             <argument type="string">%sylius.shop_api.view.customer.class%</argument>
         </service>
+
+        <service id="sylius.shop_api_plugin.factory.address_book_view_factory" class="Sylius\ShopApiPlugin\Factory\AddressBookViewFactory">
+            <argument type="string">%sylius.shop_api.view.address_book.class%</argument>
+        </service>
     </services>
 </container>
