@@ -64,7 +64,7 @@ final class Configuration implements ConfigurationInterface
                         ->scalarNode('product_variant')->defaultValue(View\ProductVariantView::class)->end()
                         ->scalarNode('shipment')->defaultValue(View\ShipmentView::class)->end()
                         ->scalarNode('shipping_method')->defaultValue(View\ShippingMethodView::class)->end()
-                        ->scalarNode('taxon')->defaultValue(View\TaxonView::class)->end()i
+                        ->scalarNode('taxon')->defaultValue(View\TaxonView::class)->end()
                         ->scalarNode('taxon_details')->defaultValue(View\TaxonDetailsView::class)->end()
                         ->scalarNode('totals')->defaultValue(View\TotalsView::class)->end()
                         ->scalarNode('validation_error')->defaultValue(View\ValidationErrorView::class)->end()
