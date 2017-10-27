@@ -82,7 +82,7 @@ final class CreateAddressHandler
         $address->setPostcode($command->postcode());
         $address->setPhoneNumber($command->phoneNumber());
 
-        if ($command->provinceCode()) {
+        if (null !== $command->provinceCode()) {
             $province = $this->getProvince($command->provinceCode());
             $this->assertProvinceExists($province);
             $address->setProvinceCode($province->getCode());

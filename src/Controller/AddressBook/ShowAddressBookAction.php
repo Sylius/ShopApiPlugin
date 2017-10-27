@@ -28,7 +28,7 @@ final class ShowAddressBookAction
     private $tokenStorage;
 
     /**
-     * @var AddressViewFactory
+     * @var AddressBookViewFactoryInterface
      */
     private $addressBookViewFactory;
 
