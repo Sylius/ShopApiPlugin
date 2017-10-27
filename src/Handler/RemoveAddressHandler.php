@@ -12,7 +12,7 @@ use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\ShopApiPlugin\Command\RemoveAddress;
 use Webmozart\Assert\Assert;
 
-class RemoveAddressHandler
+final class RemoveAddressHandler
 {
     /**
      * @var AddressRepositoryInterface

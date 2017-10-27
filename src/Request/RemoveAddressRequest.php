@@ -8,7 +8,7 @@ use Sylius\Component\User\Model\UserInterface;
 use Sylius\ShopApiPlugin\Command\RemoveAddress;
 use Symfony\Component\HttpFoundation\Request;
 
-class RemoveAddressRequest
+final class RemoveAddressRequest
 {
     /**
      * @var mixed

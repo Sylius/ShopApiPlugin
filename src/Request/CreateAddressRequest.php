@@ -7,7 +7,7 @@ namespace Sylius\ShopApiPlugin\Request;
 use Sylius\ShopApiPlugin\Command\CreateAddress;
 use Symfony\Component\HttpFoundation\Request;
 
-class CreateAddressRequest
+final class CreateAddressRequest
 {
     /**
      * @var string

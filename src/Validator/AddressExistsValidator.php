@@ -8,7 +8,7 @@ use Sylius\Component\Core\Repository\AddressRepositoryInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
-class AddressExistsValidator extends ConstraintValidator
+final class AddressExistsValidator extends ConstraintValidator
 {
     /**
      * @var AddressRepositoryInterface

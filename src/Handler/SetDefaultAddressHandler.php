@@ -12,7 +12,7 @@ use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
 use Sylius\ShopApiPlugin\Command\SetDefaultAddress;
 use Webmozart\Assert\Assert;
 
-class SetDefaultAddressHandler
+final class SetDefaultAddressHandler
 {
     /**
      * @var CustomerRepositoryInterface

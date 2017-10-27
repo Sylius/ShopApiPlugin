@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Webmozart\Assert\Assert;
 
-class ShowAddressBookAction
+final class ShowAddressBookAction
 {
     /**
      * @var ViewHandlerInterface

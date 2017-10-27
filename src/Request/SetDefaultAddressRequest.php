@@ -8,7 +8,7 @@ use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\ShopApiPlugin\Command\SetDefaultAddress;
 use Symfony\Component\HttpFoundation\Request;
 
-class SetDefaultAddressRequest
+final class SetDefaultAddressRequest
 {
     /**
      * @var mixed

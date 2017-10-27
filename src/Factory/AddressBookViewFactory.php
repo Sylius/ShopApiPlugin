@@ -8,7 +8,7 @@ use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\ShopApiPlugin\View\AddressBookView;
 
-class AddressBookViewFactory implements AddressBookViewFactoryInterface
+final class AddressBookViewFactory implements AddressBookViewFactoryInterface
 {
     /** @var string */
     private $addressBookViewClass;

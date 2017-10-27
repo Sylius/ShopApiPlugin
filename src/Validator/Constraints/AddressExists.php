@@ -6,7 +6,7 @@ namespace Sylius\ShopApiPlugin\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 
-class AddressExists extends Constraint
+final class AddressExists extends Constraint
 {
     /**
      * @var string
