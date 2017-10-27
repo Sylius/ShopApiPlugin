@@ -1,12 +1,12 @@
 <?php
 
-namespace Sylius\ShopApiPlugin\Controller\AddressBook;
+declare(strict_types=1);
 
+namespace Sylius\ShopApiPlugin\Controller\AddressBook;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use JMS\Serializer\SerializerInterface;
-use Sylius\Component\Core\Model\Address;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -45,8 +45,7 @@ class UpdateAddressAction
         TokenStorageInterface $tokenStorage,
         ValidatorInterface $validator,
         SerializerInterface $serializer
-    )
-    {
+    ) {
         $this->viewHandler = $viewHandler;
         $this->tokenStorage = $tokenStorage;
         $this->validator = $validator;

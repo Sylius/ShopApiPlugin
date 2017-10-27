@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\Controller\AddressBook;
 
 use FOS\RestBundle\View\View;
@@ -52,8 +54,7 @@ class RemoveAddressAction
         ValidationErrorViewFactory $validationErrorViewFactory,
         CommandBus $bus,
         TokenStorageInterface $tokenStorage
-    )
-    {
+    ) {
         $this->viewHandler = $viewHandler;
         $this->validator = $validator;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
@@ -73,6 +74,6 @@ class RemoveAddressAction
 
         $this->bus->handle($removeAddressRequest->getCommand());
 
-        return $this->viewHandler->handle(View::create("", Response::HTTP_NO_CONTENT));
+        return $this->viewHandler->handle(View::create('', Response::HTTP_NO_CONTENT));
     }
 }

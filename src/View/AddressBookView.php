@@ -7,7 +7,7 @@ namespace Sylius\ShopApiPlugin\View;
 class AddressBookView
 {
     /**
-     * @var integer
+     * @var int
      */
     public $id;
 

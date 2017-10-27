@@ -1,15 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\Controller\AddressBook;
 
 use FOS\RestBundle\View\View;
-use League\Tactician\CommandBus;
 use FOS\RestBundle\View\ViewHandlerInterface;
+use League\Tactician\CommandBus;
+use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
+use Sylius\ShopApiPlugin\Request\CreateAddressRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use Sylius\ShopApiPlugin\Request\CreateAddressRequest;
-use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
 
 final class CreateAddressAction
 {
@@ -35,6 +37,7 @@ final class CreateAddressAction
 
     /**
      * CreateAddressAction constructor.
+     *
      * @param ViewHandlerInterface $viewHandler
      * @param CommandBus $bus
      * @param ValidatorInterface $validator
@@ -45,8 +48,7 @@ final class CreateAddressAction
         CommandBus $bus,
         ValidatorInterface $validator,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory
-    )
-    {
+    ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
         $this->validator = $validator;
@@ -55,6 +57,7 @@ final class CreateAddressAction
 
     /**
      * @param Request $request
+     *
      * @return Response
      */
     public function __invoke(Request $request): Response

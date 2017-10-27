@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\Handler;
 
 use Sylius\Component\Core\Model\AddressInterface;
@@ -31,7 +33,7 @@ class RemoveAddressHandler
     public function handle(RemoveAddress $removeAddress)
     {
         /** @var AddressInterface $address */
-        $address = $this->addressRepository->findOneBy(["id" => $removeAddress->id]);
+        $address = $this->addressRepository->findOneBy(['id' => $removeAddress->id]);
 
         $this->assertCurrentUserIsOwner($address, $removeAddress->user);
         $this->assertOrderWithAddressNotExists($address);
@@ -42,14 +44,14 @@ class RemoveAddressHandler
     private function assertOrderWithAddressNotExists($address)
     {
         /** @var OrderInterface $orderShippingAddress */
-        $orderShippingAddress = $this->orderRepository->findBy(["billingAddress" => $address]);
+        $orderShippingAddress = $this->orderRepository->findBy(['billingAddress' => $address]);
         /** @var OrderInterface $orderBillingAddress */
-        $orderBillingAddress = $this->orderRepository->findBy(["shippingAddress" => $address]);
+        $orderBillingAddress = $this->orderRepository->findBy(['shippingAddress' => $address]);
         Assert::allIsEmpty([$orderShippingAddress, $orderBillingAddress], 'Cant delete address because it is associated with one or more orders');
     }
 
     private function assertCurrentUserIsOwner(AddressInterface $address, ShopUserInterface $user)
     {
-        Assert::eq($address->getCustomer()->getId(), $user->getId(), "User is not owner of this address");
+        Assert::eq($address->getCustomer()->getId(), $user->getId(), 'User is not owner of this address');
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\Request;
 
 use Sylius\ShopApiPlugin\Command\CreateAddress;
@@ -54,6 +56,7 @@ class CreateAddressRequest
 
     /**
      * CreateAddressRequest constructor.
+     *
      * @param Request $request
      */
     public function __construct(Request $request)
@@ -86,5 +89,4 @@ class CreateAddressRequest
             $this->phoneNumber
         );
     }
-
 }

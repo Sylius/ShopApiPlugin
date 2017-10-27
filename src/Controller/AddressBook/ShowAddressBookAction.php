@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\Controller\AddressBook;
 
 use FOS\RestBundle\View\View;
@@ -39,8 +41,7 @@ class ShowAddressBookAction
         ViewHandlerInterface $viewHandler,
         TokenStorageInterface $tokenStorage,
         AddressBookViewFactoryInterface $addressBookViewFactory
-    )
-    {
+    ) {
         $this->viewHandler = $viewHandler;
         $this->tokenStorage = $tokenStorage;
         $this->addressBookViewFactory = $addressBookViewFactory;

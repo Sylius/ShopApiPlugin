@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\Handler;
 
 use Sylius\Component\Addressing\Model\ProvinceInterface;
@@ -40,6 +42,7 @@ final class CreateAddressHandler
 
     /**
      * CreateAddressHandler constructor.
+     *
      * @param RepositoryInterface $addressRepository
      * @param RepositoryInterface $countryRepository
      * @param RepositoryInterface $provinceRepository
@@ -52,8 +55,7 @@ final class CreateAddressHandler
         RepositoryInterface $provinceRepository,
         FactoryInterface $addressFactory,
         TokenStorageInterface $tokenStorage
-    )
-    {
+    ) {
         $this->addressRepository = $addressRepository;
         $this->countryRepository = $countryRepository;
         $this->provinceRepository = $provinceRepository;
@@ -80,7 +82,7 @@ final class CreateAddressHandler
         $address->setPostcode($command->postcode());
         $address->setPhoneNumber($command->phoneNumber());
 
-        if($command->provinceCode()) {
+        if ($command->provinceCode()) {
             $province = $this->getProvince($command->provinceCode());
             $this->assertProvinceExists($province);
             $address->setProvinceCode($province->getCode());
@@ -96,7 +98,7 @@ final class CreateAddressHandler
      */
     private function assertCountryExists(string $countryCode): void
     {
-        Assert::notNull($this->countryRepository->findOneBy(["code" => $countryCode]), 'Country does not exist.');
+        Assert::notNull($this->countryRepository->findOneBy(['code' => $countryCode]), 'Country does not exist.');
     }
 
     /**
@@ -109,11 +111,12 @@ final class CreateAddressHandler
 
     /**
      * @param string $provinceCode
+     *
      * @return ProvinceInterface|object
      */
     private function getProvince(string $provinceCode)
     {
-        return $this->provinceRepository->findOneBy(["code" => $provinceCode]);
+        return $this->provinceRepository->findOneBy(['code' => $provinceCode]);
     }
 
     /**
@@ -121,6 +124,6 @@ final class CreateAddressHandler
      */
     private function assertShopUserExists($user)
     {
-        Assert::isInstanceOf($user, ShopUserInterface::class, "Logged in user does not exist");
+        Assert::isInstanceOf($user, ShopUserInterface::class, 'Logged in user does not exist');
     }
 }

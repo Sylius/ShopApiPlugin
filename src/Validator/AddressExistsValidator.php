@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\Validator;
 
 use Sylius\Component\Core\Repository\AddressRepositoryInterface;
@@ -15,6 +17,7 @@ class AddressExistsValidator extends ConstraintValidator
 
     /**
      * AddressExistsValidator constructor.
+     *
      * @param AddressRepositoryInterface $addressRepository
      */
     public function __construct(AddressRepositoryInterface $addressRepository)

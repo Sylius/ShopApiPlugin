@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sylius\ShopApiPlugin\Controller\AddressBook;
 
 use FOS\RestBundle\View\View;
@@ -41,6 +43,7 @@ final class SetDefaultAddress
 
     /**
      * CreateAddressAction constructor.
+     *
      * @param ViewHandlerInterface $viewHandler
      * @param CommandBus $bus
      * @param ValidatorInterface $validator
@@ -53,8 +56,7 @@ final class SetDefaultAddress
         ValidatorInterface $validator,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         TokenStorageInterface $tokenStorage
-    )
-    {
+    ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
         $this->validator = $validator;
@@ -64,6 +66,7 @@ final class SetDefaultAddress
 
     /**
      * @param Request $request
+     *
      * @return Response
      */
     public function __invoke(Request $request)
@@ -81,4 +84,3 @@ final class SetDefaultAddress
         return $this->viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));
     }
 }
-
