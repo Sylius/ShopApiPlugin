@@ -2,7 +2,6 @@
 
 namespace Sylius\ShopApiPlugin\Validator;
 
-
 use Sylius\Component\Core\Repository\AddressRepositoryInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;

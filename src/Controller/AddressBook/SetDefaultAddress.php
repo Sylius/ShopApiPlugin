@@ -3,15 +3,16 @@
 namespace Sylius\ShopApiPlugin\Controller\AddressBook;
 
 use FOS\RestBundle\View\View;
-use League\Tactician\CommandBus;
 use FOS\RestBundle\View\ViewHandlerInterface;
+use League\Tactician\CommandBus;
+use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
+use Sylius\ShopApiPlugin\Request\SetDefaultAddressRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use Sylius\ShopApiPlugin\Request\CreateAddressRequest;
-use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
 
-final class CreateAddressAction
+final class SetDefaultAddress
 {
     /**
      * @var ViewHandlerInterface
@@ -34,41 +35,50 @@ final class CreateAddressAction
     private $validationErrorViewFactory;
 
     /**
+     * @var TokenStorageInterface
+     */
+    private $tokenStorage;
+
+    /**
      * CreateAddressAction constructor.
      * @param ViewHandlerInterface $viewHandler
      * @param CommandBus $bus
      * @param ValidatorInterface $validator
      * @param ValidationErrorViewFactoryInterface $validationErrorViewFactory
+     * @param TokenStorageInterface $tokenStorage
      */
     public function __construct(
         ViewHandlerInterface $viewHandler,
         CommandBus $bus,
         ValidatorInterface $validator,
-        ValidationErrorViewFactoryInterface $validationErrorViewFactory
+        ValidationErrorViewFactoryInterface $validationErrorViewFactory,
+        TokenStorageInterface $tokenStorage
     )
     {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
         $this->validator = $validator;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
+        $this->tokenStorage = $tokenStorage;
     }
 
     /**
      * @param Request $request
      * @return Response
      */
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request)
     {
-        $createAddressRequest = new CreateAddressRequest($request);
+        $setDefaultAddressRequest = new SetDefaultAddressRequest($request, $this->tokenStorage->getToken()->getUser());
 
-        $validationResults = $this->validator->validate($createAddressRequest);
+        $validationResults = $this->validator->validate($setDefaultAddressRequest);
 
         if (0 !== count($validationResults)) {
             return $this->viewHandler->handle(View::create($this->validationErrorViewFactory->create($validationResults), Response::HTTP_BAD_REQUEST));
         }
 
-        $this->bus->handle($createAddressRequest->getCommand());
+        $this->bus->handle($setDefaultAddressRequest->getCommand());
 
         return $this->viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));
     }
 }
+
