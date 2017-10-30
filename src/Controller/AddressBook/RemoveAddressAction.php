@@ -11,7 +11,6 @@ use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactory;
 use Sylius\ShopApiPlugin\Request\RemoveAddressRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class RemoveAddressAction
@@ -37,34 +36,26 @@ final class RemoveAddressAction
     private $bus;
 
     /**
-     * @var TokenStorageInterface
-     */
-    private $tokenStorage;
-
-    /**
      * @param ViewHandlerInterface $viewHandler
      * @param ValidatorInterface $validator
      * @param ValidationErrorViewFactory $validationErrorViewFactory
      * @param CommandBus $bus
-     * @param TokenStorageInterface $tokenStorage
      */
     public function __construct(
         ViewHandlerInterface $viewHandler,
         ValidatorInterface $validator,
         ValidationErrorViewFactory $validationErrorViewFactory,
-        CommandBus $bus,
-        TokenStorageInterface $tokenStorage
+        CommandBus $bus
     ) {
         $this->viewHandler = $viewHandler;
         $this->validator = $validator;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->bus = $bus;
-        $this->tokenStorage = $tokenStorage;
     }
 
     public function __invoke(Request $request): Response
     {
-        $removeAddressRequest = new RemoveAddressRequest($request, $this->tokenStorage->getToken()->getUser());
+        $removeAddressRequest = new RemoveAddressRequest($request);
 
         $validationResults = $this->validator->validate($removeAddressRequest);
 

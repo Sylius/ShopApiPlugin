@@ -15,15 +15,9 @@ final class SetDefaultAddressRequest
      */
     private $id;
 
-    /**
-     * @var ShopUserInterface
-     */
-    private $user;
-
-    public function __construct(Request $request, ShopUserInterface $user)
+    public function __construct(Request $request)
     {
         $this->id = $request->attributes->get('id');
-        $this->user = $user;
     }
 
     /**
@@ -31,6 +25,6 @@ final class SetDefaultAddressRequest
      */
     public function getCommand()
     {
-        return new SetDefaultAddress($this->id, $this->user);
+        return new SetDefaultAddress($this->id);
     }
 }

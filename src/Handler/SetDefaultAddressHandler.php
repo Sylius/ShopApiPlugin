@@ -6,10 +6,12 @@ namespace Sylius\ShopApiPlugin\Handler;
 
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
+use Sylius\Component\Core\Model\ShopUser;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\Core\Repository\AddressRepositoryInterface;
 use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
 use Sylius\ShopApiPlugin\Command\SetDefaultAddress;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Webmozart\Assert\Assert;
 
 final class SetDefaultAddressHandler
@@ -24,20 +26,33 @@ final class SetDefaultAddressHandler
      */
     private $addressRepository;
 
-    public function __construct(CustomerRepositoryInterface $customerRepository, AddressRepositoryInterface $addressRepository)
+    /**
+     * @var TokenStorageInterface
+     */
+    private $tokenStorage;
+
+    public function __construct(
+        CustomerRepositoryInterface $customerRepository,
+        AddressRepositoryInterface $addressRepository,
+        TokenStorageInterface $tokenStorage
+    )
     {
         $this->customerRepository = $customerRepository;
         $this->addressRepository = $addressRepository;
+        $this->tokenStorage = $tokenStorage;
     }
 
     public function handle(SetDefaultAddress $setDefaultAddress): void
     {
         /** @var AddressInterface $address */
         $address = $this->addressRepository->find($setDefaultAddress->id);
-        /** @var CustomerInterface $customer */
-        $customer = $setDefaultAddress->user->getCustomer();
+        /** @var ShopUser */
+        $user = $this->tokenStorage->getToken()->getUser();
 
-        $this->assertCurrentUserIsOwner($address, $setDefaultAddress->user);
+        $this->assertCurrentUserIsOwner($address, $user);
+
+        /** @var CustomerInterface $customer */
+        $customer = $user->getCustomer();
 
         $customer->setDefaultAddress($address);
         $this->customerRepository->add($customer);

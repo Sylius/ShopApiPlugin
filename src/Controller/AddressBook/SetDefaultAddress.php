@@ -37,31 +37,23 @@ final class SetDefaultAddress
     private $validationErrorViewFactory;
 
     /**
-     * @var TokenStorageInterface
-     */
-    private $tokenStorage;
-
-    /**
      * CreateAddressAction constructor.
      *
      * @param ViewHandlerInterface $viewHandler
      * @param CommandBus $bus
      * @param ValidatorInterface $validator
      * @param ValidationErrorViewFactoryInterface $validationErrorViewFactory
-     * @param TokenStorageInterface $tokenStorage
      */
     public function __construct(
         ViewHandlerInterface $viewHandler,
         CommandBus $bus,
         ValidatorInterface $validator,
-        ValidationErrorViewFactoryInterface $validationErrorViewFactory,
-        TokenStorageInterface $tokenStorage
+        ValidationErrorViewFactoryInterface $validationErrorViewFactory
     ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
         $this->validator = $validator;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
-        $this->tokenStorage = $tokenStorage;
     }
 
     /**
@@ -71,7 +63,7 @@ final class SetDefaultAddress
      */
     public function __invoke(Request $request)
     {
-        $setDefaultAddressRequest = new SetDefaultAddressRequest($request, $this->tokenStorage->getToken()->getUser());
+        $setDefaultAddressRequest = new SetDefaultAddressRequest($request);
 
         $validationResults = $this->validator->validate($setDefaultAddressRequest);
 

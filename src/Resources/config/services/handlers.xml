@@ -171,6 +171,7 @@
         <service id="sylius.shop_api_plugin.handler.set_default_address_handler" class="Sylius\ShopApiPlugin\Handler\SetDefaultAddressHandler">
             <argument type="service" id="sylius.repository.customer" />
             <argument type="service" id="sylius.repository.address" />
+            <argument type="service" id="security.token_storage" />
             <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\SetDefaultAddress" />
         </service>
         <service id="sylius.shop_api_plugin.handler.update_address_book_address" class="Sylius\ShopApiPlugin\Handler\UpdateAddressBookAddressHandler">

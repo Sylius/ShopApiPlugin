@@ -13,14 +13,8 @@ class SetDefaultAddress
      */
     public $id;
 
-    /**
-     * @var ShopUserInterface
-     */
-    public $user;
-
-    public function __construct($id, ShopUserInterface $user)
+    public function __construct($id)
     {
         $this->id = $id;
-        $this->user = $user;
     }
 }
