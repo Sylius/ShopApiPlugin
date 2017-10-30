@@ -10,6 +10,7 @@ use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\Core\Repository\AddressRepositoryInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\ShopApiPlugin\Command\RemoveAddress;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Webmozart\Assert\Assert;
 
 final class RemoveAddressHandler
@@ -24,18 +25,27 @@ final class RemoveAddressHandler
      */
     private $orderRepository;
 
-    public function __construct(AddressRepositoryInterface $addressRepository, OrderRepositoryInterface $orderRepository)
+    /**
+     * @var TokenStorageInterface
+     */
+    private $tokenStorage;
+
+    public function __construct(AddressRepositoryInterface $addressRepository, OrderRepositoryInterface $orderRepository, TokenStorageInterface $tokenStorage)
     {
         $this->addressRepository = $addressRepository;
         $this->orderRepository = $orderRepository;
+        $this->tokenStorage = $tokenStorage;
     }
 
     public function handle(RemoveAddress $removeAddress)
     {
+        /** @var ShopUserInterface $user */
+        $user = $this->tokenStorage->getToken()->getUser();
+
         /** @var AddressInterface $address */
         $address = $this->addressRepository->findOneBy(['id' => $removeAddress->id]);
 
-        $this->assertCurrentUserIsOwner($address, $removeAddress->user);
+        $this->assertCurrentUserIsOwner($address, $user);
         $this->assertOrderWithAddressNotExists($address);
 
         $this->addressRepository->remove($address);

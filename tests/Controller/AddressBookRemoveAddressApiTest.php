@@ -11,7 +11,7 @@ use Sylius\Component\Core\Repository\AddressRepositoryInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\Sylius\ShopApiPlugin\Controller\Utils\ShopUserLoginTrait;
 
-class AddressBookDeleteAddressApiTest extends JsonApiTestCase
+class AddressBookRemoveAddressApiTest extends JsonApiTestCase
 {
     use ShopUserLoginTrait;
 

@@ -165,6 +165,7 @@
         <service id="sylius.shop_api_plugin.handler.remove_address_handler" class="Sylius\ShopApiPlugin\Handler\RemoveAddressHandler">
             <argument type="service" id="sylius.repository.address" />
             <argument type="service" id="sylius.repository.order" />
+            <argument type="service" id="security.token_storage" />
             <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\RemoveAddress" />
         </service>
         <service id="sylius.shop_api_plugin.handler.set_default_address_handler" class="Sylius\ShopApiPlugin\Handler\SetDefaultAddressHandler">
