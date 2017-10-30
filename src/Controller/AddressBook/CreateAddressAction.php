@@ -10,7 +10,6 @@ use League\Tactician\CommandBus;
 use Sylius\ShopApiPlugin\Command\CreateAddress;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
 use Sylius\ShopApiPlugin\Model\Address;
-use Sylius\ShopApiPlugin\Request\CreateAddressRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -77,3 +76,4 @@ final class CreateAddressAction
         return $this->viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));
     }
 }
+

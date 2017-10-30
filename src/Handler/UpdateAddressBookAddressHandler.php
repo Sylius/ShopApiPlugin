@@ -81,7 +81,7 @@ final class UpdateAddressBookAddressHandler
         $address->setPostcode($command->postcode());
         $address->setPhoneNumber($command->phoneNumber());
 
-        if (null !== $command->provinceCode() &&  $command->provinceCode() !== $address->getProvinceCode()) {
+        if (null !== $command->provinceCode() && $command->provinceCode() !== $address->getProvinceCode()) {
             $province = $this->provinceRepository->findOneBy(['code' => $command->provinceCode()]);
             $this->assertProvinceExists($province);
             $address->setProvinceCode($province->getCode());

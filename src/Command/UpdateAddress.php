@@ -15,6 +15,7 @@ final class UpdateAddress
 
     /**
      * CreateAddress constructor.
+     *
      * @param Address $address
      */
     public function __construct(Address $address)

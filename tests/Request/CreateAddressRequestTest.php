@@ -13,6 +13,5 @@ class CreateAddressRequestTest extends TestCase
      */
     public function it_creates_create_address_command()
     {
-        //
     }
 }

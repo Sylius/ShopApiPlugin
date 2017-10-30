@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
 use Lakion\ApiTestCase\JsonApiTestCase;
@@ -32,7 +34,7 @@ class AddressBookSetDefaultAddressApiTest extends JsonApiTestCase
         /** @var ResourceInterface $address */
         $address = $addressRepository->findOneBy(['street' => 'Kupreska']);
 
-        $this->client->request('PATCH', sprintf("/shop-api/address-book/%s/default", $address->getId()), [], [], self::$acceptAndContentTypeHeader);
+        $this->client->request('PATCH', sprintf('/shop-api/address-book/%s/default', $address->getId()), [], [], self::$acceptAndContentTypeHeader);
 
         $response = $this->client->getResponse();
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
@@ -40,7 +42,7 @@ class AddressBookSetDefaultAddressApiTest extends JsonApiTestCase
         /** @var UserRepositoryInterface $userRepository */
         $userRepository = $this->get('sylius.repository.shop_user');
         /** @var ShopUser $address */
-        $shopUser = $userRepository->findOneByEmail("oliver@queen.com");
+        $shopUser = $userRepository->findOneByEmail('oliver@queen.com');
 
         Assert::assertEquals(
             $shopUser->getCustomer()->getDefaultAddress(),

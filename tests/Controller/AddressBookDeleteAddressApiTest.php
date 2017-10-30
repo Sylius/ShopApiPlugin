@@ -1,7 +1,8 @@
 <?php
 
-namespace Tests\Sylius\ShopApiPlugin\Controller;
+declare(strict_types=1);
 
+namespace Tests\Sylius\ShopApiPlugin\Controller;
 
 use Lakion\ApiTestCase\JsonApiTestCase;
 use PHPUnit\Framework\Assert;
@@ -31,7 +32,7 @@ class AddressBookDeleteAddressApiTest extends JsonApiTestCase
         /** @var AddressInterface $address */
         $address = $addressRepository->findOneBy(['street' => 'Kupreska']);
 
-        $this->client->request('DELETE', sprintf("/shop-api/address-book/%s", $address->getId()), [], [], self::$acceptAndContentTypeHeader);
+        $this->client->request('DELETE', sprintf('/shop-api/address-book/%s', $address->getId()), [], [], self::$acceptAndContentTypeHeader);
         $response = $this->client->getResponse();
 
         $address = $addressRepository->findOneBy(['street' => 'Kupreska']);
@@ -50,7 +51,7 @@ class AddressBookDeleteAddressApiTest extends JsonApiTestCase
         $this->loadFixturesFromFile('address.yml');
         $this->logInUser('oliver@queen.com', '123pa$$word');
 
-        $this->client->request('DELETE',sprintf("/shop-api/address-book/-1"), [], [], self::$acceptAndContentTypeHeader);
+        $this->client->request('DELETE', sprintf('/shop-api/address-book/-1'), [], [], self::$acceptAndContentTypeHeader);
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_BAD_REQUEST);
@@ -71,7 +72,7 @@ class AddressBookDeleteAddressApiTest extends JsonApiTestCase
         /** @var AddressInterface $address */
         $address = $addressRepository->findOneBy(['street' => 'Vukovarska']);
 
-        $this->client->request('DELETE', sprintf("/shop-api/address-book/%s", $address->getId()), [], [], self::$acceptAndContentTypeHeader);
+        $this->client->request('DELETE', sprintf('/shop-api/address-book/%s', $address->getId()), [], [], self::$acceptAndContentTypeHeader);
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_INTERNAL_SERVER_ERROR);

@@ -9,7 +9,6 @@ use FOS\RestBundle\View\ViewHandlerInterface;
 use Sylius\Component\Core\Model\Customer;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\ShopApiPlugin\Factory\AddressBookViewFactoryInterface;
-use Sylius\ShopApiPlugin\Factory\AddressViewFactory;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;

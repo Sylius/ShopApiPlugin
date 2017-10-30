@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
 use Lakion\ApiTestCase\JsonApiTestCase;
@@ -16,8 +18,8 @@ class AddressBookUpdateAddressApiTest extends JsonApiTestCase
     private static $contentTypeHeader = ['CONTENT_TYPE' => 'application/json'];
 
     /**
- * @test
- */
+     * @test
+     */
     public function it_updates_address_in_address_book()
     {
         $this->loadFixturesFromFile('customer.yml');
@@ -44,20 +46,20 @@ class AddressBookUpdateAddressApiTest extends JsonApiTestCase
             "phoneNumber": "0918972132"
         }
 EOT;
-        $this->client->request('PUT', sprintf("/shop-api/address-book/%s", $address->getId()), [], [], self::$contentTypeHeader, $data);
+        $this->client->request('PUT', sprintf('/shop-api/address-book/%s', $address->getId()), [], [], self::$contentTypeHeader, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'address_book/update_address', Response::HTTP_OK);
 
         /** @var AddressInterface $updatedAddress */
         $updatedAddress = $addressRepository->findOneBy(['id' => $address->getId()]);
-        Assert::assertEquals($updatedAddress->getFirstName(), "New name");
-        Assert::assertEquals($updatedAddress->getLastName(), "New lastName");
-        Assert::assertEquals($updatedAddress->getCompany(), "Locastic");
-        Assert::assertEquals($updatedAddress->getCity(), "New city");
-        Assert::assertEquals($updatedAddress->getPostcode(), "2000");
-        Assert::assertEquals($updatedAddress->getProvinceCode(), "GB-WLS");
-        Assert::assertEquals($updatedAddress->getPhoneNumber(), "0918972132");
+        Assert::assertEquals($updatedAddress->getFirstName(), 'New name');
+        Assert::assertEquals($updatedAddress->getLastName(), 'New lastName');
+        Assert::assertEquals($updatedAddress->getCompany(), 'Locastic');
+        Assert::assertEquals($updatedAddress->getCity(), 'New city');
+        Assert::assertEquals($updatedAddress->getPostcode(), '2000');
+        Assert::assertEquals($updatedAddress->getProvinceCode(), 'GB-WLS');
+        Assert::assertEquals($updatedAddress->getPhoneNumber(), '0918972132');
     }
 
     /**
@@ -89,7 +91,7 @@ EOT;
             "phoneNumber": "0918972132"
         }
 EOT;
-        $this->client->request('PUT', sprintf("/shop-api/address-book/%s", $address->getId()), [], [], self::$contentTypeHeader, $data);
+        $this->client->request('PUT', sprintf('/shop-api/address-book/%s', $address->getId()), [], [], self::$contentTypeHeader, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -121,7 +123,7 @@ EOT;
             "postcode": "",
         }
 EOT;
-        $this->client->request('PUT', sprintf("/shop-api/address-book/%s", $address->getId()), [], [], self::$contentTypeHeader, $data);
+        $this->client->request('PUT', sprintf('/shop-api/address-book/%s', $address->getId()), [], [], self::$contentTypeHeader, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_BAD_REQUEST);

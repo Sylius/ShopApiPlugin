@@ -10,7 +10,7 @@ use Webmozart\Assert\Assert;
 final class Address
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
@@ -89,8 +89,7 @@ final class Address
         $provinceCode = null,
         $phoneNumber = null,
         $company = null
-    )
-    {
+    ) {
         $this->id = $id;
         $this->firstName = $firstName;
         $this->lastName = $lastName;
