@@ -7,6 +7,9 @@
         "street": "McGlynn Island",
         "city": "Klingside",
         "postcode": "33553",
+        "provinceCode": "Scotland",
+        "company": "Sylius",
+        "phoneNumber": "349713",
         "default": false
     },
     {
@@ -17,6 +20,9 @@
         "street": "Kupreska",
         "city": "Klingside",
         "postcode": "33553",
+        "provinceCode": "Scotland",
+        "company": "Locastic",
+        "phoneNumber": "349713",
         "default": false
     },
     {
@@ -27,6 +33,9 @@
         "street": "Lurline Springs",
         "city": "Klingside",
         "postcode": "33553",
+        "provinceCode": "Scotland",
+        "company": "Locastic",
+        "phoneNumber": "349713",
         "default": false
     }
 ]
