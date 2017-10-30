@@ -17,14 +17,14 @@ sylius_shop_remove_address_book_entry:
         _controller: sylius.shop_api_plugin.controller.address_book.remove_address_action
 
 sylius_shop_set_default_address:
-    path: /address-book/default
+    path: /address-book/{id}/default
     methods: [PATCH]
     defaults:
         _controller: sylius.shop_api_plugin.controller.address_book.set_default_address_action
 
 sylius_shop_update_address_book_entry:
     path: /address-book/{id}
-    methods: [PUT, PATCH]
+    methods: [PUT]
     defaults:
         _controller: sylius.shop_api_plugin.controller.address_book.update_address_action
 

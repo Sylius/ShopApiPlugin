@@ -6,7 +6,7 @@ namespace Sylius\ShopApiPlugin\Command;
 
 use Sylius\ShopApiPlugin\Model\Address;
 
-final class CreateAddress
+final class UpdateAddress
 {
     /**
      * @var Address
@@ -20,6 +20,14 @@ final class CreateAddress
     public function __construct(Address $address)
     {
         $this->address = $address;
+    }
+
+    /**
+     * @return string
+     */
+    public function id(): string
+    {
+        return $this->address->id();
     }
 
     /**

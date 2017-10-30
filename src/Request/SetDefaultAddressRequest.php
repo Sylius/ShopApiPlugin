@@ -22,7 +22,7 @@ final class SetDefaultAddressRequest
 
     public function __construct(Request $request, ShopUserInterface $user)
     {
-        $this->id = $request->request->get('id');
+        $this->id = $request->attributes->get('id');
         $this->user = $user;
     }
 

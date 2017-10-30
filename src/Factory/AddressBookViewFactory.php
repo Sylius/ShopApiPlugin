@@ -30,10 +30,13 @@ final class AddressBookViewFactory implements AddressBookViewFactoryInterface
         $addressBookView->firstName = $address->getFirstName();
         $addressBookView->lastName = $address->getLastName();
         $addressBookView->countryCode = $address->getCountryCode();
-        $addressBookView->street = $address->getStreet();
         $addressBookView->city = $address->getCity();
+        $addressBookView->street = $address->getStreet();
         $addressBookView->postcode = $address->getPostcode();
         $addressBookView->provinceName = $address->getProvinceName();
+        $addressBookView->provinceCode = $address->getProvinceCode();
+        $addressBookView->company = $address->getCompany();
+        $addressBookView->phoneNumber = $address->getPhoneNumber();
         $addressBookView->default = $address === $customer->getDefaultAddress();
 
         return $addressBookView;

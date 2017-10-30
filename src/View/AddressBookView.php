@@ -47,6 +47,21 @@ class AddressBookView
     public $provinceName;
 
     /**
+     * @var string
+     */
+    public $provinceCode;
+
+    /**
+     * @var string
+     */
+    public $company;
+
+    /**
+     * @var string
+     */
+    public $phoneNumber;
+
+    /**
      * @var bool
      */
     public $default;

@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "firstName": "Jeanie",
+        "lastName": "Metz",
+        "countryCode": "United Kingdom",
+        "street": "McGlynn Island",
+        "city": "Klingside",
+        "postcode": "33553",
+        "default": false
+    },
+    {
+        "id": 2,
+        "firstName": "Jeanie",
+        "lastName": "Metz",
+        "countryCode": "United Kingdom",
+        "street": "Kupreska",
+        "city": "Klingside",
+        "postcode": "33553",
+        "default": false
+    },
+    {
+        "id": 3,
+        "firstName": "Jeanie",
+        "lastName": "Metz",
+        "countryCode": "United Kingdom",
+        "street": "Lurline Springs",
+        "city": "Klingside",
+        "postcode": "33553",
+        "default": false
+    }
+]

@@ -1,0 +1,45 @@
+Sylius\Component\Core\Model\Address:
+    customer_oliver_home_address:
+        firstName: "Jeanie"
+        lastName: "Metz"
+        phoneNumber: 0912539021
+        company: "Sylius"
+        countryCode: "@country_gb"
+        provinceCode: "@province_gb_scotland"
+        street: "McGlynn Island"
+        city: "Klingside"
+        postcode: "33553"
+        customer: "@customer_oliver"
+    customer_oliver_work_address:
+        firstName: "Jeanie"
+        lastName: "Metz"
+        phoneNumber: 0912539021
+        company: "Locastic"
+        countryCode: "@country_gb"
+        provinceCode: "@province_gb_scotland"
+        street: "Kupreska"
+        city: "Klingside"
+        postcode: "33553"
+        customer: "@customer_oliver"
+    customer_oliver_freelance_address:
+        firstName: "Jeanie"
+        lastName: "Metz"
+        phoneNumber: 0912539021
+        company: "Locastic"
+        countryCode: "@country_gb"
+        provinceCode: "@province_gb_scotland"
+        street: "Lurline Springs"
+        city: "Klingside"
+        postcode: "33553"
+        customer: "@customer_oliver"
+    customer_hater_address:
+        firstName: "Slade"
+        lastName: "Wilson"
+        phoneNumber: 0912539021
+        company: "Separovic d.o.o"
+        countryCode: "@country_gb"
+        provinceCode: "@province_gb_scotland"
+        street: "Vukovarska"
+        city: "Split"
+        postcode: "21000"
+        customer: "@hater"

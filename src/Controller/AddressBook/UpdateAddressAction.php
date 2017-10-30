@@ -6,7 +6,12 @@ namespace Sylius\ShopApiPlugin\Controller\AddressBook;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
-use JMS\Serializer\SerializerInterface;
+use League\Tactician\CommandBus;
+use Sylius\Component\Core\Repository\AddressRepositoryInterface;
+use Sylius\ShopApiPlugin\Command\UpdateAddress;
+use Sylius\ShopApiPlugin\Factory\AddressBookViewFactoryInterface;
+use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
+use Sylius\ShopApiPlugin\Model\Address;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -20,40 +25,80 @@ final class UpdateAddressAction
     private $viewHandler;
 
     /**
-     * @var TokenStorageInterface
-     */
-    private $tokenStorage;
-
-    /**
      * @var ValidatorInterface
      */
     private $validator;
 
     /**
-     * @var SerializerInterface
+     * @var CommandBus
      */
-    private $serializer;
+    private $bus;
+
+    /**
+     * @var ValidationErrorViewFactoryInterface
+     */
+    private $validationErrorViewFactory;
+
+    /**
+     * @var AddressBookViewFactoryInterface
+     */
+    private $addressBookViewFactory;
+
+    /**
+     * @var AddressRepositoryInterface
+     */
+    private $addressRepository;
+
+    /**
+     * @var TokenStorageInterface
+     */
+    private $tokenStorage;
 
     /**
      * @param ViewHandlerInterface $viewHandler
-     * @param TokenStorageInterface $tokenStorage
      * @param ValidatorInterface $validator
-     * @param SerializerInterface $serializer
+     * @param CommandBus $bus
+     * @param ValidationErrorViewFactoryInterface $validationErrorViewFactory
+     * @param AddressBookViewFactoryInterface $addressViewFactory
+     * @param AddressRepositoryInterface $addressRepository
+     * @param TokenStorageInterface $tokenStorage
      */
     public function __construct(
         ViewHandlerInterface $viewHandler,
-        TokenStorageInterface $tokenStorage,
         ValidatorInterface $validator,
-        SerializerInterface $serializer
+        CommandBus $bus,
+        ValidationErrorViewFactoryInterface $validationErrorViewFactory,
+        AddressBookViewFactoryInterface $addressViewFactory,
+        AddressRepositoryInterface $addressRepository,
+        TokenStorageInterface $tokenStorage
     ) {
         $this->viewHandler = $viewHandler;
-        $this->tokenStorage = $tokenStorage;
         $this->validator = $validator;
-        $this->serializer = $serializer;
+        $this->bus = $bus;
+        $this->validationErrorViewFactory = $validationErrorViewFactory;
+        $this->addressBookViewFactory = $addressViewFactory;
+        $this->addressRepository = $addressRepository;
+        $this->tokenStorage = $tokenStorage;
     }
 
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request, $id): Response
     {
-        return $this->viewHandler->handle(View::create([], Response::HTTP_OK));
+        $addressModel = Address::createFromRequest($request);
+
+        $validationResults = $this->validator->validate($addressModel, null, 'sylius_address_book_update');
+
+        if (0 !== count($validationResults)) {
+            return $this->viewHandler->handle(View::create($this->validationErrorViewFactory->create($validationResults), Response::HTTP_BAD_REQUEST));
+        }
+
+        $this->bus->handle(new UpdateAddress($addressModel));
+
+        $updatedAddress = $this->addressRepository->findOneBy(['id' => $id]);
+        $customer = $this->tokenStorage->getToken()->getUser()->getCustomer();
+
+        return $this->viewHandler->handle(View::create(
+            $this->addressBookViewFactory->create($updatedAddress, $customer),
+            Response::HTTP_OK)
+        );
     }
 }

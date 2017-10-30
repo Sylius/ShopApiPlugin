@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Request;
 
+use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\ShopApiPlugin\Command\CreateAddress;
+use Sylius\ShopApiPlugin\Model\Address;
 use Symfony\Component\HttpFoundation\Request;
 
 final class CreateAddressRequest
@@ -55,6 +57,11 @@ final class CreateAddressRequest
     private $phoneNumber;
 
     /**
+     * @var AddressInterface
+     */
+    private $address;
+
+    /**
      * CreateAddressRequest constructor.
      *
      * @param Request $request
@@ -63,13 +70,15 @@ final class CreateAddressRequest
     {
         $this->firstName = $request->request->get('firstName');
         $this->lastName = $request->request->get('lastName');
-        $this->company = $request->request->get('company');
+        $this->city = $request->request->get('city');
+        $this->postcode = $request->request->get('postcode');
         $this->street = $request->request->get('street');
         $this->countryCode = $request->request->get('countryCode');
         $this->provinceCode = $request->request->get('provinceCode');
-        $this->city = $request->request->get('city');
-        $this->postcode = $request->request->get('postcode');
         $this->phoneNumber = $request->request->get('phoneNumber');
+        $this->company = $request->request->get('company');
+
+        $this->address = Address::createFromArray($request->request->all());
     }
 
     /**
@@ -77,16 +86,6 @@ final class CreateAddressRequest
      */
     public function getCommand()
     {
-        return new CreateAddress(
-            $this->firstName,
-            $this->lastName,
-            $this->company,
-            $this->street,
-            $this->countryCode,
-            $this->provinceCode,
-            $this->city,
-            $this->postcode,
-            $this->phoneNumber
-        );
+        return new CreateAddress($this->address);
     }
 }
