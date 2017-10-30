@@ -6,11 +6,11 @@ namespace Tests\Sylius\ShopApiPlugin\Controller;
 
 use Lakion\ApiTestCase\JsonApiTestCase;
 use PHPUnit\Framework\Assert;
+use Sylius\Component\Core\Model\ShopUser;
 use Sylius\Component\Core\Repository\AddressRepositoryInterface;
 use Sylius\Component\Resource\Model\ResourceInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
 use Symfony\Component\HttpFoundation\Response;
-use Sylius\Component\Core\Model\ShopUser;
 use Tests\Sylius\ShopApiPlugin\Controller\Utils\ShopUserLoginTrait;
 
 class AddressBookSetDefaultAddressApiTest extends JsonApiTestCase

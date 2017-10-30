@@ -18,6 +18,6 @@ class SetDefaultAddressRequestTest extends TestCase
     {
         $setDefaultAddressRequest = new SetDefaultAddressRequest(new Request([], [], ['id' => '1']));
 
-        $this->assertEquals(        $setDefaultAddressRequest->getCommand(), new SetDefaultAddress('1'));
+        $this->assertEquals($setDefaultAddressRequest->getCommand(), new SetDefaultAddress('1'));
     }
 }
