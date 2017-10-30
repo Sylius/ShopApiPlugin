@@ -7,7 +7,9 @@ namespace Sylius\ShopApiPlugin\Controller\AddressBook;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
+use Sylius\ShopApiPlugin\Command\CreateAddress;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
+use Sylius\ShopApiPlugin\Model\Address;
 use Sylius\ShopApiPlugin\Request\CreateAddressRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -62,15 +64,15 @@ final class CreateAddressAction
      */
     public function __invoke(Request $request): Response
     {
-        $createAddressRequest = new CreateAddressRequest($request);
+        $addressModel = Address::createFromRequest($request);
 
-        $validationResults = $this->validator->validate($createAddressRequest);
+        $validationResults = $this->validator->validate($addressModel, null, 'sylius_address_book_create');
 
         if (0 !== count($validationResults)) {
             return $this->viewHandler->handle(View::create($this->validationErrorViewFactory->create($validationResults), Response::HTTP_BAD_REQUEST));
         }
 
-        $this->bus->handle($createAddressRequest->getCommand());
+        $this->bus->handle(new CreateAddress($addressModel));
 
         return $this->viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));
     }

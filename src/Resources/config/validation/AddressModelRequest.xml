@@ -15,6 +15,7 @@
             <constraint name="NotBlank">
                 <option name="message">sylius.address.first_name.not_blank</option>
                 <option name="groups">sylius_address_book_update</option>
+                <option name="groups">sylius_address_book_create</option>
             </constraint>
             <constraint name="Length">
                 <option name="min">2</option>
@@ -22,12 +23,14 @@
                 <option name="minMessage">sylius.address.first_name.min_length</option>
                 <option name="maxMessage">sylius.address.first_name.max_length</option>
                 <option name="groups">sylius_address_book_update</option>
+                <option name="groups">sylius_address_book_create</option>
             </constraint>
         </property>
         <property name="lastName">
             <constraint name="NotBlank">
                 <option name="message">sylius.address.last_name.not_blank</option>
                 <option name="groups">sylius_address_book_update</option>
+                <option name="groups">sylius_address_book_create</option>
             </constraint>
             <constraint name="Length">
                 <option name="min">2</option>
@@ -35,17 +38,20 @@
                 <option name="minMessage">sylius.address.last_name.min_length</option>
                 <option name="maxMessage">sylius.address.last_name.max_length</option>
                 <option name="groups">sylius_address_book_update</option>
+                <option name="groups">sylius_address_book_create</option>
             </constraint>
         </property>
         <property name="countryCode">
             <constraint name="NotBlank">
                 <option name="message">sylius.address.country.not_blank</option>
+                <option name="groups">sylius_address_book_create</option>
             </constraint>
         </property>
         <property name="street">
             <constraint name="NotBlank">
                 <option name="message">sylius.address.street.not_blank</option>
                 <option name="groups">sylius_address_book_update</option>
+                <option name="groups">sylius_address_book_create</option>
             </constraint>
             <constraint name="Length">
                 <option name="min">2</option>
@@ -53,12 +59,14 @@
                 <option name="minMessage">sylius.address.street.min_length</option>
                 <option name="maxMessage">sylius.address.street.max_length</option>
                 <option name="groups">sylius_address_book_update</option>
+                <option name="groups">sylius_address_book_create</option>
             </constraint>
         </property>
         <property name="city">
             <constraint name="NotBlank">
                 <option name="message">sylius.address.city.not_blank</option>
                 <option name="groups">sylius_address_book_update</option>
+                <option name="groups">sylius_address_book_create</option>
             </constraint>
             <constraint name="Length">
                 <option name="min">2</option>
@@ -66,12 +74,14 @@
                 <option name="minMessage">sylius.address.city.min_length</option>
                 <option name="maxMessage">sylius.address.city.max_length</option>
                 <option name="groups">sylius_address_book_update</option>
+                <option name="groups">sylius_address_book_create</option>
             </constraint>
         </property>
         <property name="postcode">
             <constraint name="NotBlank">
                 <option name="message">sylius.address.postcode.not_blank</option>
                 <option name="groups">sylius_address_book_update</option>
+                <option name="groups">sylius_address_book_create</option>
             </constraint>
             <constraint name="Length">
                 <option name="min">2</option>
@@ -79,6 +89,7 @@
                 <option name="minMessage">sylius.address.postcode.min_length</option>
                 <option name="maxMessage">sylius.address.postcode.max_length</option>
                 <option name="groups">sylius_address_book_update</option>
+                <option name="groups">sylius_address_book_create</option>
             </constraint>
         </property>
     </class>
