@@ -120,6 +120,12 @@
             <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\RegisterCustomer" />
         </service>
 
+        <service id="sylius.shop_api_plugin.handler.update_customer" class="Sylius\ShopApiPlugin\Handler\UpdateCustomerHandler">
+            <argument type="service" id="sylius.repository.customer" />
+            <argument type="service" id="security.token_storage" />
+            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\UpdateCustomer" />
+        </service>
+
         <service id="sylius.shop_api_plugin.handler.send_verification_token_handler" class="Sylius\ShopApiPlugin\Handler\SendVerificationTokenHandler">
             <argument type="service" id="sylius.repository.shop_user" />
             <argument type="service" id="sylius.email_sender" />

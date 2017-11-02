@@ -55,6 +55,7 @@ final class ConfigurationTest extends TestCase
                 'adjustment' => View\AdjustmentView::class,
                 'cart_item' => View\ItemView::class,
                 'cart_summary' => View\CartSummaryView::class,
+                'customer' => View\CustomerView::class,
                 'estimated_shipping_cost' => View\EstimatedShippingCostView::class,
                 'image' => View\ImageView::class,
                 'page' => View\PageView::class,

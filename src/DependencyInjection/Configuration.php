@@ -48,6 +48,7 @@ final class Configuration implements ConfigurationInterface
                         ->scalarNode('adjustment')->defaultValue(View\AdjustmentView::class)->end()
                         ->scalarNode('cart_item')->defaultValue(View\ItemView::class)->end()
                         ->scalarNode('cart_summary')->defaultValue(View\CartSummaryView::class)->end()
+                        ->scalarNode('customer')->defaultValue(View\CustomerView::class)->end()
                         ->scalarNode('estimated_shipping_cost')->defaultValue(View\EstimatedShippingCostView::class)->end()
                         ->scalarNode('image')->defaultValue(View\ImageView::class)->end()
                         ->scalarNode('page')->defaultValue(View\PageView::class)->end()

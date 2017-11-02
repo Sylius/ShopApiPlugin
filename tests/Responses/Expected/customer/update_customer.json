@@ -1,0 +1,9 @@
+{
+  "id": "@integer@",
+  "firstName": "New name",
+  "lastName": "New lastName",
+  "email": "shop@example.com",
+  "gender": "male",
+  "phoneNumber": "0918972132",
+  "subscribedToNewsletter": false
+}
