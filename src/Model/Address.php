@@ -65,38 +65,38 @@ final class Address
     private $phoneNumber;
 
     /**
-     * @param null $id
      * @param string $firstName
      * @param string $lastName
      * @param string $city
      * @param string $street
      * @param string $countryCode
      * @param string $postcode
+     * @param null $id
      * @param string $provinceName
      * @param null $provinceCode
      * @param null $company
      * @param null $phoneNumber
      */
     private function __construct(
-        $id = null,
         $firstName,
         $lastName,
         $city,
         $street,
         $countryCode,
         $postcode,
+        $id = null,
         $provinceName = null,
         $provinceCode = null,
         $phoneNumber = null,
         $company = null
     ) {
-        $this->id = $id;
         $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->city = $city;
         $this->street = $street;
         $this->countryCode = $countryCode;
         $this->postcode = $postcode;
+        $this->id = $id;
         $this->provinceName = $provinceName;
         $this->provinceCode = $provinceCode;
         $this->phoneNumber = $phoneNumber;
@@ -118,13 +118,13 @@ final class Address
         Assert::keyExists($address, 'postcode');
 
         return new self(
-            $address['id'] ?? null,
             $address['firstName'],
             $address['lastName'],
             $address['city'],
             $address['street'],
             $address['countryCode'],
             $address['postcode'],
+            $address['id'] ?? null,
             $address['provinceName'] ?? null,
             $address['provinceCode'] ?? null,
             $address['phoneNumber'] ?? null,
@@ -140,13 +140,13 @@ final class Address
     public static function createFromRequest(Request $request)
     {
         return new self(
-            $request->attributes->get('id') ?? $request->request->get('id'),
             $request->request->get('firstName'),
             $request->request->get('lastName'),
             $request->request->get('city'),
             $request->request->get('street'),
             $request->request->get('countryCode'),
             $request->request->get('postcode'),
+            $request->attributes->get('id') ?? $request->request->get('id'),
             $request->request->get('provinceName'),
             $request->request->get('provinceCode'),
             $request->request->get('phoneNumber'),

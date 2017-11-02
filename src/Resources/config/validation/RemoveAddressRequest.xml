@@ -4,7 +4,7 @@
     <class name="Sylius\ShopApiPlugin\Request\RemoveAddressRequest">
         <property name="id">
             <constraint name="NotNull">
-                <option name="message">sylius.shop_api.address_book_item.not_null</option>
+                <option name="message">sylius.shop_api.address_id.not_null</option>
             </constraint>
             <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\AddressExists" />
         </property>
