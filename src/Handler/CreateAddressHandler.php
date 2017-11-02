@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Handler;
 
-use Sylius\Component\Addressing\Model\ProvinceInterface;
 use Sylius\Component\Core\Model\AddressInterface;
-use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\ShopApiPlugin\Command\CreateAddress;
@@ -68,7 +66,6 @@ final class CreateAddressHandler
         $user = $this->tokenStorage->getToken()->getUser();
         $customer = $user->getCustomer();
 
-        $this->assertShopUserExists($user);
         $this->assertCountryExists($command->countryCode());
 
         /** @var AddressInterface $address */
@@ -83,7 +80,7 @@ final class CreateAddressHandler
         $address->setPhoneNumber($command->phoneNumber());
 
         if (null !== $command->provinceCode()) {
-            $province = $this->getProvince($command->provinceCode());
+            $province = $this->provinceRepository->findOneBy(['code' => $command->provinceCode()]);
             $this->assertProvinceExists($province);
             $address->setProvinceCode($province->getCode());
             $address->setProvinceName($province->getName());
@@ -107,23 +104,5 @@ final class CreateAddressHandler
     private function assertProvinceExists($province): void
     {
         Assert::notNull($province, 'Province does not exist.');
-    }
-
-    /**
-     * @param string $provinceCode
-     *
-     * @return ProvinceInterface|object
-     */
-    private function getProvince(string $provinceCode)
-    {
-        return $this->provinceRepository->findOneBy(['code' => $provinceCode]);
-    }
-
-    /**
-     * @param $user
-     */
-    private function assertShopUserExists($user)
-    {
-        Assert::isInstanceOf($user, ShopUserInterface::class, 'Logged in user does not exist');
     }
 }

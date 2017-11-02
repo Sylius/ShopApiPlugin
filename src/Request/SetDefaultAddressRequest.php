@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Request;
 
-use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\ShopApiPlugin\Command\SetDefaultAddress;
 use Symfony\Component\HttpFoundation\Request;
 

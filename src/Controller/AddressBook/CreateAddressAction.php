@@ -76,4 +76,3 @@ final class CreateAddressAction
         return $this->viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));
     }
 }
-

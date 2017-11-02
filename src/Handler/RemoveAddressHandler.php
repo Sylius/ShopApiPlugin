@@ -43,7 +43,7 @@ final class RemoveAddressHandler
         $user = $this->tokenStorage->getToken()->getUser();
 
         /** @var AddressInterface $address */
-        $address = $this->addressRepository->findOneBy(['id' => $removeAddress->id]);
+        $address = $this->addressRepository->findOneBy(['id' => $removeAddress->id()]);
 
         $this->assertCurrentUserIsOwner($address, $user);
         $this->assertOrderWithAddressNotExists($address);

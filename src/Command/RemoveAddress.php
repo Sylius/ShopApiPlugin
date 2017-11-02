@@ -9,7 +9,7 @@ class RemoveAddress
     /**
      * @var mixed
      */
-    public $id;
+    private $id;
 
     /**
      * @param $id
@@ -17,5 +17,13 @@ class RemoveAddress
     public function __construct($id)
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function id()
+    {
+        return $this->id;
     }
 }

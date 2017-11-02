@@ -35,8 +35,7 @@ final class SetDefaultAddressHandler
         CustomerRepositoryInterface $customerRepository,
         AddressRepositoryInterface $addressRepository,
         TokenStorageInterface $tokenStorage
-    )
-    {
+    ) {
         $this->customerRepository = $customerRepository;
         $this->addressRepository = $addressRepository;
         $this->tokenStorage = $tokenStorage;
@@ -45,7 +44,7 @@ final class SetDefaultAddressHandler
     public function handle(SetDefaultAddress $setDefaultAddress): void
     {
         /** @var AddressInterface $address */
-        $address = $this->addressRepository->find($setDefaultAddress->id);
+        $address = $this->addressRepository->find($setDefaultAddress->id());
         /** @var ShopUser */
         $user = $this->tokenStorage->getToken()->getUser();
 
