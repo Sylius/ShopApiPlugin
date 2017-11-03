@@ -27,4 +27,3 @@ sylius_shop_update_address_book_entry:
     methods: [PUT]
     defaults:
         _controller: sylius.shop_api_plugin.controller.address_book.update_address_action
-

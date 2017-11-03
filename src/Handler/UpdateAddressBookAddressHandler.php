@@ -40,8 +40,6 @@ final class UpdateAddressBookAddressHandler
     private $tokenStorage;
 
     /**
-     * CreateAddressHandler constructor.
-     *
      * @param RepositoryInterface $addressRepository
      * @param RepositoryInterface $countryRepository
      * @param RepositoryInterface $provinceRepository

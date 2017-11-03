@@ -8,7 +8,7 @@ use PhpSpec\ObjectBehavior;
 use Sylius\ShopApiPlugin\Command\UpdateAddress;
 use Sylius\ShopApiPlugin\Model\Address;
 
-class UpdateAddressSpec extends ObjectBehavior
+final class UpdateAddressSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {

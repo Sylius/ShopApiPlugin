@@ -36,8 +36,6 @@ final class SetDefaultAddress
     private $validationErrorViewFactory;
 
     /**
-     * CreateAddressAction constructor.
-     *
      * @param ViewHandlerInterface $viewHandler
      * @param CommandBus $bus
      * @param ValidatorInterface $validator

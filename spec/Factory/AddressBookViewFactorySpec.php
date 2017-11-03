@@ -10,7 +10,7 @@ use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\ShopApiPlugin\Factory\AddressBookViewFactory;
 use Sylius\ShopApiPlugin\View\AddressBookView;
 
-class AddressBookViewFactorySpec extends ObjectBehavior
+final class AddressBookViewFactorySpec extends ObjectBehavior
 {
     function let()
     {

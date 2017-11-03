@@ -30,6 +30,11 @@ final class RemoveAddressHandler
      */
     private $tokenStorage;
 
+    /**
+     * @param AddressRepositoryInterface $addressRepository
+     * @param OrderRepositoryInterface $orderRepository
+     * @param TokenStorageInterface $tokenStorage
+     */
     public function __construct(AddressRepositoryInterface $addressRepository, OrderRepositoryInterface $orderRepository, TokenStorageInterface $tokenStorage)
     {
         $this->addressRepository = $addressRepository;

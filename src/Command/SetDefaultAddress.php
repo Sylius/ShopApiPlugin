@@ -11,6 +11,9 @@ class SetDefaultAddress
      */
     private $id;
 
+    /**
+     * @param $id
+     */
     public function __construct($id)
     {
         $this->id = $id;

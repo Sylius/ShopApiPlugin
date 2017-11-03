@@ -31,6 +31,11 @@ final class SetDefaultAddressHandler
      */
     private $tokenStorage;
 
+    /**
+     * @param CustomerRepositoryInterface $customerRepository
+     * @param AddressRepositoryInterface $addressRepository
+     * @param TokenStorageInterface $tokenStorage
+     */
     public function __construct(
         CustomerRepositoryInterface $customerRepository,
         AddressRepositoryInterface $addressRepository,
