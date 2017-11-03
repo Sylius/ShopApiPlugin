@@ -36,8 +36,7 @@ framework:
 doctrine:
     dbal:
         driver: "pdo_sqlite"
-        path: "/run/shm/sylius/cache/test/db.sql"
-#        path: "%kernel.cache_dir%/db.sql"
+        path: "%kernel.cache_dir%/db.sql"
         charset: UTF8
 
 fos_rest:

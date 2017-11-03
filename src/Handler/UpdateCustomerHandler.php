@@ -50,6 +50,7 @@ final class UpdateCustomerHandler
 
         $customer->setEmail($command->email());
         $customer->setGender($command->gender());
+        $customer->setBirthday($command->birthday());
         $customer->setPhoneNumber($command->phoneNumber());
         $customer->setSubscribedToNewsletter($command->subscribedToNewsletter());
 

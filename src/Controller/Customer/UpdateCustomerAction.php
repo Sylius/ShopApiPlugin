@@ -72,8 +72,7 @@ final class UpdateCustomerAction
         CustomerViewFactoryInterface $customerViewFactory,
         CustomerRepositoryInterface $customerRepository,
         TokenStorageInterface $tokenStorage
-    )
-    {
+    ) {
         $this->viewHandler = $viewHandler;
         $this->validator = $validator;
         $this->bus = $bus;

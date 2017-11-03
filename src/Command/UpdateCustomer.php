@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Command;
 
+use DateTime;
 use DateTimeInterface;
 use Webmozart\Assert\Assert;
 
@@ -60,7 +61,7 @@ final class UpdateCustomer
         Assert::string($firstName);
         Assert::string($lastName);
         Assert::string($email);
-        Assert::nullOrDigits($birthday);
+        Assert::nullOrString($birthday);
         Assert::string($gender);
         Assert::nullOrString($phoneNumber);
         Assert::nullOrBoolean($subscribedToNewsletter);
@@ -68,7 +69,7 @@ final class UpdateCustomer
         $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->email = $email;
-        $this->birthday = $birthday;
+        $this->birthday = new DateTime($birthday);
         $this->gender = $gender;
         $this->phoneNumber = $phoneNumber;
         $this->subscribedToNewsletter = $subscribedToNewsletter;

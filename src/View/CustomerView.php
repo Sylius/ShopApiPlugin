@@ -7,7 +7,7 @@ namespace Sylius\ShopApiPlugin\View;
 class CustomerView
 {
     /**
-     * @var integer
+     * @var int
      */
     public $id;
 
@@ -42,7 +42,7 @@ class CustomerView
     public $phoneNumber;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $subscribedToNewsletter;
 }

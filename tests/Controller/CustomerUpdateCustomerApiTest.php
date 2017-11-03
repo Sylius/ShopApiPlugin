@@ -11,7 +11,7 @@ use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\Sylius\ShopApiPlugin\Controller\Utils\ShopUserLoginTrait;
 
-class CustomerUpdateCustomerApiTest extends JsonApiTestCase
+final class CustomerUpdateCustomerApiTest extends JsonApiTestCase
 {
     use ShopUserLoginTrait;
     private static $contentTypeHeader = ['CONTENT_TYPE' => 'application/json'];
@@ -56,42 +56,11 @@ EOT;
         Assert::assertEquals($customer->getPhoneNumber(), '0918972132');
     }
 
-//    /**
-//     * @test
-//     */
-//    public function it_does_not_allow_to_update_address_if_country_or_province_code_are_not_valid()
-//    {
-//        $this->loadFixturesFromFile('customer.yml');
-//        $this->loadFixturesFromFile('country.yml');
-//        $this->loadFixturesFromFile('address.yml');
-//        $this->logInUser('oliver@queen.com', '123pa$$word');
-//        /** @var AddressRepositoryInterface $addressRepository */
-//        $addressRepository = $this->get('sylius.repository.address');
-//        /** @var AddressInterface $address */
-//        $address = $addressRepository->findOneBy(['street' => 'Kupreska']);
-//        $data =
-//            <<<EOT
-//        {
-//            "firstName": "New name",
-//            "lastName": "New lastName",
-//            "company": "Locastic",
-//            "street": "New street",
-//            "countryCode": "WRONG_CODE",
-//            "provinceCode": "WRONG_CODE",
-//            "city": "New city",
-//            "postcode": "2000",
-//            "phoneNumber": "0918972132"
-//        }
-//EOT;
-//        $this->client->request('PUT', sprintf('/shop-api/address-book/%s', $address->getId()), [], [], self::$contentTypeHeader, $data);
-//        $response = $this->client->getResponse();
-//        $this->assertResponseCode($response, Response::HTTP_INTERNAL_SERVER_ERROR);
-//    }
-//
+
     /**
      * @test
      */
-    public function it_does_not_allow_to_update_address_without_passing_required_data()
+    public function it_does_not_allow_to_update_customer_without_passing_required_data()
     {
         $this->loadFixturesFromFile('customer.yml');
         $this->logInUser('oliver@queen.com', '123pa$$word');
