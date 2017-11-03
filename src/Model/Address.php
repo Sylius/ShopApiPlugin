@@ -71,11 +71,11 @@ final class Address
      * @param string $street
      * @param string $countryCode
      * @param string $postcode
-     * @param null $id
+     * @param string $id
      * @param string $provinceName
-     * @param null $provinceCode
-     * @param null $company
-     * @param null $phoneNumber
+     * @param string $provinceCode
+     * @param string $company
+     * @param string $phoneNumber
      */
     private function __construct(
         $firstName,
