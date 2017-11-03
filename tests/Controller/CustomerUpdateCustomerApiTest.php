@@ -21,7 +21,6 @@ final class CustomerUpdateCustomerApiTest extends JsonApiTestCase
      */
     public function it_updates_customer()
     {
-
         $this->loadFixturesFromFile('customer.yml');
         $this->logInUser('oliver@queen.com', '123pa$$word');
 
@@ -34,11 +33,12 @@ final class CustomerUpdateCustomerApiTest extends JsonApiTestCase
             "firstName": "New name",
             "lastName": "New lastName",
             "email": "shop@example.com",
+            "birthday": "2017-11-01",
             "gender": "male",
-            "phoneNumber": "0918972132"
+            "phoneNumber": "0918972132",
+            "subscribedToNewsletter": true
         }
 EOT;
-
         $this->client->request('PUT', '/shop-api/me', [], [], self::$contentTypeHeader, $data);
         $response = $this->client->getResponse();
         $this->assertResponse($response, 'customer/update_customer', Response::HTTP_OK);
@@ -52,10 +52,11 @@ EOT;
         Assert::assertEquals($customer->getFirstName(), 'New name');
         Assert::assertEquals($customer->getLastName(), 'New lastName');
         Assert::assertEquals($customer->getEmail(), 'shop@example.com');
+        Assert::assertEquals($customer->getBirthday(), new \DateTime('2017-11-01'));
         Assert::assertEquals($customer->getGender(), 'male');
         Assert::assertEquals($customer->getPhoneNumber(), '0918972132');
+        Assert::assertEquals($customer->isSubscribedToNewsletter(), true);
     }
-
 
     /**
      * @test

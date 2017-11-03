@@ -20,7 +20,7 @@ final class UpdateCustomerRequestTest extends TestCase
             'firstName' => 'ivan',
             'lastName' => 'Mts',
             'email' => 'ivan.matas@locastic.com',
-            'birthday' => null,
+            'birthday' => '2017-11-01',
             'gender' => 'male',
             'phoneNumber' => "125125112",
             'subscribedToNewsletter' => true
@@ -29,7 +29,7 @@ final class UpdateCustomerRequestTest extends TestCase
             'ivan',
             'Mts',
             'ivan.matas@locastic.com',
-            null,
+            '2017-11-01',
             'male',
             '125125112',
             true));

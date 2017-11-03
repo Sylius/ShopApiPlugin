@@ -56,7 +56,7 @@ final class UpdateCustomer
      * @param $phoneNumber
      * @param $subscribedToNewsletter
      */
-    public function __construct($firstName, $lastName, $email, $birthday, $gender, $phoneNumber, $subscribedToNewsletter = false)
+    public function __construct($firstName, $lastName, $email, $birthday, $gender, $phoneNumber, $subscribedToNewsletter)
     {
         Assert::string($firstName);
         Assert::string($lastName);
