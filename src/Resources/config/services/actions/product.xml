@@ -60,5 +60,11 @@
             <argument type="service" id="validator" />
             <argument type="service" id="sylius.shop_api_plugin.factory.validation_error_view_factory" />
         </service>
+        <service id="sylius.shop_api_plugin.controller.product.show_latest_product_action"
+                 class="Sylius\ShopApiPlugin\Controller\Product\ShowLatestProductAction"
+        >
+            <argument type="service" id="fos_rest.view_handler" />
+            <argument type="service" id="sylius.shop_api_plugin.view_repository.product_highlight_view_repository" />
+        </service>
     </services>
 </container>
