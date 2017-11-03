@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Handler;
 
+use Sylius\Component\Addressing\Model\ProvinceInterface;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
@@ -39,8 +40,6 @@ final class CreateAddressHandler
     private $tokenStorage;
 
     /**
-     * CreateAddressHandler constructor.
-     *
      * @param RepositoryInterface $addressRepository
      * @param RepositoryInterface $countryRepository
      * @param RepositoryInterface $provinceRepository
@@ -80,8 +79,7 @@ final class CreateAddressHandler
         $address->setPhoneNumber($command->phoneNumber());
 
         if (null !== $command->provinceCode()) {
-            $province = $this->provinceRepository->findOneBy(['code' => $command->provinceCode()]);
-            $this->assertProvinceExists($province);
+            $province = $this->checkProvinceExists($command->provinceCode());
             $address->setProvinceCode($province->getCode());
             $address->setProvinceName($province->getName());
         }
@@ -99,10 +97,16 @@ final class CreateAddressHandler
     }
 
     /**
-     * @param $province
+     * @param string $provinceCode
+     * @return ProvinceInterface
      */
-    private function assertProvinceExists($province): void
+    private function checkProvinceExists(string $provinceCode): ProvinceInterface
     {
+        /** @var ProvinceInterface $province */
+        $province = $this->provinceRepository->findOneBy(['code' => $provinceCode]);
+
         Assert::notNull($province, 'Province does not exist.');
+
+        return $province;
     }
 }
