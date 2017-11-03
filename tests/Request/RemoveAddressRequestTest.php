@@ -9,7 +9,7 @@ use Sylius\ShopApiPlugin\Command\RemoveAddress;
 use Sylius\ShopApiPlugin\Request\RemoveAddressRequest;
 use Symfony\Component\HttpFoundation\Request;
 
-class RemoveAddressRequestTest extends TestCase
+final class RemoveAddressRequestTest extends TestCase
 {
     /**
      * @test

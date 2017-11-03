@@ -8,7 +8,7 @@ use Lakion\ApiTestCase\JsonApiTestCase;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\Sylius\ShopApiPlugin\Controller\Utils\ShopUserLoginTrait;
 
-class AddressBookShowApiTest extends JsonApiTestCase
+final class AddressBookShowApiTest extends JsonApiTestCase
 {
     use ShopUserLoginTrait;
 

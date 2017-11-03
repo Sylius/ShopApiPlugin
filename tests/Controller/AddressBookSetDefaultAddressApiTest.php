@@ -13,7 +13,7 @@ use Sylius\Component\User\Repository\UserRepositoryInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\Sylius\ShopApiPlugin\Controller\Utils\ShopUserLoginTrait;
 
-class AddressBookSetDefaultAddressApiTest extends JsonApiTestCase
+final class AddressBookSetDefaultAddressApiTest extends JsonApiTestCase
 {
     use ShopUserLoginTrait;
 

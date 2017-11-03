@@ -9,7 +9,7 @@ use Sylius\ShopApiPlugin\Command\SetDefaultAddress;
 use Sylius\ShopApiPlugin\Request\SetDefaultAddressRequest;
 use Symfony\Component\HttpFoundation\Request;
 
-class SetDefaultAddressRequestTest extends TestCase
+final class SetDefaultAddressRequestTest extends TestCase
 {
     /**
      * @test
