@@ -1,15 +1,6 @@
 <?php
 declare(strict_types=1);
 
-/**
- * Created by solutionDrive GmbH
- *
- * @author    lei wang <wang@solutiondrive.de>
- * @date      03.11.17
- * @time:     20:25
- * @copyright 2017 solutionDrive GmbH
- */
-
 namespace Sylius\ShopApiPlugin\Controller\Product;
 
 use FOS\RestBundle\View\View;
