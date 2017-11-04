@@ -14,7 +14,7 @@ namespace Sylius\ShopApiPlugin\Controller\Product;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
-use Sylius\ShopApiPlugin\ViewRepository\ProductLatestViewRepository;
+use Sylius\ShopApiPlugin\ViewRepository\ProductLatestViewRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -24,12 +24,12 @@ final class ShowLatestProductAction
     /** @var ViewHandlerInterface */
     private $viewHandler;
 
-    /** @var ProductLatestViewRepository */
+    /** @var ProductLatestViewRepositoryInterface */
     private $productLatestQuery;
 
     public function __construct(
         ViewHandlerInterface $viewHandler,
-        ProductLatestViewRepository $productLatestQuery
+        ProductLatestViewRepositoryInterface $productLatestQuery
     ) {
         $this->viewHandler = $viewHandler;
         $this->productLatestQuery = $productLatestQuery;
