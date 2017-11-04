@@ -30,7 +30,7 @@ shop_api_product_show_reviews_by_slug:
     requirements:
         slug: .+
 
-shop_api_product_show_highlight:
+shop_api_product_show_latest:
     path: /product-latest/
     methods: [GET]
     defaults:

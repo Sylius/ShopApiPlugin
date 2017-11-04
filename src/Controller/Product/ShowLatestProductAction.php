@@ -14,7 +14,7 @@ namespace Sylius\ShopApiPlugin\Controller\Product;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
-use Sylius\ShopApiPlugin\ViewRepository\ProductHighlightViewRepository;
+use Sylius\ShopApiPlugin\ViewRepository\ProductLatestViewRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -24,15 +24,15 @@ final class ShowLatestProductAction
     /** @var ViewHandlerInterface */
     private $viewHandler;
 
-    /** @var ProductHighlightViewRepository */
-    private $productHighlightQuery;
+    /** @var ProductLatestViewRepository */
+    private $productLatestQuery;
 
     public function __construct(
         ViewHandlerInterface $viewHandler,
-        ProductHighlightViewRepository $productHighlightQuery
+        ProductLatestViewRepository $productLatestQuery
     ) {
         $this->viewHandler = $viewHandler;
-        $this->productHighlightQuery = $productHighlightQuery;
+        $this->productLatestQuery = $productLatestQuery;
     }
 
     public function __invoke(Request $request): Response
@@ -42,7 +42,7 @@ final class ShowLatestProductAction
         }
 
         try {
-            return $this->viewHandler->handle(View::create($this->productHighlightQuery->getLatestProducts(
+            return $this->viewHandler->handle(View::create($this->productLatestQuery->getLatestProducts(
                 $request->query->get('channel'),
                 $request->query->get('locale'),
                 (int) $request->query->get('limit', 4)
