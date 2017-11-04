@@ -12,7 +12,7 @@ use Sylius\ShopApiPlugin\Factory\ProductViewFactoryInterface;
 use Sylius\ShopApiPlugin\View\ProductListView;
 use Webmozart\Assert\Assert;
 
-class ProductLatestViewRepository
+class ProductLatestViewRepository implements ProductLatestViewRepositoryInterface
 {
     /** @var ChannelRepositoryInterface */
     private $channelRepository;
