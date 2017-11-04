@@ -29,9 +29,3 @@ shop_api_product_show_reviews_by_slug:
         _controller: sylius.shop_api_plugin.controller.product.show_product_reviews_by_slug_action
     requirements:
         slug: .+
-
-shop_api_product_show_latest:
-    path: /product-latest/
-    methods: [GET]
-    defaults:
-        _controller: sylius.shop_api_plugin.controller.product.show_latest_product_action

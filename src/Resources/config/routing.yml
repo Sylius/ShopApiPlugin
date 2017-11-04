@@ -25,3 +25,7 @@ shop_api_checkout:
 shop_api_customer:
     resource: "@ShopApiPlugin/Resources/config/routing/customer.yml"
     prefix: /shop-api
+
+shop_api_product_list:
+    resource: "@ShopApiPlugin/Resources/config/routing/productList.yml"
+    prefix: /shop-api
