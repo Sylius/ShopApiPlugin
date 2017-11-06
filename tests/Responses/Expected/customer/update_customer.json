@@ -3,7 +3,7 @@
   "firstName": "New name",
   "lastName": "New lastName",
   "email": "shop@example.com",
-  "birthday": "2017-11-01T00:00:00+01:00",
+  "birthday": "@string@",
   "gender": "m",
   "phoneNumber": "0918972132",
   "subscribedToNewsletter": true
