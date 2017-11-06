@@ -14,18 +14,12 @@ final class RemoveAddressRequest
      */
     private $id;
 
-    /**
-     * @param Request $request
-     */
     public function __construct(Request $request)
     {
         $this->id = $request->attributes->get('id');
     }
 
-    /**
-     * @return RemoveAddress
-     */
-    public function getCommand()
+    public function getCommand(): RemoveAddress
     {
         return new RemoveAddress($this->id);
     }

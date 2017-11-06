@@ -14,11 +14,18 @@ final class CreateAddress
     private $address;
 
     /**
-     * @param Address $address
+     * @var string
      */
-    public function __construct(Address $address)
+    private $userEmail;
+
+    /**
+     * @param Address $address
+     * @param string $userEmail
+     */
+    public function __construct(Address $address, string $userEmail)
     {
         $this->address = $address;
+        $this->userEmail = $userEmail;
     }
 
     /**
@@ -91,5 +98,13 @@ final class CreateAddress
     public function phoneNumber(): ?string
     {
         return $this->address->phoneNumber();
+    }
+
+    /**
+     * @return null|string
+     */
+    public function userEmail(): ?string
+    {
+        return $this->userEmail;
     }
 }

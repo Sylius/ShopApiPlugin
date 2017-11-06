@@ -19,10 +19,7 @@ final class SetDefaultAddressRequest
         $this->id = $request->attributes->get('id');
     }
 
-    /**
-     * @return SetDefaultAddress
-     */
-    public function getCommand()
+    public function getCommand(): SetDefaultAddress
     {
         return new SetDefaultAddress($this->id);
     }

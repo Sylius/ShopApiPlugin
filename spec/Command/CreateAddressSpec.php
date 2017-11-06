@@ -22,7 +22,7 @@ final class CreateAddressSpec extends ObjectBehavior
             'provinceCode' => 'GB-GL',
             'phoneNumber' => '0912538092',
             'company' => 'Sherlock ltd.',
-        ]));
+        ]), 'user@email.com');
     }
 
     function it_has_first_name()
@@ -68,5 +68,10 @@ final class CreateAddressSpec extends ObjectBehavior
     function it_has_phone_number()
     {
         $this->phoneNumber()->shouldReturn('0912538092');
+    }
+
+    function it_has_user_email()
+    {
+        $this->userEmail()->shouldReturn('user@email.com');
     }
 }

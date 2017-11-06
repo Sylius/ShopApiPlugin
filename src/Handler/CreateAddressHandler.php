@@ -9,7 +9,6 @@ use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\ShopApiPlugin\Command\CreateAddress;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Webmozart\Assert\Assert;
 
 final class CreateAddressHandler
@@ -35,36 +34,36 @@ final class CreateAddressHandler
     private $provinceRepository;
 
     /**
-     * @var TokenStorageInterface
+     * @var RepositoryInterface
      */
-    private $tokenStorage;
+    private $customerRepository;
 
     /**
      * @param RepositoryInterface $addressRepository
      * @param RepositoryInterface $countryRepository
      * @param RepositoryInterface $provinceRepository
+     * @param RepositoryInterface $customerRepository
      * @param FactoryInterface $addressFactory
-     * @param TokenStorageInterface $tokenStorage
      */
     public function __construct(
         RepositoryInterface $addressRepository,
         RepositoryInterface $countryRepository,
         RepositoryInterface $provinceRepository,
-        FactoryInterface $addressFactory,
-        TokenStorageInterface $tokenStorage
+        RepositoryInterface $customerRepository,
+        FactoryInterface $addressFactory
     ) {
         $this->addressRepository = $addressRepository;
         $this->countryRepository = $countryRepository;
         $this->provinceRepository = $provinceRepository;
         $this->addressFactory = $addressFactory;
-        $this->tokenStorage = $tokenStorage;
+        $this->customerRepository = $customerRepository;
     }
 
     public function handle(CreateAddress $command): void
     {
-        $user = $this->tokenStorage->getToken()->getUser();
-        $customer = $user->getCustomer();
+        $customer = $this->customerRepository->findOneBy(['email' => $command->userEmail()]);
 
+        $this->assertCustomerExists($customer);
         $this->assertCountryExists($command->countryCode());
 
         /** @var AddressInterface $address */
@@ -86,6 +85,14 @@ final class CreateAddressHandler
 
         $customer->addAddress($address);
         $this->addressRepository->add($address);
+    }
+
+    /**
+     * @param $customer
+     */
+    private function assertCustomerExists($customer)
+    {
+        Assert::notNull($customer, 'Customer does not exists!');
     }
 
     /**

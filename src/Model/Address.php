@@ -10,11 +10,6 @@ use Webmozart\Assert\Assert;
 final class Address
 {
     /**
-     * @var int
-     */
-    private $id;
-
-    /**
      * @var string
      */
     private $firstName;
@@ -71,7 +66,6 @@ final class Address
      * @param string $street
      * @param string $countryCode
      * @param string $postcode
-     * @param string $id
      * @param string $provinceName
      * @param string $provinceCode
      * @param string $company
@@ -84,7 +78,6 @@ final class Address
         $street,
         $countryCode,
         $postcode,
-        $id = null,
         $provinceName = null,
         $provinceCode = null,
         $phoneNumber = null,
@@ -96,7 +89,6 @@ final class Address
         $this->street = $street;
         $this->countryCode = $countryCode;
         $this->postcode = $postcode;
-        $this->id = $id;
         $this->provinceName = $provinceName;
         $this->provinceCode = $provinceCode;
         $this->phoneNumber = $phoneNumber;
@@ -124,7 +116,6 @@ final class Address
             $address['street'],
             $address['countryCode'],
             $address['postcode'],
-            $address['id'] ?? null,
             $address['provinceName'] ?? null,
             $address['provinceCode'] ?? null,
             $address['phoneNumber'] ?? null,
@@ -146,20 +137,11 @@ final class Address
             $request->request->get('street'),
             $request->request->get('countryCode'),
             $request->request->get('postcode'),
-            $request->attributes->get('id') ?? $request->request->get('id'),
             $request->request->get('provinceName'),
             $request->request->get('provinceCode'),
             $request->request->get('phoneNumber'),
             $request->request->get('company')
         );
-    }
-
-    /**
-     * @return mixed
-     */
-    public function id()
-    {
-        return $this->id;
     }
 
     /**
