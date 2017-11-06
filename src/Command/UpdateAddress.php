@@ -14,11 +14,25 @@ final class UpdateAddress
     private $address;
 
     /**
-     * @param Address $address
+     * @var string
      */
-    public function __construct(Address $address)
+    private $userEmail;
+
+    /**
+     * @var string
+     */
+    private $addressId;
+
+    /**
+     * @param Address $address
+     * @param string $userEmail
+     * @param string $addressId
+     */
+    public function __construct(Address $address, string $userEmail, string $addressId)
     {
         $this->address = $address;
+        $this->userEmail = $userEmail;
+        $this->addressId = $addressId;
     }
 
     /**
@@ -26,7 +40,7 @@ final class UpdateAddress
      */
     public function id(): string
     {
-        return $this->address->id();
+        return $this->addressId;
     }
 
     /**
@@ -99,5 +113,13 @@ final class UpdateAddress
     public function phoneNumber(): ?string
     {
         return $this->address->phoneNumber();
+    }
+
+    /**
+     * @return string
+     */
+    public function userEmail(): string
+    {
+        return $this->userEmail;
     }
 }

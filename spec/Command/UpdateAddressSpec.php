@@ -29,7 +29,7 @@ final class UpdateAddressSpec extends ObjectBehavior
             'provinceCode' => 'GB-GL',
             'phoneNumber' => '0912538092',
             'company' => 'Sherlock ltd.',
-        ]));
+        ]), 'user@email.com', 'ADDRESS_ID');
     }
 
     function it_has_address_id()
@@ -80,5 +80,10 @@ final class UpdateAddressSpec extends ObjectBehavior
     function it_has_phone_number()
     {
         $this->phoneNumber()->shouldReturn('0912538092');
+    }
+
+    function it_has_user_email()
+    {
+        $this->userEmail()->shouldReturn('user@email.com');
     }
 }

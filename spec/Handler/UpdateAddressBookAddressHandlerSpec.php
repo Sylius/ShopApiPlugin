@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Handler;
 
-use Lexik\Bundle\JWTAuthenticationBundle\Security\Authentication\Token\JWTUserToken;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Addressing\Model\CountryInterface;
 use Sylius\Component\Addressing\Model\ProvinceInterface;
@@ -15,7 +14,6 @@ use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\ShopApiPlugin\Command\UpdateAddress;
 use Sylius\ShopApiPlugin\Model\Address;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 final class UpdateAddressBookAddressHandlerSpec extends ObjectBehavior
 {
@@ -23,37 +21,35 @@ final class UpdateAddressBookAddressHandlerSpec extends ObjectBehavior
         RepositoryInterface $addressRepository,
         RepositoryInterface $countryRepository,
         RepositoryInterface $provinceRepository,
-        FactoryInterface $addressFactory,
-        TokenStorageInterface $tokenStorage
+        RepositoryInterface $shopUserRepository,
+        FactoryInterface $addressFactory
     ) {
         $this->beConstructedWith(
             $addressRepository,
             $countryRepository,
             $provinceRepository,
-            $addressFactory,
-            $tokenStorage
+            $shopUserRepository,
+            $addressFactory
         );
     }
 
     function it_updates_address(
-        TokenStorageInterface $tokenStorage,
-        JWTUserToken $userToken,
         ShopUserInterface $shopUser,
         CustomerInterface $customer,
         RepositoryInterface $addressRepository,
         RepositoryInterface $countryRepository,
         RepositoryInterface $provinceRepository,
+        RepositoryInterface $shopUserRepository,
         ProvinceInterface $province,
         CountryInterface $country,
         AddressInterface $address
     ) {
-        $tokenStorage->getToken()->willReturn($userToken);
-        $userToken->getUser()->willReturn($shopUser);
-        $shopUser->getCustomer()->willReturn($customer);
-
+        $shopUserRepository->findOneBy(['username' => 'user@email.com'])->willReturn($shopUser);
         $addressRepository->findOneBy(['id' => 'ADDRESS_ID'])->willReturn($address);
 
         $address->getCustomer()->willReturn($customer);
+        $shopUser->getCustomer()->willReturn($customer);
+
         $customer->getId()->willReturn('USER_ID');
         $shopUser->getId()->willReturn('USER_ID');
 
@@ -90,24 +86,22 @@ final class UpdateAddressBookAddressHandlerSpec extends ObjectBehavior
             'provinceCode' => 'GB-GL',
             'company' => 'Sherlock ltd.',
             'phoneNumber' => '0912538092',
-        ])));
+        ]), 'user@email.com', 'ADDRESS_ID'));
     }
 
     function it_throws_an_exception_if_current_user_is_not_address_owner(
-        TokenStorageInterface $tokenStorage,
-        JWTUserToken $userToken,
         ShopUserInterface $shopUser,
         CustomerInterface $customer,
         RepositoryInterface $addressRepository,
+        RepositoryInterface $shopUserRepository,
         AddressInterface $address
     ) {
-        $tokenStorage->getToken()->willReturn($userToken);
-        $userToken->getUser()->willReturn($shopUser);
-        $shopUser->getCustomer()->willReturn($customer);
-
+        $shopUserRepository->findOneBy(['username' => 'user@email.com'])->willReturn($shopUser);
         $addressRepository->findOneBy(['id' => 'ADDRESS_ID'])->willReturn($address);
 
         $address->getCustomer()->willReturn($customer);
+        $shopUser->getCustomer()->willReturn($customer);
+
         $customer->getId()->willReturn('USER_ID_1');
         $shopUser->getId()->willReturn('USER_ID_2');
 
@@ -123,26 +117,23 @@ final class UpdateAddressBookAddressHandlerSpec extends ObjectBehavior
             'postcode' => 'NWB',
             'phoneNumber' => '0912538092',
             'company' => 'Sherlock ltd.',
-        ]))]);
+        ]), 'user@email.com', 'ADDRESS_ID')]);
     }
 
     function it_throws_an_exception_if_country_does_not_exists(
-        TokenStorageInterface $tokenStorage,
-        JWTUserToken $userToken,
         ShopUserInterface $shopUser,
         CustomerInterface $customer,
         RepositoryInterface $addressRepository,
         RepositoryInterface $countryRepository,
-        CountryInterface $country,
+        RepositoryInterface $shopUserRepository,
         AddressInterface $address
     ) {
-        $tokenStorage->getToken()->willReturn($userToken);
-        $userToken->getUser()->willReturn($shopUser);
-        $shopUser->getCustomer()->willReturn($customer);
-
+        $shopUserRepository->findOneBy(['username' => 'user@email.com'])->willReturn($shopUser);
         $addressRepository->findOneBy(['id' => 'ADDRESS_ID'])->willReturn($address);
 
+        $shopUser->getCustomer()->willReturn($customer);
         $address->getCustomer()->willReturn($customer);
+
         $customer->getId()->willReturn('USER_ID');
         $shopUser->getId()->willReturn('USER_ID');
 
@@ -161,27 +152,25 @@ final class UpdateAddressBookAddressHandlerSpec extends ObjectBehavior
             'provinceCode' => 'GB-GL',
             'phoneNumber' => '0912538092',
             'company' => 'Sherlock ltd.',
-        ]))]);
+        ]), 'user@email.com', 'ADDRESS_ID')]);
     }
 
     function it_throws_an_exception_if_province_code_does_not_exists(
-        TokenStorageInterface $tokenStorage,
-        JWTUserToken $userToken,
         ShopUserInterface $shopUser,
         CustomerInterface $customer,
         RepositoryInterface $addressRepository,
         RepositoryInterface $countryRepository,
         RepositoryInterface $provinceRepository,
+        RepositoryInterface $shopUserRepository,
         CountryInterface $country,
         AddressInterface $address
     ) {
-        $tokenStorage->getToken()->willReturn($userToken);
-        $userToken->getUser()->willReturn($shopUser);
-        $shopUser->getCustomer()->willReturn($customer);
-
+        $shopUserRepository->findOneBy(['username' => 'user@email.com'])->willReturn($shopUser);
         $addressRepository->findOneBy(['id' => 'ADDRESS_ID'])->willReturn($address);
 
         $address->getCustomer()->willReturn($customer);
+        $shopUser->getCustomer()->willReturn($customer);
+
         $customer->getId()->willReturn('USER_ID');
         $shopUser->getId()->willReturn('USER_ID');
 
@@ -215,6 +204,6 @@ final class UpdateAddressBookAddressHandlerSpec extends ObjectBehavior
             'provinceCode' => 'WRONG_PROVINCE_CODE',
             'phoneNumber' => '0912538092',
             'company' => 'Sherlock ltd.',
-        ]))]);
+        ]), 'user@email.com', 'ADDRESS_ID')]);
     }
 }

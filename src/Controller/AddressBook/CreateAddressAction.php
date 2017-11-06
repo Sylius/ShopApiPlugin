@@ -79,10 +79,10 @@ final class CreateAddressAction
             return $this->viewHandler->handle(View::create($this->validationErrorViewFactory->create($validationResults), Response::HTTP_BAD_REQUEST));
         }
 
-        /** @var ShopUserInterface $user */
-        $user = $this->tokenStorage->getToken()->getUser();
+        /** @var ShopUserInterface $shopUser */
+        $shopUser = $this->tokenStorage->getToken()->getUser();
 
-        $this->bus->handle(new CreateAddress($addressModel, $user->getEmail()));
+        $this->bus->handle(new CreateAddress($addressModel, $shopUser->getEmail()));
 
         return $this->viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));
     }

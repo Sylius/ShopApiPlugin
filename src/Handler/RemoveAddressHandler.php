@@ -9,8 +9,8 @@ use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\Core\Repository\AddressRepositoryInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
+use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\ShopApiPlugin\Command\RemoveAddress;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Webmozart\Assert\Assert;
 
 final class RemoveAddressHandler
@@ -26,31 +26,31 @@ final class RemoveAddressHandler
     private $orderRepository;
 
     /**
-     * @var TokenStorageInterface
+     * @var RepositoryInterface
      */
-    private $tokenStorage;
+    private $shopUserRepository;
 
     /**
      * @param AddressRepositoryInterface $addressRepository
      * @param OrderRepositoryInterface $orderRepository
-     * @param TokenStorageInterface $tokenStorage
+     * @param RepositoryInterface $shopUserRepository
      */
-    public function __construct(AddressRepositoryInterface $addressRepository, OrderRepositoryInterface $orderRepository, TokenStorageInterface $tokenStorage)
+    public function __construct(AddressRepositoryInterface $addressRepository, OrderRepositoryInterface $orderRepository, RepositoryInterface $shopUserRepository)
     {
         $this->addressRepository = $addressRepository;
         $this->orderRepository = $orderRepository;
-        $this->tokenStorage = $tokenStorage;
+        $this->shopUserRepository = $shopUserRepository;
     }
 
     public function handle(RemoveAddress $removeAddress)
     {
-        /** @var ShopUserInterface $user */
-        $user = $this->tokenStorage->getToken()->getUser();
+        /** @var ShopUserInterface $shopUser */
+        $shopUser = $this->shopUserRepository->findOneBy(['username' => $removeAddress->userEmail()]);
 
         /** @var AddressInterface $address */
         $address = $this->addressRepository->findOneBy(['id' => $removeAddress->id()]);
 
-        $this->assertCurrentUserIsOwner($address, $user);
+        $this->assertCurrentUserIsOwner($address, $shopUser);
         $this->assertOrderWithAddressNotExists($address);
 
         $this->addressRepository->remove($address);

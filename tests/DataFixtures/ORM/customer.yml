@@ -27,5 +27,5 @@ Sylius\Component\Core\Model\Customer:
     hater:
         firstName: "Slade"
         lastName: "Wilson"
-        email: "slade@wilson.com"
+        email: "hater@queen.com"
         emailCanonical: "slade@queen.com"

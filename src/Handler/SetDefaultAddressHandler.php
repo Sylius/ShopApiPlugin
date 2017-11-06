@@ -6,12 +6,11 @@ namespace Sylius\ShopApiPlugin\Handler;
 
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
-use Sylius\Component\Core\Model\ShopUser;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\Core\Repository\AddressRepositoryInterface;
 use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
+use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\ShopApiPlugin\Command\SetDefaultAddress;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Webmozart\Assert\Assert;
 
 final class SetDefaultAddressHandler
@@ -27,36 +26,36 @@ final class SetDefaultAddressHandler
     private $addressRepository;
 
     /**
-     * @var TokenStorageInterface
+     * @var RepositoryInterface
      */
-    private $tokenStorage;
+    private $shopUserRepository;
 
     /**
      * @param CustomerRepositoryInterface $customerRepository
      * @param AddressRepositoryInterface $addressRepository
-     * @param TokenStorageInterface $tokenStorage
+     * @param RepositoryInterface $shopUserRepository
      */
     public function __construct(
         CustomerRepositoryInterface $customerRepository,
         AddressRepositoryInterface $addressRepository,
-        TokenStorageInterface $tokenStorage
+        RepositoryInterface $shopUserRepository
     ) {
         $this->customerRepository = $customerRepository;
         $this->addressRepository = $addressRepository;
-        $this->tokenStorage = $tokenStorage;
+        $this->shopUserRepository = $shopUserRepository;
     }
 
     public function handle(SetDefaultAddress $setDefaultAddress): void
     {
         /** @var AddressInterface $address */
         $address = $this->addressRepository->find($setDefaultAddress->id());
-        /** @var ShopUser */
-        $user = $this->tokenStorage->getToken()->getUser();
+        /** @var ShopUserInterface $shopUser */
+        $shopUser = $this->shopUserRepository->findOneBy(['username' => $setDefaultAddress->userEmail()]);
 
-        $this->assertCurrentUserIsOwner($address, $user);
+        $this->assertCurrentUserIsOwner($address, $shopUser);
 
         /** @var CustomerInterface $customer */
-        $customer = $user->getCustomer();
+        $customer = $shopUser->getCustomer();
 
         $customer->setDefaultAddress($address);
         $this->customerRepository->add($customer);

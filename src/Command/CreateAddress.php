@@ -101,9 +101,9 @@ final class CreateAddress
     }
 
     /**
-     * @return null|string
+     * @return string
      */
-    public function userEmail(): ?string
+    public function userEmail(): string
     {
         return $this->userEmail;
     }

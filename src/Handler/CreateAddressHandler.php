@@ -6,6 +6,7 @@ namespace Sylius\ShopApiPlugin\Handler;
 
 use Sylius\Component\Addressing\Model\ProvinceInterface;
 use Sylius\Component\Core\Model\AddressInterface;
+use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\ShopApiPlugin\Command\CreateAddress;
@@ -61,6 +62,7 @@ final class CreateAddressHandler
 
     public function handle(CreateAddress $command): void
     {
+        /** @var CustomerInterface $shopUser */
         $customer = $this->customerRepository->findOneBy(['email' => $command->userEmail()]);
 
         $this->assertCustomerExists($customer);
@@ -84,6 +86,7 @@ final class CreateAddressHandler
         }
 
         $customer->addAddress($address);
+
         $this->addressRepository->add($address);
     }
 
@@ -105,6 +108,7 @@ final class CreateAddressHandler
 
     /**
      * @param string $provinceCode
+     *
      * @return ProvinceInterface
      */
     private function checkProvinceExists(string $provinceCode): ProvinceInterface

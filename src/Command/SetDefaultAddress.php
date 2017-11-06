@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Command;
 
-class SetDefaultAddress
+final class SetDefaultAddress
 {
     /**
      * @var mixed
@@ -12,11 +12,18 @@ class SetDefaultAddress
     private $id;
 
     /**
-     * @param $id
+     * @var string
      */
-    public function __construct($id)
+    private $userEmail;
+
+    /**
+     * @param $id
+     * @param string $userEmail
+     */
+    public function __construct($id, string $userEmail)
     {
         $this->id = $id;
+        $this->userEmail = $userEmail;
     }
 
     /**
@@ -25,5 +32,13 @@ class SetDefaultAddress
     public function id()
     {
         return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function userEmail()
+    {
+        return $this->userEmail;
     }
 }

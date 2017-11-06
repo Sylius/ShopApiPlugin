@@ -7,6 +7,8 @@ namespace Sylius\ShopApiPlugin\Controller\AddressBook;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
+use Sylius\Component\Core\Model\AddressInterface;
+use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\Core\Repository\AddressRepositoryInterface;
 use Sylius\ShopApiPlugin\Command\UpdateAddress;
 use Sylius\ShopApiPlugin\Factory\AddressBookViewFactoryInterface;
@@ -85,19 +87,22 @@ final class UpdateAddressAction
     {
         $addressModel = Address::createFromRequest($request);
 
-        $validationResults = $this->validator->validate($addressModel, null, 'sylius_address_book_update');
+        $validationResults = $this->validator->validate($addressModel);
 
         if (0 !== count($validationResults)) {
             return $this->viewHandler->handle(View::create($this->validationErrorViewFactory->create($validationResults), Response::HTTP_BAD_REQUEST));
         }
 
-        $this->bus->handle(new UpdateAddress($addressModel));
+        /** @var ShopUserInterface $customer */
+        $shopUser = $this->tokenStorage->getToken()->getUser();
 
+        $this->bus->handle(new UpdateAddress($addressModel, $shopUser->getEmail(), $id));
+
+        /** @var AddressInterface $updatedAddress */
         $updatedAddress = $this->addressRepository->findOneBy(['id' => $id]);
-        $customer = $this->tokenStorage->getToken()->getUser()->getCustomer();
 
         return $this->viewHandler->handle(View::create(
-            $this->addressBookViewFactory->create($updatedAddress, $customer),
+            $this->addressBookViewFactory->create($updatedAddress, $shopUser->getCustomer()),
             Response::HTTP_OK)
         );
     }

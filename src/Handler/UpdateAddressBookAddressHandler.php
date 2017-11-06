@@ -9,7 +9,6 @@ use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\ShopApiPlugin\Command\UpdateAddress;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Webmozart\Assert\Assert;
 
 final class UpdateAddressBookAddressHandler
@@ -35,38 +34,40 @@ final class UpdateAddressBookAddressHandler
     private $provinceRepository;
 
     /**
-     * @var TokenStorageInterface
+     * @var RepositoryInterface
      */
-    private $tokenStorage;
+    private $shopUserRepository;
 
     /**
      * @param RepositoryInterface $addressRepository
      * @param RepositoryInterface $countryRepository
      * @param RepositoryInterface $provinceRepository
+     * @param RepositoryInterface $shopUserRepository
      * @param FactoryInterface $addressFactory
-     * @param TokenStorageInterface $tokenStorage
      */
     public function __construct(
         RepositoryInterface $addressRepository,
         RepositoryInterface $countryRepository,
         RepositoryInterface $provinceRepository,
-        FactoryInterface $addressFactory,
-        TokenStorageInterface $tokenStorage
+        RepositoryInterface $shopUserRepository,
+        FactoryInterface $addressFactory
     ) {
         $this->addressRepository = $addressRepository;
         $this->countryRepository = $countryRepository;
         $this->provinceRepository = $provinceRepository;
         $this->addressFactory = $addressFactory;
-        $this->tokenStorage = $tokenStorage;
+        $this->shopUserRepository = $shopUserRepository;
     }
 
     public function handle(UpdateAddress $command): void
     {
         /** @var AddressInterface $address */
         $address = $this->addressRepository->findOneBy(['id' => $command->id()]);
-        $user = $this->tokenStorage->getToken()->getUser();
+        /** @var ShopUserInterface $shopUser */
+        $shopUser = $this->shopUserRepository->findOneBy(['username' => $command->userEmail()]);
 
-        $this->assertCurrentUserIsOwner($address, $user);
+        $this->assertAddressExists($address);
+        $this->assertCurrentUserIsOwner($address, $shopUser);
         $this->assertCountryExists($command->countryCode());
 
         /** @var AddressInterface $address */
@@ -103,5 +104,10 @@ final class UpdateAddressBookAddressHandler
     {
         Assert::notNull($address->getCustomer(), 'Address is not associated with any user');
         Assert::eq($address->getCustomer(), $user->getCustomer(), 'Current user is not owner of this address');
+    }
+
+    private function assertAddressExists($address)
+    {
+        Assert::notNull($address, 'Address does not exist!');
     }
 }
