@@ -34,7 +34,7 @@ final class CustomerUpdateCustomerApiTest extends JsonApiTestCase
             "lastName": "New lastName",
             "email": "shop@example.com",
             "birthday": "2017-11-01",
-            "gender": "male",
+            "gender": "m",
             "phoneNumber": "0918972132",
             "subscribedToNewsletter": true
         }
@@ -53,7 +53,7 @@ EOT;
         Assert::assertEquals($customer->getLastName(), 'New lastName');
         Assert::assertEquals($customer->getEmail(), 'shop@example.com');
         Assert::assertEquals($customer->getBirthday(), new \DateTime('2017-11-01'));
-        Assert::assertEquals($customer->getGender(), 'male');
+        Assert::assertEquals($customer->getGender(), 'm');
         Assert::assertEquals($customer->getPhoneNumber(), '0918972132');
         Assert::assertEquals($customer->isSubscribedToNewsletter(), true);
     }

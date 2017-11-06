@@ -21,7 +21,7 @@ final class UpdateCustomerRequestTest extends TestCase
             'lastName' => 'Mts',
             'email' => 'ivan.matas@locastic.com',
             'birthday' => '2017-11-01',
-            'gender' => 'male',
+            'gender' => 'm',
             'phoneNumber' => "125125112",
             'subscribedToNewsletter' => true
         ], []));
@@ -30,7 +30,7 @@ final class UpdateCustomerRequestTest extends TestCase
             'Mts',
             'ivan.matas@locastic.com',
             '2017-11-01',
-            'male',
+            'm',
             '125125112',
             true));
     }

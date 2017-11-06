@@ -13,8 +13,7 @@ Sylius\Component\Core\Model\Customer:
         lastName: "Queen"
         email: "oliver@queen.com"
         emailCanonical: "oliver@queen.com"
-        gender: "male"
-#        birthday: "10/01/1993"
+        gender: "m"
         phoneNumber: "0212115512"
 
     hater:

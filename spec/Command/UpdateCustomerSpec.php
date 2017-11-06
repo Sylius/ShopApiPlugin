@@ -15,7 +15,7 @@ final class UpdateCustomerSpec extends ObjectBehavior
                 'Holmes',
                 'sherlock@holmes.com',
                 '2017-11-01',
-                'male',
+                'm',
                 '091231512512',
                 true
         );
@@ -38,7 +38,7 @@ final class UpdateCustomerSpec extends ObjectBehavior
 
     function it_has_gender()
     {
-        $this->gender()->shouldReturn('male');
+        $this->gender()->shouldReturn('m');
     }
 
     function it_has_birthday()

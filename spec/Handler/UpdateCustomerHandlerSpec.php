@@ -44,7 +44,7 @@ final class UpdateCustomerHandlerSpec extends ObjectBehavior
         $customer->setLastName('Holmes')->shouldBeCalled();
         $customer->setEmail('sherlock@holmes.com')->shouldBeCalled();
         $customer->setBirthday(new \DateTime('2017-11-01'))->shouldBeCalled();
-        $customer->setGender('male')->shouldBeCalled();
+        $customer->setGender('m')->shouldBeCalled();
         $customer->setPhoneNumber('091231512512')->shouldBeCalled();
         $customer->setSubscribedToNewsletter(true)->shouldBeCalled();
 
@@ -55,7 +55,7 @@ final class UpdateCustomerHandlerSpec extends ObjectBehavior
                 'Holmes',
                 'sherlock@holmes.com',
                 '2017-11-01',
-                'male',
+                'm',
                 '091231512512',
                 true
             )
