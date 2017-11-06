@@ -62,11 +62,11 @@ final class RemoveAddressHandler
         $orderShippingAddress = $this->orderRepository->findBy(['billingAddress' => $address]);
         /** @var OrderInterface $orderBillingAddress */
         $orderBillingAddress = $this->orderRepository->findBy(['shippingAddress' => $address]);
-        Assert::allIsEmpty([$orderShippingAddress, $orderBillingAddress], 'Cant delete address because it is associated with one or more orders');
+        Assert::allIsEmpty([$orderShippingAddress, $orderBillingAddress], 'Cant delete address because it is associated with one or more orders.');
     }
 
     private function assertCurrentUserIsOwner(AddressInterface $address, ShopUserInterface $user)
     {
-        Assert::eq($address->getCustomer()->getId(), $user->getId(), 'User is not owner of this address');
+        Assert::eq($address->getCustomer()->getId(), $user->getId(), 'User is not owner of this address.');
     }
 }

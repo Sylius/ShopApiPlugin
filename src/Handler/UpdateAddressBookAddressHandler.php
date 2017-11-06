@@ -108,6 +108,6 @@ final class UpdateAddressBookAddressHandler
 
     private function assertAddressExists($address)
     {
-        Assert::notNull($address, 'Address does not exist!');
+        Assert::notNull($address, 'Address does not exist.');
     }
 }
