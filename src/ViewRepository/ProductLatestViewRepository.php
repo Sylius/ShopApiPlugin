@@ -24,7 +24,6 @@ final class ProductLatestViewRepository implements ProductLatestViewRepositoryIn
     private $productViewFactory;
 
     /**
-     * ProductLatestViewRepository constructor.
      * @param ChannelRepositoryInterface $channelRepository
      * @param ProductRepositoryInterface $productRepository
      * @param ProductViewFactoryInterface $productViewFactory
