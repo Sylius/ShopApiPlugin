@@ -36,7 +36,7 @@ final class ShowLatestProductAction
             return $this->viewHandler->handle(View::create($this->productLatestQuery->getLatestProducts(
                 $request->query->get('channel'),
                 $request->query->get('locale'),
-                (int) $request->query->get('limit', 4)
+                $request->query->getInt('limit', 4)
             ), Response::HTTP_OK));
         } catch (\InvalidArgumentException $exception) {
             throw new NotFoundHttpException($exception->getMessage());
