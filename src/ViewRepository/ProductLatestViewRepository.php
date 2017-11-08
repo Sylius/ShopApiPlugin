@@ -23,11 +23,6 @@ final class ProductLatestViewRepository implements ProductLatestViewRepositoryIn
     /** @var ProductViewFactoryInterface */
     private $productViewFactory;
 
-    /**
-     * @param ChannelRepositoryInterface $channelRepository
-     * @param ProductRepositoryInterface $productRepository
-     * @param ProductViewFactoryInterface $productViewFactory
-     */
     public function __construct(
         ChannelRepositoryInterface $channelRepository,
         ProductRepositoryInterface $productRepository,
