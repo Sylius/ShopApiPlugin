@@ -116,5 +116,9 @@
             <argument type="service" id="sylius.shop_api_plugin.factory.product_attribute_value_view_factory" />
             <argument>%sylius.shop_api.included_attributes%</argument>
         </service>
+
+        <service id="sylius.shop_api_plugin.factory.customer_view_factory" class="Sylius\ShopApiPlugin\Factory\CustomerViewFactory" >
+            <argument type="string">%sylius.shop_api.view.customer.class%</argument>
+        </service>
     </services>
 </container>

@@ -3,3 +3,9 @@ shop_api_me:
     methods: [GET]
     defaults:
         _controller: sylius.shop_api_plugin.controller.customer.logged_in_customer_details_action
+
+sylius_shop_update_customer:
+     path: /me
+     methods: [PUT]
+     defaults:
+        _controller: sylius.shop_api_plugin.controller.customer.update_customer_action

@@ -37,7 +37,6 @@ final class PageViewFactory implements PageViewFactoryInterface
         $page->limit = $pagerfanta->getMaxPerPage();
         $page->pages = $pagerfanta->getNbPages();
         $page->total = $pagerfanta->getNbResults();
-
         $page->links = new $this->pageLinksViewClass();
         $page->links->self = $this->router->generate($route, array_merge($parameters, [
             'page' => $pagerfanta->getCurrentPage(),

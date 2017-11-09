@@ -1,0 +1,37 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Sylius\ShopApiPlugin\Handler;
+
+use Sylius\Component\Core\Model\CustomerInterface;
+use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Sylius\ShopApiPlugin\Command\UpdateCustomer;
+
+final class UpdateCustomerHandler
+{
+    /** @var RepositoryInterface */
+    private $customerRepository;
+
+    public function __construct(
+        RepositoryInterface $customerRepository
+    ) {
+        $this->customerRepository = $customerRepository;
+    }
+
+    public function handle(UpdateCustomer $command): void
+    {
+        /** @var CustomerInterface $customer */
+        $customer = $this->customerRepository->findOneBy(['email' => $command->email()]);
+
+        $customer->setFirstName($command->firstName());
+        $customer->setLastName($command->lastName());
+        $customer->setEmail($command->email());
+        $customer->setGender($command->gender());
+        $customer->setBirthday(new \DateTimeImmutable($command->birthday()));
+        $customer->setPhoneNumber($command->phoneNumber());
+        $customer->setSubscribedToNewsletter($command->subscribedToNewsletter());
+
+        $this->customerRepository->add($customer);
+    }
+}
