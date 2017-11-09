@@ -38,7 +38,7 @@ final class PutSimpleItemToCartRequest
 
     public static function fromRequest(Request $request)
     {
-        return new self($request->attributes->get('token'), $request->request->get('productCode'), $request->request->getInt('quantity'));
+        return new self($request->attributes->get('token'), $request->request->get('productCode'), $request->request->getInt('quantity', null));
     }
 
     /**
