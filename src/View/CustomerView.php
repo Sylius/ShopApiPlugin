@@ -6,43 +6,27 @@ namespace Sylius\ShopApiPlugin\View;
 
 class CustomerView
 {
-    /**
-     * @var int
-     */
+    /** @var int */
     public $id;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $firstName;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $lastName;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $email;
 
-    /**
-     * @var \DateTimeInterface|null
-     */
+    /** @var \DateTimeInterface|null */
     public $birthday;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $gender;
 
-    /**
-     * @var string|null
-     */
+    /** @var string|null */
     public $phoneNumber;
 
-    /**
-     * @var bool
-     */
+    /** @var bool */
     public $subscribedToNewsletter;
 }

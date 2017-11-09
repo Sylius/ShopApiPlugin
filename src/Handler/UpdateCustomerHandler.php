@@ -15,8 +15,7 @@ final class UpdateCustomerHandler
 
     public function __construct(
         RepositoryInterface $customerRepository
-    )
-    {
+    ) {
         $this->customerRepository = $customerRepository;
     }
 

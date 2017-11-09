@@ -10,39 +10,25 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class UpdateCustomerRequest
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $firstName;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $lastName;
 
-    /**
-     * @var string|null
-     */
+    /** @var string|null */
     private $email;
 
-    /**
-     * @var DateTimeInterface|null
-     */
+    /** @var DateTimeInterface|null */
     private $birthday;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $gender;
 
-    /**
-     * @var string|null
-     */
+    /** @var string|null */
     private $phoneNumber;
 
-    /**
-     * @var bool
-     */
+    /** @var bool */
     private $subscribedToNewsletter;
 
     /**
