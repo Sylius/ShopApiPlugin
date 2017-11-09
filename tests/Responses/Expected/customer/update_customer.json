@@ -1,9 +1,9 @@
 {
-  "id": "@integer@",
+  "id": 1,
   "firstName": "New name",
   "lastName": "New lastName",
-  "email": "shop@example.com",
-  "birthday": "@string@",
+  "email": "oliver@queen.com",
+  "birthday": "2017-11-01T00:00:00+01:00",
   "gender": "m",
   "phoneNumber": "0918972132",
   "subscribedToNewsletter": true

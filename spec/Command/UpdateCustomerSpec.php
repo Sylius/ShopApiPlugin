@@ -43,7 +43,7 @@ final class UpdateCustomerSpec extends ObjectBehavior
 
     function it_has_birthday()
     {
-        $this->birthday()->shouldBeLike(new \DateTime('2017-11-01'));
+        $this->birthday()->shouldReturn('2017-11-01');
     }
 
     function it_has_phone_number()

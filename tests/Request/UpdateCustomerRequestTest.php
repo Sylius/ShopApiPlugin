@@ -24,7 +24,8 @@ final class UpdateCustomerRequestTest extends TestCase
             'gender' => 'm',
             'phoneNumber' => "125125112",
             'subscribedToNewsletter' => true
-        ], []));
+        ], []))
+        ;
         $this->assertEquals($updateCustomerRequest->getCommand(), new UpdateCustomer(
             'ivan',
             'Mts',
@@ -32,6 +33,7 @@ final class UpdateCustomerRequestTest extends TestCase
             '2017-11-01',
             'm',
             '125125112',
-            true));
+            true))
+        ;
     }
 }

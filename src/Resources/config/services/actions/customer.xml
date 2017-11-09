@@ -51,7 +51,6 @@
             <argument type="service" id="tactician.commandbus" />
             <argument type="service" id="sylius.shop_api_plugin.factory.validation_error_view_factory" />
             <argument type="service" id="sylius.shop_api_plugin.factory.customer_view_factory" />
-            <argument type="service" id="sylius.repository.customer" />
             <argument type="service" id="security.token_storage" />
         </service>
     </services>

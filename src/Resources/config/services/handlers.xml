@@ -122,7 +122,6 @@
 
         <service id="sylius.shop_api_plugin.handler.update_customer" class="Sylius\ShopApiPlugin\Handler\UpdateCustomerHandler">
             <argument type="service" id="sylius.repository.customer" />
-            <argument type="service" id="security.token_storage" />
             <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\UpdateCustomer" />
         </service>
 

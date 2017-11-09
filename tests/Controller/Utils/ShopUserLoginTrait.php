@@ -10,9 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 trait ShopUserLoginTrait
 {
-    /**
-     * @var Client
-     */
+    /** @var Client */
     protected $client;
 
     protected function logInUser($username, $password)

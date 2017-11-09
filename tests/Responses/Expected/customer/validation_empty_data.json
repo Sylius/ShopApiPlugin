@@ -1,0 +1,18 @@
+{
+  "code": 400,
+  "message": "Validation failed",
+  "errors": {
+    "firstName": [
+      "Please enter your first name."
+    ],
+    "lastName": [
+      "Please enter your last name."
+    ],
+    "gender": [
+      "Please choose your gender."
+    ],
+    "email": [
+      "Please enter your email."
+    ]
+  }
+}

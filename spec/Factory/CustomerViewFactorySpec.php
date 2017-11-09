@@ -32,7 +32,6 @@ final class CustomerViewFactorySpec extends ObjectBehavior
         $customer->getPhoneNumber()->willReturn('0912538092');
         $customer->isSubscribedToNewsletter()->willReturn(true);
 
-
         $customerView = new CustomerView();
 
         $customerView->id = 'CUSTOMER_ID';
@@ -43,7 +42,6 @@ final class CustomerViewFactorySpec extends ObjectBehavior
         $customerView->gender = 'm';
         $customerView->phoneNumber = '0912538092';
         $customerView->subscribedToNewsletter = true;
-
 
         $this->create($customer)->shouldBeLike($customerView);
     }

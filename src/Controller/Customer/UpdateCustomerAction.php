@@ -8,7 +8,6 @@ use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
 use Sylius\Component\Core\Model\ShopUserInterface;
-use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
 use Sylius\ShopApiPlugin\Factory\CustomerViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
 use Sylius\ShopApiPlugin\Request\UpdateCustomerRequest;
@@ -20,65 +19,38 @@ use Webmozart\Assert\Assert;
 
 final class UpdateCustomerAction
 {
-    /**
-     * @var ViewHandlerInterface
-     */
+    /** @var ViewHandlerInterface */
     private $viewHandler;
 
-    /**
-     * @var ValidatorInterface
-     */
+    /** @var ValidatorInterface */
     private $validator;
 
-    /**
-     * @var CommandBus
-     */
+    /** @var CommandBus */
     private $bus;
 
-    /**
-     * @var ValidationErrorViewFactoryInterface
-     */
+    /** @var ValidationErrorViewFactoryInterface */
     private $validationErrorViewFactory;
 
-    /**
-     * @var CustomerViewFactoryInterface
-     */
+    /** @var CustomerViewFactoryInterface */
     private $customerViewFactory;
 
-    /**
-     * @var CustomerRepositoryInterface
-     */
-    private $customerRepository;
-
-    /**
-     * @var TokenStorageInterface
-     */
+    /** @var TokenStorageInterface */
     private $tokenStorage;
 
-    /**
-     * @param ViewHandlerInterface $viewHandler
-     * @param ValidatorInterface $validator
-     * @param CommandBus $bus
-     * @param ValidationErrorViewFactoryInterface $validationErrorViewFactory
-     * @param CustomerViewFactoryInterface $customerViewFactory
-     * @param CustomerRepositoryInterface $customerRepository
-     * @param TokenStorageInterface $tokenStorage
-     */
     public function __construct(
         ViewHandlerInterface $viewHandler,
         ValidatorInterface $validator,
         CommandBus $bus,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         CustomerViewFactoryInterface $customerViewFactory,
-        CustomerRepositoryInterface $customerRepository,
         TokenStorageInterface $tokenStorage
-    ) {
+    )
+    {
         $this->viewHandler = $viewHandler;
         $this->validator = $validator;
         $this->bus = $bus;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->customerViewFactory = $customerViewFactory;
-        $this->customerRepository = $customerRepository;
         $this->tokenStorage = $tokenStorage;
     }
 

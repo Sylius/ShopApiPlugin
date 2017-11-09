@@ -4,128 +4,77 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Command;
 
-use DateTime;
-use DateTimeInterface;
-use Webmozart\Assert\Assert;
-
 final class UpdateCustomer
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $firstName;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $lastName;
 
-    /**
-     * @var string|null
-     */
+    /** @var string */
     private $email;
 
-    /**
-     * @var DateTimeInterface|null
-     */
+    /** @var string|null */
     private $birthday;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $gender;
 
-    /**
-     * @var string|null
-     */
+    /** @var string|null */
     private $phoneNumber;
 
-    /**
-     * @var bool
-     */
+    /** @var bool */
     private $subscribedToNewsletter;
 
-    /**
-     * UpdateCustomer constructor.
-     *
-     * @param $firstName
-     * @param $lastName
-     * @param $email
-     * @param $birthday
-     * @param $gender
-     * @param $phoneNumber
-     * @param $subscribedToNewsletter
-     */
-    public function __construct($firstName, $lastName, $email, $birthday, $gender, $phoneNumber, $subscribedToNewsletter)
+    public function __construct(string $firstName, string $lastName, string $email, ?string $birthday, string $gender, ?string $phoneNumber, ?bool $subscribedToNewsletter)
     {
-        Assert::string($firstName);
-        Assert::string($lastName);
-        Assert::string($email);
-        Assert::nullOrString($birthday);
-        Assert::string($gender);
-        Assert::nullOrString($phoneNumber);
-        Assert::nullOrBoolean($subscribedToNewsletter);
-
         $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->email = $email;
-        $this->birthday = new DateTime($birthday);
+        $this->birthday = $birthday;
         $this->gender = $gender;
         $this->phoneNumber = $phoneNumber;
         $this->subscribedToNewsletter = $subscribedToNewsletter;
     }
 
-    /**
-     * @return string
-     */
+    /** @return string */
     public function firstName(): string
     {
         return $this->firstName;
     }
 
-    /**
-     * @return string
-     */
+    /** @return string */
     public function lastName(): string
     {
         return $this->lastName;
     }
 
-    /**
-     * @return string
-     */
+    /** @return string */
     public function email(): string
     {
         return $this->email;
     }
 
-    /**
-     * @return DateTimeInterface|null
-     */
-    public function birthday(): ?DateTimeInterface
+    /** @return string|null */
+    public function birthday(): ?string
     {
         return $this->birthday;
     }
 
-    /**
-     * @return string|null
-     */
+    /** @return string|null */
     public function gender(): ?string
     {
         return $this->gender;
     }
 
-    /**
-     * @return string|null
-     */
+    /** @return string|null */
     public function phoneNumber(): ?string
     {
         return $this->phoneNumber;
     }
 
-    /**
-     * @return bool
-     */
+    /** @return bool */
     public function subscribedToNewsletter(): bool
     {
         return $this->subscribedToNewsletter;
