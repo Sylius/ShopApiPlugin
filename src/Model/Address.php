@@ -100,7 +100,7 @@ final class Address
      *
      * @return Address
      */
-    public static function createFromArray(array $address)
+    public static function createFromArray(array $address): Address
     {
         Assert::keyExists($address, 'firstName');
         Assert::keyExists($address, 'lastName');
@@ -128,7 +128,7 @@ final class Address
      *
      * @return Address
      */
-    public static function createFromRequest(Request $request)
+    public static function createFromRequest(Request $request): Address
     {
         return new self(
             $request->request->get('firstName'),
