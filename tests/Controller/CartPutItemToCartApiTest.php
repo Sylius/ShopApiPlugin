@@ -102,31 +102,6 @@ EOT;
     /**
      * @test
      */
-    public function it_validates_if_request_has_quantity_during_add_simple_product()
-    {
-        $this->loadFixturesFromFile('shop.yml');
-
-        $token = 'SDAOSLEFNWU35H3QLI5325';
-
-        /** @var CommandBus $bus */
-        $bus = $this->get('tactician.commandbus');
-        $bus->handle(new PickupCart($token, 'WEB_GB'));
-
-        $data =
-<<<EOT
-        {
-            "productCode": "LOGAN_MUG_CODE"
-        }
-EOT;
-        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], static::$acceptAndContentTypeHeader, $data);
-        $response = $this->client->getResponse();
-
-        $this->assertResponse($response, 'cart/validation_quantity_not_defined_response', Response::HTTP_BAD_REQUEST);
-    }
-
-    /**
-     * @test
-     */
     public function it_validates_if_quantity_is_larger_than_0_during_add_simple_product()
     {
         $this->loadFixturesFromFile('shop.yml');
@@ -153,7 +128,7 @@ EOT;
     /**
      * @test
      */
-    public function it_validates_if_quantity_is_is_an_integer_during_add_simple_product()
+    public function it_converts_quantity_as_an_integer_and_adds_simple_product()
     {
         $this->loadFixturesFromFile('shop.yml');
 
@@ -173,7 +148,7 @@ EOT;
         $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], static::$acceptAndContentTypeHeader, $data);
         $response = $this->client->getResponse();
 
-        $this->assertResponse($response, 'cart/validation_quantity_not_integer_response', Response::HTTP_BAD_REQUEST);
+        $this->assertResponse($response, 'cart/add_simple_product_to_cart_response', Response::HTTP_CREATED);
     }
 
     /**
@@ -364,32 +339,6 @@ EOT;
     /**
      * @test
      */
-    public function it_validates_if_request_has_quantity_during_add_variant_based_configurable_product()
-    {
-        $this->loadFixturesFromFile('shop.yml');
-
-        $token = 'SDAOSLEFNWU35H3QLI5325';
-
-        /** @var CommandBus $bus */
-        $bus = $this->get('tactician.commandbus');
-        $bus->handle(new PickupCart($token, 'WEB_GB'));
-
-        $data =
-<<<EOT
-        {
-            "productCode": "LOGAN_T_SHIRT_CODE",
-            "variantCode": "SMALL_LOGAN_T_SHIRT_CODE"
-        }
-EOT;
-        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], static::$acceptAndContentTypeHeader, $data);
-        $response = $this->client->getResponse();
-
-        $this->assertResponse($response, 'cart/validation_quantity_not_defined_response', Response::HTTP_BAD_REQUEST);
-    }
-
-    /**
-     * @test
-     */
     public function it_validates_if_quantity_is_larger_than_0_during_add_variant_based_configurable_product()
     {
         $this->loadFixturesFromFile('shop.yml');
@@ -417,7 +366,7 @@ EOT;
     /**
      * @test
      */
-    public function it_validates_if_quantity_is_is_an_integer_during_add_variant_based_configurable_product()
+    public function it_converts_quantity_as_an_integer_and_adds_variant_based_configurable_product()
     {
         $this->loadFixturesFromFile('shop.yml');
 
@@ -438,7 +387,7 @@ EOT;
         $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], static::$acceptAndContentTypeHeader, $data);
         $response = $this->client->getResponse();
 
-        $this->assertResponse($response, 'cart/validation_quantity_not_integer_response', Response::HTTP_BAD_REQUEST);
+        $this->assertResponse($response, 'cart/add_product_variant_to_cart_response', Response::HTTP_CREATED);
     }
 
     /**
