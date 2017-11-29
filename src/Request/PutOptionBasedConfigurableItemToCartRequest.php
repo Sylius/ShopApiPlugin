@@ -44,7 +44,7 @@ final class PutOptionBasedConfigurableItemToCartRequest
 
     public static function fromRequest(Request $request)
     {
-        return new self($request->attributes->get('token'), $request->request->get('productCode'), $request->request->get('options'), $request->request->has('quantity') ? $request->request->getInt('quantity') : null);
+        return new self($request->attributes->get('token'), $request->request->get('productCode'), $request->request->get('options'), $request->request->getInt('quantity', 1));
     }
 
     /**

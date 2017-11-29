@@ -31,7 +31,7 @@ final class ChangeItemQuantityRequest
     {
         $this->token = $request->attributes->get('token');
         $this->id = $request->attributes->get('id');
-        $this->quantity = $request->request->has('quantity') ? $request->request->getInt('quantity') : null;
+        $this->quantity = $request->request->getInt('quantity');
     }
 
     /**

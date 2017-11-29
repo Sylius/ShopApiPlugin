@@ -102,7 +102,7 @@ EOT;
         $this->client->request('PUT', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/items/1', [], [], static::$acceptAndContentTypeHeader);
         $response = $this->client->getResponse();
 
-        $this->assertResponse($response, 'cart/validation_quantity_not_defined_response', Response::HTTP_BAD_REQUEST);
+        $this->assertResponse($response, 'cart/validation_quantity_lower_than_one_response', Response::HTTP_BAD_REQUEST);
     }
 
     /**
