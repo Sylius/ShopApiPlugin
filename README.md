@@ -108,7 +108,7 @@ Rest of the command are executed inside `project` folder.
 
     sylius_shop:
         checkout_resolver:
-            pattern: "%sylius.security.shop_regex%/checkout/"
+            pattern: "%sylius.security.shop_regex%/checkout/.+"
     ```
     
     6. (optional) if you have installed `nelmio/NelmioCorsBundle` for Support of Cross-Origin Ajax Request,
