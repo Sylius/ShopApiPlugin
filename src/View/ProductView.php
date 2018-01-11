@@ -39,6 +39,16 @@ class ProductView
     /**
      * @var string
      */
+    public $metaKeywords;
+
+    /**
+     * @var string
+     */
+    public $metaDescription;
+
+    /**
+     * @var string
+     */
     public $averageRating;
 
     /**

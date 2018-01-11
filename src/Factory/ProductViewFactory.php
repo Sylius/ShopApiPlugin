@@ -59,6 +59,8 @@ final class ProductViewFactory implements ProductViewFactoryInterface
         $productView->slug = $translation->getSlug();
         $productView->description = $translation->getDescription();
         $productView->shortDescription = $translation->getShortDescription();
+        $productView->metaKeywords = $translation->getMetaKeywords();
+        $productView->metaDescription = $translation->getMetaDescription();
 
         /** @var ProductImageInterface $image */
         foreach ($product->getImages() as $image) {

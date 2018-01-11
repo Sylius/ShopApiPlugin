@@ -20,6 +20,12 @@ Sylius\ShopApiPlugin\View\ProductView:
         shortDescription:
             expose: true
             type: string
+        metaKeywords:
+            expose: true
+            type: string
+        metaDescription:
+            expose: true
+            type: string
         averageRating:
             expose: true
             type: integer
