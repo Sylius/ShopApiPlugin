@@ -6,8 +6,11 @@ namespace Sylius\ShopApiPlugin\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Sylius\ShopApiPlugin\EventListener\InteractiveLoginListener;
 
 final class ShopApiExtension extends Extension
 {
@@ -25,6 +28,27 @@ final class ShopApiExtension extends Extension
 
         $container->setParameter('sylius.shop_api.included_attributes', $config['included_attributes']);
 
+        if ($config['auto_pickup_cart']) {
+            $this->registerInteractiveLoginListener($container);
+        }
+
         $loader->load('services.xml');
+    }
+
+    private function registerInteractiveLoginListener(ContainerBuilder $container)
+    {
+        $interactiveLoginListener = new Definition(InteractiveLoginListener::class, [
+            new Reference('sylius.manager.order'),
+            new Reference('sylius.context.cart'),
+        ]);
+
+        $interactiveLoginListener->addTag('kernel.event_listener', [
+            'event'  => 'security.interactive_login',
+            'method' => 'onInteractiveLogin',
+        ]);
+
+        $container->addDefinitions([
+            'sylius.shop_api_plugin.event_listener.interactive_login_listener' => $interactiveLoginListener,
+        ]);
     }
 }

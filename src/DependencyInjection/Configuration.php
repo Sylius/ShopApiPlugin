@@ -20,6 +20,7 @@ final class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('shop_api');
 
         $this->buildIncludedAttributesNode($rootNode);
+        $this->buildAutoPickupCartNode($rootNode);
         $this->buildViewClassesNode($rootNode);
 
         return $treeBuilder;
@@ -31,6 +32,17 @@ final class Configuration implements ConfigurationInterface
             ->children()
                 ->arrayNode('included_attributes')
                     ->prototype('scalar')->end()
+                ->end()
+            ->end()
+        ;
+    }
+
+    private function buildAutoPickupCartNode(ArrayNodeDefinition $rootNode): void
+    {
+        $rootNode
+            ->children()
+                ->booleanNode('auto_pickup_cart')
+                    ->defaultFalse()
                 ->end()
             ->end()
         ;

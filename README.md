@@ -179,6 +179,16 @@ In order to check example configuration check
  
 From the test app.
 
+### Cart Token with Authentication
+
+When authentication is enabled for the APIs, for example with [LexikJWTAuthenticationBundle](https://github.com/lexik/LexikJWTAuthenticationBundle), the cart token parameter could be populated automatically instead of passing the value through parameter. For URLs that have the token value e.g. `/carts/{token}`, you could simply put a placeholder there e.g. `/carts/placehoder`, the placeholder will be replaced automatically underneath with the authenticated user's default cart.
+
+Add the following config to enable this feature:
+```yml
+shop_api:
+    auto_pickup_cart: true
+```
+
 ## Testing
 
 The application can be tested with API Test Case. In order to run test suite execute the following command:
