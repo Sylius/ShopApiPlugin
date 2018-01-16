@@ -63,7 +63,7 @@ final class ChoosePaymentMethodHandler
         $paymentMethod = $this->paymentMethodRepository->findOneBy(['code' => $choosePaymentMethod->paymentMethod()]);
 
         Assert::notNull($paymentMethod, 'Payment method has not been found');
-        Assert::true(isset($cart->getPayments()[$choosePaymentMethod->paymentIdentifier()]), 'Payment method has not been found.');
+        Assert::true(isset($cart->getPayments()[$choosePaymentMethod->paymentIdentifier()]), 'Can not find payment with given identifier.');
 
         $payment = $cart->getPayments()[$choosePaymentMethod->paymentIdentifier()];
 
