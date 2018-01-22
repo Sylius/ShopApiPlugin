@@ -72,7 +72,7 @@ final class ChooseShippingMethodHandler
         $shippingMethod = $this->shippingMethodRepository->findOneBy(['code' => $chooseShippingMethod->shippingMethod()]);
 
         Assert::notNull($shippingMethod, 'Shipping method has not been found');
-        Assert::true(isset($cart->getShipments()[$chooseShippingMethod->shipmentIdentifier()]), 'Shipping method has not been found.');
+        Assert::true(isset($cart->getShipments()[$chooseShippingMethod->shipmentIdentifier()]), 'Can not find shipment with given identifier.');
 
         $shipment = $cart->getShipments()[$chooseShippingMethod->shipmentIdentifier()];
 
