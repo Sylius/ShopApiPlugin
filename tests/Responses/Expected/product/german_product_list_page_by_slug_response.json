@@ -64,6 +64,7 @@
             "code": "LOGAN_HAT_CODE",
             "name": "Logan Hut",
             "slug": "logan-hut",
+            "description": "Einige Beschreibung Lorem ipsum dolor sit amet.",
             "averageRating": 0,
             "taxons": {
                 "main": "HAT",
@@ -199,6 +200,7 @@
                         "code": "LOGAN_T_SHIRT_CODE",
                         "name": "Logan T-Shirt",
                         "slug": "logan-t-shirt",
+                        "description": "Some description Lorem ipsum dolor sit amet.",
                         "averageRating": 0,
                         "taxons": {
                             "main": "T_SHIRTS",
