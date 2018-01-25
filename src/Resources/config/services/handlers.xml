@@ -6,6 +6,7 @@
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.factory.address"/>
             <argument type="service" id="sm.factory"/>
+            <argument type="service" id="event_dispatcher"/>
             <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\AddressOrder"/>
         </service>
 
@@ -62,6 +63,7 @@
             <argument type="service" id="sylius.repository.shipping_method"/>
             <argument type="service" id="sylius.shipping_eligibility_checker"/>
             <argument type="service" id="sm.factory"/>
+            <argument type="service" id="event_dispatcher"/>
             <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\ChooseShippingMethod"/>
         </service>
 
@@ -69,6 +71,7 @@
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.repository.payment_method"/>
             <argument type="service" id="sm.factory"/>
+            <argument type="service" id="event_dispatcher"/>
             <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\ChoosePaymentMethod"/>
         </service>
 
@@ -90,6 +93,7 @@
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.shop_api_plugin.provider.customer_provider"/>
             <argument type="service" id="sm.factory"/>
+            <argument type="service" id="event_dispatcher"/>
             <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\CompleteOrder"/>
         </service>
 
