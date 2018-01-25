@@ -3,6 +3,7 @@
     "name": "Logan Mug",
     "slug": "logan-mug",
     "breadcrumb": "categories\/mugs\/logan-mug",
+    "description": "Some description Lorem ipsum dolor sit amet.",
     "averageRating": 0,
     "taxons": {
         "main": "MUG",

@@ -76,6 +76,10 @@ final class ProductViewFactorySpec extends ObjectBehavior
 
         $productTranslation->getName()->willReturn('Hat');
         $productTranslation->getSlug()->willReturn('hat');
+        $productTranslation->getDescription()->willReturn('Et voluptas qui fuga aut unde ex non ducimus');
+        $productTranslation->getShortDescription()->willReturn('Dolormque quibudam dolor laudantium modi temporibus.');
+        $productTranslation->getMetaKeywords()->willReturn('hat');
+        $productTranslation->getMetaDescription()->willReturn('hat');
 
         $taxonView = new ProductTaxonView();
         $taxonView->main = 'MAIN';
@@ -86,6 +90,10 @@ final class ProductViewFactorySpec extends ObjectBehavior
         $productView->code = 'HAT_CODE';
         $productView->averageRating = 5;
         $productView->slug = 'hat';
+        $productView->description = 'Et voluptas qui fuga aut unde ex non ducimus';
+        $productView->shortDescription = 'Dolormque quibudam dolor laudantium modi temporibus.';
+        $productView->metaKeywords = 'hat';
+        $productView->metaDescription = 'hat';
         $productView->taxons = $taxonView;
         $productView->images = [new ImageView(), new ImageView()];
         $productView->attributes = [];

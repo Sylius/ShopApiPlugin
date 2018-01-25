@@ -3,6 +3,7 @@
     "name": "Logan Shoes",
     "slug": "logan-shoes",
     "breadcrumb": "logan-shoes",
+    "description": "Some description Lorem ipsum dolor sit amet.",
     "averageRating": 0,
     "taxons": {
         "others": []

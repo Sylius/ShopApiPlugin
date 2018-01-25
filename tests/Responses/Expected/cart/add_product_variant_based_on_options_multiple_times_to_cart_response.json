@@ -13,6 +13,7 @@
                 "code": "LOGAN_HAT_CODE",
                 "name": "Logan Hat",
                 "slug": "logan-hat",
+                "description": "Some description Lorem ipsum dolor sit amet.",
                 "averageRating": 0,
                 "taxons": {
                     "main": "HAT",

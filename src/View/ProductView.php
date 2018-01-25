@@ -29,6 +29,26 @@ class ProductView
     /**
      * @var string
      */
+    public $description;
+
+    /**
+     * @var string
+     */
+    public $shortDescription;
+
+    /**
+     * @var string
+     */
+    public $metaKeywords;
+
+    /**
+     * @var string
+     */
+    public $metaDescription;
+
+    /**
+     * @var string
+     */
     public $averageRating;
 
     /**

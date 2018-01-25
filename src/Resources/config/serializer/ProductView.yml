@@ -14,6 +14,18 @@ Sylius\ShopApiPlugin\View\ProductView:
         breadcrumb:
             expose: true
             type: string
+        description:
+            expose: true
+            type: string
+        shortDescription:
+            expose: true
+            type: string
+        metaKeywords:
+            expose: true
+            type: string
+        metaDescription:
+            expose: true
+            type: string
         averageRating:
             expose: true
             type: integer
