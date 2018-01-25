@@ -16,15 +16,17 @@ use Sylius\Component\Core\OrderCheckoutTransitions;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\PaymentMethodRepositoryInterface;
 use Sylius\ShopApiPlugin\Command\ChoosePaymentMethod;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 final class ChoosePaymentMethodHandlerSpec extends ObjectBehavior
 {
     function let(
         OrderRepositoryInterface $orderRepository,
         PaymentMethodRepositoryInterface $paymentMethodRepository,
-        FactoryInterface $stateMachineFactory
+        FactoryInterface $stateMachineFactory,
+        EventDispatcherInterface $eventDispatcher
     ) {
-        $this->beConstructedWith($orderRepository, $paymentMethodRepository, $stateMachineFactory);
+        $this->beConstructedWith($orderRepository, $paymentMethodRepository, $stateMachineFactory, $eventDispatcher);
     }
 
     function it_assignes_choosen_payment_method_to_specified_payment(
