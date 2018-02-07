@@ -33,5 +33,6 @@
     },
     "suggest": {
         "nelmio/cors-bundle": "allows you to send Cross-Origin Ajax API Request"
-    }
+    },
+    "minimum-stability": "RC"
 }
