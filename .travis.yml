@@ -10,7 +10,7 @@ env:
 
 cache:
     directories:
-        - vendor
+        - ~/.composer/cache/files
 
 before_install:
     - phpenv config-rm xdebug.ini || true
