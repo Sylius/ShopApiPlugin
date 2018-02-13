@@ -144,7 +144,7 @@ final class QueryChecker
                      * We select the parent alias because it may differ from the origin alias given above
                      * @see https://github.com/api-platform/core/issues/1313
                      */
-                    [$relationAlias, $association] = explode('.', $relationship);
+                    list($relationAlias, $association) = explode('.', $relationship);
                     $metadata = QueryJoinParser::getClassMetadataFromJoinAlias($relationAlias, $queryBuilder, $managerRegistry);
                     if ($metadata->isCollectionValuedAssociation($association)) {
                         return true;
