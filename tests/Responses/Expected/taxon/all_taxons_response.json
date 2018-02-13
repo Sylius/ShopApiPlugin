@@ -80,9 +80,6 @@
     },
     {
         "code": "FRUITS",
-        "name": "Fruits",
-        "slug": "fruits-utile",
-        "description": "Désirez vous un fruit ?",
         "position": 3,
         "children": [],
         "images": []
