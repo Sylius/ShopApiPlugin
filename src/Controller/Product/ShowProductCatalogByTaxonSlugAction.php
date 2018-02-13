@@ -35,7 +35,6 @@ final class ShowProductCatalogByTaxonSlugAction
         }
 
         try {
-
             return $this->viewHandler->handle(View::create($this->productCatalogQuery->findByTaxonSlug(
                 $request->attributes->get('taxonSlug'),
                 $request->query->get('channel'),

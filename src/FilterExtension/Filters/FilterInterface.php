@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Sylius\ShopApiPlugin\FilterExtension\Filters;
 
 use Doctrine\ORM\QueryBuilder;
-use Sylius\ShopApiPlugin\FilterExtension\Util\QueryNameGeneratorInterface;
 
 /**
  * Filter applied to the query.

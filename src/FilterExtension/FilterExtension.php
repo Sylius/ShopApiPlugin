@@ -15,7 +15,6 @@ use Sylius\ShopApiPlugin\FilterExtension\Filters\FilterInterface;
  */
 class FilterExtension implements FilterExtensionInterface
 {
-
     /**
      * @var ArrayCollection
      */

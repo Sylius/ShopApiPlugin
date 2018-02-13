@@ -8,7 +8,6 @@ use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
 use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
-use Sylius\Component\Core\Model\Product;
 use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Sylius\Component\Locale\Model\LocaleInterface;
@@ -37,7 +36,7 @@ final class ProductCatalogViewRepository implements ProductCatalogViewRepository
     /** @var PageViewFactoryInterface */
     private $pageViewFactory;
 
-    /** @var FilterExtensionInterface  */
+    /** @var FilterExtensionInterface */
     private $filterExtension;
 
     public function __construct(

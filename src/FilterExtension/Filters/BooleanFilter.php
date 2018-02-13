@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\FilterExtension\Filters;
 
+use Doctrine\DBAL\Types\Type as DBALType;
 use Doctrine\ORM\QueryBuilder;
 use Sylius\ShopApiPlugin\Exception\InvalidArgumentException;
 use Sylius\ShopApiPlugin\FilterExtension\Util\QueryNameGenerator;
-use Doctrine\DBAL\Types\Type as DBALType;
 
 /**
  * Filters the collection by boolean values.
@@ -36,6 +36,7 @@ class BooleanFilter extends AbstractFilter
     {
         $propertyParts = $this->splitPropertyParts($property, $resourceClass);
         $metadata = $this->getNestedMetadata($resourceClass, $propertyParts['associations']);
+
         return DBALType::BOOLEAN === $metadata->getTypeOfField($propertyParts['field']);
     }
 
@@ -75,6 +76,7 @@ class BooleanFilter extends AbstractFilter
                         '0',
                     ]))),
                 ]);
+
                 continue;
             }
 
