@@ -76,4 +76,23 @@ final class ProductShowCatalogBySlugApiTest extends JsonApiTestCase
 
         $this->assertResponse($response, 'product/product_list_page_by_slug_response', Response::HTTP_OK);
     }
+
+    /**
+     * @test
+     * @group filtered
+     */
+    public function it_shows_paginated_products_from_some_taxon_by_slug_boolean_filtered()
+    {
+        $this->loadFixturesFromFile('shop.yml');
+
+        $this->client->request('GET', '/shop-api/taxon-products-by-slug/fruits-utile?channel=WEB_FR&filters[boolean][variants.shippingRequired]=false', [], [], ['ACCEPT' => 'application/json']);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'product/product_list_by_slug_boolean_filtered_false_response', Response::HTTP_OK);
+
+        $this->client->request('GET', '/shop-api/taxon-products-by-slug/fruits-utile?channel=WEB_FR&filters[boolean][variants.shippingRequired]=true', [], [], ['ACCEPT' => 'application/json']);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'product/product_list_by_slug_boolean_filtered_true_response', Response::HTTP_OK);
+    }
 }

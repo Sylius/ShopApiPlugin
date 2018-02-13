@@ -514,6 +514,17 @@ paths:
               required: false
               type: "integer"
               example: 2
+            - name: "filters"
+              in: "query"
+              required: false
+              description: "List of filters."
+              type: "object"
+              properties:
+                type:
+                  $ref: "#/definitions/Filter"
+              example:
+                boolean:
+                  enabled: "true"
             responses:
                 200:
                     description: "Paginated product list."
@@ -562,6 +573,17 @@ paths:
               required: false
               type: "integer"
               example: 2
+            - name: "filters"
+              in: "query"
+              required: false
+              description: "List of filters."
+              type: "object"
+              properties:
+                type:
+                  $ref: "#/definitions/Filter"
+              example:
+                boolean:
+                  enabled: "true"
             responses:
                 200:
                     description: "Paginated product list."
@@ -1431,3 +1453,12 @@ definitions:
                     items:
                         type: "string"
                         example: "sylius.shop_api.additionalProp.not_null"
+    Filter:
+        type: "object"
+        description: "Resource property name to filter to and the value to apply."
+        properties:
+            property:
+                type: "string"
+                description: "propertyName"
+        additionalProperties:
+            type: "string"
