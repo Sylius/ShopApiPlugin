@@ -9,7 +9,6 @@ namespace Sylius\ShopApiPlugin\FilterExtension\Util;
  *
  * @copyright Copyright (c) 2015-present Kévin Dunglas
  * @license   https://github.com/api-platform/core/blob/master/LICENSE MIT License
- *
  * @author Amrouche Hamza <hamza.simperfit@gmail.com>
  */
 interface QueryNameGeneratorInterface

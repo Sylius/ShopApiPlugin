@@ -13,5 +13,9 @@
             <tag name="sylius.shop_api_plugin.filter" />
         </service>
 
+        <service id="sylius.shop_api_plugin.filters.search" parent="sylius.shop_api_plugin.filters.filter" class="Sylius\ShopApiPlugin\FilterExtension\Filters\SearchFilter">
+            <tag name="sylius.shop_api_plugin.filter" />
+        </service>
+
     </services>
 </container>

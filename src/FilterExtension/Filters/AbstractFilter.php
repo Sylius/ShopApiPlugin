@@ -198,4 +198,20 @@ abstract class AbstractFilter implements FilterInterface
             'field' => implode('.', \array_slice($parts, $slice)),
         ];
     }
+
+    /**
+     * Gets the Doctrine Type of a given property/resourceClass.
+     *
+     * @param string $property
+     * @param string $resourceClass
+     *
+     * @return Type|string|null
+     */
+    protected function getDoctrineFieldType(string $property, string $resourceClass)
+    {
+        $propertyParts = $this->splitPropertyParts($property, $resourceClass);
+        $metadata = $this->getNestedMetadata($resourceClass, $propertyParts['associations']);
+
+        return $metadata->getTypeOfField($propertyParts['field']);
+    }
 }

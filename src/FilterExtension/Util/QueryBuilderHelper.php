@@ -12,7 +12,6 @@ use Doctrine\ORM\QueryBuilder;
  *
  * @copyright Copyright (c) 2015-present Kévin Dunglas
  * @license   https://github.com/api-platform/core/blob/master/LICENSE MIT License
- *
  * @author    Vincent Chalamon <vincent@les-tilleuls.coop>
  *
  * @internal

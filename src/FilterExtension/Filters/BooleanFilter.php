@@ -20,7 +20,13 @@ use Sylius\ShopApiPlugin\FilterExtension\Util\QueryNameGenerator;
  *
  * The condition must be in the format ?filter['boolean'][{property}]={value}
  *
+ * @see       https://github.com/api-platform/core for the canonical source repository
+ *
+ * @copyright Copyright (c) 2015-present Kévin Dunglas
+ * @license   https://github.com/api-platform/core/blob/master/LICENSE MIT License
  * @author Grégoire Hébert <gregoire@les-tilleuls.coop>
+ * @author Amrouche Hamza <hamza.simperfit@gmail.com>
+ * @author Teoh Han Hui <teohhanhui@gmail.com>
  */
 class BooleanFilter extends AbstractFilter
 {

@@ -16,7 +16,6 @@ use Doctrine\ORM\QueryBuilder;
  *
  * @copyright Copyright (c) 2015-present Kévin Dunglas
  * @license   https://github.com/api-platform/core/blob/master/LICENSE MIT License
- *
  * @author Teoh Han Hui <teohhanhui@gmail.com>
  * @author Vincent Chalamon <vincentchalamon@gmail.com>
  */
@@ -149,7 +148,7 @@ final class QueryChecker
                      * We select the parent alias because it may differ from the origin alias given above
                      * @see https://github.com/api-platform/core/issues/1313
                      */
-                    list($relationAlias, $association) = explode('.', $relationship);
+                    [$relationAlias, $association] = explode('.', $relationship);
                     $metadata = QueryJoinParser::getClassMetadataFromJoinAlias($relationAlias, $queryBuilder, $managerRegistry);
                     if ($metadata->isCollectionValuedAssociation($association)) {
                         return true;
