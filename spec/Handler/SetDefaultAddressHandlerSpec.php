@@ -35,7 +35,7 @@ final class SetDefaultAddressHandlerSpec extends ObjectBehavior
         Customer $customer
     ) {
         $shopUserRepository->findOneBy(['username' => 'user@email.com'])->willReturn($user);
-        $addressRepository->find('ADDRESS_ID')->willReturn($address);
+        $addressRepository->find(1)->willReturn($address);
 
         $user->getCustomer()->willReturn($customer);
         $address->getCustomer()->willReturn($customer);
@@ -45,7 +45,7 @@ final class SetDefaultAddressHandlerSpec extends ObjectBehavior
 
         $customer->setDefaultAddress($address)->shouldBeCalled();
 
-        $this->handle(new SetDefaultAddress('ADDRESS_ID', 'user@email.com'));
+        $this->handle(new SetDefaultAddress(1, 'user@email.com'));
     }
 
     function it_trows_exception_if_address_does_not_belong_to_current_user(
@@ -56,7 +56,7 @@ final class SetDefaultAddressHandlerSpec extends ObjectBehavior
         Customer $customer
     ) {
         $shopUserRepository->findOneBy(['username' => 'user@email.com'])->willReturn($user);
-        $addressRepository->find('ADDRESS_ID')->willReturn($address);
+        $addressRepository->find(1)->willReturn($address);
 
         $user->getCustomer()->willReturn($customer);
         $address->getCustomer()->willReturn($customer);
@@ -65,7 +65,7 @@ final class SetDefaultAddressHandlerSpec extends ObjectBehavior
         $user->getId()->willReturn('USER_ID_2');
 
         $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [
-            new SetDefaultAddress('ADDRESS_ID', 'user@email.com'),
+            new SetDefaultAddress(1, 'user@email.com'),
         ]);
     }
 
@@ -76,14 +76,14 @@ final class SetDefaultAddressHandlerSpec extends ObjectBehavior
         ShopUserInterface $user
     ) {
         $shopUserRepository->findOneBy(['username' => 'user@email.com'])->willReturn($user);
-        $addressRepository->find('ADDRESS_ID')->willReturn($address);
+        $addressRepository->find(1)->willReturn($address);
 
         $address->getCustomer()->willReturn(null);
 
         $user->getId()->shouldNotBeCalled();
 
         $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [
-            new SetDefaultAddress('ADDRESS_ID', 'user@email.com'),
+            new SetDefaultAddress(1, 'user@email.com'),
         ]);
     }
 }
