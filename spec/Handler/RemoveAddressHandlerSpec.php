@@ -10,6 +10,7 @@ use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\ShopUserInterface;
+use Sylius\Component\Core\Repository\AddressRepositoryInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\ShopApiPlugin\Command\RemoveAddress;
@@ -17,7 +18,7 @@ use Sylius\ShopApiPlugin\Command\RemoveAddress;
 final class RemoveAddressHandlerSpec extends ObjectBehavior
 {
     function let(
-        RepositoryInterface $addressRepository,
+        AddressRepositoryInterface $addressRepository,
         OrderRepositoryInterface $orderRepository,
         RepositoryInterface $shopUserRepository
     ) {
@@ -31,7 +32,7 @@ final class RemoveAddressHandlerSpec extends ObjectBehavior
     function it_removes_address_from_address_book(
         ShopUserInterface $shopUser,
         CustomerInterface $customer,
-        AddressRepository $addressRepository,
+        AddressRepositoryInterface $addressRepository,
         OrderRepositoryInterface $orderRepository,
         RepositoryInterface $shopUserRepository,
         AddressInterface $address
@@ -54,7 +55,7 @@ final class RemoveAddressHandlerSpec extends ObjectBehavior
     function it_throws_an_exception_when_deleting_address_associated_with_order(
         ShopUserInterface $shopUser,
         CustomerInterface $customer,
-        AddressRepository $addressRepository,
+        AddressRepositoryInterface $addressRepository,
         OrderRepositoryInterface $orderRepository,
         RepositoryInterface $shopUserRepository,
         AddressInterface $address,
@@ -78,7 +79,7 @@ final class RemoveAddressHandlerSpec extends ObjectBehavior
     function it_trows_exception_if_address_does_not_belong_to_current_user(
         ShopUserInterface $shopUser,
         CustomerInterface $customer,
-        AddressRepository $addressRepository,
+        AddressRepositoryInterface $addressRepository,
         RepositoryInterface $shopUserRepository,
         AddressInterface $address
     ) {
