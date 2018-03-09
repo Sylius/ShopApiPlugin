@@ -30,9 +30,33 @@ final class ProductAttributeValueViewFactorySpec extends ObjectBehavior
     ): void {
         $productAttributeValue->getCode()->willReturn('CERTIFICATE_1');
         $productAttributeValue->getValue()->willReturn('Nice, shinny certificate.');
+        $productAttributeValue->getType()->willReturn('text');
         $productAttributeValue->getAttribute()->willReturn($productAttribute);
 
         $productAttribute->getTranslation('en_GB')->willReturn($productAttributeTranslation);
+
+        $productAttributeTranslation->getName()->willReturn('Certificate XPTO');
+
+        $productAttributeValueView = new ProductAttributeValueView();
+        $productAttributeValueView->code = 'CERTIFICATE_1';
+        $productAttributeValueView->name = 'Certificate XPTO';
+        $productAttributeValueView->value = 'Nice, shinny certificate.';
+
+        $this->create($productAttributeValue, 'en_GB')->shouldBeLike($productAttributeValueView);
+    }
+
+    function it_creates_product_attribute_value_view_for_select_attribute_type(
+        ProductAttributeValueInterface $productAttributeValue,
+        ProductAttributeInterface $productAttribute,
+        ProductAttributeTranslationInterface $productAttributeTranslation
+    ) {
+        $productAttributeValue->getCode()->willReturn('CERTIFICATE_1');
+        $productAttributeValue->getValue()->willReturn('1');
+        $productAttributeValue->getType()->willReturn('select');
+        $productAttributeValue->getAttribute()->willReturn($productAttribute);
+
+        $productAttribute->getTranslation('en_GB')->willReturn($productAttributeTranslation);
+        $productAttribute->getConfiguration()->willReturn(['choices' => ['1' => 'Nice, shinny certificate.']]);
 
         $productAttributeTranslation->getName()->willReturn('Certificate XPTO');
 
