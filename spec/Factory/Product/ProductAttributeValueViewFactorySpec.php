@@ -51,7 +51,7 @@ final class ProductAttributeValueViewFactorySpec extends ObjectBehavior
         ProductAttributeTranslationInterface $productAttributeTranslation
     ) {
         $productAttributeValue->getCode()->willReturn('CERTIFICATE_1');
-        $productAttributeValue->getValue()->willReturn('1');
+        $productAttributeValue->getValue()->willReturn(['1']);
         $productAttributeValue->getType()->willReturn('select');
         $productAttributeValue->getAttribute()->willReturn($productAttribute);
 
