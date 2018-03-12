@@ -45,7 +45,7 @@
                 {
                     "code": "MUG_MATERIAL_CODE",
                     "name": "Becher Material",
-                    "value": "Holz"
+                    "value": "Wood"
                 }
             ],
             "associations": [],
@@ -183,7 +183,7 @@
                             {
                                 "code": "MUG_MATERIAL_CODE",
                                 "name": "Becher Material",
-                                "value": "Holz"
+                                "value": "Wood"
                             }
                         ],
                         "associations": [],
