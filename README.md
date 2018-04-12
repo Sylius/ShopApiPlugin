@@ -54,6 +54,7 @@ Rest of the command are executed inside `project` folder.
     imports:
         # ...
         - { resource: "@ShopApiPlugin/Resources/config/app/config.yml" }
+        - { resource: "@ShopApiPlugin/Resources/config/app/sylius_mailer.yml" }
 
     # ...
     
