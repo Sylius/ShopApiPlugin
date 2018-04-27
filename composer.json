@@ -7,7 +7,7 @@
         "php": "^7.1",
 
         "sylius/sylius": "^1.0",
-        "league/tactician-bundle": "^0.4",
+        "league/tactician-bundle": "^1.0",
         "league/tactician-doctrine": "^1.1"
     },
     "require-dev": {
