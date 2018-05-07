@@ -56,6 +56,8 @@ final class ChooseShippingMethodHandler
 
     /**
      * @param ChooseShippingMethod $chooseShippingMethod
+     *
+     * @throws \SM\SMException
      */
     public function handle(ChooseShippingMethod $chooseShippingMethod)
     {
@@ -70,11 +72,16 @@ final class ChooseShippingMethodHandler
 
         /** @var ShippingMethodInterface $shippingMethod */
         $shippingMethod = $this->shippingMethodRepository->findOneBy(['code' => $chooseShippingMethod->shippingMethod()]);
-
         Assert::notNull($shippingMethod, 'Shipping method has not been found');
-        Assert::true(isset($cart->getShipments()[$chooseShippingMethod->shipmentIdentifier()]), 'Can not find shipment with given identifier.');
 
-        $shipment = $cart->getShipments()[$chooseShippingMethod->shipmentIdentifier()];
+        $shipmentAvailable = [];
+        foreach ($cart->getShipments() as $key => $shipmentLoad) {
+            $shipmentAvailable[$shipmentLoad->getMethod()->getCode()] = $shipmentLoad;
+        }
+
+        Assert::true(isset($shipmentAvailable[$chooseShippingMethod->shipmentIdentifier()]), 'Can not find shipment with given identifier.');
+
+        $shipment = $shipmentAvailable[$chooseShippingMethod->shipmentIdentifier()];
 
         Assert::true($this->eligibilityChecker->isEligible($shipment, $shippingMethod), 'Given shipment is not eligible for provided shipping method.');
 
