@@ -61,6 +61,7 @@
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.repository.shipping_method"/>
             <argument type="service" id="sylius.shipping_eligibility_checker"/>
+            <argument type="service" id="sylius.shipping_methods_resolver"/>
             <argument type="service" id="sm.factory"/>
             <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\ChooseShippingMethod"/>
         </service>
@@ -68,6 +69,7 @@
         <service id="sylius.shop_api_plugin.handler.choose_payment_method_handler" class="Sylius\ShopApiPlugin\Handler\ChoosePaymentMethodHandler">
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.repository.payment_method"/>
+            <argument type="service" id="sylius.payment_methods_resolver"/>
             <argument type="service" id="sm.factory"/>
             <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\ChoosePaymentMethod"/>
         </service>
