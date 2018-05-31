@@ -11,7 +11,7 @@ use Sylius\Component\Core\Model\ShipmentInterface;
 use Sylius\Component\Core\Model\ShippingMethodInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Shipping\Resolver\ShippingMethodsResolverInterface;
-use Sylius\ShopApiPlugin\Factory\ShippingMethodViewFactory;
+use Sylius\ShopApiPlugin\Factory\ShippingMethodViewFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -33,7 +33,7 @@ final class ShowAvailableShippingMethodsAction
     private $shippingMethodsResolver;
 
     /**
-     * @var ShippingMethodViewFactory
+     * @var ShippingMethodViewFactoryInterface
      */
     private $shippingMethodViewFactory;
 
@@ -41,13 +41,13 @@ final class ShowAvailableShippingMethodsAction
      * @param OrderRepositoryInterface $cartRepository
      * @param ViewHandlerInterface $viewHandler
      * @param ShippingMethodsResolverInterface $shippingMethodsResolver
-     * @param ShippingMethodViewFactory $shippingMethodViewFactory
+     * @param ShippingMethodViewFactoryInterface $shippingMethodViewFactory
      */
     public function __construct(
         OrderRepositoryInterface $cartRepository,
         ViewHandlerInterface $viewHandler,
         ShippingMethodsResolverInterface $shippingMethodsResolver,
-        ShippingMethodViewFactory $shippingMethodViewFactory
+        ShippingMethodViewFactoryInterface $shippingMethodViewFactory
     ) {
         $this->cartRepository = $cartRepository;
         $this->viewHandler = $viewHandler;
