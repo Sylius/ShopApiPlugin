@@ -5,9 +5,8 @@ php:
     - 7.2
 
 env:
-    - SYLIUS_VERSION=1.0.*
     - SYLIUS_VERSION=1.1.*
-    - SYLIUS_VERSION=1.2.*@beta
+    - SYLIUS_VERSION=1.2.*@rc
 
 cache:
     directories:
