@@ -4,7 +4,7 @@
 parameters:
     sylius.security.admin_regex: "^/admin"
     sylius.security.api_regex: "^/api"
-    sylius.security.shop_regex: "^/(?!admin|api|shop-api)[^/]++"
+    sylius.security.shop_regex: "^/(?!admin|shop-api|api/.*|api$|media/.*)[^/]++"
     shop_api.security.regex: "^/shop-api"
 
 security:
@@ -14,6 +14,7 @@ security:
             id: sylius.shop_user_provider.email_or_name_based
         sylius_admin_user_provider:
             id: sylius.admin_user_provider.email_or_name_based
+
     encoders:
         Sylius\Component\User\Model\UserInterface: sha512
     firewalls:
@@ -21,6 +22,7 @@ security:
             switch_user: true
             context: admin
             pattern: "%sylius.security.admin_regex%"
+            provider: sylius_admin_user_provider
             form_login:
                 provider: sylius_admin_user_provider
                 login_path: sylius_admin_login
@@ -48,13 +50,15 @@ security:
             security: false
 
         api:
-            pattern: "%sylius.security.api_regex%"
-            fos_oauth:  true
-            stateless:  true
-            anonymous:  true
+            pattern: "%sylius.security.api_regex%/.*"
+            provider: sylius_admin_user_provider
+            fos_oauth: true
+            stateless: true
+            anonymous: true
 
         shop_api_login:
             pattern:  "%shop_api.security.regex%/login"
+            provider: sylius_shop_user_provider
             stateless: true
             anonymous: true
             form_login:
@@ -67,6 +71,7 @@ security:
 
         shop_api:
             pattern: "%shop_api.security.regex%"
+            provider: sylius_shop_user_provider
             stateless:  true
             anonymous:  true
             guard:
@@ -77,6 +82,7 @@ security:
             switch_user: { role: ROLE_ALLOWED_TO_SWITCH }
             context: shop
             pattern: "%sylius.security.shop_regex%"
+            provider: sylius_shop_user_provider
             form_login:
                 success_handler: sylius.authentication.success_handler
                 failure_handler: sylius.authentication.failure_handler
@@ -122,5 +128,5 @@ security:
         - { path: "%shop_api.security.regex%/register", role: IS_AUTHENTICATED_ANONYMOUSLY }
 
         - { path: "%sylius.security.admin_regex%", role: ROLE_ADMINISTRATION_ACCESS }
-        - { path: "%sylius.security.api_regex%", role: ROLE_API_ACCESS }
+        - { path: "%sylius.security.api_regex%/.*", role: ROLE_API_ACCESS }
         - { path: "%sylius.security.shop_regex%/account", role: ROLE_USER }

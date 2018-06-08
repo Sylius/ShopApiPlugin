@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 use Sylius\Bundle\CoreBundle\Application\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
 
@@ -11,7 +12,7 @@ final class AppKernel extends Kernel
      */
     public function registerBundles(): array
     {
-        return array_merge(parent::registerBundles(), [
+        $bundles = array_merge(parent::registerBundles(), [
             new \Sylius\Bundle\AdminBundle\SyliusAdminBundle(),
             new \Sylius\Bundle\ShopBundle\SyliusShopBundle(),
 
@@ -23,6 +24,13 @@ final class AppKernel extends Kernel
             new \Sylius\ShopApiPlugin\ShopApiPlugin(),
             new \Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle(),
         ]);
+
+        if (in_array($this->getEnvironment(), ['dev', 'test', 'test_cached'], true)) {
+            $bundles[] = new \Fidry\AliceDataFixtures\Bridge\Symfony\FidryAliceDataFixturesBundle();
+            $bundles[] = new \Nelmio\Alice\Bridge\Symfony\NelmioAliceBundle();
+        }
+
+        return $bundles;
     }
 
     /**
