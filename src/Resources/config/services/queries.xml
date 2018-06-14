@@ -19,6 +19,7 @@
             <argument type="service" id="sylius.repository.taxon" />
             <argument type="service" id="sylius.shop_api_plugin.factory.list_product_view_factory" />
             <argument type="service" id="sylius.shop_api_plugin.factory.page_view_factory" />
+            <argument type="service" id="sylius.shop_api_plugin.filters.filter_extension" />
         </service>
 
         <service id="sylius.shop_api_plugin.view_repository.product_reviews_view_repository" class="Sylius\ShopApiPlugin\ViewRepository\ProductReviewsViewRepository">

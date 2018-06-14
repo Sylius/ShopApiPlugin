@@ -23,6 +23,18 @@ Sylius\Component\Core\Model\Channel:
         enabled: true
         taxCalculationStrategy: "order_items_based"
         accountVerificationRequired: false
+    fr_web_channel:
+        code: "WEB_FR"
+        name: "French Channel"
+        hostname: "localhost"
+        description: "Welcome to Lille !"
+        baseCurrency: "@euro"
+        defaultLocale: "@locale_fr_fr"
+        locales: ["@locale_fr_fr"]
+        color: "white"
+        enabled: true
+        taxCalculationStrategy: "order_items_based"
+        accountVerificationRequired: false
 
 Sylius\Component\Currency\Model\Currency:
     pound:
@@ -35,3 +47,5 @@ Sylius\Component\Locale\Model\Locale:
         code: en_GB
     locale_de_de:
         code: de_DE
+    locale_fr_fr:
+        code: fr_FR

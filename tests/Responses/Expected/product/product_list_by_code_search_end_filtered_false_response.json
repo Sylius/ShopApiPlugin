@@ -1,0 +1,13 @@
+{
+    "page": 1,
+    "limit": 10,
+    "pages": 1,
+    "total": 0,
+    "_links": {
+        "self": "\/shop-api\/taxon-products\/FRUITS?channel=WEB_FR&filters%5Bsearch%5D%5Btranslations.name%5D%5Bend%5D%5B0%5D=rry&page=1&limit=10",
+        "first": "\/shop-api\/taxon-products\/FRUITS?channel=WEB_FR&filters%5Bsearch%5D%5Btranslations.name%5D%5Bend%5D%5B0%5D=rry&page=1&limit=10",
+        "last": "\/shop-api\/taxon-products\/FRUITS?channel=WEB_FR&filters%5Bsearch%5D%5Btranslations.name%5D%5Bend%5D%5B0%5D=rry&page=1&limit=10",
+        "next": "\/shop-api\/taxon-products\/FRUITS?channel=WEB_FR&filters%5Bsearch%5D%5Btranslations.name%5D%5Bend%5D%5B0%5D=rry&page=1&limit=10"
+    },
+    "items":[]
+}

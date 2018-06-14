@@ -77,5 +77,11 @@
         "position": 2,
         "children": [],
         "images": []
+    },
+    {
+        "code": "FRUITS",
+        "position": 3,
+        "children": [],
+        "images": []
     }
 ]

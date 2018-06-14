@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="sylius.shop_api_plugin.filters.filter_extension" class="Sylius\ShopApiPlugin\FilterExtension\FilterExtension" />
+
+        <service id="sylius.shop_api_plugin.filters.filter" class="Sylius\ShopApiPlugin\FilterExtension\Filters\AbstractFilter" public="false" abstract="true">
+            <argument type="service" id="doctrine" />
+            <argument type="service" id="logger" on-invalid="ignore" />
+        </service>
+
+        <service id="sylius.shop_api_plugin.filters.boolean" parent="sylius.shop_api_plugin.filters.filter" class="Sylius\ShopApiPlugin\FilterExtension\Filters\BooleanFilter">
+            <tag name="sylius.shop_api_plugin.filter" />
+        </service>
+
+        <service id="sylius.shop_api_plugin.filters.search" parent="sylius.shop_api_plugin.filters.filter" class="Sylius\ShopApiPlugin\FilterExtension\Filters\SearchFilter">
+            <tag name="sylius.shop_api_plugin.filter" />
+        </service>
+
+    </services>
+</container>

@@ -21,6 +21,18 @@ Sylius\Component\Core\Model\Channel:
         color: "blue"
         enabled: true
         taxCalculationStrategy: "order_items_based"
+    fr_web_channel:
+        code: "WEB_FR"
+        name: "French Channel"
+        hostname: "localhost"
+        description: "Welcome to Lille !"
+        baseCurrency: "@euro"
+        defaultLocale: "@locale_fr_fr"
+        locales: ["@locale_fr_fr"]
+        color: "white"
+        enabled: true
+        taxCalculationStrategy: "order_items_based"
+        accountVerificationRequired: false
 
 Sylius\Component\Currency\Model\Currency:
     pound:
@@ -33,6 +45,8 @@ Sylius\Component\Locale\Model\Locale:
         code: en_GB
     locale_de_de:
         code: de_DE
+    locale_fr_fr:
+        code: fr_FR
 
 Sylius\Component\Core\Model\Product:
     mug:
@@ -73,6 +87,15 @@ Sylius\Component\Core\Model\Product:
         currentLocale: "en_GB"
         currentTranslation: "@en_gb_shoes_product_translation"
         translations: ["@en_gb_shoes_product_translation"]
+    banana:
+        code: "BANANA_CODE"
+        channels: ["@fr_web_channel"]
+
+        currentLocale: "fr_FR"
+        currentTranslation: "@fr_fr_banana_product_translation"
+        translations: ["@fr_fr_banana_product_translation"]
+        mainTaxon: "@fruits_taxon"
+        productTaxons: ["@fruits_product_taxon"]
 
 Sylius\Component\Core\Model\ProductTranslation:
     en_gb_mug_product_translation:
@@ -110,6 +133,12 @@ Sylius\Component\Core\Model\ProductTranslation:
         name: "Logan Shoes"
         description: "Some description Lorem ipsum dolor sit amet."
         translatable: "@shoes"
+    fr_fr_banana_product_translation:
+        slug: "banana"
+        locale: "fr_FR"
+        name: "Banane"
+        description: "Outil de mesure."
+        translatable: "@banana"
 
 Sylius\Component\Core\Model\ProductVariant:
     mug_variant:
@@ -177,6 +206,15 @@ Sylius\Component\Core\Model\ProductVariant:
         channelPricings:
             WEB_GB: "@gb_large_blue_hat_web_channel_pricing"
             WEB_DE: "@de_large_blue_hat_web_channel_pricing"
+    banana_plantain:
+        code: "BANANE_PLANTAIN_CODE"
+        product: "@banana"
+        currentLocale: "fr_FR"
+        currentTranslation: "@banana_plantain_fr_fr_translation"
+        translations: ["@banana_plantain_fr_fr_translation"]
+        shippingRequired: false
+        channelPricings:
+            WEB_FR: "@fr_banana_plantain_web_channel_pricing"
 
 Sylius\Component\Product\Model\ProductVariantTranslation:
     en_gb_mug_variant_translation:
@@ -223,7 +261,10 @@ Sylius\Component\Product\Model\ProductVariantTranslation:
         locale: "de_DE"
         name: "Großes Blau Logan Hut"
         translatable: "@hat_blue_large"
-
+    banana_plantain_fr_fr_translation:
+        locale: "fr_FR"
+        name: "Banane plantain"
+        translatable: "@banana_plantain"
 Sylius\Component\Core\Model\ChannelPricing:
     gb_mug_web_channel_pricing:
         channelCode: "WEB_GB"
@@ -267,6 +308,9 @@ Sylius\Component\Core\Model\ChannelPricing:
     de_large_blue_hat_web_channel_pricing:
         channelCode: "WEB_DE"
         price: 2699
+    fr_banana_plantain_web_channel_pricing:
+        channelCode: "WEB_FR"
+        price: 99
 
 Sylius\Component\Product\Model\ProductOption:
     hat_size:
@@ -431,6 +475,11 @@ Sylius\Component\Core\Model\Taxon:
         currentLocale: "en_GB"
         currentTranslation: "@en_gb_yet_another_taxon_translation"
         translations: ["@en_gb_yet_another_taxon_translation"]
+    fruits_taxon:
+        code: "FRUITS"
+        currentLocale: "fr_FR"
+        currentTranslation: "@fr_fr_fruits_translation"
+        translations: ["@fr_fr_fruits_translation"]
 
 Sylius\Component\Taxonomy\Model\TaxonTranslation:
     en_gb_category_translation:
@@ -515,6 +564,12 @@ Sylius\Component\Taxonomy\Model\TaxonTranslation:
         name: "Marken"
         description: "Einige Beschreibung Lorem ipsum dolor sit amet."
         translatable: "@brand_taxon"
+    fr_fr_fruits_translation:
+        slug: "fruits-utile"
+        locale: "fr_FR"
+        name: "Fruits"
+        description: "Désirez vous un fruit ?"
+        translatable: "@fruits_taxon"
 
 Sylius\Component\Core\Model\ProductTaxon:
     mug_product_taxon:
@@ -535,6 +590,9 @@ Sylius\Component\Core\Model\ProductTaxon:
     hat_brand_taxon:
         product: "@hat"
         taxon: "@brand_taxon"
+    fruits_product_taxon:
+        product: "@banana"
+        taxon: "@fruits_taxon"
 
 Sylius\Component\Core\Model\TaxonImage:
     t_shirt_taxon_thumbnail:

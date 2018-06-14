@@ -39,7 +39,8 @@ final class ShowProductCatalogByTaxonCodeAction
                 $request->attributes->get('code'),
                 $request->query->get('channel'),
                 new PaginatorDetails($request->attributes->get('_route'), $request->query->all()),
-                $request->query->get('locale')
+                $request->query->get('locale'),
+                $request->query->get('filters')
             ), Response::HTTP_OK));
         } catch (\InvalidArgumentException $exception) {
             throw new NotFoundHttpException($exception->getMessage());
