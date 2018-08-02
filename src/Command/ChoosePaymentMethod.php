@@ -8,19 +8,13 @@ use Webmozart\Assert\Assert;
 
 final class ChoosePaymentMethod
 {
-    /**
-     * @var mixed
-     */
+    /** @var mixed */
     private $paymentIdentifier;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $paymentMethod;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $orderToken;
 
     /**
@@ -37,25 +31,16 @@ final class ChoosePaymentMethod
         $this->paymentMethod = $paymentMethod;
     }
 
-    /**
-     * @return string
-     */
     public function orderToken()
     {
         return $this->orderToken;
     }
 
-    /**
-     * @return mixed
-     */
     public function paymentIdentifier()
     {
         return $this->paymentIdentifier;
     }
 
-    /**
-     * @return string
-     */
     public function paymentMethod()
     {
         return $this->paymentMethod;

@@ -13,31 +13,18 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class ChoosePaymentMethodAction
 {
-    /**
-     * @var ViewHandlerInterface
-     */
+    /** @var ViewHandlerInterface */
     private $viewHandler;
 
-    /**
-     * @var CommandBus
-     */
+    /** @var CommandBus */
     private $bus;
 
-    /**
-     * @param ViewHandlerInterface $viewHandler
-     * @param CommandBus $bus
-     */
     public function __construct(ViewHandlerInterface $viewHandler, CommandBus $bus)
     {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     */
     public function __invoke(Request $request)
     {
         $this->bus->handle(new ChoosePaymentMethod(

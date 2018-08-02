@@ -14,19 +14,13 @@ use Webmozart\Assert\Assert;
 
 final class PutVariantBasedConfigurableItemToCartHandler
 {
-    /**
-     * @var OrderRepositoryInterface
-     */
+    /** @var OrderRepositoryInterface */
     private $cartRepository;
 
-    /**
-     * @var ProductVariantRepositoryInterface
-     */
+    /** @var ProductVariantRepositoryInterface */
     private $productVariantRepository;
 
-    /**
-     * @var OrderModifierInterface
-     */
+    /** @var OrderModifierInterface */
     private $orderModifier;
 
     public function __construct(
@@ -39,7 +33,7 @@ final class PutVariantBasedConfigurableItemToCartHandler
         $this->orderModifier = $orderModifier;
     }
 
-    public function handle(PutVariantBasedConfigurableItemToCart $putConfigurableItemToCart)
+    public function handle(PutVariantBasedConfigurableItemToCart $putConfigurableItemToCart): void
     {
         /** @var OrderInterface $cart */
         $cart = $this->cartRepository->findOneBy(['tokenValue' => $putConfigurableItemToCart->orderToken()]);

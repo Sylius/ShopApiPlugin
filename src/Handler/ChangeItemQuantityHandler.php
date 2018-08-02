@@ -15,32 +15,18 @@ use Webmozart\Assert\Assert;
 
 final class ChangeItemQuantityHandler
 {
-    /**
-     * @var OrderItemRepositoryInterface
-     */
+    /** @var OrderItemRepositoryInterface */
     private $orderItemRepository;
 
-    /**
-     * @var OrderRepositoryInterface
-     */
+    /** @var OrderRepositoryInterface */
     private $orderRepository;
 
-    /**
-     * @var OrderItemQuantityModifierInterface
-     */
+    /** @var OrderItemQuantityModifierInterface */
     private $orderItemModifier;
 
-    /**
-     * @var OrderProcessorInterface
-     */
+    /** @var OrderProcessorInterface */
     private $orderProcessor;
 
-    /**
-     * @param OrderItemRepositoryInterface $orderItemRepository
-     * @param OrderRepositoryInterface $orderRepository
-     * @param OrderItemQuantityModifierInterface $orderItemModifier
-     * @param OrderProcessorInterface $orderProcessor
-     */
     public function __construct(
         OrderItemRepositoryInterface $orderItemRepository,
         OrderRepositoryInterface $orderRepository,
@@ -53,7 +39,7 @@ final class ChangeItemQuantityHandler
         $this->orderProcessor = $orderProcessor;
     }
 
-    public function handle(ChangeItemQuantity $changeItemQuantity)
+    public function handle(ChangeItemQuantity $changeItemQuantity): void
     {
         /** @var OrderInterface $order */
         $order = $this->orderRepository->findOneBy(['tokenValue' => $changeItemQuantity->orderToken(), 'state' => OrderInterface::STATE_CART]);

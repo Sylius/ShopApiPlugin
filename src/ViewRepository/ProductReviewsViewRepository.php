@@ -76,10 +76,6 @@ final class ProductReviewsViewRepository implements ProductReviewsViewRepository
         return $this->createProductReviewPage($reviews, $paginatorDetails);
     }
 
-    /**
-     * @param string $localeCode
-     * @param iterable|LocaleInterface[] $supportedLocales
-     */
     private function assertLocaleSupport(string $localeCode, iterable $supportedLocales)
     {
         $supportedLocaleCodes = [];

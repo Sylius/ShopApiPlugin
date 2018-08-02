@@ -10,23 +10,15 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 final class ConfigurableProductValidator extends ConstraintValidator
 {
-    /**
-     * @var ProductRepositoryInterface
-     */
+    /** @var ProductRepositoryInterface */
     private $productRepository;
 
-    /**
-     * @param ProductRepositoryInterface $productRepository
-     */
     public function __construct(ProductRepositoryInterface $productRepository)
     {
         $this->productRepository = $productRepository;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function validate($productCode, Constraint $constraint)
+    public function validate($productCode, Constraint $constraint): void
     {
         if (null === $productCode) {
             return;

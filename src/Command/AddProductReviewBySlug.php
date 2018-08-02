@@ -6,34 +6,22 @@ namespace Sylius\ShopApiPlugin\Command;
 
 final class AddProductReviewBySlug
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $productSlug;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $channelCode;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $title;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     private $rating;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $comment;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $email;
 
     public function __construct(string $productSlug, string $channelCode, string $title, int $rating, string $comment, string $email)

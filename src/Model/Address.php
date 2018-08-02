@@ -8,50 +8,27 @@ use Webmozart\Assert\Assert;
 
 final class Address
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $firstName;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $lastName;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $city;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $countryCode;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $street;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $postcode;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $provinceName;
 
-    /**
-     * @param string $firstName
-     * @param string $lastName
-     * @param string $city
-     * @param string $street
-     * @param string $countryCode
-     * @param string $postcode
-     * @param string $provinceName
-     */
     private function __construct($firstName, $lastName, $city, $street, $countryCode, $postcode, $provinceName = null)
     {
         $this->firstName = $firstName;
@@ -63,11 +40,6 @@ final class Address
         $this->provinceName = $provinceName;
     }
 
-    /**
-     * @param array $address
-     *
-     * @return Address
-     */
     public static function createFromArray(array $address)
     {
         Assert::keyExists($address, 'firstName');
@@ -88,57 +60,36 @@ final class Address
         );
     }
 
-    /**
-     * @return string
-     */
     public function firstName()
     {
         return $this->firstName;
     }
 
-    /**
-     * @return string
-     */
     public function lastName()
     {
         return $this->lastName;
     }
 
-    /**
-     * @return string
-     */
     public function city()
     {
         return $this->city;
     }
 
-    /**
-     * @return string
-     */
     public function street()
     {
         return $this->street;
     }
 
-    /**
-     * @return string
-     */
     public function countryCode()
     {
         return $this->countryCode;
     }
 
-    /**
-     * @return string
-     */
     public function postcode()
     {
         return $this->postcode;
     }
 
-    /**
-     * @return string
-     */
     public function provinceName()
     {
         return $this->provinceName;

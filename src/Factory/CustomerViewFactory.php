@@ -17,9 +17,6 @@ final class CustomerViewFactory implements CustomerViewFactoryInterface
         $this->customerViewClass = $customerViewClass;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function create(CustomerInterface $customer): CustomerView
     {
         /** @var CustomerView $customerView */

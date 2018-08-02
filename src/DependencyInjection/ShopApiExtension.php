@@ -11,9 +11,6 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
 final class ShopApiExtension extends Extension
 {
-    /**
-     * {@inheritdoc}
-     */
     public function load(array $config, ContainerBuilder $container)
     {
         $config = $this->processConfiguration($this->getConfiguration([], $container), $config);

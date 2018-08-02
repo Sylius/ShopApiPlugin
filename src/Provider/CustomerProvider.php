@@ -10,14 +10,10 @@ use Sylius\Component\Resource\Factory\FactoryInterface;
 
 final class CustomerProvider implements CustomerProviderInterface
 {
-    /**
-     * @var CustomerRepositoryInterface
-     */
+    /** @var CustomerRepositoryInterface */
     private $customerRepository;
 
-    /**
-     * @var FactoryInterface
-     */
+    /** @var FactoryInterface */
     private $customerFactory;
 
     public function __construct(CustomerRepositoryInterface $customerRepository, FactoryInterface $customerFactory)

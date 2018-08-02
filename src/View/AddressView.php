@@ -6,38 +6,24 @@ namespace Sylius\ShopApiPlugin\View;
 
 class AddressView
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     public $firstName;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $lastName;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $countryCode;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $street;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $city;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $postcode;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $provinceName;
 }

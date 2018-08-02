@@ -17,32 +17,18 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class ShowAvailablePaymentMethodsAction
 {
-    /**
-     * @var OrderRepositoryInterface
-     */
+    /** @var OrderRepositoryInterface */
     private $cartRepository;
 
-    /**
-     * @var ViewHandlerInterface
-     */
+    /** @var ViewHandlerInterface */
     private $viewHandler;
 
-    /**
-     * @var PaymentMethodsResolverInterface
-     */
+    /** @var PaymentMethodsResolverInterface */
     private $paymentMethodsResolver;
 
-    /**
-     * @var PaymentMethodViewFactoryInterface
-     */
+    /** @var PaymentMethodViewFactoryInterface */
     private $paymentMethodViewFactory;
 
-    /**
-     * @param OrderRepositoryInterface $cartRepository
-     * @param ViewHandlerInterface $viewHandler
-     * @param PaymentMethodsResolverInterface $paymentMethodResolver
-     * @param PaymentMethodViewFactoryInterface $paymentMethodViewFactory
-     */
     public function __construct(
         OrderRepositoryInterface $cartRepository,
         ViewHandlerInterface $viewHandler,
@@ -55,11 +41,6 @@ final class ShowAvailablePaymentMethodsAction
         $this->paymentMethodViewFactory = $paymentMethodViewFactory;
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     */
     public function __invoke(Request $request)
     {
         /** @var OrderInterface $cart */
@@ -74,12 +55,6 @@ final class ShowAvailablePaymentMethodsAction
         return $this->viewHandler->handle(View::create($payments));
     }
 
-    /**
-     * @param PaymentInterface $payment
-     * @param string $locale
-     *
-     * @return array
-     */
     private function getPaymentMethods(PaymentInterface $payment, $locale)
     {
         $rawPaymentMethods = [];

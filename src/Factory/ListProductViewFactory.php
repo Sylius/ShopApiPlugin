@@ -33,9 +33,6 @@ final class ListProductViewFactory implements ProductViewFactoryInterface
         $this->productViewFactory = $productViewFactory;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function create(ProductInterface $product, ChannelInterface $channel, string $locale): ProductView
     {
         $productView = $this->createWithVariants($product, $channel, $locale);

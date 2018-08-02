@@ -8,9 +8,7 @@ use Webmozart\Assert\Assert;
 
 final class GenerateResetPasswordToken
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $email;
 
     public function __construct(string $email)

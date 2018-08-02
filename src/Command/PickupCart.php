@@ -8,14 +8,10 @@ use Webmozart\Assert\Assert;
 
 final class PickupCart
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $orderToken;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $channelCode;
 
     /**
@@ -31,17 +27,11 @@ final class PickupCart
         $this->channelCode = $channelCode;
     }
 
-    /**
-     * @return string
-     */
     public function orderToken()
     {
         return $this->orderToken;
     }
 
-    /**
-     * @return string
-     */
     public function channelCode()
     {
         return $this->channelCode;

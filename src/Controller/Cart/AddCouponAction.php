@@ -46,11 +46,6 @@ final class AddCouponAction
         $this->cartQuery = $cartQuery;
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     */
     public function __invoke(Request $request): Response
     {
         $addCouponRequest = new AddCouponRequest($request);

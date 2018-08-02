@@ -15,26 +15,15 @@ use Webmozart\Assert\Assert;
 
 final class ChoosePaymentMethodHandler
 {
-    /**
-     * @var OrderRepositoryInterface
-     */
+    /** @var OrderRepositoryInterface */
     private $orderRepository;
 
-    /**
-     * @var PaymentMethodRepositoryInterface
-     */
+    /** @var PaymentMethodRepositoryInterface */
     private $paymentMethodRepository;
 
-    /**
-     * @var FactoryInterface
-     */
+    /** @var FactoryInterface */
     private $stateMachineFactory;
 
-    /**
-     * @param OrderRepositoryInterface $orderRepository
-     * @param PaymentMethodRepositoryInterface $paymentMethodRepository
-     * @param FactoryInterface $stateMachineFactory
-     */
     public function __construct(
         OrderRepositoryInterface $orderRepository,
         PaymentMethodRepositoryInterface $paymentMethodRepository,
@@ -45,10 +34,7 @@ final class ChoosePaymentMethodHandler
         $this->stateMachineFactory = $stateMachineFactory;
     }
 
-    /**
-     * @param ChoosePaymentMethod $choosePaymentMethod
-     */
-    public function handle(ChoosePaymentMethod $choosePaymentMethod)
+    public function handle(ChoosePaymentMethod $choosePaymentMethod): void
     {
         /** @var OrderInterface $cart */
         $cart = $this->orderRepository->findOneBy(['tokenValue' => $choosePaymentMethod->orderToken()]);

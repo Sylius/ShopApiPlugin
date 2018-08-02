@@ -14,19 +14,13 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final class ShowTaxonDetailsAction
 {
-    /**
-     * @var TaxonRepositoryInterface
-     */
+    /** @var TaxonRepositoryInterface */
     private $taxonRepository;
 
-    /**
-     * @var ViewHandlerInterface
-     */
+    /** @var ViewHandlerInterface */
     private $viewHandler;
 
-    /**
-     * @var TaxonDetailsViewFactoryInterface
-     */
+    /** @var TaxonDetailsViewFactoryInterface */
     private $taxonViewFactory;
 
     public function __construct(

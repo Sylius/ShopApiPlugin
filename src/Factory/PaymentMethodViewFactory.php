@@ -17,9 +17,6 @@ final class PaymentMethodViewFactory implements PaymentMethodViewFactoryInterfac
         $this->paymentMethodViewClass = $paymentMethodViewClass;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function create(PaymentMethodInterface $paymentMethod, string $locale): PaymentMethodView
     {
         /** @var PaymentMethodView $paymentMethodView */

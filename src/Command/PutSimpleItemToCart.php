@@ -8,19 +8,13 @@ use Webmozart\Assert\Assert;
 
 final class PutSimpleItemToCart
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $orderToken;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $product;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     private $quantity;
 
     /**
@@ -40,25 +34,16 @@ final class PutSimpleItemToCart
         $this->quantity = $quantity;
     }
 
-    /**
-     * @return string
-     */
     public function orderToken()
     {
         return $this->orderToken;
     }
 
-    /**
-     * @return string
-     */
     public function product()
     {
         return $this->product;
     }
 
-    /**
-     * @return int
-     */
     public function quantity()
     {
         return $this->quantity;
