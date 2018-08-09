@@ -7,10 +7,10 @@ namespace Sylius\ShopApiPlugin\Controller\AddressBook;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
-use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\ShopApiPlugin\Command\CreateAddress;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
 use Sylius\ShopApiPlugin\Model\Address;
+use Sylius\ShopApiPlugin\Provider\CurrentUserProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
@@ -42,6 +42,10 @@ final class CreateAddressAction
      * @var TokenStorage
      */
     private $tokenStorage;
+    /**
+     * @var CurrentUserProviderInterface
+     */
+    private $currentUserProvider;
 
     /**
      * @param ViewHandlerInterface $viewHandler
@@ -49,19 +53,22 @@ final class CreateAddressAction
      * @param ValidatorInterface $validator
      * @param ValidationErrorViewFactoryInterface $validationErrorViewFactory
      * @param TokenStorage $tokenStorage
+     * @param CurrentUserProviderInterface $currentUserProvider
      */
     public function __construct(
         ViewHandlerInterface $viewHandler,
         CommandBus $bus,
         ValidatorInterface $validator,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
-        TokenStorage $tokenStorage
+        TokenStorage $tokenStorage,
+        CurrentUserProviderInterface $currentUserProvider
     ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
         $this->validator = $validator;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->tokenStorage = $tokenStorage;
+        $this->currentUserProvider = $currentUserProvider;
     }
 
     /**
@@ -79,10 +86,9 @@ final class CreateAddressAction
             return $this->viewHandler->handle(View::create($this->validationErrorViewFactory->create($validationResults), Response::HTTP_BAD_REQUEST));
         }
 
-        /** @var ShopUserInterface $shopUser */
-        $shopUser = $this->tokenStorage->getToken()->getUser();
+        $user = $this->currentUserProvider->provide();
 
-        $this->bus->handle(new CreateAddress($addressModel, $shopUser->getEmail()));
+        $this->bus->handle(new CreateAddress($addressModel, $user->getEmail()));
 
         return $this->viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));
     }

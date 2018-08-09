@@ -25,49 +25,9 @@ final class CreateAddressSpec extends ObjectBehavior
         ]), 'user@email.com');
     }
 
-    function it_has_first_name()
+    function it_has_address()
     {
-        $this->firstName()->shouldReturn('Sherlock');
-    }
-
-    function it_has_last_name()
-    {
-        $this->lastName()->shouldReturn('Holmes');
-    }
-
-    function it_has_company()
-    {
-        $this->company()->shouldReturn('Sherlock ltd.');
-    }
-
-    function it_has_street()
-    {
-        $this->street()->shouldReturn('Baker Street 221b');
-    }
-
-    function it_has_country_code()
-    {
-        $this->countryCode()->shouldReturn('GB');
-    }
-
-    function it_has_province_code()
-    {
-        $this->provinceCode()->shouldReturn('GB-GL');
-    }
-
-    function it_has_city()
-    {
-        $this->city()->shouldReturn('London');
-    }
-
-    function it_has_postcode()
-    {
-        $this->postcode()->shouldReturn('NWB');
-    }
-
-    function it_has_phone_number()
-    {
-        $this->phoneNumber()->shouldReturn('0912538092');
+        $this->address()->shouldBeAnInstanceOf(Address::class);
     }
 
     function it_has_user_email()

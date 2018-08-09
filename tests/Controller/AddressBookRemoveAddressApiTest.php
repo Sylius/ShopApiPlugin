@@ -75,6 +75,6 @@ final class AddressBookRemoveAddressApiTest extends JsonApiTestCase
         $this->client->request('DELETE', sprintf('/shop-api/address-book/%s', $address->getId()), [], [], self::$acceptAndContentTypeHeader);
         $response = $this->client->getResponse();
 
-        $this->assertResponseCode($response, Response::HTTP_INTERNAL_SERVER_ERROR);
+        $this->assertResponseCode($response, Response::HTTP_BAD_REQUEST);
     }
 }

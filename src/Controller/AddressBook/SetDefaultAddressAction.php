@@ -9,6 +9,7 @@ use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
 use Sylius\ShopApiPlugin\Command\SetDefaultAddress;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
+use Sylius\ShopApiPlugin\Provider\CurrentUserProviderInterface;
 use Sylius\ShopApiPlugin\Request\SetDefaultAddressRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -41,6 +42,10 @@ final class SetDefaultAddressAction
      * @var TokenStorageInterface
      */
     private $tokenStorage;
+    /**
+     * @var CurrentUserProviderInterface
+     */
+    private $currentUserProvider;
 
     /**
      * @param ViewHandlerInterface $viewHandler
@@ -48,19 +53,22 @@ final class SetDefaultAddressAction
      * @param ValidatorInterface $validator
      * @param ValidationErrorViewFactoryInterface $validationErrorViewFactory
      * @param TokenStorageInterface $tokenStorage
+     * @param CurrentUserProviderInterface $currentUserProvider
      */
     public function __construct(
         ViewHandlerInterface $viewHandler,
         CommandBus $bus,
         ValidatorInterface $validator,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
-        TokenStorageInterface $tokenStorage
+        TokenStorageInterface $tokenStorage,
+        CurrentUserProviderInterface $currentUserProvider
     ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
         $this->validator = $validator;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->tokenStorage = $tokenStorage;
+        $this->currentUserProvider = $currentUserProvider;
     }
 
     /**
@@ -78,9 +86,11 @@ final class SetDefaultAddressAction
             return $this->viewHandler->handle(View::create($this->validationErrorViewFactory->create($validationResults), Response::HTTP_BAD_REQUEST));
         }
 
+        $user = $this->currentUserProvider->provide();
+
         $this->bus->handle(new SetDefaultAddress(
             $request->attributes->get('id'),
-            $this->tokenStorage->getToken()->getUser()->getEmail()
+            $user->getEmail()
         ));
 
         return $this->viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));

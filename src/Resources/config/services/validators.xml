@@ -74,6 +74,7 @@
                  class="Sylius\ShopApiPlugin\Validator\AddressExistsValidator"
         >
             <argument type="service" id="sylius.repository.address" />
+            <argument type="service" id="sylius.shop_api_plugin.provider.current_user_provider" />
             <tag name="validator.constraint_validator" alias="sylius_shop_api_address_exists_validator" />
         </service>
     </services>

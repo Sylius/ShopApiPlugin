@@ -65,22 +65,24 @@ final class CreateAddressHandler
         /** @var CustomerInterface $shopUser */
         $customer = $this->customerRepository->findOneBy(['email' => $command->userEmail()]);
 
+        $addressData = $command->address();
+
         $this->assertCustomerExists($customer);
-        $this->assertCountryExists($command->countryCode());
+        $this->assertCountryExists($addressData->countryCode());
 
         /** @var AddressInterface $address */
         $address = $this->addressFactory->createNew();
-        $address->setFirstName($command->firstName());
-        $address->setLastName($command->lastName());
-        $address->setCompany($command->company());
-        $address->setStreet($command->street());
-        $address->setCountryCode($command->countryCode());
-        $address->setCity($command->city());
-        $address->setPostcode($command->postcode());
-        $address->setPhoneNumber($command->phoneNumber());
+        $address->setFirstName($addressData->firstName());
+        $address->setLastName($addressData->lastName());
+        $address->setCompany($addressData->company());
+        $address->setStreet($addressData->street());
+        $address->setCountryCode($addressData->countryCode());
+        $address->setCity($addressData->city());
+        $address->setPostcode($addressData->postcode());
+        $address->setPhoneNumber($addressData->phoneNumber());
 
-        if (null !== $command->provinceCode()) {
-            $province = $this->checkProvinceExists($command->provinceCode());
+        if (null !== $addressData->provinceCode()) {
+            $province = $this->checkProvinceExists($addressData->provinceCode());
             $address->setProvinceCode($province->getCode());
             $address->setProvinceName($province->getName());
         }
@@ -93,7 +95,7 @@ final class CreateAddressHandler
     /**
      * @param $customer
      */
-    private function assertCustomerExists($customer)
+    private function assertCustomerExists($customer): void
     {
         Assert::notNull($customer, 'Customer does not exists!');
     }

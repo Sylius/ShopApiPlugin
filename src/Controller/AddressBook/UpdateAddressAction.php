@@ -8,12 +8,12 @@ use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
 use Sylius\Component\Core\Model\AddressInterface;
-use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\Core\Repository\AddressRepositoryInterface;
 use Sylius\ShopApiPlugin\Command\UpdateAddress;
 use Sylius\ShopApiPlugin\Factory\AddressBookViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
 use Sylius\ShopApiPlugin\Model\Address;
+use Sylius\ShopApiPlugin\Provider\CurrentUserProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -55,6 +55,10 @@ final class UpdateAddressAction
      * @var TokenStorageInterface
      */
     private $tokenStorage;
+    /**
+     * @var CurrentUserProviderInterface
+     */
+    private $currentUserProvider;
 
     /**
      * @param ViewHandlerInterface $viewHandler
@@ -64,6 +68,7 @@ final class UpdateAddressAction
      * @param AddressBookViewFactoryInterface $addressViewFactory
      * @param AddressRepositoryInterface $addressRepository
      * @param TokenStorageInterface $tokenStorage
+     * @param CurrentUserProviderInterface $currentUserProvider
      */
     public function __construct(
         ViewHandlerInterface $viewHandler,
@@ -72,7 +77,8 @@ final class UpdateAddressAction
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         AddressBookViewFactoryInterface $addressViewFactory,
         AddressRepositoryInterface $addressRepository,
-        TokenStorageInterface $tokenStorage
+        TokenStorageInterface $tokenStorage,
+        CurrentUserProviderInterface $currentUserProvider
     ) {
         $this->viewHandler = $viewHandler;
         $this->validator = $validator;
@@ -81,6 +87,7 @@ final class UpdateAddressAction
         $this->addressBookViewFactory = $addressViewFactory;
         $this->addressRepository = $addressRepository;
         $this->tokenStorage = $tokenStorage;
+        $this->currentUserProvider = $currentUserProvider;
     }
 
     public function __invoke(Request $request, $id): Response
@@ -93,16 +100,15 @@ final class UpdateAddressAction
             return $this->viewHandler->handle(View::create($this->validationErrorViewFactory->create($validationResults), Response::HTTP_BAD_REQUEST));
         }
 
-        /** @var ShopUserInterface $customer */
-        $shopUser = $this->tokenStorage->getToken()->getUser();
+        $user = $this->currentUserProvider->provide();
 
-        $this->bus->handle(new UpdateAddress($addressModel, $shopUser->getEmail(), $id));
+        $this->bus->handle(new UpdateAddress($addressModel, $user->getEmail(), $id));
 
         /** @var AddressInterface $updatedAddress */
         $updatedAddress = $this->addressRepository->findOneBy(['id' => $id]);
 
         return $this->viewHandler->handle(View::create(
-            $this->addressBookViewFactory->create($updatedAddress, $shopUser->getCustomer()),
+            $this->addressBookViewFactory->create($updatedAddress, $user->getCustomer()),
             Response::HTTP_OK)
         );
     }

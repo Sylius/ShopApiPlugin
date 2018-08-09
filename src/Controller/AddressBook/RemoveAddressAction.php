@@ -7,9 +7,9 @@ namespace Sylius\ShopApiPlugin\Controller\AddressBook;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
-use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\ShopApiPlugin\Command\RemoveAddress;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactory;
+use Sylius\ShopApiPlugin\Provider\CurrentUserProviderInterface;
 use Sylius\ShopApiPlugin\Request\RemoveAddressRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -44,24 +44,32 @@ final class RemoveAddressAction
     private $tokenStorage;
 
     /**
+     * @var CurrentUserProviderInterface
+     */
+    private $currentUserProvider;
+
+    /**
      * @param ViewHandlerInterface $viewHandler
      * @param ValidatorInterface $validator
      * @param ValidationErrorViewFactory $validationErrorViewFactory
      * @param CommandBus $bus
      * @param TokenStorageInterface $tokenStorage
+     * @param CurrentUserProviderInterface $currentUserProvider
      */
     public function __construct(
         ViewHandlerInterface $viewHandler,
         ValidatorInterface $validator,
         ValidationErrorViewFactory $validationErrorViewFactory,
         CommandBus $bus,
-        TokenStorageInterface $tokenStorage
+        TokenStorageInterface $tokenStorage,
+        CurrentUserProviderInterface $currentUserProvider
     ) {
         $this->viewHandler = $viewHandler;
         $this->validator = $validator;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->bus = $bus;
         $this->tokenStorage = $tokenStorage;
+        $this->currentUserProvider = $currentUserProvider;
     }
 
     public function __invoke(Request $request): Response
@@ -74,12 +82,11 @@ final class RemoveAddressAction
             return $this->viewHandler->handle(View::create($this->validationErrorViewFactory->create($validationResults), Response::HTTP_BAD_REQUEST));
         }
 
-        /** @var ShopUserInterface $shopUser */
-        $shopUser = $this->tokenStorage->getToken()->getUser();
+        $user = $this->currentUserProvider->provide();
 
         $this->bus->handle(new RemoveAddress(
             $request->attributes->get('id'),
-            $shopUser->getEmail()
+            $user->getEmail()
         ));
 
         return $this->viewHandler->handle(View::create('', Response::HTTP_NO_CONTENT));
