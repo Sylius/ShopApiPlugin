@@ -16,7 +16,7 @@ final class AddressViewFactorySpec extends ObjectBehavior
         $this->beConstructedWith(AddressView::class);
     }
 
-    function it_is_image_view_builder()
+    function it_is_address_view_factory()
     {
         $this->shouldHaveType(AddressViewFactoryInterface::class);
     }

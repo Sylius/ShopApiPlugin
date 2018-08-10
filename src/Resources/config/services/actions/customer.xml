@@ -43,6 +43,14 @@
             <argument type="service" id="security.token_storage" />
         </service>
 
+        <service id="sylius.shop_api_plugin.controller.customer.logged_in_address_action"
+                 class="Sylius\ShopApiPlugin\Controller\Customer\CustomerAddressAction"
+        >
+            <argument type="service" id="fos_rest.view_handler"/>
+            <argument type="service" id="security.token_storage"/>
+            <argument type="service" id="sylius.shop_api_plugin.factory.address_book_view_factory"/>
+        </service>
+
         <service id="sylius.shop_api_plugin.controller.customer.update_customer_action"
                  class="Sylius\ShopApiPlugin\Controller\Customer\UpdateCustomerAction"
         >

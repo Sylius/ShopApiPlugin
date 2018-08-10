@@ -1,0 +1,12 @@
+{
+    "defaultAddress": {
+        "firstName": "@string@",
+        "lastName": "@string@",
+        "countryCode": "@string@",
+        "street": "@string@",
+        "city": "@string@",
+        "postcode": "@string@"
+    },
+    "addresses": "@array@"
+
+}
