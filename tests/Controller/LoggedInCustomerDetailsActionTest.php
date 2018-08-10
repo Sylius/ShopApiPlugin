@@ -44,11 +44,6 @@ EOT;
     public function it_shows_currently_logged_in_customer_addresses()
     {
         $this->loadFixturesFromFile('customer.yml');
-        $this->loadFixturesFromFile('channel.yml');
-
-        $fakeChannelContext = $this->createMock(ChannelContextInterface::class);
-        $fakeChannelContext->method('getChannel')->willReturn($this->get('sylius.repository.channel')->findOneByCode('WEB_GB'));
-        $this->client->getContainer()->set('sylius.context.channel', $fakeChannelContext);
 
         $data =
             <<<EOT

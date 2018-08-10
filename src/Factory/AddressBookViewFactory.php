@@ -30,12 +30,10 @@ final class AddressBookViewFactory implements AddressBookViewFactoryInterface
     {
         /** @var AddressBookView $addressBookView */
         $addressBookView                 = new AddressBookView();
-        $addressBookView->defaultAddress = $this->addressViewFactory->create($address);
+        $addressBookView->defaultAddress = ($address === null) ? null : $this->addressViewFactory->create($address);
         $addressBookView->addresses      = $otherAddress->map(
             function (AddressInterface $address): AddressView {
-                return $this->addressViewFactory->create(
-                    $address
-                );
+                return $this->addressViewFactory->create($address);
             }
         );
         return $addressBookView;
