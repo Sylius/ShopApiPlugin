@@ -15,9 +15,19 @@ Sylius\Component\Core\Model\Customer:
         emailCanonical: "oliver@queen.com"
         gender: "m"
         phoneNumber: "0212115512"
+        defaultAddress: "@oliver_address"
 
     hater:
         firstName: "Slade"
         lastName: "Wilson"
         email: "slade@wilson.com"
         emailCanonical: "oliver@queen.com"
+
+Sylius\Component\Core\Model\Address:
+    oliver_address:
+        firstName: "Oliver"
+        lastName: "Queen"
+        city: "SomeCity"
+        street: "SomeStreet"
+        countryCode: "US"
+        postcode: "hello"
