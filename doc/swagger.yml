@@ -829,11 +829,49 @@ paths:
             operationId: "me"
             responses:
                 200:
+                    description: "User was logged in"
                     schema:
                         type: "object"
                         $ref: "#/definitions/LoggedInCustomerDetails"
                 500:
                     description: "There is no currently logged in user."
+        put:
+            tags:
+            - "users"
+            summary: "Updates currently logged in users details."
+            operationId: "me"
+            consumes:
+            - "application/json"
+            parameters:
+            - name: "content"
+              in: "body"
+              required: true
+              schema:
+                $ref: "#/definitions/UpdateUserRequest"
+            responses:
+                200:
+                    description: "User successfully updated."
+                    schema:
+                        $ref: "#/definitions/LoggedInCustomerDetails"
+                401:
+                    description: "User token is invalid."
+                500:
+                    description: "There is no currently logged in user."
+    /me/address:
+        get:
+            tags:
+            - "users"
+            summary: "Gets the address book of the user"
+            operationId: "userAddressSummary"
+            responses:
+              200:
+                description: "A user is logged in."
+                schema:
+                    $ref: "#/definitions/LoggedInCustomerAddress"
+              401:
+                description: "User token is invalid."
+              500:
+                description: "There is no currently logged in user."
 
 definitions:
     PickupCartRequest:
@@ -1402,6 +1440,30 @@ definitions:
             email:
                 type: "string"
                 example: "test@example.com"
+    UpdateUserRequest:
+        type: object
+        properties:
+            firstName:
+                type: string
+                example: 'Sherlock'
+            lastName:
+                type: string
+                example: 'Holmes'
+            email:
+                type: string
+                example: 'sherlock@holmes.com'
+            birthday:
+                type: string
+                example: '2017-08-12'
+            gender:
+                type: string
+                example: 'f'
+            phoneNumber:
+                type: string
+                example: "+490000000000"
+            subscribedToNewsletter:
+                type: integer
+                example: 0
     LoggedInCustomerDetails:
         type: "object"
         properties:
@@ -1414,6 +1476,15 @@ definitions:
             email:
                 type: "string"
                 example: "sherlock@holmes.com"
+    LoggedInCustomerAddress:
+        type: "object"
+        properties:
+            defaultAddress:
+                $ref: "#/definitions/Address"
+            otherAddresses:
+                type: array
+                items:
+                    $ref: "#/definitions/Address"
     GeneralError:
         type: "object"
         properties:
