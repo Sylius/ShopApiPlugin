@@ -5,9 +5,13 @@ namespace Sylius\ShopApiPlugin\View;
 
 class AddressBookView
 {
-    /** @var AddressView|null */
+    /**
+     * @var AddressView|null
+     */
     public $defaultAddress;
 
-    /** @var AddressView[] */
+    /**
+     * @var AddressView[]
+     */
     public $addresses;
 }

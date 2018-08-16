@@ -68,7 +68,10 @@ final class CustomerAddressAction
         }
 
         return $this->viewHandler->handle(
-            View::create($this->addressBookViewFactory->create($address, $otherAddress),Response::HTTP_OK)
+            View::create($this->addressBookViewFactory->create(
+                $customer->getDefaultAddress(),
+                $customer->getAddresses()
+            ),Response::HTTP_OK)
         );
     }
 

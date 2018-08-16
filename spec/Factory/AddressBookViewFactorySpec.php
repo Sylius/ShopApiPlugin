@@ -4,16 +4,18 @@ declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Factory;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\AddressInterface;
-use Sylius\ShopApiPlugin\Factory\AddressViewFactoryInterface;
+use Sylius\ShopApiPlugin\Factory\AddressBookViewFactory;
+use Sylius\ShopApiPlugin\Factory\AddressBookViewFactoryInterface;
 use Sylius\ShopApiPlugin\View\AddressBookView;
 use Sylius\ShopApiPlugin\View\AddressView;
 
-final class AddressViewFactorySpec extends ObjectBehavior
+final class AddressBookViewFactorySpec extends ObjectBehavior
 {
-    function let(AddressViewFactory $addressViewFactory)
+    function let(AddressBookViewFactory $addressViewFactory)
     {
         $this->beConstructedWith($addressViewFactory);
     }
