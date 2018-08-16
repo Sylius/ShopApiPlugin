@@ -69,6 +69,11 @@
             <argument type="string">%sylius.shop_api.view.address.class%</argument>
         </service>
 
+        <service id="sylius.shop_api_plugin.factory.address_book_view_factory"
+                 class="Sylius\ShopApiPlugin\Factory\AddressBookViewFactory">
+            <argument type="service" id="sylius.shop_api_plugin.factory.address_view_factory" />
+        </service>
+
         <service id="sylius.shop_api_plugin.factory.total_view_factory" class="Sylius\ShopApiPlugin\Factory\TotalViewFactory">
             <argument type="string">%sylius.shop_api.view.totals.class%</argument>
         </service>
