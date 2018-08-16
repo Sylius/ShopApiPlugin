@@ -57,16 +57,6 @@ final class CustomerAddressAction
         /** @var Customer $customer */
         Assert::isInstanceOf($customer, Customer::class);
 
-        /** @var AddressInterface $address */
-        if ($customer === null) {
-            $address      = null;
-            $otherAddress = [];
-        } else {
-
-            $address      = $customer->getDefaultAddress();
-            $otherAddress = $customer->getAddresses();
-        }
-
         return $this->viewHandler->handle(
             View::create($this->addressBookViewFactory->create(
                 $customer->getDefaultAddress(),
