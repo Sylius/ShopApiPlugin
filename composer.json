@@ -7,11 +7,11 @@
         "php": "^7.1",
 
         "sylius/sylius": "^1.1",
-        "league/tactician-bundle": "^0.4",
+        "league/tactician-bundle": "^1.1",
         "league/tactician-doctrine": "^1.1"
     },
     "require-dev": {
-        "lakion/api-test-case": "^1.2",
+        "lakion/api-test-case": "^3.1",
         "phpspec/phpspec": "^5.0",
         "lexik/jwt-authentication-bundle": "^2.5",
         "matthiasnoback/symfony-config-test": "^3.1",
@@ -27,7 +27,8 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\Sylius\\ShopApiPlugin\\": "tests/"
-        }
+        },
+        "classmap": ["tests/Application/app/AppKernel.php"]
     },
     "suggest": {
         "nelmio/cors-bundle": "allows you to send Cross-Origin Ajax API Request"
