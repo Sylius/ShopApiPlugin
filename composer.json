@@ -11,13 +11,12 @@
         "league/tactician-doctrine": "^1.1"
     },
     "require-dev": {
-        "lakion/api-test-case": "^1.1",
-        "phpspec/phpspec": "^3.2",
-        "lexik/jwt-authentication-bundle": "^2.4",
-        "matthiasnoback/symfony-config-test": "^2.0",
-        "matthiasnoback/symfony-dependency-injection-test": "^1.0",
-        "phpunit/phpunit": "^5.6",
-        "doctrine/common": "<2.8",
+        "lakion/api-test-case": "^1.2",
+        "phpspec/phpspec": "^5.0",
+        "lexik/jwt-authentication-bundle": "^2.5",
+        "matthiasnoback/symfony-config-test": "^3.1",
+        "matthiasnoback/symfony-dependency-injection-test": "^2.3",
+        "phpunit/phpunit": "^6.5",
         "sylius-labs/coding-standard": "^2.0"
     },
     "autoload": {
