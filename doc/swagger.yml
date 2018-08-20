@@ -821,6 +821,28 @@ paths:
                 description: "Reset password request has been sent."
               500:
                 description: "User with provided email has not been found."
+    /register:
+        post:
+            tags:
+            - "users"
+            summary: "Registering a new user"
+            description: "This creates a new user that can log in the shop"
+            operationId: "registerUser"
+            consumes:
+            - "application/json"
+            parameters:
+              - name: "content"
+                in: "body"
+                required: true
+                schema:
+                  $ref: "#/definitions/RegisterRequest"
+            responses:
+              204:
+                description: "The user was successfully created"
+              400:
+                description: "There were validation errors"
+              500:
+                description: "Channel not found"
     /me:
         get:
             tags:
@@ -834,7 +856,37 @@ paths:
                         $ref: "#/definitions/LoggedInCustomerDetails"
                 500:
                     description: "There is no currently logged in user."
-
+            security:
+             - bearerAuth: []
+        put:
+            tags:
+            - "users"
+            summary: "Updates currently logged in users details."
+            operationId: "updateUser"
+            consumes:
+            - "application/json"
+            parameters:
+            - name: "content"
+              in: "body"
+              required: true
+              schema:
+                $ref: "#/definitions/UpdateUserRequest"
+            responses:
+                200:
+                    description: "User successfully updated."
+                    schema:
+                        $ref: "#/definitions/LoggedInCustomerDetails"
+                401:
+                    description: "User token is invalid."
+                500:
+                    description: "There is no currently logged in user."
+            security:
+             - bearerAuth: []
+securityDefinitions:
+  bearerAuth:
+    type: "apiKey"
+    name: "Authorization"
+    in: "header"
 definitions:
     PickupCartRequest:
         type: "object"
@@ -1402,6 +1454,48 @@ definitions:
             email:
                 type: "string"
                 example: "test@example.com"
+    RegisterRequest:
+        type: "object"
+        properties:
+            email:
+                type: "string"
+                example: "test@example.com"
+            plainPassword:
+                type: "string"
+                example: "test12334verysecure"
+            firstname:
+                type: "string"
+                example: "Sherlock"
+            lastName:
+                type: "string"
+                example: "Holmes"
+            channelCode:
+                type: "string"
+                example: "WEB_GB"
+    UpdateUserRequest:
+        type: object
+        properties:
+            firstName:
+                type: string
+                example: 'Sherlock'
+            lastName:
+                type: string
+                example: 'Holmes'
+            email:
+                type: string
+                example: 'sherlock@holmes.com'
+            birthday:
+                type: string
+                example: '2017-08-12'
+            gender:
+                type: string
+                example: 'f'
+            phoneNumber:
+                type: string
+                example: "+490000000000"
+            subscribedToNewsletter:
+                type: integer
+                example: 0
     LoggedInCustomerDetails:
         type: "object"
         properties:
