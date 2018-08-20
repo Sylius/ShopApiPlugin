@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- http://phpunit.de/manual/4.1/en/appendixes.configuration.html -->
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/5.5/phpunit.xsd"
-         backupGlobals="false"
+         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/6.5/phpunit.xsd"
          colors="true"
          bootstrap="vendor/autoload.php"
 >
@@ -14,8 +12,9 @@
     </testsuites>
 
     <php>
-        <server name="KERNEL_CLASS_PATH" value="/tests/Application/app/AppKernel.php" />
+        <server name="KERNEL_CLASS" value="AppKernel" />
         <server name="IS_DOCTRINE_ORM_SUPPORTED" value="true" />
+        <server name="ESCAPE_JSON" value="true" />
     </php>
 
     <filter>
