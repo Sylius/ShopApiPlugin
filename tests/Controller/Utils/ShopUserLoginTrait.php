@@ -13,7 +13,7 @@ trait ShopUserLoginTrait
     /** @var Client */
     protected $client;
 
-    protected function logInUser($username, $password)
+    protected function logInUser(string $username, string $password): void
     {
         $data =
 <<<EOT

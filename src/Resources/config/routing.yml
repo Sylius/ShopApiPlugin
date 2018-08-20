@@ -29,3 +29,7 @@ shop_api_customer:
 shop_api_product_list:
     resource: "@ShopApiPlugin/Resources/config/routing/productList.yml"
     prefix: /shop-api
+
+shop_api_address_book:
+    resource: "@ShopApiPlugin/Resources/config/routing/address_book.yml"
+    prefix: /shop-api

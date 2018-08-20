@@ -12,3 +12,7 @@ sylius:
             not_blank: Please enter your first name.
         last_name:
             not_blank: Please enter your last name.
+        address_id:
+            not_null: Please provide address id
+        address:
+            not_exists: Address doesn't exist

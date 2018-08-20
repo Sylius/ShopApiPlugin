@@ -7,6 +7,14 @@ Sylius\Component\Core\Model\ShopUser:
         username: "oliver@queen.com"
         usernameCanonical: "oliver@queen.com"
 
+    user_hater:
+          plainPassword: "123pa$$word"
+          roles: ["ROLE_USER"]
+          enabled: "true"
+          customer: "@hater"
+          username: "hater@queen.com"
+          usernameCanonical: "hater@queen.com"
+
 Sylius\Component\Core\Model\Customer:
     customer_oliver:
         firstName: "Oliver"
@@ -19,5 +27,5 @@ Sylius\Component\Core\Model\Customer:
     hater:
         firstName: "Slade"
         lastName: "Wilson"
-        email: "slade@wilson.com"
-        emailCanonical: "oliver@queen.com"
+        email: "hater@queen.com"
+        emailCanonical: "slade@queen.com"

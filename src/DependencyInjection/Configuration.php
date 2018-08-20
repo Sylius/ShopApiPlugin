@@ -45,6 +45,7 @@ final class Configuration implements ConfigurationInterface
                     ->addDefaultsIfNotSet()
                     ->children()
                         ->scalarNode('address')->defaultValue(View\AddressView::class)->end()
+                        ->scalarNode('address_book')->defaultValue(View\AddressBookView::class)->end()
                         ->scalarNode('adjustment')->defaultValue(View\AdjustmentView::class)->end()
                         ->scalarNode('cart_item')->defaultValue(View\ItemView::class)->end()
                         ->scalarNode('cart_summary')->defaultValue(View\CartSummaryView::class)->end()

@@ -52,6 +52,7 @@ final class ConfigurationTest extends TestCase
         $this->assertProcessedConfigurationEquals([], [
             'view_classes' => [
                 'address' => View\AddressView::class,
+                'address_book' => View\AddressBookView::class,
                 'adjustment' => View\AdjustmentView::class,
                 'cart_item' => View\ItemView::class,
                 'cart_summary' => View\CartSummaryView::class,
