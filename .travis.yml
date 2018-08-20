@@ -9,6 +9,12 @@ env:
     - SYLIUS_VERSION=1.2.*
     - SYLIUS_VERSION=1.3.*@dev
 
+matrix:
+    allow_failures:
+        -
+            env: SYLIUS_VERSION=1.3.*@dev
+    fast_finish: true
+
 cache:
     directories:
         - ~/.composer/cache/files
