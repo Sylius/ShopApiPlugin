@@ -14,20 +14,12 @@ use Webmozart\Assert\Assert;
 
 final class LoggedInCustomerDetailsAction
 {
-    /**
-     * @var ViewHandlerInterface
-     */
+    /** @var ViewHandlerInterface */
     private $viewHandler;
 
-    /**
-     * @var TokenStorageInterface
-     */
+    /** @var TokenStorageInterface */
     private $tokenStorage;
 
-    /**
-     * @param ViewHandlerInterface $viewHandler
-     * @param TokenStorageInterface $tokenStorage
-     */
     public function __construct(ViewHandlerInterface $viewHandler, TokenStorageInterface $tokenStorage)
     {
         $this->viewHandler = $viewHandler;

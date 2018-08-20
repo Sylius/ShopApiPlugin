@@ -31,9 +31,6 @@ final class UpdateCustomerRequest
     /** @var bool */
     private $subscribedToNewsletter;
 
-    /**
-     * @param Request $request
-     */
     public function __construct(Request $request)
     {
         $this->firstName = $request->request->get('firstName');
@@ -45,9 +42,6 @@ final class UpdateCustomerRequest
         $this->subscribedToNewsletter = (bool) $request->request->get('subscribedToNewsletter') ?? false;
     }
 
-    /**
-     * @return UpdateCustomer
-     */
     public function getCommand()
     {
         return new UpdateCustomer($this->firstName, $this->lastName, $this->email, $this->birthday, $this->gender, $this->phoneNumber, $this->subscribedToNewsletter);

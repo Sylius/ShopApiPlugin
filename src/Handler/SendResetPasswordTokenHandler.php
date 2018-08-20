@@ -13,14 +13,10 @@ use Webmozart\Assert\Assert;
 
 final class SendResetPasswordTokenHandler
 {
-    /**
-     * @var UserRepositoryInterface
-     */
+    /** @var UserRepositoryInterface */
     private $userRepository;
 
-    /**
-     * @var SenderInterface
-     */
+    /** @var SenderInterface */
     private $sender;
 
     public function __construct(UserRepositoryInterface $userRepository, SenderInterface $sender)
@@ -29,7 +25,7 @@ final class SendResetPasswordTokenHandler
         $this->sender = $sender;
     }
 
-    public function handle(SendResetPasswordToken $resendResetPasswordToken)
+    public function handle(SendResetPasswordToken $resendResetPasswordToken): void
     {
         $email = $resendResetPasswordToken->email();
 

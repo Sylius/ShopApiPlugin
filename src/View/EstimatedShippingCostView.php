@@ -6,5 +6,6 @@ namespace Sylius\ShopApiPlugin\View;
 
 class EstimatedShippingCostView
 {
+    /** @var int */
     public $price;
 }

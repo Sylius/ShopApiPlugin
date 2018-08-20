@@ -9,24 +9,16 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class PutVariantBasedConfigurableItemToCartRequest
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $token;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $productCode;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $variantCode;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     private $quantity;
 
     private function __construct($token, $productCode, $variantCode, $quantity)
@@ -47,9 +39,6 @@ final class PutVariantBasedConfigurableItemToCartRequest
         return new self($request->attributes->get('token'), $request->request->get('productCode'), $request->request->get('variantCode'), $request->request->getInt('quantity', 1));
     }
 
-    /**
-     * @return PutVariantBasedConfigurableItemToCart
-     */
     public function getCommand()
     {
         return new PutVariantBasedConfigurableItemToCart($this->token, $this->productCode, $this->variantCode, $this->quantity);

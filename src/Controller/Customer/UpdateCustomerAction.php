@@ -53,11 +53,6 @@ final class UpdateCustomerAction
         $this->tokenStorage = $tokenStorage;
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     */
     public function __invoke(Request $request): Response
     {
         /** @var ShopUserInterface $user */

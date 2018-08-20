@@ -8,19 +8,13 @@ use Webmozart\Assert\Assert;
 
 final class CompleteOrder
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $orderToken;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $email;
 
-    /**
-     * @var string|null
-     */
+    /** @var string|null */
     private $notes;
 
     /**
@@ -39,25 +33,16 @@ final class CompleteOrder
         $this->notes = $notes;
     }
 
-    /**
-     * @return string
-     */
     public function orderToken()
     {
         return $this->orderToken;
     }
 
-    /**
-     * @return string
-     */
     public function email()
     {
         return $this->email;
     }
 
-    /**
-     * @return string|null
-     */
     public function notes()
     {
         return $this->notes;

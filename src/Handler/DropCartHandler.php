@@ -11,20 +11,15 @@ use Webmozart\Assert\Assert;
 
 final class DropCartHandler
 {
-    /**
-     * @var OrderRepositoryInterface
-     */
+    /** @var OrderRepositoryInterface */
     private $cartRepository;
 
-    /**
-     * @param OrderRepositoryInterface $cartRepository
-     */
     public function __construct(OrderRepositoryInterface $cartRepository)
     {
         $this->cartRepository = $cartRepository;
     }
 
-    public function handle(DropCart $dropCart)
+    public function handle(DropCart $dropCart): void
     {
         /** @var OrderInterface $cart */
         $cart = $this->cartRepository->findOneBy(['tokenValue' => $dropCart->orderToken()]);

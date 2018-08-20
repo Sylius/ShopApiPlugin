@@ -14,26 +14,15 @@ use Webmozart\Assert\Assert;
 
 final class PickupCartHandler
 {
-    /**
-     * @var FactoryInterface
-     */
+    /** @var FactoryInterface */
     private $cartFactory;
 
-    /**
-     * @var OrderRepositoryInterface
-     */
+    /** @var OrderRepositoryInterface */
     private $cartRepository;
 
-    /**
-     * @var ChannelRepositoryInterface
-     */
+    /** @var ChannelRepositoryInterface */
     private $channelRepository;
 
-    /**
-     * @param FactoryInterface $cartFactory
-     * @param OrderRepositoryInterface $cartRepository
-     * @param ChannelRepositoryInterface $channelRepository
-     */
     public function __construct(FactoryInterface $cartFactory, OrderRepositoryInterface $cartRepository, ChannelRepositoryInterface $channelRepository)
     {
         $this->cartFactory = $cartFactory;
@@ -41,10 +30,7 @@ final class PickupCartHandler
         $this->channelRepository = $channelRepository;
     }
 
-    /**
-     * @param PickupCart $pickupCart
-     */
-    public function handle(PickupCart $pickupCart)
+    public function handle(PickupCart $pickupCart): void
     {
         /** @var ChannelInterface $channel */
         $channel = $this->channelRepository->findOneByCode($pickupCart->channelCode());

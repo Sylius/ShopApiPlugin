@@ -8,19 +8,13 @@ use Webmozart\Assert\Assert;
 
 final class ChangeItemQuantity
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $orderToken;
 
-    /**
-     * @var mixed
-     */
+    /** @var mixed */
     private $itemIdentifier;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     private $quantity;
 
     /**
@@ -39,25 +33,16 @@ final class ChangeItemQuantity
         $this->quantity = $quantity;
     }
 
-    /**
-     * @return string
-     */
     public function orderToken()
     {
         return $this->orderToken;
     }
 
-    /**
-     * @return mixed
-     */
     public function itemIdentifier()
     {
         return $this->itemIdentifier;
     }
 
-    /**
-     * @return int
-     */
     public function quantity()
     {
         return $this->quantity;

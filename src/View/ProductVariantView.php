@@ -6,34 +6,22 @@ namespace Sylius\ShopApiPlugin\View;
 
 class ProductVariantView
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     public $code;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $name;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     public $axis = [];
 
-    /**
-     * @var array
-     */
+    /** @var array */
     public $nameAxis = [];
 
-    /**
-     * @var PriceView
-     */
+    /** @var PriceView */
     public $price;
 
-    /**
-     * @var ImageView[]
-     */
+    /** @var ImageView[] */
     public $images = [];
 
     public function __construct()

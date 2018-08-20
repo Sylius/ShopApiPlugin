@@ -11,9 +11,7 @@ use Webmozart\Assert\Assert;
 
 final class VerifyAccountHandler
 {
-    /**
-     * @var UserRepositoryInterface
-     */
+    /** @var UserRepositoryInterface */
     private $userRepository;
 
     public function __construct(UserRepositoryInterface $userRepository)
@@ -21,7 +19,7 @@ final class VerifyAccountHandler
         $this->userRepository = $userRepository;
     }
 
-    public function handle(VerifyAccount $resendVerificationToken)
+    public function handle(VerifyAccount $resendVerificationToken): void
     {
         /** @var ShopUserInterface $user */
         $user = $this->userRepository->findOneBy(['emailVerificationToken' => $resendVerificationToken->token()]);

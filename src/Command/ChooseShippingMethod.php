@@ -8,19 +8,13 @@ use Webmozart\Assert\Assert;
 
 final class ChooseShippingMethod
 {
-    /**
-     * @var mixed
-     */
+    /** @var mixed */
     private $shipmentIdentifier;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $shippingMethod;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $orderToken;
 
     /**
@@ -37,25 +31,16 @@ final class ChooseShippingMethod
         $this->shippingMethod = $shippingMethod;
     }
 
-    /**
-     * @return string
-     */
     public function orderToken()
     {
         return $this->orderToken;
     }
 
-    /**
-     * @return mixed
-     */
     public function shipmentIdentifier()
     {
         return $this->shipmentIdentifier;
     }
 
-    /**
-     * @return string
-     */
     public function shippingMethod()
     {
         return $this->shippingMethod;

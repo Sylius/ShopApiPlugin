@@ -9,34 +9,22 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class AddProductReviewBySlugRequest
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $slug;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $channelCode;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $title;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     private $rating;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $comment;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $email;
 
     public function __construct(Request $request)

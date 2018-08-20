@@ -46,11 +46,6 @@ final class RemoveCouponAction
         $this->cartQuery = $cartQuery;
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     */
     public function __invoke(Request $request): Response
     {
         $removeCouponRequest = new RemoveCouponRequest($request);

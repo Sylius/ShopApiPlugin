@@ -6,13 +6,9 @@ namespace Sylius\ShopApiPlugin\View;
 
 class ImageView
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     public $code;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $path;
 }

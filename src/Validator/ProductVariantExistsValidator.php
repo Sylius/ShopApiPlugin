@@ -10,23 +10,15 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 final class ProductVariantExistsValidator extends ConstraintValidator
 {
-    /**
-     * @var ProductVariantRepositoryInterface
-     */
+    /** @var ProductVariantRepositoryInterface */
     private $productVariantRepository;
 
-    /**
-     * @param ProductVariantRepositoryInterface $productVariantRepository
-     */
     public function __construct(ProductVariantRepositoryInterface $productVariantRepository)
     {
         $this->productVariantRepository = $productVariantRepository;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function validate($productVariantCode, Constraint $constraint)
+    public function validate($productVariantCode, Constraint $constraint): void
     {
         $product = $this->productVariantRepository->findOneBy(['code' => $productVariantCode]);
 

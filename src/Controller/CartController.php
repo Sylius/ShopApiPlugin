@@ -25,11 +25,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final class CartController extends Controller
 {
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     */
     public function removeItemAction(Request $request)
     {
         /** @var OrderRepositoryInterface $cartRepository */
@@ -58,11 +53,6 @@ final class CartController extends Controller
         return $viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     */
     public function estimateShippingCostAction(Request $request)
     {
         /** @var OrderRepositoryInterface $cartRepository */

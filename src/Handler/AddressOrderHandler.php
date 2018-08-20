@@ -15,26 +15,15 @@ use Webmozart\Assert\Assert;
 
 final class AddressOrderHandler
 {
-    /**
-     * @var OrderRepositoryInterface
-     */
+    /** @var OrderRepositoryInterface */
     private $orderRepository;
 
-    /**
-     * @var AddressFactoryInterface
-     */
+    /** @var AddressFactoryInterface */
     private $addressFactory;
 
-    /**
-     * @var FactoryInterface
-     */
+    /** @var FactoryInterface */
     private $stateMachineFactory;
 
-    /**
-     * @param OrderRepositoryInterface $orderRepository
-     * @param AddressFactoryInterface $addressFactory
-     * @param FactoryInterface $stateMachineFactory
-     */
     public function __construct(
         OrderRepositoryInterface $orderRepository,
         AddressFactoryInterface $addressFactory,
@@ -45,7 +34,7 @@ final class AddressOrderHandler
         $this->stateMachineFactory = $stateMachineFactory;
     }
 
-    public function handle(AddressOrder $addressOrder)
+    public function handle(AddressOrder $addressOrder): void
     {
         /** @var OrderInterface $order */
         $order = $this->orderRepository->findOneBy(['tokenValue' => $addressOrder->orderToken()]);

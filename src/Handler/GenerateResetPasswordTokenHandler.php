@@ -12,14 +12,10 @@ use Webmozart\Assert\Assert;
 
 final class GenerateResetPasswordTokenHandler
 {
-    /**
-     * @var UserRepositoryInterface
-     */
+    /** @var UserRepositoryInterface */
     private $userRepository;
 
-    /**
-     * @var GeneratorInterface
-     */
+    /** @var GeneratorInterface */
     private $tokenGenerator;
 
     public function __construct(UserRepositoryInterface $userRepository, GeneratorInterface $tokenGenerator)
@@ -28,7 +24,7 @@ final class GenerateResetPasswordTokenHandler
         $this->tokenGenerator = $tokenGenerator;
     }
 
-    public function handle(GenerateResetPasswordToken $generateResetPasswordToken)
+    public function handle(GenerateResetPasswordToken $generateResetPasswordToken): void
     {
         $email = $generateResetPasswordToken->email();
 

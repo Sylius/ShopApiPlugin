@@ -9,19 +9,13 @@ use Webmozart\Assert\Assert;
 
 final class AddressOrder
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $orderToken;
 
-    /**
-     * @var Address
-     */
+    /** @var Address */
     private $address;
 
-    /**
-     * @var Address
-     */
+    /** @var Address */
     private $billingAddress;
 
     /**
@@ -38,25 +32,16 @@ final class AddressOrder
         $this->billingAddress = $billingAddress;
     }
 
-    /**
-     * @return string
-     */
     public function orderToken()
     {
         return $this->orderToken;
     }
 
-    /**
-     * @return Address
-     */
     public function shippingAddress()
     {
         return $this->address;
     }
 
-    /**
-     * @return Address
-     */
     public function billingAddress()
     {
         return $this->billingAddress;

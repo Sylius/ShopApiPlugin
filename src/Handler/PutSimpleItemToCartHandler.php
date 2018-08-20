@@ -14,19 +14,13 @@ use Webmozart\Assert\Assert;
 
 final class PutSimpleItemToCartHandler
 {
-    /**
-     * @var OrderRepositoryInterface
-     */
+    /** @var OrderRepositoryInterface */
     private $cartRepository;
 
-    /**
-     * @var ProductRepositoryInterface
-     */
+    /** @var ProductRepositoryInterface */
     private $productRepository;
 
-    /**
-     * @var OrderModifierInterface
-     */
+    /** @var OrderModifierInterface */
     private $orderModifier;
 
     public function __construct(
@@ -39,7 +33,7 @@ final class PutSimpleItemToCartHandler
         $this->orderModifier = $orderModifier;
     }
 
-    public function handle(PutSimpleItemToCart $putSimpleItemToCart)
+    public function handle(PutSimpleItemToCart $putSimpleItemToCart): void
     {
         /** @var OrderInterface $cart */
         $cart = $this->cartRepository->findOneBy(['tokenValue' => $putSimpleItemToCart->orderToken()]);

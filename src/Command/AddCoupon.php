@@ -8,20 +8,12 @@ use Webmozart\Assert\Assert;
 
 final class AddCoupon
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $orderToken;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $couponCode;
 
-    /**
-     * @param string $orderToken
-     * @param string $couponCode
-     */
     public function __construct($orderToken, $couponCode)
     {
         Assert::allString([$orderToken, $couponCode]);
@@ -29,17 +21,11 @@ final class AddCoupon
         $this->couponCode = $couponCode;
     }
 
-    /**
-     * @return string
-     */
     public function orderToken()
     {
         return $this->orderToken;
     }
 
-    /**
-     * @return string
-     */
     public function couponCode()
     {
         return $this->couponCode;

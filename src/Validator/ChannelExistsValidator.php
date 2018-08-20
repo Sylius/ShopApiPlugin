@@ -10,23 +10,15 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 final class ChannelExistsValidator extends ConstraintValidator
 {
-    /**
-     * @var ChannelRepositoryInterface
-     */
+    /** @var ChannelRepositoryInterface */
     private $channelRepository;
 
-    /**
-     * @param ChannelRepositoryInterface $channelRepository
-     */
     public function __construct(ChannelRepositoryInterface $channelRepository)
     {
         $this->channelRepository = $channelRepository;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function validate($token, Constraint $constraint)
+    public function validate($token, Constraint $constraint): void
     {
         if (null === $token || null === $this->channelRepository->findOneByCode($token)) {
             $this->context->addViolation($constraint->message);

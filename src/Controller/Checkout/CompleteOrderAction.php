@@ -15,26 +15,15 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 final class CompleteOrderAction
 {
-    /**
-     * @var ViewHandlerInterface
-     */
+    /** @var ViewHandlerInterface */
     private $viewHandler;
 
-    /**
-     * @var CommandBus
-     */
+    /** @var CommandBus */
     private $bus;
 
-    /**
-     * @var TokenStorageInterface
-     */
+    /** @var TokenStorageInterface */
     private $tokenStorage;
 
-    /**
-     * @param ViewHandlerInterface $viewHandler
-     * @param CommandBus $bus
-     * @param TokenStorageInterface $tokenStorage
-     */
     public function __construct(ViewHandlerInterface $viewHandler, CommandBus $bus, TokenStorageInterface $tokenStorage)
     {
         $this->viewHandler = $viewHandler;
@@ -42,11 +31,6 @@ final class CompleteOrderAction
         $this->tokenStorage = $tokenStorage;
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     */
     public function __invoke(Request $request)
     {
         $email = $this->provideUserEmail($request);
@@ -60,11 +44,6 @@ final class CompleteOrderAction
         return $this->viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return string
-     */
     private function provideUserEmail(Request $request)
     {
         $user = $this->tokenStorage->getToken()->getUser();

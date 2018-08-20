@@ -8,14 +8,9 @@ use Webmozart\Assert\Assert;
 
 final class RemoveCoupon
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $orderToken;
 
-    /**
-     * @param string $orderToken
-     */
     public function __construct($orderToken)
     {
         Assert::string($orderToken);
@@ -23,9 +18,6 @@ final class RemoveCoupon
         $this->orderToken = $orderToken;
     }
 
-    /**
-     * @return string
-     */
     public function orderToken()
     {
         return $this->orderToken;

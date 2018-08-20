@@ -14,14 +14,10 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class RequestPasswordResettingAction
 {
-    /**
-     * @var ViewHandlerInterface
-     */
+    /** @var ViewHandlerInterface */
     private $viewHandler;
 
-    /**
-     * @var CommandBus
-     */
+    /** @var CommandBus */
     private $bus;
 
     public function __construct(

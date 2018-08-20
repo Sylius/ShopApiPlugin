@@ -8,24 +8,16 @@ use Webmozart\Assert\Assert;
 
 final class PutVariantBasedConfigurableItemToCart
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $orderToken;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $product;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     private $quantity;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $productVariant;
 
     /**
@@ -48,33 +40,21 @@ final class PutVariantBasedConfigurableItemToCart
         $this->productVariant = $productVariant;
     }
 
-    /**
-     * @return string
-     */
     public function orderToken()
     {
         return $this->orderToken;
     }
 
-    /**
-     * @return string
-     */
     public function product()
     {
         return $this->product;
     }
 
-    /**
-     * @return string
-     */
     public function productVariant()
     {
         return $this->productVariant;
     }
 
-    /**
-     * @return int
-     */
     public function quantity()
     {
         return $this->quantity;

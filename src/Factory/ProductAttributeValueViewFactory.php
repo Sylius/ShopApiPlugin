@@ -18,9 +18,6 @@ final class ProductAttributeValueViewFactory implements ProductAttributeValueVie
         $this->productAttributeValueViewClass = $productAttributeValueViewClass;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function create(ProductAttributeValueInterface $productAttributeValue, string $locale): ProductAttributeValueView
     {
         /** @var ProductAttributeValueView $productAttributeValueView */
