@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Tests\Sylius\ShopApiPlugin\Request;
+namespace Tests\Sylius\SyliusShopApiPlugin\Request;
 
 use PHPUnit\Framework\TestCase;
-use Sylius\ShopApiPlugin\Command\PutSimpleItemToCart;
-use Sylius\ShopApiPlugin\Request\PutSimpleItemToCartRequest;
+use Sylius\SyliusShopApiPlugin\Command\PutSimpleItemToCart;
+use Sylius\SyliusShopApiPlugin\Request\PutSimpleItemToCartRequest;
 use Symfony\Component\HttpFoundation\Request;
 
 final class PutSimpleItemToCartRequestTest extends TestCase

@@ -12,8 +12,8 @@
 -->
 
 <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/services/constraint-mapping-1.0.xsd">
-    <class name="Sylius\ShopApiPlugin\Request\AddCouponRequest">
-        <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\ValidPromotionCouponCode" />
+    <class name="Sylius\SyliusShopApiPlugin\Request\AddCouponRequest">
+        <constraint name="Sylius\SyliusShopApiPlugin\Validator\Constraints\ValidPromotionCouponCode" />
         <property name="coupon">
             <constraint name="NotNull">
                 <option name="message">sylius.shop_api.coupon.not_null</option>
@@ -23,7 +23,7 @@
             <constraint name="NotNull">
                 <option name="message">sylius.shop_api.token.not_null</option>
             </constraint>
-            <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\CartExists" />
+            <constraint name="Sylius\SyliusShopApiPlugin\Validator\Constraints\CartExists" />
         </property>
     </class>
 </constraint-mapping>

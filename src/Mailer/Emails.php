@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Mailer;
+namespace Sylius\SyliusShopApiPlugin\Mailer;
 
 final class Emails
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\Command;
+namespace spec\Sylius\SyliusShopApiPlugin\Command;
 
 use PhpSpec\ObjectBehavior;
 

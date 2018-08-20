@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\Handler;
+namespace spec\Sylius\SyliusShopApiPlugin\Handler;
 
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
@@ -12,7 +12,7 @@ use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Currency\Model\CurrencyInterface;
 use Sylius\Component\Locale\Model\LocaleInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
-use Sylius\ShopApiPlugin\Command\PickupCart;
+use Sylius\SyliusShopApiPlugin\Command\PickupCart;
 
 final class PickupCartHandlerSpec extends ObjectBehavior
 {

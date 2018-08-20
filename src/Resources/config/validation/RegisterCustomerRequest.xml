@@ -12,7 +12,7 @@
 -->
 
 <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/services/constraint-mapping-1.0.xsd">
-    <class name="Sylius\ShopApiPlugin\Request\RegisterCustomerRequest">
+    <class name="Sylius\SyliusShopApiPlugin\Request\RegisterCustomerRequest">
         <property name="email">
             <constraint name="NotBlank">
                 <option name="message">sylius.shop_api.email.not_blank</option>
@@ -20,7 +20,7 @@
             <constraint name="Email">
                 <option name="message">sylius.shop_api.email.invalid</option>
             </constraint>
-            <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\ShopUserDoesNotExist" />
+            <constraint name="Sylius\SyliusShopApiPlugin\Validator\Constraints\ShopUserDoesNotExist" />
         </property>
         <property name="plainPassword">
             <constraint name="NotBlank">
@@ -41,7 +41,7 @@
             <constraint name="NotNull">
                 <option name="message">sylius.shop_api.channel.not_null</option>
             </constraint>
-            <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\ChannelExists" />
+            <constraint name="Sylius\SyliusShopApiPlugin\Validator\Constraints\ChannelExists" />
         </property>
     </class>
 </constraint-mapping>

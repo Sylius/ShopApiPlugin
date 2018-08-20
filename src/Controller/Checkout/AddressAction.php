@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Controller\Checkout;
+namespace Sylius\SyliusShopApiPlugin\Controller\Checkout;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
-use Sylius\ShopApiPlugin\Command\AddressOrder;
-use Sylius\ShopApiPlugin\Model\Address;
+use Sylius\SyliusShopApiPlugin\Command\AddressOrder;
+use Sylius\SyliusShopApiPlugin\Model\Address;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 

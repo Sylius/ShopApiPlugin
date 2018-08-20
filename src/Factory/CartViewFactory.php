@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Factory;
+namespace Sylius\SyliusShopApiPlugin\Factory;
 
 use Sylius\Component\Core\Model\AdjustmentInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
-use Sylius\ShopApiPlugin\View\AdjustmentView;
-use Sylius\ShopApiPlugin\View\CartSummaryView;
+use Sylius\SyliusShopApiPlugin\View\AdjustmentView;
+use Sylius\SyliusShopApiPlugin\View\CartSummaryView;
 
 final class CartViewFactory implements CartViewFactoryInterface
 {

@@ -1,5 +1,5 @@
 {
-    "name": "sylius/shop-api-plugin",
+    "name": "sylius/sylius-shop-api-plugin",
     "type": "sylius-plugin",
     "description": "Shop API for Sylius E-Commerce.",
     "license": "MIT",
@@ -22,12 +22,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Sylius\\ShopApiPlugin\\": "src/"
+            "Sylius\\SyliusShopApiPlugin\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\Sylius\\ShopApiPlugin\\": "tests/"
+            "Tests\\Sylius\\SyliusShopApiPlugin\\": "tests/"
         }
     },
     "suggest": {

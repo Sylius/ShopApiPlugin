@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Controller\Checkout;
+namespace Sylius\SyliusShopApiPlugin\Controller\Checkout;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
-use Sylius\ShopApiPlugin\Command\ChooseShippingMethod;
+use Sylius\SyliusShopApiPlugin\Command\ChooseShippingMethod;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 

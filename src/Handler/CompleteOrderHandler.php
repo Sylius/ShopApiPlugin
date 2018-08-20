@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Handler;
+namespace Sylius\SyliusShopApiPlugin\Handler;
 
 use SM\Factory\FactoryInterface as StateMachineFactory;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\OrderCheckoutTransitions;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\CompleteOrder;
-use Sylius\ShopApiPlugin\Provider\CustomerProviderInterface;
+use Sylius\SyliusShopApiPlugin\Command\CompleteOrder;
+use Sylius\SyliusShopApiPlugin\Provider\CustomerProviderInterface;
 use Webmozart\Assert\Assert;
 
 final class CompleteOrderHandler

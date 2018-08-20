@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\Handler;
+namespace spec\Sylius\SyliusShopApiPlugin\Handler;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use PhpSpec\ObjectBehavior;
@@ -15,7 +15,7 @@ use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Core\OrderCheckoutTransitions;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\PaymentMethodRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\ChoosePaymentMethod;
+use Sylius\SyliusShopApiPlugin\Command\ChoosePaymentMethod;
 
 final class ChoosePaymentMethodHandlerSpec extends ObjectBehavior
 {

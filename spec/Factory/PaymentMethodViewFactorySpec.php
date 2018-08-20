@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\Factory;
+namespace spec\Sylius\SyliusShopApiPlugin\Factory;
 
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Payment\Model\PaymentMethodTranslationInterface;
-use Sylius\ShopApiPlugin\Factory\PaymentMethodViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\PaymentMethodView;
+use Sylius\SyliusShopApiPlugin\Factory\PaymentMethodViewFactoryInterface;
+use Sylius\SyliusShopApiPlugin\View\PaymentMethodView;
 
 final class PaymentMethodViewFactorySpec extends ObjectBehavior
 {

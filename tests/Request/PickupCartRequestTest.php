@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Tests\Sylius\ShopApiPlugin\Request;
+namespace Tests\Sylius\SyliusShopApiPlugin\Request;
 
 use PHPUnit\Framework\TestCase;
-use Sylius\ShopApiPlugin\Command\PickupCart;
-use Sylius\ShopApiPlugin\Request\PickupCartRequest;
+use Sylius\SyliusShopApiPlugin\Command\PickupCart;
+use Sylius\SyliusShopApiPlugin\Request\PickupCartRequest;
 use Symfony\Component\HttpFoundation\Request;
 
 final class PickupCartRequestTest extends TestCase

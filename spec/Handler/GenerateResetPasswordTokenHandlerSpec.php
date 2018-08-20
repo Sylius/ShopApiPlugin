@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\Handler;
+namespace spec\Sylius\SyliusShopApiPlugin\Handler;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
 use Sylius\Component\User\Security\Generator\GeneratorInterface;
-use Sylius\ShopApiPlugin\Command\GenerateResetPasswordToken;
-use Sylius\ShopApiPlugin\Handler\GenerateResetPasswordTokenHandler;
+use Sylius\SyliusShopApiPlugin\Command\GenerateResetPasswordToken;
+use Sylius\SyliusShopApiPlugin\Handler\GenerateResetPasswordTokenHandler;
 
 final class GenerateResetPasswordTokenHandlerSpec extends ObjectBehavior
 {

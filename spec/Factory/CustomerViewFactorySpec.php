@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\Factory;
+namespace spec\Sylius\SyliusShopApiPlugin\Factory;
 
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\CustomerInterface;
-use Sylius\ShopApiPlugin\Factory\CustomerViewFactory;
-use Sylius\ShopApiPlugin\View\CustomerView;
+use Sylius\SyliusShopApiPlugin\Factory\CustomerViewFactory;
+use Sylius\SyliusShopApiPlugin\View\CustomerView;
 
 final class CustomerViewFactorySpec extends ObjectBehavior
 {

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Factory;
+namespace Sylius\SyliusShopApiPlugin\Factory;
 
 use Sylius\Component\Core\Model\PaymentInterface;
-use Sylius\ShopApiPlugin\View\PaymentView;
+use Sylius\SyliusShopApiPlugin\View\PaymentView;
 
 interface PaymentViewFactoryInterface
 {

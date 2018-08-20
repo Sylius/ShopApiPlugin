@@ -1,4 +1,4 @@
-Sylius\ShopApiPlugin\View\ProductVariantView:
+Sylius\SyliusShopApiPlugin\View\ProductVariantView:
     exclusion_policy: ALL
     xml_root_name: product_variant_view
     properties:
@@ -16,7 +16,7 @@ Sylius\ShopApiPlugin\View\ProductVariantView:
             type: array<string, string>
         price:
             expose: true
-            type: Sylius\ShopApiPlugin\View\PriceView
+            type: Sylius\SyliusShopApiPlugin\View\PriceView
         images:
             expose: true
             type: array

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Factory;
+namespace Sylius\SyliusShopApiPlugin\Factory;
 
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\ProductImageInterface;
 use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Model\ProductTranslationInterface;
 use Sylius\Component\Core\Model\TaxonInterface;
-use Sylius\ShopApiPlugin\View\ProductTaxonView;
-use Sylius\ShopApiPlugin\View\ProductView;
+use Sylius\SyliusShopApiPlugin\View\ProductTaxonView;
+use Sylius\SyliusShopApiPlugin\View\ProductView;
 
 final class ProductViewFactory implements ProductViewFactoryInterface
 {

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Tests\Sylius\ShopApiPlugin\DependencyInjection;
+namespace Tests\Sylius\SyliusShopApiPlugin\DependencyInjection;
 
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
 use PHPUnit\Framework\TestCase;
-use Sylius\ShopApiPlugin\DependencyInjection\Configuration;
-use Sylius\ShopApiPlugin\View;
+use Sylius\SyliusShopApiPlugin\DependencyInjection\Configuration;
+use Sylius\SyliusShopApiPlugin\View;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 final class ConfigurationTest extends TestCase

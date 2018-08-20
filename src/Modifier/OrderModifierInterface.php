@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Modifier;
+namespace Sylius\SyliusShopApiPlugin\Modifier;
 
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;

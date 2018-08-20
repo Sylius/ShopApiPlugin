@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\Factory;
+namespace spec\Sylius\SyliusShopApiPlugin\Factory;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use PhpSpec\ObjectBehavior;
@@ -15,11 +15,11 @@ use Sylius\Component\Product\Model\ProductOptionTranslationInterface;
 use Sylius\Component\Product\Model\ProductOptionValueInterface;
 use Sylius\Component\Product\Model\ProductOptionValueTranslationInterface;
 use Sylius\Component\Product\Model\ProductVariantTranslationInterface;
-use Sylius\ShopApiPlugin\Factory\PriceViewFactoryInterface;
-use Sylius\ShopApiPlugin\Factory\ProductVariantViewFactoryInterface;
-use Sylius\ShopApiPlugin\Factory\ViewCreationException;
-use Sylius\ShopApiPlugin\View\PriceView;
-use Sylius\ShopApiPlugin\View\ProductVariantView;
+use Sylius\SyliusShopApiPlugin\Factory\PriceViewFactoryInterface;
+use Sylius\SyliusShopApiPlugin\Factory\ProductVariantViewFactoryInterface;
+use Sylius\SyliusShopApiPlugin\Factory\ViewCreationException;
+use Sylius\SyliusShopApiPlugin\View\PriceView;
+use Sylius\SyliusShopApiPlugin\View\ProductVariantView;
 
 final class ProductVariantViewFactorySpec extends ObjectBehavior
 {

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Factory;
+namespace Sylius\SyliusShopApiPlugin\Factory;
 
 use Sylius\Component\Product\Model\ProductAttributeTranslationInterface;
 use Sylius\Component\Product\Model\ProductAttributeValueInterface;
-use Sylius\ShopApiPlugin\View\ProductAttributeValueView;
+use Sylius\SyliusShopApiPlugin\View\ProductAttributeValueView;
 
 final class ProductAttributeValueViewFactory implements ProductAttributeValueViewFactoryInterface
 {

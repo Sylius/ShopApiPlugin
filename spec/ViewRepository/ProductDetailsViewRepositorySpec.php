@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\ViewRepository;
+namespace spec\Sylius\SyliusShopApiPlugin\ViewRepository;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use PhpSpec\ObjectBehavior;
@@ -11,9 +11,9 @@ use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Sylius\Component\Locale\Model\LocaleInterface;
-use Sylius\ShopApiPlugin\Factory\ProductViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\ProductView;
-use Sylius\ShopApiPlugin\ViewRepository\ProductDetailsViewRepositoryInterface;
+use Sylius\SyliusShopApiPlugin\Factory\ProductViewFactoryInterface;
+use Sylius\SyliusShopApiPlugin\View\ProductView;
+use Sylius\SyliusShopApiPlugin\ViewRepository\ProductDetailsViewRepositoryInterface;
 
 final class ProductDetailsViewRepositorySpec extends ObjectBehavior
 {

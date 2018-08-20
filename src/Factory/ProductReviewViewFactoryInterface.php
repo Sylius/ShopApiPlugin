@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Factory;
+namespace Sylius\SyliusShopApiPlugin\Factory;
 
 use Sylius\Component\Core\Model\ProductReview;
-use Sylius\ShopApiPlugin\View\ProductReviewView;
+use Sylius\SyliusShopApiPlugin\View\ProductReviewView;
 
 interface ProductReviewViewFactoryInterface
 {

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\Handler;
+namespace spec\Sylius\SyliusShopApiPlugin\Handler;
 
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\Mailer\Sender\SenderInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\SendVerificationToken;
-use Sylius\ShopApiPlugin\Handler\SendVerificationTokenHandler;
-use Sylius\ShopApiPlugin\Mailer\Emails;
+use Sylius\SyliusShopApiPlugin\Command\SendVerificationToken;
+use Sylius\SyliusShopApiPlugin\Handler\SendVerificationTokenHandler;
+use Sylius\SyliusShopApiPlugin\Mailer\Emails;
 
 final class SendVerificationTokenHandlerSpec extends ObjectBehavior
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\Handler;
+namespace spec\Sylius\SyliusShopApiPlugin\Handler;
 
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
@@ -14,8 +14,8 @@ use Sylius\Component\Core\Repository\ProductReviewRepositoryInterface;
 use Sylius\Component\Locale\Model\LocaleInterface;
 use Sylius\Component\Review\Factory\ReviewFactoryInterface;
 use Sylius\Component\Review\Model\ReviewInterface;
-use Sylius\ShopApiPlugin\Command\AddProductReviewBySlug;
-use Sylius\ShopApiPlugin\Provider\ProductReviewerProviderInterface;
+use Sylius\SyliusShopApiPlugin\Command\AddProductReviewBySlug;
+use Sylius\SyliusShopApiPlugin\Provider\ProductReviewerProviderInterface;
 
 final class AddProductReviewBySlugHandlerSpec extends ObjectBehavior
 {

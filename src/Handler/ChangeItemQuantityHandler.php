@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Handler;
+namespace Sylius\SyliusShopApiPlugin\Handler;
 
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
@@ -10,7 +10,7 @@ use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Order\Modifier\OrderItemQuantityModifierInterface;
 use Sylius\Component\Order\Processor\OrderProcessorInterface;
 use Sylius\Component\Order\Repository\OrderItemRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\ChangeItemQuantity;
+use Sylius\SyliusShopApiPlugin\Command\ChangeItemQuantity;
 use Webmozart\Assert\Assert;
 
 final class ChangeItemQuantityHandler

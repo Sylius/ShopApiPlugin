@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\Handler;
+namespace spec\Sylius\SyliusShopApiPlugin\Handler;
 
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\OrderInterface;
@@ -11,7 +11,7 @@ use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Order\Modifier\OrderItemQuantityModifierInterface;
 use Sylius\Component\Order\Processor\OrderProcessorInterface;
 use Sylius\Component\Order\Repository\OrderItemRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\ChangeItemQuantity;
+use Sylius\SyliusShopApiPlugin\Command\ChangeItemQuantity;
 
 final class ChangeItemQuantityHandlerSpec extends ObjectBehavior
 {

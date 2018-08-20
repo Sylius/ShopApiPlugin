@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Controller\Cart;
+namespace Sylius\SyliusShopApiPlugin\Controller\Cart;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
-use Sylius\ShopApiPlugin\Request\PutOptionBasedConfigurableItemToCartRequest;
-use Sylius\ShopApiPlugin\Request\PutSimpleItemToCartRequest;
-use Sylius\ShopApiPlugin\Request\PutVariantBasedConfigurableItemToCartRequest;
-use Sylius\ShopApiPlugin\View\ValidationErrorView;
-use Sylius\ShopApiPlugin\ViewRepository\CartViewRepositoryInterface;
+use Sylius\SyliusShopApiPlugin\Request\PutOptionBasedConfigurableItemToCartRequest;
+use Sylius\SyliusShopApiPlugin\Request\PutSimpleItemToCartRequest;
+use Sylius\SyliusShopApiPlugin\Request\PutVariantBasedConfigurableItemToCartRequest;
+use Sylius\SyliusShopApiPlugin\View\ValidationErrorView;
+use Sylius\SyliusShopApiPlugin\ViewRepository\CartViewRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;

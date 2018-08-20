@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Tests\Sylius\ShopApiPlugin\Request;
+namespace Tests\Sylius\SyliusShopApiPlugin\Request;
 
 use PHPUnit\Framework\TestCase;
-use Sylius\ShopApiPlugin\Command\VerifyAccount;
-use Sylius\ShopApiPlugin\Request\VerifyAccountRequest;
+use Sylius\SyliusShopApiPlugin\Command\VerifyAccount;
+use Sylius\SyliusShopApiPlugin\Request\VerifyAccountRequest;
 use Symfony\Component\HttpFoundation\Request;
 
 final class VerifyAccountRequestTest extends TestCase

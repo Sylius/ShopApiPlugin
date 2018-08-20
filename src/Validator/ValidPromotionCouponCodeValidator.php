@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Validator;
+namespace Sylius\SyliusShopApiPlugin\Validator;
 
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PromotionCouponInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Promotion\Checker\Eligibility\PromotionCouponEligibilityCheckerInterface;
 use Sylius\Component\Promotion\Repository\PromotionCouponRepositoryInterface;
-use Sylius\ShopApiPlugin\Request\AddCouponRequest;
+use Sylius\SyliusShopApiPlugin\Request\AddCouponRequest;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Webmozart\Assert\Assert;

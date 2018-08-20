@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Controller\Product;
+namespace Sylius\SyliusShopApiPlugin\Controller\Product;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
-use Sylius\ShopApiPlugin\ViewRepository\ProductLatestViewRepositoryInterface;
+use Sylius\SyliusShopApiPlugin\ViewRepository\ProductLatestViewRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;

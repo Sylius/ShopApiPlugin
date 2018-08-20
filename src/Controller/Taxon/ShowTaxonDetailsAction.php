@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Controller\Taxon;
+namespace Sylius\SyliusShopApiPlugin\Controller\Taxon;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Sylius\Component\Taxonomy\Repository\TaxonRepositoryInterface;
-use Sylius\ShopApiPlugin\Factory\TaxonDetailsViewFactoryInterface;
+use Sylius\SyliusShopApiPlugin\Factory\TaxonDetailsViewFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;

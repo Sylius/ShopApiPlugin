@@ -15,4 +15,4 @@ sylius_customer:
     resources:
         customer:
             classes:
-                controller: Sylius\ShopApiPlugin\Controller\Customer\CustomerController
+                controller: Sylius\SyliusShopApiPlugin\Controller\Customer\CustomerController

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\Factory;
+namespace spec\Sylius\SyliusShopApiPlugin\Factory;
 
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\ShipmentInterface;
@@ -10,10 +10,10 @@ use Sylius\Component\Core\Model\ShippingMethodInterface;
 use Sylius\Component\Registry\ServiceRegistry;
 use Sylius\Component\Shipping\Calculator\CalculatorInterface;
 use Sylius\Component\Shipping\Model\ShippingMethodTranslationInterface;
-use Sylius\ShopApiPlugin\Factory\PriceViewFactoryInterface;
-use Sylius\ShopApiPlugin\Factory\ShippingMethodViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\PriceView;
-use Sylius\ShopApiPlugin\View\ShippingMethodView;
+use Sylius\SyliusShopApiPlugin\Factory\PriceViewFactoryInterface;
+use Sylius\SyliusShopApiPlugin\Factory\ShippingMethodViewFactoryInterface;
+use Sylius\SyliusShopApiPlugin\View\PriceView;
+use Sylius\SyliusShopApiPlugin\View\ShippingMethodView;
 
 final class ShippingMethodViewFactorySpec extends ObjectBehavior
 {

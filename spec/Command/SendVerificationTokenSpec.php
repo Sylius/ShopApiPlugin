@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\Command;
+namespace spec\Sylius\SyliusShopApiPlugin\Command;
 
 use PhpSpec\ObjectBehavior;
-use Sylius\ShopApiPlugin\Command\SendVerificationToken;
+use Sylius\SyliusShopApiPlugin\Command\SendVerificationToken;
 
 final class SendVerificationTokenSpec extends ObjectBehavior
 {

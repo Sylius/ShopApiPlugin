@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Sylius\ShopApiPlugin\Controller;
+namespace Tests\Sylius\SyliusShopApiPlugin\Controller;
 
 use Lakion\ApiTestCase\JsonApiTestCase;
 use Symfony\Component\HttpFoundation\Response;

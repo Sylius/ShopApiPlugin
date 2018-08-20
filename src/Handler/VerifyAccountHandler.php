@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Handler;
+namespace Sylius\SyliusShopApiPlugin\Handler;
 
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\VerifyAccount;
+use Sylius\SyliusShopApiPlugin\Command\VerifyAccount;
 use Webmozart\Assert\Assert;
 
 final class VerifyAccountHandler

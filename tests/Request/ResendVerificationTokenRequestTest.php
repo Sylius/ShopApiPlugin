@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Tests\Sylius\ShopApiPlugin\Request;
+namespace Tests\Sylius\SyliusShopApiPlugin\Request;
 
 use PHPUnit\Framework\TestCase;
-use Sylius\ShopApiPlugin\Command\SendVerificationToken;
-use Sylius\ShopApiPlugin\Request\ResendVerificationTokenRequest;
+use Sylius\SyliusShopApiPlugin\Command\SendVerificationToken;
+use Sylius\SyliusShopApiPlugin\Request\ResendVerificationTokenRequest;
 use Symfony\Component\HttpFoundation\Request;
 
 final class ResendVerificationTokenRequestTest extends TestCase

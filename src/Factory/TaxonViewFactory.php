@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Factory;
+namespace Sylius\SyliusShopApiPlugin\Factory;
 
 use Sylius\Component\Core\Model\ImageInterface;
 use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Taxonomy\Model\TaxonTranslationInterface;
-use Sylius\ShopApiPlugin\View\TaxonView;
+use Sylius\SyliusShopApiPlugin\View\TaxonView;
 
 final class TaxonViewFactory implements TaxonViewFactoryInterface
 {

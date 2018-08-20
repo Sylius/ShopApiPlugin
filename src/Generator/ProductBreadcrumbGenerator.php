@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Generator;
+namespace Sylius\SyliusShopApiPlugin\Generator;
 
 use Sylius\Component\Core\Model\ProductInterface;
 

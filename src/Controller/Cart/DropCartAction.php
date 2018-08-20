@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Controller\Cart;
+namespace Sylius\SyliusShopApiPlugin\Controller\Cart;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
-use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
-use Sylius\ShopApiPlugin\Request\DropCartRequest;
+use Sylius\SyliusShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
+use Sylius\SyliusShopApiPlugin\Request\DropCartRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Validator\ValidatorInterface;

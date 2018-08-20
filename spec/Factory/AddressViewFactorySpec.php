@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\Factory;
+namespace spec\Sylius\SyliusShopApiPlugin\Factory;
 
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\AddressInterface;
-use Sylius\ShopApiPlugin\Factory\AddressViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\AddressView;
+use Sylius\SyliusShopApiPlugin\Factory\AddressViewFactoryInterface;
+use Sylius\SyliusShopApiPlugin\View\AddressView;
 
 final class AddressViewFactorySpec extends ObjectBehavior
 {

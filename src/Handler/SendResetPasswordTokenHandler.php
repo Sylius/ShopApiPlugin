@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Handler;
+namespace Sylius\SyliusShopApiPlugin\Handler;
 
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\Mailer\Sender\SenderInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\SendResetPasswordToken;
-use Sylius\ShopApiPlugin\Mailer\Emails;
+use Sylius\SyliusShopApiPlugin\Command\SendResetPasswordToken;
+use Sylius\SyliusShopApiPlugin\Mailer\Emails;
 use Webmozart\Assert\Assert;
 
 final class SendResetPasswordTokenHandler

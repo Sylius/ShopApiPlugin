@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Handler;
+namespace Sylius\SyliusShopApiPlugin\Handler;
 
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
 use Sylius\Component\User\Security\Generator\GeneratorInterface;
-use Sylius\ShopApiPlugin\Command\GenerateResetPasswordToken;
+use Sylius\SyliusShopApiPlugin\Command\GenerateResetPasswordToken;
 use Webmozart\Assert\Assert;
 
 final class GenerateResetPasswordTokenHandler

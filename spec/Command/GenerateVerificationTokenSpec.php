@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\Command;
+namespace spec\Sylius\SyliusShopApiPlugin\Command;
 
 use PhpSpec\ObjectBehavior;
-use Sylius\ShopApiPlugin\Command\GenerateVerificationToken;
+use Sylius\SyliusShopApiPlugin\Command\GenerateVerificationToken;
 
 final class GenerateVerificationTokenSpec extends ObjectBehavior
 {

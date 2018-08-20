@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Controller\Checkout;
+namespace Sylius\SyliusShopApiPlugin\Controller\Checkout;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
 use Sylius\Component\Core\Model\ShopUserInterface;
-use Sylius\ShopApiPlugin\Command\CompleteOrder;
+use Sylius\SyliusShopApiPlugin\Command\CompleteOrder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;

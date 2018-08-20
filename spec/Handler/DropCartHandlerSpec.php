@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\Handler;
+namespace spec\Sylius\SyliusShopApiPlugin\Handler;
 
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\DropCart;
+use Sylius\SyliusShopApiPlugin\Command\DropCart;
 
 final class DropCartHandlerSpec extends ObjectBehavior
 {

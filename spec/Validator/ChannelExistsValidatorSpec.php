@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\Validator;
+namespace spec\Sylius\SyliusShopApiPlugin\Validator;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
-use Sylius\ShopApiPlugin\Validator\Constraints\ChannelExists;
+use Sylius\SyliusShopApiPlugin\Validator\Constraints\ChannelExists;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 final class ChannelExistsValidatorSpec extends ObjectBehavior

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\Factory;
+namespace spec\Sylius\SyliusShopApiPlugin\Factory;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\TaxonInterface;
-use Sylius\ShopApiPlugin\Factory\TaxonDetailsViewFactoryInterface;
-use Sylius\ShopApiPlugin\Factory\TaxonViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\TaxonDetailsView;
-use Sylius\ShopApiPlugin\View\TaxonView;
+use Sylius\SyliusShopApiPlugin\Factory\TaxonDetailsViewFactoryInterface;
+use Sylius\SyliusShopApiPlugin\Factory\TaxonViewFactoryInterface;
+use Sylius\SyliusShopApiPlugin\View\TaxonDetailsView;
+use Sylius\SyliusShopApiPlugin\View\TaxonView;
 
 final class TaxonDetailsViewFactorySpec extends ObjectBehavior
 {

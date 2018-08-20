@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\Factory;
+namespace spec\Sylius\SyliusShopApiPlugin\Factory;
 
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\ProductReview;
 use Sylius\Component\Core\Model\ProductReviewerInterface;
-use Sylius\ShopApiPlugin\Factory\ProductReviewViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\ProductReviewView;
+use Sylius\SyliusShopApiPlugin\Factory\ProductReviewViewFactoryInterface;
+use Sylius\SyliusShopApiPlugin\View\ProductReviewView;
 
 final class ProductReviewViewFactorySpec extends ObjectBehavior
 {

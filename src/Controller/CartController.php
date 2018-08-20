@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Controller;
+namespace Sylius\SyliusShopApiPlugin\Controller;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
@@ -16,8 +16,8 @@ use Sylius\Component\Registry\ServiceRegistryInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Shipping\Exception\UnresolvedDefaultShippingMethodException;
 use Sylius\Component\Shipping\Resolver\ShippingMethodsResolverInterface;
-use Sylius\ShopApiPlugin\Factory\PriceViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\EstimatedShippingCostView;
+use Sylius\SyliusShopApiPlugin\Factory\PriceViewFactoryInterface;
+use Sylius\SyliusShopApiPlugin\View\EstimatedShippingCostView;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

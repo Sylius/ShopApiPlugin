@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Controller\Customer;
+namespace Sylius\SyliusShopApiPlugin\Controller\Customer;
 
 use FOS\RestBundle\View\View;
 use Sylius\Bundle\ResourceBundle\Controller\ResourceController;
-use Sylius\ShopApiPlugin\View\ValidationErrorView;
+use Sylius\SyliusShopApiPlugin\View\ValidationErrorView;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 

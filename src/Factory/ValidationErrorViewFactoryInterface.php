@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Factory;
+namespace Sylius\SyliusShopApiPlugin\Factory;
 
-use Sylius\ShopApiPlugin\View\ValidationErrorView;
+use Sylius\SyliusShopApiPlugin\View\ValidationErrorView;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 interface ValidationErrorViewFactoryInterface

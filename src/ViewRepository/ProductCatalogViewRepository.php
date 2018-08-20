@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\ViewRepository;
+namespace Sylius\SyliusShopApiPlugin\ViewRepository;
 
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
@@ -12,10 +12,10 @@ use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Sylius\Component\Locale\Model\LocaleInterface;
 use Sylius\Component\Taxonomy\Repository\TaxonRepositoryInterface;
-use Sylius\ShopApiPlugin\Factory\PageViewFactoryInterface;
-use Sylius\ShopApiPlugin\Factory\ProductViewFactoryInterface;
-use Sylius\ShopApiPlugin\Model\PaginatorDetails;
-use Sylius\ShopApiPlugin\View\PageView;
+use Sylius\SyliusShopApiPlugin\Factory\PageViewFactoryInterface;
+use Sylius\SyliusShopApiPlugin\Factory\ProductViewFactoryInterface;
+use Sylius\SyliusShopApiPlugin\Model\PaginatorDetails;
+use Sylius\SyliusShopApiPlugin\View\PageView;
 use Webmozart\Assert\Assert;
 
 final class ProductCatalogViewRepository implements ProductCatalogViewRepositoryInterface

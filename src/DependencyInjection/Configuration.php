@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\DependencyInjection;
+namespace Sylius\SyliusShopApiPlugin\DependencyInjection;
 
-use Sylius\ShopApiPlugin\View;
+use Sylius\SyliusShopApiPlugin\View;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

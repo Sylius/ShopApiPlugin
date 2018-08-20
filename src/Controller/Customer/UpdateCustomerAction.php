@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Controller\Customer;
+namespace Sylius\SyliusShopApiPlugin\Controller\Customer;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
 use Sylius\Component\Core\Model\ShopUserInterface;
-use Sylius\ShopApiPlugin\Factory\CustomerViewFactoryInterface;
-use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
-use Sylius\ShopApiPlugin\Request\UpdateCustomerRequest;
+use Sylius\SyliusShopApiPlugin\Factory\CustomerViewFactoryInterface;
+use Sylius\SyliusShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
+use Sylius\SyliusShopApiPlugin\Request\UpdateCustomerRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\EventListener;
+namespace spec\Sylius\SyliusShopApiPlugin\EventListener;
 
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Locale\Provider\LocaleProviderInterface;
-use Sylius\ShopApiPlugin\EventListener\RequestLocaleSetter;
+use Sylius\SyliusShopApiPlugin\EventListener\RequestLocaleSetter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 

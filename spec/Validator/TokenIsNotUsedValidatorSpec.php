@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\Validator;
+namespace spec\Sylius\SyliusShopApiPlugin\Validator;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Sylius\ShopApiPlugin\Validator\Constraints\TokenIsNotUsed;
+use Sylius\SyliusShopApiPlugin\Validator\Constraints\TokenIsNotUsed;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 final class TokenIsNotUsedValidatorSpec extends ObjectBehavior

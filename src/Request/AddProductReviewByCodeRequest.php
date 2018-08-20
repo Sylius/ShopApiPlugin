@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Request;
+namespace Sylius\SyliusShopApiPlugin\Request;
 
-use Sylius\ShopApiPlugin\Command\AddProductReviewByCode;
+use Sylius\SyliusShopApiPlugin\Command\AddProductReviewByCode;
 use Symfony\Component\HttpFoundation\Request;
 
 final class AddProductReviewByCodeRequest

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Tests\Sylius\ShopApiPlugin\Controller;
+namespace Tests\Sylius\SyliusShopApiPlugin\Controller;
 
 use Lakion\ApiTestCase\JsonApiTestCase;
 use PHPUnit\Framework\Assert;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
 use Symfony\Component\HttpFoundation\Response;
-use Tests\Sylius\ShopApiPlugin\Controller\Utils\ShopUserLoginTrait;
+use Tests\Sylius\SyliusShopApiPlugin\Controller\Utils\ShopUserLoginTrait;
 
 final class CustomerUpdateCustomerApiTest extends JsonApiTestCase
 {

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\Handler;
+namespace spec\Sylius\SyliusShopApiPlugin\Handler;
 
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
-use Sylius\ShopApiPlugin\Command\UpdateCustomer;
+use Sylius\SyliusShopApiPlugin\Command\UpdateCustomer;
 
 final class UpdateCustomerHandlerSpec extends ObjectBehavior
 {

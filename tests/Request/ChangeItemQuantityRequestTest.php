@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Tests\Sylius\ShopApiPlugin\Request;
+namespace Tests\Sylius\SyliusShopApiPlugin\Request;
 
 use PHPUnit\Framework\TestCase;
-use Sylius\ShopApiPlugin\Command\ChangeItemQuantity;
-use Sylius\ShopApiPlugin\Request\ChangeItemQuantityRequest;
+use Sylius\SyliusShopApiPlugin\Command\ChangeItemQuantity;
+use Sylius\SyliusShopApiPlugin\Request\ChangeItemQuantityRequest;
 use Symfony\Component\HttpFoundation\Request;
 
 final class ChangeItemQuantityRequestTest extends TestCase

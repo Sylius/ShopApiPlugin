@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Controller\Product;
+namespace Sylius\SyliusShopApiPlugin\Controller\Product;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
-use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
-use Sylius\ShopApiPlugin\Request\AddProductReviewBySlugRequest;
+use Sylius\SyliusShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
+use Sylius\SyliusShopApiPlugin\Request\AddProductReviewBySlugRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Validator\ValidatorInterface;

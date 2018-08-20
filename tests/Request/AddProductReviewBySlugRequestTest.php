@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Tests\Sylius\ShopApiPlugin\Request;
+namespace Tests\Sylius\SyliusShopApiPlugin\Request;
 
 use PHPUnit\Framework\TestCase;
-use Sylius\ShopApiPlugin\Command\AddProductReviewBySlug;
-use Sylius\ShopApiPlugin\Request\AddProductReviewBySlugRequest;
+use Sylius\SyliusShopApiPlugin\Command\AddProductReviewBySlug;
+use Sylius\SyliusShopApiPlugin\Request\AddProductReviewBySlugRequest;
 use Symfony\Component\HttpFoundation\Request;
 
 final class AddProductReviewBySlugRequestTest extends TestCase

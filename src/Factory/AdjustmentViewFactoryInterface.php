@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Factory;
+namespace Sylius\SyliusShopApiPlugin\Factory;
 
 use Sylius\Component\Order\Model\AdjustmentInterface;
-use Sylius\ShopApiPlugin\View\AdjustmentView;
+use Sylius\SyliusShopApiPlugin\View\AdjustmentView;
 
 interface AdjustmentViewFactoryInterface
 {

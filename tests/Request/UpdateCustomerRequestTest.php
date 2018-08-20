@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Tests\Sylius\ShopApiPlugin\Request;
+namespace Tests\Sylius\SyliusShopApiPlugin\Request;
 
 use PHPUnit\Framework\TestCase;
-use Sylius\ShopApiPlugin\Command\UpdateCustomer;
-use Sylius\ShopApiPlugin\Request\UpdateCustomerRequest;
+use Sylius\SyliusShopApiPlugin\Command\UpdateCustomer;
+use Sylius\SyliusShopApiPlugin\Request\UpdateCustomerRequest;
 use Symfony\Component\HttpFoundation\Request;
 
 final class UpdateCustomerRequestTest extends TestCase

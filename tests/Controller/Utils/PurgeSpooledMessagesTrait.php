@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Sylius\ShopApiPlugin\Controller\Utils;
+namespace Tests\Sylius\SyliusShopApiPlugin\Controller\Utils;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Filesystem\Filesystem;

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\Factory;
+namespace spec\Sylius\SyliusShopApiPlugin\Factory;
 
 use PhpSpec\ObjectBehavior;
-use Sylius\ShopApiPlugin\Factory\PriceViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\PriceView;
+use Sylius\SyliusShopApiPlugin\Factory\PriceViewFactoryInterface;
+use Sylius\SyliusShopApiPlugin\View\PriceView;
 
 final class PriceViewFactorySpec extends ObjectBehavior
 {

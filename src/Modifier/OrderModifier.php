@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Modifier;
+namespace Sylius\SyliusShopApiPlugin\Modifier;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Sylius\Component\Core\Factory\CartItemFactoryInterface;

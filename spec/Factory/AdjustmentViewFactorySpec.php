@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\Factory;
+namespace spec\Sylius\SyliusShopApiPlugin\Factory;
 
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\AdjustmentInterface;
-use Sylius\ShopApiPlugin\Factory\AdjustmentViewFactoryInterface;
-use Sylius\ShopApiPlugin\Factory\PriceViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\AdjustmentView;
-use Sylius\ShopApiPlugin\View\PriceView;
+use Sylius\SyliusShopApiPlugin\Factory\AdjustmentViewFactoryInterface;
+use Sylius\SyliusShopApiPlugin\Factory\PriceViewFactoryInterface;
+use Sylius\SyliusShopApiPlugin\View\AdjustmentView;
+use Sylius\SyliusShopApiPlugin\View\PriceView;
 
 final class AdjustmentViewFactorySpec extends ObjectBehavior
 {

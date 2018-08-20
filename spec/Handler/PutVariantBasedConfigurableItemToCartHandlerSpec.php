@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\Handler;
+namespace spec\Sylius\SyliusShopApiPlugin\Handler;
 
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\ProductVariantRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\PutVariantBasedConfigurableItemToCart;
-use Sylius\ShopApiPlugin\Modifier\OrderModifierInterface;
+use Sylius\SyliusShopApiPlugin\Command\PutVariantBasedConfigurableItemToCart;
+use Sylius\SyliusShopApiPlugin\Modifier\OrderModifierInterface;
 
 final class PutVariantBasedConfigurableItemToCartHandlerSpec extends ObjectBehavior
 {

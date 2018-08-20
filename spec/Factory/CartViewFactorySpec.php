@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\Factory;
+namespace spec\Sylius\SyliusShopApiPlugin\Factory;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use PhpSpec\ObjectBehavior;
@@ -13,20 +13,20 @@ use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\ShipmentInterface;
-use Sylius\ShopApiPlugin\Factory\AddressViewFactoryInterface;
-use Sylius\ShopApiPlugin\Factory\AdjustmentViewFactoryInterface;
-use Sylius\ShopApiPlugin\Factory\CartItemViewFactoryInterface;
-use Sylius\ShopApiPlugin\Factory\CartViewFactoryInterface;
-use Sylius\ShopApiPlugin\Factory\PaymentViewFactoryInterface;
-use Sylius\ShopApiPlugin\Factory\ShipmentViewFactoryInterface;
-use Sylius\ShopApiPlugin\Factory\TotalViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\AddressView;
-use Sylius\ShopApiPlugin\View\AdjustmentView;
-use Sylius\ShopApiPlugin\View\CartSummaryView;
-use Sylius\ShopApiPlugin\View\ItemView;
-use Sylius\ShopApiPlugin\View\PaymentView;
-use Sylius\ShopApiPlugin\View\ShipmentView;
-use Sylius\ShopApiPlugin\View\TotalsView;
+use Sylius\SyliusShopApiPlugin\Factory\AddressViewFactoryInterface;
+use Sylius\SyliusShopApiPlugin\Factory\AdjustmentViewFactoryInterface;
+use Sylius\SyliusShopApiPlugin\Factory\CartItemViewFactoryInterface;
+use Sylius\SyliusShopApiPlugin\Factory\CartViewFactoryInterface;
+use Sylius\SyliusShopApiPlugin\Factory\PaymentViewFactoryInterface;
+use Sylius\SyliusShopApiPlugin\Factory\ShipmentViewFactoryInterface;
+use Sylius\SyliusShopApiPlugin\Factory\TotalViewFactoryInterface;
+use Sylius\SyliusShopApiPlugin\View\AddressView;
+use Sylius\SyliusShopApiPlugin\View\AdjustmentView;
+use Sylius\SyliusShopApiPlugin\View\CartSummaryView;
+use Sylius\SyliusShopApiPlugin\View\ItemView;
+use Sylius\SyliusShopApiPlugin\View\PaymentView;
+use Sylius\SyliusShopApiPlugin\View\ShipmentView;
+use Sylius\SyliusShopApiPlugin\View\TotalsView;
 
 final class CartViewFactorySpec extends ObjectBehavior
 {
