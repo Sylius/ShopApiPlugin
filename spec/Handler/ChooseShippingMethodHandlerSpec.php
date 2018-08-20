@@ -17,6 +17,7 @@ use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\ShippingMethodRepositoryInterface;
 use Sylius\Component\Shipping\Checker\ShippingMethodEligibilityCheckerInterface;
 use Sylius\ShopApiPlugin\Command\ChooseShippingMethod;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 final class ChooseShippingMethodHandlerSpec extends ObjectBehavior
 {
@@ -24,9 +25,10 @@ final class ChooseShippingMethodHandlerSpec extends ObjectBehavior
         OrderRepositoryInterface $orderRepository,
         ShippingMethodRepositoryInterface $shippingMethodRepository,
         ShippingMethodEligibilityCheckerInterface $eligibilityChecker,
-        FactoryInterface $stateMachineFactory
+        FactoryInterface $stateMachineFactory,
+	    EventDispatcherInterface $eventDispatcher
     ) {
-        $this->beConstructedWith($orderRepository, $shippingMethodRepository, $eligibilityChecker, $stateMachineFactory);
+        $this->beConstructedWith($orderRepository, $shippingMethodRepository, $eligibilityChecker, $stateMachineFactory,$eventDispatcher);
     }
 
     function it_assignes_choosen_shipping_method_to_specified_shipment(

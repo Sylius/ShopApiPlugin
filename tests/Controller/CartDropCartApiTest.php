@@ -14,6 +14,8 @@ use Sylius\ShopApiPlugin\Command\CompleteOrder;
 use Sylius\ShopApiPlugin\Command\PickupCart;
 use Sylius\ShopApiPlugin\Command\PutSimpleItemToCart;
 use Sylius\ShopApiPlugin\Model\Address;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 
 final class CartDropCartApiTest extends JsonApiTestCase
@@ -67,6 +69,10 @@ final class CartDropCartApiTest extends JsonApiTestCase
         $this->loadFixturesFromFile('payment.yml');
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var RequestStack $requestStack */
+        $requestStack = $this->get('request_stack');
+        $requestStack->push(Request::create(''));
 
         /** @var CommandBus $bus */
         $bus = $this->get('tactician.commandbus');

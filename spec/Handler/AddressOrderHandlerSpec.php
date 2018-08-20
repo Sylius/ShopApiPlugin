@@ -14,12 +14,13 @@ use Sylius\Component\Core\OrderCheckoutTransitions;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\ShopApiPlugin\Command\AddressOrder as AddressShipmentCommand;
 use Sylius\ShopApiPlugin\Model\Address;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 final class AddressOrderHandlerSpec extends ObjectBehavior
 {
-    function let(OrderRepositoryInterface $orderRepository, AddressFactoryInterface $addressFactory, FactoryInterface $stateMachineFactory)
+    function let(OrderRepositoryInterface $orderRepository, AddressFactoryInterface $addressFactory, FactoryInterface $stateMachineFactory, EventDispatcherInterface $eventDispatcher)
     {
-        $this->beConstructedWith($orderRepository, $addressFactory, $stateMachineFactory);
+        $this->beConstructedWith($orderRepository, $addressFactory, $stateMachineFactory, $eventDispatcher);
     }
 
     function it_handles_order_shipment_addressing(

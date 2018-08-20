@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace Sylius\ShopApiPlugin\Handler;
 
 use SM\Factory\FactoryInterface;
+use Sylius\Bundle\ResourceBundle\Event\ResourceControllerEvent;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Core\OrderCheckoutTransitions;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\PaymentMethodRepositoryInterface;
 use Sylius\ShopApiPlugin\Command\ChoosePaymentMethod;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Webmozart\Assert\Assert;
 
 final class ChoosePaymentMethodHandler
@@ -31,18 +33,26 @@ final class ChoosePaymentMethodHandler
     private $stateMachineFactory;
 
     /**
+     * @var EventDispatcherInterface
+     */
+    private $eventDispatcher;
+
+    /**
      * @param OrderRepositoryInterface $orderRepository
      * @param PaymentMethodRepositoryInterface $paymentMethodRepository
      * @param FactoryInterface $stateMachineFactory
+     * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(
         OrderRepositoryInterface $orderRepository,
         PaymentMethodRepositoryInterface $paymentMethodRepository,
-        FactoryInterface $stateMachineFactory
+        FactoryInterface $stateMachineFactory,
+        EventDispatcherInterface $eventDispatcher
     ) {
         $this->orderRepository = $orderRepository;
         $this->paymentMethodRepository = $paymentMethodRepository;
         $this->stateMachineFactory = $stateMachineFactory;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -68,6 +78,11 @@ final class ChoosePaymentMethodHandler
         $payment = $cart->getPayments()[$choosePaymentMethod->paymentIdentifier()];
 
         $payment->setMethod($paymentMethod);
+
+        $this->eventDispatcher->dispatch('sylius.order.pre_payment', new ResourceControllerEvent($cart));
+
         $stateMachine->apply(OrderCheckoutTransitions::TRANSITION_SELECT_PAYMENT);
+
+        $this->eventDispatcher->dispatch('sylius.order.post_payment', new ResourceControllerEvent($cart));
     }
 }

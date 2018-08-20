@@ -13,12 +13,13 @@ use Sylius\Component\Core\OrderCheckoutTransitions;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\ShopApiPlugin\Command\CompleteOrder;
 use Sylius\ShopApiPlugin\Provider\CustomerProviderInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 final class CompleteOrderHandlerSpec extends ObjectBehavior
 {
-    function let(OrderRepositoryInterface $orderRepository, CustomerProviderInterface $customerProvider, StateMachineFactoryInterface $stateMachineFactory)
+    function let(OrderRepositoryInterface $orderRepository, CustomerProviderInterface $customerProvider, StateMachineFactoryInterface $stateMachineFactory, EventDispatcherInterface $eventDispatcher)
     {
-        $this->beConstructedWith($orderRepository, $customerProvider, $stateMachineFactory);
+        $this->beConstructedWith($orderRepository, $customerProvider, $stateMachineFactory, $eventDispatcher);
     }
 
     function it_handles_order_completion_for_existing_customer(
