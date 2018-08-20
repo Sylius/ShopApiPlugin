@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\Modifier;
+namespace spec\Sylius\SyliusShopApiPlugin\Modifier;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -14,7 +14,7 @@ use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Order\Modifier\OrderItemQuantityModifierInterface;
 use Sylius\Component\Order\Processor\OrderProcessorInterface;
-use Sylius\ShopApiPlugin\Modifier\OrderModifierInterface;
+use Sylius\SyliusShopApiPlugin\Modifier\OrderModifierInterface;
 
 final class OrderModifierSpec extends ObjectBehavior
 {

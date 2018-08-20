@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Factory;
+namespace Sylius\SyliusShopApiPlugin\Factory;
 
 use Sylius\Component\Core\Model\AddressInterface;
-use Sylius\ShopApiPlugin\View\AddressView;
+use Sylius\SyliusShopApiPlugin\View\AddressView;
 
 final class AddressViewFactory implements AddressViewFactoryInterface
 {

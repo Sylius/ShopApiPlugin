@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Factory;
+namespace Sylius\SyliusShopApiPlugin\Factory;
 
 use Sylius\Component\Core\Model\ShipmentInterface;
 use Sylius\Component\Core\Model\ShippingMethodInterface;
 use Sylius\Component\Registry\ServiceRegistry;
 use Sylius\Component\Shipping\Calculator\CalculatorInterface;
-use Sylius\ShopApiPlugin\View\ShippingMethodView;
+use Sylius\SyliusShopApiPlugin\View\ShippingMethodView;
 
 final class ShippingMethodViewFactory implements ShippingMethodViewFactoryInterface
 {

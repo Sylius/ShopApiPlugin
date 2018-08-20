@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Factory;
+namespace Sylius\SyliusShopApiPlugin\Factory;
 
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\ProductImageInterface;
 use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Product\Model\ProductAssociationInterface;
-use Sylius\ShopApiPlugin\View\ProductVariantView;
-use Sylius\ShopApiPlugin\View\ProductView;
+use Sylius\SyliusShopApiPlugin\View\ProductVariantView;
+use Sylius\SyliusShopApiPlugin\View\ProductView;
 
 final class ListProductViewFactory implements ProductViewFactoryInterface
 {

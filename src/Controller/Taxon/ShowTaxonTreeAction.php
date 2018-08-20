@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Controller\Taxon;
+namespace Sylius\SyliusShopApiPlugin\Controller\Taxon;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Taxonomy\Repository\TaxonRepositoryInterface;
-use Sylius\ShopApiPlugin\Factory\TaxonViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\TaxonView;
+use Sylius\SyliusShopApiPlugin\Factory\TaxonViewFactoryInterface;
+use Sylius\SyliusShopApiPlugin\View\TaxonView;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\Factory;
+namespace spec\Sylius\SyliusShopApiPlugin\Factory;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use PhpSpec\ObjectBehavior;
@@ -12,12 +12,12 @@ use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Model\ProductTranslationInterface;
 use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Product\Model\ProductAttributeValueInterface;
-use Sylius\ShopApiPlugin\Factory\ImageViewFactoryInterface;
-use Sylius\ShopApiPlugin\Factory\ProductAttributeValuesViewFactoryInterface;
-use Sylius\ShopApiPlugin\Factory\ProductViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\ImageView;
-use Sylius\ShopApiPlugin\View\ProductTaxonView;
-use Sylius\ShopApiPlugin\View\ProductView;
+use Sylius\SyliusShopApiPlugin\Factory\ImageViewFactoryInterface;
+use Sylius\SyliusShopApiPlugin\Factory\ProductAttributeValuesViewFactoryInterface;
+use Sylius\SyliusShopApiPlugin\Factory\ProductViewFactoryInterface;
+use Sylius\SyliusShopApiPlugin\View\ImageView;
+use Sylius\SyliusShopApiPlugin\View\ProductTaxonView;
+use Sylius\SyliusShopApiPlugin\View\ProductView;
 
 final class ProductViewFactorySpec extends ObjectBehavior
 {

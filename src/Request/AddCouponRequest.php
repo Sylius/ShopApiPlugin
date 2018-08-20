@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Request;
+namespace Sylius\SyliusShopApiPlugin\Request;
 
-use Sylius\ShopApiPlugin\Command\AddCoupon;
+use Sylius\SyliusShopApiPlugin\Command\AddCoupon;
 use Symfony\Component\HttpFoundation\Request;
 
 final class AddCouponRequest

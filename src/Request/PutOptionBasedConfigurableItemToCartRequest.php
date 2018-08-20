@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Request;
+namespace Sylius\SyliusShopApiPlugin\Request;
 
-use Sylius\ShopApiPlugin\Command\PutOptionBasedConfigurableItemToCart;
+use Sylius\SyliusShopApiPlugin\Command\PutOptionBasedConfigurableItemToCart;
 use Symfony\Component\HttpFoundation\Request;
 
 final class PutOptionBasedConfigurableItemToCartRequest

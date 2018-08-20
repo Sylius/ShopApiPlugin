@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\ViewRepository;
+namespace Sylius\SyliusShopApiPlugin\ViewRepository;
 
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
@@ -12,10 +12,10 @@ use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Sylius\Component\Core\Repository\ProductReviewRepositoryInterface;
 use Sylius\Component\Locale\Model\LocaleInterface;
 use Sylius\Component\Review\Model\ReviewInterface;
-use Sylius\ShopApiPlugin\Factory\PageViewFactoryInterface;
-use Sylius\ShopApiPlugin\Factory\ProductReviewViewFactoryInterface;
-use Sylius\ShopApiPlugin\Model\PaginatorDetails;
-use Sylius\ShopApiPlugin\View\PageView;
+use Sylius\SyliusShopApiPlugin\Factory\PageViewFactoryInterface;
+use Sylius\SyliusShopApiPlugin\Factory\ProductReviewViewFactoryInterface;
+use Sylius\SyliusShopApiPlugin\Model\PaginatorDetails;
+use Sylius\SyliusShopApiPlugin\View\PageView;
 use Webmozart\Assert\Assert;
 
 final class ProductReviewsViewRepository implements ProductReviewsViewRepositoryInterface

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Factory;
+namespace Sylius\SyliusShopApiPlugin\Factory;
 
 use Sylius\Component\Core\Model\ImageInterface;
-use Sylius\ShopApiPlugin\View\ImageView;
+use Sylius\SyliusShopApiPlugin\View\ImageView;
 
 final class ImageViewFactory implements ImageViewFactoryInterface
 {

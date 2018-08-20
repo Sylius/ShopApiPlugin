@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Handler;
+namespace Sylius\SyliusShopApiPlugin\Handler;
 
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Order\Processor\OrderProcessorInterface;
-use Sylius\ShopApiPlugin\Command\RemoveCoupon;
+use Sylius\SyliusShopApiPlugin\Command\RemoveCoupon;
 use Webmozart\Assert\Assert;
 
 final class RemoveCouponHandler

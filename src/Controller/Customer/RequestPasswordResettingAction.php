@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Controller\Customer;
+namespace Sylius\SyliusShopApiPlugin\Controller\Customer;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
-use Sylius\ShopApiPlugin\Command\GenerateResetPasswordToken;
-use Sylius\ShopApiPlugin\Command\SendResetPasswordToken;
+use Sylius\SyliusShopApiPlugin\Command\GenerateResetPasswordToken;
+use Sylius\SyliusShopApiPlugin\Command\SendResetPasswordToken;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 

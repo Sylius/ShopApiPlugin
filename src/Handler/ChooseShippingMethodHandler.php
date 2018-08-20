@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Handler;
+namespace Sylius\SyliusShopApiPlugin\Handler;
 
 use SM\Factory\FactoryInterface;
 use Sylius\Component\Core\Model\OrderInterface;
@@ -11,7 +11,7 @@ use Sylius\Component\Core\OrderCheckoutTransitions;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\ShippingMethodRepositoryInterface;
 use Sylius\Component\Shipping\Checker\ShippingMethodEligibilityCheckerInterface;
-use Sylius\ShopApiPlugin\Command\ChooseShippingMethod;
+use Sylius\SyliusShopApiPlugin\Command\ChooseShippingMethod;
 use Webmozart\Assert\Assert;
 
 final class ChooseShippingMethodHandler

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Handler;
+namespace Sylius\SyliusShopApiPlugin\Handler;
 
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Sylius\Component\Product\Model\ProductInterface;
-use Sylius\ShopApiPlugin\Command\PutOptionBasedConfigurableItemToCart;
-use Sylius\ShopApiPlugin\Modifier\OrderModifierInterface;
+use Sylius\SyliusShopApiPlugin\Command\PutOptionBasedConfigurableItemToCart;
+use Sylius\SyliusShopApiPlugin\Modifier\OrderModifierInterface;
 use Webmozart\Assert\Assert;
 
 final class PutOptionBasedConfigurableItemToCartHandler

@@ -2,18 +2,18 @@
 
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="sylius.shop_api_plugin.view_repository.cart_view_repository" class="Sylius\ShopApiPlugin\ViewRepository\CartViewRepository">
+        <service id="sylius.shop_api_plugin.view_repository.cart_view_repository" class="Sylius\SyliusShopApiPlugin\ViewRepository\CartViewRepository">
             <argument type="service" id="sylius.repository.order" />
             <argument type="service" id="sylius.shop_api_plugin.factory.cart_view_factory" />
         </service>
 
-        <service id="sylius.shop_api_plugin.view_repository.product_details_view_repository" class="Sylius\ShopApiPlugin\ViewRepository\ProductDetailsViewRepository">
+        <service id="sylius.shop_api_plugin.view_repository.product_details_view_repository" class="Sylius\SyliusShopApiPlugin\ViewRepository\ProductDetailsViewRepository">
             <argument type="service" id="sylius.repository.channel" />
             <argument type="service" id="sylius.repository.product" />
             <argument type="service" id="sylius.shop_api_plugin.factory.detailed_product_view_factory" />
         </service>
 
-        <service id="sylius.shop_api_plugin.view_repository.product_catalog_view_repository" class="Sylius\ShopApiPlugin\ViewRepository\ProductCatalogViewRepository">
+        <service id="sylius.shop_api_plugin.view_repository.product_catalog_view_repository" class="Sylius\SyliusShopApiPlugin\ViewRepository\ProductCatalogViewRepository">
             <argument type="service" id="sylius.repository.channel" />
             <argument type="service" id="sylius.repository.product" />
             <argument type="service" id="sylius.repository.taxon" />
@@ -21,7 +21,7 @@
             <argument type="service" id="sylius.shop_api_plugin.factory.page_view_factory" />
         </service>
 
-        <service id="sylius.shop_api_plugin.view_repository.product_reviews_view_repository" class="Sylius\ShopApiPlugin\ViewRepository\ProductReviewsViewRepository">
+        <service id="sylius.shop_api_plugin.view_repository.product_reviews_view_repository" class="Sylius\SyliusShopApiPlugin\ViewRepository\ProductReviewsViewRepository">
             <argument type="service" id="sylius.repository.channel" />
             <argument type="service" id="sylius.repository.product_review" />
             <argument type="service" id="sylius.repository.product" />
@@ -29,7 +29,7 @@
             <argument type="service" id="sylius.shop_api_plugin.factory.page_view_factory" />
         </service>
 
-        <service id="sylius.shop_api_plugin.view_repository.product_latest_view_repository" class="Sylius\ShopApiPlugin\ViewRepository\ProductLatestViewRepository">
+        <service id="sylius.shop_api_plugin.view_repository.product_latest_view_repository" class="Sylius\SyliusShopApiPlugin\ViewRepository\ProductLatestViewRepository">
             <argument type="service" id="sylius.repository.channel" />
             <argument type="service" id="sylius.repository.product" />
             <argument type="service" id="sylius.shop_api_plugin.factory.list_product_view_factory" />

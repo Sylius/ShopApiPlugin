@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\EventListener;
+namespace Sylius\SyliusShopApiPlugin\EventListener;
 
 use Sylius\Component\Locale\Provider\LocaleProviderInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;

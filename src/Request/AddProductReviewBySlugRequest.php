@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Request;
+namespace Sylius\SyliusShopApiPlugin\Request;
 
-use Sylius\ShopApiPlugin\Command\AddProductReviewBySlug;
+use Sylius\SyliusShopApiPlugin\Command\AddProductReviewBySlug;
 use Symfony\Component\HttpFoundation\Request;
 
 final class AddProductReviewBySlugRequest

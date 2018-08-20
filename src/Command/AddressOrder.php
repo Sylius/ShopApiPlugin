@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Command;
+namespace Sylius\SyliusShopApiPlugin\Command;
 
-use Sylius\ShopApiPlugin\Model\Address;
+use Sylius\SyliusShopApiPlugin\Model\Address;
 use Webmozart\Assert\Assert;
 
 final class AddressOrder

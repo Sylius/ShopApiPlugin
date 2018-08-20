@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Validator\Constraints;
+namespace Sylius\SyliusShopApiPlugin\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 

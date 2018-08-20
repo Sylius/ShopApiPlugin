@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\ViewRepository;
+namespace Sylius\SyliusShopApiPlugin\ViewRepository;
 
-use Sylius\ShopApiPlugin\View\CartSummaryView;
+use Sylius\SyliusShopApiPlugin\View\CartSummaryView;
 
 interface CartViewRepositoryInterface
 {

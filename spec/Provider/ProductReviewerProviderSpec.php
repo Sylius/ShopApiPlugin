@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\Provider;
+namespace spec\Sylius\SyliusShopApiPlugin\Provider;
 
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\Customer;
-use Sylius\ShopApiPlugin\Provider\CustomerProviderInterface;
-use Sylius\ShopApiPlugin\Provider\ProductReviewerProviderInterface;
+use Sylius\SyliusShopApiPlugin\Provider\CustomerProviderInterface;
+use Sylius\SyliusShopApiPlugin\Provider\ProductReviewerProviderInterface;
 
 final class ProductReviewerProviderSpec extends ObjectBehavior
 {

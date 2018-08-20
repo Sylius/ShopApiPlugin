@@ -39,7 +39,7 @@ Rest of the command are executed inside `project` folder.
             $bundles = [
                 // ...
     
-                new \Sylius\ShopApiPlugin\ShopApiPlugin(),
+                new \Sylius\SyliusShopApiPlugin\ShopApiPlugin(),
                 new \League\Tactician\Bundle\TacticianBundle(),
             ];
     

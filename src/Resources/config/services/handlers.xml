@@ -2,156 +2,156 @@
 
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="sylius.shop_api_plugin.handler.address_shipment" class="Sylius\ShopApiPlugin\Handler\AddressOrderHandler">
+        <service id="sylius.shop_api_plugin.handler.address_shipment" class="Sylius\SyliusShopApiPlugin\Handler\AddressOrderHandler">
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.factory.address"/>
             <argument type="service" id="sm.factory"/>
-            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\AddressOrder"/>
+            <tag name="tactician.handler" command="Sylius\SyliusShopApiPlugin\Command\AddressOrder"/>
         </service>
 
-        <service id="sylius.shop_api_plugin.handler.pickup_cart_handler" class="Sylius\ShopApiPlugin\Handler\PickupCartHandler">
+        <service id="sylius.shop_api_plugin.handler.pickup_cart_handler" class="Sylius\SyliusShopApiPlugin\Handler\PickupCartHandler">
             <argument type="service" id="sylius.factory.order"/>
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.repository.channel"/>
-            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\PickupCart"/>
+            <tag name="tactician.handler" command="Sylius\SyliusShopApiPlugin\Command\PickupCart"/>
         </service>
 
-        <service id="sylius.shop_api_plugin.handler.drop_cart_handler" class="Sylius\ShopApiPlugin\Handler\DropCartHandler">
+        <service id="sylius.shop_api_plugin.handler.drop_cart_handler" class="Sylius\SyliusShopApiPlugin\Handler\DropCartHandler">
             <argument type="service" id="sylius.repository.order"/>
-            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\DropCart"/>
+            <tag name="tactician.handler" command="Sylius\SyliusShopApiPlugin\Command\DropCart"/>
         </service>
 
-        <service id="sylius.shop_api_plugin.handler.put_simple_item_to_cart_handler" class="Sylius\ShopApiPlugin\Handler\PutSimpleItemToCartHandler">
+        <service id="sylius.shop_api_plugin.handler.put_simple_item_to_cart_handler" class="Sylius\SyliusShopApiPlugin\Handler\PutSimpleItemToCartHandler">
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.repository.product"/>
             <argument type="service" id="sylius.shop_api_plugin.modifier.order_modifier"/>
-            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\PutSimpleItemToCart"/>
+            <tag name="tactician.handler" command="Sylius\SyliusShopApiPlugin\Command\PutSimpleItemToCart"/>
         </service>
 
-        <service id="sylius.shop_api_plugin.handler.put_variant_based_configurable_item_to_cart_handler" class="Sylius\ShopApiPlugin\Handler\PutVariantBasedConfigurableItemToCartHandler">
+        <service id="sylius.shop_api_plugin.handler.put_variant_based_configurable_item_to_cart_handler" class="Sylius\SyliusShopApiPlugin\Handler\PutVariantBasedConfigurableItemToCartHandler">
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.repository.product_variant"/>
             <argument type="service" id="sylius.shop_api_plugin.modifier.order_modifier"/>
-            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\PutVariantBasedConfigurableItemToCart"/>
+            <tag name="tactician.handler" command="Sylius\SyliusShopApiPlugin\Command\PutVariantBasedConfigurableItemToCart"/>
         </service>
 
-        <service id="sylius.shop_api_plugin.handler.put_option_based_configurable_item_to_cart_handler" class="Sylius\ShopApiPlugin\Handler\PutOptionBasedConfigurableItemToCartHandler">
+        <service id="sylius.shop_api_plugin.handler.put_option_based_configurable_item_to_cart_handler" class="Sylius\SyliusShopApiPlugin\Handler\PutOptionBasedConfigurableItemToCartHandler">
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.repository.product"/>
             <argument type="service" id="sylius.shop_api_plugin.modifier.order_modifier"/>
-            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\PutOptionBasedConfigurableItemToCart"/>
+            <tag name="tactician.handler" command="Sylius\SyliusShopApiPlugin\Command\PutOptionBasedConfigurableItemToCart"/>
         </service>
 
-        <service id="sylius.shop_api_plugin.handler.change_item_quantity_handler" class="Sylius\ShopApiPlugin\Handler\ChangeItemQuantityHandler">
+        <service id="sylius.shop_api_plugin.handler.change_item_quantity_handler" class="Sylius\SyliusShopApiPlugin\Handler\ChangeItemQuantityHandler">
             <argument type="service" id="sylius.repository.order_item" />
             <argument type="service" id="sylius.repository.order" />
             <argument type="service" id="sylius.order_item_quantity_modifier" />
             <argument type="service" id="sylius.order_processing.order_processor" />
-            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\ChangeItemQuantity"/>
+            <tag name="tactician.handler" command="Sylius\SyliusShopApiPlugin\Command\ChangeItemQuantity"/>
         </service>
 
-        <service id="sylius.shop_api_plugin.handler.remove_item_from_cart_handler" class="Sylius\ShopApiPlugin\Handler\RemoveItemFromCartHandler">
+        <service id="sylius.shop_api_plugin.handler.remove_item_from_cart_handler" class="Sylius\SyliusShopApiPlugin\Handler\RemoveItemFromCartHandler">
             <argument type="service" id="sylius.repository.order_item" />
             <argument type="service" id="sylius.repository.order" />
             <argument type="service" id="sylius.order_processing.order_processor" />
-            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\RemoveItemFromCart"/>
+            <tag name="tactician.handler" command="Sylius\SyliusShopApiPlugin\Command\RemoveItemFromCart"/>
         </service>
 
-        <service id="sylius.shop_api_plugin.handler.choose_shipping_method_handler" class="Sylius\ShopApiPlugin\Handler\ChooseShippingMethodHandler">
+        <service id="sylius.shop_api_plugin.handler.choose_shipping_method_handler" class="Sylius\SyliusShopApiPlugin\Handler\ChooseShippingMethodHandler">
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.repository.shipping_method"/>
             <argument type="service" id="sylius.shipping_eligibility_checker"/>
             <argument type="service" id="sm.factory"/>
-            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\ChooseShippingMethod"/>
+            <tag name="tactician.handler" command="Sylius\SyliusShopApiPlugin\Command\ChooseShippingMethod"/>
         </service>
 
-        <service id="sylius.shop_api_plugin.handler.choose_payment_method_handler" class="Sylius\ShopApiPlugin\Handler\ChoosePaymentMethodHandler">
+        <service id="sylius.shop_api_plugin.handler.choose_payment_method_handler" class="Sylius\SyliusShopApiPlugin\Handler\ChoosePaymentMethodHandler">
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.repository.payment_method"/>
             <argument type="service" id="sm.factory"/>
-            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\ChoosePaymentMethod"/>
+            <tag name="tactician.handler" command="Sylius\SyliusShopApiPlugin\Command\ChoosePaymentMethod"/>
         </service>
 
-        <service id="sylius.shop_api_plugin.handler.add_coupon_handler" class="Sylius\ShopApiPlugin\Handler\AddCouponHandler">
+        <service id="sylius.shop_api_plugin.handler.add_coupon_handler" class="Sylius\SyliusShopApiPlugin\Handler\AddCouponHandler">
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.repository.promotion_coupon"/>
             <argument type="service" id="sylius.order_processing.order_processor"/>
             <argument type="service" id="sylius.shop_api_plugin.checker.promotion_coupon_eligibility_checker"/>
-            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\AddCoupon"/>
+            <tag name="tactician.handler" command="Sylius\SyliusShopApiPlugin\Command\AddCoupon"/>
         </service>
 
-        <service id="sylius.shop_api_plugin.handler.remove_coupon_handler" class="Sylius\ShopApiPlugin\Handler\RemoveCouponHandler">
+        <service id="sylius.shop_api_plugin.handler.remove_coupon_handler" class="Sylius\SyliusShopApiPlugin\Handler\RemoveCouponHandler">
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.order_processing.order_processor"/>
-            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\RemoveCoupon"/>
+            <tag name="tactician.handler" command="Sylius\SyliusShopApiPlugin\Command\RemoveCoupon"/>
         </service>
 
-        <service id="sylius.shop_api_plugin.handler.complete_order_handler" class="Sylius\ShopApiPlugin\Handler\CompleteOrderHandler">
+        <service id="sylius.shop_api_plugin.handler.complete_order_handler" class="Sylius\SyliusShopApiPlugin\Handler\CompleteOrderHandler">
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.shop_api_plugin.provider.customer_provider"/>
             <argument type="service" id="sm.factory"/>
-            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\CompleteOrder"/>
+            <tag name="tactician.handler" command="Sylius\SyliusShopApiPlugin\Command\CompleteOrder"/>
         </service>
 
-        <service id="sylius.shop_api_plugin.handler.add_product_review_by_slug_handler" class="Sylius\ShopApiPlugin\Handler\AddProductReviewBySlugHandler">
+        <service id="sylius.shop_api_plugin.handler.add_product_review_by_slug_handler" class="Sylius\SyliusShopApiPlugin\Handler\AddProductReviewBySlugHandler">
             <argument type="service" id="sylius.repository.product_review"/>
             <argument type="service" id="sylius.repository.channel"/>
             <argument type="service" id="sylius.repository.product"/>
             <argument type="service" id="sylius.shop_api_plugin.provider.product_reviewer_provider"/>
             <argument type="service" id="sylius.factory.product_review"/>
-            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\AddProductReviewBySlug"/>
+            <tag name="tactician.handler" command="Sylius\SyliusShopApiPlugin\Command\AddProductReviewBySlug"/>
         </service>
 
-        <service id="sylius.shop_api_plugin.handler.add_product_review_by_code_handler" class="Sylius\ShopApiPlugin\Handler\AddProductReviewByCodeHandler">
+        <service id="sylius.shop_api_plugin.handler.add_product_review_by_code_handler" class="Sylius\SyliusShopApiPlugin\Handler\AddProductReviewByCodeHandler">
             <argument type="service" id="sylius.repository.product_review"/>
             <argument type="service" id="sylius.repository.channel"/>
             <argument type="service" id="sylius.repository.product"/>
             <argument type="service" id="sylius.shop_api_plugin.provider.product_reviewer_provider"/>
             <argument type="service" id="sylius.factory.product_review"/>
-            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\AddProductReviewByCode"/>
+            <tag name="tactician.handler" command="Sylius\SyliusShopApiPlugin\Command\AddProductReviewByCode"/>
         </service>
 
-        <service id="sylius.shop_api_plugin.handler.register_customer" class="Sylius\ShopApiPlugin\Handler\RegisterCustomerHandler">
+        <service id="sylius.shop_api_plugin.handler.register_customer" class="Sylius\SyliusShopApiPlugin\Handler\RegisterCustomerHandler">
             <argument type="service" id="sylius.repository.shop_user" />
             <argument type="service" id="sylius.repository.channel" />
             <argument type="service" id="sylius.factory.shop_user" />
             <argument type="service" id="sylius.factory.customer" />
             <argument type="service" id="event_dispatcher" />
-            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\RegisterCustomer" />
+            <tag name="tactician.handler" command="Sylius\SyliusShopApiPlugin\Command\RegisterCustomer" />
         </service>
 
-        <service id="sylius.shop_api_plugin.handler.update_customer" class="Sylius\ShopApiPlugin\Handler\UpdateCustomerHandler">
+        <service id="sylius.shop_api_plugin.handler.update_customer" class="Sylius\SyliusShopApiPlugin\Handler\UpdateCustomerHandler">
             <argument type="service" id="sylius.repository.customer" />
-            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\UpdateCustomer" />
+            <tag name="tactician.handler" command="Sylius\SyliusShopApiPlugin\Command\UpdateCustomer" />
         </service>
 
-        <service id="sylius.shop_api_plugin.handler.send_verification_token_handler" class="Sylius\ShopApiPlugin\Handler\SendVerificationTokenHandler">
+        <service id="sylius.shop_api_plugin.handler.send_verification_token_handler" class="Sylius\SyliusShopApiPlugin\Handler\SendVerificationTokenHandler">
             <argument type="service" id="sylius.repository.shop_user" />
             <argument type="service" id="sylius.email_sender" />
-            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\SendVerificationToken" />
+            <tag name="tactician.handler" command="Sylius\SyliusShopApiPlugin\Command\SendVerificationToken" />
         </service>
 
-        <service id="sylius.shop_api_plugin.handler.verify_account_handler" class="Sylius\ShopApiPlugin\Handler\VerifyAccountHandler">
+        <service id="sylius.shop_api_plugin.handler.verify_account_handler" class="Sylius\SyliusShopApiPlugin\Handler\VerifyAccountHandler">
             <argument type="service" id="sylius.repository.shop_user" />
-            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\VerifyAccount" />
+            <tag name="tactician.handler" command="Sylius\SyliusShopApiPlugin\Command\VerifyAccount" />
         </service>
 
-        <service id="sylius.shop_api_plugin.handler.generate_verification_token_handler" class="Sylius\ShopApiPlugin\Handler\GenerateVerificationTokenHandler">
+        <service id="sylius.shop_api_plugin.handler.generate_verification_token_handler" class="Sylius\SyliusShopApiPlugin\Handler\GenerateVerificationTokenHandler">
             <argument type="service" id="sylius.repository.shop_user" />
             <argument type="service" id="sylius.shop_user.token_generator.email_verification" />
-            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\GenerateVerificationToken" />
+            <tag name="tactician.handler" command="Sylius\SyliusShopApiPlugin\Command\GenerateVerificationToken" />
         </service>
 
-        <service id="sylius.shop_api_plugin.handler.send_reset_password_token_handler" class="Sylius\ShopApiPlugin\Handler\SendResetPasswordTokenHandler">
+        <service id="sylius.shop_api_plugin.handler.send_reset_password_token_handler" class="Sylius\SyliusShopApiPlugin\Handler\SendResetPasswordTokenHandler">
             <argument type="service" id="sylius.repository.shop_user" />
             <argument type="service" id="sylius.email_sender" />
-            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\SendResetPasswordToken" />
+            <tag name="tactician.handler" command="Sylius\SyliusShopApiPlugin\Command\SendResetPasswordToken" />
         </service>
 
-        <service id="sylius.shop_api_plugin.handler.generate_reset_password_token_handler" class="Sylius\ShopApiPlugin\Handler\GenerateResetPasswordTokenHandler">
+        <service id="sylius.shop_api_plugin.handler.generate_reset_password_token_handler" class="Sylius\SyliusShopApiPlugin\Handler\GenerateResetPasswordTokenHandler">
             <argument type="service" id="sylius.repository.shop_user" />
             <argument type="service" id="sylius.shop_user.token_generator.email_verification" />
-            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\GenerateResetPasswordToken" />
+            <tag name="tactician.handler" command="Sylius\SyliusShopApiPlugin\Command\GenerateResetPasswordToken" />
         </service>
     </services>
 </container>

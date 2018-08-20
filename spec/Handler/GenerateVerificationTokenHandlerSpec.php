@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\Handler;
+namespace spec\Sylius\SyliusShopApiPlugin\Handler;
 
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
 use Sylius\Component\User\Security\Generator\GeneratorInterface;
-use Sylius\ShopApiPlugin\Command\GenerateVerificationToken;
-use Sylius\ShopApiPlugin\Handler\GenerateVerificationTokenHandler;
+use Sylius\SyliusShopApiPlugin\Command\GenerateVerificationToken;
+use Sylius\SyliusShopApiPlugin\Handler\GenerateVerificationTokenHandler;
 
 final class GenerateVerificationTokenHandlerSpec extends ObjectBehavior
 {

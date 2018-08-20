@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\ViewRepository;
+namespace Sylius\SyliusShopApiPlugin\ViewRepository;
 
 use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Sylius\Component\Locale\Model\LocaleInterface;
-use Sylius\ShopApiPlugin\Factory\ProductViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\ProductView;
+use Sylius\SyliusShopApiPlugin\Factory\ProductViewFactoryInterface;
+use Sylius\SyliusShopApiPlugin\View\ProductView;
 use Webmozart\Assert\Assert;
 
 final class ProductDetailsViewRepository implements ProductDetailsViewRepositoryInterface

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Handler;
+namespace Sylius\SyliusShopApiPlugin\Handler;
 
 use SM\Factory\FactoryInterface;
 use Sylius\Component\Core\Model\OrderInterface;
@@ -10,7 +10,7 @@ use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Core\OrderCheckoutTransitions;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\PaymentMethodRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\ChoosePaymentMethod;
+use Sylius\SyliusShopApiPlugin\Command\ChoosePaymentMethod;
 use Webmozart\Assert\Assert;
 
 final class ChoosePaymentMethodHandler

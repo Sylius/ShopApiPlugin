@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Handler;
+namespace Sylius\SyliusShopApiPlugin\Handler;
 
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\Mailer\Sender\SenderInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\SendVerificationToken;
-use Sylius\ShopApiPlugin\Mailer\Emails;
+use Sylius\SyliusShopApiPlugin\Command\SendVerificationToken;
+use Sylius\SyliusShopApiPlugin\Mailer\Emails;
 use Webmozart\Assert\Assert;
 
 final class SendVerificationTokenHandler

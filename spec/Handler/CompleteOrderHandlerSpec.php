@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\Handler;
+namespace spec\Sylius\SyliusShopApiPlugin\Handler;
 
 use PhpSpec\ObjectBehavior;
 use SM\Factory\FactoryInterface as StateMachineFactoryInterface;
@@ -11,8 +11,8 @@ use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\OrderCheckoutTransitions;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\CompleteOrder;
-use Sylius\ShopApiPlugin\Provider\CustomerProviderInterface;
+use Sylius\SyliusShopApiPlugin\Command\CompleteOrder;
+use Sylius\SyliusShopApiPlugin\Provider\CustomerProviderInterface;
 
 final class CompleteOrderHandlerSpec extends ObjectBehavior
 {

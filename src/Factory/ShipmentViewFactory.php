@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Factory;
+namespace Sylius\SyliusShopApiPlugin\Factory;
 
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\ShipmentInterface;
-use Sylius\ShopApiPlugin\View\ShipmentView;
+use Sylius\SyliusShopApiPlugin\View\ShipmentView;
 
 final class ShipmentViewFactory implements ShipmentViewFactoryInterface
 {

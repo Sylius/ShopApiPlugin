@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\Factory;
+namespace spec\Sylius\SyliusShopApiPlugin\Factory;
 
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\ShipmentInterface;
 use Sylius\Component\Core\Model\ShippingMethodInterface;
-use Sylius\ShopApiPlugin\Factory\ShipmentViewFactoryInterface;
-use Sylius\ShopApiPlugin\Factory\ShippingMethodViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\ShipmentView;
-use Sylius\ShopApiPlugin\View\ShippingMethodView;
+use Sylius\SyliusShopApiPlugin\Factory\ShipmentViewFactoryInterface;
+use Sylius\SyliusShopApiPlugin\Factory\ShippingMethodViewFactoryInterface;
+use Sylius\SyliusShopApiPlugin\View\ShipmentView;
+use Sylius\SyliusShopApiPlugin\View\ShippingMethodView;
 
 final class ShipmentViewFactorySpec extends ObjectBehavior
 {

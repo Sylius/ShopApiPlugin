@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Handler;
+namespace Sylius\SyliusShopApiPlugin\Handler;
 
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
-use Sylius\ShopApiPlugin\Command\UpdateCustomer;
+use Sylius\SyliusShopApiPlugin\Command\UpdateCustomer;
 
 final class UpdateCustomerHandler
 {

@@ -3,14 +3,14 @@
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <service id="sylius.shop_api_plugin.controller.cart.summarize_action"
-                 class="Sylius\ShopApiPlugin\Controller\Cart\SummarizeAction"
+                 class="Sylius\SyliusShopApiPlugin\Controller\Cart\SummarizeAction"
         >
             <argument type="service" id="sylius.shop_api_plugin.view_repository.cart_view_repository" />
             <argument type="service" id="fos_rest.view_handler" />
         </service>
 
         <service id="sylius.shop_api_plugin.controller.cart.drop_cart_action"
-                 class="Sylius\ShopApiPlugin\Controller\Cart\DropCartAction"
+                 class="Sylius\SyliusShopApiPlugin\Controller\Cart\DropCartAction"
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="tactician.commandbus" />
@@ -19,7 +19,7 @@
         </service>
 
         <service id="sylius.shop_api_plugin.controller.cart.pickup_action"
-                 class="Sylius\ShopApiPlugin\Controller\Cart\PickupAction"
+                 class="Sylius\SyliusShopApiPlugin\Controller\Cart\PickupAction"
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="tactician.commandbus" />
@@ -29,7 +29,7 @@
         </service>
 
         <service id="sylius.shop_api_plugin.controller.cart.change_item_quantity_action"
-                 class="Sylius\ShopApiPlugin\Controller\Cart\ChangeItemQuantityAction"
+                 class="Sylius\SyliusShopApiPlugin\Controller\Cart\ChangeItemQuantityAction"
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="tactician.commandbus" />
@@ -39,7 +39,7 @@
         </service>
 
         <service id="sylius.shop_api_plugin.controller.cart.remove_item_from_cart_action"
-                 class="Sylius\ShopApiPlugin\Controller\Cart\RemoveItemFromCartAction"
+                 class="Sylius\SyliusShopApiPlugin\Controller\Cart\RemoveItemFromCartAction"
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="tactician.commandbus" />
@@ -49,7 +49,7 @@
         </service>
 
         <service id="sylius.shop_api_plugin.controller.cart.add_coupon_action"
-                 class="Sylius\ShopApiPlugin\Controller\Cart\AddCouponAction"
+                 class="Sylius\SyliusShopApiPlugin\Controller\Cart\AddCouponAction"
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="tactician.commandbus" />
@@ -59,7 +59,7 @@
         </service>
 
         <service id="sylius.shop_api_plugin.controller.cart.remove_coupon_action"
-                 class="Sylius\ShopApiPlugin\Controller\Cart\RemoveCouponAction"
+                 class="Sylius\SyliusShopApiPlugin\Controller\Cart\RemoveCouponAction"
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="tactician.commandbus" />
@@ -69,7 +69,7 @@
         </service>
 
         <service id="sylius.shop_api_plugin.controller.cart.put_item_to_cart_action"
-                 class="Sylius\ShopApiPlugin\Controller\Cart\PutItemToCartAction"
+                 class="Sylius\SyliusShopApiPlugin\Controller\Cart\PutItemToCartAction"
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="tactician.commandbus" />
@@ -79,7 +79,7 @@
         </service>
 
         <service id="sylius.shop_api_plugin.controller.cart.put_items_to_cart_action"
-                 class="Sylius\ShopApiPlugin\Controller\Cart\PutItemsToCartAction"
+                 class="Sylius\SyliusShopApiPlugin\Controller\Cart\PutItemsToCartAction"
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="tactician.commandbus" />

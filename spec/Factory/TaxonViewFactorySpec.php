@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\Factory;
+namespace spec\Sylius\SyliusShopApiPlugin\Factory;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\ImageInterface;
 use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Taxonomy\Model\TaxonTranslationInterface;
-use Sylius\ShopApiPlugin\Factory\ImageViewFactoryInterface;
-use Sylius\ShopApiPlugin\Factory\TaxonViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\ImageView;
-use Sylius\ShopApiPlugin\View\TaxonView;
+use Sylius\SyliusShopApiPlugin\Factory\ImageViewFactoryInterface;
+use Sylius\SyliusShopApiPlugin\Factory\TaxonViewFactoryInterface;
+use Sylius\SyliusShopApiPlugin\View\ImageView;
+use Sylius\SyliusShopApiPlugin\View\TaxonView;
 
 final class TaxonViewFactorySpec extends ObjectBehavior
 {

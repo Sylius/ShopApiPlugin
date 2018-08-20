@@ -12,12 +12,12 @@
 -->
 
 <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/services/constraint-mapping-1.0.xsd">
-    <class name="Sylius\ShopApiPlugin\Request\PutSimpleItemToCartRequest">
+    <class name="Sylius\SyliusShopApiPlugin\Request\PutSimpleItemToCartRequest">
         <property name="token">
             <constraint name="NotNull">
                 <option name="message">sylius.shop_api.token.not_null</option>
             </constraint>
-            <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\CartExists" />
+            <constraint name="Sylius\SyliusShopApiPlugin\Validator\Constraints\CartExists" />
         </property>
         <property name="quantity">
             <constraint name="Type">
@@ -38,8 +38,8 @@
             <constraint name="NotNull">
                 <option name="message">sylius.shop_api.product.not_null</option>
             </constraint>
-            <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\ProductExists" />
-            <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\SimpleProduct" />
+            <constraint name="Sylius\SyliusShopApiPlugin\Validator\Constraints\ProductExists" />
+            <constraint name="Sylius\SyliusShopApiPlugin\Validator\Constraints\SimpleProduct" />
         </property>
     </class>
 </constraint-mapping>

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Tests\Sylius\ShopApiPlugin\DependencyInjection;
+namespace Tests\Sylius\SyliusShopApiPlugin\DependencyInjection;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
-use Sylius\ShopApiPlugin\DependencyInjection\ShopApiExtension;
-use Sylius\ShopApiPlugin\View;
+use Sylius\SyliusShopApiPlugin\DependencyInjection\ShopApiExtension;
+use Sylius\SyliusShopApiPlugin\View;
 
 final class ShopApiExtensionTest extends AbstractExtensionTestCase
 {

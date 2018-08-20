@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\Factory;
+namespace spec\Sylius\SyliusShopApiPlugin\Factory;
 
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Product\Model\ProductAttributeInterface;
 use Sylius\Component\Product\Model\ProductAttributeTranslationInterface;
 use Sylius\Component\Product\Model\ProductAttributeValueInterface;
-use Sylius\ShopApiPlugin\Factory\ProductAttributeValueViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\ProductAttributeValueView;
+use Sylius\SyliusShopApiPlugin\Factory\ProductAttributeValueViewFactoryInterface;
+use Sylius\SyliusShopApiPlugin\View\ProductAttributeValueView;
 
 final class ProductAttributeValueViewFactorySpec extends ObjectBehavior
 {

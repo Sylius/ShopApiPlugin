@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\Command;
+namespace spec\Sylius\SyliusShopApiPlugin\Command;
 
 use PhpSpec\ObjectBehavior;
-use Sylius\ShopApiPlugin\Command\GenerateResetPasswordToken;
+use Sylius\SyliusShopApiPlugin\Command\GenerateResetPasswordToken;
 
 final class GenerateResetPasswordTokenSpec extends ObjectBehavior
 {

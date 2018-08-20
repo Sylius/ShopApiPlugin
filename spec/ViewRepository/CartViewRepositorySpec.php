@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\ViewRepository;
+namespace spec\Sylius\SyliusShopApiPlugin\ViewRepository;
 
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Sylius\ShopApiPlugin\Factory\CartViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\CartSummaryView;
-use Sylius\ShopApiPlugin\ViewRepository\CartViewRepositoryInterface;
+use Sylius\SyliusShopApiPlugin\Factory\CartViewFactoryInterface;
+use Sylius\SyliusShopApiPlugin\View\CartSummaryView;
+use Sylius\SyliusShopApiPlugin\ViewRepository\CartViewRepositoryInterface;
 
 final class CartViewRepositorySpec extends ObjectBehavior
 {

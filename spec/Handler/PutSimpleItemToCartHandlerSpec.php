@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\Handler;
+namespace spec\Sylius\SyliusShopApiPlugin\Handler;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use PhpSpec\ObjectBehavior;
@@ -11,8 +11,8 @@ use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\PutSimpleItemToCart;
-use Sylius\ShopApiPlugin\Modifier\OrderModifierInterface;
+use Sylius\SyliusShopApiPlugin\Command\PutSimpleItemToCart;
+use Sylius\SyliusShopApiPlugin\Modifier\OrderModifierInterface;
 
 final class PutSimpleItemToCartHandlerSpec extends ObjectBehavior
 {

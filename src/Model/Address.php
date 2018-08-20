@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Model;
+namespace Sylius\SyliusShopApiPlugin\Model;
 
 use Webmozart\Assert\Assert;
 

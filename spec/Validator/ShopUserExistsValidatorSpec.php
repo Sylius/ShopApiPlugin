@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\Validator;
+namespace spec\Sylius\SyliusShopApiPlugin\Validator;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
-use Sylius\ShopApiPlugin\Validator\Constraints\ShopUserExists;
-use Sylius\ShopApiPlugin\Validator\ShopUserExistsValidator;
+use Sylius\SyliusShopApiPlugin\Validator\Constraints\ShopUserExists;
+use Sylius\SyliusShopApiPlugin\Validator\ShopUserExistsValidator;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 final class ShopUserExistsValidatorSpec extends ObjectBehavior

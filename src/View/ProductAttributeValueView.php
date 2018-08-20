@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\View;
+namespace Sylius\SyliusShopApiPlugin\View;
 
 class ProductAttributeValueView
 {

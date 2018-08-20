@@ -3,7 +3,7 @@
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <service id="sylius.shop_api_plugin.controller.customer.resend_verification_token_action"
-                 class="Sylius\ShopApiPlugin\Controller\Customer\ResendVerificationTokenAction"
+                 class="Sylius\SyliusShopApiPlugin\Controller\Customer\ResendVerificationTokenAction"
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="tactician.commandbus" />
@@ -12,7 +12,7 @@
         </service>
 
         <service id="sylius.shop_api_plugin.controller.customer.verify_account_action"
-                 class="Sylius\ShopApiPlugin\Controller\Customer\VerifyAccountAction"
+                 class="Sylius\SyliusShopApiPlugin\Controller\Customer\VerifyAccountAction"
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="tactician.commandbus" />
@@ -21,7 +21,7 @@
         </service>
 
         <service id="sylius.shop_api_plugin.controller.customer.register_customer_action"
-                 class="Sylius\ShopApiPlugin\Controller\Customer\RegisterCustomerAction"
+                 class="Sylius\SyliusShopApiPlugin\Controller\Customer\RegisterCustomerAction"
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="tactician.commandbus" />
@@ -30,21 +30,21 @@
         </service>
 
         <service id="sylius.shop_api_plugin.controller.customer.request_password_resetting_action"
-                 class="Sylius\ShopApiPlugin\Controller\Customer\RequestPasswordResettingAction"
+                 class="Sylius\SyliusShopApiPlugin\Controller\Customer\RequestPasswordResettingAction"
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="tactician.commandbus" />
         </service>
 
         <service id="sylius.shop_api_plugin.controller.customer.logged_in_customer_details_action"
-                 class="Sylius\ShopApiPlugin\Controller\Customer\LoggedInCustomerDetailsAction"
+                 class="Sylius\SyliusShopApiPlugin\Controller\Customer\LoggedInCustomerDetailsAction"
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="security.token_storage" />
         </service>
 
         <service id="sylius.shop_api_plugin.controller.customer.update_customer_action"
-                 class="Sylius\ShopApiPlugin\Controller\Customer\UpdateCustomerAction"
+                 class="Sylius\SyliusShopApiPlugin\Controller\Customer\UpdateCustomerAction"
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="validator" />

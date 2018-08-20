@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Request;
+namespace Sylius\SyliusShopApiPlugin\Request;
 
-use Sylius\ShopApiPlugin\Command\SendVerificationToken;
+use Sylius\SyliusShopApiPlugin\Command\SendVerificationToken;
 use Symfony\Component\HttpFoundation\Request;
 
 final class ResendVerificationTokenRequest

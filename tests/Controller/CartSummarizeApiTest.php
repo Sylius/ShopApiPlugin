@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Tests\Sylius\ShopApiPlugin\Controller;
+namespace Tests\Sylius\SyliusShopApiPlugin\Controller;
 
 use Lakion\ApiTestCase\JsonApiTestCase;
 use League\Tactician\CommandBus;
-use Sylius\ShopApiPlugin\Command\AddCoupon;
-use Sylius\ShopApiPlugin\Command\PickupCart;
-use Sylius\ShopApiPlugin\Command\PutSimpleItemToCart;
+use Sylius\SyliusShopApiPlugin\Command\AddCoupon;
+use Sylius\SyliusShopApiPlugin\Command\PickupCart;
+use Sylius\SyliusShopApiPlugin\Command\PutSimpleItemToCart;
 use Symfony\Component\HttpFoundation\Response;
 
 final class CartSummarizeApiTest extends JsonApiTestCase

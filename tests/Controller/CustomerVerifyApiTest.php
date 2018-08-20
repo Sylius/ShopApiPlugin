@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Tests\Sylius\ShopApiPlugin\Controller;
+namespace Tests\Sylius\SyliusShopApiPlugin\Controller;
 
 use Lakion\ApiTestCase\JsonApiTestCase;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
-use Tests\Sylius\ShopApiPlugin\Controller\Utils\PurgeSpooledMessagesTrait;
+use Tests\Sylius\SyliusShopApiPlugin\Controller\Utils\PurgeSpooledMessagesTrait;
 
 final class CustomerVerifyApiTest extends JsonApiTestCase
 {

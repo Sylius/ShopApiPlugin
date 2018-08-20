@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\Handler;
+namespace spec\Sylius\SyliusShopApiPlugin\Handler;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\VerifyAccount;
-use Sylius\ShopApiPlugin\Handler\VerifyAccountHandler;
+use Sylius\SyliusShopApiPlugin\Command\VerifyAccount;
+use Sylius\SyliusShopApiPlugin\Handler\VerifyAccountHandler;
 
 final class VerifyAccountHandlerSpec extends ObjectBehavior
 {

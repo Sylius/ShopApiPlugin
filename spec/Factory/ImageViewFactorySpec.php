@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\Factory;
+namespace spec\Sylius\SyliusShopApiPlugin\Factory;
 
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\ImageInterface;
-use Sylius\ShopApiPlugin\Factory\ImageViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\ImageView;
+use Sylius\SyliusShopApiPlugin\Factory\ImageViewFactoryInterface;
+use Sylius\SyliusShopApiPlugin\View\ImageView;
 
 final class ImageViewFactorySpec extends ObjectBehavior
 {

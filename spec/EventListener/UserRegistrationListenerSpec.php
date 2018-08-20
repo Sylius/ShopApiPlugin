@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\EventListener;
+namespace spec\Sylius\SyliusShopApiPlugin\EventListener;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use League\Tactician\CommandBus;
@@ -11,9 +11,9 @@ use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\GenerateVerificationToken;
-use Sylius\ShopApiPlugin\Command\SendVerificationToken;
-use Sylius\ShopApiPlugin\Event\CustomerRegistered;
+use Sylius\SyliusShopApiPlugin\Command\GenerateVerificationToken;
+use Sylius\SyliusShopApiPlugin\Command\SendVerificationToken;
+use Sylius\SyliusShopApiPlugin\Event\CustomerRegistered;
 
 final class UserRegistrationListenerSpec extends ObjectBehavior
 {
