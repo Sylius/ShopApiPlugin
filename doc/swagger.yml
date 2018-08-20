@@ -856,6 +856,8 @@ paths:
                         $ref: "#/definitions/LoggedInCustomerDetails"
                 500:
                     description: "There is no currently logged in user."
+            security:
+             - bearerAuth: []
         put:
             tags:
             - "users"
@@ -878,7 +880,13 @@ paths:
                     description: "User token is invalid."
                 500:
                     description: "There is no currently logged in user."
-
+            security:
+             - bearerAuth: []
+securityDefinitions:
+  bearerAuth:
+    type: "apiKey"
+    name: "Authorization"
+    in: "header"
 definitions:
     PickupCartRequest:
         type: "object"
