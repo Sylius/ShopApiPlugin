@@ -11,22 +11,22 @@
     },
     "items": [
         {
-            "code": "LOGAN_T_SHIRT_CODE",
-            "name": "Logan T-Shirt",
-            "slug": "logan-t-shirt",
+            "code": "LOGAN_MUG_CODE",
+            "name": "Logan Mug",
+            "slug": "logan-mug",
             "description": "Some description Lorem ipsum dolor sit amet.",
             "averageRating": 0,
             "taxons": {
-                "main": "T_SHIRTS",
+                "main": "MUG",
                 "others": [
-                    "WOMEN_T_SHIRTS",
+                    "MUG",
                     "BRAND"
                 ]
             },
             "variants": {
-                "SMALL_LOGAN_T_SHIRT_CODE": {
-                    "code": "SMALL_LOGAN_T_SHIRT_CODE",
-                    "name": "Small Logan T-Shirt",
+                "LOGAN_MUG_CODE": {
+                    "code": "LOGAN_MUG_CODE",
+                    "name": "Logan Mug",
                     "axis": [],
                     "nameAxis": {},
                     "price": {
@@ -36,46 +36,28 @@
                     "images": [
                         {
                             "code": "thumbnail",
-                            "path": "\/uo\/small-tshirt.jpg"
-                        }
-                    ]
-                },
-                "LARGE_LOGAN_T_SHIRT_CODE": {
-                    "code": "LARGE_LOGAN_T_SHIRT_CODE",
-                    "name": "Large Logan T-Shirt",
-                    "axis": [],
-                    "nameAxis": {},
-                    "price": {
-                        "current": 2999,
-                        "currency": "GBP"
-                    },
-                    "images": [
-                        {
-                            "code": "thumbnail",
-                            "path": "\/uo\/large-tshirt.jpg"
+                            "path": "\/uo\/mug.jpg"
                         }
                     ]
                 }
             },
-            "attributes": [],
+            "attributes": [
+                {
+                    "code": "MUG_MATERIAL_CODE",
+                    "name": "Mug material",
+                    "value": "Wood"
+                }
+            ],
             "associations": [],
             "images": [
                 {
                     "code": "thumbnail",
-                    "path": "\/uo\/tshirt.jpg"
-                },
-                {
-                    "code": "thumbnail",
-                    "path": "\/uo\/small-tshirt.jpg"
-                },
-                {
-                    "code": "thumbnail",
-                    "path": "\/uo\/large-tshirt.jpg"
+                    "path": "\/uo\/mug.jpg"
                 }
             ],
             "_links": {
                 "self": {
-                    "href": "\/shop-api\/products-by-slug\/logan-t-shirt"
+                    "href": "\/shop-api\/products-by-slug\/logan-mug"
                 }
             }
         }
