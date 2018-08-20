@@ -29,39 +29,7 @@ final class CartController extends Controller
      * @param Request $request
      *
      * @return Response
-     */
-    public function removeItemAction(Request $request)
-    {
-        /** @var OrderRepositoryInterface $cartRepository */
-        $cartRepository = $this->get('sylius.repository.order');
-        /** @var ViewHandlerInterface $viewHandler */
-        $viewHandler = $this->get('fos_rest.view_handler');
-        /** @var OrderItemRepositoryInterface $orderItemRepository */
-        $cartItemRepository = $this->get('sylius.repository.order_item');
-
-        $cart = $cartRepository->findOneBy(['tokenValue' => $request->attributes->get('token')]);
-
-        if (null === $cart) {
-            throw new NotFoundHttpException('Cart with given id does not exists');
-        }
-
-        /** @var OrderInterface $cart */
-        $cartItem = $cartItemRepository->find($request->attributes->get('id'));
-
-        if (null === $cartItem || !$cart->hasItem($cartItem)) {
-            throw new NotFoundHttpException('Cart item with given id does not exists');
-        }
-
-        $cart->removeItem($cartItem);
-        $cartItemRepository->remove($cartItem);
-
-        return $viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));
-    }
-
-    /**
-     * @param Request $request
-     *
-     * @return Response
+     * @throws UnresolvedDefaultShippingMethodException
      */
     public function estimateShippingCostAction(Request $request)
     {
