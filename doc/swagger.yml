@@ -36,7 +36,11 @@ tags:
   externalDocs:
       description: "Find out more"
       url: "http://docs.sylius.org/en/latest/book/customers/customer_and_shopuser.html"
-
+- name: "address"
+  description: "All functions related to the Sylius Customer Address Book"
+  externalDocs:
+      description: "Find out more"
+      url: "https://docs.sylius.com/en/latest/book/customers/addresses/address_book.html"
 schemes:
 - "https"
 paths:
@@ -882,6 +886,121 @@ paths:
                     description: "There is no currently logged in user."
             security:
              - bearerAuth: []
+    /address-book:
+        get:
+          tags: ["address"]
+          summary: "Gets the address book of the currently logged in user"
+          operationId: "getAddressBook"
+          responses:
+            200:
+              description: "Successfully fetched Address Book"
+              schema:
+                $ref: "#/definitions/LoggedInCustomerAddressBook"
+            500:
+              description: "User not logged in"
+          security:
+             - bearerAuth: []
+        post:
+          tags: ["address"]
+          summary: "Creates a new address in the the address book"
+          operationId: "createAddress"
+          consumes: ["application/json"]
+          parameters:
+          - name: "content"
+            in: "body"
+            required: true
+            schema:
+              $ref: "#/definitions/LoggedInCustomerAddressBookAddress"
+          responses:
+            204:
+              description: "Successfully created the address"
+            400:
+              description: "Validation failed"
+              schema:
+                  $ref: "#/definitions/GeneralError"
+            500:
+              description: "No logged in user or the user does not own the address"
+          security:
+             - bearerAuth: []
+    /address-book/{id}:
+        put:
+          tags:
+          - "address"
+          summary: "Updates an address in the address book"
+          operationId: "updateAddressBook"
+          consumes: ["application/json"]
+          parameters:
+          - name: "id"
+            in: "path"
+            required: true
+            type: "integer"
+            example: 1
+            description: "Id of the address to update"
+          - name: "content"
+            in: "body"
+            required: true
+            schema:
+              $ref: "#/definitions/LoggedInCustomerAddressBookAddress"
+          responses:
+            200:
+              description: "Successfully updated the address"
+              schema:
+                $ref: "#/definitions/LoggedInCustomerAddressBookAddress"
+            400:
+              description: "Validation failed"
+              schema:
+                  $ref: "#/definitions/GeneralError"
+            500:
+              description: "No logged in user or the user does not own the address"
+          security:
+             - bearerAuth: []
+        delete:
+          tags: ["address"]
+          summary: "Deletes an address from the address book"
+          operationId: "deleteAddress"
+          consumes: ["application/json"]
+          parameters:
+          - name: "id"
+            in: "path"
+            required: true
+            type: "integer"
+            example: 1
+            description: "Id of the address to update"
+          responses:
+            204:
+              description: "Successfully removed the address"
+            400:
+              description: "Validation failed"
+              schema:
+                  $ref: "#/definitions/GeneralError"
+            500:
+              description: "No logged in user or the user does not own the address"
+          security:
+             - bearerAuth: []
+    /address-book/{id}/default:
+        patch:
+          tags: ["address"]
+          summary: "Change the default address in the address book"
+          operationId: "updateDefaultAddress"
+          consumes: ["application/json"]
+          parameters:
+          - name: "id"
+            in: "path"
+            required: true
+            type: "integer"
+            example: 1
+            description: "Id of the address to be the default address"
+          responses:
+            204:
+              description: "Successfully updated the address"
+            400:
+              description: "Validation failed"
+              schema:
+                  $ref: "#/definitions/GeneralError"
+            500:
+              description: "No logged in user or the user does not own the address"
+          security:
+             - bearerAuth: []
 securityDefinitions:
   bearerAuth:
     type: "apiKey"
@@ -1508,6 +1627,52 @@ definitions:
             email:
                 type: "string"
                 example: "sherlock@holmes.com"
+    LoggedInCustomerAddressBook:
+      type: "array"
+      items:
+          allOf:
+              - $ref: "#/definitions/LoggedInCustomerAddressBookAddress"
+              - type: "object"
+                properties:
+                    default:
+                        type: "boolean"
+                        example: false
+    LoggedInCustomerAddressBookAddress:
+        type: "object"
+        properties:
+            id:
+                type: "integer"
+                example: 1
+            firstName:
+                type: "string"
+                example: "Sherlock"
+            lastName:
+                type: "string"
+                example: "Holmes"
+            countryCode:
+                type: "string"
+                example: "GB"
+            street:
+                type: "string"
+                example: "Baker Street 221b"
+            city:
+                type: "string"
+                example: "London"
+            postcode:
+                type: "string"
+                example: "NW1"
+            provinceName:
+                type: "string"
+                example: "Greater London"
+            provinceCode:
+                type: "string"
+                example: "GB_gl"
+            company:
+                type: "string"
+                example: "Holmes Investigation Service"
+            phoneNumber:
+                type: "string"
+                example: "+490000000000"
     GeneralError:
         type: "object"
         properties:
