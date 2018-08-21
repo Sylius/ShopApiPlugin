@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
-use Lakion\ApiTestCase\JsonApiTestCase;
 use Sylius\Component\Core\Test\Services\EmailCheckerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,7 +18,7 @@ final class CustomerResendVerificationTokenApiTest extends JsonApiTestCase
      */
     public function it_allows_to_resend_verification_token()
     {
-        $this->loadFixturesFromFile('channel.yml');
+        $this->loadFixturesFromFiles(['channel.yml']);
 
         $data =
 <<<EOT

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
-use Lakion\ApiTestCase\JsonApiTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
 final class ProductAddReviewByCodeApiTest extends JsonApiTestCase
@@ -16,7 +15,7 @@ final class ProductAddReviewByCodeApiTest extends JsonApiTestCase
      */
     public function it_adds_review_to_product()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $data =
 <<<EOT
@@ -39,8 +38,7 @@ EOT;
      */
     public function it_adds_review_to_the_product_for_registered_user()
     {
-        $this->loadFixturesFromFile('shop.yml');
-        $this->loadFixturesFromFile('customer.yml');
+        $this->loadFixturesFromFiles(['shop.yml', 'customer.yml']);
 
         $data =
 <<<EOT

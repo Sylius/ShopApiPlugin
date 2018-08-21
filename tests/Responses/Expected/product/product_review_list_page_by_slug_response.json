@@ -2,7 +2,7 @@
     "page": 1,
     "limit": 10,
     "pages": 3,
-    "total": 23,
+    "total": 25,
     "_links": {
         "self": "\/shop-api\/product-reviews-by-slug\/logan-mug?channel=WEB_GB&page=1&limit=10",
         "first": "\/shop-api\/product-reviews-by-slug\/logan-mug?channel=WEB_GB&page=1&limit=10",

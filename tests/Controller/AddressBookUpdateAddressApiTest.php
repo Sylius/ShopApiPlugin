@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
-use Lakion\ApiTestCase\JsonApiTestCase;
 use PHPUnit\Framework\Assert;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Repository\AddressRepositoryInterface;
@@ -22,10 +21,8 @@ final class AddressBookUpdateAddressApiTest extends JsonApiTestCase
      */
     public function it_updates_address_in_address_book()
     {
-        $this->loadFixturesFromFile('customer.yml');
-        $this->loadFixturesFromFile('country.yml');
-        $this->loadFixturesFromFile('address.yml');
-        $this->logInUser('oliver@queen.com', '123pa$$word');
+        $this->loadFixturesFromFiles(['customer.yml', 'country.yml', 'address.yml']);
+        $this->logInUser('oliver@queen.com', '123password');
 
         /** @var AddressRepositoryInterface $addressRepository */
         $addressRepository = $this->get('sylius.repository.address');
@@ -67,10 +64,8 @@ EOT;
      */
     public function it_does_not_allow_to_update_address_if_country_or_province_code_are_not_valid()
     {
-        $this->loadFixturesFromFile('customer.yml');
-        $this->loadFixturesFromFile('country.yml');
-        $this->loadFixturesFromFile('address.yml');
-        $this->logInUser('oliver@queen.com', '123pa$$word');
+        $this->loadFixturesFromFiles(['customer.yml', 'country.yml', 'address.yml']);
+        $this->logInUser('oliver@queen.com', '123password');
 
         /** @var AddressRepositoryInterface $addressRepository */
         $addressRepository = $this->get('sylius.repository.address');
@@ -102,10 +97,8 @@ EOT;
      */
     public function it_does_not_allow_to_update_address_without_passing_required_data()
     {
-        $this->loadFixturesFromFile('customer.yml');
-        $this->loadFixturesFromFile('country.yml');
-        $this->loadFixturesFromFile('address.yml');
-        $this->logInUser('oliver@queen.com', '123pa$$word');
+        $this->loadFixturesFromFiles(['customer.yml', 'country.yml', 'address.yml']);
+        $this->logInUser('oliver@queen.com', '123password');
 
         /** @var AddressRepositoryInterface $addressRepository */
         $addressRepository = $this->get('sylius.repository.address');

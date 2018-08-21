@@ -7,6 +7,7 @@ namespace spec\Sylius\ShopApiPlugin\Handler;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\Customer;
+use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\Core\Repository\AddressRepositoryInterface;
 use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
@@ -40,36 +41,36 @@ final class SetDefaultAddressHandlerSpec extends ObjectBehavior
         $user->getCustomer()->willReturn($customer);
         $address->getCustomer()->willReturn($customer);
 
-        $customer->getId()->willReturn('USER_ID');
-        $user->getId()->willReturn('USER_ID');
+        $customer->getId()->willReturn('CUSTOMER_ID');
 
         $customer->setDefaultAddress($address)->shouldBeCalled();
 
         $this->handle(new SetDefaultAddress(1, 'user@email.com'));
     }
 
-    function it_trows_exception_if_address_does_not_belong_to_current_user(
+    function it_throws_exception_if_address_does_not_belong_to_current_user(
         AddressInterface $address,
         AddressRepositoryInterface $addressRepository,
         RepositoryInterface $shopUserRepository,
         ShopUserInterface $user,
-        Customer $customer
+        CustomerInterface $customer,
+        CustomerInterface $anotherCustomer
     ) {
         $shopUserRepository->findOneBy(['username' => 'user@email.com'])->willReturn($user);
         $addressRepository->find(1)->willReturn($address);
 
         $user->getCustomer()->willReturn($customer);
-        $address->getCustomer()->willReturn($customer);
+        $address->getCustomer()->willReturn($anotherCustomer);
 
-        $customer->getId()->willReturn('USER_ID_1');
-        $user->getId()->willReturn('USER_ID_2');
+        $customer->getId()->willReturn('CUSTOMER_ID');
+        $anotherCustomer->getId()->willReturn('ANOTHER_CUSTOMER_ID');
 
         $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [
             new SetDefaultAddress(1, 'user@email.com'),
         ]);
     }
 
-    function it_trows_exception_if_address_is_not_associated_with_any_user(
+    function it_throws_exception_if_address_is_not_associated_with_any_user(
         AddressInterface $address,
         AddressRepositoryInterface $addressRepository,
         RepositoryInterface $shopUserRepository,
@@ -80,7 +81,7 @@ final class SetDefaultAddressHandlerSpec extends ObjectBehavior
 
         $address->getCustomer()->willReturn(null);
 
-        $user->getId()->shouldNotBeCalled();
+        $user->getCustomer()->shouldNotBeCalled();
 
         $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [
             new SetDefaultAddress(1, 'user@email.com'),

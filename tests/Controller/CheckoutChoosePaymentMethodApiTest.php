@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
-use Lakion\ApiTestCase\JsonApiTestCase;
 use League\Tactician\CommandBus;
 use Sylius\ShopApiPlugin\Command\AddressOrder;
 use Sylius\ShopApiPlugin\Command\ChooseShippingMethod;
@@ -20,10 +19,7 @@ final class CheckoutChoosePaymentMethodApiTest extends JsonApiTestCase
      */
     public function it_allows_to_choose_payment_method()
     {
-        $this->loadFixturesFromFile('shop.yml');
-        $this->loadFixturesFromFile('country.yml');
-        $this->loadFixturesFromFile('shipping.yml');
-        $this->loadFixturesFromFile('payment.yml');
+        $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml', 'payment.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 

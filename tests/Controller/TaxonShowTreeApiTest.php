@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
-use Lakion\ApiTestCase\JsonApiTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
 final class TaxonShowTreeApiTest extends JsonApiTestCase
@@ -14,7 +13,7 @@ final class TaxonShowTreeApiTest extends JsonApiTestCase
      */
     public function it_shows_tree_of_all_taxons()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $this->client->request('GET', '/shop-api/taxons/', [], [], ['ACCEPT' => 'application/json']);
 
@@ -28,7 +27,7 @@ final class TaxonShowTreeApiTest extends JsonApiTestCase
      */
     public function it_shows_tree_of_all_taxons_in_different_language()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $this->client->request('GET', '/shop-api/taxons/?locale=de_DE', [], [], ['ACCEPT' => 'application/json']);
 

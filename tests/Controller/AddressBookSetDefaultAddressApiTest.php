@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
-use Lakion\ApiTestCase\JsonApiTestCase;
 use PHPUnit\Framework\Assert;
 use Sylius\Component\Core\Model\ShopUser;
 use Sylius\Component\Core\Repository\AddressRepositoryInterface;
@@ -24,10 +23,8 @@ final class AddressBookSetDefaultAddressApiTest extends JsonApiTestCase
      */
     public function it_sets_given_address_as_default()
     {
-        $this->loadFixturesFromFile('customer.yml');
-        $this->loadFixturesFromFile('country.yml');
-        $this->loadFixturesFromFile('address.yml');
-        $this->logInUser('oliver@queen.com', '123pa$$word');
+        $this->loadFixturesFromFiles(['customer.yml', 'country.yml', 'address.yml']);
+        $this->logInUser('oliver@queen.com', '123password');
 
         /** @var AddressRepositoryInterface $addressRepository */
         $addressRepository = $this->get('sylius.repository.address');

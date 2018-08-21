@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
-use Lakion\ApiTestCase\JsonApiTestCase;
 use League\Tactician\CommandBus;
 use Sylius\ShopApiPlugin\Command\PickupCart;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,7 +17,7 @@ final class CartPickupApiTest extends JsonApiTestCase
      */
     public function it_creates_a_new_cart()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $data =
 <<<EOT
@@ -39,7 +38,7 @@ EOT;
      */
     public function it_does_not_allow_to_create_a_new_cart_if_token_is_already_used()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -66,7 +65,7 @@ EOT;
      */
     public function it_does_not_allow_to_create_a_new_cart_if_channel_does_not_exist()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $data =
 <<<EOT
@@ -87,7 +86,7 @@ EOT;
      */
     public function it_does_not_allow_to_create_a_new_cart_if_channel_is_not_specified()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $this->client->request('POST', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325', [], [], static::$acceptAndContentTypeHeader);
 

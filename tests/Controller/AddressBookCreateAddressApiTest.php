@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
-use Lakion\ApiTestCase\JsonApiTestCase;
 use PHPUnit\Framework\Assert;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\Customer;
@@ -24,9 +23,8 @@ final class AddressBookCreateAddressApiTest extends JsonApiTestCase
      */
     public function it_allows_user_to_add_new_address_to_address_book()
     {
-        $this->loadFixturesFromFile('customer.yml');
-        $this->loadFixturesFromFile('country.yml');
-        $this->logInUser('oliver@queen.com', '123pa$$word');
+        $this->loadFixturesFromFiles(['customer.yml', 'country.yml']);
+        $this->logInUser('oliver@queen.com', '123password');
 
         $data =
 <<<EOT
@@ -66,9 +64,8 @@ EOT;
      */
     public function it_does_not_allow_user_to_add_new_address_to_address_book_without_passing_required_data()
     {
-        $this->loadFixturesFromFile('customer.yml');
-        $this->loadFixturesFromFile('country.yml');
-        $this->logInUser('oliver@queen.com', '123pa$$word');
+        $this->loadFixturesFromFiles(['customer.yml', 'country.yml']);
+        $this->logInUser('oliver@queen.com', '123password');
 
         $data =
 <<<EOT
@@ -94,9 +91,8 @@ EOT;
      */
     public function it_does_not_allow_user_to_add_new_address_to_address_book_without_passing_correct_country_code()
     {
-        $this->loadFixturesFromFile('customer.yml');
-        $this->loadFixturesFromFile('country.yml');
-        $this->logInUser('oliver@queen.com', '123pa$$word');
+        $this->loadFixturesFromFiles(['customer.yml', 'country.yml']);
+        $this->logInUser('oliver@queen.com', '123password');
 
         $data =
 <<<EOT
@@ -121,9 +117,8 @@ EOT;
      */
     public function it_does_not_allow_user_to_add_new_address_to_address_book_without_passing_correct_province_code()
     {
-        $this->loadFixturesFromFile('customer.yml');
-        $this->loadFixturesFromFile('country.yml');
-        $this->logInUser('oliver@queen.com', '123pa$$word');
+        $this->loadFixturesFromFiles(['customer.yml', 'country.yml']);
+        $this->logInUser('oliver@queen.com', '123password');
 
         $data =
             <<<EOT

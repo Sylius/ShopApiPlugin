@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
-use Lakion\ApiTestCase\JsonApiTestCase;
 use Sylius\Component\Core\Test\Services\EmailCheckerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,7 +18,7 @@ final class CustomerRequestPasswordResettingApiTest extends JsonApiTestCase
      */
     public function it_allows_to_reset_user_password()
     {
-        $this->loadFixturesFromFile('customer.yml');
+        $this->loadFixturesFromFiles(['customer.yml']);
 
         $data = '{"email": "oliver@queen.com"}';
 

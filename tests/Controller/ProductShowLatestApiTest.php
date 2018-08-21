@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
-use Lakion\ApiTestCase\JsonApiTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
 final class ProductShowLatestApiTest extends JsonApiTestCase
@@ -14,7 +13,7 @@ final class ProductShowLatestApiTest extends JsonApiTestCase
      */
     public function it_shows_latest_products_with_default_count()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $this->client->request('GET', '/shop-api/product-latest/', ['channel' => 'WEB_GB'], [], ['ACCEPT' => 'application/json']);
 
@@ -28,7 +27,7 @@ final class ProductShowLatestApiTest extends JsonApiTestCase
      */
     public function it_shows_latest_2_products()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $this->client->request('GET', '/shop-api/product-latest/', ['channel' => 'WEB_GB', 'limit' => 2], [], ['ACCEPT' => 'application/json']);
 

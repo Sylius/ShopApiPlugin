@@ -5,16 +5,16 @@ Sylius\Component\Core\Model\Promotion:
         couponBased: true
         coupons: ["@bananas_coupon", "@used_banana_coupon"]
         channels: ["@gb_web_channel"]
-        actions: ["@10_percent_order_discount"]
+        actions: ["@10_percent_order_discount_1"]
     pineapple_promotion:
         code: "PINEAPPLE_PROMOTION"
         name: "Pineapple promotion"
         couponBased: true
         coupons: ["@pineapple_coupon"]
-        actions: ["@10_percent_order_discount"]
+        actions: ["@10_percent_order_discount_2"]
 
 Sylius\Component\Promotion\Model\PromotionAction:
-    10_percent_order_discount:
+    10_percent_order_discount_{1..2}:
         type: "order_percentage_discount"
         promotion: "@banana_promotion"
         configuration:

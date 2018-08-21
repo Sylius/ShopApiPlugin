@@ -22,6 +22,9 @@ final class AppKernel extends Kernel
 
             new \Sylius\ShopApiPlugin\ShopApiPlugin(),
             new \Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle(),
+
+            new \Fidry\AliceDataFixtures\Bridge\Symfony\FidryAliceDataFixturesBundle(),
+            new \Nelmio\Alice\Bridge\Symfony\NelmioAliceBundle(),
         ]);
     }
 

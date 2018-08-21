@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
-use Lakion\ApiTestCase\JsonApiTestCase;
 use League\Tactician\CommandBus;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\ShopApiPlugin\Command\AddressOrder;
@@ -25,7 +24,7 @@ final class CartPutItemToCartApiTest extends JsonApiTestCase
      */
     public function it_adds_a_product_to_the_cart()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -51,7 +50,7 @@ EOT;
      */
     public function it_increases_quantity_of_existing_item_if_the_same_product_is_added_to_the_cart()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -78,7 +77,7 @@ EOT;
      */
     public function it_validates_if_product_is_simple_during_add_simple_product()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -104,7 +103,7 @@ EOT;
      */
     public function it_validates_if_quantity_is_larger_than_0_during_add_simple_product()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -130,7 +129,7 @@ EOT;
      */
     public function it_converts_quantity_as_an_integer_and_adds_simple_product()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -156,7 +155,7 @@ EOT;
      */
     public function it_validates_if_product_code_is_defined_during_add_simple_product()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -181,7 +180,7 @@ EOT;
      */
     public function it_validates_if_product_exists_during_add_simple_product()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -207,7 +206,7 @@ EOT;
      */
     public function it_does_not_allow_to_add_product_if_cart_does_not_exists_during_add_simple_product()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -229,10 +228,7 @@ EOT;
      */
     public function it_does_not_allow_to_add_product_if_order_has_been_placed()
     {
-        $this->loadFixturesFromFile('shop.yml');
-        $this->loadFixturesFromFile('country.yml');
-        $this->loadFixturesFromFile('shipping.yml');
-        $this->loadFixturesFromFile('payment.yml');
+        $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml', 'payment.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -286,7 +282,7 @@ EOT;
      */
     public function it_adds_a_product_variant_to_the_cart()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -313,7 +309,7 @@ EOT;
      */
     public function it_increases_quantity_of_existing_item_if_the_same_variant_is_added_to_the_cart()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -341,7 +337,7 @@ EOT;
      */
     public function it_validates_if_quantity_is_larger_than_0_during_add_variant_based_configurable_product()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -368,7 +364,7 @@ EOT;
      */
     public function it_converts_quantity_as_an_integer_and_adds_variant_based_configurable_product()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -395,7 +391,7 @@ EOT;
      */
     public function it_validates_if_product_code_is_defined_during_add_variant_based_configurable_product()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -421,7 +417,7 @@ EOT;
      */
     public function it_validates_if_product_exists_during_add_variant_based_configurable_product()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -448,7 +444,7 @@ EOT;
      */
     public function it_validates_if_product_is_configurable_during_add_variant_based_configurable_product()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -475,7 +471,7 @@ EOT;
      */
     public function it_validates_if_product_variant_exist_during_add_variant_based_configurable_product()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -499,7 +495,7 @@ EOT;
 
     public function it_throws_an_exception_if_product_variant_has_not_been_found()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -528,7 +524,7 @@ EOT;
      */
     public function it_adds_a_product_variant_based_on_options_to_the_cart()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -558,7 +554,7 @@ EOT;
      */
     public function it_increases_quantity_of_existing_item_while_adding_the_same_product_variant_based_on_option_to_the_cart()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 

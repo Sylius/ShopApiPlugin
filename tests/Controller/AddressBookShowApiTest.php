@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
-use Lakion\ApiTestCase\JsonApiTestCase;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\Sylius\ShopApiPlugin\Controller\Utils\ShopUserLoginTrait;
 
@@ -17,10 +16,8 @@ final class AddressBookShowApiTest extends JsonApiTestCase
      */
     public function it_shows_address_book()
     {
-        $this->loadFixturesFromFile('customer.yml');
-        $this->loadFixturesFromFile('country.yml');
-        $this->loadFixturesFromFile('address.yml');
-        $this->logInUser('oliver@queen.com', '123pa$$word');
+        $this->loadFixturesFromFiles(['customer.yml', 'country.yml', 'address.yml']);
+        $this->logInUser('oliver@queen.com', '123password');
 
         $this->client->request('GET', '/shop-api/address-book', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();

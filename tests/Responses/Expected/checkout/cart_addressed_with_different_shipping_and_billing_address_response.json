@@ -6,7 +6,7 @@
     "checkoutState": "addressed",
     "items": [
         {
-            "id": 1,
+            "id": @integer@,
             "quantity": 5,
             "total": 9995,
             "product": {

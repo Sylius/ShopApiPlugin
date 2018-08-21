@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
-use Lakion\ApiTestCase\JsonApiTestCase;
 use League\Tactician\CommandBus;
 use Sylius\ShopApiPlugin\Command\PickupCart;
 use Sylius\ShopApiPlugin\Command\PutSimpleItemToCart;
@@ -27,7 +26,7 @@ final class CheckoutAddressApiTest extends JsonApiTestCase
      */
     public function it_allows_to_address_order_with_the_same_shipping_and_billing_address_with_province()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -62,7 +61,7 @@ EOT;
      */
     public function it_allows_to_address_order_with_the_same_shipping_and_billing_address_without_province()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -96,7 +95,7 @@ EOT;
      */
     public function it_allows_to_address_order_with_different_shipping_and_billing_address()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 

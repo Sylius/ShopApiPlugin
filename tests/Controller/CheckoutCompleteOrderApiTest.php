@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
-use Lakion\ApiTestCase\JsonApiTestCase;
 use League\Tactician\CommandBus;
 use Sylius\ShopApiPlugin\Command\AddressOrder;
 use Sylius\ShopApiPlugin\Command\ChoosePaymentMethod;
@@ -21,10 +20,7 @@ final class CheckoutCompleteOrderApiTest extends JsonApiTestCase
      */
     public function it_allows_to_complete_checkout()
     {
-        $this->loadFixturesFromFile('shop.yml');
-        $this->loadFixturesFromFile('country.yml');
-        $this->loadFixturesFromFile('shipping.yml');
-        $this->loadFixturesFromFile('payment.yml');
+        $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml', 'payment.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -75,10 +71,7 @@ EOT;
      */
     public function it_allows_to_complete_checkout_with_notes()
     {
-        $this->loadFixturesFromFile('shop.yml');
-        $this->loadFixturesFromFile('country.yml');
-        $this->loadFixturesFromFile('shipping.yml');
-        $this->loadFixturesFromFile('payment.yml');
+        $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml', 'payment.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -130,11 +123,7 @@ EOT;
      */
     public function it_allows_to_complete_checkout_without_email_for_logged_in_customer()
     {
-        $this->loadFixturesFromFile('shop.yml');
-        $this->loadFixturesFromFile('country.yml');
-        $this->loadFixturesFromFile('shipping.yml');
-        $this->loadFixturesFromFile('payment.yml');
-        $this->loadFixturesFromFile('customer.yml');
+        $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml', 'payment.yml', 'customer.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -169,7 +158,7 @@ EOT;
 <<<EOT
         {
             "_username": "oliver@queen.com",
-            "_password": "123pa\$\$word"
+            "_password": "123password"
         }
 EOT;
 

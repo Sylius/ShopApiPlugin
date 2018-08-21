@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
-use Lakion\ApiTestCase\JsonApiTestCase;
 use PHPUnit\Framework\Assert;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
@@ -22,8 +21,8 @@ final class CustomerUpdateCustomerApiTest extends JsonApiTestCase
      */
     public function it_updates_customer()
     {
-        $this->loadFixturesFromFile('customer.yml');
-        $this->logInUser('oliver@queen.com', '123pa$$word');
+        $this->loadFixturesFromFiles(['customer.yml']);
+        $this->logInUser('oliver@queen.com', '123password');
 
         /** @var CustomerRepositoryInterface $customerRepository */
         $customerRepository = $this->get('sylius.repository.customer');
@@ -61,7 +60,7 @@ EOT;
      */
     public function it_does_not_allow_to_update_customer_without_being_logged_in()
     {
-        $this->loadFixturesFromFile('customer.yml');
+        $this->loadFixturesFromFiles(['customer.yml']);
 
         $data =
 <<<EOT
@@ -85,8 +84,8 @@ EOT;
      */
     public function it_does_not_allow_to_update_customer_without_passing_required_data()
     {
-        $this->loadFixturesFromFile('customer.yml');
-        $this->logInUser('oliver@queen.com', '123pa$$word');
+        $this->loadFixturesFromFiles(['customer.yml']);
+        $this->logInUser('oliver@queen.com', '123password');
 
         $data =
 <<<EOT

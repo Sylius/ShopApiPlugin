@@ -6,7 +6,7 @@
     "checkoutState": "cart",
     "items": [
         {
-            "id": 1,
+            "id": @integer@,
             "quantity": 3,
             "total": 5997,
             "product": {
@@ -59,7 +59,7 @@
             }
         },
         {
-            "id": 2,
+            "id": @integer@,
             "quantity": 3,
             "total": 1500,
             "product": {

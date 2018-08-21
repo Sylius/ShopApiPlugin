@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
-use Lakion\ApiTestCase\JsonApiTestCase;
 use League\Tactician\CommandBus;
 use Sylius\ShopApiPlugin\Command\AddressOrder;
 use Sylius\ShopApiPlugin\Command\PickupCart;
@@ -27,9 +26,7 @@ final class CheckoutShowAvailableShippingMethodsShopApiTest extends JsonApiTestC
      */
     public function it_provides_details_about_available_shipping_method()
     {
-        $this->loadFixturesFromFile('shop.yml');
-        $this->loadFixturesFromFile('country.yml');
-        $this->loadFixturesFromFile('shipping.yml');
+        $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -66,7 +63,7 @@ final class CheckoutShowAvailableShippingMethodsShopApiTest extends JsonApiTestC
 
     public function it_does_not_provide_details_about_available_shipping_method_before_addressing()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 

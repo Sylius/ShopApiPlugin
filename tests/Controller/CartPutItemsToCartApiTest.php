@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
-use Lakion\ApiTestCase\JsonApiTestCase;
 use League\Tactician\CommandBus;
 use Sylius\ShopApiPlugin\Command\PickupCart;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,7 +17,7 @@ final class CartPutItemsToCartApiTest extends JsonApiTestCase
      */
     public function it_adds_a_product_to_the_cart()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -59,7 +58,7 @@ EOT;
      */
     public function it_does_nothing_if_any_of_requested_products_is_not_valid()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -100,7 +99,7 @@ EOT;
      */
     public function it_shows_validation_error_for_proper_product()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 

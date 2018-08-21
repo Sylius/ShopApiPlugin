@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
-use Lakion\ApiTestCase\JsonApiTestCase;
 use League\Tactician\CommandBus;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\ShopApiPlugin\Command\AddressOrder;
@@ -23,7 +22,7 @@ final class CartDropCartApiTest extends JsonApiTestCase
      */
     public function it_returns_not_found_exception_if_cart_has_not_been_found()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $this->client->request('DELETE', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
@@ -41,7 +40,7 @@ final class CartDropCartApiTest extends JsonApiTestCase
      */
     public function it_deletes_a_cart()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -61,10 +60,7 @@ final class CartDropCartApiTest extends JsonApiTestCase
      */
     public function it_returns_not_found_exception_if_order_is_in_different_state_then_cart()
     {
-        $this->loadFixturesFromFile('shop.yml');
-        $this->loadFixturesFromFile('country.yml');
-        $this->loadFixturesFromFile('shipping.yml');
-        $this->loadFixturesFromFile('payment.yml');
+        $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml', 'payment.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 

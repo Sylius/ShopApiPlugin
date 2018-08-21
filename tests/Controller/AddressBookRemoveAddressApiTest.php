@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
-use Lakion\ApiTestCase\JsonApiTestCase;
 use PHPUnit\Framework\Assert;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Repository\AddressRepositoryInterface;
@@ -22,10 +21,8 @@ final class AddressBookRemoveAddressApiTest extends JsonApiTestCase
      */
     public function it_deletes_address_from_address_book()
     {
-        $this->loadFixturesFromFile('customer.yml');
-        $this->loadFixturesFromFile('country.yml');
-        $this->loadFixturesFromFile('address.yml');
-        $this->logInUser('oliver@queen.com', '123pa$$word');
+        $this->loadFixturesFromFiles(['customer.yml', 'country.yml', 'address.yml']);
+        $this->logInUser('oliver@queen.com', '123password');
 
         /** @var AddressRepositoryInterface $addressRepository */
         $addressRepository = $this->get('sylius.repository.address');
@@ -46,10 +43,8 @@ final class AddressBookRemoveAddressApiTest extends JsonApiTestCase
      */
     public function it_returns_bad_request_exception_if_address_has_not_been_found()
     {
-        $this->loadFixturesFromFile('customer.yml');
-        $this->loadFixturesFromFile('country.yml');
-        $this->loadFixturesFromFile('address.yml');
-        $this->logInUser('oliver@queen.com', '123pa$$word');
+        $this->loadFixturesFromFiles(['customer.yml', 'country.yml', 'address.yml']);
+        $this->logInUser('oliver@queen.com', '123password');
 
         $this->client->request('DELETE', sprintf('/shop-api/address-book/-1'), [], [], self::$acceptAndContentTypeHeader);
         $response = $this->client->getResponse();
@@ -62,10 +57,8 @@ final class AddressBookRemoveAddressApiTest extends JsonApiTestCase
      */
     public function it_validates_if_current_user_is_owner_of_address()
     {
-        $this->loadFixturesFromFile('customer.yml');
-        $this->loadFixturesFromFile('country.yml');
-        $this->loadFixturesFromFile('address.yml');
-        $this->logInUser('oliver@queen.com', '123pa$$word');
+        $this->loadFixturesFromFiles(['customer.yml', 'country.yml', 'address.yml']);
+        $this->logInUser('oliver@queen.com', '123password');
 
         /** @var AddressRepositoryInterface $addressRepository */
         $addressRepository = $this->get('sylius.repository.address');
