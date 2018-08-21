@@ -957,7 +957,7 @@ paths:
         delete:
           tags: ["address"]
           summary: "Deletes an address from the address book"
-          operationId: "delteAddress"
+          operationId: "deleteAddress"
           consumes: ["application/json"]
           parameters:
           - name: "id"
@@ -978,7 +978,7 @@ paths:
           security:
              - bearerAuth: []
     /address-book/{id}/default:
-        put:
+        patch:
           tags: ["address"]
           summary: "Change the default address in the address book"
           operationId: "updateDefaultAddress"
