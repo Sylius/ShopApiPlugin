@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
-use Lakion\ApiTestCase\JsonApiTestCase;
 use Sylius\Component\Core\Test\Services\EmailCheckerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,7 +28,7 @@ final class CustomerRequestPasswordResettingApiTest extends JsonApiTestCase
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
 
         /** @var EmailCheckerInterface $emailChecker */
-        $emailChecker = self::$container->get('sylius.behat.email_checker');
+        $emailChecker = $this->get('sylius.behat.email_checker');
 
         $this->assertTrue($emailChecker->hasRecipient('oliver@queen.com'));
     }

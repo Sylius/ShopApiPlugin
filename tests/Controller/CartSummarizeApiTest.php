@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
-use Lakion\ApiTestCase\JsonApiTestCase;
 use League\Tactician\CommandBus;
 use Sylius\ShopApiPlugin\Command\AddCoupon;
 use Sylius\ShopApiPlugin\Command\PickupCart;
@@ -25,7 +24,7 @@ final class CartSummarizeApiTest extends JsonApiTestCase
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
         /** @var CommandBus $bus */
-        $bus = self::$container->get('tactician.commandbus');
+        $bus = $this->get('tactician.commandbus');
         $bus->handle(new PickupCart($token, 'WEB_GB'));
 
         $this->client->request('GET', '/shop-api/carts/' . $token, [], [], ['ACCEPT' => 'application/json']);
@@ -57,7 +56,7 @@ final class CartSummarizeApiTest extends JsonApiTestCase
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
         /** @var CommandBus $bus */
-        $bus = self::$container->get('tactician.commandbus');
+        $bus = $this->get('tactician.commandbus');
         $bus->handle(new PickupCart($token, 'WEB_GB'));
         $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
 
@@ -77,7 +76,7 @@ final class CartSummarizeApiTest extends JsonApiTestCase
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
         /** @var CommandBus $bus */
-        $bus = self::$container->get('tactician.commandbus');
+        $bus = $this->get('tactician.commandbus');
         $bus->handle(new PickupCart($token, 'WEB_DE'));
         $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
 
@@ -97,7 +96,7 @@ final class CartSummarizeApiTest extends JsonApiTestCase
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
         /** @var CommandBus $bus */
-        $bus = self::$container->get('tactician.commandbus');
+        $bus = $this->get('tactician.commandbus');
         $bus->handle(new PickupCart($token, 'WEB_GB'));
 
         $variantWithOptions =
@@ -139,7 +138,7 @@ EOT;
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
         /** @var CommandBus $bus */
-        $bus = self::$container->get('tactician.commandbus');
+        $bus = $this->get('tactician.commandbus');
         $bus->handle(new PickupCart($token, 'WEB_DE'));
 
         $variantWithOptions =
@@ -172,7 +171,7 @@ EOT;
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
         /** @var CommandBus $bus */
-        $bus = self::$container->get('tactician.commandbus');
+        $bus = $this->get('tactician.commandbus');
         $bus->handle(new PickupCart($token, 'WEB_GB'));
         $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
         $bus->handle(new AddCoupon($token, 'BANANAS'));

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
-use Lakion\ApiTestCase\JsonApiTestCase;
 use League\Tactician\CommandBus;
 use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
@@ -29,7 +28,7 @@ final class CheckoutSummarizeApiTest extends JsonApiTestCase
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
         /** @var CommandBus $bus */
-        $bus = self::$container->get('tactician.commandbus');
+        $bus = $this->get('tactician.commandbus');
         $bus->handle(new PickupCart($token, 'WEB_GB'));
         $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
 
@@ -66,7 +65,7 @@ EOT;
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
         /** @var CommandBus $bus */
-        $bus = self::$container->get('tactician.commandbus');
+        $bus = $this->get('tactician.commandbus');
         $bus->handle(new PickupCart($token, 'WEB_GB'));
         $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
 
@@ -112,7 +111,7 @@ EOT;
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
         /** @var CommandBus $bus */
-        $bus = self::$container->get('tactician.commandbus');
+        $bus = $this->get('tactician.commandbus');
         $bus->handle(new PickupCart($token, 'WEB_GB'));
         $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
         $bus->handle(new AddressOrder(
@@ -162,7 +161,7 @@ EOT;
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
         /** @var CommandBus $bus */
-        $bus = self::$container->get('tactician.commandbus');
+        $bus = $this->get('tactician.commandbus');
         $bus->handle(new PickupCart($token, 'WEB_GB'));
         $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
         $bus->handle(new AddressOrder(
@@ -202,7 +201,7 @@ EOT;
         $this->assertResponse($response, 'checkout/cart_with_chosen_shipment_with_per_item_rate_response', Response::HTTP_OK);
 
         /** @var OrderRepositoryInterface $orderRepository */
-        $orderRepository = self::$container->get('sylius.repository.order');
+        $orderRepository = $this->get('sylius.repository.order');
 
         $order = $orderRepository->findOneBy(['tokenValue' => $token]);
 
@@ -231,7 +230,7 @@ EOT;
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
         /** @var CommandBus $bus */
-        $bus = self::$container->get('tactician.commandbus');
+        $bus = $this->get('tactician.commandbus');
         $bus->handle(new PickupCart($token, 'WEB_GB'));
         $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
         $bus->handle(new AddressOrder(

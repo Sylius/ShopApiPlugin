@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
-use Lakion\ApiTestCase\JsonApiTestCase;
 use League\Tactician\CommandBus;
 use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
@@ -45,7 +44,7 @@ EOT;
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
         /** @var CommandBus $bus */
-        $bus = self::$container->get('tactician.commandbus');
+        $bus = $this->get('tactician.commandbus');
         $bus->handle(new PickupCart($token, 'WEB_GB'));
         $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 3));
 
@@ -71,7 +70,7 @@ EOT;
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
         /** @var CommandBus $bus */
-        $bus = self::$container->get('tactician.commandbus');
+        $bus = $this->get('tactician.commandbus');
         $bus->handle(new PickupCart($token, 'WEB_GB'));
         $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 3));
 
@@ -97,7 +96,7 @@ EOT;
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
         /** @var CommandBus $bus */
-        $bus = self::$container->get('tactician.commandbus');
+        $bus = $this->get('tactician.commandbus');
         $bus->handle(new PickupCart($token, 'WEB_GB'));
         $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 3));
 
@@ -117,7 +116,7 @@ EOT;
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
         /** @var CommandBus $bus */
-        $bus = self::$container->get('tactician.commandbus');
+        $bus = $this->get('tactician.commandbus');
         $bus->handle(new PickupCart($token, 'WEB_GB'));
 
         $data =
@@ -135,7 +134,7 @@ EOT;
     private function getFirstOrderItemId(string $orderToken): string
     {
         /** @var OrderRepositoryInterface $orderRepository */
-        $orderRepository = self::$container->get('sylius.repository.order');
+        $orderRepository = $this->get('sylius.repository.order');
 
         $order = $orderRepository->findOneBy(['tokenValue' => $orderToken]);
 

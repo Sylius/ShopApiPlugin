@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
-use Lakion\ApiTestCase\JsonApiTestCase;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -27,7 +26,7 @@ final class CustomerResetPasswordApiTest extends JsonApiTestCase
         $this->client->request('PUT', '/shop-api/request-password-reset', [], [], ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'], $data);
 
         /** @var UserRepositoryInterface $userRepository */
-        $userRepository = self::$container->get('sylius.repository.shop_user');
+        $userRepository = $this->get('sylius.repository.shop_user');
         /** @var ShopUserInterface $user */
         $user = $userRepository->findOneByEmail('oliver@queen.com');
 

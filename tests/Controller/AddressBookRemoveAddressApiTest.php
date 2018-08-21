@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
-use Lakion\ApiTestCase\JsonApiTestCase;
 use PHPUnit\Framework\Assert;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Repository\AddressRepositoryInterface;
@@ -26,7 +25,7 @@ final class AddressBookRemoveAddressApiTest extends JsonApiTestCase
         $this->logInUser('oliver@queen.com', '123password');
 
         /** @var AddressRepositoryInterface $addressRepository */
-        $addressRepository = self::$container->get('sylius.repository.address');
+        $addressRepository = $this->get('sylius.repository.address');
         /** @var AddressInterface $address */
         $address = $addressRepository->findOneBy(['street' => 'Kupreska']);
 
@@ -62,7 +61,7 @@ final class AddressBookRemoveAddressApiTest extends JsonApiTestCase
         $this->logInUser('oliver@queen.com', '123password');
 
         /** @var AddressRepositoryInterface $addressRepository */
-        $addressRepository = self::$container->get('sylius.repository.address');
+        $addressRepository = $this->get('sylius.repository.address');
         /** @var AddressInterface $address */
         $address = $addressRepository->findOneBy(['street' => 'Vukovarska']);
 

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
-use Lakion\ApiTestCase\JsonApiTestCase;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,7 +34,7 @@ EOT;
         $this->client->request('POST', '/shop-api/register', [], [], ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'], $data);
 
         /** @var UserRepositoryInterface $userRepository */
-        $userRepository = self::$container->get('sylius.repository.shop_user');
+        $userRepository = $this->get('sylius.repository.shop_user');
         $user = $userRepository->findOneByEmail('vinny@fandf.com');
 
         $verifyEmail = sprintf('{"token": "%s"}', $user->getEmailVerificationToken());

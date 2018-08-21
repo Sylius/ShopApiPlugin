@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
-use Lakion\ApiTestCase\JsonApiTestCase;
 use PHPUnit\Framework\Assert;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\Customer;
@@ -46,12 +45,12 @@ EOT;
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
 
         /** @var CustomerRepositoryInterface $customerRepository */
-        $customerRepository = self::$container->get('sylius.repository.customer');
+        $customerRepository = $this->get('sylius.repository.customer');
         /** @var Customer $customer */
         $customer = $customerRepository->findOneBy(['email' => 'oliver@queen.com']);
 
         /** @var AddressRepositoryInterface $addressRepository */
-        $addressRepository = self::$container->get('sylius.repository.address');
+        $addressRepository = $this->get('sylius.repository.address');
         /** @var AddressInterface $address */
         $address = $addressRepository->findOneBy(['street' => 'Kupreska 12']);
 

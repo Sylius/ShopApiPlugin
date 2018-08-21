@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
-use Lakion\ApiTestCase\JsonApiTestCase;
 use PHPUnit\Framework\Assert;
 use Sylius\Component\Core\Test\Services\EmailCheckerInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
@@ -40,14 +39,14 @@ EOT;
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
 
         /** @var UserRepositoryInterface $userRepository */
-        $userRepository = self::$container->get('sylius.repository.shop_user');
+        $userRepository = $this->get('sylius.repository.shop_user');
         $user = $userRepository->findOneByEmail('vinny@fandf.com');
 
         Assert::assertNotNull($user);
         Assert::assertFalse($user->isEnabled());
 
         /** @var EmailCheckerInterface $emailChecker */
-        $emailChecker = self::$container->get('sylius.behat.email_checker');
+        $emailChecker = $this->get('sylius.behat.email_checker');
         Assert::assertTrue($emailChecker->hasRecipient('vinny@fandf.com'));
     }
 
@@ -75,14 +74,14 @@ EOT;
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
 
         /** @var UserRepositoryInterface $userRepository */
-        $userRepository = self::$container->get('sylius.repository.shop_user');
+        $userRepository = $this->get('sylius.repository.shop_user');
         $user = $userRepository->findOneByEmail('vinny@fandf.com');
 
         Assert::assertNotNull($user);
         Assert::assertTrue($user->isEnabled());
 
         /** @var EmailCheckerInterface $emailChecker */
-        $emailChecker = self::$container->get('sylius.behat.email_checker');
+        $emailChecker = $this->get('sylius.behat.email_checker');
 
         try {
             Assert::assertFalse($emailChecker->hasRecipient('vinny@fandf.com'));

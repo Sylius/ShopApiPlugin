@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
-use Lakion\ApiTestCase\JsonApiTestCase;
 use PHPUnit\Framework\Assert;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
@@ -26,7 +25,7 @@ final class CustomerUpdateCustomerApiTest extends JsonApiTestCase
         $this->logInUser('oliver@queen.com', '123password');
 
         /** @var CustomerRepositoryInterface $customerRepository */
-        $customerRepository = self::$container->get('sylius.repository.customer');
+        $customerRepository = $this->get('sylius.repository.customer');
 
         $data =
 <<<EOT
