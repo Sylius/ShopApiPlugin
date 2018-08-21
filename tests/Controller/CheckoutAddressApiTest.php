@@ -27,12 +27,12 @@ final class CheckoutAddressApiTest extends JsonApiTestCase
      */
     public function it_allows_to_address_order_with_the_same_shipping_and_billing_address_with_province()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
         /** @var CommandBus $bus */
-        $bus = $this->get('tactician.commandbus');
+        $bus = self::$container->get('tactician.commandbus');
         $bus->handle(new PickupCart($token, 'WEB_GB'));
         $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
 
@@ -62,12 +62,12 @@ EOT;
      */
     public function it_allows_to_address_order_with_the_same_shipping_and_billing_address_without_province()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
         /** @var CommandBus $bus */
-        $bus = $this->get('tactician.commandbus');
+        $bus = self::$container->get('tactician.commandbus');
         $bus->handle(new PickupCart($token, 'WEB_GB'));
         $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
 
@@ -96,12 +96,12 @@ EOT;
      */
     public function it_allows_to_address_order_with_different_shipping_and_billing_address()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
         /** @var CommandBus $bus */
-        $bus = $this->get('tactician.commandbus');
+        $bus = self::$container->get('tactician.commandbus');
         $bus->handle(new PickupCart($token, 'WEB_GB'));
         $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
 

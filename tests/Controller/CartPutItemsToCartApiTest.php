@@ -18,12 +18,12 @@ final class CartPutItemsToCartApiTest extends JsonApiTestCase
      */
     public function it_adds_a_product_to_the_cart()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
         /** @var CommandBus $bus */
-        $bus = $this->get('tactician.commandbus');
+        $bus = self::$container->get('tactician.commandbus');
         $bus->handle(new PickupCart($token, 'WEB_GB'));
 
         $data =
@@ -59,12 +59,12 @@ EOT;
      */
     public function it_does_nothing_if_any_of_requested_products_is_not_valid()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
         /** @var CommandBus $bus */
-        $bus = $this->get('tactician.commandbus');
+        $bus = self::$container->get('tactician.commandbus');
         $bus->handle(new PickupCart($token, 'WEB_GB'));
 
         $data =
@@ -100,12 +100,12 @@ EOT;
      */
     public function it_shows_validation_error_for_proper_product()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
         /** @var CommandBus $bus */
-        $bus = $this->get('tactician.commandbus');
+        $bus = self::$container->get('tactician.commandbus');
         $bus->handle(new PickupCart($token, 'WEB_GB'));
 
         $data =

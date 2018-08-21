@@ -20,14 +20,14 @@ final class CustomerResetPasswordApiTest extends JsonApiTestCase
      */
     public function it_allows_to_verify_customer()
     {
-        $this->loadFixturesFromFile('customer.yml');
+        $this->loadFixturesFromFiles(['customer.yml']);
 
         $data = '{"email": "oliver@queen.com"}';
 
         $this->client->request('PUT', '/shop-api/request-password-reset', [], [], ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'], $data);
 
         /** @var UserRepositoryInterface $userRepository */
-        $userRepository = $this->get('sylius.repository.shop_user');
+        $userRepository = self::$container->get('sylius.repository.shop_user');
         /** @var ShopUserInterface $user */
         $user = $userRepository->findOneByEmail('oliver@queen.com');
 

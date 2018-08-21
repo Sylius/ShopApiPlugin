@@ -20,6 +20,8 @@
         <import resource="services/queries.xml"/>
     </imports>
     <services>
+        <defaults public="true" />
+
         <service id="sylius.shop_api_plugin.checker.promotion_coupon_eligibility_checker" class="Sylius\ShopApiPlugin\Checker\PromotionCouponEligibilityChecker">
             <argument type="service" id="sylius.promotion_eligibility_checker"/>
             <argument type="service" id="sylius.promotion_coupon_eligibility_checker"/>

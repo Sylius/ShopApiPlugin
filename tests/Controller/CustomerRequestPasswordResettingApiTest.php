@@ -19,7 +19,7 @@ final class CustomerRequestPasswordResettingApiTest extends JsonApiTestCase
      */
     public function it_allows_to_reset_user_password()
     {
-        $this->loadFixturesFromFile('customer.yml');
+        $this->loadFixturesFromFiles(['customer.yml']);
 
         $data = '{"email": "oliver@queen.com"}';
 
@@ -29,7 +29,7 @@ final class CustomerRequestPasswordResettingApiTest extends JsonApiTestCase
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
 
         /** @var EmailCheckerInterface $emailChecker */
-        $emailChecker = $this->get('sylius.behat.email_checker');
+        $emailChecker = self::$container->get('sylius.behat.email_checker');
 
         $this->assertTrue($emailChecker->hasRecipient('oliver@queen.com'));
     }

@@ -21,7 +21,7 @@ final class CustomerRegisterApiTest extends JsonApiTestCase
      */
     public function it_allows_to_register_in_shop_and_sends_a_verification_email_if_channel_requires_verification()
     {
-        $this->loadFixturesFromFile('channel.yml');
+        $this->loadFixturesFromFiles(['channel.yml']);
 
         $data =
 <<<EOT
@@ -40,14 +40,14 @@ EOT;
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
 
         /** @var UserRepositoryInterface $userRepository */
-        $userRepository = $this->get('sylius.repository.shop_user');
+        $userRepository = self::$container->get('sylius.repository.shop_user');
         $user = $userRepository->findOneByEmail('vinny@fandf.com');
 
         Assert::assertNotNull($user);
         Assert::assertFalse($user->isEnabled());
 
         /** @var EmailCheckerInterface $emailChecker */
-        $emailChecker = $this->get('sylius.behat.email_checker');
+        $emailChecker = self::$container->get('sylius.behat.email_checker');
         Assert::assertTrue($emailChecker->hasRecipient('vinny@fandf.com'));
     }
 
@@ -56,7 +56,7 @@ EOT;
      */
     public function it_allows_to_register_in_shop_and_automatically_enables_user_if_channel_does_not_require_verification()
     {
-        $this->loadFixturesFromFile('channel.yml');
+        $this->loadFixturesFromFiles(['channel.yml']);
 
         $data =
             <<<EOT
@@ -75,14 +75,14 @@ EOT;
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
 
         /** @var UserRepositoryInterface $userRepository */
-        $userRepository = $this->get('sylius.repository.shop_user');
+        $userRepository = self::$container->get('sylius.repository.shop_user');
         $user = $userRepository->findOneByEmail('vinny@fandf.com');
 
         Assert::assertNotNull($user);
         Assert::assertTrue($user->isEnabled());
 
         /** @var EmailCheckerInterface $emailChecker */
-        $emailChecker = $this->get('sylius.behat.email_checker');
+        $emailChecker = self::$container->get('sylius.behat.email_checker');
 
         try {
             Assert::assertFalse($emailChecker->hasRecipient('vinny@fandf.com'));
@@ -98,8 +98,7 @@ EOT;
      */
     public function it_does_not_allow_to_register_in_shop_if_email_is_already_taken()
     {
-        $this->loadFixturesFromFile('customer.yml');
-        $this->loadFixturesFromFile('channel.yml');
+        $this->loadFixturesFromFiles(['customer.yml', 'channel.yml']);
 
         $data =
 <<<EOT
@@ -124,7 +123,7 @@ EOT;
      */
     public function it_does_not_allow_to_register_in_shop_without_passing_required_data()
     {
-        $this->loadFixturesFromFile('channel.yml');
+        $this->loadFixturesFromFiles(['channel.yml']);
 
         $data =
 <<<EOT

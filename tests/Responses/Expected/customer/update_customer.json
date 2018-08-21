@@ -1,10 +1,10 @@
 {
-  "id": 1,
-  "firstName": "New name",
-  "lastName": "New lastName",
-  "email": "oliver@queen.com",
-  "birthday": "@string@",
-  "gender": "m",
-  "phoneNumber": "0918972132",
-  "subscribedToNewsletter": true
+    "id": @integer@,
+    "firstName": "New name",
+    "lastName": "New lastName",
+    "email": "oliver@queen.com",
+    "birthday": "@string@",
+    "gender": "m",
+    "phoneNumber": "0918972132",
+    "subscribedToNewsletter": true
 }

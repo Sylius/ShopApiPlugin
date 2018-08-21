@@ -1,12 +1,12 @@
 Sylius\Component\Core\Model\ProductReview:
-    reviews_{1...20}:
+    reviews_{1..20}:
         title: "Nice mug"
         rating: "<numberBetween(3, 5)>"
         author: "@customer_oliver"
         status: "accepted"
         comment: "<paragraph(2)>"
         reviewSubject: "@mug"
-    bad_reviews_{1...5}:
+    bad_reviews_{1..5}:
         title: "Nice mug"
         rating: "<numberBetween(1, 2)>"
         author: "@hater"

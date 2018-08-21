@@ -8,7 +8,6 @@ Sylius\Component\Core\Model\ShippingMethod:
                 amount: 500
         zone: "@zone_gb_scotland"
         currentLocale: "en_GB"
-        currentTranslation: "@ups_translation"
         translations: ["@ups_translation"]
         channels: ["@gb_web_channel"]
     dhl:
@@ -20,7 +19,6 @@ Sylius\Component\Core\Model\ShippingMethod:
                 amount: 1500
         zone: "@zone_gb"
         currentLocale: "en_GB"
-        currentTranslation: "@dhl_translation"
         translations: ["@dhl_translation"]
         channels: ["@gb_web_channel"]
     fedEx:
@@ -32,7 +30,6 @@ Sylius\Component\Core\Model\ShippingMethod:
                 amount: 500
         zone: "@zone_gb"
         currentLocale: "en_GB"
-        currentTranslation: "@fed_ex_translation"
         translations: ["@fed_ex_translation"]
         channels: ["@gb_web_channel"]
 

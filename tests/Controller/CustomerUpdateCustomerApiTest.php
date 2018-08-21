@@ -22,11 +22,11 @@ final class CustomerUpdateCustomerApiTest extends JsonApiTestCase
      */
     public function it_updates_customer()
     {
-        $this->loadFixturesFromFile('customer.yml');
-        $this->logInUser('oliver@queen.com', '123pa$$word');
+        $this->loadFixturesFromFiles(['customer.yml']);
+        $this->logInUser('oliver@queen.com', '123password');
 
         /** @var CustomerRepositoryInterface $customerRepository */
-        $customerRepository = $this->get('sylius.repository.customer');
+        $customerRepository = self::$container->get('sylius.repository.customer');
 
         $data =
 <<<EOT
@@ -61,7 +61,7 @@ EOT;
      */
     public function it_does_not_allow_to_update_customer_without_being_logged_in()
     {
-        $this->loadFixturesFromFile('customer.yml');
+        $this->loadFixturesFromFiles(['customer.yml']);
 
         $data =
 <<<EOT
@@ -85,8 +85,8 @@ EOT;
      */
     public function it_does_not_allow_to_update_customer_without_passing_required_data()
     {
-        $this->loadFixturesFromFile('customer.yml');
-        $this->logInUser('oliver@queen.com', '123pa$$word');
+        $this->loadFixturesFromFiles(['customer.yml']);
+        $this->logInUser('oliver@queen.com', '123password');
 
         $data =
 <<<EOT

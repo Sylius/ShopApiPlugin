@@ -16,7 +16,7 @@ final class CartApiTest extends JsonApiTestCase
      */
     public function it_returns_not_found_exception_if_cart_has_not_been_found()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $this->client->request('GET', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/estimated-shipping-cost', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
@@ -29,8 +29,7 @@ final class CartApiTest extends JsonApiTestCase
      */
     public function it_calculates_estimated_shipping_cost_based_on_country()
     {
-        $this->loadFixturesFromFile('shop.yml');
-        $this->loadFixturesFromFile('shipping.yml');
+        $this->loadFixturesFromFiles(['shop.yml', 'shipping.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -48,9 +47,7 @@ final class CartApiTest extends JsonApiTestCase
      */
     public function it_calculates_estimated_shipping_cost_based_on_country_and_province()
     {
-        $this->loadFixturesFromFile('shop.yml');
-        $this->loadFixturesFromFile('country.yml');
-        $this->loadFixturesFromFile('shipping.yml');
+        $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 

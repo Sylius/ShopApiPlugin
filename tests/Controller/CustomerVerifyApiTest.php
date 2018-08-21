@@ -19,7 +19,7 @@ final class CustomerVerifyApiTest extends JsonApiTestCase
      */
     public function it_allows_to_verify_customer()
     {
-        $this->loadFixturesFromFile('channel.yml');
+        $this->loadFixturesFromFiles(['channel.yml']);
 
         $data =
 <<<EOT
@@ -35,7 +35,7 @@ EOT;
         $this->client->request('POST', '/shop-api/register', [], [], ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'], $data);
 
         /** @var UserRepositoryInterface $userRepository */
-        $userRepository = $this->get('sylius.repository.shop_user');
+        $userRepository = self::$container->get('sylius.repository.shop_user');
         $user = $userRepository->findOneByEmail('vinny@fandf.com');
 
         $verifyEmail = sprintf('{"token": "%s"}', $user->getEmailVerificationToken());

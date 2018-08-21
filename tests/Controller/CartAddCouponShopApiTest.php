@@ -19,13 +19,12 @@ final class CartAddCouponShopApiTest extends JsonApiTestCase
      */
     public function it_allows_to_add_promotion_coupon_to_the_cart()
     {
-        $this->loadFixturesFromFile('shop.yml');
-        $this->loadFixturesFromFile('coupon_based_promotion.yml');
+        $this->loadFixturesFromFiles(['shop.yml', 'coupon_based_promotion.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
         /** @var CommandBus $bus */
-        $bus = $this->get('tactician.commandbus');
+        $bus = self::$container->get('tactician.commandbus');
         $bus->handle(new PickupCart($token, 'WEB_GB'));
         $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
 
@@ -48,12 +47,12 @@ EOT;
      */
     public function it_does_not_allow_to_add_promotion_if_coupon_is_not_specified()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
         /** @var CommandBus $bus */
-        $bus = $this->get('tactician.commandbus');
+        $bus = self::$container->get('tactician.commandbus');
         $bus->handle(new PickupCart($token, 'WEB_GB'));
         $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
 
@@ -69,7 +68,7 @@ EOT;
      */
     public function it_does_not_allow_to_add_promotion_code_if_cart_does_not_exists()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $data =
 <<<EOT
@@ -90,12 +89,12 @@ EOT;
      */
     public function it_does_not_allow_to_add_promotion_code_if_promotion_code_does_not_exist()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
         /** @var CommandBus $bus */
-        $bus = $this->get('tactician.commandbus');
+        $bus = self::$container->get('tactician.commandbus');
         $bus->handle(new PickupCart($token, 'WEB_GB'));
         $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
 
@@ -118,13 +117,12 @@ EOT;
      */
     public function it_does_not_allow_to_add_promotion_code_if_code_is_invalid()
     {
-        $this->loadFixturesFromFile('shop.yml');
-        $this->loadFixturesFromFile('coupon_based_promotion.yml');
+        $this->loadFixturesFromFiles(['shop.yml', 'coupon_based_promotion.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
         /** @var CommandBus $bus */
-        $bus = $this->get('tactician.commandbus');
+        $bus = self::$container->get('tactician.commandbus');
         $bus->handle(new PickupCart($token, 'WEB_GB'));
         $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
 
@@ -147,13 +145,12 @@ EOT;
      */
     public function it_does_not_allow_to_add_promotion_code_if_related_promotion_is_not_valid()
     {
-        $this->loadFixturesFromFile('shop.yml');
-        $this->loadFixturesFromFile('coupon_based_promotion.yml');
+        $this->loadFixturesFromFiles(['shop.yml', 'coupon_based_promotion.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
         /** @var CommandBus $bus */
-        $bus = $this->get('tactician.commandbus');
+        $bus = self::$container->get('tactician.commandbus');
         $bus->handle(new PickupCart($token, 'WEB_GB'));
         $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
 

@@ -22,13 +22,11 @@ final class AddressBookUpdateAddressApiTest extends JsonApiTestCase
      */
     public function it_updates_address_in_address_book()
     {
-        $this->loadFixturesFromFile('customer.yml');
-        $this->loadFixturesFromFile('country.yml');
-        $this->loadFixturesFromFile('address.yml');
-        $this->logInUser('oliver@queen.com', '123pa$$word');
+        $this->loadFixturesFromFiles(['customer.yml', 'country.yml', 'address.yml']);
+        $this->logInUser('oliver@queen.com', '123password');
 
         /** @var AddressRepositoryInterface $addressRepository */
-        $addressRepository = $this->get('sylius.repository.address');
+        $addressRepository = self::$container->get('sylius.repository.address');
         /** @var AddressInterface $address */
         $address = $addressRepository->findOneBy(['street' => 'Kupreska']);
 
@@ -67,13 +65,11 @@ EOT;
      */
     public function it_does_not_allow_to_update_address_if_country_or_province_code_are_not_valid()
     {
-        $this->loadFixturesFromFile('customer.yml');
-        $this->loadFixturesFromFile('country.yml');
-        $this->loadFixturesFromFile('address.yml');
-        $this->logInUser('oliver@queen.com', '123pa$$word');
+        $this->loadFixturesFromFiles(['customer.yml', 'country.yml', 'address.yml']);
+        $this->logInUser('oliver@queen.com', '123password');
 
         /** @var AddressRepositoryInterface $addressRepository */
-        $addressRepository = $this->get('sylius.repository.address');
+        $addressRepository = self::$container->get('sylius.repository.address');
         /** @var AddressInterface $address */
         $address = $addressRepository->findOneBy(['street' => 'Kupreska']);
 
@@ -102,13 +98,11 @@ EOT;
      */
     public function it_does_not_allow_to_update_address_without_passing_required_data()
     {
-        $this->loadFixturesFromFile('customer.yml');
-        $this->loadFixturesFromFile('country.yml');
-        $this->loadFixturesFromFile('address.yml');
-        $this->logInUser('oliver@queen.com', '123pa$$word');
+        $this->loadFixturesFromFiles(['customer.yml', 'country.yml', 'address.yml']);
+        $this->logInUser('oliver@queen.com', '123password');
 
         /** @var AddressRepositoryInterface $addressRepository */
-        $addressRepository = $this->get('sylius.repository.address');
+        $addressRepository = self::$container->get('sylius.repository.address');
         /** @var AddressInterface $address */
         $address = $addressRepository->findOneBy(['street' => 'Kupreska']);
 

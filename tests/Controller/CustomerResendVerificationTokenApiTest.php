@@ -19,7 +19,7 @@ final class CustomerResendVerificationTokenApiTest extends JsonApiTestCase
      */
     public function it_allows_to_resend_verification_token()
     {
-        $this->loadFixturesFromFile('channel.yml');
+        $this->loadFixturesFromFiles(['channel.yml']);
 
         $data =
 <<<EOT
@@ -42,7 +42,7 @@ EOT;
         $this->assertResponseCode($response, Response::HTTP_CREATED);
 
         /** @var EmailCheckerInterface $emailChecker */
-        $emailChecker = $this->get('sylius.behat.email_checker');
+        $emailChecker = self::$container->get('sylius.behat.email_checker');
 
         $this->assertSame(2, $emailChecker->countMessagesTo('vinny@fandf.com'));
     }

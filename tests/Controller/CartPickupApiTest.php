@@ -18,7 +18,7 @@ final class CartPickupApiTest extends JsonApiTestCase
      */
     public function it_creates_a_new_cart()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $data =
 <<<EOT
@@ -39,12 +39,12 @@ EOT;
      */
     public function it_does_not_allow_to_create_a_new_cart_if_token_is_already_used()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
         /** @var CommandBus $bus */
-        $bus = $this->get('tactician.commandbus');
+        $bus = self::$container->get('tactician.commandbus');
         $bus->handle(new PickupCart($token, 'WEB_GB'));
 
         $data =
@@ -66,7 +66,7 @@ EOT;
      */
     public function it_does_not_allow_to_create_a_new_cart_if_channel_does_not_exist()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $data =
 <<<EOT
@@ -87,7 +87,7 @@ EOT;
      */
     public function it_does_not_allow_to_create_a_new_cart_if_channel_is_not_specified()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $this->client->request('POST', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325', [], [], static::$acceptAndContentTypeHeader);
 

@@ -1,6 +1,6 @@
 [
     {
-        "id": 1,
+        "id": @integer@,
         "firstName": "Jeanie",
         "lastName": "Metz",
         "countryCode": "United Kingdom",
@@ -13,7 +13,7 @@
         "default": false
     },
     {
-        "id": 2,
+        "id": @integer@,
         "firstName": "Jeanie",
         "lastName": "Metz",
         "countryCode": "United Kingdom",
@@ -26,7 +26,7 @@
         "default": false
     },
     {
-        "id": 3,
+        "id": @integer@,
         "firstName": "Jeanie",
         "lastName": "Metz",
         "countryCode": "United Kingdom",

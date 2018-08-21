@@ -14,7 +14,7 @@ final class ProductShowCatalogByCodeApiTest extends JsonApiTestCase
      */
     public function it_shows_paginated_products_from_some_taxon_by_code()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $this->client->request('GET', '/shop-api/taxon-products/BRAND?channel=WEB_GB', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
@@ -27,7 +27,7 @@ final class ProductShowCatalogByCodeApiTest extends JsonApiTestCase
      */
     public function it_shows_products_for_sub_taxons_by_code()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $this->client->request('GET', '/shop-api/taxon-products/WOMEN_T_SHIRTS?channel=WEB_GB', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
@@ -40,7 +40,7 @@ final class ProductShowCatalogByCodeApiTest extends JsonApiTestCase
      */
     public function it_shows_paginated_products_from_some_taxon_by_code_in_different_language()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $this->client->request('GET', '/shop-api/taxon-products/BRAND?channel=WEB_GB&locale=de_DE', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
@@ -53,7 +53,7 @@ final class ProductShowCatalogByCodeApiTest extends JsonApiTestCase
      */
     public function it_shows_second_page_of_paginated_products_from_some_taxon_by_code()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $this->client->request('GET', '/shop-api/taxon-products/BRAND?channel=WEB_GB&limit=1&page=2', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();

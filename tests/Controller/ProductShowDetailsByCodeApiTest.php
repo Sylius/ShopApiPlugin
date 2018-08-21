@@ -14,7 +14,7 @@ final class ProductShowDetailsByCodeApiTest extends JsonApiTestCase
      */
     public function it_shows_simple_product_details_page()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $this->client->request('GET', '/shop-api/products/LOGAN_MUG_CODE?channel=WEB_GB', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
@@ -38,7 +38,7 @@ final class ProductShowDetailsByCodeApiTest extends JsonApiTestCase
      */
     public function it_throws_a_not_found_exception_if_product_has_not_been_found()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $this->client->request('GET', '/shop-api/products/WRONG_PRODUCT_CODE?channel=WEB_GB', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
@@ -51,7 +51,7 @@ final class ProductShowDetailsByCodeApiTest extends JsonApiTestCase
      */
     public function it_shows_simple_product_details_page_in_different_locale()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $this->client->request('GET', '/shop-api/products/LOGAN_MUG_CODE?channel=WEB_GB&locale=de_DE', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
@@ -64,7 +64,7 @@ final class ProductShowDetailsByCodeApiTest extends JsonApiTestCase
      */
     public function it_shows_product_with_variant_details_page()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $this->client->request('GET', '/shop-api/products/LOGAN_T_SHIRT_CODE?channel=WEB_GB', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
@@ -77,7 +77,7 @@ final class ProductShowDetailsByCodeApiTest extends JsonApiTestCase
      */
     public function it_shows_product_with_options_details_page()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $this->client->request('GET', '/shop-api/products/LOGAN_HAT_CODE?channel=WEB_GB', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
@@ -90,7 +90,7 @@ final class ProductShowDetailsByCodeApiTest extends JsonApiTestCase
      */
     public function it_shows_product_with_options_details_page_in_different_locale()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $this->client->request('GET', '/shop-api/products/LOGAN_HAT_CODE?channel=WEB_GB&locale=de_DE', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();

@@ -21,13 +21,13 @@ final class CustomerLoginApiTest extends JsonApiTestCase
      */
     public function it_allows_to_log_customer_in()
     {
-        $this->loadFixturesFromFile('customer.yml');
+        $this->loadFixturesFromFiles(['customer.yml']);
 
         $data =
 <<<EOT
         {
             "_username": "oliver@queen.com",
-            "_password": "123pa\$\$word"
+            "_password": "123password"
         }
 EOT;
 

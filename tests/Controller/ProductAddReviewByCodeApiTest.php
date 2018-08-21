@@ -16,7 +16,7 @@ final class ProductAddReviewByCodeApiTest extends JsonApiTestCase
      */
     public function it_adds_review_to_product()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $data =
 <<<EOT
@@ -39,8 +39,7 @@ EOT;
      */
     public function it_adds_review_to_the_product_for_registered_user()
     {
-        $this->loadFixturesFromFile('shop.yml');
-        $this->loadFixturesFromFile('customer.yml');
+        $this->loadFixturesFromFiles(['shop.yml', 'customer.yml']);
 
         $data =
 <<<EOT

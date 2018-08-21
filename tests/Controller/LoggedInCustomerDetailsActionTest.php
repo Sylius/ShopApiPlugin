@@ -14,13 +14,13 @@ final class LoggedInCustomerDetailsActionTest extends JsonApiTestCase
      */
     public function it_shows_currently_logged_in_customer_details()
     {
-        $this->loadFixturesFromFile('customer.yml');
+        $this->loadFixturesFromFiles(['customer.yml']);
 
         $data =
 <<<EOT
         {
             "_username": "oliver@queen.com",
-            "_password": "123pa\$\$word"
+            "_password": "123password"
         }
 EOT;
 

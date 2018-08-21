@@ -14,7 +14,7 @@ final class TaxonShowTreeApiTest extends JsonApiTestCase
      */
     public function it_shows_tree_of_all_taxons()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $this->client->request('GET', '/shop-api/taxons/', [], [], ['ACCEPT' => 'application/json']);
 
@@ -28,7 +28,7 @@ final class TaxonShowTreeApiTest extends JsonApiTestCase
      */
     public function it_shows_tree_of_all_taxons_in_different_language()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $this->client->request('GET', '/shop-api/taxons/?locale=de_DE', [], [], ['ACCEPT' => 'application/json']);
 

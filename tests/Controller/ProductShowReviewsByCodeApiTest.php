@@ -14,9 +14,7 @@ final class ProductShowReviewsByCodeApiTest extends JsonApiTestCase
      */
     public function it_shows_reviews_for_product_by_slug()
     {
-        $this->loadFixturesFromFile('shop.yml');
-        $this->loadFixturesFromFile('customer.yml');
-        $this->loadFixturesFromFile('mug_review.yml');
+        $this->loadFixturesFromFiles(['shop.yml', 'customer.yml', 'mug_review.yml']);
 
         $this->client->request('GET', '/shop-api/products/LOGAN_MUG_CODE/reviews?channel=WEB_GB', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();

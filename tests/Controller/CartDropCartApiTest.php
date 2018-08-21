@@ -23,7 +23,7 @@ final class CartDropCartApiTest extends JsonApiTestCase
      */
     public function it_returns_not_found_exception_if_cart_has_not_been_found()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $this->client->request('DELETE', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
@@ -41,12 +41,12 @@ final class CartDropCartApiTest extends JsonApiTestCase
      */
     public function it_deletes_a_cart()
     {
-        $this->loadFixturesFromFile('shop.yml');
+        $this->loadFixturesFromFiles(['shop.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
         /** @var CommandBus $bus */
-        $bus = $this->get('tactician.commandbus');
+        $bus = self::$container->get('tactician.commandbus');
         $bus->handle(new PickupCart($token, 'WEB_GB'));
         $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
 
@@ -61,15 +61,12 @@ final class CartDropCartApiTest extends JsonApiTestCase
      */
     public function it_returns_not_found_exception_if_order_is_in_different_state_then_cart()
     {
-        $this->loadFixturesFromFile('shop.yml');
-        $this->loadFixturesFromFile('country.yml');
-        $this->loadFixturesFromFile('shipping.yml');
-        $this->loadFixturesFromFile('payment.yml');
+        $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml', 'payment.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
         /** @var CommandBus $bus */
-        $bus = $this->get('tactician.commandbus');
+        $bus = self::$container->get('tactician.commandbus');
         $bus->handle(new PickupCart($token, 'WEB_GB'));
         $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
         $bus->handle(new AddressOrder(
@@ -96,7 +93,7 @@ final class CartDropCartApiTest extends JsonApiTestCase
         $bus->handle(new ChoosePaymentMethod($token, 0, 'PBC'));
 
         /** @var OrderInterface $order */
-        $order = $this->get('sylius.repository.order')->findOneBy(['tokenValue' => $token]);
+        $order = self::$container->get('sylius.repository.order')->findOneBy(['tokenValue' => $token]);
 
         $bus->handle(new CompleteOrder($token, 'sylius@example.com'));
 
