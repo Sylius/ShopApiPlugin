@@ -42,7 +42,7 @@ EOT;
         $this->client->request('POST', '/shop-api/address-book', [], [], self::$acceptAndContentTypeHeader, $data);
 
         $response = $this->client->getResponse();
-        $this->assertResponse($response, 'address_book/add_address_response', Response::HTTP_NO_CONTENT);
+        $this->assertResponse($response, 'address_book/add_address_response', Response::HTTP_CREATED);
 
         /** @var CustomerRepositoryInterface $customerRepository */
         $customerRepository = $this->get('sylius.repository.customer');

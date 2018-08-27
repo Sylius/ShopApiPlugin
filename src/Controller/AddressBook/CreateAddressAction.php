@@ -15,7 +15,7 @@ use Sylius\ShopApiPlugin\Factory\AddressBookViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
 use Sylius\ShopApiPlugin\Model\Address;
 use Sylius\ShopApiPlugin\Provider\LoggedInUserProviderInterface;
-use Sylius\ShopApiPlugin\View\AddressView;
+use Sylius\ShopApiPlugin\View\AddressBookView;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
@@ -113,7 +113,7 @@ final class CreateAddressAction
         if (($customer = $user->getCustomer()) !== null) {
             $this->bus->handle(new CreateAddress($addressModel, $user->getEmail()));
 
-            $view = View::create($this->getLastInsertedAddress($customer), Response::HTTP_NO_CONTENT);
+            $view = View::create($this->getLastInsertedAddress($customer), Response::HTTP_CREATED);
         } else {
             $view = View::create(['message' => 'The user is not a customer'], Response::HTTP_BAD_REQUEST);
         }
@@ -126,12 +126,12 @@ final class CreateAddressAction
      *
      * @param Customer $customer
      *
-     * @return AddressView
+     * @return AddressBookView
      */
-    private function getLastInsertedAddress(Customer $customer): AddressView
+    private function getLastInsertedAddress(Customer $customer): AddressBookView
     {
         $addresses = $this->addressRepository->findByCustomer($customer);
 
-        $this->addressViewFactory->create(end($addresses), $customer);
+        return $this->addressViewFactory->create(end($addresses), $customer);
     }
 }

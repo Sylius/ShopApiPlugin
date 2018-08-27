@@ -6,5 +6,6 @@
     "city": "Split",
     "street": "Kupreska 12",
     "countryCode": "GB",
-    "postcode": "2433"
+    "postcode": "2433",
+    "default": false
 }
