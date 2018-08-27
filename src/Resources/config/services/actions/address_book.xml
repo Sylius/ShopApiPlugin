@@ -11,6 +11,8 @@
             <argument type="service" id="tactician.commandbus" />
             <argument type="service" id="validator" />
             <argument type="service" id="sylius.shop_api_plugin.factory.validation_error_view_factory" />
+            <argument type="service" id="sylius.shop_api_plugin.factory.address_book_view_factory" />
+            <argument type="service" id="sylius.repository.address" />
             <argument type="service" id="sylius.shop_api_plugin.provider.current_user_provider" />
         </service>
         <service id="sylius.shop_api_plugin.controller.address_book.show_address_book_action"
