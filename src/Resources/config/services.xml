@@ -58,7 +58,8 @@
             <argument type="service" id="sylius.manager.order" />
         </service>
 
-        <service id="sylius.shop_api_plugin.provider.current_user_provider" class="Sylius\ShopApiPlugin\Provider\CurrentUserProvider">
+        <service id="sylius.shop_api_plugin.provider.current_user_provider"
+                 class="Sylius\ShopApiPlugin\Provider\LoggedInUserProvider">
             <argument type="service" id="security.token_storage"/>
         </service>
     </services>

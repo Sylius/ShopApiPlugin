@@ -7,13 +7,14 @@ namespace Sylius\ShopApiPlugin\Controller\AddressBook;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
+use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\ShopApiPlugin\Command\CreateAddress;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
 use Sylius\ShopApiPlugin\Model\Address;
-use Sylius\ShopApiPlugin\Provider\CurrentUserProviderInterface;
+use Sylius\ShopApiPlugin\Provider\LoggedInUserProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class CreateAddressAction
@@ -39,36 +40,29 @@ final class CreateAddressAction
     private $validationErrorViewFactory;
 
     /**
-     * @var TokenStorage
-     */
-    private $tokenStorage;
-    /**
-     * @var CurrentUserProviderInterface
+     * @var LoggedInUserProviderInterface
      */
     private $currentUserProvider;
 
     /**
-     * @param ViewHandlerInterface $viewHandler
-     * @param CommandBus $bus
-     * @param ValidatorInterface $validator
+     * @param ViewHandlerInterface                $viewHandler
+     * @param CommandBus                          $bus
+     * @param ValidatorInterface                  $validator
      * @param ValidationErrorViewFactoryInterface $validationErrorViewFactory
-     * @param TokenStorage $tokenStorage
-     * @param CurrentUserProviderInterface $currentUserProvider
+     * @param LoggedInUserProviderInterface       $currentUserProvider
      */
     public function __construct(
         ViewHandlerInterface $viewHandler,
         CommandBus $bus,
         ValidatorInterface $validator,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
-        TokenStorage $tokenStorage,
-        CurrentUserProviderInterface $currentUserProvider
+        LoggedInUserProviderInterface $currentUserProvider
     ) {
-        $this->viewHandler = $viewHandler;
-        $this->bus = $bus;
-        $this->validator = $validator;
+        $this->viewHandler                = $viewHandler;
+        $this->bus                        = $bus;
+        $this->validator                  = $validator;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
-        $this->tokenStorage = $tokenStorage;
-        $this->currentUserProvider = $currentUserProvider;
+        $this->currentUserProvider        = $currentUserProvider;
     }
 
     /**
@@ -83,13 +77,26 @@ final class CreateAddressAction
         $validationResults = $this->validator->validate($addressModel);
 
         if (0 !== count($validationResults)) {
-            return $this->viewHandler->handle(View::create($this->validationErrorViewFactory->create($validationResults), Response::HTTP_BAD_REQUEST));
+            return $this->viewHandler->handle(
+                View::create($this->validationErrorViewFactory->create($validationResults), Response::HTTP_BAD_REQUEST)
+            );
         }
 
-        $user = $this->currentUserProvider->provide();
+        try {
+            /** @var ShopUserInterface $user */
+            $user = $this->currentUserProvider->provide();
+        } catch (TokenNotFoundException $exception) {
+            return $this->viewHandler->handle(View::create(null, Response::HTTP_UNAUTHORIZED));
+        }
 
-        $this->bus->handle(new CreateAddress($addressModel, $user->getEmail()));
 
-        return $this->viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));
+        if ($user->getCustomer() !== null) {
+            $this->bus->handle(new CreateAddress($addressModel, $user->getEmail()));
+            $view = View::create(null, Response::HTTP_NO_CONTENT);
+        } else {
+            $view = View::create(['error' => 'The user has is not a customer'], Response::HTTP_BAD_REQUEST);
+        }
+
+        return $this->viewHandler->handle($view);
     }
 }
