@@ -896,8 +896,10 @@ paths:
               description: "Successfully fetched Address Book"
               schema:
                 $ref: "#/definitions/LoggedInCustomerAddressBook"
+            401:
+              description: "No user is logged in"
             500:
-              description: "User not logged in"
+              description: "The user is not a customer"
           security:
              - bearerAuth: []
         post:
@@ -918,8 +920,10 @@ paths:
               description: "Validation failed"
               schema:
                   $ref: "#/definitions/GeneralError"
+            401:
+              description: "No user is logged in"
             500:
-              description: "No logged in user or the user does not own the address"
+              description: "The user does not own the address or the user is not a customer"
           security:
              - bearerAuth: []
     /address-book/{id}:
@@ -950,8 +954,10 @@ paths:
               description: "Validation failed"
               schema:
                   $ref: "#/definitions/GeneralError"
+            401:
+              description: "No user is logged in"
             500:
-              description: "No logged in user or the user does not own the address"
+              description: "The user does not own the address or the user is not a customer"
           security:
              - bearerAuth: []
         delete:
@@ -973,8 +979,10 @@ paths:
               description: "Validation failed"
               schema:
                   $ref: "#/definitions/GeneralError"
+            401:
+              description: "No user is logged in"
             500:
-              description: "No logged in user or the user does not own the address"
+              description: "The user does not own the address or the user is not a customer"
           security:
              - bearerAuth: []
     /address-book/{id}/default:
@@ -997,8 +1005,10 @@ paths:
               description: "Validation failed"
               schema:
                   $ref: "#/definitions/GeneralError"
+            401:
+              description: "No user is logged in"
             500:
-              description: "No logged in user or the user does not own the address"
+              description: "The user does not own the address or the user is not a customer"
           security:
              - bearerAuth: []
 securityDefinitions:

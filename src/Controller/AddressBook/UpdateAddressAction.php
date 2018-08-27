@@ -116,7 +116,7 @@ final class UpdateAddressAction
                 Response::HTTP_OK
             );
         } else {
-            $view = View::create(['error' => 'The user has is not a customer'], Response::HTTP_BAD_REQUEST);
+            $view = View::create(['message' => 'The user is not a customer'], Response::HTTP_BAD_REQUEST);
         }
 
         return $this->viewHandler->handle($view);

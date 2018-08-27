@@ -90,7 +90,7 @@ final class RemoveAddressAction
             $this->bus->handle(new RemoveAddress($request->attributes->get('id'), $user->getEmail()));
             $view = View::create(null, Response::HTTP_NO_CONTENT);
         } else {
-            $view = View::create(['error' => 'The user has is not a customer'], Response::HTTP_BAD_REQUEST);
+            $view = View::create(['message' => 'The user is not a customer'], Response::HTTP_BAD_REQUEST);
         }
 
         return $this->viewHandler->handle($view);

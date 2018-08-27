@@ -67,7 +67,7 @@ final class ShowAddressBookAction
 
             $view = View::create($addressViews, Response::HTTP_OK);
         } else {
-            $view = View::create(['No customer associated to the user'], Response::HTTP_BAD_REQUEST);
+            $view = View::create(['message' => 'The user is not a customer'], Response::HTTP_BAD_REQUEST);
         }
 
         return $this->viewHandler->handle($view);
