@@ -896,10 +896,8 @@ paths:
               description: "Successfully fetched Address Book"
               schema:
                 $ref: "#/definitions/LoggedInCustomerAddressBook"
-            401:
-              description: "No user is logged in"
             500:
-              description: "The user is not a customer"
+              description: "User not logged in"
           security:
              - bearerAuth: []
         post:
@@ -914,8 +912,10 @@ paths:
             schema:
               $ref: "#/definitions/LoggedInCustomerAddressBookAddress"
           responses:
-            204:
+            201:
               description: "Successfully created the address"
+              schema:
+                - $ref: "#/definitions/LoggedInCustomerAddressBookAddress"
             400:
               description: "Validation failed"
               schema:
@@ -923,7 +923,7 @@ paths:
             401:
               description: "No user is logged in"
             500:
-              description: "The user does not own the address or the user is not a customer"
+              description: "The user does not own the address"
           security:
              - bearerAuth: []
     /address-book/{id}:
@@ -957,7 +957,7 @@ paths:
             401:
               description: "No user is logged in"
             500:
-              description: "The user does not own the address or the user is not a customer"
+              description: "The user does not own the address"
           security:
              - bearerAuth: []
         delete:
@@ -982,7 +982,7 @@ paths:
             401:
               description: "No user is logged in"
             500:
-              description: "The user does not own the address or the user is not a customer"
+              description: "The user does not own the address"
           security:
              - bearerAuth: []
     /address-book/{id}/default:
@@ -1008,7 +1008,7 @@ paths:
             401:
               description: "No user is logged in"
             500:
-              description: "The user does not own the address or the user is not a customer"
+              description: "The user does not own the address"
           security:
              - bearerAuth: []
 securityDefinitions:
