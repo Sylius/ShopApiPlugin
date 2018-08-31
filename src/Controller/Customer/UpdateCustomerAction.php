@@ -77,9 +77,11 @@ final class UpdateCustomerAction
         $updateCustomerCommand = $updateCustomerRequest->getCommand();
         $this->bus->handle($updateCustomerCommand);
 
-        return $this->viewHandler->handle(View::create(
+        return $this->viewHandler->handle(
+            View::create(
             $this->customerViewFactory->create($customer),
-            Response::HTTP_OK)
+            Response::HTTP_OK
+        )
         );
     }
 }

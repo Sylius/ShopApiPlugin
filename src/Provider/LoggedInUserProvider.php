@@ -5,17 +5,17 @@ declare(strict_types=1);
 namespace Sylius\ShopApiPlugin\Provider;
 
 use Sylius\Component\Core\Model\ShopUserInterface;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
-use Webmozart\Assert\Assert;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
-final class CurrentUserProvider implements CurrentUserProviderInterface
+final class LoggedInUserProvider implements LoggedInUserProviderInterface
 {
     /**
-     * @var TokenStorage
+     * @var TokenStorageInterface
      */
     private $tokenStorage;
 
-    public function __construct(TokenStorage $tokenStorage)
+    public function __construct(TokenStorageInterface $tokenStorage)
     {
         $this->tokenStorage = $tokenStorage;
     }
@@ -28,7 +28,9 @@ final class CurrentUserProvider implements CurrentUserProviderInterface
         /** @var ShopUserInterface $user */
         $user = $this->tokenStorage->getToken()->getUser();
 
-        Assert::isInstanceOf($user, ShopUserInterface::class);
+        if (!$user instanceof ShopUserInterface) {
+            throw new TokenNotFoundException();
+        }
 
         return $user;
     }

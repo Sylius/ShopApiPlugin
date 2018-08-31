@@ -11,7 +11,6 @@ use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\ShipmentInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Sylius\Component\Order\Repository\OrderItemRepositoryInterface;
 use Sylius\Component\Registry\ServiceRegistryInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Shipping\Exception\UnresolvedDefaultShippingMethodException;
@@ -29,6 +28,7 @@ final class CartController extends Controller
      * @param Request $request
      *
      * @return Response
+     *
      * @throws UnresolvedDefaultShippingMethodException
      */
     public function estimateShippingCostAction(Request $request)

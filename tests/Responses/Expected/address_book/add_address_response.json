@@ -1,0 +1,11 @@
+{
+    "id": @integer@,
+    "firstName": "Jurica",
+    "lastName": "Separovic",
+    "phoneNumber": "091892212",
+    "city": "Split",
+    "street": "Kupreska 12",
+    "countryCode": "GB",
+    "postcode": "2433",
+    "default": false
+}
