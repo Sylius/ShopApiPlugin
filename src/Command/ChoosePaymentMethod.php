@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Command;
 
-use Webmozart\Assert\Assert;
-
 final class ChoosePaymentMethod
 {
     /**
@@ -28,10 +26,8 @@ final class ChoosePaymentMethod
      * @param mixed $paymentIdentifier
      * @param string $paymentMethod
      */
-    public function __construct($orderToken, $paymentIdentifier, $paymentMethod)
+    public function __construct(string $orderToken, $paymentIdentifier, string $paymentMethod)
     {
-        Assert::allString([$orderToken, $paymentMethod]);
-
         $this->orderToken = $orderToken;
         $this->paymentIdentifier = $paymentIdentifier;
         $this->paymentMethod = $paymentMethod;
@@ -40,7 +36,7 @@ final class ChoosePaymentMethod
     /**
      * @return string
      */
-    public function orderToken()
+    public function orderToken(): string
     {
         return $this->orderToken;
     }
@@ -56,7 +52,7 @@ final class ChoosePaymentMethod
     /**
      * @return string
      */
-    public function paymentMethod()
+    public function paymentMethod(): string
     {
         return $this->paymentMethod;
     }

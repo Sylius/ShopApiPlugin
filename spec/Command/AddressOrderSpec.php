@@ -6,6 +6,7 @@ namespace spec\Sylius\ShopApiPlugin\Command;
 
 use PhpSpec\ObjectBehavior;
 use Sylius\ShopApiPlugin\Model\Address;
+use TypeError;
 
 final class AddressOrderSpec extends ObjectBehavior
 {
@@ -89,6 +90,6 @@ final class AddressOrderSpec extends ObjectBehavior
             ])
         );
 
-        $this->shouldThrow(\InvalidArgumentException::class)->duringInstantiation();
+        $this->shouldThrow(TypeError::class)->duringInstantiation();
     }
 }
