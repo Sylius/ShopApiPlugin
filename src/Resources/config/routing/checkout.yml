@@ -1,40 +1,40 @@
-shop_api_address_checkout:
+sylius_shop_api_address_checkout:
     path: /{token}/address
     methods: [PUT]
     defaults:
         _controller: sylius.shop_api_plugin.controller.checkout.address_action
 
-shop_api_summarize_checkout:
+sylius_shop_api_summarize_checkout:
     path: /{token}
     methods: [GET]
     defaults:
         _controller: sylius.shop_api_plugin.controller.cart.summarize_action
 
-shop_api_available_shipping_checkout:
+sylius_shop_api_available_shipping_checkout:
     path: /{token}/shipping
     methods: [GET]
     defaults:
         _controller: sylius.shop_api_plugin.controller.checkout.show_available_shipping_methods_action
 
-shop_api_choose_shipping_method:
+sylius_shop_api_choose_shipping_method:
     path: /{token}/shipping/{shippingId}
     methods: [PUT]
     defaults:
         _controller: sylius.shop_api_plugin.controller.checkout.choose_shipping_method_action
 
-shop_api_available_payment_methods_checkout:
+sylius_shop_api_available_payment_methods_checkout:
     path: /{token}/payment
     methods: [GET]
     defaults:
         _controller: sylius.shop_api_plugin.controller.checkout.show_available_payment_methods_action
 
-shop_api_choose_payment_method_checkout:
+sylius_shop_api_choose_payment_method_checkout:
     path: /{token}/payment/{paymentId}
     methods: [PUT]
     defaults:
         _controller: sylius.shop_api_plugin.controller.checkout.choose_payment_method_action
 
-shop_api_complete_checkout:
+sylius_shop_api_complete_checkout:
     path: /{token}/complete
     methods: [PUT]
     defaults:
