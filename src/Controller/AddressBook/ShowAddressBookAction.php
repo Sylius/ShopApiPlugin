@@ -58,7 +58,6 @@ final class ShowAddressBookAction
 
         $customer = $user->getCustomer();
         if ($customer instanceof Customer) {
-
             $addressViews = $customer->getAddresses()->map(
                 function (AddressInterface $address) use ($customer) {
                     return $this->addressBookViewFactory->create($address, $customer);

@@ -28,7 +28,7 @@ final class LoggedInUserProvider implements LoggedInUserProviderInterface
         /** @var ShopUserInterface $user */
         $user = $this->tokenStorage->getToken()->getUser();
 
-        if(!$user instanceof ShopUserInterface){
+        if (!$user instanceof ShopUserInterface) {
             throw new TokenNotFoundException();
         }
 
