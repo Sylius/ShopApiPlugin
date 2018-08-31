@@ -1,58 +1,58 @@
-shop_api_pickup_cart:
+sylius_shop_api_pickup_cart:
     path: /carts/{token}
     methods: [POST]
     defaults:
         _controller: sylius.shop_api_plugin.controller.cart.pickup_action
 
-shop_api_cart_summary:
+sylius_shop_api_cart_summary:
     path: /carts/{token}
     methods: [GET]
     defaults:
         _controller: sylius.shop_api_plugin.controller.cart.summarize_action
 
-shop_api_add_to_cart:
+sylius_shop_api_add_to_cart:
     path: /carts/{token}/items
     methods: [POST]
     defaults:
         _controller: sylius.shop_api_plugin.controller.cart.put_item_to_cart_action
 
-shop_api_add_multiple_items_to_cart:
+sylius_shop_api_add_multiple_items_to_cart:
     path: /carts/{token}/multiple-items
     methods: [POST]
     defaults:
         _controller: sylius.shop_api_plugin.controller.cart.put_items_to_cart_action
 
-shop_api_drop_cart:
+sylius_shop_api_drop_cart:
     path: /carts/{token}
     methods: [DELETE]
     defaults:
         _controller: sylius.shop_api_plugin.controller.cart.drop_cart_action
 
-shop_api_change_item_quantity:
+sylius_shop_api_change_item_quantity:
     path: /carts/{token}/items/{id}
     methods: [PUT]
     defaults:
         _controller: sylius.shop_api_plugin.controller.cart.change_item_quantity_action
 
-shop_api_remove_item_from_cart:
+sylius_shop_api_remove_item_from_cart:
     path: /carts/{token}/items/{id}
     methods: [DELETE]
     defaults:
         _controller: sylius.shop_api_plugin.controller.cart.remove_item_from_cart_action
 
-shop_api_estimated_shipping_cost:
+sylius_shop_api_estimated_shipping_cost:
     path: /carts/{token}/estimated-shipping-cost
     methods: [GET]
     defaults:
         _controller: ShopApiPlugin:Cart:estimateShippingCost
 
-shop_api_add_coupon_to_cart:
+sylius_shop_api_add_coupon_to_cart:
     path: /carts/{token}/coupon
     methods: [PUT]
     defaults:
         _controller: sylius.shop_api_plugin.controller.cart.add_coupon_action
 
-shop_api_remove_coupon_to_cart:
+sylius_shop_api_remove_coupon_to_cart:
     path: /carts/{token}/coupon
     methods: [DELETE]
     defaults:

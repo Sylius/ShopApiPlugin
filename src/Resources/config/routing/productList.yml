@@ -1,4 +1,4 @@
-shop_api_product_show_latest:
+sylius_shop_api_product_show_latest:
     path: /product-latest/
     methods: [GET]
     defaults:

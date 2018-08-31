@@ -55,7 +55,7 @@ security:
             stateless: true
             anonymous: true
 
-        shop_api_login:
+        sylius_shop_api_login:
             pattern:  "%shop_api.security.regex%/login"
             stateless: true
             anonymous: true

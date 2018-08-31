@@ -1,10 +1,10 @@
-shop_api_taxon_show_details:
+sylius_shop_api_taxon_show_details:
     path: /taxons/{code}
     methods: [GET]
     defaults:
         _controller: sylius.shop_api_plugin.controller.taxon.show_taxon_details_action
 
-shop_api_taxon_show_tree:
+sylius_shop_api_taxon_show_tree:
     path: /taxons/
     methods: [GET]
     defaults:
