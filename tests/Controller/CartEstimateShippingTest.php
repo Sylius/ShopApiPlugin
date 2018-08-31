@@ -20,7 +20,7 @@ final class CartEstimateShippingTest extends JsonApiTestCase
         $this->client->request('GET', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/estimated-shipping-cost', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
-        $this->assertResponse($response, 'cart/cart_does_not_exist_response', Response::HTTP_BAD_REQUEST);
+        $this->assertResponse($response, 'cart/cart_and_country_does_not_exist_response', Response::HTTP_BAD_REQUEST);
     }
 
     /**

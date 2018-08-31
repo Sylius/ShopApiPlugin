@@ -26,7 +26,7 @@
         <service class="Sylius\ShopApiPlugin\Handler\EstimateShippingCostHandler" id="sylius.shop_api_plugin.handler.estimate_shipping_cost_handler">
             <argument type="service" id="sylius.repository.order" />
             <argument type="service" id="sylius.custom_factory.address"/>
-            <argument type="service" id="sylius.factory.customer"/>
+            <argument type="service" id="sylius.factory.shipment"/>
             <argument type="service" id="sylius.shipping_methods_resolver.default"/>
             <argument type="service" id="sylius.registry.shipping_calculator"/>
             <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\EstimateShippingCost"/>
