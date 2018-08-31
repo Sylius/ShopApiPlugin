@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace spec\Sylius\ShopApiPlugin\Command;
 
 use PhpSpec\ObjectBehavior;
+use TypeError;
 
 final class PutOptionBasedConfigurableItemToCartSpec extends ObjectBehavior
 {
@@ -37,14 +38,14 @@ final class PutOptionBasedConfigurableItemToCartSpec extends ObjectBehavior
     {
         $this->beConstructedWith(new \stdClass(), 'T_SHIRT_CODE', ['RED_OPTION_CODE'], 1);
 
-        $this->shouldThrow(\InvalidArgumentException::class)->duringInstantiation();
+        $this->shouldThrow(TypeError::class)->duringInstantiation();
     }
 
     function it_throws_an_exception_if_product_code_is_not_a_string()
     {
         $this->beConstructedWith('ORDERTOKEN', new \stdClass(), ['RED_OPTION_CODE'], 1);
 
-        $this->shouldThrow(\InvalidArgumentException::class)->duringInstantiation();
+        $this->shouldThrow(TypeError::class)->duringInstantiation();
     }
 
     function it_throws_an_exception_if_options_are_empty()

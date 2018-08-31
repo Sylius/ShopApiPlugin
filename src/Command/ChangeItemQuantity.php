@@ -28,10 +28,8 @@ final class ChangeItemQuantity
      * @param mixed $itemIdentifier
      * @param int $quantity
      */
-    public function __construct($orderToken, $itemIdentifier, $quantity)
+    public function __construct(string $orderToken, $itemIdentifier, int $quantity)
     {
-        Assert::string($orderToken, 'Expected order token to be string, got %s');
-        Assert::integer($quantity, 'Expected quantity to be integer, got %s');
         Assert::greaterThan($quantity, 0, 'Quantity should be greater than 0');
 
         $this->orderToken = $orderToken;
@@ -42,7 +40,7 @@ final class ChangeItemQuantity
     /**
      * @return string
      */
-    public function orderToken()
+    public function orderToken(): string
     {
         return $this->orderToken;
     }
@@ -58,7 +56,7 @@ final class ChangeItemQuantity
     /**
      * @return int
      */
-    public function quantity()
+    public function quantity(): int
     {
         return $this->quantity;
     }

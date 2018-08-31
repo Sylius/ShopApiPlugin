@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace spec\Sylius\ShopApiPlugin\Command;
 
 use PhpSpec\ObjectBehavior;
+use TypeError;
 
 final class DropCartSpec extends ObjectBehavior
 {
@@ -22,6 +23,6 @@ final class DropCartSpec extends ObjectBehavior
     {
         $this->beConstructedWith(new \stdClass());
 
-        $this->shouldThrow(\InvalidArgumentException::class)->duringInstantiation();
+        $this->shouldThrow(TypeError::class)->duringInstantiation();
     }
 }

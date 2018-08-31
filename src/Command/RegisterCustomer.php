@@ -6,19 +6,29 @@ namespace Sylius\ShopApiPlugin\Command;
 
 final class RegisterCustomer
 {
-    /** @var string */
+    /**
+     * @var string
+     */
     private $email;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $plainPassword;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $firstName;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $lastName;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $channelCode;
 
     public function __construct(string $email, string $plainPassword, string $firstName, string $lastName, string $channelCode)

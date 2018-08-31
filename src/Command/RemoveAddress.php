@@ -17,7 +17,7 @@ final class RemoveAddress
     private $userEmail;
 
     /**
-     * @param $id
+     * @param mixed $id
      * @param string $userEmail
      */
     public function __construct($id, string $userEmail)
@@ -37,7 +37,7 @@ final class RemoveAddress
     /**
      * @return string
      */
-    public function userEmail()
+    public function userEmail(): string
     {
         return $this->userEmail;
     }

@@ -37,7 +37,7 @@ final class SetDefaultAddress
     /**
      * @return string
      */
-    public function userEmail()
+    public function userEmail(): string
     {
         return $this->userEmail;
     }

@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Command;
 
-use Webmozart\Assert\Assert;
-
 final class CompleteOrder
 {
     /**
@@ -28,12 +26,8 @@ final class CompleteOrder
      * @param string $email
      * @param string|null $notes
      */
-    public function __construct($orderToken, $email, $notes = null)
+    public function __construct(string $orderToken, string $email, ?string $notes = null)
     {
-        Assert::string($orderToken);
-        Assert::string($email);
-        Assert::nullOrString($notes);
-
         $this->orderToken = $orderToken;
         $this->email = $email;
         $this->notes = $notes;
@@ -42,7 +36,7 @@ final class CompleteOrder
     /**
      * @return string
      */
-    public function orderToken()
+    public function orderToken(): string
     {
         return $this->orderToken;
     }
@@ -50,7 +44,7 @@ final class CompleteOrder
     /**
      * @return string
      */
-    public function email()
+    public function email(): string
     {
         return $this->email;
     }
@@ -58,7 +52,7 @@ final class CompleteOrder
     /**
      * @return string|null
      */
-    public function notes()
+    public function notes(): ?string
     {
         return $this->notes;
     }
