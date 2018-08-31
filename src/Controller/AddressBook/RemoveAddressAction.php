@@ -14,7 +14,6 @@ use Sylius\ShopApiPlugin\Provider\LoggedInUserProviderInterface;
 use Sylius\ShopApiPlugin\Request\RemoveAddressRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -43,28 +42,27 @@ final class RemoveAddressAction
     /**
      * @var LoggedInUserProviderInterface
      */
-    private $currentUserProvider;
+    private $loggedInUserProvider;
 
     /**
      * @param ViewHandlerInterface          $viewHandler
      * @param ValidatorInterface            $validator
      * @param ValidationErrorViewFactory    $validationErrorViewFactory
      * @param CommandBus                    $bus
-     * @param TokenStorageInterface         $tokenStorage
-     * @param LoggedInUserProviderInterface $currentUserProvider
+     * @param LoggedInUserProviderInterface $loggedInUserProvider
      */
     public function __construct(
         ViewHandlerInterface $viewHandler,
         ValidatorInterface $validator,
         ValidationErrorViewFactory $validationErrorViewFactory,
         CommandBus $bus,
-        LoggedInUserProviderInterface $currentUserProvider
+        LoggedInUserProviderInterface $loggedInUserProvider
     ) {
         $this->viewHandler = $viewHandler;
         $this->validator = $validator;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->bus = $bus;
-        $this->currentUserProvider = $currentUserProvider;
+        $this->loggedInUserProvider = $loggedInUserProvider;
     }
 
     public function __invoke(Request $request): Response
@@ -81,7 +79,7 @@ final class RemoveAddressAction
 
         try {
             /** @var ShopUserInterface $user */
-            $user = $this->currentUserProvider->provide();
+            $user = $this->loggedInUserProvider->provide();
         } catch (TokenNotFoundException $exception) {
             return $this->viewHandler->handle(View::create(null, Response::HTTP_UNAUTHORIZED));
         }

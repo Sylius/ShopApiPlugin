@@ -56,7 +56,7 @@ final class UpdateAddressAction
     /**
      * @var LoggedInUserProviderInterface
      */
-    private $currentUserProvider;
+    private $loggedInUserProvider;
 
     /**
      * @param ViewHandlerInterface                $viewHandler
@@ -66,7 +66,7 @@ final class UpdateAddressAction
      * @param AddressBookViewFactoryInterface     $addressViewFactory
      * @param AddressRepositoryInterface          $addressRepository
      * @param TokenStorageInterface               $tokenStorage
-     * @param LoggedInUserProviderInterface       $currentUserProvider
+     * @param LoggedInUserProviderInterface       $loggedInUserProvider
      */
     public function __construct(
         ViewHandlerInterface $viewHandler,
@@ -75,7 +75,7 @@ final class UpdateAddressAction
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         AddressBookViewFactoryInterface $addressViewFactory,
         AddressRepositoryInterface $addressRepository,
-        LoggedInUserProviderInterface $currentUserProvider
+        LoggedInUserProviderInterface $loggedInUserProvider
     ) {
         $this->viewHandler = $viewHandler;
         $this->validator = $validator;
@@ -83,7 +83,7 @@ final class UpdateAddressAction
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->addressBookViewFactory = $addressViewFactory;
         $this->addressRepository = $addressRepository;
-        $this->currentUserProvider = $currentUserProvider;
+        $this->loggedInUserProvider = $loggedInUserProvider;
     }
 
     public function __invoke(Request $request, $id): Response
@@ -100,7 +100,7 @@ final class UpdateAddressAction
 
         try {
             /** @var ShopUserInterface $user */
-            $user = $this->currentUserProvider->provide();
+            $user = $this->loggedInUserProvider->provide();
         } catch (TokenNotFoundException $exception) {
             return $this->viewHandler->handle(View::create(null, Response::HTTP_UNAUTHORIZED));
         }

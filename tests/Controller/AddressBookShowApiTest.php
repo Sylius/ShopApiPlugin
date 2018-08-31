@@ -33,7 +33,7 @@ final class AddressBookShowApiTest extends JsonApiTestCase
         $this->client->request('GET', '/shop-api/address-book', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
-        $this->assertResponse($response, 'address_book/show_address_book_unauthorized_response', Response::HTTP_UNAUTHORIZED);
+        $this->assertResponseCode($response, Response::HTTP_UNAUTHORIZED);
     }
 
 }

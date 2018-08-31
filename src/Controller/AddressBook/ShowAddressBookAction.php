@@ -25,7 +25,7 @@ final class ShowAddressBookAction
     /**
      * @var LoggedInUserProviderInterface
      */
-    private $currentUserProvider;
+    private $loggedInUserProvider;
 
     /**
      * @var AddressBookViewFactoryInterface
@@ -34,16 +34,16 @@ final class ShowAddressBookAction
 
     /**
      * @param ViewHandlerInterface            $viewHandler
-     * @param LoggedInUserProviderInterface   $currentUserProvider
+     * @param LoggedInUserProviderInterface   $loggedInUserProvider
      * @param AddressBookViewFactoryInterface $addressBookViewFactory
      */
     public function __construct(
         ViewHandlerInterface $viewHandler,
-        LoggedInUserProviderInterface $currentUserProvider,
+        LoggedInUserProviderInterface $loggedInUserProvider,
         AddressBookViewFactoryInterface $addressBookViewFactory
     ) {
         $this->viewHandler = $viewHandler;
-        $this->currentUserProvider = $currentUserProvider;
+        $this->loggedInUserProvider = $loggedInUserProvider;
         $this->addressBookViewFactory = $addressBookViewFactory;
     }
 
@@ -51,7 +51,7 @@ final class ShowAddressBookAction
     {
         try {
             /** @var ShopUserInterface $user */
-            $user = $this->currentUserProvider->provide();
+            $user = $this->loggedInUserProvider->provide();
         } catch (TokenNotFoundException $exception) {
             return $this->viewHandler->handle(View::create(null, Response::HTTP_UNAUTHORIZED));
         }

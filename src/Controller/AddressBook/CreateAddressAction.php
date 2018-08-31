@@ -46,7 +46,7 @@ final class CreateAddressAction
     /**
      * @var LoggedInUserProviderInterface
      */
-    private $currentUserProvider;
+    private $loggedInUserProvider;
 
     /**
      * @var AddressBookViewFactoryInterface
@@ -65,7 +65,7 @@ final class CreateAddressAction
      * @param ValidationErrorViewFactoryInterface $validationErrorViewFactory
      * @param AddressBookViewFactoryInterface     $addressViewFactory
      * @param AddressRepositoryInterface          $addressRepository
-     * @param LoggedInUserProviderInterface       $currentUserProvider
+     * @param LoggedInUserProviderInterface       $loggedInUserProvider
      */
     public function __construct(
         ViewHandlerInterface $viewHandler,
@@ -74,7 +74,7 @@ final class CreateAddressAction
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         AddressBookViewFactoryInterface $addressViewFactory,
         AddressRepositoryInterface $addressRepository,
-        LoggedInUserProviderInterface $currentUserProvider
+        LoggedInUserProviderInterface $loggedInUserProvider
     ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
@@ -82,7 +82,7 @@ final class CreateAddressAction
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->addressViewFactory = $addressViewFactory;
         $this->addressRepository = $addressRepository;
-        $this->currentUserProvider = $currentUserProvider;
+        $this->loggedInUserProvider = $loggedInUserProvider;
     }
 
     /**
@@ -104,7 +104,7 @@ final class CreateAddressAction
 
         try {
             /** @var ShopUserInterface $user */
-            $user = $this->currentUserProvider->provide();
+            $user = $this->loggedInUserProvider->provide();
         } catch (TokenNotFoundException $exception) {
             return $this->viewHandler->handle(View::create(null, Response::HTTP_UNAUTHORIZED));
         }

@@ -43,7 +43,7 @@ final class SetDefaultAddressAction
     /**
      * @var LoggedInUserProviderInterface
      */
-    private $currentUserProvider;
+    private $loggedInUserProvider;
 
     /**
      * @param ViewHandlerInterface                $viewHandler
@@ -51,20 +51,20 @@ final class SetDefaultAddressAction
      * @param ValidatorInterface                  $validator
      * @param ValidationErrorViewFactoryInterface $validationErrorViewFactory
      * @param TokenStorageInterface               $tokenStorage
-     * @param LoggedInUserProviderInterface       $currentUserProvider
+     * @param LoggedInUserProviderInterface       $loggedInUserProvider
      */
     public function __construct(
         ViewHandlerInterface $viewHandler,
         CommandBus $bus,
         ValidatorInterface $validator,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
-        LoggedInUserProviderInterface $currentUserProvider
+        LoggedInUserProviderInterface $loggedInUserProvider
     ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
         $this->validator = $validator;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
-        $this->currentUserProvider = $currentUserProvider;
+        $this->loggedInUserProvider = $loggedInUserProvider;
     }
 
     /**
@@ -86,7 +86,7 @@ final class SetDefaultAddressAction
 
         try {
             /** @var ShopUserInterface $user */
-            $user = $this->currentUserProvider->provide();
+            $user = $this->loggedInUserProvider->provide();
         } catch (TokenNotFoundException $exception) {
             return $this->viewHandler->handle(View::create(null, Response::HTTP_UNAUTHORIZED));
         }
