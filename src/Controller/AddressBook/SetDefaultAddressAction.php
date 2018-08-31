@@ -46,12 +46,12 @@ final class SetDefaultAddressAction
     private $loggedInUserProvider;
 
     /**
-     * @param ViewHandlerInterface                $viewHandler
-     * @param CommandBus                          $bus
-     * @param ValidatorInterface                  $validator
+     * @param ViewHandlerInterface $viewHandler
+     * @param CommandBus $bus
+     * @param ValidatorInterface $validator
      * @param ValidationErrorViewFactoryInterface $validationErrorViewFactory
-     * @param TokenStorageInterface               $tokenStorage
-     * @param LoggedInUserProviderInterface       $loggedInUserProvider
+     * @param TokenStorageInterface $tokenStorage
+     * @param LoggedInUserProviderInterface $loggedInUserProvider
      */
     public function __construct(
         ViewHandlerInterface $viewHandler,

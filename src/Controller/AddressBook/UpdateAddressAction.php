@@ -59,14 +59,14 @@ final class UpdateAddressAction
     private $loggedInUserProvider;
 
     /**
-     * @param ViewHandlerInterface                $viewHandler
-     * @param ValidatorInterface                  $validator
-     * @param CommandBus                          $bus
+     * @param ViewHandlerInterface $viewHandler
+     * @param ValidatorInterface $validator
+     * @param CommandBus $bus
      * @param ValidationErrorViewFactoryInterface $validationErrorViewFactory
-     * @param AddressBookViewFactoryInterface     $addressViewFactory
-     * @param AddressRepositoryInterface          $addressRepository
-     * @param TokenStorageInterface               $tokenStorage
-     * @param LoggedInUserProviderInterface       $loggedInUserProvider
+     * @param AddressBookViewFactoryInterface $addressViewFactory
+     * @param AddressRepositoryInterface $addressRepository
+     * @param TokenStorageInterface $tokenStorage
+     * @param LoggedInUserProviderInterface $loggedInUserProvider
      */
     public function __construct(
         ViewHandlerInterface $viewHandler,
@@ -86,6 +86,12 @@ final class UpdateAddressAction
         $this->loggedInUserProvider = $loggedInUserProvider;
     }
 
+    /**
+     * Updates an address in the address book
+     * 
+     * @param Request $request
+     * @param string|int $id
+     */
     public function __invoke(Request $request, $id): Response
     {
         $addressModel = Address::createFromRequest($request);

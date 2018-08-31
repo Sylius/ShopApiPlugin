@@ -33,8 +33,8 @@ final class ShowAddressBookAction
     private $addressBookViewFactory;
 
     /**
-     * @param ViewHandlerInterface            $viewHandler
-     * @param LoggedInUserProviderInterface   $loggedInUserProvider
+     * @param ViewHandlerInterface $viewHandler
+     * @param LoggedInUserProviderInterface $loggedInUserProvider
      * @param AddressBookViewFactoryInterface $addressBookViewFactory
      */
     public function __construct(
@@ -47,7 +47,10 @@ final class ShowAddressBookAction
         $this->addressBookViewFactory = $addressBookViewFactory;
     }
 
-    public function __invoke(Request $request): Response
+    /**
+     * Returns the list of addresses that is stored in the user's address book
+     */
+    public function __invoke(): Response
     {
         try {
             /** @var ShopUserInterface $user */

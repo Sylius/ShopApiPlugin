@@ -59,13 +59,13 @@ final class CreateAddressAction
     private $addressRepository;
 
     /**
-     * @param ViewHandlerInterface                $viewHandler
-     * @param CommandBus                          $bus
-     * @param ValidatorInterface                  $validator
+     * @param ViewHandlerInterface $viewHandler
+     * @param CommandBus $bus
+     * @param ValidatorInterface $validator
      * @param ValidationErrorViewFactoryInterface $validationErrorViewFactory
-     * @param AddressBookViewFactoryInterface     $addressViewFactory
-     * @param AddressRepositoryInterface          $addressRepository
-     * @param LoggedInUserProviderInterface       $loggedInUserProvider
+     * @param AddressBookViewFactoryInterface $addressViewFactory
+     * @param AddressRepositoryInterface $addressRepository
+     * @param LoggedInUserProviderInterface $loggedInUserProvider
      */
     public function __construct(
         ViewHandlerInterface $viewHandler,
