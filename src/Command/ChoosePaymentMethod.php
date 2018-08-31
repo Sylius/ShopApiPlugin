@@ -6,26 +6,15 @@ namespace Sylius\ShopApiPlugin\Command;
 
 final class ChoosePaymentMethod
 {
-    /**
-     * @var mixed
-     */
+    /** @var mixed */
     private $paymentIdentifier;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $paymentMethod;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $orderToken;
 
-    /**
-     * @param string $orderToken
-     * @param mixed $paymentIdentifier
-     * @param string $paymentMethod
-     */
     public function __construct(string $orderToken, $paymentIdentifier, string $paymentMethod)
     {
         $this->orderToken = $orderToken;
@@ -33,25 +22,16 @@ final class ChoosePaymentMethod
         $this->paymentMethod = $paymentMethod;
     }
 
-    /**
-     * @return string
-     */
     public function orderToken(): string
     {
         return $this->orderToken;
     }
 
-    /**
-     * @return mixed
-     */
     public function paymentIdentifier()
     {
         return $this->paymentIdentifier;
     }
 
-    /**
-     * @return string
-     */
     public function paymentMethod(): string
     {
         return $this->paymentMethod;

@@ -6,24 +6,16 @@ namespace Sylius\ShopApiPlugin\View;
 
 class ItemView
 {
-    /**
-     * @var mixed
-     */
+    /** @var mixed */
     public $id;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     public $quantity;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     public $total;
 
-    /**
-     * @var ProductView
-     */
+    /** @var ProductView */
     public $product;
 
     public function __construct()

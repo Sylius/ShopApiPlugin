@@ -9,29 +9,19 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class PickupCartRequest
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $token;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $channel;
 
-    /**
-     * @param Request $request
-     */
     public function __construct(Request $request)
     {
         $this->token = $request->attributes->get('token');
         $this->channel = $request->request->get('channel');
     }
 
-    /**
-     * @return PickupCart
-     */
-    public function getCommand()
+    public function getCommand(): PickupCart
     {
         return new PickupCart($this->token, $this->channel);
     }

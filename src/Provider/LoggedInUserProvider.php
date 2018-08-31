@@ -10,9 +10,7 @@ use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 final class LoggedInUserProvider implements LoggedInUserProviderInterface
 {
-    /**
-     * @var TokenStorageInterface
-     */
+    /** @var TokenStorageInterface */
     private $tokenStorage;
 
     public function __construct(TokenStorageInterface $tokenStorage)
@@ -20,9 +18,6 @@ final class LoggedInUserProvider implements LoggedInUserProviderInterface
         $this->tokenStorage = $tokenStorage;
     }
 
-    /**
-     * @return ShopUserInterface
-     */
     public function provide(): ShopUserInterface
     {
         /** @var ShopUserInterface $user */

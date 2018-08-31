@@ -29,9 +29,7 @@ final class CartItemViewFactory implements CartItemViewFactoryInterface
         $this->cartItemViewClass = $cartItemViewClass;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    /** {@inheritdoc} */
     public function create(OrderItemInterface $item, ChannelInterface $channel, string $locale): ItemView
     {
         /** @var ItemView $itemView */

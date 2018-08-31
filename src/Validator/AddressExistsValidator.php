@@ -13,21 +13,11 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 final class AddressExistsValidator extends ConstraintValidator
 {
-    /**
-     * @var AddressRepositoryInterface
-     */
+    /** @var AddressRepositoryInterface */
     private $addressRepository;
-    /**
-     * @var LoggedInUserProviderInterface
-     */
+    /** @var LoggedInUserProviderInterface */
     private $currentUserProvider;
 
-    /**
-     * AddressExistsValidator constructor.
-     *
-     * @param AddressRepositoryInterface    $addressRepository
-     * @param LoggedInUserProviderInterface $currentUserProvider
-     */
     public function __construct(
         AddressRepositoryInterface $addressRepository,
         LoggedInUserProviderInterface $currentUserProvider

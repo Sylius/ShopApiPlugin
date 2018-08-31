@@ -16,32 +16,18 @@ use Webmozart\Assert\Assert;
 
 final class UserRegistrationListener
 {
-    /**
-     * @var CommandBus
-     */
+    /** @var CommandBus */
     private $bus;
 
-    /**
-     * @var ChannelRepositoryInterface
-     */
+    /** @var ChannelRepositoryInterface */
     private $channelRepository;
 
-    /**
-     * @var UserRepositoryInterface
-     */
+    /** @var UserRepositoryInterface */
     private $userRepository;
 
-    /**
-     * @var ObjectManager
-     */
+    /** @var ObjectManager */
     private $userManager;
 
-    /**
-     * @param CommandBus $bus
-     * @param ChannelRepositoryInterface $channelRepository
-     * @param UserRepositoryInterface $userRepository
-     * @param ObjectManager $userManager
-     */
     public function __construct(
         CommandBus $bus,
         ChannelRepositoryInterface $channelRepository,

@@ -13,14 +13,10 @@ use Webmozart\Assert\Assert;
 
 final class SendVerificationTokenHandler
 {
-    /**
-     * @var UserRepositoryInterface
-     */
+    /** @var UserRepositoryInterface */
     private $userRepository;
 
-    /**
-     * @var SenderInterface
-     */
+    /** @var SenderInterface */
     private $sender;
 
     public function __construct(UserRepositoryInterface $userRepository, SenderInterface $sender)

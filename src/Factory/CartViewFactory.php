@@ -51,9 +51,7 @@ final class CartViewFactory implements CartViewFactoryInterface
         $this->cartSummaryViewClass = $cartSummaryViewClass;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    /** {@inheritdoc} */
     public function create(OrderInterface $cart, string $localeCode): CartSummaryView
     {
         /** @var CartSummaryView $cartView */

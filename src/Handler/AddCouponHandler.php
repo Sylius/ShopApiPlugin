@@ -15,32 +15,18 @@ use Webmozart\Assert\Assert;
 
 final class AddCouponHandler
 {
-    /**
-     * @var OrderRepositoryInterface
-     */
+    /** @var OrderRepositoryInterface */
     private $orderRepository;
 
-    /**
-     * @var PromotionCouponRepositoryInterface
-     */
+    /** @var PromotionCouponRepositoryInterface */
     private $couponRepository;
 
-    /**
-     * @var OrderProcessorInterface
-     */
+    /** @var OrderProcessorInterface */
     private $orderProcessor;
 
-    /**
-     * @var PromotionCouponEligibilityCheckerInterface
-     */
+    /** @var PromotionCouponEligibilityCheckerInterface */
     private $couponEligibilityChecker;
 
-    /**
-     * @param OrderRepositoryInterface $orderRepository
-     * @param PromotionCouponRepositoryInterface $couponRepository
-     * @param OrderProcessorInterface $orderProcessor
-     * @param PromotionCouponEligibilityCheckerInterface $couponEligibilityChecker
-     */
     public function __construct(
         OrderRepositoryInterface $orderRepository,
         PromotionCouponRepositoryInterface $couponRepository,
@@ -53,9 +39,7 @@ final class AddCouponHandler
         $this->couponEligibilityChecker = $couponEligibilityChecker;
     }
 
-    /**
-     * @param AddCoupon $addCoupon
-     */
+    /** @param AddCoupon $addCoupon */
     public function handle(AddCoupon $addCoupon)
     {
         /** @var OrderInterface $cart */

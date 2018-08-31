@@ -9,9 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class VerifyAccountRequest
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $token;
 
     public function __construct(Request $request)

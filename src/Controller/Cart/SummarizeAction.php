@@ -13,20 +13,12 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final class SummarizeAction
 {
-    /**
-     * @var CartViewRepositoryInterface
-     */
+    /** @var CartViewRepositoryInterface */
     private $cartQuery;
 
-    /**
-     * @var ViewHandlerInterface
-     */
+    /** @var ViewHandlerInterface */
     private $viewHandler;
 
-    /**
-     * @param CartViewRepositoryInterface $cartQuery
-     * @param ViewHandlerInterface $viewHandler
-     */
     public function __construct(
         CartViewRepositoryInterface $cartQuery,
         ViewHandlerInterface $viewHandler
@@ -35,12 +27,7 @@ final class SummarizeAction
         $this->viewHandler = $viewHandler;
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): Response
     {
         try {
             return $this->viewHandler->handle(

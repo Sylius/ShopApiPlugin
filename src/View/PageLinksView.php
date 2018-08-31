@@ -6,23 +6,15 @@ namespace Sylius\ShopApiPlugin\View;
 
 class PageLinksView
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     public $self;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $first;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $last;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $next;
 }

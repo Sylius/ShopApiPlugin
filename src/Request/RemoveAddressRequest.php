@@ -8,9 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class RemoveAddressRequest
 {
-    /**
-     * @var int|string
-     */
+    /** @var int|string */
     private $id;
 
     public function __construct(Request $request)
@@ -18,9 +16,7 @@ final class RemoveAddressRequest
         $this->id = $request->attributes->get('id');
     }
 
-    /**
-     * @return int|string
-     */
+    /** @return int|string */
     public function id()
     {
         return $this->id;

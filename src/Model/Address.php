@@ -9,79 +9,47 @@ use Webmozart\Assert\Assert;
 
 final class Address
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $firstName;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $lastName;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $city;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $countryCode;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $street;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $postcode;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $provinceName;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $provinceCode;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $company;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $phoneNumber;
 
-    /**
-     * @param string $firstName
-     * @param string $lastName
-     * @param string $city
-     * @param string $street
-     * @param string $countryCode
-     * @param string $postcode
-     * @param string $provinceName
-     * @param string $provinceCode
-     * @param string $company
-     * @param string $phoneNumber
-     */
     private function __construct(
-        $firstName,
-        $lastName,
-        $city,
-        $street,
-        $countryCode,
-        $postcode,
-        $provinceName = null,
-        $provinceCode = null,
-        $phoneNumber = null,
-        $company = null
+        string $firstName,
+        string $lastName,
+        string $city,
+        string $street,
+        string $countryCode,
+        string $postcode,
+        string $provinceName = null,
+        string $provinceCode = null,
+        string $phoneNumber = null,
+        string $company = null
     ) {
         $this->firstName = $firstName;
         $this->lastName = $lastName;
@@ -95,11 +63,6 @@ final class Address
         $this->company = $company;
     }
 
-    /**
-     * @param array $address
-     *
-     * @return Address
-     */
     public static function createFromArray(array $address): self
     {
         Assert::keyExists($address, 'firstName');
@@ -123,11 +86,6 @@ final class Address
         );
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return Address
-     */
     public static function createFromRequest(Request $request): self
     {
         return new self(
@@ -144,81 +102,51 @@ final class Address
         );
     }
 
-    /**
-     * @return string
-     */
     public function firstName()
     {
         return $this->firstName;
     }
 
-    /**
-     * @return string
-     */
     public function lastName()
     {
         return $this->lastName;
     }
 
-    /**
-     * @return string
-     */
     public function city()
     {
         return $this->city;
     }
 
-    /**
-     * @return string
-     */
     public function street()
     {
         return $this->street;
     }
 
-    /**
-     * @return string
-     */
     public function countryCode()
     {
         return $this->countryCode;
     }
 
-    /**
-     * @return string
-     */
     public function postcode()
     {
         return $this->postcode;
     }
 
-    /**
-     * @return string
-     */
     public function provinceName()
     {
         return $this->provinceName;
     }
 
-    /**
-     * @return string
-     */
     public function provinceCode()
     {
         return $this->provinceCode;
     }
 
-    /**
-     * @return string
-     */
     public function company()
     {
         return $this->company;
     }
 
-    /**
-     * @return string
-     */
     public function phoneNumber()
     {
         return $this->phoneNumber;

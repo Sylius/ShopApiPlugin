@@ -17,32 +17,18 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class ShowAvailableShippingMethodsAction
 {
-    /**
-     * @var OrderRepositoryInterface
-     */
+    /** @var OrderRepositoryInterface */
     private $cartRepository;
 
-    /**
-     * @var ViewHandlerInterface
-     */
+    /** @var ViewHandlerInterface */
     private $viewHandler;
 
-    /**
-     * @var ShippingMethodsResolverInterface
-     */
+    /** @var ShippingMethodsResolverInterface */
     private $shippingMethodsResolver;
 
-    /**
-     * @var ShippingMethodViewFactoryInterface
-     */
+    /** @var ShippingMethodViewFactoryInterface */
     private $shippingMethodViewFactory;
 
-    /**
-     * @param OrderRepositoryInterface $cartRepository
-     * @param ViewHandlerInterface $viewHandler
-     * @param ShippingMethodsResolverInterface $shippingMethodsResolver
-     * @param ShippingMethodViewFactoryInterface $shippingMethodViewFactory
-     */
     public function __construct(
         OrderRepositoryInterface $cartRepository,
         ViewHandlerInterface $viewHandler,
@@ -55,12 +41,7 @@ final class ShowAvailableShippingMethodsAction
         $this->shippingMethodViewFactory = $shippingMethodViewFactory;
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): Response
     {
         /** @var OrderInterface $cart */
         $cart = $this->cartRepository->findOneBy(['tokenValue' => $request->attributes->get('token')]);
@@ -74,13 +55,7 @@ final class ShowAvailableShippingMethodsAction
         return $this->viewHandler->handle(View::create($shipments));
     }
 
-    /**
-     * @param ShipmentInterface $shipment
-     * @param string $locale
-     *
-     * @return array
-     */
-    private function getCalculatedShippingMethods(ShipmentInterface $shipment, $locale)
+    private function getCalculatedShippingMethods(ShipmentInterface $shipment, string $locale): array
     {
         $rawShippingMethods = [];
 

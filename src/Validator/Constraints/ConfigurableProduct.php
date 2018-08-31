@@ -8,22 +8,16 @@ use Symfony\Component\Validator\Constraint;
 
 final class ConfigurableProduct extends Constraint
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     public $message = 'sylius.shop_api.product.configurable';
 
-    /**
-     * {@inheritdoc}
-     */
+    /** {@inheritdoc} */
     public function getTargets()
     {
         return self::PROPERTY_CONSTRAINT;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    /** {@inheritdoc} */
     public function validatedBy()
     {
         return 'sylius_shop_api_configurable_product_validator';

@@ -19,38 +19,21 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class RemoveAddressAction
 {
-    /**
-     * @var ViewHandlerInterface
-     */
+    /** @var ViewHandlerInterface */
     private $viewHandler;
 
-    /**
-     * @var ValidatorInterface
-     */
+    /** @var ValidatorInterface */
     private $validator;
 
-    /**
-     * @var ValidationErrorViewFactory
-     */
+    /** @var ValidationErrorViewFactory */
     private $validationErrorViewFactory;
 
-    /**
-     * @var CommandBus
-     */
+    /** @var CommandBus */
     private $bus;
 
-    /**
-     * @var LoggedInUserProviderInterface
-     */
+    /** @var LoggedInUserProviderInterface */
     private $loggedInUserProvider;
 
-    /**
-     * @param ViewHandlerInterface $viewHandler
-     * @param ValidatorInterface $validator
-     * @param ValidationErrorViewFactory $validationErrorViewFactory
-     * @param CommandBus $bus
-     * @param LoggedInUserProviderInterface $loggedInUserProvider
-     */
     public function __construct(
         ViewHandlerInterface $viewHandler,
         ValidatorInterface $validator,
@@ -65,11 +48,7 @@ final class RemoveAddressAction
         $this->loggedInUserProvider = $loggedInUserProvider;
     }
 
-    /**
-     * Removes an address from the address book
-     * 
-     * @param Request $request
-     */
+    /** Removes an address from the address book */
     public function __invoke(Request $request): Response
     {
         $removeAddressRequest = new RemoveAddressRequest($request);

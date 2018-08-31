@@ -6,14 +6,10 @@ namespace Sylius\ShopApiPlugin\View;
 
 class ShipmentView
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     public $state;
 
-    /**
-     * @var ShippingMethodView
-     */
+    /** @var ShippingMethodView */
     public $method;
 
     public function __construct()

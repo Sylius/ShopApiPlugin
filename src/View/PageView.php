@@ -6,34 +6,22 @@ namespace Sylius\ShopApiPlugin\View;
 
 class PageView
 {
-    /**
-     * @var int
-     */
+    /** @var int */
     public $page;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     public $limit;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     public $pages;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     public $total;
 
-    /**
-     * @var PageLinksView
-     */
+    /** @var PageLinksView */
     public $links;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     public $items = [];
 
     public function __construct()
