@@ -67,6 +67,7 @@ final class EstimateShippingCostHandlerSpec extends ObjectBehavior
         $calculator->calculate($shipment, $shipmentMethodConfig)->shouldBeCalled()->willReturn(100);
         $cart->getCurrencyCode()->shouldBeCalled()->willReturn('EU');
 
+        $cart->setShippingAddress(null)->shouldBeCalled();
 
         $estimateShippingCost = new EstimateShippingCost('TOKEN', 'DE', 'de_ND');
         $this->handle($estimateShippingCost);

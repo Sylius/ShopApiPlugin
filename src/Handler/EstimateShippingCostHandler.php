@@ -73,7 +73,7 @@ final class EstimateShippingCostHandler
         $address = $this->addressFactory->createNew();
         $address->setCountryCode($estimateShippingCost->countryCode());
         $address->setProvinceCode($estimateShippingCost->provinceCode());
-//        $cart->setShippingAddress($address);
+        $cart->setShippingAddress($address);
 
         /** @var ShipmentInterface $shipment */
         $shipment = $this->shipmentFactory->createNew();
@@ -92,6 +92,9 @@ final class EstimateShippingCostHandler
 
         $value = $calculator->calculate($shipment, $shippingMethod->getConfiguration());
         $currencyCode = $cart->getCurrencyCode();
+
+        // Unsetting the shipping address because it causes errors when saving the cart
+        $cart->setShippingAddress(null);
 
         $estimateShippingCost->setResult($value, $currencyCode);
     }
