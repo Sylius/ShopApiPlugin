@@ -1,28 +1,28 @@
-sylius_shop_api_register:
+shop_api_register:
     path: /register
     methods: [POST]
     defaults:
         _controller: sylius.shop_api_plugin.controller.customer.register_customer_action
 
-sylius_shop_api_resend_verification_token:
+shop_api_resend_verification_token:
     path: /resend-verification-link
     methods: [POST]
     defaults:
         _controller: sylius.shop_api_plugin.controller.customer.resend_verification_token_action
 
-sylius_shop_api_user_verification:
+shop_api_user_verification:
     path: /verify-account
     methods: [PUT]
     defaults:
         _controller: sylius.shop_api_plugin.controller.customer.verify_account_action
 
-sylius_shop_api_reset_password:
+shop_api_reset_password:
     path: /request-password-reset
     methods: [PUT]
     defaults:
         _controller: sylius.shop_api_plugin.controller.customer.request_password_resetting_action
 
-sylius_shop_password_reset:
+shop_api_password_reset:
     path: /password-reset/{token}
     methods: [PUT]
     defaults:
