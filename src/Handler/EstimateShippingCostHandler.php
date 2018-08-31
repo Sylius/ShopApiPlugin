@@ -73,7 +73,7 @@ final class EstimateShippingCostHandler
         $address = $this->addressFactory->createNew();
         $address->setCountryCode($estimateShippingCost->countryCode());
         $address->setProvinceCode($estimateShippingCost->provinceCode());
-        $cart->setShippingAddress($address);
+//        $cart->setShippingAddress($address);
 
         /** @var ShipmentInterface $shipment */
         $shipment = $this->shipmentFactory->createNew();
