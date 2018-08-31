@@ -29,12 +29,12 @@ final class CountryExistsValidator extends ConstraintValidator
     /**
      * Validates if the country exists
      *
-     * @param mixed                    $id
+     * @param string                   $code
      * @param Constraint|AddressExists $constraint
      */
-    public function validate($id, Constraint $constraint)
+    public function validate($code, Constraint $constraint)
     {
-        $country = $this->countryRepository->findOneBy(['id' => $id]);
+        $country = $this->countryRepository->findOneBy(['code' => $code]);
 
         if ($country === null) {
             return $this->context->addViolation($constraint->message);

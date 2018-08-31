@@ -83,12 +83,11 @@ final class EstimateShippingCostAction
             );
         }
 
-        $this->bus->handle($estimateShippingCostRequest->getCommand());
+        $command = $estimateShippingCostRequest->getCommand();
+        $this->bus->handle($command);
 
         $estimatedShippingCostView = new EstimatedShippingCostView();
-        $estimatedShippingCostView->price = $this->priceViewFactory->create(
-            ...$estimateShippingCostRequest->getResult()
-        );
+        $estimatedShippingCostView->price = $this->priceViewFactory->create(...$command->getResult());
 
         return $this->viewHandler->handle(View::create($estimatedShippingCostView, Response::HTTP_OK));
     }

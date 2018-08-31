@@ -24,11 +24,6 @@ final class EstimateShippingCostRequest
      */
     private $provinceCode;
 
-    /**
-     * @var array
-     */
-    private $result = [];
-
     public function __construct(Request $request)
     {
         $this->cartToken = $request->attributes->get('token');
@@ -54,24 +49,5 @@ final class EstimateShippingCostRequest
     public function getCommand(): EstimateShippingCost
     {
         return new EstimateShippingCost($this->cartToken, $this->countryCode, $this->provinceCode);
-    }
-
-    /**
-     * @param int    $value
-     * @param string $currencyCode
-     */
-    public function setResult(int $value, string $currencyCode)
-    {
-        $this->result = [$value, $currencyCode];
-    }
-
-    /**
-     *Returns the array of value, currency code
-     *
-     * @return array
-     */
-    public function getResult()
-    {
-        return $this->result;
     }
 }

@@ -21,6 +21,11 @@ final class EstimateShippingCost
      */
     private $provinceCode;
 
+    /**
+     * @var array
+     */
+    private $result = [];
+
     public function __construct(string $cartToken, string $countryCode, string $provinceCode)
     {
         $this->cartToken = $cartToken;
@@ -41,5 +46,24 @@ final class EstimateShippingCost
     public function provinceCode(): string
     {
         return $this->provinceCode;
+    }
+
+    /**
+     * @param int    $value
+     * @param string $currencyCode
+     */
+    public function setResult(int $value, string $currencyCode)
+    {
+        $this->result = [$value, $currencyCode];
+    }
+
+    /**
+     *Returns the array of value, currency code
+     *
+     * @return array
+     */
+    public function getResult()
+    {
+        return $this->result;
     }
 }

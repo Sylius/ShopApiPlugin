@@ -13,7 +13,8 @@ use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Registry\ServiceRegistryInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Shipping\Exception\UnresolvedDefaultShippingMethodException;
-use Sylius\Component\Shipping\Resolver\ShippingMethodsResolver;
+use Sylius\Component\Shipping\Resolver\ShippingMethodsResolverInterface;
+use Sylius\ShopApiPlugin\Command\EstimateShippingCost;
 use Sylius\ShopApiPlugin\Request\EstimateShippingCostRequest;
 
 final class EstimateShippingCostHandler
@@ -34,7 +35,7 @@ final class EstimateShippingCostHandler
     private $shipmentFactory;
 
     /**
-     * @var ShippingMethodsResolver
+     * @var ShippingMethodsResolverInterface
      */
     private $shippingMethodResolver;
 
@@ -47,7 +48,7 @@ final class EstimateShippingCostHandler
         OrderRepositoryInterface $cartRepository,
         AddressFactoryInterface $addressFactory,
         FactoryInterface $shipmentFactory,
-        ShippingMethodsResolver $shippingMethodResolver,
+        ShippingMethodsResolverInterface $shippingMethodResolver,
         ServiceRegistryInterface $calculators
     ) {
         $this->cartRepository = $cartRepository;
@@ -60,11 +61,11 @@ final class EstimateShippingCostHandler
     /**
      * Handles the calculation of the shipping method
      *
-     * @param EstimateShippingCostRequest $estimateShippingCostRequest
+     * @param EstimateShippingCost $estimateShippingCostRequest
      *
      * @throws UnresolvedDefaultShippingMethodException
      */
-    public function handle(EstimateShippingCostRequest $estimateShippingCostRequest)
+    public function handle(EstimateShippingCost $estimateShippingCostRequest)
     {
         /** @var OrderInterface $cart */
         $cart = $this->cartRepository->findOneBy(['tokenValue' => $estimateShippingCostRequest->cartToken()]);
