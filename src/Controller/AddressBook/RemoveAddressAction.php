@@ -48,7 +48,6 @@ final class RemoveAddressAction
         $this->loggedInUserProvider = $loggedInUserProvider;
     }
 
-    /** Removes an address from the address book */
     public function __invoke(Request $request): Response
     {
         $removeAddressRequest = new RemoveAddressRequest($request);
@@ -70,11 +69,10 @@ final class RemoveAddressAction
 
         if ($user->getCustomer() !== null) {
             $this->bus->handle(new RemoveAddress($removeAddressRequest->id(), $user->getEmail()));
-            $view = View::create(null, Response::HTTP_NO_CONTENT);
-        } else {
-            $view = View::create(['message' => 'The user is not a customer'], Response::HTTP_BAD_REQUEST);
+
+            return $this->viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));
         }
 
-        return $this->viewHandler->handle($view);
+        return $this->viewHandler->handle(View::create(['message' => 'The user is not a customer'], Response::HTTP_BAD_REQUEST));
     }
 }

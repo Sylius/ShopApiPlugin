@@ -11,7 +11,6 @@ use Sylius\Component\Core\Model\Customer;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\ShopApiPlugin\Factory\AddressBookViewFactoryInterface;
 use Sylius\ShopApiPlugin\Provider\LoggedInUserProviderInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
@@ -47,6 +46,7 @@ final class ShowAddressBookAction
         }
 
         $customer = $user->getCustomer();
+
         if ($customer instanceof Customer) {
             $addressViews = $customer->getAddresses()->map(
                 function (AddressInterface $address) use ($customer) {
@@ -54,11 +54,9 @@ final class ShowAddressBookAction
                 }
             );
 
-            $view = View::create($addressViews, Response::HTTP_OK);
-        } else {
-            $view = View::create(['message' => 'The user is not a customer'], Response::HTTP_BAD_REQUEST);
+            return $this->viewHandler->handle(View::create($addressViews, Response::HTTP_OK));
         }
 
-        return $this->viewHandler->handle($view);
+        return $this->viewHandler->handle(View::create(['message' => 'The user is not a customer'], Response::HTTP_BAD_REQUEST));
     }
 }

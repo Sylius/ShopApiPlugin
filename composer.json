@@ -24,6 +24,14 @@
             "Sylius\\ShopApiPlugin\\": "src/"
         }
     },
+    "scripts": {
+        "fix": [
+            "vendor/bin/ecs check --ansi --no-progress-bar spec src tests/Controller tests/DataFixtures tests/Request --fix"
+        ],
+        "analyse": [
+            "vendor/bin/ecs check --ansi --no-progress-bar spec src tests/Controller tests/DataFixtures tests/Request"
+        ]
+    },
     "autoload-dev": {
         "psr-4": {
             "Tests\\Sylius\\ShopApiPlugin\\": "tests/"

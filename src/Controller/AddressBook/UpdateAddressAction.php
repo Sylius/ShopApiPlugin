@@ -17,7 +17,6 @@ use Sylius\ShopApiPlugin\Model\Address;
 use Sylius\ShopApiPlugin\Provider\LoggedInUserProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -63,8 +62,6 @@ final class UpdateAddressAction
     }
 
     /**
-     * Updates an address in the address book
-     * 
      * @param Request $request
      * @param string|int $id
      */
@@ -93,14 +90,12 @@ final class UpdateAddressAction
             /** @var AddressInterface $updatedAddress */
             $updatedAddress = $this->addressRepository->findOneBy(['id' => $id]);
 
-            $view = View::create(
+            return $this->viewHandler->handle(View::create(
                 $this->addressBookViewFactory->create($updatedAddress, $user->getCustomer()),
                 Response::HTTP_OK
-            );
-        } else {
-            $view = View::create(['message' => 'The user is not a customer'], Response::HTTP_BAD_REQUEST);
+            ));
         }
 
-        return $this->viewHandler->handle($view);
+        return $this->viewHandler->handle(View::create(['message' => 'The user is not a customer'], Response::HTTP_BAD_REQUEST));
     }
 }

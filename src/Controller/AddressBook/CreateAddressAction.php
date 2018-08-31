@@ -84,12 +84,10 @@ final class CreateAddressAction
         if (($customer = $user->getCustomer()) !== null) {
             $this->bus->handle(new CreateAddress($addressModel, $user->getEmail()));
 
-            $view = View::create($this->getLastInsertedAddress($customer), Response::HTTP_CREATED);
-        } else {
-            $view = View::create(['message' => 'The user is not a customer'], Response::HTTP_BAD_REQUEST);
+            return $this->viewHandler->handle(View::create($this->getLastInsertedAddress($customer), Response::HTTP_CREATED));
         }
 
-        return $this->viewHandler->handle($view);
+        return $this->viewHandler->handle(View::create(['message' => 'The user is not a customer'], Response::HTTP_BAD_REQUEST));
     }
 
     /** Returns the id that was inserted last in the address book */

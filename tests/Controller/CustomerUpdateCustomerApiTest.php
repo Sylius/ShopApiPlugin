@@ -44,7 +44,7 @@ EOT;
         $this->assertResponse($response, 'customer/update_customer', Response::HTTP_OK);
 
         /** @var CustomerInterface $customer */
-        $customer = $customerRepository->findOneByEmail("oliver@queen.com");
+        $customer = $customerRepository->findOneByEmail('oliver@queen.com');
 
         Assert::assertEquals($customer->getFirstName(), 'New name');
         Assert::assertEquals($customer->getLastName(), 'New lastName');

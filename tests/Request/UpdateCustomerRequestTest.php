@@ -22,8 +22,8 @@ final class UpdateCustomerRequestTest extends TestCase
             'email' => 'ivan.matas@locastic.com',
             'birthday' => '2017-11-01',
             'gender' => 'm',
-            'phoneNumber' => "125125112",
-            'subscribedToNewsletter' => true
+            'phoneNumber' => '125125112',
+            'subscribedToNewsletter' => true,
         ], []))
         ;
         $this->assertEquals($updateCustomerRequest->getCommand(), new UpdateCustomer(
