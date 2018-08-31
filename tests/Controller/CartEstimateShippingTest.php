@@ -61,8 +61,9 @@ final class CartEstimateShippingTest extends JsonApiTestCase
 
     /**
      * @param string $token
+     * @param string $channelCode
      */
-    private function pickupCart($token, $channelCode)
+    private function pickupCart(string $token, string $channelCode)
     {
         $data =
 <<<EOT
@@ -77,7 +78,7 @@ EOT;
     /**
      * @param string $token
      */
-    private function putItemToCart($token)
+    private function putItemToCart(string $token)
     {
         $data =
 <<<EOT
