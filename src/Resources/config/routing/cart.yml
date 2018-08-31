@@ -44,7 +44,7 @@ shop_api_estimated_shipping_cost:
     path: /carts/{token}/estimated-shipping-cost
     methods: [GET]
     defaults:
-        _controller: ShopApiPlugin:Cart:estimateShippingCost
+        _controller: sylius.shop_api_plugin.controller.cart.estimate_shipping_cost_action
 
 shop_api_add_coupon_to_cart:
     path: /carts/{token}/coupon

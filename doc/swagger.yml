@@ -227,6 +227,42 @@ paths:
                     description: "Invalid input (E.g. token has not been found)"
                     schema:
                         $ref: "#/definitions/GeneralError"
+    /carts/{token}/estimated-shipping-cost:
+        get:
+            tags:
+            - "cart"
+            summary: "Estimates the shipping cost of the cart"
+            operationId: "estimateShippingCost"
+            consumes:
+            - "application/json"
+            produces:
+            - "application/json"
+            parameters:
+            - name: "token"
+              in: "path"
+              description: "Cart identifier"
+              required: true
+              type: "string"
+            - name: "countryCode"
+              in: "query"
+              description: "Shipping Country"
+              required: true
+              type: "string"
+            - name: "provinceCode"
+              in: "query"
+              description: "Province to ship to"
+              required: true
+              type: "string"
+            responses:
+                200:
+                    description: "Price was calculated"
+                    schema:
+                        $ref: "#/definitions/EstimatedShippingCost"
+                400:
+                    description: "Invalid input (E.g. token has not been found)"
+                    schema:
+                        $ref: "#/definitions/GeneralError"
+
     /carts/{token}/coupon:
         parameters:
         - name: "token"
@@ -1517,6 +1553,11 @@ definitions:
             currency:
                 type: "string"
                 example: "PLN"
+    EstimatedShippingCost:
+        type: "object"
+        properties:
+            price:
+                $ref: '#/definitions/Price'
     Address:
         type: "object"
         properties:
