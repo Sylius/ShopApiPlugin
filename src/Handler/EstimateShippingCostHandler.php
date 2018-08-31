@@ -15,7 +15,6 @@ use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Shipping\Exception\UnresolvedDefaultShippingMethodException;
 use Sylius\Component\Shipping\Resolver\ShippingMethodsResolverInterface;
 use Sylius\ShopApiPlugin\Command\EstimateShippingCost;
-use Sylius\ShopApiPlugin\Request\EstimateShippingCostRequest;
 
 final class EstimateShippingCostHandler
 {
@@ -61,19 +60,19 @@ final class EstimateShippingCostHandler
     /**
      * Handles the calculation of the shipping method
      *
-     * @param EstimateShippingCost $estimateShippingCostRequest
+     * @param EstimateShippingCost $estimateShippingCost
      *
      * @throws UnresolvedDefaultShippingMethodException
      */
-    public function handle(EstimateShippingCost $estimateShippingCostRequest)
+    public function handle(EstimateShippingCost $estimateShippingCost)
     {
         /** @var OrderInterface $cart */
-        $cart = $this->cartRepository->findOneBy(['tokenValue' => $estimateShippingCostRequest->cartToken()]);
+        $cart = $this->cartRepository->findOneBy(['tokenValue' => $estimateShippingCost->cartToken()]);
 
         /** @var AddressInterface $address */
         $address = $this->addressFactory->createNew();
-        $address->setCountryCode($estimateShippingCostRequest->countryCode());
-        $address->setProvinceCode($estimateShippingCostRequest->provinceCode());
+        $address->setCountryCode($estimateShippingCost->countryCode());
+        $address->setProvinceCode($estimateShippingCost->provinceCode());
         $cart->setShippingAddress($address);
 
         /** @var ShipmentInterface $shipment */
@@ -94,6 +93,6 @@ final class EstimateShippingCostHandler
         $value = $calculator->calculate($shipment, $shippingMethod->getConfiguration());
         $currencyCode = $cart->getCurrencyCode();
 
-        $estimateShippingCostRequest->setResult($value, $currencyCode);
+        $estimateShippingCost->setResult($value, $currencyCode);
     }
 }
