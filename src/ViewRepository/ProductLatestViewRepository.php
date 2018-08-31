@@ -17,7 +17,7 @@ final class ProductLatestViewRepository implements ProductLatestViewRepositoryIn
     /** @var ChannelRepositoryInterface */
     private $channelRepository;
 
-    /** @var ProductRepositoryInterface  */
+    /** @var ProductRepositoryInterface */
     private $productRepository;
 
     /** @var ProductViewFactoryInterface */
@@ -72,7 +72,7 @@ final class ProductLatestViewRepository implements ProductLatestViewRepositoryIn
      * @param string $localeCode
      * @param iterable|LocaleInterface[] $supportedLocales
      */
-    private function assertLocaleSupport(string $localeCode, iterable $supportedLocales):void
+    private function assertLocaleSupport(string $localeCode, iterable $supportedLocales): void
     {
         $supportedLocaleCodes = [];
         foreach ($supportedLocales as $locale) {

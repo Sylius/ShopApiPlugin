@@ -60,11 +60,11 @@ final class RemoveAddressAction
         CommandBus $bus,
         LoggedInUserProviderInterface $currentUserProvider
     ) {
-        $this->viewHandler                = $viewHandler;
-        $this->validator                  = $validator;
+        $this->viewHandler = $viewHandler;
+        $this->validator = $validator;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
-        $this->bus                        = $bus;
-        $this->currentUserProvider        = $currentUserProvider;
+        $this->bus = $bus;
+        $this->currentUserProvider = $currentUserProvider;
     }
 
     public function __invoke(Request $request): Response

@@ -76,9 +76,9 @@ final class CreateAddressAction
         AddressRepositoryInterface $addressRepository,
         LoggedInUserProviderInterface $currentUserProvider
     ) {
-        $this->viewHandler                = $viewHandler;
-        $this->bus                        = $bus;
-        $this->validator                  = $validator;
+        $this->viewHandler = $viewHandler;
+        $this->bus = $bus;
+        $this->validator = $validator;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->addressViewFactory = $addressViewFactory;
         $this->addressRepository = $addressRepository;
@@ -108,7 +108,6 @@ final class CreateAddressAction
         } catch (TokenNotFoundException $exception) {
             return $this->viewHandler->handle(View::create(null, Response::HTTP_UNAUTHORIZED));
         }
-
 
         if (($customer = $user->getCustomer()) !== null) {
             $this->bus->handle(new CreateAddress($addressModel, $user->getEmail()));

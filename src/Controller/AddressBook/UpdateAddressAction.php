@@ -77,13 +77,13 @@ final class UpdateAddressAction
         AddressRepositoryInterface $addressRepository,
         LoggedInUserProviderInterface $currentUserProvider
     ) {
-        $this->viewHandler                = $viewHandler;
-        $this->validator                  = $validator;
-        $this->bus                        = $bus;
+        $this->viewHandler = $viewHandler;
+        $this->validator = $validator;
+        $this->bus = $bus;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
-        $this->addressBookViewFactory     = $addressViewFactory;
-        $this->addressRepository          = $addressRepository;
-        $this->currentUserProvider        = $currentUserProvider;
+        $this->addressBookViewFactory = $addressViewFactory;
+        $this->addressRepository = $addressRepository;
+        $this->currentUserProvider = $currentUserProvider;
     }
 
     public function __invoke(Request $request, $id): Response

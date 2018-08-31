@@ -60,11 +60,11 @@ final class SetDefaultAddressAction
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         LoggedInUserProviderInterface $currentUserProvider
     ) {
-        $this->viewHandler                = $viewHandler;
-        $this->bus                        = $bus;
-        $this->validator                  = $validator;
+        $this->viewHandler = $viewHandler;
+        $this->bus = $bus;
+        $this->validator = $validator;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
-        $this->currentUserProvider        = $currentUserProvider;
+        $this->currentUserProvider = $currentUserProvider;
     }
 
     /**

@@ -42,8 +42,8 @@ final class ShowAddressBookAction
         LoggedInUserProviderInterface $currentUserProvider,
         AddressBookViewFactoryInterface $addressBookViewFactory
     ) {
-        $this->viewHandler            = $viewHandler;
-        $this->currentUserProvider    = $currentUserProvider;
+        $this->viewHandler = $viewHandler;
+        $this->currentUserProvider = $currentUserProvider;
         $this->addressBookViewFactory = $addressBookViewFactory;
     }
 
