@@ -56,7 +56,7 @@ final class ValidPromotionCouponCodeValidator extends ConstraintValidator
 
         try {
             $command = $request->getCommand();
-        } catch (\InvalidArgumentException $exception) {
+        } catch (\TypeError $exception) {
             $this->buildViolation($constraint);
 
             return;
