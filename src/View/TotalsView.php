@@ -6,28 +6,18 @@ namespace Sylius\ShopApiPlugin\View;
 
 class TotalsView
 {
-    /**
-     * @var int
-     */
+    /** @var int */
     public $total;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     public $items;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     public $taxes;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     public $shipping;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     public $promotion;
 }

@@ -38,43 +38,36 @@ final class UpdateCustomer
         $this->subscribedToNewsletter = $subscribedToNewsletter;
     }
 
-    /** @return string */
     public function firstName(): string
     {
         return $this->firstName;
     }
 
-    /** @return string */
     public function lastName(): string
     {
         return $this->lastName;
     }
 
-    /** @return string */
     public function email(): string
     {
         return $this->email;
     }
 
-    /** @return string|null */
     public function birthday(): ?string
     {
         return $this->birthday;
     }
 
-    /** @return string|null */
     public function gender(): ?string
     {
         return $this->gender;
     }
 
-    /** @return string|null */
     public function phoneNumber(): ?string
     {
         return $this->phoneNumber;
     }
 
-    /** @return bool */
     public function subscribedToNewsletter(): bool
     {
         return $this->subscribedToNewsletter;

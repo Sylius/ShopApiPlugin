@@ -16,26 +16,15 @@ use Webmozart\Assert\Assert;
 
 final class ValidPromotionCouponCodeValidator extends ConstraintValidator
 {
-    /**
-     * @var OrderRepositoryInterface
-     */
+    /** @var OrderRepositoryInterface */
     private $orderRepository;
 
-    /**
-     * @var PromotionCouponRepositoryInterface
-     */
+    /** @var PromotionCouponRepositoryInterface */
     private $promotionCouponRepository;
 
-    /**
-     * @var PromotionCouponEligibilityCheckerInterface
-     */
+    /** @var PromotionCouponEligibilityCheckerInterface */
     private $couponEligibilityChecker;
 
-    /**
-     * @param OrderRepositoryInterface $orderRepository
-     * @param PromotionCouponRepositoryInterface $promotionCouponRepository
-     * @param PromotionCouponEligibilityCheckerInterface $couponEligibilityChecker
-     */
     public function __construct(
         OrderRepositoryInterface $orderRepository,
         PromotionCouponRepositoryInterface $promotionCouponRepository,
@@ -46,9 +35,7 @@ final class ValidPromotionCouponCodeValidator extends ConstraintValidator
         $this->couponEligibilityChecker = $couponEligibilityChecker;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    /** {@inheritdoc} */
     public function validate($request, Constraint $constraint)
     {
         /** @var AddCouponRequest $request */
@@ -79,9 +66,7 @@ final class ValidPromotionCouponCodeValidator extends ConstraintValidator
         }
     }
 
-    /**
-     * @param Constraint $constraint
-     */
+    /** @param Constraint $constraint */
     private function buildViolation(Constraint $constraint)
     {
         $this->context

@@ -20,39 +20,21 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class SetDefaultAddressAction
 {
-    /**
-     * @var ViewHandlerInterface
-     */
+    /** @var ViewHandlerInterface */
     private $viewHandler;
 
-    /**
-     * @var CommandBus
-     */
+    /** @var CommandBus */
     private $bus;
 
-    /**
-     * @var ValidatorInterface
-     */
+    /** @var ValidatorInterface */
     private $validator;
 
-    /**
-     * @var ValidationErrorViewFactoryInterface
-     */
+    /** @var ValidationErrorViewFactoryInterface */
     private $validationErrorViewFactory;
 
-    /**
-     * @var LoggedInUserProviderInterface
-     */
+    /** @var LoggedInUserProviderInterface */
     private $loggedInUserProvider;
 
-    /**
-     * @param ViewHandlerInterface $viewHandler
-     * @param CommandBus $bus
-     * @param ValidatorInterface $validator
-     * @param ValidationErrorViewFactoryInterface $validationErrorViewFactory
-     * @param TokenStorageInterface $tokenStorage
-     * @param LoggedInUserProviderInterface $loggedInUserProvider
-     */
     public function __construct(
         ViewHandlerInterface $viewHandler,
         CommandBus $bus,
@@ -67,12 +49,7 @@ final class SetDefaultAddressAction
         $this->loggedInUserProvider = $loggedInUserProvider;
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): Response
     {
         $setDefaultAddressRequest = new SetDefaultAddressRequest($request);
 

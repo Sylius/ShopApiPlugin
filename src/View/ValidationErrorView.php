@@ -6,18 +6,12 @@ namespace Sylius\ShopApiPlugin\View;
 
 class ValidationErrorView
 {
-    /**
-     * @var int
-     */
+    /** @var int */
     public $code;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $message;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     public $errors = [];
 }

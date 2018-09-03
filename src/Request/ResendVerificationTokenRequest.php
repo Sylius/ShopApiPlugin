@@ -9,9 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class ResendVerificationTokenRequest
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $email;
 
     public function __construct(Request $request)

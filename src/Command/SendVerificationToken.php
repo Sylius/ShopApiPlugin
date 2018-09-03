@@ -6,9 +6,7 @@ namespace Sylius\ShopApiPlugin\Command;
 
 final class SendVerificationToken
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $email;
 
     public function __construct(string $email)

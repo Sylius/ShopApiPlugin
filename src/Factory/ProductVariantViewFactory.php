@@ -22,9 +22,7 @@ final class ProductVariantViewFactory implements ProductVariantViewFactoryInterf
         $this->productVariantViewClass = $productVariantViewClass;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    /** {@inheritdoc} */
     public function create(ProductVariantInterface $variant, ChannelInterface $channel, string $locale): ProductVariantView
     {
         /** @var ProductVariantView $variantView */

@@ -23,50 +23,27 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class CreateAddressAction
 {
-    /**
-     * @var ViewHandlerInterface
-     */
+    /** @var ViewHandlerInterface */
     private $viewHandler;
 
-    /**
-     * @var CommandBus
-     */
+    /** @var CommandBus */
     private $bus;
 
-    /**
-     * @var ValidatorInterface
-     */
+    /** @var ValidatorInterface */
     private $validator;
 
-    /**
-     * @var ValidationErrorViewFactoryInterface
-     */
+    /** @var ValidationErrorViewFactoryInterface */
     private $validationErrorViewFactory;
 
-    /**
-     * @var LoggedInUserProviderInterface
-     */
+    /** @var LoggedInUserProviderInterface */
     private $loggedInUserProvider;
 
-    /**
-     * @var AddressBookViewFactoryInterface
-     */
+    /** @var AddressBookViewFactoryInterface */
     private $addressViewFactory;
 
-    /**
-     * @var AddressRepositoryInterface
-     */
+    /** @var AddressRepositoryInterface */
     private $addressRepository;
 
-    /**
-     * @param ViewHandlerInterface $viewHandler
-     * @param CommandBus $bus
-     * @param ValidatorInterface $validator
-     * @param ValidationErrorViewFactoryInterface $validationErrorViewFactory
-     * @param AddressBookViewFactoryInterface $addressViewFactory
-     * @param AddressRepositoryInterface $addressRepository
-     * @param LoggedInUserProviderInterface $loggedInUserProvider
-     */
     public function __construct(
         ViewHandlerInterface $viewHandler,
         CommandBus $bus,
@@ -85,11 +62,6 @@ final class CreateAddressAction
         $this->loggedInUserProvider = $loggedInUserProvider;
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     */
     public function __invoke(Request $request): Response
     {
         $addressModel = Address::createFromRequest($request);
@@ -120,13 +92,7 @@ final class CreateAddressAction
         return $this->viewHandler->handle($view);
     }
 
-    /**
-     * Returns the id that was inserted last in the address book
-     *
-     * @param Customer $customer
-     *
-     * @return AddressBookView
-     */
+    /** Returns the id that was inserted last in the address book */
     private function getLastInsertedAddress(Customer $customer): AddressBookView
     {
         $addresses = $this->addressRepository->findByCustomer($customer);

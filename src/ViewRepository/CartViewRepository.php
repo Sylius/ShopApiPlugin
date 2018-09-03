@@ -12,20 +12,12 @@ use Webmozart\Assert\Assert;
 
 final class CartViewRepository implements CartViewRepositoryInterface
 {
-    /**
-     * @var OrderRepositoryInterface
-     */
+    /** @var OrderRepositoryInterface */
     private $cartRepository;
 
-    /**
-     * @var CartViewFactoryInterface
-     */
+    /** @var CartViewFactoryInterface */
     private $cartViewFactory;
 
-    /**
-     * @param OrderRepositoryInterface $cartRepository
-     * @param CartViewFactoryInterface $cartViewFactory
-     */
     public function __construct(
         OrderRepositoryInterface $cartRepository,
         CartViewFactoryInterface $cartViewFactory

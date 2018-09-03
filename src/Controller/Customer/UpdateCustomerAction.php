@@ -53,11 +53,6 @@ final class UpdateCustomerAction
         $this->tokenStorage = $tokenStorage;
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     */
     public function __invoke(Request $request): Response
     {
         /** @var ShopUserInterface $user */
@@ -77,11 +72,9 @@ final class UpdateCustomerAction
         $updateCustomerCommand = $updateCustomerRequest->getCommand();
         $this->bus->handle($updateCustomerCommand);
 
-        return $this->viewHandler->handle(
-            View::create(
+        return $this->viewHandler->handle(View::create(
             $this->customerViewFactory->create($customer),
             Response::HTTP_OK
-        )
-        );
+        ));
     }
 }

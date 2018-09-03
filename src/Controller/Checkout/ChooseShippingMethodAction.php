@@ -13,32 +13,19 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class ChooseShippingMethodAction
 {
-    /**
-     * @var ViewHandlerInterface
-     */
+    /** @var ViewHandlerInterface */
     private $viewHandler;
 
-    /**
-     * @var CommandBus
-     */
+    /** @var CommandBus */
     private $bus;
 
-    /**
-     * @param ViewHandlerInterface $viewHandler
-     * @param CommandBus $bus
-     */
     public function __construct(ViewHandlerInterface $viewHandler, CommandBus $bus)
     {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): Response
     {
         $this->bus->handle(new ChooseShippingMethod(
             $request->attributes->get('token'),

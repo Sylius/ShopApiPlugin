@@ -9,24 +9,15 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class ChangeItemQuantityRequest
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $token;
 
-    /**
-     * @var mixed
-     */
+    /** @var mixed */
     private $id;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     private $quantity;
 
-    /**
-     * @param Request $request
-     */
     public function __construct(Request $request)
     {
         $this->token = $request->attributes->get('token');
@@ -34,10 +25,7 @@ final class ChangeItemQuantityRequest
         $this->quantity = $request->request->getInt('quantity');
     }
 
-    /**
-     * @return ChangeItemQuantity
-     */
-    public function getCommand()
+    public function getCommand(): ChangeItemQuantity
     {
         return new ChangeItemQuantity($this->token, $this->id, $this->quantity);
     }

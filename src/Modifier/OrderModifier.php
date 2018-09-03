@@ -14,24 +14,16 @@ use Sylius\Component\Order\Processor\OrderProcessorInterface;
 
 final class OrderModifier implements OrderModifierInterface
 {
-    /**
-     * @var CartItemFactoryInterface
-     */
+    /** @var CartItemFactoryInterface */
     private $cartItemFactory;
 
-    /**
-     * @var OrderItemQuantityModifierInterface
-     */
+    /** @var OrderItemQuantityModifierInterface */
     private $orderItemQuantityModifier;
 
-    /**
-     * @var OrderProcessorInterface
-     */
+    /** @var OrderProcessorInterface */
     private $orderProcessor;
 
-    /**
-     * @var ObjectManager
-     */
+    /** @var ObjectManager */
     private $orderManager;
 
     public function __construct(

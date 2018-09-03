@@ -18,9 +18,7 @@ final class AddressBookViewFactory implements AddressBookViewFactoryInterface
         $this->addressBookViewClass = $addressBookViewClass;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    /** {@inheritdoc} */
     public function create(AddressInterface $address, CustomerInterface $customer): AddressBookView
     {
         /** @var AddressBookView $addressBookView */

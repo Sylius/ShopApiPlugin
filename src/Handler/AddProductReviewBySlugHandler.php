@@ -15,29 +15,19 @@ use Webmozart\Assert\Assert;
 
 final class AddProductReviewBySlugHandler
 {
-    /**
-     * @var ProductReviewRepositoryInterface
-     */
+    /** @var ProductReviewRepositoryInterface */
     private $productReviewRepository;
 
-    /**
-     * @var ChannelRepositoryInterface
-     */
+    /** @var ChannelRepositoryInterface */
     private $channelRepository;
 
-    /**
-     * @var ProductRepositoryInterface
-     */
+    /** @var ProductRepositoryInterface */
     private $productRepository;
 
-    /**
-     * @var ProductReviewerProviderInterface
-     */
+    /** @var ProductReviewerProviderInterface */
     private $productReviewerProvider;
 
-    /**
-     * @var ReviewFactoryInterface
-     */
+    /** @var ReviewFactoryInterface */
     private $reviewFactory;
 
     public function __construct(

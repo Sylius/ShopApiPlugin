@@ -6,13 +6,9 @@ namespace Sylius\ShopApiPlugin\View;
 
 class TaxonDetailsView
 {
-    /**
-     * @var TaxonView
-     */
+    /** @var TaxonView */
     public $self;
 
-    /**
-     * @var TaxonView
-     */
+    /** @var TaxonView */
     public $parentTree;
 }

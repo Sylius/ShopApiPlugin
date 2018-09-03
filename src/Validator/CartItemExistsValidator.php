@@ -10,22 +10,15 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 final class CartItemExistsValidator extends ConstraintValidator
 {
-    /**
-     * @var OrderItemRepositoryInterface
-     */
+    /** @var OrderItemRepositoryInterface */
     private $orderItemRepository;
 
-    /**
-     * @param OrderItemRepositoryInterface $orderItemRepository
-     */
     public function __construct(OrderItemRepositoryInterface $orderItemRepository)
     {
         $this->orderItemRepository = $orderItemRepository;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    /** {@inheritdoc} */
     public function validate($id, Constraint $constraint)
     {
         if (null === $this->orderItemRepository->find($id)) {

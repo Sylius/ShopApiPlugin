@@ -17,26 +17,15 @@ use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 final class ShowAddressBookAction
 {
-    /**
-     * @var ViewHandlerInterface
-     */
+    /** @var ViewHandlerInterface */
     private $viewHandler;
 
-    /**
-     * @var LoggedInUserProviderInterface
-     */
+    /** @var LoggedInUserProviderInterface */
     private $loggedInUserProvider;
 
-    /**
-     * @var AddressBookViewFactoryInterface
-     */
+    /** @var AddressBookViewFactoryInterface */
     private $addressBookViewFactory;
 
-    /**
-     * @param ViewHandlerInterface $viewHandler
-     * @param LoggedInUserProviderInterface $loggedInUserProvider
-     * @param AddressBookViewFactoryInterface $addressBookViewFactory
-     */
     public function __construct(
         ViewHandlerInterface $viewHandler,
         LoggedInUserProviderInterface $loggedInUserProvider,
@@ -47,9 +36,7 @@ final class ShowAddressBookAction
         $this->addressBookViewFactory = $addressBookViewFactory;
     }
 
-    /**
-     * Returns the list of addresses that is stored in the user's address book
-     */
+    /** Returns the list of addresses that is stored in the user's address book */
     public function __invoke(): Response
     {
         try {

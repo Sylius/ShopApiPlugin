@@ -10,9 +10,7 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 final class ShopUserDoesNotExistValidator extends ConstraintValidator
 {
-    /**
-     * @var UserRepositoryInterface
-     */
+    /** @var UserRepositoryInterface */
     private $userRepository;
 
     public function __construct(UserRepositoryInterface $userRepository)

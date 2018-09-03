@@ -6,23 +6,15 @@ namespace Sylius\ShopApiPlugin\View;
 
 class ProductReviewView
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     public $title;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     public $rating;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $comment;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $author;
 }

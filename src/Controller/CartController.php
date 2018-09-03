@@ -24,14 +24,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final class CartController extends Controller
 {
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     *
-     * @throws UnresolvedDefaultShippingMethodException
-     */
-    public function estimateShippingCostAction(Request $request)
+    /** @throws UnresolvedDefaultShippingMethodException */
+    public function estimateShippingCostAction(Request $request): Response
     {
         /** @var OrderRepositoryInterface $cartRepository */
         $cartRepository = $this->get('sylius.repository.order');

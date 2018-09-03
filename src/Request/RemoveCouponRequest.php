@@ -9,23 +9,15 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class RemoveCouponRequest
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $token;
 
-    /**
-     * @param Request $request
-     */
     public function __construct(Request $request)
     {
         $this->token = $request->attributes->get('token');
     }
 
-    /**
-     * @return RemoveCoupon
-     */
-    public function getCommand()
+    public function getCommand(): RemoveCoupon
     {
         return new RemoveCoupon($this->token);
     }

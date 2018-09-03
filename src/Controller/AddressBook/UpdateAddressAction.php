@@ -23,51 +23,27 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class UpdateAddressAction
 {
-    /**
-     * @var ViewHandlerInterface
-     */
+    /** @var ViewHandlerInterface */
     private $viewHandler;
 
-    /**
-     * @var ValidatorInterface
-     */
+    /** @var ValidatorInterface */
     private $validator;
 
-    /**
-     * @var CommandBus
-     */
+    /** @var CommandBus */
     private $bus;
 
-    /**
-     * @var ValidationErrorViewFactoryInterface
-     */
+    /** @var ValidationErrorViewFactoryInterface */
     private $validationErrorViewFactory;
 
-    /**
-     * @var AddressBookViewFactoryInterface
-     */
+    /** @var AddressBookViewFactoryInterface */
     private $addressBookViewFactory;
 
-    /**
-     * @var AddressRepositoryInterface
-     */
+    /** @var AddressRepositoryInterface */
     private $addressRepository;
 
-    /**
-     * @var LoggedInUserProviderInterface
-     */
+    /** @var LoggedInUserProviderInterface */
     private $loggedInUserProvider;
 
-    /**
-     * @param ViewHandlerInterface $viewHandler
-     * @param ValidatorInterface $validator
-     * @param CommandBus $bus
-     * @param ValidationErrorViewFactoryInterface $validationErrorViewFactory
-     * @param AddressBookViewFactoryInterface $addressViewFactory
-     * @param AddressRepositoryInterface $addressRepository
-     * @param TokenStorageInterface $tokenStorage
-     * @param LoggedInUserProviderInterface $loggedInUserProvider
-     */
     public function __construct(
         ViewHandlerInterface $viewHandler,
         ValidatorInterface $validator,

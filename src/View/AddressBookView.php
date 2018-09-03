@@ -6,63 +6,39 @@ namespace Sylius\ShopApiPlugin\View;
 
 class AddressBookView
 {
-    /**
-     * @var int
-     */
+    /** @var int */
     public $id;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $firstName;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $lastName;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $countryCode;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $street;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $city;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $postcode;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $provinceName;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $provinceCode;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $company;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $phoneNumber;
 
-    /**
-     * @var bool
-     */
+    /** @var bool */
     public $default;
 }

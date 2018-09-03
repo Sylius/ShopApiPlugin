@@ -6,18 +6,12 @@ namespace Sylius\ShopApiPlugin\View;
 
 class ProductAttributeValueView
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     public $code;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $name;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $value;
 }

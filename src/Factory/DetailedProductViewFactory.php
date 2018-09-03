@@ -25,9 +25,7 @@ final class DetailedProductViewFactory implements ProductViewFactoryInterface
         $this->breadcrumbGenerator = $breadcrumbGenerator;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    /** {@inheritdoc} */
     public function create(ProductInterface $product, ChannelInterface $channel, string $locale): ProductView
     {
         $productView = $this->productViewFactory->create($product, $channel, $locale);

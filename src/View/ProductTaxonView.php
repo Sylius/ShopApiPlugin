@@ -6,13 +6,9 @@ namespace Sylius\ShopApiPlugin\View;
 
 class ProductTaxonView
 {
-    /**
-     * @var ?string
-     */
+    /** @var ?string */
     public $main;
 
-    /**
-     * @var array|string[]
-     */
+    /** @var array|string[] */
     public $others = [];
 }

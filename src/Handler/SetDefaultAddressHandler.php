@@ -15,26 +15,15 @@ use Webmozart\Assert\Assert;
 
 final class SetDefaultAddressHandler
 {
-    /**
-     * @var CustomerRepositoryInterface
-     */
+    /** @var CustomerRepositoryInterface */
     private $customerRepository;
 
-    /**
-     * @var AddressRepositoryInterface
-     */
+    /** @var AddressRepositoryInterface */
     private $addressRepository;
 
-    /**
-     * @var RepositoryInterface
-     */
+    /** @var RepositoryInterface */
     private $shopUserRepository;
 
-    /**
-     * @param CustomerRepositoryInterface $customerRepository
-     * @param AddressRepositoryInterface $addressRepository
-     * @param RepositoryInterface $shopUserRepository
-     */
     public function __construct(
         CustomerRepositoryInterface $customerRepository,
         AddressRepositoryInterface $addressRepository,
