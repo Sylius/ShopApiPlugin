@@ -17,7 +17,8 @@
         "matthiasnoback/symfony-config-test": "^3.1",
         "matthiasnoback/symfony-dependency-injection-test": "^2.3",
         "phpunit/phpunit": "^6.5",
-        "sylius-labs/coding-standard": "^2.0"
+        "sylius-labs/coding-standard": "^2.0",
+        "phpstan/phpstan-shim": "^0.10.3"
     },
     "autoload": {
         "psr-4": {
@@ -29,7 +30,8 @@
             "vendor/bin/ecs check --ansi --no-progress-bar spec src tests/Controller tests/DataFixtures tests/Request --fix"
         ],
         "analyse": [
-            "vendor/bin/ecs check --ansi --no-progress-bar spec src tests/Controller tests/DataFixtures tests/Request"
+            "vendor/bin/ecs check --ansi --no-progress-bar spec src tests/Controller tests/DataFixtures tests/Request",
+            "vendor/bin/phpstan analyse -l 1 src"
         ]
     },
     "autoload-dev": {

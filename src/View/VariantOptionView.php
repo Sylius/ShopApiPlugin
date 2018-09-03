@@ -12,7 +12,7 @@ class VariantOptionView
     /** @var VariantOptionValueView */
     public $value;
 
-    public function __construct($value)
+    public function __construct()
     {
         $this->value = new VariantOptionValueView();
     }
