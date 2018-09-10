@@ -15,15 +15,16 @@ final class AddressExistsValidator extends ConstraintValidator
 {
     /** @var AddressRepositoryInterface */
     private $addressRepository;
+
     /** @var LoggedInUserProviderInterface */
-    private $currentUserProvider;
+    private $loggedInUserProvider;
 
     public function __construct(
         AddressRepositoryInterface $addressRepository,
-        LoggedInUserProviderInterface $currentUserProvider
+        LoggedInUserProviderInterface $loggedInUserProvider
     ) {
         $this->addressRepository = $addressRepository;
-        $this->currentUserProvider = $currentUserProvider;
+        $this->loggedInUserProvider = $loggedInUserProvider;
     }
 
     /**
@@ -38,7 +39,7 @@ final class AddressExistsValidator extends ConstraintValidator
             return $this->context->addViolation($constraint->message);
         }
 
-        $user = $this->currentUserProvider->provide();
+        $user = $this->loggedInUserProvider->provide();
 
         if ($address->getCustomer()->getEmail() !== $user->getEmail()) {
             return $this->context->addViolation($constraint->message);

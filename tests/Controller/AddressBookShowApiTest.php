@@ -35,5 +35,4 @@ final class AddressBookShowApiTest extends JsonApiTestCase
 
         $this->assertResponseCode($response, Response::HTTP_UNAUTHORIZED);
     }
-
 }

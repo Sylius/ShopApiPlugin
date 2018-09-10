@@ -45,5 +45,7 @@ before_script:
 script:
     - composer validate --strict
 
+    - composer analyse
+
     - vendor/bin/phpspec run --format dot -vvv --no-interaction
     - vendor/bin/phpunit

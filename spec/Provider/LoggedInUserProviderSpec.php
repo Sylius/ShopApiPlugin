@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Provider;
@@ -6,9 +7,9 @@ namespace spec\Sylius\ShopApiPlugin\Provider;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\ShopApiPlugin\Provider\LoggedInUserProviderInterface;
-use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 final class LoggedInUserProviderSpec extends ObjectBehavior
 {
@@ -36,8 +37,7 @@ final class LoggedInUserProviderSpec extends ObjectBehavior
         TokenStorageInterface $tokenStorage,
         TokenInterface $token,
         ShopUserInterface $shopUser
-    )
-    {
+    ) {
         $token->getUser()->shouldBeCalled()->willReturn($shopUser);
         $tokenStorage->getToken()->shouldBeCalled()->willReturn($token);
 

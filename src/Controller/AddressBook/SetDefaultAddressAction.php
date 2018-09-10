@@ -14,7 +14,6 @@ use Sylius\ShopApiPlugin\Provider\LoggedInUserProviderInterface;
 use Sylius\ShopApiPlugin\Request\SetDefaultAddressRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -71,11 +70,9 @@ final class SetDefaultAddressAction
         if ($user->getCustomer() !== null) {
             $this->bus->handle(new SetDefaultAddress($request->attributes->get('id'), $user->getEmail()));
 
-            $view = View::create(null, Response::HTTP_NO_CONTENT);
-        } else {
-            $view = View::create(['message' => 'The user is not a customer'], Response::HTTP_BAD_REQUEST);
+            return $this->viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));
         }
 
-        return $this->viewHandler->handle($view);
+        return $this->viewHandler->handle(View::create(['message' => 'The user is not a customer'], Response::HTTP_BAD_REQUEST));
     }
 }
