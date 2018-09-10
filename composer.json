@@ -5,8 +5,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.1",
-
-        "sylius/sylius": "^1.1",
+        "sylius/sylius": "^1.1|^1.2",
         "league/tactician-bundle": "^1.1",
         "league/tactician-doctrine": "^1.1"
     },
