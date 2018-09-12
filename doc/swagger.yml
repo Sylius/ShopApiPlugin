@@ -948,14 +948,18 @@ paths:
             schema:
               $ref: "#/definitions/LoggedInCustomerAddressBookAddress"
           responses:
-            204:
+            201:
               description: "Successfully created the address"
+              schema:
+                - $ref: "#/definitions/LoggedInCustomerAddressBookAddress"
             400:
               description: "Validation failed"
               schema:
                   $ref: "#/definitions/GeneralError"
+            401:
+              description: "No user is logged in"
             500:
-              description: "No logged in user or the user does not own the address"
+              description: "The user does not own the address"
           security:
              - bearerAuth: []
     /address-book/{id}:
@@ -986,8 +990,10 @@ paths:
               description: "Validation failed"
               schema:
                   $ref: "#/definitions/GeneralError"
+            401:
+              description: "No user is logged in"
             500:
-              description: "No logged in user or the user does not own the address"
+              description: "The user does not own the address"
           security:
              - bearerAuth: []
         delete:
@@ -1009,8 +1015,10 @@ paths:
               description: "Validation failed"
               schema:
                   $ref: "#/definitions/GeneralError"
+            401:
+              description: "No user is logged in"
             500:
-              description: "No logged in user or the user does not own the address"
+              description: "The user does not own the address"
           security:
              - bearerAuth: []
     /address-book/{id}/default:
@@ -1033,8 +1041,10 @@ paths:
               description: "Validation failed"
               schema:
                   $ref: "#/definitions/GeneralError"
+            401:
+              description: "No user is logged in"
             500:
-              description: "No logged in user or the user does not own the address"
+              description: "The user does not own the address"
           security:
              - bearerAuth: []
 securityDefinitions:

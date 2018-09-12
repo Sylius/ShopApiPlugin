@@ -11,14 +11,15 @@
             <argument type="service" id="tactician.commandbus" />
             <argument type="service" id="validator" />
             <argument type="service" id="sylius.shop_api_plugin.factory.validation_error_view_factory" />
-            <argument type="service" id="security.token_storage" />
+            <argument type="service" id="sylius.shop_api_plugin.factory.address_book_view_factory" />
+            <argument type="service" id="sylius.repository.address" />
             <argument type="service" id="sylius.shop_api_plugin.provider.current_user_provider" />
         </service>
         <service id="sylius.shop_api_plugin.controller.address_book.show_address_book_action"
                  class="Sylius\ShopApiPlugin\Controller\AddressBook\ShowAddressBookAction"
         >
             <argument type="service" id="fos_rest.view_handler" />
-            <argument type="service" id="security.token_storage" />
+            <argument type="service" id="sylius.shop_api_plugin.provider.current_user_provider" />
             <argument type="service" id="sylius.shop_api_plugin.factory.address_book_view_factory" />
         </service>
         <service id="sylius.shop_api_plugin.controller.address_book.remove_address_action"
@@ -28,7 +29,6 @@
             <argument type="service" id="validator" />
             <argument type="service" id="sylius.shop_api_plugin.factory.validation_error_view_factory" />
             <argument type="service" id="tactician.commandbus" />
-            <argument type="service" id="security.token_storage" />
             <argument type="service" id="sylius.shop_api_plugin.provider.current_user_provider" />
         </service>
         <service id="sylius.shop_api_plugin.controller.address_book.update_address_action"
@@ -40,7 +40,6 @@
             <argument type="service" id="sylius.shop_api_plugin.factory.validation_error_view_factory" />
             <argument type="service" id="sylius.shop_api_plugin.factory.address_book_view_factory" />
             <argument type="service" id="sylius.repository.address" />
-            <argument type="service" id="security.token_storage" />
             <argument type="service" id="sylius.shop_api_plugin.provider.current_user_provider" />
         </service>
         <service id="sylius.shop_api_plugin.controller.address_book.set_default_address_action"
@@ -50,7 +49,6 @@
             <argument type="service" id="tactician.commandbus" />
             <argument type="service" id="validator" />
             <argument type="service" id="sylius.shop_api_plugin.factory.validation_error_view_factory" />
-            <argument type="service" id="security.token_storage" />
             <argument type="service" id="sylius.shop_api_plugin.provider.current_user_provider" />
         </service>
     </services>

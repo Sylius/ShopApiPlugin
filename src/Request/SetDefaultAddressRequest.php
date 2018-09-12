@@ -8,9 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class SetDefaultAddressRequest
 {
-    /**
-     * @var mixed
-     */
+    /** @var mixed */
     private $id;
 
     public function __construct(Request $request)

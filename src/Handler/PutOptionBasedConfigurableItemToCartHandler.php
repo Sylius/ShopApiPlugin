@@ -15,19 +15,13 @@ use Webmozart\Assert\Assert;
 
 final class PutOptionBasedConfigurableItemToCartHandler
 {
-    /**
-     * @var OrderRepositoryInterface
-     */
+    /** @var OrderRepositoryInterface */
     private $cartRepository;
 
-    /**
-     * @var ProductRepositoryInterface
-     */
+    /** @var ProductRepositoryInterface */
     private $productRepository;
 
-    /**
-     * @var OrderModifierInterface
-     */
+    /** @var OrderModifierInterface */
     private $orderModifier;
 
     public function __construct(
@@ -40,7 +34,7 @@ final class PutOptionBasedConfigurableItemToCartHandler
         $this->orderModifier = $orderModifier;
     }
 
-    public function handle(PutOptionBasedConfigurableItemToCart $putConfigurableItemToCart)
+    public function handle(PutOptionBasedConfigurableItemToCart $putConfigurableItemToCart): void
     {
         /** @var OrderInterface $cart */
         $cart = $this->cartRepository->findOneBy(['tokenValue' => $putConfigurableItemToCart->orderToken()]);
@@ -57,13 +51,7 @@ final class PutOptionBasedConfigurableItemToCartHandler
         $this->orderModifier->modify($cart, $productVariant, $putConfigurableItemToCart->quantity());
     }
 
-    /**
-     * @param array $options
-     * @param ProductInterface $product
-     *
-     * @return ProductVariantInterface|null
-     */
-    private function getVariant(array $options, ProductInterface $product)
+    private function getVariant(array $options, ProductInterface $product): ProductVariantInterface
     {
         foreach ($product->getVariants() as $variant) {
             if ($this->areOptionsMatched($options, $variant)) {
@@ -74,13 +62,7 @@ final class PutOptionBasedConfigurableItemToCartHandler
         throw new \InvalidArgumentException('Variant could not be resolved');
     }
 
-    /**
-     * @param array $options
-     * @param ProductVariantInterface $variant
-     *
-     * @return bool
-     */
-    private function areOptionsMatched(array $options, ProductVariantInterface $variant)
+    private function areOptionsMatched(array $options, ProductVariantInterface $variant): bool
     {
         foreach ($variant->getOptionValues() as $optionValue) {
             if (!isset($options[$optionValue->getOptionCode()]) || $optionValue->getCode() !== $options[$optionValue->getOptionCode()]) {

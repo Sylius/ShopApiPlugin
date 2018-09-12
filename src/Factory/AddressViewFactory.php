@@ -17,9 +17,7 @@ final class AddressViewFactory implements AddressViewFactoryInterface
         $this->addressViewClass = $addressViewClass;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    /** {@inheritdoc} */
     public function create(AddressInterface $address): AddressView
     {
         /** @var AddressView $addressView */

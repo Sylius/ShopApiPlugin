@@ -6,38 +6,24 @@ namespace Sylius\ShopApiPlugin\View;
 
 class TaxonView
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     public $code;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $name;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $slug;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $description;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     public $position;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     public $children = [];
 
-    /**
-     * @var array
-     */
+    /** @var array */
     public $images = [];
 }

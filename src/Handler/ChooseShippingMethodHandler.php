@@ -16,32 +16,18 @@ use Webmozart\Assert\Assert;
 
 final class ChooseShippingMethodHandler
 {
-    /**
-     * @var OrderRepositoryInterface
-     */
+    /** @var OrderRepositoryInterface */
     private $orderRepository;
 
-    /**
-     * @var ShippingMethodRepositoryInterface
-     */
+    /** @var ShippingMethodRepositoryInterface */
     private $shippingMethodRepository;
 
-    /**
-     * @var ShippingMethodEligibilityCheckerInterface
-     */
+    /** @var ShippingMethodEligibilityCheckerInterface */
     private $eligibilityChecker;
 
-    /**
-     * @var FactoryInterface
-     */
+    /** @var FactoryInterface */
     private $stateMachineFactory;
 
-    /**
-     * @param OrderRepositoryInterface $orderRepository
-     * @param ShippingMethodRepositoryInterface $shippingMethodRepository
-     * @param ShippingMethodEligibilityCheckerInterface $eligibilityChecker
-     * @param FactoryInterface $stateMachineFactory
-     */
     public function __construct(
         OrderRepositoryInterface $orderRepository,
         ShippingMethodRepositoryInterface $shippingMethodRepository,
@@ -54,9 +40,7 @@ final class ChooseShippingMethodHandler
         $this->stateMachineFactory = $stateMachineFactory;
     }
 
-    /**
-     * @param ChooseShippingMethod $chooseShippingMethod
-     */
+    /** @param ChooseShippingMethod $chooseShippingMethod */
     public function handle(ChooseShippingMethod $chooseShippingMethod)
     {
         /** @var OrderInterface $cart */

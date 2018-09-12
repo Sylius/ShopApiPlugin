@@ -8,22 +8,16 @@ use Symfony\Component\Validator\Constraint;
 
 final class ProductExists extends Constraint
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     public $message = 'sylius.shop_api.product.exists';
 
-    /**
-     * {@inheritdoc}
-     */
+    /** {@inheritdoc} */
     public function getTargets()
     {
         return self::PROPERTY_CONSTRAINT;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    /** {@inheritdoc} */
     public function validatedBy()
     {
         return 'sylius_shop_api_product_exists_validator';

@@ -14,38 +14,21 @@ use Webmozart\Assert\Assert;
 
 final class CreateAddressHandler
 {
-    /**
-     * @var RepositoryInterface
-     */
+    /** @var RepositoryInterface */
     private $addressRepository;
 
-    /**
-     * @var FactoryInterface
-     */
+    /** @var FactoryInterface */
     private $addressFactory;
 
-    /**
-     * @var RepositoryInterface
-     */
+    /** @var RepositoryInterface */
     private $countryRepository;
 
-    /**
-     * @var RepositoryInterface
-     */
+    /** @var RepositoryInterface */
     private $provinceRepository;
 
-    /**
-     * @var RepositoryInterface
-     */
+    /** @var RepositoryInterface */
     private $customerRepository;
 
-    /**
-     * @param RepositoryInterface $addressRepository
-     * @param RepositoryInterface $countryRepository
-     * @param RepositoryInterface $provinceRepository
-     * @param RepositoryInterface $customerRepository
-     * @param FactoryInterface $addressFactory
-     */
     public function __construct(
         RepositoryInterface $addressRepository,
         RepositoryInterface $countryRepository,
@@ -62,7 +45,7 @@ final class CreateAddressHandler
 
     public function handle(CreateAddress $command): void
     {
-        /** @var CustomerInterface $shopUser */
+        /** @var CustomerInterface|null $customer */
         $customer = $this->customerRepository->findOneBy(['email' => $command->userEmail()]);
 
         $addressData = $command->address();
@@ -92,27 +75,16 @@ final class CreateAddressHandler
         $this->addressRepository->add($address);
     }
 
-    /**
-     * @param $customer
-     */
-    private function assertCustomerExists($customer): void
+    private function assertCustomerExists(?CustomerInterface $customer): void
     {
         Assert::notNull($customer, 'Customer does not exists!');
     }
 
-    /**
-     * @param string $countryCode
-     */
     private function assertCountryExists(string $countryCode): void
     {
         Assert::notNull($this->countryRepository->findOneBy(['code' => $countryCode]), 'Country does not exist.');
     }
 
-    /**
-     * @param string $provinceCode
-     *
-     * @return ProvinceInterface
-     */
     private function checkProvinceExists(string $provinceCode): ProvinceInterface
     {
         /** @var ProvinceInterface $province */

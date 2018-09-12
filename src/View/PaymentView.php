@@ -6,19 +6,13 @@ namespace Sylius\ShopApiPlugin\View;
 
 class PaymentView
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     public $state;
 
-    /**
-     * @var PaymentMethodView
-     */
+    /** @var PaymentMethodView */
     public $method;
 
-    /**
-     * @var PriceView
-     */
+    /** @var PriceView */
     public $price;
 
     public function __construct()

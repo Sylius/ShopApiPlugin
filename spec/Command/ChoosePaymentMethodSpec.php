@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace spec\Sylius\ShopApiPlugin\Command;
 
 use PhpSpec\ObjectBehavior;
+use TypeError;
 
 final class ChoosePaymentMethodSpec extends ObjectBehavior
 {
@@ -32,13 +33,13 @@ final class ChoosePaymentMethodSpec extends ObjectBehavior
     {
         $this->beConstructedWith(new \stdClass(), 1, 'COD_METHOD');
 
-        $this->shouldThrow(\InvalidArgumentException::class)->duringInstantiation();
+        $this->shouldThrow(TypeError::class)->duringInstantiation();
     }
 
     function it_throws_an_exception_if_payment_method_code_is_not_a_string()
     {
         $this->beConstructedWith('ORDERTOKEN', 1, new \stdClass());
 
-        $this->shouldThrow(\InvalidArgumentException::class)->duringInstantiation();
+        $this->shouldThrow(TypeError::class)->duringInstantiation();
     }
 }

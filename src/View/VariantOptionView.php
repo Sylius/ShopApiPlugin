@@ -6,17 +6,13 @@ namespace Sylius\ShopApiPlugin\View;
 
 class VariantOptionView
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     public $name;
 
-    /**
-     * @var VariantOptionValueView
-     */
+    /** @var VariantOptionValueView */
     public $value;
 
-    public function __construct($value)
+    public function __construct()
     {
         $this->value = new VariantOptionValueView();
     }

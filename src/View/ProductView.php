@@ -6,74 +6,46 @@ namespace Sylius\ShopApiPlugin\View;
 
 class ProductView
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     public $code;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $name;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $slug;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $breadcrumb;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $description;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $shortDescription;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $metaKeywords;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $metaDescription;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $averageRating;
 
-    /**
-     * @var ProductTaxonView
-     */
+    /** @var ProductTaxonView */
     public $taxons;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     public $variants = [];
 
-    /**
-     * @var array
-     */
+    /** @var array */
     public $attributes = [];
 
-    /**
-     * @var array
-     */
+    /** @var array */
     public $associations = [];
 
-    /**
-     * @var array
-     */
+    /** @var array */
     public $images = [];
 
     public function __construct()

@@ -11,14 +11,9 @@ use Webmozart\Assert\Assert;
 
 final class DropCartHandler
 {
-    /**
-     * @var OrderRepositoryInterface
-     */
+    /** @var OrderRepositoryInterface */
     private $cartRepository;
 
-    /**
-     * @param OrderRepositoryInterface $cartRepository
-     */
     public function __construct(OrderRepositoryInterface $cartRepository)
     {
         $this->cartRepository = $cartRepository;

@@ -11,22 +11,15 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 final class CartExistsValidator extends ConstraintValidator
 {
-    /**
-     * @var OrderRepositoryInterface
-     */
+    /** @var OrderRepositoryInterface */
     private $orderRepository;
 
-    /**
-     * @param OrderRepositoryInterface $orderRepository
-     */
     public function __construct(OrderRepositoryInterface $orderRepository)
     {
         $this->orderRepository = $orderRepository;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    /** {@inheritdoc} */
     public function validate($token, Constraint $constraint)
     {
         if (null === $this->orderRepository->findOneBy(['tokenValue' => $token, 'state' => OrderInterface::STATE_CART])) {

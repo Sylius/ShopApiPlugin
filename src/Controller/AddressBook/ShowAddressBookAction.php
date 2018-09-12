@@ -6,62 +6,57 @@ namespace Sylius\ShopApiPlugin\Controller\AddressBook;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
+use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\Customer;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\ShopApiPlugin\Factory\AddressBookViewFactoryInterface;
-use Symfony\Component\HttpFoundation\Request;
+use Sylius\ShopApiPlugin\Provider\LoggedInUserProviderInterface;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Webmozart\Assert\Assert;
+use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 final class ShowAddressBookAction
 {
-    /**
-     * @var ViewHandlerInterface
-     */
+    /** @var ViewHandlerInterface */
     private $viewHandler;
 
-    /**
-     * @var TokenStorageInterface
-     */
-    private $tokenStorage;
+    /** @var LoggedInUserProviderInterface */
+    private $loggedInUserProvider;
 
-    /**
-     * @var AddressBookViewFactoryInterface
-     */
+    /** @var AddressBookViewFactoryInterface */
     private $addressBookViewFactory;
 
-    /**
-     * @param ViewHandlerInterface $viewHandler
-     * @param TokenStorageInterface $tokenStorage
-     * @param AddressBookViewFactoryInterface $addressBookViewFactory
-     */
     public function __construct(
         ViewHandlerInterface $viewHandler,
-        TokenStorageInterface $tokenStorage,
+        LoggedInUserProviderInterface $loggedInUserProvider,
         AddressBookViewFactoryInterface $addressBookViewFactory
     ) {
         $this->viewHandler = $viewHandler;
-        $this->tokenStorage = $tokenStorage;
+        $this->loggedInUserProvider = $loggedInUserProvider;
         $this->addressBookViewFactory = $addressBookViewFactory;
     }
 
-    public function __invoke(Request $request): Response
+    /** Returns the list of addresses that is stored in the user's address book */
+    public function __invoke(): Response
     {
-        /** @var ShopUserInterface $user */
-        $user = $this->tokenStorage->getToken()->getUser();
-
-        Assert::isInstanceOf($user, ShopUserInterface::class);
-
-        /** @var Customer $customer */
-        $customer = $user->getCustomer();
-        $addresses = $customer->getAddresses();
-
-        $addressViews = [];
-        foreach ($addresses as $address) {
-            $addressViews[] = $this->addressBookViewFactory->create($address, $customer);
+        try {
+            /** @var ShopUserInterface $user */
+            $user = $this->loggedInUserProvider->provide();
+        } catch (TokenNotFoundException $exception) {
+            return $this->viewHandler->handle(View::create(null, Response::HTTP_UNAUTHORIZED));
         }
 
-        return $this->viewHandler->handle(View::create($addressViews, Response::HTTP_OK));
+        $customer = $user->getCustomer();
+
+        if ($customer instanceof Customer) {
+            $addressViews = $customer->getAddresses()->map(
+                function (AddressInterface $address) use ($customer) {
+                    return $this->addressBookViewFactory->create($address, $customer);
+                }
+            );
+
+            return $this->viewHandler->handle(View::create($addressViews, Response::HTTP_OK));
+        }
+
+        return $this->viewHandler->handle(View::create(['message' => 'The user is not a customer'], Response::HTTP_BAD_REQUEST));
     }
 }

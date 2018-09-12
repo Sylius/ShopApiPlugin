@@ -6,7 +6,7 @@ namespace Sylius\ShopApiPlugin\Provider;
 
 use Sylius\Component\Core\Model\ShopUserInterface;
 
-interface CurrentUserProviderInterface
+interface LoggedInUserProviderInterface
 {
     public function provide(): ShopUserInterface;
 }

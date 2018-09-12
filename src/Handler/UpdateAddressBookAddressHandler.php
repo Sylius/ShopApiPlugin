@@ -13,38 +13,21 @@ use Webmozart\Assert\Assert;
 
 final class UpdateAddressBookAddressHandler
 {
-    /**
-     * @var RepositoryInterface
-     */
+    /** @var RepositoryInterface */
     private $addressRepository;
 
-    /**
-     * @var FactoryInterface
-     */
+    /** @var FactoryInterface */
     private $addressFactory;
 
-    /**
-     * @var RepositoryInterface
-     */
+    /** @var RepositoryInterface */
     private $countryRepository;
 
-    /**
-     * @var RepositoryInterface
-     */
+    /** @var RepositoryInterface */
     private $provinceRepository;
 
-    /**
-     * @var RepositoryInterface
-     */
+    /** @var RepositoryInterface */
     private $shopUserRepository;
 
-    /**
-     * @param RepositoryInterface $addressRepository
-     * @param RepositoryInterface $countryRepository
-     * @param RepositoryInterface $provinceRepository
-     * @param RepositoryInterface $shopUserRepository
-     * @param FactoryInterface $addressFactory
-     */
     public function __construct(
         RepositoryInterface $addressRepository,
         RepositoryInterface $countryRepository,

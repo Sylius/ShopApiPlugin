@@ -8,9 +8,7 @@ use Sylius\Component\Core\Model\ProductReviewerInterface;
 
 final class ProductReviewerProvider implements ProductReviewerProviderInterface
 {
-    /**
-     * @var CustomerProviderInterface
-     */
+    /** @var CustomerProviderInterface */
     private $customerProvider;
 
     public function __construct(CustomerProviderInterface $customerProvider)

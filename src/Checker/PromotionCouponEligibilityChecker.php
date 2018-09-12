@@ -14,20 +14,12 @@ use Webmozart\Assert\Assert;
 
 final class PromotionCouponEligibilityChecker implements PromotionCouponEligibilityCheckerInterface
 {
-    /**
-     * @var PromotionEligibilityCheckerInterface
-     */
+    /** @var PromotionEligibilityCheckerInterface */
     private $promotionEligibilityChecker;
 
-    /**
-     * @var PromotionCouponEligibilityCheckerInterface
-     */
+    /** @var PromotionCouponEligibilityCheckerInterface */
     private $couponEligibilityChecker;
 
-    /**
-     * @param PromotionEligibilityCheckerInterface $promotionEligibilityChecker
-     * @param PromotionCouponEligibilityCheckerInterface $couponEligibilityChecker
-     */
     public function __construct(
         PromotionEligibilityCheckerInterface $promotionEligibilityChecker,
         PromotionCouponEligibilityCheckerInterface $couponEligibilityChecker
@@ -36,9 +28,7 @@ final class PromotionCouponEligibilityChecker implements PromotionCouponEligibil
         $this->couponEligibilityChecker = $couponEligibilityChecker;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    /** {@inheritdoc} */
     public function isEligible(PromotionSubjectInterface $cart, PromotionCouponInterface $coupon): bool
     {
         /** @var OrderInterface $cart */

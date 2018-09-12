@@ -6,34 +6,25 @@ namespace Sylius\ShopApiPlugin\Validator;
 
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Repository\AddressRepositoryInterface;
-use Sylius\ShopApiPlugin\Provider\CurrentUserProviderInterface;
+use Sylius\ShopApiPlugin\Provider\LoggedInUserProviderInterface;
 use Sylius\ShopApiPlugin\Validator\Constraints\AddressExists;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
 final class AddressExistsValidator extends ConstraintValidator
 {
-    /**
-     * @var AddressRepositoryInterface
-     */
+    /** @var AddressRepositoryInterface */
     private $addressRepository;
-    /**
-     * @var CurrentUserProviderInterface
-     */
-    private $currentUserProvider;
 
-    /**
-     * AddressExistsValidator constructor.
-     *
-     * @param AddressRepositoryInterface $addressRepository
-     * @param CurrentUserProviderInterface $currentUserProvider
-     */
+    /** @var LoggedInUserProviderInterface */
+    private $loggedInUserProvider;
+
     public function __construct(
         AddressRepositoryInterface $addressRepository,
-        CurrentUserProviderInterface $currentUserProvider
+        LoggedInUserProviderInterface $loggedInUserProvider
     ) {
         $this->addressRepository = $addressRepository;
-        $this->currentUserProvider = $currentUserProvider;
+        $this->loggedInUserProvider = $loggedInUserProvider;
     }
 
     /**
@@ -48,7 +39,7 @@ final class AddressExistsValidator extends ConstraintValidator
             return $this->context->addViolation($constraint->message);
         }
 
-        $user = $this->currentUserProvider->provide();
+        $user = $this->loggedInUserProvider->provide();
 
         if ($address->getCustomer()->getEmail() !== $user->getEmail()) {
             return $this->context->addViolation($constraint->message);

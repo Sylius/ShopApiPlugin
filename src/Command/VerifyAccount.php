@@ -6,9 +6,7 @@ namespace Sylius\ShopApiPlugin\Command;
 
 final class VerifyAccount
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $token;
 
     public function __construct(string $token)

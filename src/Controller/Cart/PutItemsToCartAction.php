@@ -108,11 +108,7 @@ final class PutItemsToCartAction
         }
     }
 
-    /**
-     * @param array $item
-     *
-     * @return PutOptionBasedConfigurableItemToCartRequest|PutSimpleItemToCartRequest|PutVariantBasedConfigurableItemToCartRequest
-     */
+    /** @return PutOptionBasedConfigurableItemToCartRequest|PutSimpleItemToCartRequest|PutVariantBasedConfigurableItemToCartRequest */
     private function provideCommandRequest(array $item)
     {
         if (!isset($item['variantCode']) && !isset($item['options'])) {

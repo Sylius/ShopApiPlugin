@@ -1,6 +1,14 @@
-# Sylius Shop API [![License](https://img.shields.io/packagist/l/sylius/shop-api-plugin.svg)](https://packagist.org/packages/sylius/shop-api-plugin) [![Version](https://img.shields.io/packagist/v/sylius/shop-api-plugin.svg)](https://packagist.org/packages/sylius/shop-api-plugin) [![Build Status on linux](https://travis-ci.org/Sylius/SyliusShopApiPlugin.svg?branch=master)](https://travis-ci.org/Sylius/SyliusShopApiPlugin) [![Scrutinizer Quality Score](https://img.shields.io/scrutinizer/g/Sylius/SyliusShopApiPlugin.svg)](https://scrutinizer-ci.com/g/Sylius/SyliusShopApiPlugin/)
+<p align="center">
+    <a href="https://sylius.com" target="_blank">
+        <img src="https://demo.sylius.com/assets/shop/img/logo.png" />
+    </a>
+</p>
 
-This repository provides a ShopApi implementation on the top of [Sylius E-Commerce platform](https://github.com/Sylius/Sylius).
+<h1 align="center">Sylius Shop API </h1>
+
+[![License](https://img.shields.io/packagist/l/sylius/shop-api-plugin.svg)](https://packagist.org/packages/sylius/shop-api-plugin) [![Version](https://img.shields.io/packagist/v/sylius/shop-api-plugin.svg)](https://packagist.org/packages/sylius/shop-api-plugin) [![Build Status](https://travis-ci.org/Sylius/ShopApiPlugin.svg?branch=master)](https://travis-ci.org/Sylius/ShopApiPlugin) [![Scrutinizer Quality Score](https://img.shields.io/scrutinizer/g/Sylius/SyliusShopApiPlugin.svg)](https://scrutinizer-ci.com/g/Sylius/SyliusShopApiPlugin/)
+
+<p align="center">This repository provides a ShopApi implementation on the top of <a href="https://github.com/Sylius/Sylius">Sylius E-Commerce platform</a></p>
  
 # Beware
 
@@ -12,7 +20,7 @@ In order to run this plugin you need to fulfill following requirements:
 1. Installed composer [Composer](https://getcomposer.org/).
     ```bash
     $ wget http://getcomposer.org/composer.phar
-    $ php composer.phar create-project -s beta sylius/sylius-standard project
+    $ php composer.phar create-project sylius/sylius-standard project
     ```
 
 2. Installed Sylius
@@ -25,25 +33,18 @@ Rest of the command are executed inside `project` folder.
 
 ## Usage
 
-1. Run `composer require sylius/shop-api-plugin`.
+1. Run `composer require sylius/shop-api-plugin:@beta`.
 2. Extend config files:
     1. Add SyliusShopApi to AppKernel.
     ```php
     // app/AppKernel.php
     
-        /**
-         * {@inheritdoc}
-         */
-        public function registerBundles()
+        public function registerBundles(): array
         {
-            $bundles = [
-                // ...
-    
+            return array_merge(parent::registerBundles(), [
                 new \Sylius\ShopApiPlugin\ShopApiPlugin(),
                 new \League\Tactician\Bundle\TacticianBundle(),
-            ];
-    
-            return array_merge(parent::registerBundles(), $bundles);
+            ]);
         }
     ```
     2. Add `- { path: '^/shop-api', priorities: ['json'], fallback_format: json, prefer_extension: true }` to `fos_rest.format_listener.rules` 
@@ -54,6 +55,7 @@ Rest of the command are executed inside `project` folder.
     imports:
         # ...
         - { resource: "@ShopApiPlugin/Resources/config/app/config.yml" }
+        - { resource: "@ShopApiPlugin/Resources/config/app/sylius_mailer.yml" }
 
     # ...
     
@@ -67,7 +69,20 @@ Rest of the command are executed inside `project` folder.
                 - { path: '^/', stop: true }
     
     ```
-    3. Add routing to `app/config/routing.yml`
+    
+    3. Adjust checkout configuration to not collide with Sylius shop API. For example
+    (assuming, that you are using regular Sylius security definition):
+    ```yml
+    # app/config/config.yml
+
+    # ...
+
+    sylius_shop:
+        checkout_resolver:
+            pattern: "%sylius.security.shop_regex%/checkout/.+"
+    ```
+
+    4. Add routing to `app/config/routing.yml`
     ```yml
     # app/config/routing.yml
     
@@ -76,7 +91,7 @@ Rest of the command are executed inside `project` folder.
     sylius_shop_api:
         resource: "@ShopApiPlugin/Resources/config/routing.yml"
     ```
-    4. Configure firewall
+    5. Configure firewall
         1. Change `sylius.security.shop_regex` parameter to exclude `shop-api` prefix also
         2. Add ShopAPI regex parameter `shop_api.security.regex: "^/shop-api"`
         3. Add ShopAPI firewall config:
@@ -84,7 +99,7 @@ Rest of the command are executed inside `project` folder.
     parameters:
         # ...
     
-        sylius.security.shop_regex: "^/(?!admin|api|shop-api)[^/]++" # shop-api has been added inside the brackets 
+        sylius.security.shop_regex: "^/(?!admin|api/.*|api$|shop-api)[^/]++" # shop-api has been added inside the brackets
         shop_api.security.regex: "^/shop-api"
 
     # ... 
@@ -97,18 +112,6 @@ Rest of the command are executed inside `project` folder.
                 pattern: "%shop_api.security.regex%"
                 stateless:  true
                 anonymous:  true
-    ```
-    
-    5. Adjust checkout configuration to not collide with Sylius shop API. For example
-    (assuming, that you are using regular Sylius security definition):
-    ```yml
-    # app/config/config.yml
-
-    # ...
-
-    sylius_shop:
-        checkout_resolver:
-            pattern: "%sylius.security.shop_regex%/checkout/.+"
     ```
     
     6. (optional) if you have installed `nelmio/NelmioCorsBundle` for Support of Cross-Origin Ajax Request,

@@ -1,4 +1,4 @@
-shop_api_me:
+sylius_shop_api_me:
     path: /me
     methods: [GET]
     defaults:

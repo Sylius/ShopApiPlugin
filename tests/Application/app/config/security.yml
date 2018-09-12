@@ -55,14 +55,14 @@ security:
             stateless: true
             anonymous: true
 
-        shop_api_login:
+        sylius_shop_api_login:
             pattern:  "%shop_api.security.regex%/login"
             stateless: true
             anonymous: true
             form_login:
                 provider: sylius_shop_user_provider
-                login_path: shop_api_login_check
-                check_path: shop_api_login_check
+                login_path: sylius_shop_api_login_check
+                check_path: sylius_shop_api_login_check
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
                 require_previous_session: false

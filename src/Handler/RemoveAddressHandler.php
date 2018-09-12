@@ -11,20 +11,12 @@ use Sylius\ShopApiPlugin\Command\RemoveAddress;
 
 final class RemoveAddressHandler
 {
-    /**
-     * @var AddressRepositoryInterface
-     */
+    /** @var AddressRepositoryInterface */
     private $addressRepository;
 
-    /**
-     * @var OrderRepositoryInterface
-     */
+    /** @var OrderRepositoryInterface */
     private $orderRepository;
 
-    /**
-     * @param AddressRepositoryInterface $addressRepository
-     * @param OrderRepositoryInterface $orderRepository
-     */
     public function __construct(AddressRepositoryInterface $addressRepository, OrderRepositoryInterface $orderRepository)
     {
         $this->addressRepository = $addressRepository;

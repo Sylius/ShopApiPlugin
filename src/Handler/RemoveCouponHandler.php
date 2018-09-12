@@ -12,20 +12,12 @@ use Webmozart\Assert\Assert;
 
 final class RemoveCouponHandler
 {
-    /**
-     * @var OrderRepositoryInterface
-     */
+    /** @var OrderRepositoryInterface */
     private $orderRepository;
 
-    /**
-     * @var OrderProcessorInterface
-     */
+    /** @var OrderProcessorInterface */
     private $orderProcessor;
 
-    /**
-     * @param OrderRepositoryInterface $orderRepository
-     * @param OrderProcessorInterface $orderProcessor
-     */
     public function __construct(
         OrderRepositoryInterface $orderRepository,
         OrderProcessorInterface $orderProcessor
@@ -34,9 +26,7 @@ final class RemoveCouponHandler
         $this->orderProcessor = $orderProcessor;
     }
 
-    /**
-     * @param RemoveCoupon $removeCoupon
-     */
+    /** @param RemoveCoupon $removeCoupon */
     public function handle(RemoveCoupon $removeCoupon)
     {
         /** @var OrderInterface $cart */

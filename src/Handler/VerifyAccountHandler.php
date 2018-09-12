@@ -11,9 +11,7 @@ use Webmozart\Assert\Assert;
 
 final class VerifyAccountHandler
 {
-    /**
-     * @var UserRepositoryInterface
-     */
+    /** @var UserRepositoryInterface */
     private $userRepository;
 
     public function __construct(UserRepositoryInterface $userRepository)

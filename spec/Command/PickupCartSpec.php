@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace spec\Sylius\ShopApiPlugin\Command;
 
 use PhpSpec\ObjectBehavior;
+use TypeError;
 
 final class PickupCartSpec extends ObjectBehavior
 {
@@ -27,13 +28,13 @@ final class PickupCartSpec extends ObjectBehavior
     {
         $this->beConstructedWith(new \stdClass(), 'CHANNEL_CODE');
 
-        $this->shouldThrow(\InvalidArgumentException::class)->duringInstantiation();
+        $this->shouldThrow(TypeError::class)->duringInstantiation();
     }
 
     function it_throws_an_exception_if_channel_code_is_not_a_string()
     {
         $this->beConstructedWith('ORDERTOKEN', new \stdClass());
 
-        $this->shouldThrow(\InvalidArgumentException::class)->duringInstantiation();
+        $this->shouldThrow(TypeError::class)->duringInstantiation();
     }
 }

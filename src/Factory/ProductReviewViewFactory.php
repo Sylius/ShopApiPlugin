@@ -17,9 +17,7 @@ final class ProductReviewViewFactory implements ProductReviewViewFactoryInterfac
         $this->productReviewViewClass = $productReviewViewClass;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    /** {@inheritdoc} */
     public function create(ProductReview $productReview): ProductReviewView
     {
         /** @var ProductReviewView $productReviewView */

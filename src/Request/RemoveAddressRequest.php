@@ -8,13 +8,17 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class RemoveAddressRequest
 {
-    /**
-     * @var mixed
-     */
+    /** @var int|string */
     private $id;
 
     public function __construct(Request $request)
     {
         $this->id = $request->attributes->get('id');
+    }
+
+    /** @return int|string */
+    public function id()
+    {
+        return $this->id;
     }
 }
