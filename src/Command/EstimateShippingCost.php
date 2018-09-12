@@ -17,7 +17,7 @@ final class EstimateShippingCost
     private $countryCode;
 
     /**
-     * @var null|string
+     * @var string|null
      */
     private $provinceCode;
 
@@ -26,7 +26,7 @@ final class EstimateShippingCost
      */
     private $result = [];
 
-    public function __construct(string $cartToken, string $countryCode, ?string $provinceCode=null)
+    public function __construct(string $cartToken, string $countryCode, ?string $provinceCode = null)
     {
         $this->cartToken = $cartToken;
         $this->countryCode = $countryCode;
