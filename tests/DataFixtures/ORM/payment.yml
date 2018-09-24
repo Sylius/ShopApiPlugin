@@ -28,4 +28,5 @@ Sylius\Component\Payment\Model\PaymentMethodTranslation:
         name: 'Pay by check'
         locale: 'en_GB'
         description: <paragraph(2)>
+        instructions: "Please make bank transfer to: PL1234 1234 1234 1234."
         translatable: "@pay_by_check"
