@@ -9,6 +9,7 @@ use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
 use Payum\Core\Model\GatewayConfigInterface;
 use Payum\Core\Payum;
+use Payum\Core\Request\Capture;
 use Payum\Core\Request\Generic;
 use Payum\Core\Request\GetStatusInterface;
 use Payum\Core\Security\GenericTokenFactoryInterface;
@@ -81,10 +82,27 @@ final class GetPaymentInstructionAction
         $gatewayConfig = $method->getGatewayConfig();
 
         $token = $this->provideTokenBasedOnPayment($payment);
+
+        if ('offline' === $gatewayConfig->getFactoryName()) {
+            $view = View::create([
+                'method' => $gatewayConfig->getGatewayName(),
+                'type' => 'text',
+                'content' => $method->getInstructions(),
+            ]);
+
+            return $this->viewHandler->handle($view);
+        }
+
+        $gateway = $this->payum->getGateway($token->getGatewayName());
+        $gateway->execute(new Capture($token));
+        $this->payum->getHttpRequestVerifier()->invalidate($token);
+
         $view = View::create([
             'method' => $gatewayConfig->getGatewayName(),
-            'type' => 'text',
-            'content' => $method->getInstructions(),
+            'type' => 'redirect',
+            'content' => [
+                'url' => $token->getTargetUrl(),
+            ]
         ]);
 
         return $this->viewHandler->handle($view);

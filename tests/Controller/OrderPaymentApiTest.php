@@ -19,7 +19,7 @@ final class OrderPaymentApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_displays_payment_instructions_for_offline_payment()
+    public function it_returns_text_payment_instructions_for_offline_payment()
     {
         $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml', 'payment.yml']);
 
@@ -60,5 +60,51 @@ final class OrderPaymentApiTest extends JsonApiTestCase
 
         $response = $this->client->getResponse();
         $this->assertResponse($response, 'order/payment_instruction_offline', Response::HTTP_OK);
+    }
+
+    /**
+     * @test
+     */
+    public function it_returns_redirect_instruction_for_hosted_payment_pages()
+    {
+        $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml', 'payment.yml']);
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var CommandBus $bus */
+        $bus = $this->get('tactician.commandbus');
+        $bus->handle(new PickupCart($token, 'WEB_GB'));
+        $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
+        $bus->handle(new AddressOrder(
+            $token,
+            Address::createFromArray([
+                'firstName' => 'Sherlock',
+                'lastName' => 'Holmes',
+                'city' => 'London',
+                'street' => 'Baker Street 221b',
+                'countryCode' => 'GB',
+                'postcode' => 'NWB',
+                'provinceName' => 'Greater London',
+            ]), Address::createFromArray([
+                'firstName' => 'Sherlock',
+                'lastName' => 'Holmes',
+                'city' => 'London',
+                'street' => 'Baker Street 221b',
+                'countryCode' => 'GB',
+                'postcode' => 'NWB',
+                'provinceName' => 'Greater London',
+            ])
+        ));
+
+        $bus->handle(new ChooseShippingMethod($token, 0, 'DHL'));
+        $bus->handle(new ChoosePaymentMethod($token, 0, 'paypal'));
+        $bus->handle(new CompleteOrder($token, "shop@example.com"));
+
+        $this->client->request('GET', sprintf('/shop-api/order/%s/payment-instruction', $token), [], [], [
+            'ACCEPT' => 'application/json',
+        ]);
+
+        $response = $this->client->getResponse();
+        $this->assertResponse($response, 'order/payment_instruction_paypal', Response::HTTP_OK);
     }
 }
