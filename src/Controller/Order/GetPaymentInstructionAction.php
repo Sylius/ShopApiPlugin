@@ -11,11 +11,9 @@ use Payum\Core\Model\GatewayConfigInterface;
 use Payum\Core\Payum;
 use Payum\Core\Request\Capture;
 use Payum\Core\Request\Generic;
-use Payum\Core\Request\GetStatusInterface;
 use Payum\Core\Security\GenericTokenFactoryInterface;
 use Payum\Core\Security\HttpRequestVerifierInterface;
 use Payum\Core\Security\TokenInterface;
-use Sylius\Bundle\PayumBundle\Factory\GetStatusFactoryInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
@@ -46,19 +44,14 @@ final class GetPaymentInstructionAction
      */
     private $viewHandler;
 
-    /** @var GetStatusFactoryInterface */
-    private $getStatusRequestFactory;
-
     public function __construct(
         Payum $payum,
         OrderRepositoryInterface $orderRepository,
-        ViewHandlerInterface $viewHandler,
-        GetStatusFactoryInterface $getStatusFactory
+        ViewHandlerInterface $viewHandler
     ) {
         $this->payum = $payum;
         $this->orderRepository = $orderRepository;
         $this->viewHandler = $viewHandler;
-        $this->getStatusRequestFactory = $getStatusFactory;
     }
 
     public function __invoke(Request $request): Response
