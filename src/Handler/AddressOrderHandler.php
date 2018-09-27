@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace Sylius\ShopApiPlugin\Handler;
 
 use SM\Factory\FactoryInterface;
+use Sylius\Bundle\ResourceBundle\Event\ResourceControllerEvent;
 use Sylius\Component\Core\Factory\AddressFactoryInterface;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\OrderCheckoutTransitions;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\ShopApiPlugin\Command\AddressOrder;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Webmozart\Assert\Assert;
 
 final class AddressOrderHandler
@@ -24,14 +26,19 @@ final class AddressOrderHandler
     /** @var FactoryInterface */
     private $stateMachineFactory;
 
+    /** @var EventDispatcherInterface */
+    private $eventDispatcher;
+
     public function __construct(
         OrderRepositoryInterface $orderRepository,
         AddressFactoryInterface $addressFactory,
-        FactoryInterface $stateMachineFactory
+        FactoryInterface $stateMachineFactory,
+        EventDispatcherInterface $eventDispatcher
     ) {
         $this->orderRepository = $orderRepository;
         $this->addressFactory = $addressFactory;
         $this->stateMachineFactory = $stateMachineFactory;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     public function handle(AddressOrder $addressOrder)
@@ -70,6 +77,10 @@ final class AddressOrderHandler
         $order->setShippingAddress($shippingAddress);
         $order->setBillingAddress($billingAddress);
 
+        $this->eventDispatcher->dispatch('sylius.order.pre_address', new ResourceControllerEvent($order));
+
         $stateMachine->apply(OrderCheckoutTransitions::TRANSITION_ADDRESS);
+
+        $this->eventDispatcher->dispatch('sylius.order.post_address', new ResourceControllerEvent($order));
     }
 }

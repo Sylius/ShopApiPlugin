@@ -12,6 +12,8 @@ use Sylius\ShopApiPlugin\Command\ChooseShippingMethod;
 use Sylius\ShopApiPlugin\Command\PickupCart;
 use Sylius\ShopApiPlugin\Command\PutSimpleItemToCart;
 use Sylius\ShopApiPlugin\Model\Address;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 
 final class CheckoutSummarizeApiTest extends JsonApiTestCase
@@ -110,6 +112,10 @@ EOT;
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
+        /** @var RequestStack $requestStack */
+        $requestStack = $this->get('request_stack');
+        $requestStack->push(Request::create(''));
+
         /** @var CommandBus $bus */
         $bus = $this->get('tactician.commandbus');
         $bus->handle(new PickupCart($token, 'WEB_GB'));
@@ -159,6 +165,10 @@ EOT;
         $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var RequestStack $requestStack */
+        $requestStack = $this->get('request_stack');
+        $requestStack->push(Request::create(''));
 
         /** @var CommandBus $bus */
         $bus = $this->get('tactician.commandbus');
@@ -228,6 +238,10 @@ EOT;
         $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml', 'payment.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var RequestStack $requestStack */
+        $requestStack = $this->get('request_stack');
+        $requestStack->push(Request::create(''));
 
         /** @var CommandBus $bus */
         $bus = $this->get('tactician.commandbus');
