@@ -32,7 +32,7 @@ final class ChooseShippingMethodHandler
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
-    
+
     public function __construct(
         OrderRepositoryInterface $orderRepository,
         ShippingMethodRepositoryInterface $shippingMethodRepository,

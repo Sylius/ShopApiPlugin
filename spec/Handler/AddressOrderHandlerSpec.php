@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace spec\Sylius\ShopApiPlugin\Handler;
 
 use PhpSpec\ObjectBehavior;
+use Prophecy\Argument;
 use SM\Factory\FactoryInterface;
 use SM\StateMachine\StateMachineInterface;
+use Sylius\Bundle\ResourceBundle\Event\ResourceControllerEvent;
 use Sylius\Component\Core\Factory\AddressFactoryInterface;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\OrderInterface;
@@ -30,7 +32,8 @@ final class AddressOrderHandlerSpec extends ObjectBehavior
         FactoryInterface $stateMachineFactory,
         OrderInterface $order,
         OrderRepositoryInterface $orderRepository,
-        StateMachineInterface $stateMachine
+        StateMachineInterface $stateMachine,
+        EventDispatcherInterface $eventDispatcher
     ) {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
         $addressFactory->createNew()->willReturn($shippingAddress, $billingAddress);
@@ -56,7 +59,10 @@ final class AddressOrderHandlerSpec extends ObjectBehavior
 
         $stateMachineFactory->get($order, OrderCheckoutTransitions::GRAPH)->willReturn($stateMachine);
         $stateMachine->can('address')->willReturn(true);
+
+        $eventDispatcher->dispatch('sylius.order.pre_address', new ResourceControllerEvent($order->getWrappedObject()))->shouldBeCalled();
         $stateMachine->apply('address')->shouldBeCalled();
+        $eventDispatcher->dispatch('sylius.order.post_address', new ResourceControllerEvent($order->getWrappedObject()))->shouldBeCalled();
 
         $this->handle(new AddressShipmentCommand(
             'ORDERTOKEN',
@@ -82,9 +88,14 @@ final class AddressOrderHandlerSpec extends ObjectBehavior
     }
 
     function it_throws_an_exception_if_order_does_not_exist(
-        OrderRepositoryInterface $orderRepository
+        OrderRepositoryInterface $orderRepository,
+        StateMachineInterface $stateMachine,
+        EventDispatcherInterface $eventDispatcher
     ) {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn(null);
+
+        $eventDispatcher->dispatch(Argument::any())->shouldNotBeCalled();
+        $stateMachine->apply('address')->shouldNotBeCalled();
 
         $this->shouldThrow(\LogicException::class)->during('handle', [
             new AddressShipmentCommand(
@@ -115,12 +126,16 @@ final class AddressOrderHandlerSpec extends ObjectBehavior
         FactoryInterface $stateMachineFactory,
         OrderInterface $order,
         OrderRepositoryInterface $orderRepository,
-        StateMachineInterface $stateMachine
+        StateMachineInterface $stateMachine,
+        EventDispatcherInterface $eventDispatcher
     ) {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
 
         $stateMachineFactory->get($order, OrderCheckoutTransitions::GRAPH)->willReturn($stateMachine);
         $stateMachine->can('address')->willReturn(false);
+
+        $eventDispatcher->dispatch(Argument::any())->shouldNotBeCalled();
+        $stateMachine->apply('address')->shouldNotBeCalled();
 
         $this->shouldThrow(\LogicException::class)->during('handle', [
             new AddressShipmentCommand(

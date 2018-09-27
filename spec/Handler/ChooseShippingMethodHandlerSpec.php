@@ -9,6 +9,7 @@ use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use SM\Factory\FactoryInterface;
 use SM\StateMachine\StateMachineInterface;
+use Sylius\Bundle\ResourceBundle\Event\ResourceControllerEvent;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\ShipmentInterface;
 use Sylius\Component\Core\Model\ShippingMethodInterface;
@@ -26,9 +27,9 @@ final class ChooseShippingMethodHandlerSpec extends ObjectBehavior
         ShippingMethodRepositoryInterface $shippingMethodRepository,
         ShippingMethodEligibilityCheckerInterface $eligibilityChecker,
         FactoryInterface $stateMachineFactory,
-	    EventDispatcherInterface $eventDispatcher
+        EventDispatcherInterface $eventDispatcher
     ) {
-        $this->beConstructedWith($orderRepository, $shippingMethodRepository, $eligibilityChecker, $stateMachineFactory,$eventDispatcher);
+        $this->beConstructedWith($orderRepository, $shippingMethodRepository, $eligibilityChecker, $stateMachineFactory, $eventDispatcher);
     }
 
     function it_assignes_choosen_shipping_method_to_specified_shipment(
@@ -39,7 +40,8 @@ final class ChooseShippingMethodHandlerSpec extends ObjectBehavior
         ShipmentInterface $shipment,
         ShippingMethodEligibilityCheckerInterface $eligibilityChecker,
         FactoryInterface $stateMachineFactory,
-        StateMachineInterface $stateMachine
+        StateMachineInterface $stateMachine,
+        EventDispatcherInterface $eventDispatcher
     ) {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
         $order->getShipments()->willReturn(new ArrayCollection([$shipment->getWrappedObject()]));
@@ -51,7 +53,10 @@ final class ChooseShippingMethodHandlerSpec extends ObjectBehavior
         $stateMachine->can('select_shipping')->willReturn(true);
 
         $shipment->setMethod($shippingMethod)->shouldBeCalled();
+
+        $eventDispatcher->dispatch('sylius.order.pre_select_shipping', new ResourceControllerEvent($order->getWrappedObject()))->shouldBecalled();
         $stateMachine->apply('select_shipping')->shouldBeCalled();
+        $eventDispatcher->dispatch('sylius.order.post_select_shipping', new ResourceControllerEvent($order->getWrappedObject()))->shouldBecalled();
 
         $this->handle(new ChooseShippingMethod('ORDERTOKEN', 0, 'DHL_SHIPPING_METHOD'));
     }
@@ -64,7 +69,8 @@ final class ChooseShippingMethodHandlerSpec extends ObjectBehavior
         ShipmentInterface $shipment,
         ShippingMethodEligibilityCheckerInterface $eligibilityChecker,
         FactoryInterface $stateMachineFactory,
-        StateMachineInterface $stateMachine
+        StateMachineInterface $stateMachine,
+        EventDispatcherInterface $eventDispatcher
     ) {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
         $order->getShipments()->willReturn(new ArrayCollection([$shipment->getWrappedObject()]));
@@ -75,7 +81,9 @@ final class ChooseShippingMethodHandlerSpec extends ObjectBehavior
         $stateMachine->can('select_shipping')->willReturn(true);
 
         $shipment->setMethod(Argument::type(ShippingMethodInterface::class))->shouldNotBeCalled();
+        $eventDispatcher->dispatch('sylius.order.pre_select_shipping', Argument::any())->shouldNotBeCalled();
         $stateMachine->apply('select_shipping')->shouldNotBeCalled();
+        $eventDispatcher->dispatch('sylius.order.post_select_shipping', Argument::any())->shouldNotBeCalled();
 
         $this
             ->shouldThrow(\InvalidArgumentException::class)
@@ -107,7 +115,8 @@ final class ChooseShippingMethodHandlerSpec extends ObjectBehavior
         ShippingMethodRepositoryInterface $shippingMethodRepository,
         ShipmentInterface $shipment,
         FactoryInterface $stateMachineFactory,
-        StateMachineInterface $stateMachine
+        StateMachineInterface $stateMachine,
+        EventDispatcherInterface $eventDispatcher
     ) {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
         $shippingMethodRepository->findOneBy(['code' => 'DHL_SHIPPING_METHOD'])->willReturn(null);
@@ -115,7 +124,9 @@ final class ChooseShippingMethodHandlerSpec extends ObjectBehavior
         $stateMachine->can('select_shipping')->willReturn(false);
 
         $shipment->setMethod(Argument::type(ShippingMethodInterface::class))->shouldNotBeCalled();
+        $eventDispatcher->dispatch('sylius.order.pre_select_shipping', Argument::any())->shouldNotBeCalled();
         $stateMachine->apply('select_shipping')->shouldNotBeCalled();
+        $eventDispatcher->dispatch('sylius.order.post_select_shipping', Argument::any())->shouldNotBeCalled();
 
         $this
             ->shouldThrow(\InvalidArgumentException::class)
@@ -131,7 +142,8 @@ final class ChooseShippingMethodHandlerSpec extends ObjectBehavior
         ShippingMethodRepositoryInterface $shippingMethodRepository,
         ShipmentInterface $shipment,
         FactoryInterface $stateMachineFactory,
-        StateMachineInterface $stateMachine
+        StateMachineInterface $stateMachine,
+        EventDispatcherInterface $eventDispatcher
     ) {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
         $shippingMethodRepository->findOneBy(['code' => 'DHL_SHIPPING_METHOD'])->willReturn(null);
@@ -139,7 +151,9 @@ final class ChooseShippingMethodHandlerSpec extends ObjectBehavior
         $stateMachine->can('select_shipping')->willReturn(true);
 
         $shipment->setMethod(Argument::type(ShippingMethodInterface::class))->shouldNotBeCalled();
+        $eventDispatcher->dispatch('sylius.order.pre_select_shipping', Argument::any())->shouldNotBeCalled();
         $stateMachine->apply('select_shipping')->shouldNotBeCalled();
+        $eventDispatcher->dispatch('sylius.order.post_select_shipping', Argument::any())->shouldNotBeCalled();
 
         $this
             ->shouldThrow(\InvalidArgumentException::class)
@@ -156,7 +170,8 @@ final class ChooseShippingMethodHandlerSpec extends ObjectBehavior
         ShippingMethodInterface $shippingMethod,
         ShipmentInterface $shipment,
         FactoryInterface $stateMachineFactory,
-        StateMachineInterface $stateMachine
+        StateMachineInterface $stateMachine,
+        EventDispatcherInterface $eventDispatcher
     ) {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
         $shippingMethodRepository->findOneBy(['code' => 'DHL_SHIPPING_METHOD'])->willReturn($shippingMethod);
@@ -165,7 +180,9 @@ final class ChooseShippingMethodHandlerSpec extends ObjectBehavior
         $stateMachine->can('select_shipping')->willReturn(true);
 
         $shipment->setMethod(Argument::type(ShippingMethodInterface::class))->shouldNotBeCalled();
+        $eventDispatcher->dispatch('sylius.order.pre_select_shipping', Argument::any())->shouldNotBeCalled();
         $stateMachine->apply('select_shipping')->shouldNotBeCalled();
+        $eventDispatcher->dispatch('sylius.order.post_select_shipping', Argument::any())->shouldNotBeCalled();
 
         $this
             ->shouldThrow(\InvalidArgumentException::class)

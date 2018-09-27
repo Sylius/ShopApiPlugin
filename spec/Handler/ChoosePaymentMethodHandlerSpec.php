@@ -9,6 +9,7 @@ use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use SM\Factory\FactoryInterface;
 use SM\StateMachine\StateMachineInterface;
+use Sylius\Bundle\ResourceBundle\Event\ResourceControllerEvent;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
@@ -36,7 +37,8 @@ final class ChoosePaymentMethodHandlerSpec extends ObjectBehavior
         PaymentMethodInterface $paymentMethod,
         PaymentInterface $payment,
         FactoryInterface $stateMachineFactory,
-        StateMachineInterface $stateMachine
+        StateMachineInterface $stateMachine,
+        EventDispatcherInterface $eventDispatcher
     ) {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
         $order->getPayments()->willReturn(new ArrayCollection([$payment->getWrappedObject()]));
@@ -46,18 +48,27 @@ final class ChoosePaymentMethodHandlerSpec extends ObjectBehavior
         $stateMachine->can('select_payment')->willReturn(true);
 
         $payment->setMethod($paymentMethod)->shouldBeCalled();
+
+        $eventDispatcher->dispatch('sylius.order.pre_payment', new ResourceControllerEvent($order->getWrappedObject()))->shouldBeCalled();
         $stateMachine->apply('select_payment')->shouldBeCalled();
+        $eventDispatcher->dispatch('sylius.order.post_payment', new ResourceControllerEvent($order->getWrappedObject()))->shouldBeCalled();
 
         $this->handle(new ChoosePaymentMethod('ORDERTOKEN', 0, 'CASH_ON_DELIVERY_METHOD'));
     }
 
     function it_throws_an_exception_if_order_with_given_token_has_not_been_found(
         OrderRepositoryInterface $orderRepository,
-        PaymentInterface $payment
+        PaymentInterface $payment,
+        StateMachineInterface $stateMachine,
+        EventDispatcherInterface $eventDispatcher
     ) {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn(null);
 
         $payment->setMethod(Argument::type(PaymentMethodInterface::class))->shouldNotBeCalled();
+
+        $eventDispatcher->dispatch(Argument::any())->shouldNotBeCalled();
+        $stateMachine->apply('select_payment')->shouldNotBeCalled();
+        $eventDispatcher->dispatch(Argument::any())->shouldNotBeCalled();
 
         $this
             ->shouldThrow(\InvalidArgumentException::class)
@@ -73,7 +84,8 @@ final class ChoosePaymentMethodHandlerSpec extends ObjectBehavior
         PaymentMethodRepositoryInterface $paymentMethodRepository,
         PaymentInterface $payment,
         FactoryInterface $stateMachineFactory,
-        StateMachineInterface $stateMachine
+        StateMachineInterface $stateMachine,
+        EventDispatcherInterface $eventDispatcher
     ) {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
         $paymentMethodRepository->findOneBy(['code' => 'CASH_ON_DELIVERY_METHOD'])->willReturn(null);
@@ -81,6 +93,8 @@ final class ChoosePaymentMethodHandlerSpec extends ObjectBehavior
         $stateMachine->can('select_payment')->willReturn(false);
 
         $payment->setMethod(Argument::type(PaymentMethodInterface::class))->shouldNotBeCalled();
+
+        $eventDispatcher->dispatch(Argument::any())->shouldNotBeCalled();
         $stateMachine->apply('select_payment')->shouldNotBeCalled();
 
         $this
@@ -97,7 +111,8 @@ final class ChoosePaymentMethodHandlerSpec extends ObjectBehavior
         PaymentMethodRepositoryInterface $paymentMethodRepository,
         PaymentInterface $payment,
         FactoryInterface $stateMachineFactory,
-        StateMachineInterface $stateMachine
+        StateMachineInterface $stateMachine,
+        EventDispatcherInterface $eventDispatcher
     ) {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
         $paymentMethodRepository->findOneBy(['code' => 'CASH_ON_DELIVERY_METHOD'])->willReturn(null);
@@ -105,6 +120,8 @@ final class ChoosePaymentMethodHandlerSpec extends ObjectBehavior
         $stateMachine->can('select_payment')->willReturn(true);
 
         $payment->setMethod(Argument::type(PaymentMethodInterface::class))->shouldNotBeCalled();
+
+        $eventDispatcher->dispatch(Argument::any())->shouldNotBeCalled();
         $stateMachine->apply('select_payment')->shouldNotBeCalled();
 
         $this
@@ -122,7 +139,8 @@ final class ChoosePaymentMethodHandlerSpec extends ObjectBehavior
         PaymentMethodInterface $paymentMethod,
         PaymentInterface $payment,
         FactoryInterface $stateMachineFactory,
-        StateMachineInterface $stateMachine
+        StateMachineInterface $stateMachine,
+        EventDispatcherInterface $eventDispatcher
     ) {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
         $paymentMethodRepository->findOneBy(['code' => 'CASH_ON_DELIVERY_METHOD'])->willReturn($paymentMethod);
@@ -131,6 +149,8 @@ final class ChoosePaymentMethodHandlerSpec extends ObjectBehavior
         $stateMachine->can('select_payment')->willReturn(true);
 
         $payment->setMethod(Argument::type(PaymentMethodInterface::class))->shouldNotBeCalled();
+
+        $eventDispatcher->dispatch(Argument::any())->shouldNotBeCalled();
         $stateMachine->apply('select_payment')->shouldNotBeCalled();
 
         $this
