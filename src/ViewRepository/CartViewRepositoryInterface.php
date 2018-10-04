@@ -9,4 +9,7 @@ use Sylius\ShopApiPlugin\View\CartSummaryView;
 interface CartViewRepositoryInterface
 {
     public function getOneByToken(string $orderToken): CartSummaryView;
+
+    /** @return array|CartSummaryView[] */
+    public function getCompletedByCustomerEmail(string $customerEmail): array;
 }

@@ -9,6 +9,7 @@
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="sylius.shop_api_plugin.provider.current_user_provider" />
+            <argument type="service" id="sylius.shop_api_plugin.view_repository.cart_view_repository" />
         </service>
     </services>
 </container>

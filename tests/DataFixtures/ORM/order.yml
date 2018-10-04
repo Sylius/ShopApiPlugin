@@ -1,87 +1,62 @@
 Sylius\Component\Core\Model\Order:
-    first_order:
+    completed_order:
         channel: "@gb_web_channel"
         items: ["@mug_item"]
         currencyCode: "GBP"
         localeCode: "en_GB"
         customer: "@customer_oliver"
-        state: "cart"
-        payments: ["@first_order_payment"]
-        shipments: ["@first_order_shipment"]
+        checkoutState: "completed"
+        payments: ["@completed_order_payment"]
+        shipments: ["@completed_order_shipment"]
         shippingAddress: "@customer_oliver_home_address"
         billingAddress: "@customer_oliver_work_address"
-#    second_order:
-#        channel: "@gb_web_channel"
-#        items: ["@small_t_shirt_item"]
-#        currencyCode: "GBP"
-#        localeCode: "en_GB"
-#        customer: "@customer_oliver"
-#        state: "cart"
-#        payments: ["@second_order_payment"]
-#        shipments: ["@second_order_shipment"]
-#        shippingAddress: "@customer_oliver_home_address"
-#        billingAddress: "@customer_oliver_work_address"
-#    third_order:
-#        channel: "@gb_web_channel"
-#        items: ["@large_t_shirt_item"]
-#        currencyCode: "GBP"
-#        localeCode: "en_GB"
-#        customer: "@customer_oliver"
-#        state: "cart"
-#        payments: ["@third_order_payment"]
-#        shipments: ["@third_order_shipment"]
-#        shippingAddress: "@customer_oliver_home_address"
-#        billingAddress: "@customer_oliver_work_address"
+    not_completed_order:
+        channel: "@gb_web_channel"
+        items: ["@large_t_shirt_item"]
+        currencyCode: "GBP"
+        localeCode: "en_GB"
+        customer: "@customer_oliver"
+        checkoutState: "payment_selected"
+        payments: ["@not_completed_order_payment"]
+        shipments: ["@not_completed_order_shipment"]
+        shippingAddress: "@customer_oliver_freelance_address"
+        billingAddress: "@customer_hater_address"
 
 Sylius\Component\Core\Model\OrderItem:
     mug_item:
-        units: ["@mug_item_unit1", "@mug_item_unit2"]
         variant: "@mug_variant"
-        order: "@first_order"
-#    small_t_shirt_item:
-#        units: ["@small_t_shirt_item_unit"]
-#        variant: "@t_shirt_small"
-#        order: "@second_order"
-#    large_t_shirt_item:
-#        units: ["@large_t_shirt_item_unit"]
-#        variant: "@t_shirt_large"
-#        order: "@third_order"
+        order: "@completed_order"
+    large_t_shirt_item:
+        units: ["@large_t_shirt_item_unit"]
+        variant: "@t_shirt_large"
+        order: "@not_completed_order"
 
 Sylius\Component\Core\Model\OrderItemUnit:
     mug_item_unit1:
         __construct: ["@mug_item"]
     mug_item_unit2:
         __construct: ["@mug_item"]
-#    small_t_shirt_item_unit:
-#        __construct: ["@small_t_shirt_item"]
-#    large_t_shirt_item_unit:
-#        __construct: ["@large_t_shirt_item"]
+    large_t_shirt_item_unit:
+        __construct: ["@large_t_shirt_item"]
 
 Sylius\Component\Core\Model\Payment:
-    first_order_payment:
+    completed_order_payment:
         state: "cart"
         method: "@pay_by_check"
-        order: "@first_order"
+        order: "@completed_order"
         currencyCode: "GBP"
-#    second_order_payment:
-#        state: "cart"
-#        method: "@pay_by_check"
-#        order: "@second_order"
-#    third_order_payment:
-#        state: "cart"
-#        method: "@cash_on_delivery"
-#        order: "@third_order"
+    not_completed_order_payment:
+        state: "cart"
+        method: "@cash_on_delivery"
+        order: "@not_completed_order"
+        currencyCode: "GBP"
 
 Sylius\Component\Core\Model\Shipment:
-    first_order_shipment:
+    completed_order_shipment:
         state: "cart"
         method: "@dhl"
-        order: "@first_order"
-#    second_order_shipment:
-#        state: "cart"
-#        method: "@dhl"
-#        order: "@second_order"
-#    third_order_shipment:
-#        state: "cart"
-#        method: "@fedEx"
-#        order: "@third_order"
+        order: "@completed_order"
+    not_completed_order_shipment:
+        state: "cart"
+        method: "@fedEx"
+        order: "@not_completed_order"

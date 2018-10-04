@@ -8,7 +8,7 @@ use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\ShopApiPlugin\Provider\LoggedInUserProviderInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Sylius\ShopApiPlugin\ViewRepository\CartViewRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
@@ -21,10 +21,17 @@ final class ShowOrdersListAction
     /** @var LoggedInUserProviderInterface */
     private $loggedInUserProvider;
 
-    public function __construct(ViewHandlerInterface $viewHandler, LoggedInUserProviderInterface $loggedInUserProvider)
-    {
+    /** @var CartViewRepositoryInterface */
+    private $cartQuery;
+
+    public function __construct(
+        ViewHandlerInterface $viewHandler,
+        LoggedInUserProviderInterface $loggedInUserProvider,
+        CartViewRepositoryInterface $cartQuery
+    ) {
         $this->viewHandler = $viewHandler;
         $this->loggedInUserProvider = $loggedInUserProvider;
+        $this->cartQuery = $cartQuery;
     }
 
     public function __invoke(Request $request): Response
@@ -36,6 +43,8 @@ final class ShowOrdersListAction
             return $this->viewHandler->handle(View::create(null, Response::HTTP_UNAUTHORIZED));
         }
 
-        return new JsonResponse('');
+        return $this->viewHandler->handle(
+            View::create($this->cartQuery->getCompletedByCustomerEmail($user->getCustomer()->getEmail()), Response::HTTP_OK)
+        );
     }
 }

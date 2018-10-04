@@ -6,6 +6,7 @@
 
         <service id="sylius.shop_api_plugin.view_repository.cart_view_repository" class="Sylius\ShopApiPlugin\ViewRepository\CartViewRepository">
             <argument type="service" id="sylius.repository.order" />
+            <argument type="service" id="sylius.repository.customer" />
             <argument type="service" id="sylius.shop_api_plugin.factory.cart_view_factory" />
         </service>
 
