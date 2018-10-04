@@ -44,7 +44,7 @@ final class PlacedOrderViewFactorySpec extends ObjectBehavior
         );
     }
 
-    function it_is_cart_factory()
+    function it_is_placed_order_view_factory()
     {
         $this->shouldImplement(PlacedOrderViewFactoryInterface::class);
     }
@@ -63,7 +63,6 @@ final class PlacedOrderViewFactorySpec extends ObjectBehavior
         $cart->getChannel()->willReturn($channel);
         $cart->getCurrencyCode()->willReturn('GBP');
         $cart->getCheckoutState()->willReturn(OrderCheckoutStates::STATE_COMPLETED);
-        $cart->getState()->willReturn(OrderInterface::STATE_NEW);
         $cart->getTokenValue()->willReturn('ORDERTOKEN');
         $cart->getShippingTotal()->willReturn(500);
         $cart->getTaxTotal()->willReturn(600);
@@ -97,7 +96,6 @@ final class PlacedOrderViewFactorySpec extends ObjectBehavior
         $placedOrderView->currency = 'GBP';
         $placedOrderView->locale = 'en_GB';
         $placedOrderView->checkoutState = OrderCheckoutStates::STATE_COMPLETED;
-        $placedOrderView->state = OrderInterface::STATE_NEW;
 
         $placedOrderView->items = [new ItemView()];
         $placedOrderView->totals = new TotalsView();

@@ -8,7 +8,7 @@ use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\ShopApiPlugin\Provider\LoggedInUserProviderInterface;
-use Sylius\ShopApiPlugin\ViewRepository\CartViewRepositoryInterface;
+use Sylius\ShopApiPlugin\ViewRepository\PlacedOrderViewRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
@@ -21,17 +21,17 @@ final class ShowOrdersListAction
     /** @var LoggedInUserProviderInterface */
     private $loggedInUserProvider;
 
-    /** @var CartViewRepositoryInterface */
-    private $cartQuery;
+    /** @var PlacedOrderViewRepositoryInterface */
+    private $placedOrderQuery;
 
     public function __construct(
         ViewHandlerInterface $viewHandler,
         LoggedInUserProviderInterface $loggedInUserProvider,
-        CartViewRepositoryInterface $cartQuery
+        PlacedOrderViewRepositoryInterface $placedOrderQuery
     ) {
         $this->viewHandler = $viewHandler;
         $this->loggedInUserProvider = $loggedInUserProvider;
-        $this->cartQuery = $cartQuery;
+        $this->placedOrderQuery = $placedOrderQuery;
     }
 
     public function __invoke(Request $request): Response
@@ -44,7 +44,7 @@ final class ShowOrdersListAction
         }
 
         return $this->viewHandler->handle(
-            View::create($this->cartQuery->getCompletedByCustomerEmail($user->getCustomer()->getEmail()), Response::HTTP_OK)
+            View::create($this->placedOrderQuery->getCompletedByCustomerEmail($user->getCustomer()->getEmail()), Response::HTTP_OK)
         );
     }
 }

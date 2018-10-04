@@ -6,8 +6,13 @@
 
         <service id="sylius.shop_api_plugin.view_repository.cart_view_repository" class="Sylius\ShopApiPlugin\ViewRepository\CartViewRepository">
             <argument type="service" id="sylius.repository.order" />
-            <argument type="service" id="sylius.repository.customer" />
             <argument type="service" id="sylius.shop_api_plugin.factory.cart_view_factory" />
+        </service>
+
+        <service id="sylius.shop_api_plugin.view_repository.placed_order_view_repository" class="Sylius\ShopApiPlugin\ViewRepository\PlacedOrderViewRepository">
+            <argument type="service" id="sylius.repository.order" />
+            <argument type="service" id="sylius.repository.customer" />
+            <argument type="service" id="sylius.shop_api_plugin.factory.placed_order_view_factory" />
         </service>
 
         <service id="sylius.shop_api_plugin.view_repository.product_details_view_repository" class="Sylius\ShopApiPlugin\ViewRepository\ProductDetailsViewRepository">

@@ -60,7 +60,6 @@ final class PlacedOrderViewFactory implements PlacedOrderViewFactoryInterface
         $cartView->currency = $cart->getCurrencyCode();
         $cartView->locale = $localeCode;
         $cartView->checkoutState = $cart->getCheckoutState();
-        $cartView->state = $cart->getState();
         $cartView->totals = $this->totalViewFactory->create($cart);
 
         /** @var OrderItemInterface $item */

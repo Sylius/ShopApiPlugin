@@ -6,6 +6,7 @@ Sylius\Component\Core\Model\Order:
         localeCode: "en_GB"
         customer: "@customer_oliver"
         checkoutState: "completed"
+        state: "cart"
         payments: ["@completed_order_payment"]
         shipments: ["@completed_order_shipment"]
         shippingAddress: "@customer_oliver_home_address"
@@ -16,7 +17,8 @@ Sylius\Component\Core\Model\Order:
         currencyCode: "GBP"
         localeCode: "en_GB"
         customer: "@customer_oliver"
-        checkoutState: "payment_selected"
+        checkoutState: "cart"
+        state: "cart"
         payments: ["@not_completed_order_payment"]
         shipments: ["@not_completed_order_shipment"]
         shippingAddress: "@customer_oliver_freelance_address"
@@ -25,11 +27,8 @@ Sylius\Component\Core\Model\Order:
 Sylius\Component\Core\Model\OrderItem:
     mug_item:
         variant: "@mug_variant"
-        order: "@completed_order"
     large_t_shirt_item:
-        units: ["@large_t_shirt_item_unit"]
         variant: "@t_shirt_large"
-        order: "@not_completed_order"
 
 Sylius\Component\Core\Model\OrderItemUnit:
     mug_item_unit1:
