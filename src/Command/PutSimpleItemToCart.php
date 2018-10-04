@@ -6,7 +6,7 @@ namespace Sylius\ShopApiPlugin\Command;
 
 use Webmozart\Assert\Assert;
 
-final class PutSimpleItemToCart
+final class PutSimpleItemToCart implements Command
 {
     /** @var string */
     private $orderToken;

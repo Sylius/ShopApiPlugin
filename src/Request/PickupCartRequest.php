@@ -7,7 +7,7 @@ namespace Sylius\ShopApiPlugin\Request;
 use Sylius\ShopApiPlugin\Command\PickupCart;
 use Symfony\Component\HttpFoundation\Request;
 
-final class PickupCartRequest
+final class PickupCartRequest implements CommandRequestInterface
 {
     /** @var string */
     private $token;

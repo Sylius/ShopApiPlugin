@@ -7,7 +7,7 @@ namespace Sylius\ShopApiPlugin\Request;
 use Sylius\ShopApiPlugin\Command\RemoveCoupon;
 use Symfony\Component\HttpFoundation\Request;
 
-final class RemoveCouponRequest
+final class RemoveCouponRequest implements CommandRequestInterface
 {
     /** @var string */
     private $token;

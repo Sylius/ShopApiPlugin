@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Command;
 
-final class AddProductReviewByCode
+final class AddProductReviewByCode implements Command
 {
     /** @var string */
     private $productCode;

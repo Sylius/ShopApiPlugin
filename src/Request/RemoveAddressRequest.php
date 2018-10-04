@@ -6,7 +6,7 @@ namespace Sylius\ShopApiPlugin\Request;
 
 use Symfony\Component\HttpFoundation\Request;
 
-final class RemoveAddressRequest
+final class RemoveAddressRequest implements CommandRequestInterface
 {
     /** @var int|string */
     private $id;

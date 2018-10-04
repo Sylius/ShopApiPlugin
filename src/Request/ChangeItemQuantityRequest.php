@@ -7,7 +7,7 @@ namespace Sylius\ShopApiPlugin\Request;
 use Sylius\ShopApiPlugin\Command\ChangeItemQuantity;
 use Symfony\Component\HttpFoundation\Request;
 
-final class ChangeItemQuantityRequest
+final class ChangeItemQuantityRequest implements CommandRequestInterface
 {
     /** @var string */
     private $token;

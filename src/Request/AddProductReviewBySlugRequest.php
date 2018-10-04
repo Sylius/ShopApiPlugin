@@ -7,7 +7,7 @@ namespace Sylius\ShopApiPlugin\Request;
 use Sylius\ShopApiPlugin\Command\AddProductReviewBySlug;
 use Symfony\Component\HttpFoundation\Request;
 
-final class AddProductReviewBySlugRequest
+final class AddProductReviewBySlugRequest implements CommandRequestInterface
 {
     /** @var string */
     private $slug;

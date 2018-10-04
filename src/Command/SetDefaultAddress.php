@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Command;
 
-final class SetDefaultAddress
+final class SetDefaultAddress implements Command
 {
     /** @var mixed */
     private $id;

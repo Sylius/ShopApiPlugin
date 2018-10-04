@@ -7,7 +7,7 @@ namespace Sylius\ShopApiPlugin\Request;
 use Sylius\ShopApiPlugin\Command\PutOptionBasedConfigurableItemToCart;
 use Symfony\Component\HttpFoundation\Request;
 
-final class PutOptionBasedConfigurableItemToCartRequest
+final class PutOptionBasedConfigurableItemToCartRequest implements CommandRequestInterface
 {
     /** @var string */
     private $token;

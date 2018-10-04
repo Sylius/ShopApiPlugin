@@ -7,7 +7,7 @@ namespace Sylius\ShopApiPlugin\Request;
 use Sylius\ShopApiPlugin\Command\AddCoupon;
 use Symfony\Component\HttpFoundation\Request;
 
-final class AddCouponRequest
+final class AddCouponRequest implements CommandRequestInterface
 {
     /** @var string|null */
     private $token;

@@ -6,7 +6,7 @@ namespace Sylius\ShopApiPlugin\Request;
 
 use Symfony\Component\HttpFoundation\Request;
 
-final class SetDefaultAddressRequest
+final class SetDefaultAddressRequest implements CommandRequestInterface
 {
     /** @var mixed */
     private $id;

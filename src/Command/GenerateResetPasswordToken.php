@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Command;
 
-final class GenerateResetPasswordToken
+final class GenerateResetPasswordToken implements Command
 {
     /** @var string */
     private $email;

@@ -6,7 +6,7 @@ namespace Sylius\ShopApiPlugin\Command;
 
 use Sylius\ShopApiPlugin\Model\Address;
 
-final class UpdateAddress
+final class UpdateAddress implements Command
 {
     /** @var Address */
     private $address;

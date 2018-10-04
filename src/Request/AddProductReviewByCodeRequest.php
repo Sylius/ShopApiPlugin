@@ -7,7 +7,7 @@ namespace Sylius\ShopApiPlugin\Request;
 use Sylius\ShopApiPlugin\Command\AddProductReviewByCode;
 use Symfony\Component\HttpFoundation\Request;
 
-final class AddProductReviewByCodeRequest
+final class AddProductReviewByCodeRequest implements CommandRequestInterface
 {
     /** @var string */
     private $code;

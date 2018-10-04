@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Command;
 
-final class RemoveAddress
+final class RemoveAddress implements Command
 {
     /** @var mixed */
     private $id;

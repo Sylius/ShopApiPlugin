@@ -8,7 +8,7 @@ use DateTimeInterface;
 use Sylius\ShopApiPlugin\Command\UpdateCustomer;
 use Symfony\Component\HttpFoundation\Request;
 
-final class UpdateCustomerRequest
+final class UpdateCustomerRequest implements CommandRequestInterface
 {
     /** @var string */
     private $firstName;

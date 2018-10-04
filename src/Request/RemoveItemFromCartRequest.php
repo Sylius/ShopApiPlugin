@@ -7,7 +7,7 @@ namespace Sylius\ShopApiPlugin\Request;
 use Sylius\ShopApiPlugin\Command\RemoveItemFromCart;
 use Symfony\Component\HttpFoundation\Request;
 
-final class RemoveItemFromCartRequest
+final class RemoveItemFromCartRequest implements CommandRequestInterface
 {
     /** @var string */
     private $token;

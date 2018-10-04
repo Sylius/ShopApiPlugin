@@ -7,7 +7,7 @@ namespace Sylius\ShopApiPlugin\Request;
 use Sylius\ShopApiPlugin\Command\SendVerificationToken;
 use Symfony\Component\HttpFoundation\Request;
 
-final class ResendVerificationTokenRequest
+final class ResendVerificationTokenRequest implements CommandRequestInterface
 {
     /** @var string */
     private $email;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Command;
 
-final class PickupCart
+final class PickupCart implements Command
 {
     /** @var string */
     private $orderToken;
