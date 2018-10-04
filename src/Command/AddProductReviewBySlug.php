@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Command;
 
-final class AddProductReviewBySlug
+final class AddProductReviewBySlug implements CommandInterface
 {
     /** @var string */
     private $productSlug;

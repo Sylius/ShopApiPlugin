@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Sylius\ShopApiPlugin\Request;
 
 use Sylius\ShopApiPlugin\Command\AddProductReviewBySlug;
+use Sylius\ShopApiPlugin\Command\CommandInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-final class AddProductReviewBySlugRequest
+final class AddProductReviewBySlugRequest implements CommandRequestInterface
 {
     /** @var string */
     private $slug;
@@ -38,7 +39,7 @@ final class AddProductReviewBySlugRequest
         $this->email = $request->request->get('email');
     }
 
-    public function getCommand(): AddProductReviewBySlug
+    public function getCommand(): CommandInterface
     {
         return new AddProductReviewBySlug($this->slug, $this->channelCode, $this->title, $this->rating, $this->comment, $this->email);
     }

@@ -6,7 +6,7 @@ namespace Sylius\ShopApiPlugin\Command;
 
 use Webmozart\Assert\Assert;
 
-final class ChangeItemQuantity
+final class ChangeItemQuantity implements CommandInterface
 {
     /** @var string */
     private $orderToken;

@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Request;
 
+use Sylius\ShopApiPlugin\Command\CommandInterface;
 use Sylius\ShopApiPlugin\Command\RegisterCustomer;
 use Symfony\Component\HttpFoundation\Request;
 
-final class RegisterCustomerRequest
+final class RegisterCustomerRequest implements CommandRequestInterface
 {
     /** @var string */
     private $email;
@@ -33,7 +34,7 @@ final class RegisterCustomerRequest
         $this->channelCode = $request->request->get('channel');
     }
 
-    public function getCommand(): RegisterCustomer
+    public function getCommand(): CommandInterface
     {
         return new RegisterCustomer($this->email, $this->plainPassword, $this->firstName, $this->lastName, $this->channelCode);
     }

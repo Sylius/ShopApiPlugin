@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Sylius\ShopApiPlugin\Request;
 
 use Sylius\ShopApiPlugin\Command\ChangeItemQuantity;
+use Sylius\ShopApiPlugin\Command\CommandInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-final class ChangeItemQuantityRequest
+final class ChangeItemQuantityRequest implements CommandRequestInterface
 {
     /** @var string */
     private $token;
@@ -25,7 +26,7 @@ final class ChangeItemQuantityRequest
         $this->quantity = $request->request->getInt('quantity');
     }
 
-    public function getCommand(): ChangeItemQuantity
+    public function getCommand(): CommandInterface
     {
         return new ChangeItemQuantity($this->token, $this->id, $this->quantity);
     }

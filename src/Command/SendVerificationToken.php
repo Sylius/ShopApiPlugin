@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Command;
 
-final class SendVerificationToken
+final class SendVerificationToken implements CommandInterface
 {
     /** @var string */
     private $email;

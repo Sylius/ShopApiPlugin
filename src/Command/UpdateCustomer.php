@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Command;
 
-final class UpdateCustomer
+final class UpdateCustomer implements CommandInterface
 {
     /** @var string */
     private $firstName;
