@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Command;
 
-final class AddCoupon implements Command
+final class AddCoupon implements CommandInterface
 {
     /** @var string */
     private $orderToken;

@@ -6,7 +6,7 @@ namespace Sylius\ShopApiPlugin\Command;
 
 use Sylius\ShopApiPlugin\Model\Address;
 
-final class AddressOrder implements Command
+final class AddressOrder implements CommandInterface
 {
     /** @var string */
     private $orderToken;

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Sylius\ShopApiPlugin\Request;
 
 use Sylius\ShopApiPlugin\Command\AddCoupon;
+use Sylius\ShopApiPlugin\Command\CommandInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 final class AddCouponRequest implements CommandRequestInterface
@@ -21,7 +22,7 @@ final class AddCouponRequest implements CommandRequestInterface
         $this->coupon = $request->request->get('coupon');
     }
 
-    public function getCommand(): AddCoupon
+    public function getCommand(): CommandInterface
     {
         return new AddCoupon($this->token, $this->coupon);
     }

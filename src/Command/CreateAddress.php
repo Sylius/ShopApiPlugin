@@ -6,7 +6,7 @@ namespace Sylius\ShopApiPlugin\Command;
 
 use Sylius\ShopApiPlugin\Model\Address;
 
-final class CreateAddress implements Command
+final class CreateAddress implements CommandInterface
 {
     /** @var Address */
     private $address;

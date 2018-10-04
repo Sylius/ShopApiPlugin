@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Command;
 
-final class VerifyAccount implements Command
+final class VerifyAccount implements CommandInterface
 {
     /** @var string */
     private $token;

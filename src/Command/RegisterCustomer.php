@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Command;
 
-final class RegisterCustomer implements Command
+final class RegisterCustomer implements CommandInterface
 {
     /** @var string */
     private $email;

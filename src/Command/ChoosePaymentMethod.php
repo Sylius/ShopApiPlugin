@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Command;
 
-final class ChoosePaymentMethod implements Command
+final class ChoosePaymentMethod implements CommandInterface
 {
     /** @var mixed */
     private $paymentIdentifier;
