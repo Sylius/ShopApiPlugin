@@ -33,7 +33,7 @@ Rest of the command are executed inside `project` folder.
 
 ## Usage
 
-1. Run `composer require sylius/shop-api-plugin:@beta`.
+1. Run `composer require sylius/shop-api-plugin:^1.0@beta`.
 2. Extend config files:
     1. Add SyliusShopApi to AppKernel.
     ```php
