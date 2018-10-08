@@ -14,7 +14,7 @@ final class OrdersListApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_lists_only_completed_orders_of_logged_in_customer(): void
+    public function it_lists_only_placed_orders_of_logged_in_customer(): void
     {
         $this->loadFixturesFromFiles(['customer.yml', 'country.yml', 'address.yml', 'shop.yml', 'payment.yml', 'shipping.yml', 'order.yml']);
         $this->logInUser('oliver@queen.com', '123password');
