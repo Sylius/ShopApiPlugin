@@ -34,16 +34,13 @@ final class OrderShowApiTest extends JsonApiTestCase
      */
     public function it_returns_a_not_found_exception_if_there_is_no_placed_order_with_given_id(): void
     {
-        $fixtures = $this->loadFixturesFromFiles(['customer.yml', 'country.yml', 'address.yml', 'shop.yml', 'payment.yml', 'shipping.yml', 'order.yml']);
+        $this->loadFixturesFromFiles(['customer.yml']);
         $this->logInUser('oliver@queen.com', '123password');
 
-        /** @var OrderInterface $notPlacedOrder */
-        $notPlacedOrder = $fixtures['not_placed_order'];
-
-        $this->client->request('GET', '/shop-api/orders/' . $notPlacedOrder->getId(), [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('GET', '/shop-api/orders/13', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
-        $this->assertResponse($response, 'order/order_not_found', Response::HTTP_NOT_FOUND);
+        $this->assertResponse($response, 'order/order_not_found_response', Response::HTTP_NOT_FOUND);
     }
 
     /**

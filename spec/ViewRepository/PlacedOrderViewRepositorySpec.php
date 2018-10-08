@@ -52,14 +52,59 @@ final class PlacedOrderViewRepositorySpec extends ObjectBehavior
         $this->getCompletedByCustomerEmail('test@example.com')->shouldReturn([$placedOrderView]);
     }
 
+    function it_provides_placed_order_by_customer_email_and_order_id(
+        OrderRepositoryInterface $orderRepository,
+        CustomerRepositoryInterface $customerRepository,
+        PlacedOrderViewFactoryInterface $placedOrderViewFactory,
+        OrderInterface $order,
+        CustomerInterface $customer,
+        PlacedOrderView $placedOrderView
+    ): void {
+        $customerRepository->findOneBy(['email' => 'test@example.com'])->willReturn($customer);
+
+        $orderRepository
+            ->findOneBy(['id' => 1, 'customer' => $customer, 'checkoutState' => OrderCheckoutStates::STATE_COMPLETED])
+            ->willReturn($order)
+        ;
+
+        $order->getLocaleCode()->willReturn('en_GB');
+
+        $placedOrderViewFactory->create($order, 'en_GB')->willReturn($placedOrderView);
+
+        $this->getCompletedByCustomerEmailAndId('test@example.com', 1)->shouldReturn($placedOrderView);
+    }
+
+    function it_throws_exception_if_there_is_no_placed_order_for_given_customer_email_and_order_id(
+        OrderRepositoryInterface $orderRepository,
+        CustomerRepositoryInterface $customerRepository,
+        CustomerInterface $customer
+    ): void {
+        $customerRepository->findOneBy(['email' => 'test@example.com'])->willReturn($customer);
+
+        $orderRepository
+            ->findOneBy(['id' => 1, 'customer' => $customer, 'checkoutState' => OrderCheckoutStates::STATE_COMPLETED])
+            ->willReturn(null)
+        ;
+
+        $this
+            ->shouldThrow(\InvalidArgumentException::class)
+            ->during('getCompletedByCustomerEmailAndId', ['test@example.com', 1])
+        ;
+    }
+
     function it_throws_exception_if_there_is_no_customer_with_given_email(
         CustomerRepositoryInterface $customerRepository
     ): void {
-        $customerRepository->findOneBy(['email' => 'test@example.com'])->willReturn(null);
+        $customerRepository->findOneBy(['email' => 'test@example.com'])->willReturn(null, null);
 
         $this
             ->shouldThrow(\InvalidArgumentException::class)
             ->during('getCompletedByCustomerEmail', ['test@example.com'])
+        ;
+
+        $this
+            ->shouldThrow(\InvalidArgumentException::class)
+            ->during('getCompletedByCustomerEmailAndId', ['test@example.com', 1])
         ;
     }
 }

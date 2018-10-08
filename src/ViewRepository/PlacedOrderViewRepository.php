@@ -10,6 +10,7 @@ use Sylius\Component\Core\OrderCheckoutStates;
 use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\ShopApiPlugin\Factory\PlacedOrderViewFactoryInterface;
+use Sylius\ShopApiPlugin\View\PlacedOrderView;
 use Webmozart\Assert\Assert;
 
 final class PlacedOrderViewRepository implements PlacedOrderViewRepositoryInterface
@@ -49,5 +50,23 @@ final class PlacedOrderViewRepository implements PlacedOrderViewRepositoryInterf
         }
 
         return $cartViews;
+    }
+
+    public function getCompletedByCustomerEmailAndId(string $customerEmail, int $id): PlacedOrderView
+    {
+        /** @var CustomerInterface|null $customer */
+        $customer = $this->customerRepository->findOneBy(['email' => $customerEmail]);
+
+        Assert::notNull($customer);
+
+        /** @var OrderInterface|null $order */
+        $order = $this
+            ->orderRepository
+            ->findOneBy(['id' => $id, 'customer' => $customer, 'checkoutState' => OrderCheckoutStates::STATE_COMPLETED])
+        ;
+
+        Assert::notNull($order, sprintf('There is no placed order with with id %d for customer with email %s', $id, $customerEmail));
+
+        return $this->placedOrderViewFactory->create($order, $order->getLocaleCode());
     }
 }

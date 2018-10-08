@@ -5,7 +5,7 @@ Sylius\Component\Core\Model\Order:
         currencyCode: "GBP"
         localeCode: "en_GB"
         customer: "@customer_oliver"
-        checkoutState: "placed"
+        checkoutState: "completed"
         state: "cart"
         payments: ["@placed_order_payment"]
         shipments: ["@placed_order_shipment"]

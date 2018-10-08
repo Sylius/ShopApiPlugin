@@ -10,4 +10,6 @@ interface PlacedOrderViewRepositoryInterface
 {
     /** @return array|PlacedOrderView[] */
     public function getCompletedByCustomerEmail(string $customerEmail): array;
+
+    public function getCompletedByCustomerEmailAndId(string $customerEmail, int $id): PlacedOrderView;
 }
