@@ -49,3 +49,4 @@ script:
 
     - vendor/bin/phpspec run --format dot -vvv --no-interaction
     - vendor/bin/phpunit
+	- vendor/bin/phpstan -l 1 src/
