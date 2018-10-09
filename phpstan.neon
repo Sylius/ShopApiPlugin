@@ -1,0 +1,10 @@
+includes:
+    - vendor/phpstan/phpstan-webmozart-assert/extension.neon
+
+parameters:
+    excludes_analyse:
+        # Makes PHPStan crash
+        - src/DependencyInjection/Configuration.php
+
+    ignoreErrors:
+        - /^Access to an undefined property Symfony\\Component\\Validator\\Constraint::\$message\.$/

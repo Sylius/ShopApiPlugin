@@ -35,6 +35,7 @@ final class RemoveItemFromCartHandler
 
     public function handle(RemoveItemFromCart $command): void
     {
+        /** @var OrderInterface|null $order */
         $order = $this->orderRepository->findOneBy(['tokenValue' => $command->orderToken(), 'state' => OrderInterface::STATE_CART]);
 
         Assert::notNull($order, sprintf('Cart with %s token has not been found.', $command->orderToken()));

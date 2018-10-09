@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Sylius\ShopApiPlugin\Controller\Customer;
 
 use FOS\RestBundle\View\View;
+use FOS\RestBundle\View\ViewHandlerInterface;
 use Sylius\Bundle\ResourceBundle\Controller\ResourceController;
 use Sylius\ShopApiPlugin\View\ValidationErrorView;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,8 +21,9 @@ final class CustomerController extends ResourceController
             return $response;
         }
 
-        return $this
-            ->get('fos_rest.view_handler')
+        /** @var ViewHandlerInterface $viewHandler*/
+        $viewHandler = $this->get('fos_rest.view_handler');
+        return $viewHandler
             ->handle(View::create($this->createValidationMessage($response->getContent()), Response::HTTP_BAD_REQUEST))
         ;
     }

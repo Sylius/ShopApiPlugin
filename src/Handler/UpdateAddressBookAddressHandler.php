@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Handler;
 
+use Sylius\Component\Addressing\Model\ProvinceInterface;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
@@ -64,6 +65,7 @@ final class UpdateAddressBookAddressHandler
         $address->setPhoneNumber($command->phoneNumber());
 
         if (null !== $command->provinceCode() && $command->provinceCode() !== $address->getProvinceCode()) {
+            /** @var ProvinceInterface|null $province */
             $province = $this->provinceRepository->findOneBy(['code' => $command->provinceCode()]);
             $this->assertProvinceExists($province);
             $address->setProvinceCode($province->getCode());
