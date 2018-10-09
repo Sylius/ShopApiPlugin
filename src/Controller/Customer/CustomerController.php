@@ -21,8 +21,9 @@ final class CustomerController extends ResourceController
             return $response;
         }
 
-        /** @var ViewHandlerInterface $viewHandler*/
+        /** @var ViewHandlerInterface $viewHandler */
         $viewHandler = $this->get('fos_rest.view_handler');
+
         return $viewHandler
             ->handle(View::create($this->createValidationMessage($response->getContent()), Response::HTTP_BAD_REQUEST))
         ;
