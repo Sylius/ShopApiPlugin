@@ -49,4 +49,3 @@ script:
 
     - vendor/bin/phpspec run --format dot -vvv --no-interaction
     - vendor/bin/phpunit
-    - vendor/bin/phpstan analyse src/ -l 2 -c phpstan.neon --no-progress
