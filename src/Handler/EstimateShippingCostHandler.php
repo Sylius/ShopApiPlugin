@@ -12,9 +12,11 @@ use Sylius\Component\Core\Model\ShippingMethodInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Registry\ServiceRegistryInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
+use Sylius\Component\Shipping\Calculator\CalculatorInterface;
 use Sylius\Component\Shipping\Exception\UnresolvedDefaultShippingMethodException;
 use Sylius\Component\Shipping\Resolver\ShippingMethodsResolverInterface;
 use Sylius\ShopApiPlugin\Command\EstimateShippingCost;
+use Webmozart\Assert\Assert;
 
 final class EstimateShippingCostHandler
 {
@@ -66,8 +68,9 @@ final class EstimateShippingCostHandler
      */
     public function handle(EstimateShippingCost $estimateShippingCost)
     {
-        /** @var OrderInterface $cart */
+        /** @var OrderInterface|null $cart */
         $cart = $this->cartRepository->findOneBy(['tokenValue' => $estimateShippingCost->cartToken()]);
+        Assert::notNull($cart);
 
         /** @var AddressInterface $address */
         $address = $this->addressFactory->createNew();
@@ -88,6 +91,7 @@ final class EstimateShippingCostHandler
 
         $shippingMethod = $shippingMethods[0];
 
+        /** @var CalculatorInterface $calculator */
         $calculator = $this->calculators->get($shippingMethod->getCalculator());
 
         $value = $calculator->calculate($shipment, $shippingMethod->getConfiguration());
