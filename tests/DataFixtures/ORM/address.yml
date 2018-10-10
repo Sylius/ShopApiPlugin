@@ -4,8 +4,8 @@ Sylius\Component\Core\Model\Address:
         lastName: "Metz"
         phoneNumber: 0912539021
         company: "Sylius"
-        countryCode: "@country_gb"
-        provinceCode: "@province_gb_scotland"
+        countryCode: "GB"
+        provinceCode: "GB-SCT"
         street: "McGlynn Island"
         city: "Klingside"
         postcode: "33553"
@@ -15,8 +15,8 @@ Sylius\Component\Core\Model\Address:
         lastName: "Metz"
         phoneNumber: 0912539021
         company: "Locastic"
-        countryCode: "@country_gb"
-        provinceCode: "@province_gb_scotland"
+        countryCode: "GB"
+        provinceCode: "GB-SCT"
         street: "Kupreska"
         city: "Klingside"
         postcode: "33553"
@@ -26,8 +26,8 @@ Sylius\Component\Core\Model\Address:
         lastName: "Metz"
         phoneNumber: 0912539021
         company: "Locastic"
-        countryCode: "@country_gb"
-        provinceCode: "@province_gb_scotland"
+        countryCode: "GB"
+        provinceCode: "GB-SCT"
         street: "Lurline Springs"
         city: "Klingside"
         postcode: "33553"
@@ -37,8 +37,8 @@ Sylius\Component\Core\Model\Address:
         lastName: "Wilson"
         phoneNumber: 0912539021
         company: "Separovic d.o.o"
-        countryCode: "@country_gb"
-        provinceCode: "@province_gb_scotland"
+        countryCode: "GB"
+        provinceCode: "GB-SCT"
         street: "Vukovarska"
         city: "Split"
         postcode: "21000"
