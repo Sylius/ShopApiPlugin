@@ -55,6 +55,8 @@ final class PutOptionBasedConfigurableItemToCartHandler
     {
         foreach ($product->getVariants() as $variant) {
             if ($this->areOptionsMatched($options, $variant)) {
+                Assert::isInstanceOf($variant, ProductVariantInterface::class);
+
                 return $variant;
             }
         }

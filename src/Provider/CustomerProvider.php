@@ -24,6 +24,7 @@ final class CustomerProvider implements CustomerProviderInterface
 
     public function provide(string $email): CustomerInterface
     {
+        /** @var CustomerInterface|null */
         $customer = $this->customerRepository->findOneBy(['email' => $email]);
 
         if (null === $customer) {

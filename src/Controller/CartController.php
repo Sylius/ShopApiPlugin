@@ -43,7 +43,7 @@ final class CartController extends Controller
         /** @var PriceViewFactoryInterface $priceViewFactory */
         $priceViewFactory = $this->get('sylius.shop_api_plugin.factory.price_view_factory');
 
-        /** @var OrderInterface $cart */
+        /** @var OrderInterface|null $cart */
         $cart = $cartRepository->findOneBy(['tokenValue' => $request->attributes->get('token')]);
 
         if (null === $cart) {
