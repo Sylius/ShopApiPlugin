@@ -61,9 +61,8 @@ final class EstimateShippingCostEstimator
     public function estimate(
         string $cartToken,
         string $countryCode,
-        string $provinceCode
-    ): array
-    {
+        ?string $provinceCode
+    ): array {
         /** @var OrderInterface|null $cart */
         $cart = $this->cartRepository->findOneBy(['tokenValue' => $cartToken]);
         Assert::notNull($cart);

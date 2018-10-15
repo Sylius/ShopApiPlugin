@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Request;
 
-use Sylius\ShopApiPlugin\Command\EstimateShippingCost;
 use Symfony\Component\HttpFoundation\Request;
 
 final class EstimateShippingCostRequest
@@ -41,9 +40,8 @@ final class EstimateShippingCostRequest
         return $this->countryCode;
     }
 
-    public function provinceCode(): string
+    public function provinceCode(): ?string
     {
         return $this->provinceCode;
     }
-
 }

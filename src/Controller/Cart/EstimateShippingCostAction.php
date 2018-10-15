@@ -24,7 +24,7 @@ final class EstimateShippingCostAction
     private $viewHandler;
 
     /**
-     * @var CommandBus
+     * @var EstimateShippingCostEstimator
      */
     private $shippingCostEstimator;
 
@@ -57,18 +57,13 @@ final class EstimateShippingCostAction
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         PriceViewFactory $priceViewFactory
     ) {
-        $this->viewHandler                = $viewHandler;
-        $this->shippingCostEstimator      = $shippingCostEstimator;
-        $this->validator                  = $validator;
+        $this->viewHandler = $viewHandler;
+        $this->shippingCostEstimator = $shippingCostEstimator;
+        $this->validator = $validator;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
-        $this->priceViewFactory           = $priceViewFactory;
+        $this->priceViewFactory = $priceViewFactory;
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     */
     public function __invoke(Request $request): Response
     {
         $estimateShippingCostRequest = new EstimateShippingCostRequest($request);

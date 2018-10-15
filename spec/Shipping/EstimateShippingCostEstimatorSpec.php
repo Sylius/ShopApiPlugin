@@ -16,8 +16,6 @@ use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Shipping\Calculator\CalculatorInterface;
 use Sylius\Component\Shipping\Exception\UnresolvedDefaultShippingMethodException;
 use Sylius\Component\Shipping\Resolver\ShippingMethodsResolverInterface;
-use Sylius\ShopApiPlugin\Command\EstimateShippingCost;
-use Webmozart\Assert\Assert;
 
 final class EstimateShippingCostEstimatorSpec extends ObjectBehavior
 {
