@@ -77,15 +77,15 @@ final class PutItemToCartAction
         $hasVariantCode = $request->request->has('variantCode');
         $hasOptionCode = $request->request->has('options');
 
-        if (!$$hasVariantCode && !$hasOptionCode) {
+        if (!$hasVariantCode && !$hasOptionCode) {
             return PutSimpleItemToCartRequest::fromRequest($request);
         }
 
-        if ($$hasVariantCode && !$hasOptionCode) {
+        if ($hasVariantCode && !$hasOptionCode) {
             return PutVariantBasedConfigurableItemToCartRequest::fromRequest($request);
         }
 
-        if (!$$hasVariantCode && $hasOptionCode) {
+        if (!$hasVariantCode && $hasOptionCode) {
             return PutOptionBasedConfigurableItemToCartRequest::fromRequest($request);
         }
 
