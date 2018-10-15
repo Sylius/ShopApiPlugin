@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Handler;
+namespace Sylius\ShopApiPlugin\Shipping;
 
 use Sylius\Component\Core\Factory\AddressFactoryInterface;
 use Sylius\Component\Core\Model\AddressInterface;
@@ -15,10 +15,9 @@ use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Shipping\Calculator\CalculatorInterface;
 use Sylius\Component\Shipping\Exception\UnresolvedDefaultShippingMethodException;
 use Sylius\Component\Shipping\Resolver\ShippingMethodsResolverInterface;
-use Sylius\ShopApiPlugin\Command\EstimateShippingCost;
 use Webmozart\Assert\Assert;
 
-final class EstimateShippingCostHandler
+final class EstimateShippingCostEstimator
 {
     /**
      * @var OrderRepositoryInterface
@@ -59,23 +58,20 @@ final class EstimateShippingCostHandler
         $this->calculators = $calculators;
     }
 
-    /**
-     * Handles the calculation of the shipping method
-     *
-     * @param EstimateShippingCost $estimateShippingCost
-     *
-     * @throws UnresolvedDefaultShippingMethodException
-     */
-    public function handle(EstimateShippingCost $estimateShippingCost)
+    public function estimate(
+        string $cartToken,
+        string $countryCode,
+        string $provinceCode
+    ): array
     {
         /** @var OrderInterface|null $cart */
-        $cart = $this->cartRepository->findOneBy(['tokenValue' => $estimateShippingCost->cartToken()]);
+        $cart = $this->cartRepository->findOneBy(['tokenValue' => $cartToken]);
         Assert::notNull($cart);
 
         /** @var AddressInterface $address */
         $address = $this->addressFactory->createNew();
-        $address->setCountryCode($estimateShippingCost->countryCode());
-        $address->setProvinceCode($estimateShippingCost->provinceCode());
+        $address->setCountryCode($countryCode);
+        $address->setProvinceCode($provinceCode);
         $cart->setShippingAddress($address);
 
         /** @var ShipmentInterface $shipment */
@@ -100,6 +96,6 @@ final class EstimateShippingCostHandler
         // Unsetting the shipping address because it causes errors when saving the cart
         $cart->setShippingAddress(null);
 
-        $estimateShippingCost->setResult($value, $currencyCode);
+        return [$value, $currencyCode];
     }
 }

@@ -23,7 +23,7 @@
         <service class="Sylius\ShopApiPlugin\Controller\Cart\EstimateShippingCostAction"
                  id="sylius.shop_api_plugin.controller.cart.estimate_shipping_cost_action">
             <argument type="service" id="fos_rest.view_handler" />
-            <argument type="service" id="tactician.commandbus" />
+            <argument type="service" id="sylius.shop_api_plugin.handler.estimate_shipping_cost_estimator" />
             <argument type="service" id="validator" />
             <argument type="service" id="sylius.shop_api_plugin.factory.validation_error_view_factory" />
             <argument type="service" id="sylius.shop_api_plugin.factory.price_view_factory"/>

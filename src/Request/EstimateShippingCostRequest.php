@@ -46,8 +46,4 @@ final class EstimateShippingCostRequest
         return $this->provinceCode;
     }
 
-    public function getCommand(): EstimateShippingCost
-    {
-        return new EstimateShippingCost($this->cartToken, $this->countryCode, $this->provinceCode);
-    }
 }

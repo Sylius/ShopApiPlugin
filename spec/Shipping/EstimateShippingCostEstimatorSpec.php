@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\Handler;
+namespace spec\Sylius\ShopApiPlugin\Shipping;
 
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Factory\AddressFactoryInterface;
@@ -19,7 +19,7 @@ use Sylius\Component\Shipping\Resolver\ShippingMethodsResolverInterface;
 use Sylius\ShopApiPlugin\Command\EstimateShippingCost;
 use Webmozart\Assert\Assert;
 
-final class EstimateShippingCostHandlerSpec extends ObjectBehavior
+final class EstimateShippingCostEstimatorSpec extends ObjectBehavior
 {
     function let(
         OrderRepositoryInterface $cartRepository,
@@ -69,9 +69,7 @@ final class EstimateShippingCostHandlerSpec extends ObjectBehavior
 
         $cart->setShippingAddress(null)->shouldBeCalled();
 
-        $estimateShippingCost = new EstimateShippingCost('TOKEN', 'DE', 'de_ND');
-        $this->handle($estimateShippingCost);
-        Assert::eq($estimateShippingCost->getResult(), [100, 'EU']);
+        $this->estimate('TOKEN', 'DE', 'de_ND')->shouldReturn([100, 'EU']);
     }
 
     function it_throws_an_exception_if_there_is_no_shipping_method(
@@ -97,6 +95,6 @@ final class EstimateShippingCostHandlerSpec extends ObjectBehavior
         $shippingMethodResolver->getSupportedMethods($shipment)->willReturn([]);
 
         $this->shouldThrow(UnresolvedDefaultShippingMethodException::class)
-            ->during('handle', [new EstimateShippingCost('TOKEN', 'DE', 'de_ND')]);
+            ->during('estimate', ['TOKEN', 'DE', 'de_ND']);
     }
 }

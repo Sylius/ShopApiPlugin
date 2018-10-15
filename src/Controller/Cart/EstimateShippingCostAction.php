@@ -10,6 +10,7 @@ use League\Tactician\CommandBus;
 use Sylius\ShopApiPlugin\Factory\PriceViewFactory;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
 use Sylius\ShopApiPlugin\Request\EstimateShippingCostRequest;
+use Sylius\ShopApiPlugin\Shipping\EstimateShippingCostEstimator;
 use Sylius\ShopApiPlugin\View\EstimatedShippingCostView;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,7 +26,7 @@ final class EstimateShippingCostAction
     /**
      * @var CommandBus
      */
-    private $bus;
+    private $shippingCostEstimator;
 
     /**
      * @var ValidatorInterface
@@ -43,24 +44,24 @@ final class EstimateShippingCostAction
     private $priceViewFactory;
 
     /**
-     * @param ViewHandlerInterface                $viewHandler
-     * @param CommandBus                          $bus
-     * @param ValidatorInterface                  $validator
+     * @param ViewHandlerInterface $viewHandler
+     * @param EstimateShippingCostEstimator $shippingCostEstimator
+     * @param ValidatorInterface $validator
      * @param ValidationErrorViewFactoryInterface $validationErrorViewFactory
-     * @param PriceViewFactory                    $priceViewFactory
+     * @param PriceViewFactory $priceViewFactory
      */
     public function __construct(
         ViewHandlerInterface $viewHandler,
-        CommandBus $bus,
+        EstimateShippingCostEstimator $shippingCostEstimator,
         ValidatorInterface $validator,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         PriceViewFactory $priceViewFactory
     ) {
-        $this->viewHandler = $viewHandler;
-        $this->bus = $bus;
-        $this->validator = $validator;
+        $this->viewHandler                = $viewHandler;
+        $this->shippingCostEstimator      = $shippingCostEstimator;
+        $this->validator                  = $validator;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
-        $this->priceViewFactory = $priceViewFactory;
+        $this->priceViewFactory           = $priceViewFactory;
     }
 
     /**
@@ -83,11 +84,14 @@ final class EstimateShippingCostAction
             );
         }
 
-        $command = $estimateShippingCostRequest->getCommand();
-        $this->bus->handle($command);
+        [$price, $currency] = $this->shippingCostEstimator->estimate(
+            $estimateShippingCostRequest->cartToken(),
+            $estimateShippingCostRequest->countryCode(),
+            $estimateShippingCostRequest->provinceCode()
+        );
 
         $estimatedShippingCostView = new EstimatedShippingCostView();
-        $estimatedShippingCostView->price = $this->priceViewFactory->create(...$command->getResult());
+        $estimatedShippingCostView->price = $this->priceViewFactory->create($price, $currency);
 
         return $this->viewHandler->handle(View::create($estimatedShippingCostView, Response::HTTP_OK));
     }

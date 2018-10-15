@@ -1,0 +1,11 @@
+<container xmlns="http://symfony.com/schema/dic/services">
+    <services>
+        <service class="Sylius\ShopApiPlugin\Shipping\EstimateShippingCostEstimator" id="sylius.shop_api_plugin.handler.estimate_shipping_cost_estimator">
+            <argument type="service" id="sylius.repository.order" />
+            <argument type="service" id="sylius.factory.address"/>
+            <argument type="service" id="sylius.factory.shipment"/>
+            <argument type="service" id="sylius.shipping_methods_resolver"/>
+            <argument type="service" id="sylius.registry.shipping_calculator"/>
+        </service>
+    </services>
+</container>
