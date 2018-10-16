@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Shipping;
 
-class ShippingCost
+final class ShippingCost
 {
     /** @var int */
     private $price;

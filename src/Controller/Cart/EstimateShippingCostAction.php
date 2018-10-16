@@ -6,7 +6,7 @@ namespace Sylius\ShopApiPlugin\Controller\Cart;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
-use Sylius\ShopApiPlugin\Factory\PriceViewFactory;
+use Sylius\ShopApiPlugin\Factory\PriceViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
 use Sylius\ShopApiPlugin\Request\EstimateShippingCostRequest;
 use Sylius\ShopApiPlugin\Shipping\ShippingCostEstimatorInterface;
@@ -29,7 +29,7 @@ final class EstimateShippingCostAction
     /** @var ValidationErrorViewFactoryInterface */
     private $validationErrorViewFactory;
 
-    /** @var PriceViewFactory */
+    /** @var PriceViewFactoryInterface */
     private $priceViewFactory;
 
     public function __construct(
@@ -37,7 +37,7 @@ final class EstimateShippingCostAction
         ShippingCostEstimatorInterface $shippingCostEstimator,
         ValidatorInterface $validator,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
-        PriceViewFactory $priceViewFactory
+        PriceViewFactoryInterface $priceViewFactory
     ) {
         $this->viewHandler = $viewHandler;
         $this->shippingCostEstimator = $shippingCostEstimator;
