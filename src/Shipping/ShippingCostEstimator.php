@@ -17,31 +17,21 @@ use Sylius\Component\Shipping\Exception\UnresolvedDefaultShippingMethodException
 use Sylius\Component\Shipping\Resolver\ShippingMethodsResolverInterface;
 use Webmozart\Assert\Assert;
 
-final class EstimateShippingCostEstimator
+final class ShippingCostEstimator implements ShippingCostEstimatorInterface
 {
-    /**
-     * @var OrderRepositoryInterface
-     */
+    /** @var OrderRepositoryInterface */
     private $cartRepository;
 
-    /**
-     * @var AddressFactoryInterface
-     */
+    /** @var AddressFactoryInterface */
     private $addressFactory;
 
-    /**
-     * @var FactoryInterface
-     */
+    /** @var FactoryInterface */
     private $shipmentFactory;
 
-    /**
-     * @var ShippingMethodsResolverInterface
-     */
+    /** @var ShippingMethodsResolverInterface */
     private $shippingMethodResolver;
 
-    /**
-     * @var ServiceRegistryInterface
-     */
+    /** @var ServiceRegistryInterface */
     private $calculators;
 
     public function __construct(
@@ -62,7 +52,7 @@ final class EstimateShippingCostEstimator
         string $cartToken,
         string $countryCode,
         ?string $provinceCode
-    ): array {
+    ): ShippingCost {
         /** @var OrderInterface|null $cart */
         $cart = $this->cartRepository->findOneBy(['tokenValue' => $cartToken]);
         Assert::notNull($cart);
@@ -95,6 +85,6 @@ final class EstimateShippingCostEstimator
         // Unsetting the shipping address because it causes errors when saving the cart
         $cart->setShippingAddress(null);
 
-        return [$value, $currencyCode];
+        return new ShippingCost($value, $currencyCode);
     }
 }

@@ -6,11 +6,10 @@ namespace Sylius\ShopApiPlugin\Controller\Cart;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
-use League\Tactician\CommandBus;
 use Sylius\ShopApiPlugin\Factory\PriceViewFactory;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
 use Sylius\ShopApiPlugin\Request\EstimateShippingCostRequest;
-use Sylius\ShopApiPlugin\Shipping\EstimateShippingCostEstimator;
+use Sylius\ShopApiPlugin\Shipping\ShippingCostEstimatorInterface;
 use Sylius\ShopApiPlugin\View\EstimatedShippingCostView;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,41 +17,24 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class EstimateShippingCostAction
 {
-    /**
-     * @var ViewHandlerInterface
-     */
+    /** @var ViewHandlerInterface */
     private $viewHandler;
 
-    /**
-     * @var EstimateShippingCostEstimator
-     */
+    /** @var ShippingCostEstimatorInterface */
     private $shippingCostEstimator;
 
-    /**
-     * @var ValidatorInterface
-     */
+    /** @var ValidatorInterface */
     private $validator;
 
-    /**
-     * @var ValidationErrorViewFactoryInterface
-     */
+    /** @var ValidationErrorViewFactoryInterface */
     private $validationErrorViewFactory;
 
-    /**
-     * @var PriceViewFactory
-     */
+    /** @var PriceViewFactory */
     private $priceViewFactory;
 
-    /**
-     * @param ViewHandlerInterface $viewHandler
-     * @param EstimateShippingCostEstimator $shippingCostEstimator
-     * @param ValidatorInterface $validator
-     * @param ValidationErrorViewFactoryInterface $validationErrorViewFactory
-     * @param PriceViewFactory $priceViewFactory
-     */
     public function __construct(
         ViewHandlerInterface $viewHandler,
-        EstimateShippingCostEstimator $shippingCostEstimator,
+        ShippingCostEstimatorInterface $shippingCostEstimator,
         ValidatorInterface $validator,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         PriceViewFactory $priceViewFactory
@@ -79,14 +61,14 @@ final class EstimateShippingCostAction
             );
         }
 
-        [$price, $currency] = $this->shippingCostEstimator->estimate(
+        $shippingCost = $this->shippingCostEstimator->estimate(
             $estimateShippingCostRequest->cartToken(),
             $estimateShippingCostRequest->countryCode(),
             $estimateShippingCostRequest->provinceCode()
         );
 
         $estimatedShippingCostView = new EstimatedShippingCostView();
-        $estimatedShippingCostView->price = $this->priceViewFactory->create($price, $currency);
+        $estimatedShippingCostView->price = $this->priceViewFactory->create($shippingCost->price(), $shippingCost->currency());
 
         return $this->viewHandler->handle(View::create($estimatedShippingCostView, Response::HTTP_OK));
     }

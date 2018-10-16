@@ -16,6 +16,7 @@ use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Shipping\Calculator\CalculatorInterface;
 use Sylius\Component\Shipping\Exception\UnresolvedDefaultShippingMethodException;
 use Sylius\Component\Shipping\Resolver\ShippingMethodsResolverInterface;
+use Sylius\ShopApiPlugin\Shipping\ShippingCostEstimatorInterface;
 
 final class EstimateShippingCostEstimatorSpec extends ObjectBehavior
 {
@@ -29,6 +30,10 @@ final class EstimateShippingCostEstimatorSpec extends ObjectBehavior
         $this->beConstructedWith(
             $cartRepository, $addressFactory, $shipmentFactory, $shippingMethodResolver, $calculators
         );
+    }
+
+    function it_implements_interface() {
+        $this->shouldImplement(ShippingCostEstimatorInterface::class);
     }
 
     function it_finds_a_shipping_method_for_this_address(
