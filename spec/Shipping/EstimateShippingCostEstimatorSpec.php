@@ -32,7 +32,8 @@ final class EstimateShippingCostEstimatorSpec extends ObjectBehavior
         );
     }
 
-    function it_implements_interface() {
+    function it_implements_interface()
+    {
         $this->shouldImplement(ShippingCostEstimatorInterface::class);
     }
 
