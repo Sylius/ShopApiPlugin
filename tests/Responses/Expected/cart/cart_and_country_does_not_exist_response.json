@@ -1,0 +1,12 @@
+{
+    "code": 400,
+    "message": "Validation failed",
+    "errors": {
+        "cartToken": [
+            "Cart does not exists."
+        ],
+        "countryCode": [
+            "The country does not exist"
+        ]
+    }
+}

@@ -16,7 +16,7 @@ final class DropCartHandlerSpec extends ObjectBehavior
         $this->beConstructedWith($cartRepository);
     }
 
-    function it_handles_droping_a_cart(OrderInterface $cart, OrderRepositoryInterface $cartRepository)
+    function it_handles_dropping_a_cart(OrderInterface $cart, OrderRepositoryInterface $cartRepository)
     {
         $cartRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($cart);
         $cart->getState()->willReturn(OrderInterface::STATE_CART);

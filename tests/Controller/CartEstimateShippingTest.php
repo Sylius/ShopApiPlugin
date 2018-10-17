@@ -6,7 +6,7 @@ namespace Tests\Sylius\ShopApiPlugin\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 
-final class CartApiTest extends JsonApiTestCase
+final class CartEstimateShippingTest extends JsonApiTestCase
 {
     private static $acceptAndContentTypeHeader = ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'];
 
@@ -15,12 +15,12 @@ final class CartApiTest extends JsonApiTestCase
      */
     public function it_returns_not_found_exception_if_cart_has_not_been_found()
     {
-        $this->loadFixturesFromFiles(['shop.yml']);
+        $this->loadFixturesFromFiles(['shop.yml', 'country.yml']);
 
         $this->client->request('GET', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/estimated-shipping-cost', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
-        $this->assertResponse($response, 'cart/cart_has_not_been_found_response', Response::HTTP_NOT_FOUND);
+        $this->assertResponse($response, 'cart/cart_and_country_does_not_exist_response', Response::HTTP_BAD_REQUEST);
     }
 
     /**
@@ -28,7 +28,7 @@ final class CartApiTest extends JsonApiTestCase
      */
     public function it_calculates_estimated_shipping_cost_based_on_country()
     {
-        $this->loadFixturesFromFiles(['shop.yml', 'shipping.yml']);
+        $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -61,8 +61,9 @@ final class CartApiTest extends JsonApiTestCase
 
     /**
      * @param string $token
+     * @param string $channelCode
      */
-    private function pickupCart($token, $channelCode)
+    private function pickupCart(string $token, string $channelCode)
     {
         $data =
 <<<EOT
@@ -77,7 +78,7 @@ EOT;
     /**
      * @param string $token
      */
-    private function putItemToCart($token)
+    private function putItemToCart(string $token)
     {
         $data =
 <<<EOT

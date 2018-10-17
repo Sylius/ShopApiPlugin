@@ -18,6 +18,7 @@
         <import resource="services/handlers.xml"/>
         <import resource="services/validators.xml"/>
         <import resource="services/queries.xml"/>
+        <import resource="services/shipping.xml" />
     </imports>
     <services>
         <defaults public="true" />

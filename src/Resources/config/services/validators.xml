@@ -10,6 +10,12 @@
             <argument type="service" id="sylius.repository.channel" />
             <tag name="validator.constraint_validator" alias="sylius_shop_api_channel_exists_validator" />
         </service>
+        <service id="sylius.shop_api_plugin.validator.country_exists_validator"
+                 class="Sylius\ShopApiPlugin\Validator\CountryExistsValidator"
+        >
+            <argument type="service" id="sylius.repository.country" />
+            <tag name="validator.constraint_validator" alias="sylius_shop_api_country_exists_validator" />
+        </service>
         <service id="sylius.shop_api_plugin.validator.token_is_not_used_validator"
                  class="Sylius\ShopApiPlugin\Validator\TokenIsNotUsedValidator"
         >

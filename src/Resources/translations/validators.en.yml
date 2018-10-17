@@ -16,3 +16,5 @@ sylius:
             not_null: Please provide address id
         address:
             not_exists: Address doesn't exist
+        country:
+            not_exists: The country does not exist
