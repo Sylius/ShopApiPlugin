@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Sylius\ShopApiPlugin\Provider;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use InvalidArgumentException;
+use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Locale\Model\LocaleInterface;
 use Sylius\ShopApiPlugin\Provider\SupportedLocaleProvider;
-use PhpSpec\ObjectBehavior;
 use Sylius\ShopApiPlugin\Provider\SupportedLocaleProviderInterface;
 
 final class SupportedLocaleProviderSpec extends ObjectBehavior
@@ -68,7 +70,6 @@ final class SupportedLocaleProviderSpec extends ObjectBehavior
         $channel->getLocales()->willReturn(new ArrayCollection([$supportedLocale->getWrappedObject()]));
         $supportedLocale->getCode()->willReturn('en_US');
 
-
         $this->provide('en_US', $channel)->shouldReturn('en_US');
     }
 
@@ -85,7 +86,6 @@ final class SupportedLocaleProviderSpec extends ObjectBehavior
         $channel->getLocales()->willReturn(new ArrayCollection($supportedLocales));
         $supportedLocale1->getCode()->willReturn('en_US');
         $supportedLocale2->getCode()->willReturn('fr_FR');
-
 
         $this->provide(null, $channel)->shouldReturn('en_US');
     }

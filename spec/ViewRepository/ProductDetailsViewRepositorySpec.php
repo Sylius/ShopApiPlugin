@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\ViewRepository;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
-use Sylius\Component\Locale\Model\LocaleInterface;
 use Sylius\ShopApiPlugin\Factory\ProductViewFactoryInterface;
 use Sylius\ShopApiPlugin\Provider\SupportedLocaleProviderInterface;
 use Sylius\ShopApiPlugin\View\ProductView;
@@ -103,7 +101,7 @@ final class ProductDetailsViewRepositorySpec extends ObjectBehavior
         ProductInterface $product,
         ProductView $productView
     ) {
-        $supportedLocaleProvider->provide('en_GB',$channel)->willReturn('en_GB');
+        $supportedLocaleProvider->provide('en_GB', $channel)->willReturn('en_GB');
 
         $product->hasChannel($channel)->willReturn(true);
 
