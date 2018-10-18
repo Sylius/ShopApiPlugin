@@ -15,6 +15,7 @@ use Sylius\Component\Taxonomy\Repository\TaxonRepositoryInterface;
 use Sylius\ShopApiPlugin\Factory\PageViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\ProductViewFactoryInterface;
 use Sylius\ShopApiPlugin\Model\PaginatorDetails;
+use Sylius\ShopApiPlugin\Provider\SupportedLocaleProviderInterface;
 use Sylius\ShopApiPlugin\View\PageView;
 use Webmozart\Assert\Assert;
 
@@ -35,24 +36,29 @@ final class ProductCatalogViewRepository implements ProductCatalogViewRepository
     /** @var PageViewFactoryInterface */
     private $pageViewFactory;
 
+    /** @var SupportedLocaleProviderInterface */
+    private $supportedLocaleProvider;
+
     public function __construct(
         ChannelRepositoryInterface $channelRepository,
         ProductRepositoryInterface $productRepository,
         TaxonRepositoryInterface $taxonRepository,
         ProductViewFactoryInterface $productViewFactory,
-        PageViewFactoryInterface $pageViewFactory
+        PageViewFactoryInterface $pageViewFactory,
+        SupportedLocaleProviderInterface $supportedLocaleProvider
     ) {
         $this->channelRepository = $channelRepository;
         $this->productRepository = $productRepository;
         $this->productViewFactory = $productViewFactory;
         $this->taxonRepository = $taxonRepository;
         $this->pageViewFactory = $pageViewFactory;
+        $this->supportedLocaleProvider = $supportedLocaleProvider;
     }
 
     public function findByTaxonSlug(string $taxonSlug, string $channelCode, PaginatorDetails $paginatorDetails, ?string $localeCode): PageView
     {
         $channel = $this->getChannel($channelCode);
-        $localeCode = $this->getLocaleCode($localeCode, $channel);
+        $localeCode = $this->supportedLocaleProvider->provide($localeCode, $channel);
 
         /** @var TaxonInterface $taxon */
         $taxon = $this->taxonRepository->findOneBySlug($taxonSlug, $localeCode);
@@ -66,7 +72,7 @@ final class ProductCatalogViewRepository implements ProductCatalogViewRepository
     public function findByTaxonCode(string $taxonCode, string $channelCode, PaginatorDetails $paginatorDetails, ?string $localeCode): PageView
     {
         $channel = $this->getChannel($channelCode);
-        $localeCode = $this->getLocaleCode($localeCode, $channel);
+        $localeCode = $this->supportedLocaleProvider->provide($localeCode, $channel);
 
         /** @var TaxonInterface $taxon */
         $taxon = $this->taxonRepository->findOneBy(['code' => $taxonCode]);
@@ -77,20 +83,6 @@ final class ProductCatalogViewRepository implements ProductCatalogViewRepository
         return $this->findByTaxon($taxon, $channel, $paginatorDetails, $localeCode);
     }
 
-    /**
-     * @param string $localeCode
-     * @param iterable|LocaleInterface[] $supportedLocales
-     */
-    private function assertLocaleSupport(string $localeCode, iterable $supportedLocales)
-    {
-        $supportedLocaleCodes = [];
-        foreach ($supportedLocales as $locale) {
-            $supportedLocaleCodes[] = $locale->getCode();
-        }
-
-        Assert::oneOf($localeCode, $supportedLocaleCodes);
-    }
-
     private function getChannel(string $channelCode): ChannelInterface
     {
         /** @var ChannelInterface $channel */
@@ -99,14 +91,6 @@ final class ProductCatalogViewRepository implements ProductCatalogViewRepository
         Assert::notNull($channel, sprintf('Channel with code %s has not been found.', $channelCode));
 
         return $channel;
-    }
-
-    private function getLocaleCode(?string $localeCode, ChannelInterface $channel): string
-    {
-        $localeCode = $localeCode ?? $channel->getDefaultLocale()->getCode();
-        $this->assertLocaleSupport($localeCode, $channel->getLocales());
-
-        return $localeCode;
     }
 
     private function findByTaxon(TaxonInterface $taxon, ChannelInterface $channel, PaginatorDetails $paginatorDetails, string $localeCode): PageView

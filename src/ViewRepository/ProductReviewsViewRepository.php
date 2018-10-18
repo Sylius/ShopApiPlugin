@@ -15,6 +15,8 @@ use Sylius\Component\Review\Model\ReviewInterface;
 use Sylius\ShopApiPlugin\Factory\PageViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\ProductReviewViewFactoryInterface;
 use Sylius\ShopApiPlugin\Model\PaginatorDetails;
+use Sylius\ShopApiPlugin\Provider\SupportedLocaleProvider;
+use Sylius\ShopApiPlugin\Provider\SupportedLocaleProviderInterface;
 use Sylius\ShopApiPlugin\View\PageView;
 use Webmozart\Assert\Assert;
 
@@ -35,25 +37,29 @@ final class ProductReviewsViewRepository implements ProductReviewsViewRepository
     /** @var PageViewFactoryInterface */
     private $pageViewFactory;
 
+    /** @var SupportedLocaleProviderInterface */
+    private $supportedLocaleProvider;
+
     public function __construct(
         ChannelRepositoryInterface $channelRepository,
         ProductReviewRepositoryInterface $productReviewRepository,
         ProductRepositoryInterface $productRepository,
         ProductReviewViewFactoryInterface $productReviewViewFactory,
-        PageViewFactoryInterface $pageViewFactory
+        PageViewFactoryInterface $pageViewFactory,
+        SupportedLocaleProviderInterface $supportedLocaleProvider
     ) {
         $this->channelRepository = $channelRepository;
         $this->productReviewRepository = $productReviewRepository;
         $this->productRepository = $productRepository;
         $this->productReviewViewFactory = $productReviewViewFactory;
         $this->pageViewFactory = $pageViewFactory;
+        $this->supportedLocaleProvider = $supportedLocaleProvider;
     }
 
     public function getByProductSlug(string $productSlug, string $channelCode, PaginatorDetails $paginatorDetails, ?string $localeCode): PageView
     {
         $channel = $this->getChannel($channelCode);
-        $localeCode = $localeCode ?? $channel->getDefaultLocale()->getCode();
-        $this->assertLocaleSupport($localeCode, $channel->getLocales());
+        $localeCode = $this->supportedLocaleProvider->provide($localeCode, $channel);
 
         $reviews = $this->productReviewRepository->findAcceptedByProductSlugAndChannel($productSlug, $localeCode, $channel);
 
@@ -74,20 +80,6 @@ final class ProductReviewsViewRepository implements ProductReviewsViewRepository
         $paginatorDetails->addToParameters('code', $productCode);
 
         return $this->createProductReviewPage($reviews, $paginatorDetails);
-    }
-
-    /**
-     * @param string $localeCode
-     * @param iterable|LocaleInterface[] $supportedLocales
-     */
-    private function assertLocaleSupport(string $localeCode, iterable $supportedLocales)
-    {
-        $supportedLocaleCodes = [];
-        foreach ($supportedLocales as $locale) {
-            $supportedLocaleCodes[] = $locale->getCode();
-        }
-
-        Assert::oneOf($localeCode, $supportedLocaleCodes);
     }
 
     private function getChannel(string $channelCode): ChannelInterface
