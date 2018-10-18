@@ -8,19 +8,13 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class EstimateShippingCostRequest
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $cartToken;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $countryCode;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $provinceCode;
 
     public function __construct(Request $request)

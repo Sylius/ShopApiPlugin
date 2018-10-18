@@ -8,22 +8,16 @@ use Symfony\Component\Validator\Constraint;
 
 final class CountryExists extends Constraint
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     public $message = 'sylius.shop_api.country.not_exists';
 
-    /**
-     * {@inheritdoc}
-     */
+    /** {@inheritdoc} */
     public function getTargets()
     {
         return self::PROPERTY_CONSTRAINT;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    /** {@inheritdoc} */
     public function validatedBy()
     {
         return 'sylius_shop_api_country_exists_validator';
