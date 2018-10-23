@@ -26,10 +26,6 @@ class SupportedLocaleProvider implements SupportedLocaleProviderInterface
         return $localeCode;
     }
 
-    /**
-     * @param string $localeCode
-     * @param Collection $supportedLocales
-     */
     private function assertLocaleSupport(string $localeCode, Collection $supportedLocales)
     {
         $supportedLocaleCodes = [];

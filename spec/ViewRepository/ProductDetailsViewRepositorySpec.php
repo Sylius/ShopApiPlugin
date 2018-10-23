@@ -120,7 +120,7 @@ final class ProductDetailsViewRepositorySpec extends ObjectBehavior
         ChannelInterface $channel
     ) {
         $channelRepository->findOneByCode('WEB_GB')->willReturn($channel);
-        $supportedLocaleProvider->provide('de_DE', $channel);
+        $supportedLocaleProvider->provide('de_DE', $channel)->willReturn('de_DE');
 
         $productRepository->findOneByCode('LOGAN_MUG_CODE')->willReturn(null);
 
@@ -137,7 +137,7 @@ final class ProductDetailsViewRepositorySpec extends ObjectBehavior
         $product->hasChannel($channel)->willReturn(false);
 
         $channelRepository->findOneByCode('WEB_GB')->willReturn($channel);
-        $supportedLocaleProvider->provide('de_DE', $channel);
+        $supportedLocaleProvider->provide('de_DE', $channel)->willReturn('de_DE');
         $productRepository->findOneByCode('LOGAN_MUG_CODE')->willReturn($product);
 
         $this->shouldThrow(\InvalidArgumentException::class)->during('findOneByCode', ['LOGAN_MUG_CODE', 'WEB_GB', 'de_DE']);
