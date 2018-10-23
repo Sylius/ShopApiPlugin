@@ -30,7 +30,6 @@ final class CartViewRepository implements CartViewRepositoryInterface
     {
         /** @var OrderInterface $cart */
         $cart = $this->cartRepository->findOneBy(['tokenValue' => $orderToken]);
-
         Assert::notNull($cart, 'Cart with given id does not exists');
 
         return $this->cartViewFactory->create($cart, $cart->getLocaleCode());
