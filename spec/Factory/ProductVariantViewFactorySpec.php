@@ -23,12 +23,12 @@ use Sylius\ShopApiPlugin\View\ProductVariantView;
 
 final class ProductVariantViewFactorySpec extends ObjectBehavior
 {
-    function let(PriceViewFactoryInterface $priceViewFactory)
+    function let(PriceViewFactoryInterface $priceViewFactory): void
     {
         $this->beConstructedWith($priceViewFactory, ProductVariantView::class);
     }
 
-    function it_is_price_view_factory()
+    function it_is_price_view_factory(): void
     {
         $this->shouldHaveType(ProductVariantViewFactoryInterface::class);
     }
@@ -48,7 +48,7 @@ final class ProductVariantViewFactorySpec extends ObjectBehavior
         ProductOptionValueTranslationInterface $secondOptionValueTranslation,
         ProductVariantInterface $variant,
         ProductVariantTranslationInterface $productVariantTranslation
-    ) {
+    ): void {
         $variantView = new ProductVariantView();
 
         $variant->getCode()->willReturn('SMALL_RED_LOGAN_HAT_CODE');
@@ -106,7 +106,7 @@ final class ProductVariantViewFactorySpec extends ObjectBehavior
         ProductOptionValueTranslationInterface $secondOptionValueTranslation,
         ProductVariantInterface $variant,
         ProductVariantTranslationInterface $productVariantTranslation
-    ) {
+    ): void {
         $variant->getCode()->willReturn('SMALL_RED_LOGAN_HAT_CODE');
         $variant->getTranslation('en_GB')->willReturn($productVariantTranslation);
         $variant->getChannelPricingForChannel($channel)->willReturn(null);

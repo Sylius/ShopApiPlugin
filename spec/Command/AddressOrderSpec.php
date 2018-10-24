@@ -10,7 +10,7 @@ use TypeError;
 
 final class AddressOrderSpec extends ObjectBehavior
 {
-    function let()
+    function let(): void
     {
         $this->beConstructedWith(
             'ORDERTOKEN',
@@ -35,12 +35,12 @@ final class AddressOrderSpec extends ObjectBehavior
         );
     }
 
-    function it_has_order_token()
+    function it_has_order_token(): void
     {
         $this->orderToken()->shouldReturn('ORDERTOKEN');
     }
 
-    function it_has_shipping_address()
+    function it_has_shipping_address(): void
     {
         $this->shippingAddress()->shouldBeLike(Address::createFromArray([
             'firstName' => 'Sherlock',
@@ -53,7 +53,7 @@ final class AddressOrderSpec extends ObjectBehavior
         ]));
     }
 
-    function it_has_billing_address()
+    function it_has_billing_address(): void
     {
         $this->billingAddress()->shouldBeLike(Address::createFromArray([
             'firstName' => 'John',
@@ -66,7 +66,7 @@ final class AddressOrderSpec extends ObjectBehavior
         ]));
     }
 
-    function it_throws_an_exception_if_order_token_is_not_a_string()
+    function it_throws_an_exception_if_order_token_is_not_a_string(): void
     {
         $this->beConstructedWith(
             new \stdClass(),

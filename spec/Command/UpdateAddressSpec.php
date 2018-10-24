@@ -10,12 +10,12 @@ use Sylius\ShopApiPlugin\Model\Address;
 
 final class UpdateAddressSpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    function it_is_initializable(): void
     {
         $this->shouldHaveType(UpdateAddress::class);
     }
 
-    function let()
+    function let(): void
     {
         $this->beConstructedWith(Address::createFromArray([
             'id' => 'ADDRESS_ID',
@@ -32,57 +32,57 @@ final class UpdateAddressSpec extends ObjectBehavior
         ]), 'user@email.com', 'ADDRESS_ID');
     }
 
-    function it_has_address_id()
+    function it_has_address_id(): void
     {
         $this->id()->shouldReturn('ADDRESS_ID');
     }
 
-    function it_has_first_name()
+    function it_has_first_name(): void
     {
         $this->firstName()->shouldReturn('Sherlock');
     }
 
-    function it_has_last_name()
+    function it_has_last_name(): void
     {
         $this->lastName()->shouldReturn('Holmes');
     }
 
-    function it_has_company()
+    function it_has_company(): void
     {
         $this->company()->shouldReturn('Sherlock ltd.');
     }
 
-    function it_has_street()
+    function it_has_street(): void
     {
         $this->street()->shouldReturn('Baker Street 221b');
     }
 
-    function it_has_country_code()
+    function it_has_country_code(): void
     {
         $this->countryCode()->shouldReturn('GB');
     }
 
-    function it_has_province_code()
+    function it_has_province_code(): void
     {
         $this->provinceCode()->shouldReturn('GB-GL');
     }
 
-    function it_has_city()
+    function it_has_city(): void
     {
         $this->city()->shouldReturn('London');
     }
 
-    function it_has_postcode()
+    function it_has_postcode(): void
     {
         $this->postcode()->shouldReturn('NWB');
     }
 
-    function it_has_phone_number()
+    function it_has_phone_number(): void
     {
         $this->phoneNumber()->shouldReturn('0912538092');
     }
 
-    function it_has_user_email()
+    function it_has_user_email(): void
     {
         $this->userEmail()->shouldReturn('user@email.com');
     }

@@ -13,17 +13,17 @@ use Sylius\ShopApiPlugin\View\PriceView;
 
 final class AdjustmentViewFactorySpec extends ObjectBehavior
 {
-    function let(PriceViewFactoryInterface $priceViewFactory)
+    function let(PriceViewFactoryInterface $priceViewFactory): void
     {
         $this->beConstructedWith($priceViewFactory, AdjustmentView::class);
     }
 
-    function it_is_adjustment_view_factory()
+    function it_is_adjustment_view_factory(): void
     {
         $this->shouldHaveType(AdjustmentViewFactoryInterface::class);
     }
 
-    function it_builds_adjustment_view(AdjustmentInterface $adjustment, PriceViewFactoryInterface $priceViewFactory)
+    function it_builds_adjustment_view(AdjustmentInterface $adjustment, PriceViewFactoryInterface $priceViewFactory): void
     {
         $adjustment->getLabel()->willReturn('Bananas promotion');
         $adjustment->getAmount()->willReturn(500);
@@ -37,7 +37,7 @@ final class AdjustmentViewFactorySpec extends ObjectBehavior
         $this->create($adjustment, 0, 'AUD')->shouldBeLike($adjustmentView);
     }
 
-    function it_builds_adjustment_view_with_additional_amount(AdjustmentInterface $adjustment, PriceViewFactoryInterface $priceViewFactory)
+    function it_builds_adjustment_view_with_additional_amount(AdjustmentInterface $adjustment, PriceViewFactoryInterface $priceViewFactory): void
     {
         $adjustment->getLabel()->willReturn('Bananas promotion');
         $adjustment->getAmount()->willReturn(500);

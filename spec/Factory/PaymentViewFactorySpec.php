@@ -16,12 +16,12 @@ use Sylius\ShopApiPlugin\View\PriceView;
 
 final class PaymentViewFactorySpec extends ObjectBehavior
 {
-    function let(PaymentMethodViewFactoryInterface $paymentMethodViewFactory, PriceViewFactoryInterface $priceViewFactory)
+    function let(PaymentMethodViewFactoryInterface $paymentMethodViewFactory, PriceViewFactoryInterface $priceViewFactory): void
     {
         $this->beConstructedWith($paymentMethodViewFactory, $priceViewFactory, PaymentView::class);
     }
 
-    function it_is_payment_view_factory()
+    function it_is_payment_view_factory(): void
     {
         $this->shouldImplement(PaymentViewFactoryInterface::class);
     }
@@ -31,7 +31,7 @@ final class PaymentViewFactorySpec extends ObjectBehavior
         PaymentMethodInterface $paymentMethod,
         PaymentMethodViewFactoryInterface $paymentMethodViewFactory,
         PriceViewFactoryInterface $priceViewFactory
-    ) {
+    ): void {
         $payment->getState()->willReturn('cart');
         $payment->getMethod()->willReturn($paymentMethod);
         $payment->getAmount()->willReturn(900);

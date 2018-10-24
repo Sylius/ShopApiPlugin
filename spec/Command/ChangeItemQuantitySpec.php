@@ -10,34 +10,34 @@ use TypeError;
 
 final class ChangeItemQuantitySpec extends ObjectBehavior
 {
-    function let()
+    function let(): void
     {
         $this->beConstructedWith('ORDERTOKEN', 1, 5);
     }
 
-    function it_has_order_token()
+    function it_has_order_token(): void
     {
         $this->orderToken()->shouldReturn('ORDERTOKEN');
     }
 
-    function it_has_product_code()
+    function it_has_product_code(): void
     {
         $this->itemIdentifier()->shouldReturn(1);
     }
 
-    function it_has_quantity()
+    function it_has_quantity(): void
     {
         $this->quantity()->shouldReturn(5);
     }
 
-    function it_throws_an_exception_if_order_token_is_not_a_string()
+    function it_throws_an_exception_if_order_token_is_not_a_string(): void
     {
         $this->beConstructedWith(new \stdClass(), 'T_SHIRT_CODE', 1);
 
         $this->shouldThrow(TypeError::class)->duringInstantiation();
     }
 
-    function it_throws_an_exception_if_quantity_is_not_less_then_1()
+    function it_throws_an_exception_if_quantity_is_not_less_then_1(): void
     {
         $this->beConstructedWith('ORDERTOKEN', 'T_SHIRT_CODE', 0);
 

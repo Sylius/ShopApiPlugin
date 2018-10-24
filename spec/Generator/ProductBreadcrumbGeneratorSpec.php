@@ -13,7 +13,7 @@ use Sylius\ShopApiPlugin\Generator\ProductBreadcrumbGeneratorInterface;
 
 final class ProductBreadcrumbGeneratorSpec extends ObjectBehavior
 {
-    function it_is_product_breadcrumb_generator()
+    function it_is_product_breadcrumb_generator(): void
     {
         $this->shouldImplement(ProductBreadcrumbGeneratorInterface::class);
     }
@@ -23,7 +23,7 @@ final class ProductBreadcrumbGeneratorSpec extends ObjectBehavior
         ProductTranslationInterface $productTranslation,
         TaxonInterface $mainTaxon,
         TaxonTranslationInterface $mainTaxonTranslation
-    ) {
+    ): void {
         $product->getTranslation('en_GB')->willReturn($productTranslation);
         $product->getMainTaxon()->willReturn($mainTaxon);
 
@@ -38,7 +38,7 @@ final class ProductBreadcrumbGeneratorSpec extends ObjectBehavior
     function it_returns_product_slug_if_product_does_not_have_main_taxon(
         ProductInterface $product,
         ProductTranslationInterface $productTranslation
-    ) {
+    ): void {
         $product->getTranslation('en_GB')->willReturn($productTranslation);
         $product->getMainTaxon()->willReturn(null);
 

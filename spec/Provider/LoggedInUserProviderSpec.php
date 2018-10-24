@@ -13,12 +13,12 @@ use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 final class LoggedInUserProviderSpec extends ObjectBehavior
 {
-    function let(TokenStorageInterface $tokenStorage)
+    function let(TokenStorageInterface $tokenStorage): void
     {
         $this->beConstructedWith($tokenStorage);
     }
 
-    function it_is_reviewer_subject_provider()
+    function it_is_reviewer_subject_provider(): void
     {
         $this->shouldImplement(LoggedInUserProviderInterface::class);
     }
@@ -26,7 +26,7 @@ final class LoggedInUserProviderSpec extends ObjectBehavior
     function it_throws_an_error_if_there_is_no_user_logged_in(
         TokenStorageInterface $tokenStorage,
         TokenInterface $token
-    ) {
+    ): void {
         $token->getUser()->shouldBeCalled()->willReturn(null);
         $tokenStorage->getToken()->shouldBeCalled()->willReturn($token);
 
@@ -37,7 +37,7 @@ final class LoggedInUserProviderSpec extends ObjectBehavior
         TokenStorageInterface $tokenStorage,
         TokenInterface $token,
         ShopUserInterface $shopUser
-    ) {
+    ): void {
         $token->getUser()->shouldBeCalled()->willReturn($shopUser);
         $tokenStorage->getToken()->shouldBeCalled()->willReturn($token);
 

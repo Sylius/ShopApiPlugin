@@ -13,12 +13,12 @@ use Sylius\ShopApiPlugin\View\ProductAttributeValueView;
 
 final class ProductAttributeValueViewFactorySpec extends ObjectBehavior
 {
-    function let()
+    function let(): void
     {
         $this->beConstructedWith(ProductAttributeValueView::class);
     }
 
-    function it_is_product_attribute_view_factory()
+    function it_is_product_attribute_view_factory(): void
     {
         $this->shouldImplement(ProductAttributeValueViewFactoryInterface::class);
     }
@@ -27,7 +27,7 @@ final class ProductAttributeValueViewFactorySpec extends ObjectBehavior
         ProductAttributeValueInterface $productAttributeValue,
         ProductAttributeInterface $productAttribute,
         ProductAttributeTranslationInterface $productAttributeTranslation
-    ) {
+    ): void {
         $productAttributeValue->getCode()->willReturn('CERTIFICATE_1');
         $productAttributeValue->getValue()->willReturn('Nice, shinny certificate.');
         $productAttributeValue->getAttribute()->willReturn($productAttribute);

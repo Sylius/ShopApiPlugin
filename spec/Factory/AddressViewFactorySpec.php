@@ -11,17 +11,17 @@ use Sylius\ShopApiPlugin\View\AddressView;
 
 final class AddressViewFactorySpec extends ObjectBehavior
 {
-    function let()
+    function let(): void
     {
         $this->beConstructedWith(AddressView::class);
     }
 
-    function it_is_image_view_builder()
+    function it_is_image_view_builder(): void
     {
         $this->shouldHaveType(AddressViewFactoryInterface::class);
     }
 
-    function it_creates_address_view(AddressInterface $address)
+    function it_creates_address_view(AddressInterface $address): void
     {
         $address->getFirstName()->willReturn('Sherlock');
         $address->getLastName()->willReturn('Holmes');

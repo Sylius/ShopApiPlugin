@@ -20,7 +20,7 @@ final class AddressExistsValidatorSpec extends ObjectBehavior
         ExecutionContextInterface $executionContext,
         AddressRepositoryInterface $addressRepository,
         LoggedInUserProviderInterface $currentUserProvider
-    ) {
+    ): void {
         $this->beConstructedWith($addressRepository, $currentUserProvider);
 
         $this->initialize($executionContext);
@@ -33,7 +33,7 @@ final class AddressExistsValidatorSpec extends ObjectBehavior
         LoggedInUserProviderInterface $currentUserProvider,
         AddressRepositoryInterface $addressRepository,
         ExecutionContextInterface $executionContext
-    ) {
+    ): void {
         $addressRepository->findOneBy(['id' => 'ADDRESS_ID'])->willReturn($address);
 
         $customerOwner->getEmail()->willReturn('oliver@queen.com');
@@ -50,7 +50,7 @@ final class AddressExistsValidatorSpec extends ObjectBehavior
     function it_adds_constraint_if_address_does_not_exits_exists(
         AddressRepositoryInterface $addressRepository,
         ExecutionContextInterface $executionContext
-    ) {
+    ): void {
         $addressRepository->findOneBy(['id' => 'ADDRESS_ID'])->willReturn(null);
 
         $executionContext->addViolation('sylius.shop_api.address.not_exists')->shouldBeCalled();
@@ -65,7 +65,7 @@ final class AddressExistsValidatorSpec extends ObjectBehavior
         ShopUserInterface $shopUser,
         CustomerInterface $customerOwner,
         ExecutionContextInterface $executionContext
-    ) {
+    ): void {
         $addressRepository->findOneBy(['id' => 'ADDRESS_ID'])->willReturn($address);
 
         $customerOwner->getEmail()->willReturn('oliver@queen.com');

@@ -13,12 +13,12 @@ use Sylius\ShopApiPlugin\View\ProductView;
 
 final class DetailedProductViewFactorySpec extends ObjectBehavior
 {
-    function let(ProductViewFactoryInterface $productViewFactory, ProductBreadcrumbGeneratorInterface $breadcrumbGenerator)
+    function let(ProductViewFactoryInterface $productViewFactory, ProductBreadcrumbGeneratorInterface $breadcrumbGenerator): void
     {
         $this->beConstructedWith($productViewFactory, $breadcrumbGenerator);
     }
 
-    function it_is_product_view_factory()
+    function it_is_product_view_factory(): void
     {
         $this->shouldHaveType(ProductViewFactoryInterface::class);
     }
@@ -28,7 +28,7 @@ final class DetailedProductViewFactorySpec extends ObjectBehavior
         ProductInterface $product,
         ProductViewFactoryInterface $productViewFactory,
         ProductBreadcrumbGeneratorInterface $breadcrumbGenerator
-    ) {
+    ): void {
         $productViewFactory->create($product, $channel, 'en_GB')->willReturn(new ProductView());
         $breadcrumbGenerator->generate($product, 'en_GB')->willReturn('taxon/product');
 

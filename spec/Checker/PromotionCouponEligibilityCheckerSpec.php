@@ -17,11 +17,11 @@ final class PromotionCouponEligibilityCheckerSpec extends ObjectBehavior
     function let(
         PromotionEligibilityCheckerInterface $promotionEligibilityChecker,
         PromotionCouponEligibilityCheckerInterface $couponEligibilityChecker
-    ) {
+    ): void {
         $this->beConstructedWith($promotionEligibilityChecker, $couponEligibilityChecker);
     }
 
-    function it_is_promotion_coupon_eligiblity_checker()
+    function it_is_promotion_coupon_eligiblity_checker(): void
     {
         $this->shouldImplement(PromotionCouponEligibilityCheckerInterface::class);
     }
@@ -33,7 +33,7 @@ final class PromotionCouponEligibilityCheckerSpec extends ObjectBehavior
         OrderInterface $order,
         PromotionCouponEligibilityCheckerInterface $couponEligibilityChecker,
         PromotionEligibilityCheckerInterface $promotionEligibilityChecker
-    ) {
+    ): void {
         $coupon->getPromotion()->willReturn($promotion);
         $order->getChannel()->willReturn($channel);
         $promotion->hasChannel($channel)->willReturn(true);
@@ -53,7 +53,7 @@ final class PromotionCouponEligibilityCheckerSpec extends ObjectBehavior
         PromotionInterface $promotion,
         OrderInterface $order,
         PromotionCouponEligibilityCheckerInterface $couponEligibilityChecker
-    ) {
+    ): void {
         $coupon->getPromotion()->willReturn($promotion);
         $order->getChannel()->willReturn($channel);
         $promotion->hasChannel($channel)->willReturn(true);
@@ -73,7 +73,7 @@ final class PromotionCouponEligibilityCheckerSpec extends ObjectBehavior
         OrderInterface $order,
         PromotionCouponEligibilityCheckerInterface $couponEligibilityChecker,
         PromotionEligibilityCheckerInterface $promotionEligibilityChecker
-    ) {
+    ): void {
         $coupon->getPromotion()->willReturn($promotion);
         $order->getChannel()->willReturn($channel);
         $promotion->hasChannel($channel)->willReturn(true);
@@ -92,7 +92,7 @@ final class PromotionCouponEligibilityCheckerSpec extends ObjectBehavior
         PromotionCouponInterface $coupon,
         PromotionInterface $promotion,
         OrderInterface $order
-    ) {
+    ): void {
         $coupon->getPromotion()->willReturn($promotion);
         $order->getChannel()->willReturn($channel);
         $promotion->hasChannel($channel)->willReturn(false);

@@ -12,17 +12,17 @@ use Sylius\ShopApiPlugin\View\AddressBookView;
 
 final class AddressBookViewFactorySpec extends ObjectBehavior
 {
-    function let()
+    function let(): void
     {
         $this->beConstructedWith(AddressBookView::class);
     }
 
-    function it_is_initializable()
+    function it_is_initializable(): void
     {
         $this->shouldHaveType(AddressBookViewFactory::class);
     }
 
-    function it_creates_address_book_view(AddressInterface $address, CustomerInterface $customer)
+    function it_creates_address_book_view(AddressInterface $address, CustomerInterface $customer): void
     {
         $address->getId()->willReturn('ADDRESS_ID');
         $address->getFirstName()->willReturn('Sherlock');

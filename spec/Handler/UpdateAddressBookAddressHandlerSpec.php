@@ -23,7 +23,7 @@ final class UpdateAddressBookAddressHandlerSpec extends ObjectBehavior
         RepositoryInterface $provinceRepository,
         RepositoryInterface $shopUserRepository,
         FactoryInterface $addressFactory
-    ) {
+    ): void {
         $this->beConstructedWith(
             $addressRepository,
             $countryRepository,
@@ -43,7 +43,7 @@ final class UpdateAddressBookAddressHandlerSpec extends ObjectBehavior
         ProvinceInterface $province,
         CountryInterface $country,
         AddressInterface $address
-    ) {
+    ): void {
         $shopUserRepository->findOneBy(['username' => 'user@email.com'])->willReturn($shopUser);
         $addressRepository->findOneBy(['id' => 'ADDRESS_ID'])->willReturn($address);
 
@@ -95,7 +95,7 @@ final class UpdateAddressBookAddressHandlerSpec extends ObjectBehavior
         RepositoryInterface $addressRepository,
         RepositoryInterface $shopUserRepository,
         AddressInterface $address
-    ) {
+    ): void {
         $shopUserRepository->findOneBy(['username' => 'user@email.com'])->willReturn($shopUser);
         $addressRepository->findOneBy(['id' => 'ADDRESS_ID'])->willReturn($address);
 
@@ -127,7 +127,7 @@ final class UpdateAddressBookAddressHandlerSpec extends ObjectBehavior
         RepositoryInterface $countryRepository,
         RepositoryInterface $shopUserRepository,
         AddressInterface $address
-    ) {
+    ): void {
         $shopUserRepository->findOneBy(['username' => 'user@email.com'])->willReturn($shopUser);
         $addressRepository->findOneBy(['id' => 'ADDRESS_ID'])->willReturn($address);
 
@@ -164,7 +164,7 @@ final class UpdateAddressBookAddressHandlerSpec extends ObjectBehavior
         RepositoryInterface $shopUserRepository,
         CountryInterface $country,
         AddressInterface $address
-    ) {
+    ): void {
         $shopUserRepository->findOneBy(['username' => 'user@email.com'])->willReturn($shopUser);
         $addressRepository->findOneBy(['id' => 'ADDRESS_ID'])->willReturn($address);
 

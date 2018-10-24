@@ -16,7 +16,7 @@ use Sylius\ShopApiPlugin\Command\PickupCart;
 
 final class PickupCartHandlerSpec extends ObjectBehavior
 {
-    function let(FactoryInterface $cartFactory, OrderRepositoryInterface $cartRepository, ChannelRepositoryInterface $channelRepository)
+    function let(FactoryInterface $cartFactory, OrderRepositoryInterface $cartRepository, ChannelRepositoryInterface $channelRepository): void
     {
         $this->beConstructedWith($cartFactory, $cartRepository, $channelRepository);
     }
@@ -29,7 +29,7 @@ final class PickupCartHandlerSpec extends ObjectBehavior
         LocaleInterface $locale,
         OrderInterface $cart,
         OrderRepositoryInterface $cartRepository
-    ) {
+    ): void {
         $channelRepository->findOneByCode('CHANNEL_CODE')->willReturn($channel);
         $channel->getBaseCurrency()->willReturn($currency);
         $channel->getDefaultLocale()->willReturn($locale);
@@ -50,7 +50,7 @@ final class PickupCartHandlerSpec extends ObjectBehavior
 
     function it_throws_an_exception_if_channel_is_not_found(
         ChannelRepositoryInterface $channelRepository
-    ) {
+    ): void {
         $channelRepository->findOneByCode('CHANNEL_CODE')->willReturn(null);
 
         $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [

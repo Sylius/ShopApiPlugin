@@ -22,7 +22,7 @@ final class PutOptionBasedConfigurableItemToCartHandlerSpec extends ObjectBehavi
         OrderRepositoryInterface $orderRepository,
         ProductRepositoryInterface $productRepository,
         OrderModifierInterface $orderModifier
-    ) {
+    ): void {
         $this->beConstructedWith($orderRepository, $productRepository, $orderModifier);
     }
 
@@ -36,7 +36,7 @@ final class PutOptionBasedConfigurableItemToCartHandlerSpec extends ObjectBehavi
         ProductRepositoryInterface $productRepository,
         ProductVariantInterface $blueTShirt,
         ProductVariantInterface $redTShirt
-    ) {
+    ): void {
         $productRepository->findOneByCode('T_SHIRT_CODE')->willReturn($tShirt);
 
         $tShirt->getVariants()->willReturn(new ArrayCollection([
@@ -59,7 +59,7 @@ final class PutOptionBasedConfigurableItemToCartHandlerSpec extends ObjectBehavi
         $this->handle(new PutOptionBasedConfigurableItemToCart('ORDERTOKEN', 'T_SHIRT_CODE', ['COLOR_OPTION_CODE' => 'RED_OPTION_VALUE_CODE'], 5));
     }
 
-    function it_throws_an_exception_if_cart_has_not_been_found(OrderRepositoryInterface $orderRepository)
+    function it_throws_an_exception_if_cart_has_not_been_found(OrderRepositoryInterface $orderRepository): void
     {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn(null);
 
@@ -72,7 +72,7 @@ final class PutOptionBasedConfigurableItemToCartHandlerSpec extends ObjectBehavi
         OrderInterface $cart,
         OrderRepositoryInterface $orderRepository,
         ProductRepositoryInterface $productRepository
-    ) {
+    ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($cart);
         $productRepository->findOneByCode('T_SHIRT_CODE')->willReturn(null);
 
@@ -91,7 +91,7 @@ final class PutOptionBasedConfigurableItemToCartHandlerSpec extends ObjectBehavi
         ProductOptionValueInterface $blueOptionValue,
         ProductOptionValueInterface $redOptionValue,
         ProductRepositoryInterface $productRepository
-    ) {
+    ): void {
         $productRepository->findOneByCode('T_SHIRT_CODE')->willReturn($tShirt);
 
         $tShirt->getVariants()->willReturn(new ArrayCollection([

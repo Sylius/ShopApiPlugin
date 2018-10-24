@@ -14,12 +14,12 @@ use Sylius\ShopApiPlugin\View\TaxonView;
 
 final class TaxonDetailsViewFactorySpec extends ObjectBehavior
 {
-    function let(TaxonViewFactoryInterface $taxonViewFactory)
+    function let(TaxonViewFactoryInterface $taxonViewFactory): void
     {
         $this->beConstructedWith($taxonViewFactory, TaxonDetailsView::class);
     }
 
-    function it_is_taxon_view_factory()
+    function it_is_taxon_view_factory(): void
     {
         $this->shouldImplement(TaxonDetailsViewFactoryInterface::class);
     }
@@ -29,7 +29,7 @@ final class TaxonDetailsViewFactorySpec extends ObjectBehavior
         TaxonInterface $parentTaxon,
         TaxonInterface $childrenTaxon,
         TaxonViewFactoryInterface $taxonViewFactory
-    ) {
+    ): void {
         $taxon->getParent()->willReturn($parentTaxon);
         $taxon->getChildren()->willReturn(new ArrayCollection([$childrenTaxon->getWrappedObject()]));
         $childrenTaxon->getChildren()->willReturn(new ArrayCollection([]));

@@ -22,7 +22,7 @@ final class UserRegistrationListenerSpec extends ObjectBehavior
         ChannelRepositoryInterface $channelRepository,
         UserRepositoryInterface $userRepository,
         ObjectManager $userManager
-    ) {
+    ): void {
         $this->beConstructedWith($bus, $channelRepository, $userRepository, $userManager);
     }
 
@@ -30,7 +30,7 @@ final class UserRegistrationListenerSpec extends ObjectBehavior
         CommandBus $bus,
         ChannelRepositoryInterface $channelRepository,
         ChannelInterface $channel
-    ) {
+    ): void {
         $channelRepository->findOneByCode('FOOBAR')->willReturn($channel);
 
         $channel->isAccountVerificationRequired()->willReturn(true);
@@ -52,7 +52,7 @@ final class UserRegistrationListenerSpec extends ObjectBehavior
         ObjectManager $userManager,
         ShopUserInterface $user,
         ChannelInterface $channel
-    ) {
+    ): void {
         $userRepository->findOneByEmail('shop@example.com')->willReturn($user);
         $channelRepository->findOneByCode('FOOBAR')->willReturn($channel);
 
@@ -71,7 +71,7 @@ final class UserRegistrationListenerSpec extends ObjectBehavior
         ));
     }
 
-    function it_throws_an_exception_if_channel_cannot_be_found(ChannelRepositoryInterface $channelRepository)
+    function it_throws_an_exception_if_channel_cannot_be_found(ChannelRepositoryInterface $channelRepository): void
     {
         $channelRepository->findOneByCode('FOOBAR')->willReturn(null);
 

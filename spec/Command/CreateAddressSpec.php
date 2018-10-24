@@ -9,7 +9,7 @@ use Sylius\ShopApiPlugin\Model\Address;
 
 final class CreateAddressSpec extends ObjectBehavior
 {
-    function let()
+    function let(): void
     {
         $this->beConstructedWith(Address::createFromArray([
             'firstName' => 'Sherlock',
@@ -25,12 +25,12 @@ final class CreateAddressSpec extends ObjectBehavior
         ]), 'user@email.com');
     }
 
-    function it_has_address()
+    function it_has_address(): void
     {
         $this->address()->shouldBeAnInstanceOf(Address::class);
     }
 
-    function it_has_user_email()
+    function it_has_user_email(): void
     {
         $this->userEmail()->shouldReturn('user@email.com');
     }

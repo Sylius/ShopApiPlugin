@@ -8,17 +8,17 @@ use PhpSpec\ObjectBehavior;
 
 final class RemoveAddressSpec extends ObjectBehavior
 {
-    function let()
+    function let(): void
     {
         $this->beConstructedWith('ADDRESS_ID', 'user@email.com');
     }
 
-    function it_has_id()
+    function it_has_id(): void
     {
         $this->id()->shouldReturn('ADDRESS_ID');
     }
 
-    function it_has_user_email()
+    function it_has_user_email(): void
     {
         $this->userEmail()->shouldReturn('user@email.com');
     }

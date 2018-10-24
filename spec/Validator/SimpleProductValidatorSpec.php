@@ -14,14 +14,14 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 final class SimpleProductValidatorSpec extends ObjectBehavior
 {
-    function let(ExecutionContextInterface $executionContext, ProductRepositoryInterface $productRepository)
+    function let(ExecutionContextInterface $executionContext, ProductRepositoryInterface $productRepository): void
     {
         $this->beConstructedWith($productRepository);
 
         $this->initialize($executionContext);
     }
 
-    function it_is_constraint_validator()
+    function it_is_constraint_validator(): void
     {
         $this->shouldHaveType(ConstraintValidator::class);
     }
@@ -30,7 +30,7 @@ final class SimpleProductValidatorSpec extends ObjectBehavior
         ProductRepositoryInterface $productRepository,
         ProductInterface $product,
         ExecutionContextInterface $executionContext
-    ) {
+    ): void {
         $productRepository->findOneByCode('BARBECUE_CODE')->willReturn($product);
         $product->isSimple()->willReturn(true);
 
@@ -42,7 +42,7 @@ final class SimpleProductValidatorSpec extends ObjectBehavior
     function it_does_nothing_if_product_does_not_exist(
         ProductRepositoryInterface $productRepository,
         ExecutionContextInterface $executionContext
-    ) {
+    ): void {
         $productRepository->findOneByCode('BARBECUE_CODE')->willReturn(null);
 
         $executionContext->addViolation(Argument::any(), Argument::any())->shouldNotBeCalled();
@@ -54,7 +54,7 @@ final class SimpleProductValidatorSpec extends ObjectBehavior
         ProductInterface $product,
         ProductRepositoryInterface $productRepository,
         ExecutionContextInterface $executionContext
-    ) {
+    ): void {
         $productRepository->findOneByCode('BARBECUE_CODE')->willReturn($product);
         $product->isSimple()->willReturn(false);
 

@@ -16,12 +16,12 @@ use Sylius\ShopApiPlugin\View\TaxonView;
 
 final class TaxonViewFactorySpec extends ObjectBehavior
 {
-    function let(ImageViewFactoryInterface $imageViewFactory)
+    function let(ImageViewFactoryInterface $imageViewFactory): void
     {
         $this->beConstructedWith($imageViewFactory, TaxonView::class);
     }
 
-    function it_is_taxon_view_factory()
+    function it_is_taxon_view_factory(): void
     {
         $this->shouldImplement(TaxonViewFactoryInterface::class);
     }
@@ -31,7 +31,7 @@ final class TaxonViewFactorySpec extends ObjectBehavior
         TaxonTranslationInterface $taxonTranslation,
         ImageInterface $image,
         ImageViewFactoryInterface $imageViewFactory
-    ) {
+    ): void {
         $taxon->getCode()->willReturn('CATEGORY_CODE');
         $taxon->getPosition()->willReturn(0);
         $taxon->getTranslation('en_GB')->willReturn($taxonTranslation);

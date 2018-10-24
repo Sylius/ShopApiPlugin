@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 final class ChannelExistsValidatorSpec extends ObjectBehavior
 {
-    function let(ExecutionContextInterface $executionContext, ChannelRepositoryInterface $channelRepository)
+    function let(ExecutionContextInterface $executionContext, ChannelRepositoryInterface $channelRepository): void
     {
         $this->beConstructedWith($channelRepository);
 
@@ -24,7 +24,7 @@ final class ChannelExistsValidatorSpec extends ObjectBehavior
         ChannelInterface $channel,
         ChannelRepositoryInterface $channelRepository,
         ExecutionContextInterface $executionContext
-    ) {
+    ): void {
         $channelRepository->findOneByCode('WEB_GB')->willReturn($channel);
 
         $executionContext->addViolation(Argument::any(), Argument::any())->shouldNotBeCalled();
@@ -35,7 +35,7 @@ final class ChannelExistsValidatorSpec extends ObjectBehavior
     function it_adds_constraint_if_channel_does_not_exits_exists(
         ChannelRepositoryInterface $channelRepository,
         ExecutionContextInterface $executionContext
-    ) {
+    ): void {
         $channelRepository->findOneByCode('WEB_GB')->willReturn(null);
 
         $executionContext->addViolation('sylius.shop_api.channel.not_exists')->shouldBeCalled();

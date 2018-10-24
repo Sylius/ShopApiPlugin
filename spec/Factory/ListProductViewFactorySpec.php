@@ -24,11 +24,11 @@ final class ListProductViewFactorySpec extends ObjectBehavior
         ImageViewFactoryInterface $imageViewFactory,
         ProductViewFactoryInterface $productViewFactory,
         ProductVariantViewFactoryInterface $variantViewFactory
-    ) {
+    ): void {
         $this->beConstructedWith($imageViewFactory, $productViewFactory, $variantViewFactory);
     }
 
-    function it_is_product_view_factory()
+    function it_is_product_view_factory(): void
     {
         $this->shouldHaveType(ProductViewFactoryInterface::class);
     }
@@ -44,7 +44,7 @@ final class ListProductViewFactorySpec extends ObjectBehavior
         ProductVariantInterface $firstProductVariant,
         ProductVariantInterface $secondProductVariant,
         ProductVariantViewFactoryInterface $variantViewFactory
-    ) {
+    ): void {
         $product->getVariants()->willReturn(new ArrayCollection([
             $firstProductVariant->getWrappedObject(),
             $secondProductVariant->getWrappedObject(),
@@ -102,7 +102,7 @@ final class ListProductViewFactorySpec extends ObjectBehavior
         ProductVariantInterface $secondProductVariant,
         ProductVariantInterface $thirdProductVariant,
         ProductVariantViewFactoryInterface $variantViewFactory
-    ) {
+    ): void {
         $product->getVariants()->willReturn(new ArrayCollection([
             $firstProductVariant->getWrappedObject(),
             $secondProductVariant->getWrappedObject(),

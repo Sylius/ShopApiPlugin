@@ -23,7 +23,7 @@ final class ChoosePaymentMethodHandlerSpec extends ObjectBehavior
         OrderRepositoryInterface $orderRepository,
         PaymentMethodRepositoryInterface $paymentMethodRepository,
         FactoryInterface $stateMachineFactory
-    ) {
+    ): void {
         $this->beConstructedWith($orderRepository, $paymentMethodRepository, $stateMachineFactory);
     }
 
@@ -35,7 +35,7 @@ final class ChoosePaymentMethodHandlerSpec extends ObjectBehavior
         PaymentInterface $payment,
         FactoryInterface $stateMachineFactory,
         StateMachineInterface $stateMachine
-    ) {
+    ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
         $order->getPayments()->willReturn(new ArrayCollection([$payment->getWrappedObject()]));
         $paymentMethodRepository->findOneBy(['code' => 'CASH_ON_DELIVERY_METHOD'])->willReturn($paymentMethod);
@@ -52,7 +52,7 @@ final class ChoosePaymentMethodHandlerSpec extends ObjectBehavior
     function it_throws_an_exception_if_order_with_given_token_has_not_been_found(
         OrderRepositoryInterface $orderRepository,
         PaymentInterface $payment
-    ) {
+    ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn(null);
 
         $payment->setMethod(Argument::type(PaymentMethodInterface::class))->shouldNotBeCalled();
@@ -72,7 +72,7 @@ final class ChoosePaymentMethodHandlerSpec extends ObjectBehavior
         PaymentInterface $payment,
         FactoryInterface $stateMachineFactory,
         StateMachineInterface $stateMachine
-    ) {
+    ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
         $paymentMethodRepository->findOneBy(['code' => 'CASH_ON_DELIVERY_METHOD'])->willReturn(null);
         $stateMachineFactory->get($order, OrderCheckoutTransitions::GRAPH)->willReturn($stateMachine);
@@ -96,7 +96,7 @@ final class ChoosePaymentMethodHandlerSpec extends ObjectBehavior
         PaymentInterface $payment,
         FactoryInterface $stateMachineFactory,
         StateMachineInterface $stateMachine
-    ) {
+    ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
         $paymentMethodRepository->findOneBy(['code' => 'CASH_ON_DELIVERY_METHOD'])->willReturn(null);
         $stateMachineFactory->get($order, OrderCheckoutTransitions::GRAPH)->willReturn($stateMachine);
@@ -121,7 +121,7 @@ final class ChoosePaymentMethodHandlerSpec extends ObjectBehavior
         PaymentInterface $payment,
         FactoryInterface $stateMachineFactory,
         StateMachineInterface $stateMachine
-    ) {
+    ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
         $paymentMethodRepository->findOneBy(['code' => 'CASH_ON_DELIVERY_METHOD'])->willReturn($paymentMethod);
         $order->getPayments()->willReturn(new ArrayCollection([]));

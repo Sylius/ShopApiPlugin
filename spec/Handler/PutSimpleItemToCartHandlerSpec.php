@@ -20,7 +20,7 @@ final class PutSimpleItemToCartHandlerSpec extends ObjectBehavior
         OrderRepositoryInterface $cartRepository,
         ProductRepositoryInterface $productRepository,
         OrderModifierInterface $orderModifier
-    ) {
+    ): void {
         $this->beConstructedWith($cartRepository, $productRepository, $orderModifier);
     }
 
@@ -31,7 +31,7 @@ final class PutSimpleItemToCartHandlerSpec extends ObjectBehavior
         ProductRepositoryInterface $productRepository,
         ProductVariantInterface $productVariant,
         OrderModifierInterface $orderModifier
-    ) {
+    ): void {
         $productRepository->findOneBy(['code' => 'T_SHIRT_CODE'])->willReturn($product);
         $product->getVariants()->willReturn(new ArrayCollection([$productVariant->getWrappedObject()]));
         $product->isSimple()->willReturn(true);
@@ -43,7 +43,7 @@ final class PutSimpleItemToCartHandlerSpec extends ObjectBehavior
         $this->handle(new PutSimpleItemToCart('ORDERTOKEN', 'T_SHIRT_CODE', 5));
     }
 
-    function it_throws_an_exception_if_cart_has_not_been_found(OrderRepositoryInterface $cartRepository)
+    function it_throws_an_exception_if_cart_has_not_been_found(OrderRepositoryInterface $cartRepository): void
     {
         $cartRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn(null);
 
@@ -56,7 +56,7 @@ final class PutSimpleItemToCartHandlerSpec extends ObjectBehavior
         OrderInterface $cart,
         OrderRepositoryInterface $cartRepository,
         ProductRepositoryInterface $productRepository
-    ) {
+    ): void {
         $cartRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($cart);
         $productRepository->findOneBy(['code' => 'T_SHIRT_CODE'])->willReturn(null);
 
@@ -71,7 +71,7 @@ final class PutSimpleItemToCartHandlerSpec extends ObjectBehavior
         ProductInterface $product,
         ProductRepositoryInterface $productRepository,
         ProductVariantInterface $productVariant
-    ) {
+    ): void {
         $cartRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($cart);
         $productRepository->findOneBy(['code' => 'T_SHIRT_CODE'])->willReturn($product);
         $product->getVariants()->willReturn(new ArrayCollection([$productVariant->getWrappedObject()]));

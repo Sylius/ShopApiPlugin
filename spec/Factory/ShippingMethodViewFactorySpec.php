@@ -17,12 +17,12 @@ use Sylius\ShopApiPlugin\View\ShippingMethodView;
 
 final class ShippingMethodViewFactorySpec extends ObjectBehavior
 {
-    function let(ServiceRegistry $calculatorRegistry, PriceViewFactoryInterface $priceViewFactory)
+    function let(ServiceRegistry $calculatorRegistry, PriceViewFactoryInterface $priceViewFactory): void
     {
         $this->beConstructedWith($calculatorRegistry, $priceViewFactory, ShippingMethodView::class);
     }
 
-    function it_is_shipping_method_view_factory()
+    function it_is_shipping_method_view_factory(): void
     {
         $this->shouldImplement(ShippingMethodViewFactoryInterface::class);
     }
@@ -34,7 +34,7 @@ final class ShippingMethodViewFactorySpec extends ObjectBehavior
         ServiceRegistry $calculatorRegistry,
         ShippingMethodInterface $shippingMethod,
         ShippingMethodTranslationInterface $shippingMethodTranslation
-    ) {
+    ): void {
         $shippingMethod->getCode()->willReturn('COD_CODE');
         $shippingMethod->getTranslation('en_GB')->willReturn($shippingMethodTranslation);
         $shippingMethod->getCalculator()->willReturn('flat_calculator');
@@ -66,7 +66,7 @@ final class ShippingMethodViewFactorySpec extends ObjectBehavior
         ServiceRegistry $calculatorRegistry,
         ShippingMethodInterface $shippingMethod,
         ShippingMethodTranslationInterface $shippingMethodTranslation
-    ) {
+    ): void {
         $shipment->getMethod()->willReturn($shippingMethod);
 
         $shippingMethod->getCode()->willReturn('COD_CODE');

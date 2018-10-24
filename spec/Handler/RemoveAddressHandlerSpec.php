@@ -15,7 +15,7 @@ final class RemoveAddressHandlerSpec extends ObjectBehavior
     function let(
         AddressRepositoryInterface $addressRepository,
         OrderRepositoryInterface $orderRepository
-    ) {
+    ): void {
         $this->beConstructedWith(
           $addressRepository,
           $orderRepository
@@ -25,7 +25,7 @@ final class RemoveAddressHandlerSpec extends ObjectBehavior
     function it_removes_address_from_address_book(
         AddressRepositoryInterface $addressRepository,
         AddressInterface $address
-    ) {
+    ): void {
         $addressRepository->findOneBy(['id' => 'ADDRESS_ID'])->willReturn($address);
 
         $addressRepository->remove($address)->shouldBeCalled();

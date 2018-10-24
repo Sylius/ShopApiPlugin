@@ -11,17 +11,17 @@ use Sylius\ShopApiPlugin\View\TotalsView;
 
 final class TotalViewFactorySpec extends ObjectBehavior
 {
-    function let()
+    function let(): void
     {
         $this->beConstructedWith(TotalsView::class);
     }
 
-    function it_is_total_view_factory()
+    function it_is_total_view_factory(): void
     {
         $this->shouldImplement(TotalViewFactoryInterface::class);
     }
 
-    function it_creates_total_view(Order $cart)
+    function it_creates_total_view(Order $cart): void
     {
         $cart->getTotal()->willReturn(2480);
         $cart->getItemsTotal()->willReturn(1500);

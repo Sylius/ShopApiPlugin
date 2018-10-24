@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 final class TokenIsNotUsedValidatorSpec extends ObjectBehavior
 {
-    function let(ExecutionContextInterface $executionContext, OrderRepositoryInterface $orderRepository)
+    function let(ExecutionContextInterface $executionContext, OrderRepositoryInterface $orderRepository): void
     {
         $this->beConstructedWith($orderRepository);
 
@@ -23,7 +23,7 @@ final class TokenIsNotUsedValidatorSpec extends ObjectBehavior
     function it_does_not_add_constraint_if_order_exists(
         OrderRepositoryInterface $orderRepository,
         ExecutionContextInterface $executionContext
-    ) {
+    ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn(null);
 
         $executionContext->addViolation(Argument::any(), Argument::any())->shouldNotBeCalled();
@@ -35,7 +35,7 @@ final class TokenIsNotUsedValidatorSpec extends ObjectBehavior
         OrderInterface $order,
         OrderRepositoryInterface $orderRepository,
         ExecutionContextInterface $executionContext
-    ) {
+    ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
 
         $executionContext->addViolation('sylius.shop_api.token.already_taken')->shouldBeCalled();
