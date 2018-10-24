@@ -9,7 +9,7 @@ use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Locale\Model\LocaleInterface;
 use Webmozart\Assert\Assert;
 
-class SupportedLocaleProvider implements SupportedLocaleProviderInterface
+final class SupportedLocaleProvider implements SupportedLocaleProviderInterface
 {
     public function provide(?string $localeCode, ChannelInterface $channel): string
     {
@@ -26,7 +26,7 @@ class SupportedLocaleProvider implements SupportedLocaleProviderInterface
         return $localeCode;
     }
 
-    private function assertLocaleSupport(string $localeCode, Collection $supportedLocales)
+    private function assertLocaleSupport(string $localeCode, Collection $supportedLocales): void
     {
         $supportedLocaleCodes = [];
         foreach ($supportedLocales as $locale) {
