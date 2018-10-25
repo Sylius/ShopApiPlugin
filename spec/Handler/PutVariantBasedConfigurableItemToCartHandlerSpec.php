@@ -18,7 +18,7 @@ final class PutVariantBasedConfigurableItemToCartHandlerSpec extends ObjectBehav
         OrderRepositoryInterface $cartRepository,
         ProductVariantRepositoryInterface $productVariantRepository,
         OrderModifierInterface $orderModifier
-    ) {
+    ): void {
         $this->beConstructedWith($cartRepository, $productVariantRepository, $orderModifier);
     }
 
@@ -28,7 +28,7 @@ final class PutVariantBasedConfigurableItemToCartHandlerSpec extends ObjectBehav
         OrderRepositoryInterface $cartRepository,
         ProductVariantInterface $productVariant,
         ProductVariantRepositoryInterface $productVariantRepository
-    ) {
+    ): void {
         $productVariantRepository->findOneByCodeAndProductCode('RED_SMALL_T_SHIRT_CODE', 'T_SHIRT_CODE')->willReturn($productVariant);
 
         $cartRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($cart);
@@ -38,7 +38,7 @@ final class PutVariantBasedConfigurableItemToCartHandlerSpec extends ObjectBehav
         $this->handle(new PutVariantBasedConfigurableItemToCart('ORDERTOKEN', 'T_SHIRT_CODE', 'RED_SMALL_T_SHIRT_CODE', 5));
     }
 
-    function it_throws_an_exception_if_cart_has_not_been_found(OrderRepositoryInterface $cartRepository)
+    function it_throws_an_exception_if_cart_has_not_been_found(OrderRepositoryInterface $cartRepository): void
     {
         $cartRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn(null);
 
@@ -51,7 +51,7 @@ final class PutVariantBasedConfigurableItemToCartHandlerSpec extends ObjectBehav
         OrderInterface $cart,
         OrderRepositoryInterface $cartRepository,
         ProductVariantRepositoryInterface $productVariantRepository
-    ) {
+    ): void {
         $cartRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($cart);
         $productVariantRepository->findOneByCodeAndProductCode('RED_SMALL_T_SHIRT_CODE', 'T_SHIRT_CODE')->willReturn(null);
 

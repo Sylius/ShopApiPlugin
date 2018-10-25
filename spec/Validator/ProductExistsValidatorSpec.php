@@ -14,14 +14,14 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 final class ProductExistsValidatorSpec extends ObjectBehavior
 {
-    function let(ExecutionContextInterface $executionContext, ProductRepositoryInterface $productRepository)
+    function let(ExecutionContextInterface $executionContext, ProductRepositoryInterface $productRepository): void
     {
         $this->beConstructedWith($productRepository);
 
         $this->initialize($executionContext);
     }
 
-    function it_is_constraint_validator()
+    function it_is_constraint_validator(): void
     {
         $this->shouldHaveType(ConstraintValidator::class);
     }
@@ -30,7 +30,7 @@ final class ProductExistsValidatorSpec extends ObjectBehavior
         ProductRepositoryInterface $productRepository,
         ProductInterface $product,
         ExecutionContextInterface $executionContext
-    ) {
+    ): void {
         $productRepository->findOneByCode('BARBECUE_CODE')->willReturn($product);
         $product->isSimple()->willReturn(true);
 
@@ -42,7 +42,7 @@ final class ProductExistsValidatorSpec extends ObjectBehavior
     function it_adds_constraint_if_product_does_not_exists(
         ProductRepositoryInterface $productRepository,
         ExecutionContextInterface $executionContext
-    ) {
+    ): void {
         $productRepository->findOneByCode('BARBECUE_CODE')->willReturn(null);
 
         $executionContext->addViolation('sylius.shop_api.product.exists')->shouldBeCalled();

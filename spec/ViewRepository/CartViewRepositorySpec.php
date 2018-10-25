@@ -13,12 +13,12 @@ use Sylius\ShopApiPlugin\ViewRepository\CartViewRepositoryInterface;
 
 final class CartViewRepositorySpec extends ObjectBehavior
 {
-    function let(OrderRepositoryInterface $cartRepository, CartViewFactoryInterface $cartViewFactory)
+    function let(OrderRepositoryInterface $cartRepository, CartViewFactoryInterface $cartViewFactory): void
     {
         $this->beConstructedWith($cartRepository, $cartViewFactory);
     }
 
-    function it_is_cart_query()
+    function it_is_cart_query(): void
     {
         $this->shouldImplement(CartViewRepositoryInterface::class);
     }
@@ -28,7 +28,7 @@ final class CartViewRepositorySpec extends ObjectBehavior
         CartViewFactoryInterface $cartViewFactory,
         OrderInterface $cart,
         CartSummaryView $cartView
-    ) {
+    ): void {
         $cartRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($cart);
         $cart->getLocaleCode()->willReturn('en_GB');
 

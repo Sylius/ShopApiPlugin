@@ -20,7 +20,7 @@ final class SetDefaultAddressHandlerSpec extends ObjectBehavior
         CustomerRepositoryInterface $customerRepository,
         AddressRepositoryInterface $addressRepository,
         RepositoryInterface $shopUserRepository
-    ) {
+    ): void {
         $this->beConstructedWith(
             $customerRepository,
             $addressRepository,
@@ -34,7 +34,7 @@ final class SetDefaultAddressHandlerSpec extends ObjectBehavior
         RepositoryInterface $shopUserRepository,
         ShopUserInterface $user,
         Customer $customer
-    ) {
+    ): void {
         $shopUserRepository->findOneBy(['username' => 'user@email.com'])->willReturn($user);
         $addressRepository->find(1)->willReturn($address);
 
@@ -55,7 +55,7 @@ final class SetDefaultAddressHandlerSpec extends ObjectBehavior
         ShopUserInterface $user,
         CustomerInterface $customer,
         CustomerInterface $anotherCustomer
-    ) {
+    ): void {
         $shopUserRepository->findOneBy(['username' => 'user@email.com'])->willReturn($user);
         $addressRepository->find(1)->willReturn($address);
 
@@ -75,7 +75,7 @@ final class SetDefaultAddressHandlerSpec extends ObjectBehavior
         AddressRepositoryInterface $addressRepository,
         RepositoryInterface $shopUserRepository,
         ShopUserInterface $user
-    ) {
+    ): void {
         $shopUserRepository->findOneBy(['username' => 'user@email.com'])->willReturn($user);
         $addressRepository->find(1)->willReturn($address);
 

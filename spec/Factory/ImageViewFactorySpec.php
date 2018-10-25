@@ -11,17 +11,17 @@ use Sylius\ShopApiPlugin\View\ImageView;
 
 final class ImageViewFactorySpec extends ObjectBehavior
 {
-    function let()
+    function let(): void
     {
         $this->beConstructedWith(ImageView::class);
     }
 
-    function it_is_image_view_factory()
+    function it_is_image_view_factory(): void
     {
         $this->shouldHaveType(ImageViewFactoryInterface::class);
     }
 
-    function it_creates_image_view(ImageInterface $image)
+    function it_creates_image_view(ImageInterface $image): void
     {
         $image->getType()->willReturn('thumbnail');
         $image->getPath()->willReturn('/ou/some.jpg');

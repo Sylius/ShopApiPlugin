@@ -37,11 +37,11 @@ final class CartViewFactorySpec extends ObjectBehavior
         ShipmentViewFactoryInterface $shipmentViewFactory,
         PaymentViewFactoryInterface $paymentViewFactory,
         AdjustmentViewFactoryInterface $adjustmentViewFactory
-    ) {
+    ): void {
         $this->beConstructedWith($cartItemViewFactory, $addressViewFactory, $totalViewFactory, $shipmentViewFactory, $paymentViewFactory, $adjustmentViewFactory, CartSummaryView::class);
     }
 
-    function it_is_cart_factory()
+    function it_is_cart_factory(): void
     {
         $this->shouldImplement(CartViewFactoryInterface::class);
     }
@@ -53,7 +53,7 @@ final class CartViewFactorySpec extends ObjectBehavior
         OrderItemInterface $firstOrderItem,
         OrderItemInterface $secondOrderItem,
         TotalViewFactoryInterface $totalViewFactory
-    ) {
+    ): void {
         $cart->getChannel()->willReturn($channel);
         $cart->getCurrencyCode()->willReturn('GBP');
         $cart->getCheckoutState()->willReturn('cart');
@@ -100,7 +100,7 @@ final class CartViewFactorySpec extends ObjectBehavior
         OrderItemInterface $firstOrderItem,
         OrderItemInterface $secondOrderItem,
         TotalViewFactoryInterface $totalViewFactory
-    ) {
+    ): void {
         $cart->getChannel()->willReturn($channel);
         $cart->getCurrencyCode()->willReturn('GBP');
         $cart->getCheckoutState()->willReturn('cart');
@@ -152,7 +152,7 @@ final class CartViewFactorySpec extends ObjectBehavior
         TotalViewFactoryInterface $totalViewFactory,
         ShipmentInterface $shipment,
         ShipmentViewFactoryInterface $shipmentViewFactory
-    ) {
+    ): void {
         $cart->getItemsTotal()->willReturn(1100);
         $cart->getChannel()->willReturn($channel);
         $cart->getCurrencyCode()->willReturn('GBP');
@@ -204,7 +204,7 @@ final class CartViewFactorySpec extends ObjectBehavior
         PaymentInterface $payment,
         PaymentViewFactoryInterface $paymentViewFactory,
         TotalViewFactoryInterface $totalViewFactory
-    ) {
+    ): void {
         $cart->getItemsTotal()->willReturn(1100);
         $cart->getChannel()->willReturn($channel);
         $cart->getCurrencyCode()->willReturn('GBP');
@@ -255,7 +255,7 @@ final class CartViewFactorySpec extends ObjectBehavior
         AdjustmentInterface $adjustment,
         AdjustmentViewFactoryInterface $adjustmentViewFactory,
         TotalViewFactoryInterface $totalViewFactory
-    ) {
+    ): void {
         $cart->getItemsTotal()->willReturn(1100);
         $cart->getChannel()->willReturn($channel);
         $cart->getCurrencyCode()->willReturn('GBP');
@@ -304,7 +304,7 @@ final class CartViewFactorySpec extends ObjectBehavior
         AdjustmentInterface $similarAdjustment,
         AdjustmentViewFactoryInterface $adjustmentViewFactory,
         TotalViewFactoryInterface $totalViewFactory
-    ) {
+    ): void {
         $cart->getItemsTotal()->willReturn(1100);
         $cart->getChannel()->willReturn($channel);
         $cart->getCurrencyCode()->willReturn('GBP');

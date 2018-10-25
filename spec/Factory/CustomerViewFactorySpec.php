@@ -11,17 +11,17 @@ use Sylius\ShopApiPlugin\View\CustomerView;
 
 final class CustomerViewFactorySpec extends ObjectBehavior
 {
-    function let()
+    function let(): void
     {
         $this->beConstructedWith(CustomerView::class);
     }
 
-    function it_is_initializable()
+    function it_is_initializable(): void
     {
         $this->shouldHaveType(CustomerViewFactory::class);
     }
 
-    function it_creates_customer_view(CustomerInterface $customer)
+    function it_creates_customer_view(CustomerInterface $customer): void
     {
         $customer->getId()->willReturn('CUSTOMER_ID');
         $customer->getFirstName()->willReturn('Sherlock');

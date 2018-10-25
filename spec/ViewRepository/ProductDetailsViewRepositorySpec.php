@@ -22,7 +22,7 @@ final class ProductDetailsViewRepositorySpec extends ObjectBehavior
         ProductRepositoryInterface $productRepository,
         ProductViewFactoryInterface $productViewFactory,
         SupportedLocaleProviderInterface $supportedLocaleProvider
-    ) {
+    ): void {
         $this->beConstructedWith(
             $channelRepository,
             $productRepository,
@@ -31,7 +31,7 @@ final class ProductDetailsViewRepositorySpec extends ObjectBehavior
         );
     }
 
-    function it_is_product_catalog()
+    function it_is_product_catalog(): void
     {
         $this->shouldImplement(ProductDetailsViewRepositoryInterface::class);
     }
@@ -44,7 +44,7 @@ final class ProductDetailsViewRepositorySpec extends ObjectBehavior
         ChannelInterface $channel,
         ProductInterface $product,
         ProductView $productView
-    ) {
+    ): void {
         $channelRepository->findOneByCode('WEB_GB')->willReturn($channel);
 
         $supportedLocaleProvider->provide('en_GB', $channel)->willReturn('en_GB');
@@ -61,7 +61,7 @@ final class ProductDetailsViewRepositorySpec extends ObjectBehavior
         SupportedLocaleProviderInterface $supportedLocaleProvider,
         ProductRepositoryInterface $productRepository,
         ChannelInterface $channel
-    ) {
+    ): void {
         $channelRepository->findOneByCode('en_US')->willReturn($channel);
         $supportedLocaleProvider->provide('de_DE', $channel)->willThrow(new \InvalidArgumentException());
 
@@ -71,7 +71,7 @@ final class ProductDetailsViewRepositorySpec extends ObjectBehavior
                 ->during('findOneBySlug', ['logan-mug', 'en_US', 'de_DE']);
     }
 
-    function it_throws_an_exception_if_channel_was_not_found(ChannelRepositoryInterface $channelRepository)
+    function it_throws_an_exception_if_channel_was_not_found(ChannelRepositoryInterface $channelRepository): void
     {
         $channelRepository->findOneByCode('WEB_GB')->willReturn(null);
 
@@ -84,7 +84,7 @@ final class ProductDetailsViewRepositorySpec extends ObjectBehavior
         ProductRepositoryInterface $productRepository,
         SupportedLocaleProviderInterface $supportedLocaleProvider,
         ChannelInterface $channel
-    ) {
+    ): void {
         $channelRepository->findOneByCode('WEB_GB')->willReturn($channel);
         $supportedLocaleProvider->provide('de_DE', $channel)->willReturn('en_GB');
         $productRepository->findOneByChannelAndSlug($channel, 'en_GB', 'logan-mug')->willReturn(null);
@@ -100,7 +100,7 @@ final class ProductDetailsViewRepositorySpec extends ObjectBehavior
         ChannelInterface $channel,
         ProductInterface $product,
         ProductView $productView
-    ) {
+    ): void {
         $supportedLocaleProvider->provide('en_GB', $channel)->willReturn('en_GB');
 
         $product->hasChannel($channel)->willReturn(true);
@@ -118,7 +118,7 @@ final class ProductDetailsViewRepositorySpec extends ObjectBehavior
         ProductRepositoryInterface $productRepository,
         SupportedLocaleProviderInterface $supportedLocaleProvider,
         ChannelInterface $channel
-    ) {
+    ): void {
         $channelRepository->findOneByCode('WEB_GB')->willReturn($channel);
         $supportedLocaleProvider->provide('de_DE', $channel)->willReturn('de_DE');
 
@@ -133,7 +133,7 @@ final class ProductDetailsViewRepositorySpec extends ObjectBehavior
         SupportedLocaleProviderInterface $supportedLocaleProvider,
         ChannelInterface $channel,
         ProductInterface $product
-    ) {
+    ): void {
         $product->hasChannel($channel)->willReturn(false);
 
         $channelRepository->findOneByCode('WEB_GB')->willReturn($channel);

@@ -13,7 +13,7 @@ final class UpdateCustomerHandlerSpec extends ObjectBehavior
 {
     function let(
         RepositoryInterface $customerRepository
-    ) {
+    ): void {
         $this->beConstructedWith(
             $customerRepository
         );
@@ -22,7 +22,7 @@ final class UpdateCustomerHandlerSpec extends ObjectBehavior
     function it_updates_customer(
         RepositoryInterface $customerRepository,
         CustomerInterface $customer
-    ) {
+    ): void {
         $customerRepository->findOneBy(['email' => 'sherlock@holmes.com'])->willReturn($customer);
 
         $customer->getId()->willReturn('USER_ID');

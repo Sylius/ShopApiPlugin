@@ -12,17 +12,17 @@ use Sylius\ShopApiPlugin\View\ProductReviewView;
 
 final class ProductReviewViewFactorySpec extends ObjectBehavior
 {
-    function let()
+    function let(): void
     {
         $this->beConstructedWith(ProductReviewView::class);
     }
 
-    function it_is_product_review_view_factory()
+    function it_is_product_review_view_factory(): void
     {
         $this->shouldHaveType(ProductReviewViewFactoryInterface::class);
     }
 
-    function it_creates_product_review_view(ProductReview $productReview, ProductReviewerInterface $reviewer)
+    function it_creates_product_review_view(ProductReview $productReview, ProductReviewerInterface $reviewer): void
     {
         $productReview->getAuthor()->willReturn($reviewer);
         $productReview->getComment()->willReturn('Lorem ipsum');

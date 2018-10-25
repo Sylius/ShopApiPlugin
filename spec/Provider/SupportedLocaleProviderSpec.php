@@ -14,19 +14,19 @@ use Sylius\ShopApiPlugin\Provider\SupportedLocaleProviderInterface;
 
 final class SupportedLocaleProviderSpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    function it_is_initializable(): void
     {
         $this->shouldHaveType(SupportedLocaleProvider::class);
     }
 
-    function it_is_a_supported_locale_provider()
+    function it_is_a_supported_locale_provider(): void
     {
         $this->shouldImplement(SupportedLocaleProviderInterface::class);
     }
 
     function it_fails_to_provide_a_locale_if_no_one_is_given_and_the_channel_has_no_default_locale(
         ChannelInterface $channel
-    ) {
+    ): void {
         $channel->getDefaultLocale()->willReturn(null);
 
         $this->shouldThrow(InvalidArgumentException::class)
@@ -37,7 +37,7 @@ final class SupportedLocaleProviderSpec extends ObjectBehavior
         ChannelInterface $channel,
         LocaleInterface $locale,
         LocaleInterface $supportedLocale
-    ) {
+    ): void {
         $channel->getDefaultLocale()->willReturn($locale);
         $locale->getCode()->willReturn('de_DE');
 
@@ -51,7 +51,7 @@ final class SupportedLocaleProviderSpec extends ObjectBehavior
     function it_fails_if_the_given_locale_is_not_supported(
         ChannelInterface $channel,
         LocaleInterface $supportedLocale
-    ) {
+    ): void {
         $channel->getDefaultLocale()->shouldNotBeCalled();
 
         $channel->getLocales()->willReturn(new ArrayCollection([$supportedLocale->getWrappedObject()]));
@@ -64,7 +64,7 @@ final class SupportedLocaleProviderSpec extends ObjectBehavior
     function it_provides_the_locale_if_is_supported(
         ChannelInterface $channel,
         LocaleInterface $supportedLocale
-    ) {
+    ): void {
         $channel->getDefaultLocale()->shouldNotBeCalled();
 
         $channel->getLocales()->willReturn(new ArrayCollection([$supportedLocale->getWrappedObject()]));
@@ -78,7 +78,7 @@ final class SupportedLocaleProviderSpec extends ObjectBehavior
         LocaleInterface $defaultLocale,
         LocaleInterface $supportedLocale1,
         LocaleInterface $supportedLocale2
-    ) {
+    ): void {
         $channel->getDefaultLocale()->willReturn($defaultLocale);
         $defaultLocale->getCode()->willReturn('en_US');
 

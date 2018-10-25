@@ -24,7 +24,7 @@ final class ProductViewFactorySpec extends ObjectBehavior
     function let(
         ImageViewFactoryInterface $imageViewFactory,
         ProductAttributeValuesViewFactoryInterface $attributeValuesViewFactory
-    ) {
+    ): void {
         $this->beConstructedWith(
             $imageViewFactory,
             $attributeValuesViewFactory,
@@ -34,7 +34,7 @@ final class ProductViewFactorySpec extends ObjectBehavior
         );
     }
 
-    function it_is_price_view_factory()
+    function it_is_price_view_factory(): void
     {
         $this->shouldHaveType(ProductViewFactoryInterface::class);
     }
@@ -50,7 +50,7 @@ final class ProductViewFactorySpec extends ObjectBehavior
         TaxonInterface $taxon,
         TaxonInterface $mainTaxon,
         ProductTranslationInterface $productTranslation
-    ) {
+    ): void {
         $product->getTranslation('en_GB')->willReturn($productTranslation);
         $product->getCode()->willReturn('HAT_CODE');
         $product->getAverageRating()->willReturn(5);

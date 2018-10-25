@@ -11,17 +11,17 @@ use Sylius\ShopApiPlugin\Provider\ProductReviewerProviderInterface;
 
 final class ProductReviewerProviderSpec extends ObjectBehavior
 {
-    function let(CustomerProviderInterface $customerProvider)
+    function let(CustomerProviderInterface $customerProvider): void
     {
         $this->beConstructedWith($customerProvider);
     }
 
-    function it_is_reviewer_subject_provider()
+    function it_is_reviewer_subject_provider(): void
     {
         $this->shouldImplement(ProductReviewerProviderInterface::class);
     }
 
-    function it_provides_product_reviewer(Customer $reviewer, CustomerProviderInterface $customerProvider)
+    function it_provides_product_reviewer(Customer $reviewer, CustomerProviderInterface $customerProvider): void
     {
         $customerProvider->provide('example@customer.com')->willReturn($reviewer);
 

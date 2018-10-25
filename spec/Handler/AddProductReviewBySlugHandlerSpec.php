@@ -25,7 +25,7 @@ final class AddProductReviewBySlugHandlerSpec extends ObjectBehavior
         ProductRepositoryInterface $productRepository,
         ProductReviewerProviderInterface $productReviewerProvider,
         ReviewFactoryInterface $reviewFactory
-    ) {
+    ): void {
         $this->beConstructedWith($productReviewRepository, $channelRepository, $productRepository, $productReviewerProvider, $reviewFactory);
     }
 
@@ -40,7 +40,7 @@ final class AddProductReviewBySlugHandlerSpec extends ObjectBehavior
         ProductReviewerInterface $productReviewer,
         LocaleInterface $locale,
         ReviewInterface $productReview
-    ) {
+    ): void {
         $channelRepository->findOneByCode('WEB_GB')->willReturn($channel);
         $channel->getDefaultLocale()->willReturn($locale);
         $locale->getCode()->willReturn('en_GB');
@@ -59,7 +59,7 @@ final class AddProductReviewBySlugHandlerSpec extends ObjectBehavior
         $this->handle(new AddProductReviewBySlug('logan-mug', 'WEB_GB', 'Perfect product', 5, 'It is so awesome :)', 'example@shop.com'));
     }
 
-    function it_throws_an_exception_if_channel_has_not_been_found(ChannelRepositoryInterface $channelRepository)
+    function it_throws_an_exception_if_channel_has_not_been_found(ChannelRepositoryInterface $channelRepository): void
     {
         $channelRepository->findOneByCode('WEB_GB')->willReturn(null);
 
@@ -76,7 +76,7 @@ final class AddProductReviewBySlugHandlerSpec extends ObjectBehavior
         ProductRepositoryInterface $productRepository,
         ChannelInterface $channel,
         LocaleInterface $locale
-    ) {
+    ): void {
         $channelRepository->findOneByCode('WEB_GB')->willReturn($channel);
         $channel->getDefaultLocale()->willReturn($locale);
         $locale->getCode()->willReturn('en_GB');

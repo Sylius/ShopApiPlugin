@@ -10,17 +10,17 @@ use Sylius\ShopApiPlugin\View\PriceView;
 
 final class PriceViewFactorySpec extends ObjectBehavior
 {
-    function let()
+    function let(): void
     {
         $this->beConstructedWith(PriceView::class);
     }
 
-    function it_is_price_view_factory()
+    function it_is_price_view_factory(): void
     {
         $this->shouldHaveType(PriceViewFactoryInterface::class);
     }
 
-    function it_builds_price_view()
+    function it_builds_price_view(): void
     {
         $priceView = new PriceView();
         $priceView->current = 500;

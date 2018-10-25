@@ -22,7 +22,7 @@ final class CreateAddressHandlerSpec extends ObjectBehavior
         RepositoryInterface $provinceRepository,
         RepositoryInterface $customerRepository,
         FactoryInterface $addressFactory
-    ) {
+    ): void {
         $this->beConstructedWith(
             $addressRepository,
             $countryRepository,
@@ -40,7 +40,7 @@ final class CreateAddressHandlerSpec extends ObjectBehavior
         CountryInterface $country,
         AddressInterface $address,
         FactoryInterface $addressFactory
-    ) {
+    ): void {
         $customerRepository->findOneBy(['email' => 'user@email.com'])->willReturn($customer);
         $countryRepository->findOneBy(['code' => 'GB'])->willReturn($country);
 
@@ -80,7 +80,7 @@ final class CreateAddressHandlerSpec extends ObjectBehavior
         AddressInterface $address,
         ProvinceInterface $province,
         FactoryInterface $addressFactory
-    ) {
+    ): void {
         $customerRepository->findOneBy(['email' => 'user@email.com'])->willReturn($customer);
         $countryRepository->findOneBy(['code' => 'GB'])->willReturn($country);
 
@@ -122,7 +122,7 @@ final class CreateAddressHandlerSpec extends ObjectBehavior
         RepositoryInterface $customerRepository,
         CustomerInterface $customer,
         RepositoryInterface $countryRepository
-    ) {
+    ): void {
         $customerRepository->findOneBy(['email' => 'jure@locastic.com'])->willReturn($customer);
         $countryRepository->findOneBy(['code' => 'WRONG_COUNTRY_CODE'])->willReturn(null);
 
@@ -148,7 +148,7 @@ final class CreateAddressHandlerSpec extends ObjectBehavior
         CountryInterface $country,
         AddressInterface $address,
         FactoryInterface $addressFactory
-    ) {
+    ): void {
         $customerRepository->findOneBy(['email' => 'user@email.com'])->willReturn($customer);
         $countryRepository->findOneBy(['code' => 'GB'])->willReturn($country);
 

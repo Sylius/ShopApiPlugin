@@ -8,7 +8,7 @@ use PhpSpec\ObjectBehavior;
 
 final class AddressSpec extends ObjectBehavior
 {
-    function let()
+    function let(): void
     {
         $this->beConstructedThrough('createFromArray', [[
             'firstName' => 'Sherlock',
@@ -20,37 +20,37 @@ final class AddressSpec extends ObjectBehavior
         ]]);
     }
 
-    function it_has_first_name()
+    function it_has_first_name(): void
     {
         $this->firstName()->shouldReturn('Sherlock');
     }
 
-    function it_has_last_name()
+    function it_has_last_name(): void
     {
         $this->lastName()->shouldReturn('Holmes');
     }
 
-    function it_has_city()
+    function it_has_city(): void
     {
         $this->city()->shouldReturn('London');
     }
 
-    function it_has_street()
+    function it_has_street(): void
     {
         $this->street()->shouldReturn('Baker Street 221b');
     }
 
-    function it_has_country_code()
+    function it_has_country_code(): void
     {
         $this->countryCode()->shouldReturn('GB');
     }
 
-    function it_has_postcode()
+    function it_has_postcode(): void
     {
         $this->postcode()->shouldReturn('NWB');
     }
 
-    function it_has_province_name()
+    function it_has_province_name(): void
     {
         $this->beConstructedThrough('createFromArray', [[
             'firstName' => 'Sherlock',
@@ -65,7 +65,7 @@ final class AddressSpec extends ObjectBehavior
         $this->provinceName()->shouldReturn('Greater London');
     }
 
-    function it_throws_invalid_argument_exception_if_noT_enough_data_is_provided()
+    function it_throws_invalid_argument_exception_if_noT_enough_data_is_provided(): void
     {
         $this->shouldThrow('InvalidArgumentException')->during('createFromArray', [[
             'lastName' => 'Holmes',

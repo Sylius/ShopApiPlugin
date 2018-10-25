@@ -17,7 +17,7 @@ use Sylius\ShopApiPlugin\Model\Address;
 
 final class AddressOrderHandlerSpec extends ObjectBehavior
 {
-    function let(OrderRepositoryInterface $orderRepository, AddressFactoryInterface $addressFactory, FactoryInterface $stateMachineFactory)
+    function let(OrderRepositoryInterface $orderRepository, AddressFactoryInterface $addressFactory, FactoryInterface $stateMachineFactory): void
     {
         $this->beConstructedWith($orderRepository, $addressFactory, $stateMachineFactory);
     }
@@ -30,7 +30,7 @@ final class AddressOrderHandlerSpec extends ObjectBehavior
         OrderInterface $order,
         OrderRepositoryInterface $orderRepository,
         StateMachineInterface $stateMachine
-    ) {
+    ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
         $addressFactory->createNew()->willReturn($shippingAddress, $billingAddress);
 
@@ -82,7 +82,7 @@ final class AddressOrderHandlerSpec extends ObjectBehavior
 
     function it_throws_an_exception_if_order_does_not_exist(
         OrderRepositoryInterface $orderRepository
-    ) {
+    ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn(null);
 
         $this->shouldThrow(\LogicException::class)->during('handle', [
@@ -115,7 +115,7 @@ final class AddressOrderHandlerSpec extends ObjectBehavior
         OrderInterface $order,
         OrderRepositoryInterface $orderRepository,
         StateMachineInterface $stateMachine
-    ) {
+    ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
 
         $stateMachineFactory->get($order, OrderCheckoutTransitions::GRAPH)->willReturn($stateMachine);

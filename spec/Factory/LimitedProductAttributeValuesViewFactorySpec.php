@@ -12,12 +12,12 @@ use Sylius\ShopApiPlugin\View\ProductAttributeValueView;
 
 final class LimitedProductAttributeValuesViewFactorySpec extends ObjectBehavior
 {
-    function let(ProductAttributeValueViewFactoryInterface $productAttributeValueViewFactory)
+    function let(ProductAttributeValueViewFactoryInterface $productAttributeValueViewFactory): void
     {
         $this->beConstructedWith($productAttributeValueViewFactory, ['CERTIFICATE_ATTRIBUTE']);
     }
 
-    function it_is_product_attribute_values_view_facotry()
+    function it_is_product_attribute_values_view_facotry(): void
     {
         $this->shouldHaveType(ProductAttributeValuesViewFactoryInterface::class);
     }
@@ -26,7 +26,7 @@ final class LimitedProductAttributeValuesViewFactorySpec extends ObjectBehavior
         ProductAttributeValueInterface $skippedValue,
         ProductAttributeValueInterface $serializedValue,
         ProductAttributeValueViewFactoryInterface $productAttributeValueViewFactory
-    ) {
+    ): void {
         $productAttributeValueViewFactory->create($skippedValue, 'en_GB')->shouldNotBeCalled();
         $productAttributeValueViewFactory->create($serializedValue, 'en_GB')->willReturn(new ProductAttributeValueView());
 

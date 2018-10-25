@@ -12,17 +12,17 @@ use Sylius\ShopApiPlugin\View\PaymentMethodView;
 
 final class PaymentMethodViewFactorySpec extends ObjectBehavior
 {
-    function let()
+    function let(): void
     {
         $this->beConstructedWith(PaymentMethodView::class);
     }
 
-    function it_is_payment_method_view_factory()
+    function it_is_payment_method_view_factory(): void
     {
         $this->shouldImplement(PaymentMethodViewFactoryInterface::class);
     }
 
-    function it_build_payment_method_view(PaymentMethodInterface $paymentMethod, PaymentMethodTranslationInterface $paymentMethodTranslation)
+    function it_build_payment_method_view(PaymentMethodInterface $paymentMethod, PaymentMethodTranslationInterface $paymentMethodTranslation): void
     {
         $paymentMethod->getCode()->willReturn('COD_CODE');
         $paymentMethod->getTranslation('en_GB')->willReturn($paymentMethodTranslation);

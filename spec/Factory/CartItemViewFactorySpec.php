@@ -21,11 +21,11 @@ final class CartItemViewFactorySpec extends ObjectBehavior
     public function let(
         ProductViewFactoryInterface $productViewFactory,
         ProductVariantViewFactoryInterface $productVariantViewFactory
-    ) {
+    ): void {
         $this->beConstructedWith($productViewFactory, $productVariantViewFactory, ItemView::class);
     }
 
-    function it_is_cart_item_view_factory()
+    function it_is_cart_item_view_factory(): void
     {
         $this->shouldImplement(CartItemViewFactoryInterface::class);
     }
@@ -37,7 +37,7 @@ final class CartItemViewFactorySpec extends ObjectBehavior
         ProductVariantInterface $tshirtVariant,
         ProductVariantViewFactoryInterface $productVariantViewFactory,
         ProductViewFactoryInterface $productViewFactory
-    ) {
+    ): void {
         $cartItem->getId()->willReturn(2);
         $cartItem->getQuantity()->willReturn(3);
         $cartItem->getTotal()->willReturn(900);

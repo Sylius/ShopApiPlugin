@@ -14,14 +14,14 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 final class ShopUserExistsValidatorSpec extends ObjectBehavior
 {
-    function let(ExecutionContextInterface $executionContext, UserRepositoryInterface $userRepository)
+    function let(ExecutionContextInterface $executionContext, UserRepositoryInterface $userRepository): void
     {
         $this->beConstructedWith($userRepository);
 
         $this->initialize($executionContext);
     }
 
-    function it_is_initializable()
+    function it_is_initializable(): void
     {
         $this->shouldHaveType(ShopUserExistsValidator::class);
     }
@@ -30,7 +30,7 @@ final class ShopUserExistsValidatorSpec extends ObjectBehavior
         ShopUserInterface $user,
         UserRepositoryInterface $userRepository,
         ExecutionContextInterface $executionContext
-    ) {
+    ): void {
         $userRepository->findOneByEmail('shop@example.com')->willReturn($user);
 
         $executionContext->addViolation(Argument::cetera())->shouldNotBeCalled();
@@ -41,7 +41,7 @@ final class ShopUserExistsValidatorSpec extends ObjectBehavior
     function it_adds_constraint_if_user_does_not_exits_exists(
         UserRepositoryInterface $userRepository,
         ExecutionContextInterface $executionContext
-    ) {
+    ): void {
         $userRepository->findOneByEmail('shop@example.com')->willReturn(null);
 
         $executionContext->addViolation('sylius.shop_api.email.not_found')->shouldBeCalled();

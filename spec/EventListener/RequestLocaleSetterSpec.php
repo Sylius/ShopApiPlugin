@@ -12,12 +12,12 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
 final class RequestLocaleSetterSpec extends ObjectBehavior
 {
-    function let(LocaleProviderInterface $localeProvider)
+    function let(LocaleProviderInterface $localeProvider): void
     {
         $this->beConstructedWith($localeProvider);
     }
 
-    function it_is_initializable()
+    function it_is_initializable(): void
     {
         $this->shouldHaveType(RequestLocaleSetter::class);
     }
@@ -26,7 +26,7 @@ final class RequestLocaleSetterSpec extends ObjectBehavior
         LocaleProviderInterface $localeProvider,
         GetResponseEvent $event,
         Request $request
-    ) {
+    ): void {
         $event->getRequest()->willReturn($request);
 
         $request->get('locale')->willReturn(null);
@@ -43,7 +43,7 @@ final class RequestLocaleSetterSpec extends ObjectBehavior
         LocaleProviderInterface $localeProvider,
         GetResponseEvent $event,
         Request $request
-    ) {
+    ): void {
         $event->getRequest()->willReturn($request);
 
         $request->get('locale')->willReturn('pl_PL');
@@ -61,7 +61,7 @@ final class RequestLocaleSetterSpec extends ObjectBehavior
         LocaleProviderInterface $localeProvider,
         GetResponseEvent $event,
         Request $request
-    ) {
+    ): void {
         $event->getRequest()->willReturn($request);
 
         $request->get('locale')->willReturn('pl_PL');

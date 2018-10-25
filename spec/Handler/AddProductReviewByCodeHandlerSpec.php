@@ -24,7 +24,7 @@ final class AddProductReviewByCodeHandlerSpec extends ObjectBehavior
         ProductRepositoryInterface $productRepository,
         ProductReviewerProviderInterface $productReviewerProvider,
         ReviewFactoryInterface $reviewFactory
-    ) {
+    ): void {
         $this->beConstructedWith($productReviewRepository, $channelRepository, $productRepository, $productReviewerProvider, $reviewFactory);
     }
 
@@ -38,7 +38,7 @@ final class AddProductReviewByCodeHandlerSpec extends ObjectBehavior
         ChannelInterface $channel,
         ProductReviewerInterface $productReviewer,
         ReviewInterface $productReview
-    ) {
+    ): void {
         $channelRepository->findOneByCode('WEB_GB')->willReturn($channel);
         $product->hasChannel($channel)->willReturn(true);
 
@@ -56,7 +56,7 @@ final class AddProductReviewByCodeHandlerSpec extends ObjectBehavior
         $this->handle(new AddProductReviewByCode('LOGAN_MUG_CODE', 'WEB_GB', 'Perfect product', 5, 'It is so awesome :)', 'example@shop.com'));
     }
 
-    function it_throws_an_exception_if_channel_has_not_been_found(ChannelRepositoryInterface $channelRepository)
+    function it_throws_an_exception_if_channel_has_not_been_found(ChannelRepositoryInterface $channelRepository): void
     {
         $channelRepository->findOneByCode('WEB_GB')->willReturn(null);
 
@@ -72,7 +72,7 @@ final class AddProductReviewByCodeHandlerSpec extends ObjectBehavior
         ChannelRepositoryInterface $channelRepository,
         ProductRepositoryInterface $productRepository,
         ChannelInterface $channel
-    ) {
+    ): void {
         $channelRepository->findOneByCode('WEB_GB')->willReturn($channel);
 
         $productRepository->findOneByCode('LOGAN_MUG_CODE')->willReturn(null);
@@ -90,7 +90,7 @@ final class AddProductReviewByCodeHandlerSpec extends ObjectBehavior
         ProductRepositoryInterface $productRepository,
         ChannelInterface $channel,
         ProductInterface $product
-    ) {
+    ): void {
         $channelRepository->findOneByCode('WEB_GB')->willReturn($channel);
         $product->hasChannel($channel)->willReturn(false);
 

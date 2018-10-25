@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 final class CartItemExistsValidatorSpec extends ObjectBehavior
 {
-    function let(ExecutionContextInterface $executionContext, OrderItemRepositoryInterface $orderItemRepository)
+    function let(ExecutionContextInterface $executionContext, OrderItemRepositoryInterface $orderItemRepository): void
     {
         $this->beConstructedWith($orderItemRepository);
 
@@ -24,7 +24,7 @@ final class CartItemExistsValidatorSpec extends ObjectBehavior
         OrderItemInterface $orderItem,
         OrderItemRepositoryInterface $orderItemRepository,
         ExecutionContextInterface $executionContext
-    ) {
+    ): void {
         $orderItemRepository->find(1)->willReturn($orderItem);
 
         $executionContext->addViolation(Argument::any(), Argument::any())->shouldNotBeCalled();
@@ -35,7 +35,7 @@ final class CartItemExistsValidatorSpec extends ObjectBehavior
     function it_adds_constraint_if_order_item_does_not_exits_exists(
         OrderItemRepositoryInterface $orderItemRepository,
         ExecutionContextInterface $executionContext
-    ) {
+    ): void {
         $orderItemRepository->find(1)->willReturn(null);
 
         $executionContext->addViolation('sylius.shop_api.cart_item.not_exists')->shouldBeCalled();

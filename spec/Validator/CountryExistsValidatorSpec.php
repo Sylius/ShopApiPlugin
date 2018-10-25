@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 final class CountryExistsValidatorSpec extends ObjectBehavior
 {
-    function let(ExecutionContextInterface $executionContext, RepositoryInterface $countryRepository)
+    function let(ExecutionContextInterface $executionContext, RepositoryInterface $countryRepository): void
     {
         $this->beConstructedWith($countryRepository);
 
@@ -24,7 +24,7 @@ final class CountryExistsValidatorSpec extends ObjectBehavior
         CountryInterface $country,
         RepositoryInterface $countryRepository,
         ExecutionContextInterface $executionContext
-    ) {
+    ): void {
         $countryRepository->findOneBy(['code' => 'DE'])->willReturn($country);
 
         $executionContext->addViolation(Argument::any(), Argument::any())->shouldNotBeCalled();
@@ -35,7 +35,7 @@ final class CountryExistsValidatorSpec extends ObjectBehavior
     function it_adds_constraint_if_order_does_not_exits_exists(
         RepositoryInterface $countryRepository,
         ExecutionContextInterface $executionContext
-    ) {
+    ): void {
         $countryRepository->findOneBy(['code' => 'XY'])->willReturn(null);
 
         $executionContext->addViolation('sylius.shop_api.country.not_exists')->shouldBeCalled();

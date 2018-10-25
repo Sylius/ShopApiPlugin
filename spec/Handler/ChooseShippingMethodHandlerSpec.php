@@ -25,7 +25,7 @@ final class ChooseShippingMethodHandlerSpec extends ObjectBehavior
         ShippingMethodRepositoryInterface $shippingMethodRepository,
         ShippingMethodEligibilityCheckerInterface $eligibilityChecker,
         FactoryInterface $stateMachineFactory
-    ) {
+    ): void {
         $this->beConstructedWith($orderRepository, $shippingMethodRepository, $eligibilityChecker, $stateMachineFactory);
     }
 
@@ -38,7 +38,7 @@ final class ChooseShippingMethodHandlerSpec extends ObjectBehavior
         ShippingMethodEligibilityCheckerInterface $eligibilityChecker,
         FactoryInterface $stateMachineFactory,
         StateMachineInterface $stateMachine
-    ) {
+    ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
         $order->getShipments()->willReturn(new ArrayCollection([$shipment->getWrappedObject()]));
         $shippingMethodRepository->findOneBy(['code' => 'DHL_SHIPPING_METHOD'])->willReturn($shippingMethod);
@@ -63,7 +63,7 @@ final class ChooseShippingMethodHandlerSpec extends ObjectBehavior
         ShippingMethodEligibilityCheckerInterface $eligibilityChecker,
         FactoryInterface $stateMachineFactory,
         StateMachineInterface $stateMachine
-    ) {
+    ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
         $order->getShipments()->willReturn(new ArrayCollection([$shipment->getWrappedObject()]));
         $shippingMethodRepository->findOneBy(['code' => 'DHL_SHIPPING_METHOD'])->willReturn($shippingMethod);
@@ -86,7 +86,7 @@ final class ChooseShippingMethodHandlerSpec extends ObjectBehavior
     function it_throws_an_exception_if_order_with_given_token_has_not_been_found(
         OrderRepositoryInterface $orderRepository,
         ShipmentInterface $shipment
-    ) {
+    ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn(null);
 
         $shipment->setMethod(Argument::type(ShippingMethodInterface::class))->shouldNotBeCalled();
@@ -106,7 +106,7 @@ final class ChooseShippingMethodHandlerSpec extends ObjectBehavior
         ShipmentInterface $shipment,
         FactoryInterface $stateMachineFactory,
         StateMachineInterface $stateMachine
-    ) {
+    ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
         $shippingMethodRepository->findOneBy(['code' => 'DHL_SHIPPING_METHOD'])->willReturn(null);
         $stateMachineFactory->get($order, OrderCheckoutTransitions::GRAPH)->willReturn($stateMachine);
@@ -130,7 +130,7 @@ final class ChooseShippingMethodHandlerSpec extends ObjectBehavior
         ShipmentInterface $shipment,
         FactoryInterface $stateMachineFactory,
         StateMachineInterface $stateMachine
-    ) {
+    ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
         $shippingMethodRepository->findOneBy(['code' => 'DHL_SHIPPING_METHOD'])->willReturn(null);
         $stateMachineFactory->get($order, OrderCheckoutTransitions::GRAPH)->willReturn($stateMachine);
@@ -155,7 +155,7 @@ final class ChooseShippingMethodHandlerSpec extends ObjectBehavior
         ShipmentInterface $shipment,
         FactoryInterface $stateMachineFactory,
         StateMachineInterface $stateMachine
-    ) {
+    ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
         $shippingMethodRepository->findOneBy(['code' => 'DHL_SHIPPING_METHOD'])->willReturn($shippingMethod);
         $order->getShipments()->willReturn(new ArrayCollection([]));

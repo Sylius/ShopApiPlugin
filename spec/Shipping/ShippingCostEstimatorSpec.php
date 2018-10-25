@@ -27,13 +27,13 @@ final class ShippingCostEstimatorSpec extends ObjectBehavior
         FactoryInterface $shipmentFactory,
         ShippingMethodsResolverInterface $shippingMethodResolver,
         ServiceRegistryInterface $calculators
-    ) {
+    ): void {
         $this->beConstructedWith(
             $cartRepository, $addressFactory, $shipmentFactory, $shippingMethodResolver, $calculators
         );
     }
 
-    function it_implements_interface()
+    function it_implements_interface(): void
     {
         $this->shouldImplement(ShippingCostEstimatorInterface::class);
     }
@@ -49,7 +49,7 @@ final class ShippingCostEstimatorSpec extends ObjectBehavior
         ShippingMethodInterface $shippingMethod,
         ServiceRegistryInterface $calculators,
         CalculatorInterface $calculator
-    ) {
+    ): void {
         $cartRepository->findOneBy(['tokenValue' => 'TOKEN'])->shouldBeCalled()->willReturn($cart);
 
         $addressFactory->createNew()->shouldBeCalled()->willReturn($address);
@@ -87,7 +87,7 @@ final class ShippingCostEstimatorSpec extends ObjectBehavior
         FactoryInterface $shipmentFactory,
         ShipmentInterface $shipment,
         ShippingMethodsResolverInterface $shippingMethodResolver
-    ) {
+    ): void {
         $cartRepository->findOneBy(['tokenValue' => 'TOKEN'])->shouldBeCalled()->willReturn($cart);
 
         $addressFactory->createNew()->shouldBeCalled()->willReturn($address);
