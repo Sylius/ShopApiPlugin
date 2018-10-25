@@ -1,0 +1,7 @@
+{
+    "method": "PayPal Express Checkout",
+    "type": "redirect",
+    "content": {
+        "url": "https://xxx"
+    }
+}
