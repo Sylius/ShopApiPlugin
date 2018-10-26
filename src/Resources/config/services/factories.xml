@@ -56,6 +56,16 @@
             <argument type="string">%sylius.shop_api.view.cart_summary.class%</argument>
         </service>
 
+        <service id="sylius.shop_api_plugin.factory.placed_order_view_factory" class="Sylius\ShopApiPlugin\Factory\PlacedOrderViewFactory">
+            <argument type="service" id="sylius.shop_api_plugin.factory.cart_item_view_factory" />
+            <argument type="service" id="sylius.shop_api_plugin.factory.address_view_factory" />
+            <argument type="service" id="sylius.shop_api_plugin.factory.total_view_factory" />
+            <argument type="service" id="sylius.shop_api_plugin.factory.shipment_view_factory" />
+            <argument type="service" id="sylius.shop_api_plugin.factory.payment_view_factory" />
+            <argument type="service" id="sylius.shop_api_plugin.factory.adjustment_view_factory" />
+            <argument type="string">%sylius.shop_api.view.placed_order.class%</argument>
+        </service>
+
         <service id="sylius.shop_api_plugin.factory.adjustment_view_factory" class="Sylius\ShopApiPlugin\Factory\AdjustmentViewFactory">
             <argument type="service" id="sylius.shop_api_plugin.factory.price_view_factory" />
             <argument type="string">%sylius.shop_api.view.adjustment.class%</argument>

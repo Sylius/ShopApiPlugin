@@ -55,6 +55,7 @@ final class Configuration implements ConfigurationInterface
                         ->scalarNode('payment')->defaultValue(View\PaymentView::class)->end()
                         ->scalarNode('payment_method')->defaultValue(View\PaymentMethodView::class)->end()
                         ->scalarNode('price')->defaultValue(View\PriceView::class)->end()
+                        ->scalarNode('placed_order')->defaultValue(View\PlacedOrderView::class)->end()
                         ->scalarNode('product')->defaultValue(View\ProductView::class)->end()
                         ->scalarNode('product_attribute_value')->defaultValue(View\ProductAttributeValueView::class)->end()
                         ->scalarNode('product_review')->defaultValue(View\ProductReviewView::class)->end()

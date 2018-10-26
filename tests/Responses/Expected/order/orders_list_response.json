@@ -1,0 +1,113 @@
+[
+    {
+        "channel": "WEB_GB",
+        "currency": "GBP",
+        "locale": "en_GB",
+        "checkoutState": "completed",
+        "items": [
+            {
+                "id": @integer@,
+                "quantity": 2,
+                "total": 3998,
+                "product": {
+                    "code": "LOGAN_MUG_CODE",
+                    "name": "Logan Mug",
+                    "slug": "logan-mug",
+                    "description": "Some description Lorem ipsum dolor sit amet.",
+                    "averageRating": 0,
+                    "taxons": {
+                        "main": "MUG",
+                        "others": [
+                            "MUG",
+                            "BRAND"
+                        ]
+                    },
+                    "variants": [
+                        {
+                            "code": "LOGAN_MUG_CODE",
+                            "name": "Logan Mug",
+                            "axis": [],
+                            "nameAxis": {},
+                            "price": {
+                                "current": 1999,
+                                "currency": "GBP"
+                            },
+                            "images": []
+                        }
+                    ],
+                    "attributes": [
+                        {
+                            "code": "MUG_MATERIAL_CODE",
+                            "name": "Mug material",
+                            "value": "Wood"
+                        }
+                    ],
+                    "associations": [],
+                    "images": [
+                        {
+                            "code": "thumbnail",
+                            "path": "\/uo\/mug.jpg"
+                        }
+                    ],
+                    "_links": {
+                        "self": {
+                            "href": "\/shop-api\/products-by-slug\/logan-mug"
+                        }
+                    }
+                }
+            }
+        ],
+        "totals": {
+            "total": 5498,
+            "items": 3998,
+            "taxes": 0,
+            "shipping": 1500,
+            "promotion": 0
+        },
+        "shippingAddress": {
+            "firstName": "Jeanie",
+            "lastName": "Metz",
+            "countryCode": "GB",
+            "street": "McGlynn Island",
+            "city": "Klingside",
+            "postcode": "33553"
+        },
+        "billingAddress": {
+            "firstName": "Jeanie",
+            "lastName": "Metz",
+            "countryCode": "GB",
+            "street": "Kupreska",
+            "city": "Klingside",
+            "postcode": "33553"
+        },
+        "payments": [
+            {
+                "state": "cart",
+                "method": {
+                    "code": "PBC",
+                    "name": "Pay by check",
+                    "description": @string@
+                },
+                "price": {
+                    "current": 5498,
+                    "currency": "GBP"
+                }
+            }
+        ],
+        "shipments": [
+            {
+                "state": "cart",
+                "method": {
+                    "code": "DHL",
+                    "name": "DHL",
+                    "description": @string@,
+                    "price": {
+                        "current": 1500,
+                        "currency": "GBP"
+                    }
+                }
+            }
+        ],
+        "cartDiscounts": []
+    }
+]
