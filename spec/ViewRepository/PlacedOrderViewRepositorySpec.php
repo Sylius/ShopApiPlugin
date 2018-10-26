@@ -20,11 +20,11 @@ final class PlacedOrderViewRepositorySpec extends ObjectBehavior
         OrderRepositoryInterface $orderRepository,
         CustomerRepositoryInterface $customerRepository,
         PlacedOrderViewFactoryInterface $placedOrderViewFactory
-    ) {
+    ): void {
         $this->beConstructedWith($orderRepository, $customerRepository, $placedOrderViewFactory);
     }
 
-    function it_is_placed_order_view_repository()
+    function it_is_placed_order_view_repository(): void
     {
         $this->shouldImplement(PlacedOrderViewRepositoryInterface::class);
     }

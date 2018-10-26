@@ -32,7 +32,7 @@ final class PlacedOrderViewFactorySpec extends ObjectBehavior
         ShipmentViewFactoryInterface $shipmentViewFactory,
         PaymentViewFactoryInterface $paymentViewFactory,
         AdjustmentViewFactoryInterface $adjustmentViewFactory
-    ) {
+    ): void {
         $this->beConstructedWith(
             $cartItemViewFactory,
             $addressViewFactory,
@@ -44,7 +44,7 @@ final class PlacedOrderViewFactorySpec extends ObjectBehavior
         );
     }
 
-    function it_is_placed_order_view_factory()
+    function it_is_placed_order_view_factory(): void
     {
         $this->shouldImplement(PlacedOrderViewFactoryInterface::class);
     }
@@ -58,7 +58,7 @@ final class PlacedOrderViewFactorySpec extends ObjectBehavior
         AdjustmentInterface $similarAdjustment,
         AdjustmentViewFactoryInterface $adjustmentViewFactory,
         TotalViewFactoryInterface $totalViewFactory
-    ) {
+    ): void {
         $cart->getItemsTotal()->willReturn(1100);
         $cart->getChannel()->willReturn($channel);
         $cart->getCurrencyCode()->willReturn('GBP');
