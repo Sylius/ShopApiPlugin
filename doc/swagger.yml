@@ -31,6 +31,11 @@ tags:
   externalDocs:
       description: "Find out more"
       url: "http://docs.sylius.org/en/latest/book/orders/checkout.html"
+- name: "order"
+  description: "Showing the order information"
+  externalDocs:
+    description: "Find out more"
+    url: "http://docs.sylius.com/en/latest/book/orders/orders.html"
 - name: "users"
   description: "All actions related to user functionality."
   externalDocs:
@@ -883,6 +888,21 @@ paths:
                 description: "There were validation errors"
               500:
                 description: "Channel not found"
+    /orders:
+        get:
+            tags:
+            - "order"
+            summary: "Shows a list of orders of the customer"
+            operationId: "showsOrderId"
+            responses:
+                200:
+                    description: "Shows a list of placed orders of the customer"
+                    type: "array"
+                    items:
+                        type: "object"
+                        $ref: "#/definitions/Cart"
+                401:
+                    description: "User token invalid"
     /me:
         get:
             tags:
@@ -1194,6 +1214,24 @@ definitions:
                         methods:
                             type: "object"
                             $ref: "#/definitions/ShippingMethod"
+    Shipment:
+        type: "object"
+        properties:
+            state:
+                description: "Current state of a shipment."
+                type: "string"
+                default: "cart"
+                externalDocs:
+                  description: "Find out more about shipment states in the Sylius documentation."
+                  url: "http://docs.sylius.org/en/latest/book/orders/shipments.html#the-shipment-state-machine"
+                enum:
+                - "cart"
+                - "ready"
+                - "cancelled"
+                - "shipped"
+            method:
+                type: "object"
+                $ref: "#/definitions/ShippingMethod"
     AvailablePaymentMethods:
         type: "object"
         description: "Available payment methods for each payment."
@@ -1208,6 +1246,27 @@ definitions:
                             additionalProperties:
                                 type: "object"
                                 $ref: "#/definitions/PaymentMethod"
+    Payment:
+        type: "object"
+        properties:
+            state:
+                description: "Current state of a payment."
+                type: "string"
+                default: "cart"
+                externalDocs:
+                  description: "Find out more about payment states in the Sylius documentation."
+                  url: "http://docs.sylius.org/en/latest/book/orders/payments.html#payment-state-machine"
+                enum:
+                - "cart"
+                - "new"
+                - "processing"
+                - "completed"
+                - "failed"
+                - "cancelled"
+                - "refunded"
+            method:
+                type: "object"
+                $ref: "#/definitions/PaymentMethod"
     Cart:
         type: "object"
         description: "Cart with information about items, current state, totals and more."
@@ -1248,27 +1307,7 @@ definitions:
                     $ref: '#/definitions/CartItem'
             totals:
                 type: "object"
-                properties:
-                    total:
-                        description: "Total cost of the cart. The sum of all properties below."
-                        type: "integer"
-                        example: 0
-                    items:
-                        description: "Total cost of the cart items."
-                        type: "integer"
-                        example: 0
-                    taxes:
-                        description: "Total amount of cart taxes."
-                        type: "integer"
-                        example: 0
-                    shipping:
-                        description: "Total cost of the cart shipment."
-                        type: "integer"
-                        example: 0
-                    promotion:
-                        description: "Total amount of cart promotions."
-                        type: "integer"
-                        example: 0
+                $ref: "#/definitions/TotalsView"
             shippingAddress:
                 type: "object"
                 $ref: "#/definitions/Address"
@@ -1278,46 +1317,11 @@ definitions:
             payments:
                 type: "array"
                 items:
-                    type: "object"
-                    properties:
-                        state:
-                            description: "Current state of a payment."
-                            type: "string"
-                            default: "cart"
-                            externalDocs:
-                                description: "Find out more about payment states in the Sylius documentation."
-                                url: "http://docs.sylius.org/en/latest/book/orders/payments.html#payment-state-machine"
-                            enum:
-                            - "cart"
-                            - "new"
-                            - "processing"
-                            - "completed"
-                            - "failed"
-                            - "cancelled"
-                            - "refunded"
-                        method:
-                            type: "object"
-                            $ref: "#/definitions/PaymentMethod"
+                    $ref: "#/definitions/Payment"
             shipments:
                 type: "array"
                 items:
-                    type: "object"
-                    properties:
-                        state:
-                            description: "Current state of a shipment."
-                            type: "string"
-                            default: "cart"
-                            externalDocs:
-                                description: "Find out more about shipment states in the Sylius documentation."
-                                url: "http://docs.sylius.org/en/latest/book/orders/shipments.html#the-shipment-state-machine"
-                            enum:
-                            - "cart"
-                            - "ready"
-                            - "cancelled"
-                            - "shipped"
-                        method:
-                            type: "object"
-                            $ref: "#/definitions/ShippingMethod"
+                    $ref: "#/definitions/Shipment"
             cartDiscounts:
                 type: "array"
                 items:
@@ -1724,6 +1728,70 @@ definitions:
             phoneNumber:
                 type: "string"
                 example: "+490000000000"
+    TotalsView:
+        type: "object"
+        properties:
+            total:
+                description: "Total cost of the cart. The sum of all properties below."
+                type: "integer"
+                example: 0
+            items:
+                description: "Total cost of the cart items."
+                type: "integer"
+                example: 0
+            taxes:
+                description: "Total amount of cart taxes."
+                type: "integer"
+                example: 0
+            shipping:
+                description: "Total cost of the cart shipment."
+                type: "integer"
+                example: 0
+            promotion:
+                description: "Total amount of cart promotions."
+                type: "integer"
+                example: 0
+    PlacedOrder:
+        channel:
+            type: "string"
+            example: "WEB_US"
+        currency:
+            type: "string"
+            example: "USD"
+        locale:
+            type: "string"
+            example: "en_US"
+        checkoutState:
+            type: "string"
+            example: "shipped"
+        totals:
+            $ref: "#/definitions/TotalsView"
+        items:
+            type: "array"
+            items:
+                $ref: "#/definitions/OrderItem"
+        shipments:
+            type: "array"
+            items:
+                $ref: "#/definitions/Shipment"
+        payment:
+            type: "array"
+            items:
+                $ref: "#/definitions/Payment"
+        cartDiscounts:
+            type: "object"
+            someCode:
+                $ref: "#/definitions/Discount"
+            someOtherCode:
+                $ref: "#/definitions/Discount"
+        shippingAddress:
+            type: "object"
+            $ref: "#/definitions/Address"
+        billingAddress:
+            type: "object"
+            $ref: "#/definitions/Address"
+
+
     GeneralError:
         type: "object"
         properties:
