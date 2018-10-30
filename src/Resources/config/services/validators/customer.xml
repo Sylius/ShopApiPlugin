@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services">
+    <services>
+        <defaults public="true" />
+
+        <service id="sylius.shop_api_plugin.validator.shop_user_exists_validator"
+                 class="Sylius\ShopApiPlugin\Validator\ShopUserExistsValidator">
+            <argument type="service" id="sylius.repository.shop_user"/>
+            <tag name="validator.constraint_validator" alias="sylius_shop_api_shop_user_exists_validator"/>
+        </service>
+
+        <service id="sylius.shop_api_plugin.validator.shop_user_does_not_exist_validator"
+                 class="Sylius\ShopApiPlugin\Validator\ShopUserDoesNotExistValidator">
+            <argument type="service" id="sylius.repository.shop_user"/>
+            <tag name="validator.constraint_validator" alias="sylius_shop_api_shop_user_does_not_exist_validator"/>
+        </service>
+    </services>
+</container>
