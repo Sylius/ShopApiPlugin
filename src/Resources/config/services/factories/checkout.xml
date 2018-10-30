@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <defaults public="true"/>
+
+        <service id="sylius.shop_api_plugin.factory.shipping_method_view_factory"
+                 class="Sylius\ShopApiPlugin\Factory\ShippingMethodViewFactory">
+            <argument type="service" id="sylius.registry.shipping_calculator"/>
+            <argument type="service" id="sylius.shop_api_plugin.factory.price_view_factory"/>
+            <argument type="string">%sylius.shop_api.view.shipping_method.class%</argument>
+        </service>
+
+        <service id="sylius.shop_api_plugin.factory.shipment_view_factory"
+                 class="Sylius\ShopApiPlugin\Factory\ShipmentViewFactory">
+            <argument type="service" id="sylius.shop_api_plugin.factory.shipping_method_view_factory"/>
+            <argument type="string">%sylius.shop_api.view.shipment.class%</argument>
+        </service>
+
+        <service id="sylius.shop_api_plugin.factory.payment_view_factory"
+                 class="Sylius\ShopApiPlugin\Factory\PaymentViewFactory">
+            <argument type="service" id="sylius.shop_api_plugin.factory.payment_method_view_factory"/>
+            <argument type="service" id="sylius.shop_api_plugin.factory.price_view_factory"/>
+            <argument type="string">%sylius.shop_api.view.payment.class%</argument>
+        </service>
+
+        <service id="sylius.shop_api_plugin.factory.payment_method_view_factory"
+                 class="Sylius\ShopApiPlugin\Factory\PaymentMethodViewFactory">
+            <argument type="string">%sylius.shop_api.view.payment_method.class%</argument>
+        </service>
+
+    </services>
+</container>

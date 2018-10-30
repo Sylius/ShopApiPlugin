@@ -1,0 +1,58 @@
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <defaults public="true"/>
+
+        <service id="sylius.shop_api_plugin.factory.product_variant_view_factory"
+                 class="Sylius\ShopApiPlugin\Factory\ProductVariantViewFactory">
+            <argument type="service" id="sylius.shop_api_plugin.factory.price_view_factory"/>
+            <argument type="string">%sylius.shop_api.view.product_variant.class%</argument>
+        </service>
+
+        <service id="sylius.shop_api_plugin.factory.product_view_factory"
+                 class="Sylius\ShopApiPlugin\Factory\ProductViewFactory">
+            <argument type="service" id="sylius.shop_api_plugin.factory.image_view_factory"/>
+            <argument type="service" id="sylius.shop_api_plugin.factory.limited_product_attribute_values_view_factory"/>
+            <argument type="string">%sylius.shop_api.view.product.class%</argument>
+            <argument type="string">%sylius.shop_api.view.product_taxon.class%</argument>
+            <argument>%locale%</argument>
+        </service>
+
+        <service id="sylius.shop_api_plugin.factory.detailed_product_view_factory"
+                 class="Sylius\ShopApiPlugin\Factory\DetailedProductViewFactory">
+            <argument type="service" id="sylius.shop_api_plugin.factory.list_product_view_factory"/>
+            <argument type="service" id="sylius.shop_api_plugin.generator.product_breadcrumb_generator"/>
+        </service>
+
+        <service id="sylius.shop_api_plugin.factory.list_product_view_factory"
+                 class="Sylius\ShopApiPlugin\Factory\ListProductViewFactory">
+            <argument type="service" id="sylius.shop_api_plugin.factory.image_view_factory"/>
+            <argument type="service" id="sylius.shop_api_plugin.factory.product_view_factory"/>
+            <argument type="service" id="sylius.shop_api_plugin.factory.product_variant_view_factory"/>
+        </service>
+
+        <service id="sylius.shop_api_plugin.factory.product_attribute_value_view_factory"
+                 class="Sylius\ShopApiPlugin\Factory\ProductAttributeValueViewFactory">
+            <argument type="string">%sylius.shop_api.view.product_attribute_value.class%</argument>
+        </service>
+
+        <service id="sylius.shop_api_plugin.factory.product_review_view_factory"
+                 class="Sylius\ShopApiPlugin\Factory\ProductReviewViewFactory">
+            <argument type="string">%sylius.shop_api.view.product_review.class%</argument>
+        </service>
+
+        <service id="sylius.shop_api_plugin.factory.limited_product_attribute_values_view_factory"
+                 class="Sylius\ShopApiPlugin\Factory\LimitedProductAttributeValuesViewFactory">
+            <argument type="service" id="sylius.shop_api_plugin.factory.product_attribute_value_view_factory"/>
+            <argument>%sylius.shop_api.included_attributes%</argument>
+        </service>
+
+        <service id="sylius.shop_api_plugin.factory.page_view_factory"
+                 class="Sylius\ShopApiPlugin\Factory\PageViewFactory">
+            <argument type="service" id="router"/>
+            <argument type="string">%sylius.shop_api.view.page.class%</argument>
+            <argument type="string">%sylius.shop_api.view.page_links.class%</argument>
+        </service>
+    </services>
+</container>
