@@ -49,7 +49,7 @@ final class PlacedOrderViewRepositorySpec extends ObjectBehavior
 
         $placedOrderViewFactory->create($firstOrder, 'en_GB')->willReturn($placedOrderView);
 
-        $this->getCompletedByCustomerEmail('test@example.com')->shouldReturn([$placedOrderView]);
+        $this->getAllCompletedByCustomerEmail('test@example.com')->shouldReturn([$placedOrderView]);
     }
 
     function it_provides_placed_order_by_customer_email_and_order_id(
@@ -71,7 +71,7 @@ final class PlacedOrderViewRepositorySpec extends ObjectBehavior
 
         $placedOrderViewFactory->create($order, 'en_GB')->willReturn($placedOrderView);
 
-        $this->getCompletedByCustomerEmailAndId('test@example.com', 1)->shouldReturn($placedOrderView);
+        $this->getOneCompletedByCustomerEmailAndId('test@example.com', 1)->shouldReturn($placedOrderView);
     }
 
     function it_throws_exception_if_there_is_no_placed_order_for_given_customer_email_and_order_id(
@@ -88,7 +88,7 @@ final class PlacedOrderViewRepositorySpec extends ObjectBehavior
 
         $this
             ->shouldThrow(\InvalidArgumentException::class)
-            ->during('getCompletedByCustomerEmailAndId', ['test@example.com', 1])
+            ->during('getOneCompletedByCustomerEmailAndId', ['test@example.com', 1])
         ;
     }
 
@@ -99,12 +99,12 @@ final class PlacedOrderViewRepositorySpec extends ObjectBehavior
 
         $this
             ->shouldThrow(\InvalidArgumentException::class)
-            ->during('getCompletedByCustomerEmail', ['test@example.com'])
+            ->during('getAllCompletedByCustomerEmail', ['test@example.com'])
         ;
 
         $this
             ->shouldThrow(\InvalidArgumentException::class)
-            ->during('getCompletedByCustomerEmailAndId', ['test@example.com', 1])
+            ->during('getOneCompletedByCustomerEmailAndId', ['test@example.com', 1])
         ;
     }
 }

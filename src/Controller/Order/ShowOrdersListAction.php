@@ -44,7 +44,7 @@ final class ShowOrdersListAction
         }
 
         return $this->viewHandler->handle(
-            View::create($this->placedOrderQuery->getCompletedByCustomerEmail($user->getCustomer()->getEmail()), Response::HTTP_OK)
+            View::create($this->placedOrderQuery->getAllCompletedByCustomerEmail($user->getCustomer()->getEmail()), Response::HTTP_OK)
         );
     }
 }

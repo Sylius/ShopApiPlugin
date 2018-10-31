@@ -43,7 +43,7 @@ final class ShowOrderDetailsAction
 
             $order = $this
                 ->placedOrderQuery
-                ->getCompletedByCustomerEmailAndId($user->getCustomer()->getEmail(), (int) $request->attributes->get('id'))
+                ->getOneCompletedByCustomerEmailAndId($user->getCustomer()->getEmail(), (int) $request->attributes->get('id'))
             ;
         } catch (TokenNotFoundException $exception) {
             return $this->viewHandler->handle(View::create(null, Response::HTTP_UNAUTHORIZED));

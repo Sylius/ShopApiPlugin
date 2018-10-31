@@ -34,7 +34,7 @@ final class PlacedOrderViewRepository implements PlacedOrderViewRepositoryInterf
         $this->placedOrderViewFactory = $placedOrderViewFactory;
     }
 
-    public function getCompletedByCustomerEmail(string $customerEmail): array
+    public function getAllCompletedByCustomerEmail(string $customerEmail): array
     {
         /** @var CustomerInterface|null $customer */
         $customer = $this->customerRepository->findOneBy(['email' => $customerEmail]);
@@ -52,7 +52,7 @@ final class PlacedOrderViewRepository implements PlacedOrderViewRepositoryInterf
         return $cartViews;
     }
 
-    public function getCompletedByCustomerEmailAndId(string $customerEmail, int $id): PlacedOrderView
+    public function getOneCompletedByCustomerEmailAndId(string $customerEmail, int $id): PlacedOrderView
     {
         /** @var CustomerInterface|null $customer */
         $customer = $this->customerRepository->findOneBy(['email' => $customerEmail]);
