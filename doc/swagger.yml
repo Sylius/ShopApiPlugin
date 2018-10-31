@@ -900,7 +900,7 @@ paths:
                     type: "array"
                     items:
                         type: "object"
-                        $ref: "#/definitions/Cart"
+                        $ref: "#/definitions/PlacedOrder"
                 401:
                     description: "User token invalid"
     /me:
