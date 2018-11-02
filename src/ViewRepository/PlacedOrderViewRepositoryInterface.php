@@ -9,5 +9,7 @@ use Sylius\ShopApiPlugin\View\PlacedOrderView;
 interface PlacedOrderViewRepositoryInterface
 {
     /** @return array|PlacedOrderView[] */
-    public function getCompletedByCustomerEmail(string $customerEmail): array;
+    public function getAllCompletedByCustomerEmail(string $customerEmail): array;
+
+    public function getOneCompletedByCustomerEmailAndId(string $customerEmail, int $id): PlacedOrderView;
 }

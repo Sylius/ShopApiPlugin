@@ -51,7 +51,6 @@ final class PlacedOrderViewFactory implements PlacedOrderViewFactoryInterface
         $this->placedOrderViewClass = $placedOrderViewClass;
     }
 
-    /** {@inheritdoc} */
     public function create(OrderInterface $cart, string $localeCode): PlacedOrderView
     {
         /** @var PlacedOrderView $cartView */

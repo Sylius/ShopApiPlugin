@@ -1,5 +1,5 @@
 Sylius\Component\Core\Model\Order:
-    completed_order:
+    placed_order:
         channel: "@gb_web_channel"
         items: ["@mug_item"]
         currencyCode: "GBP"
@@ -7,11 +7,11 @@ Sylius\Component\Core\Model\Order:
         customer: "@customer_oliver"
         checkoutState: "completed"
         state: "cart"
-        payments: ["@completed_order_payment"]
-        shipments: ["@completed_order_shipment"]
+        payments: ["@placed_order_payment"]
+        shipments: ["@placed_order_shipment"]
         shippingAddress: "@customer_oliver_home_address"
         billingAddress: "@customer_oliver_work_address"
-    not_completed_order:
+    not_placed_order:
         channel: "@gb_web_channel"
         items: ["@large_t_shirt_item"]
         currencyCode: "GBP"
@@ -19,8 +19,8 @@ Sylius\Component\Core\Model\Order:
         customer: "@customer_oliver"
         checkoutState: "cart"
         state: "cart"
-        payments: ["@not_completed_order_payment"]
-        shipments: ["@not_completed_order_shipment"]
+        payments: ["@not_placed_order_payment"]
+        shipments: ["@not_placed_order_shipment"]
         shippingAddress: "@customer_oliver_freelance_address"
         billingAddress: "@customer_hater_address"
 
@@ -39,23 +39,23 @@ Sylius\Component\Core\Model\OrderItemUnit:
         __construct: ["@large_t_shirt_item"]
 
 Sylius\Component\Core\Model\Payment:
-    completed_order_payment:
+    placed_order_payment:
         state: "cart"
         method: "@pay_by_check"
-        order: "@completed_order"
+        order: "@placed_order"
         currencyCode: "GBP"
-    not_completed_order_payment:
+    not_placed_order_payment:
         state: "cart"
         method: "@cash_on_delivery"
-        order: "@not_completed_order"
+        order: "@not_placed_order"
         currencyCode: "GBP"
 
 Sylius\Component\Core\Model\Shipment:
-    completed_order_shipment:
+    placed_order_shipment:
         state: "cart"
         method: "@dhl"
-        order: "@completed_order"
-    not_completed_order_shipment:
+        order: "@placed_order"
+    not_placed_order_shipment:
         state: "cart"
         method: "@fedEx"
-        order: "@not_completed_order"
+        order: "@not_placed_order"
