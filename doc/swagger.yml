@@ -903,6 +903,20 @@ paths:
                         $ref: "#/definitions/PlacedOrder"
                 401:
                     description: "User token invalid"
+    /orders/{id}:
+        get:
+            tags:
+            - "order"
+            summary: "Shows details of specific customer's order"
+            responses:
+                200:
+                    description: "Shows details of specific customer's order with given ID"
+                    type: "object"
+                    $ref: "#/definitions/PlacedOrderDetails"
+                401:
+                    description: "User token invalid"
+                404:
+                    description: "Order with given ID not found"
     /me:
         get:
             tags:
