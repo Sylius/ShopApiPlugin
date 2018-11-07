@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Validator;
+namespace Sylius\ShopApiPlugin\Validator\Cart;
 
+use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
-final class TokenIsNotUsedValidator extends ConstraintValidator
+final class CartExistsValidator extends ConstraintValidator
 {
     /** @var OrderRepositoryInterface */
     private $orderRepository;
@@ -21,7 +22,7 @@ final class TokenIsNotUsedValidator extends ConstraintValidator
     /** {@inheritdoc} */
     public function validate($token, Constraint $constraint)
     {
-        if (null !== $this->orderRepository->findOneBy(['tokenValue' => $token])) {
+        if (null === $this->orderRepository->findOneBy(['tokenValue' => $token, 'state' => OrderInterface::STATE_CART])) {
             $this->context->addViolation($constraint->message);
         }
     }

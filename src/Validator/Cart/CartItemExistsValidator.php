@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Validator;
+namespace Sylius\ShopApiPlugin\Validator\Cart;
 
 use Sylius\Component\Order\Repository\OrderItemRepositoryInterface;
 use Symfony\Component\Validator\Constraint;
