@@ -49,6 +49,31 @@ tags:
 schemes:
 - "https"
 paths:
+    /carts:
+        post:
+            tags:
+            - "cart"
+            summary: "Pick up your cart from the store"
+            description: "This endpoint will allow you to create a new cart."
+            operationId: "cartPickUp"
+            consumes:
+            - "application/json"
+            produces:
+            - "application/json"
+            parameters:
+            -   in: "body"
+                name: "content"
+                description: "Contains an information about the channel which should be associated with the newly created cart"
+                required: true
+                schema:
+                    $ref: "#/definitions/PickupCartRequest"
+            responses:
+                201:
+                    description: "Cart has been picked up"
+                400:
+                    description: "Invalid input"
+                    schema:
+                        $ref: "#/definitions/GeneralError"
     /carts/{token}:
         parameters:
         - name: "token"
@@ -57,11 +82,12 @@ paths:
           required: true
           type: "string"
         post:
+            deprecated: true
             tags:
             - "cart"
             summary: "Pick up your cart from the store"
             description: "This endpoint will allow you to assign a new cart to the provided token. We recommend using UUID as a token to avoid duplication. If any of previous carts or orders already have the same token value an exception will be thrown."
-            operationId: "cartPickUp"
+            operationId: "deprecatedCartPickUp"
             consumes:
             - "application/json"
             produces:
