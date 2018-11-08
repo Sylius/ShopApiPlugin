@@ -34,7 +34,7 @@ final class CartAddCouponShopApiTest extends JsonApiTestCase
         }
 EOT;
 
-        $this->client->request('PUT', sprintf('/shop-api/carts/%s/coupon', $token), [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('PUT', sprintf('/shop-api/WEB_GB/carts/%s/coupon', $token), [], [], static::$acceptAndContentTypeHeader, $data);
 
         $response = $this->client->getResponse();
 
@@ -55,7 +55,7 @@ EOT;
         $bus->handle(new PickupCart($token, 'WEB_GB'));
         $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
 
-        $this->client->request('PUT', sprintf('/shop-api/carts/%s/coupon', $token), [], [], static::$acceptAndContentTypeHeader);
+        $this->client->request('PUT', sprintf('/shop-api/WEB_GB/carts/%s/coupon', $token), [], [], static::$acceptAndContentTypeHeader);
 
         $response = $this->client->getResponse();
 
@@ -76,7 +76,7 @@ EOT;
         }
 EOT;
 
-        $this->client->request('PUT', '/shop-api/carts/WRONGTOKEN/coupon', [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('PUT', '/shop-api/WEB_GB/carts/WRONGTOKEN/coupon', [], [], static::$acceptAndContentTypeHeader, $data);
 
         $response = $this->client->getResponse();
 
@@ -104,7 +104,7 @@ EOT;
         }
 EOT;
 
-        $this->client->request('PUT', sprintf('/shop-api/carts/%s/coupon', $token), [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('PUT', sprintf('/shop-api/WEB_GB/carts/%s/coupon', $token), [], [], static::$acceptAndContentTypeHeader, $data);
 
         $response = $this->client->getResponse();
 
@@ -132,7 +132,7 @@ EOT;
         }
 EOT;
 
-        $this->client->request('PUT', sprintf('/shop-api/carts/%s/coupon', $token), [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('PUT', sprintf('/shop-api/WEB_GB/carts/%s/coupon', $token), [], [], static::$acceptAndContentTypeHeader, $data);
 
         $response = $this->client->getResponse();
 
@@ -160,7 +160,7 @@ EOT;
         }
 EOT;
 
-        $this->client->request('PUT', sprintf('/shop-api/carts/%s/coupon', $token), [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('PUT', sprintf('/shop-api/WEB_GB/carts/%s/coupon', $token), [], [], static::$acceptAndContentTypeHeader, $data);
 
         $response = $this->client->getResponse();
 

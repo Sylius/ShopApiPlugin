@@ -31,7 +31,7 @@ final class AddressBookSetDefaultAddressApiTest extends JsonApiTestCase
         /** @var ResourceInterface $address */
         $address = $addressRepository->findOneBy(['street' => 'Kupreska']);
 
-        $this->client->request('PATCH', sprintf('/shop-api/address-book/%s/default', $address->getId()), [], [], self::$acceptAndContentTypeHeader);
+        $this->client->request('PATCH', sprintf('/shop-api/WEB_GB/address-book/%s/default', $address->getId()), [], [], self::$acceptAndContentTypeHeader);
         $response = $this->client->getResponse();
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
 

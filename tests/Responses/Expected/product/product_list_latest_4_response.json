@@ -133,7 +133,7 @@
                         ],
                         "_links": {
                             "self": {
-                                "href": "\/shop-api\/products-by-slug\/logan-mug"
+                                "href": "\/shop-api\/WEB_GB\/products-by-slug\/logan-mug"
                             }
                         }
                     },
@@ -202,7 +202,7 @@
                         ],
                         "_links": {
                             "self": {
-                                "href": "\/shop-api\/products-by-slug\/logan-t-shirt"
+                                "href": "\/shop-api\/WEB_GB\/products-by-slug\/logan-t-shirt"
                             }
                         }
                     }
@@ -211,7 +211,7 @@
             "images": [],
             "_links": {
                 "self": {
-                    "href": "\/shop-api\/products-by-slug\/logan-hat"
+                    "href": "\/shop-api\/WEB_GB\/products-by-slug\/logan-hat"
                 }
             }
         },
@@ -262,7 +262,7 @@
             ],
             "_links": {
                 "self": {
-                    "href": "\/shop-api\/products-by-slug\/logan-mug"
+                    "href": "\/shop-api\/WEB_GB\/products-by-slug\/logan-mug"
                 }
             }
         },
@@ -281,7 +281,7 @@
             "images": [],
             "_links": {
                 "self": {
-                    "href": "\/shop-api\/products-by-slug\/logan-shoes"
+                    "href": "\/shop-api\/WEB_GB\/products-by-slug\/logan-shoes"
                 }
             }
         },
@@ -350,7 +350,7 @@
             ],
             "_links": {
                 "self": {
-                    "href": "\/shop-api\/products-by-slug\/logan-t-shirt"
+                    "href": "\/shop-api\/WEB_GB\/products-by-slug\/logan-t-shirt"
                 }
             }
         }

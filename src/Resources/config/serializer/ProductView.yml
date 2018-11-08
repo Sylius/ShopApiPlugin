@@ -48,4 +48,5 @@ Sylius\ShopApiPlugin\View\ProductView:
             href:
                 route: sylius_shop_api_product_show_details_by_slug
                 parameters:
+                    channelCode: "WEB_GB"
                     slug: expr(object.slug)

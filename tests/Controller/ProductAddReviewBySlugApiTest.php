@@ -27,7 +27,7 @@ final class ProductAddReviewBySlugApiTest extends JsonApiTestCase
             "email": "oliver@example.com"
         }
 EOT;
-        $this->client->request('POST', '/shop-api/product-reviews-by-slug/logan-mug', [], [], self::$acceptAndContentTypeHeader, $data);
+        $this->client->request('POST', '/shop-api/WEB_GB/product-reviews-by-slug/logan-mug', [], [], self::$acceptAndContentTypeHeader, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_CREATED);
@@ -50,7 +50,7 @@ EOT;
             "email": "oliver@example.com"
         }
 EOT;
-        $this->client->request('POST', '/shop-api/product-reviews-by-slug/logan-mug', [], [], self::$acceptAndContentTypeHeader, $data);
+        $this->client->request('POST', '/shop-api/WEB_GB/product-reviews-by-slug/logan-mug', [], [], self::$acceptAndContentTypeHeader, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_CREATED);

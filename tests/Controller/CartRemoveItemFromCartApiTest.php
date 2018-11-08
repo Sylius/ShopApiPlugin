@@ -36,7 +36,7 @@ final class CartRemoveItemFromCartApiTest extends JsonApiTestCase
         /** @var OrderItemInterface $orderItem */
         $orderItem = $order->getItems()->first();
 
-        $this->client->request('DELETE', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/items/' . $orderItem->getId(), [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('DELETE', '/shop-api/WEB_GB/carts/SDAOSLEFNWU35H3QLI5325/items/' . $orderItem->getId(), [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/cart_after_deleting_an_item', Response::HTTP_OK);
@@ -55,7 +55,7 @@ final class CartRemoveItemFromCartApiTest extends JsonApiTestCase
         $bus = $this->get('tactician.commandbus');
         $bus->handle(new PickupCart($token, 'WEB_GB'));
 
-        $this->client->request('DELETE', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/items/420', [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('DELETE', '/shop-api/WEB_GB/carts/SDAOSLEFNWU35H3QLI5325/items/420', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/cart_item_has_not_been_found_response', Response::HTTP_BAD_REQUEST);
@@ -84,7 +84,7 @@ final class CartRemoveItemFromCartApiTest extends JsonApiTestCase
         /** @var OrderItemInterface $orderItem */
         $orderItem = $order->getItems()->last();
 
-        $this->client->request('DELETE', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/items/' . $orderItem->getId(), [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('DELETE', '/shop-api/WEB_GB/carts/SDAOSLEFNWU35H3QLI5325/items/' . $orderItem->getId(), [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/reprocessed_cart_after_deleting_an_item', Response::HTTP_OK);

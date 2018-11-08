@@ -28,7 +28,7 @@ EOT;
         $response = json_decode($this->client->getResponse()->getContent(), true);
         $this->client->setServerParameter('HTTP_Authorization', sprintf('Bearer %s', $response['token']));
 
-        $this->client->request('GET', '/shop-api/me', [], [], [
+        $this->client->request('GET', '/shop-api/WEB_GB/me', [], [], [
             'CONTENT_TYPE' => 'application/json',
             'ACCEPT' => 'application/json',
         ]);

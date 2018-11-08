@@ -31,7 +31,7 @@ final class CustomerVerifyApiTest extends JsonApiTestCase
         }
 EOT;
 
-        $this->client->request('POST', '/shop-api/register', [], [], ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'], $data);
+        $this->client->request('POST', '/shop-api/WEB_GB/register', [], [], ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'], $data);
 
         /** @var UserRepositoryInterface $userRepository */
         $userRepository = $this->get('sylius.repository.shop_user');
@@ -39,7 +39,7 @@ EOT;
 
         $verifyEmail = sprintf('{"token": "%s"}', $user->getEmailVerificationToken());
 
-        $this->client->request('PUT', '/shop-api/verify-account', [], [], ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'], $verifyEmail);
+        $this->client->request('PUT', '/shop-api/WEB_GB/verify-account', [], [], ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'], $verifyEmail);
 
         $response = $this->client->getResponse();
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);

@@ -19,7 +19,7 @@ final class OrdersListApiTest extends JsonApiTestCase
         $this->loadFixturesFromFiles(['customer.yml', 'country.yml', 'address.yml', 'shop.yml', 'payment.yml', 'shipping.yml', 'order.yml']);
         $this->logInUser('oliver@queen.com', '123password');
 
-        $this->client->request('GET', '/shop-api/orders', [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('GET', '/shop-api/WEB_GB/orders', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'order/orders_list_response', Response::HTTP_OK);
@@ -30,7 +30,7 @@ final class OrdersListApiTest extends JsonApiTestCase
      */
     public function it_returns_an_unauthorized_exception_if_there_is_no_logged_in_user(): void
     {
-        $this->client->request('GET', '/shop-api/orders', [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('GET', '/shop-api/WEB_GB/orders', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_UNAUTHORIZED);

@@ -56,7 +56,7 @@ EOT;
         }
 EOT;
 
-        $this->client->request('POST', '/shop-api/register', [], [], ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'], $data);
+        $this->client->request('POST', '/shop-api/WEB_GB/register', [], [], ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'], $data);
 
         $data =
 <<<EOT

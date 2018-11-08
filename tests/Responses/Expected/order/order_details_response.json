@@ -50,7 +50,7 @@
                 ],
                 "_links": {
                     "self": {
-                        "href": "\/shop-api\/products-by-slug\/logan-mug"
+                        "href": "\/shop-api\/WEB_GB\/products-by-slug\/logan-mug"
                     }
                 }
             }

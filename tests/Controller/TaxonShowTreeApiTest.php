@@ -15,7 +15,7 @@ final class TaxonShowTreeApiTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
-        $this->client->request('GET', '/shop-api/taxons/', [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('GET', '/shop-api/WEB_GB/taxons/', [], [], ['ACCEPT' => 'application/json']);
 
         $response = $this->client->getResponse();
 
@@ -29,7 +29,7 @@ final class TaxonShowTreeApiTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
-        $this->client->request('GET', '/shop-api/taxons/?locale=de_DE', [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('GET', '/shop-api/WEB_GB/taxons/?locale=de_DE', [], [], ['ACCEPT' => 'application/json']);
 
         $response = $this->client->getResponse();
 

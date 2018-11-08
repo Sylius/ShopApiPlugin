@@ -43,7 +43,7 @@ final class AddressBookUpdateAddressApiTest extends JsonApiTestCase
             "phoneNumber": "0918972132"
         }
 EOT;
-        $this->client->request('PUT', sprintf('/shop-api/address-book/%s', $address->getId()), [], [], self::$contentTypeHeader, $data);
+        $this->client->request('PUT', sprintf('/shop-api/WEB_GB/address-book/%s', $address->getId()), [], [], self::$contentTypeHeader, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'address_book/update_address', Response::HTTP_OK);
@@ -86,7 +86,7 @@ EOT;
             "phoneNumber": "0918972132"
         }
 EOT;
-        $this->client->request('PUT', sprintf('/shop-api/address-book/%s', $address->getId()), [], [], self::$contentTypeHeader, $data);
+        $this->client->request('PUT', sprintf('/shop-api/WEB_GB/address-book/%s', $address->getId()), [], [], self::$contentTypeHeader, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -116,7 +116,7 @@ EOT;
             "postcode": "",
         }
 EOT;
-        $this->client->request('PUT', sprintf('/shop-api/address-book/%s', $address->getId()), [], [], self::$contentTypeHeader, $data);
+        $this->client->request('PUT', sprintf('/shop-api/WEB_GB/address-book/%s', $address->getId()), [], [], self::$contentTypeHeader, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_BAD_REQUEST);

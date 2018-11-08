@@ -15,7 +15,7 @@ final class ProductShowLatestApiTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
-        $this->client->request('GET', '/shop-api/product-latest/', ['channel' => 'WEB_GB'], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('GET', '/shop-api/WEB_GB/product-latest/', ['channel' => 'WEB_GB'], [], ['ACCEPT' => 'application/json']);
 
         $response = $this->client->getResponse();
 
@@ -29,7 +29,7 @@ final class ProductShowLatestApiTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
-        $this->client->request('GET', '/shop-api/product-latest/', ['channel' => 'WEB_GB', 'limit' => 2], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('GET', '/shop-api/WEB_GB/product-latest/', ['channel' => 'WEB_GB', 'limit' => 2], [], ['ACCEPT' => 'application/json']);
 
         $response = $this->client->getResponse();
 

@@ -69,6 +69,6 @@ EOT;
      */
     private function getPaymentUrl($token)
     {
-        return sprintf('/shop-api/checkout/%s/payment', $token);
+        return sprintf('/shop-api/WEB_GB/checkout/%s/payment', $token);
     }
 }

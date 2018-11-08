@@ -23,7 +23,7 @@ final class OrderShowApiTest extends JsonApiTestCase
         /** @var OrderInterface $placedOrder */
         $placedOrder = $fixtures['placed_order'];
 
-        $this->client->request('GET', '/shop-api/orders/' . $placedOrder->getId(), [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('GET', '/shop-api/WEB_GB/orders/' . $placedOrder->getId(), [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'order/order_details_response', Response::HTTP_OK);
@@ -37,7 +37,7 @@ final class OrderShowApiTest extends JsonApiTestCase
         $this->loadFixturesFromFiles(['customer.yml']);
         $this->logInUser('oliver@queen.com', '123password');
 
-        $this->client->request('GET', '/shop-api/orders/13', [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('GET', '/shop-api/WEB_GB/orders/13', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'order/order_not_found_response', Response::HTTP_NOT_FOUND);
@@ -48,7 +48,7 @@ final class OrderShowApiTest extends JsonApiTestCase
      */
     public function it_returns_an_unauthorized_exception_if_there_is_no_logged_in_user(): void
     {
-        $this->client->request('GET', '/shop-api/orders/2', [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('GET', '/shop-api/WEB_GB/orders/2', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_UNAUTHORIZED);

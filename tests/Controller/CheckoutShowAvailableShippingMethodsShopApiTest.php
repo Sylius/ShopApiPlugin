@@ -85,6 +85,6 @@ final class CheckoutShowAvailableShippingMethodsShopApiTest extends JsonApiTestC
      */
     private function getShippingUrl($token)
     {
-        return sprintf('/shop-api/checkout/%s/shipping', $token);
+        return sprintf('/shop-api/WEB_GB/checkout/%s/shipping', $token);
     }
 }

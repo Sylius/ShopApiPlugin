@@ -23,7 +23,7 @@ final class CustomerResetPasswordApiTest extends JsonApiTestCase
 
         $data = '{"email": "oliver@queen.com"}';
 
-        $this->client->request('PUT', '/shop-api/request-password-reset', [], [], ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'], $data);
+        $this->client->request('PUT', '/shop-api/WEB_GB/request-password-reset', [], [], ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'], $data);
 
         /** @var UserRepositoryInterface $userRepository */
         $userRepository = $this->get('sylius.repository.shop_user');
@@ -40,7 +40,7 @@ final class CustomerResetPasswordApiTest extends JsonApiTestCase
         }
 EOT;
 
-        $this->client->request('PUT', '/shop-api/password-reset/' . $user->getPasswordResetToken(), [], [], ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'], $newPasswords);
+        $this->client->request('PUT', '/shop-api/WEB_GB/password-reset/' . $user->getPasswordResetToken(), [], [], ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'], $newPasswords);
 
         $response = $this->client->getResponse();
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);

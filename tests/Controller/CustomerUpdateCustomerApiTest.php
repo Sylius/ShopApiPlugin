@@ -39,7 +39,7 @@ final class CustomerUpdateCustomerApiTest extends JsonApiTestCase
             "subscribedToNewsletter": true
         }
 EOT;
-        $this->client->request('PUT', '/shop-api/me', [], [], self::$contentTypeHeader, $data);
+        $this->client->request('PUT', '/shop-api/WEB_GB/me', [], [], self::$contentTypeHeader, $data);
         $response = $this->client->getResponse();
         $this->assertResponse($response, 'customer/update_customer', Response::HTTP_OK);
 
@@ -74,7 +74,7 @@ EOT;
             "subscribedToNewsletter": true
         }
 EOT;
-        $this->client->request('PUT', '/shop-api/me', [], [], self::$contentTypeHeader, $data);
+        $this->client->request('PUT', '/shop-api/WEB_GB/me', [], [], self::$contentTypeHeader, $data);
         $response = $this->client->getResponse();
         $this->assertResponseCode($response, Response::HTTP_INTERNAL_SERVER_ERROR);
     }
@@ -97,7 +97,7 @@ EOT;
             "phoneNumber": ""
         }
 EOT;
-        $this->client->request('PUT', '/shop-api/me', [], [], self::$contentTypeHeader, $data);
+        $this->client->request('PUT', '/shop-api/WEB_GB/me', [], [], self::$contentTypeHeader, $data);
         $response = $this->client->getResponse();
         $this->assertResponse($response, 'customer/validation_empty_data', Response::HTTP_BAD_REQUEST);
     }

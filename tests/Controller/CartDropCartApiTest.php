@@ -24,12 +24,12 @@ final class CartDropCartApiTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
-        $this->client->request('DELETE', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('DELETE', '/shop-api/WEB_GB/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/validation_cart_not_exists_response', Response::HTTP_BAD_REQUEST);
 
-        $this->client->request('DELETE', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325?locale=de_DE', [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('DELETE', '/shop-api/WEB_GB/carts/SDAOSLEFNWU35H3QLI5325?locale=de_DE', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/validation_cart_not_exists_in_german_response', Response::HTTP_BAD_REQUEST);
@@ -49,7 +49,7 @@ final class CartDropCartApiTest extends JsonApiTestCase
         $bus->handle(new PickupCart($token, 'WEB_GB'));
         $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
 
-        $this->client->request('DELETE', '/shop-api/carts/' . $token, [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('DELETE', '/shop-api/WEB_GB/carts/' . $token, [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
@@ -96,7 +96,7 @@ final class CartDropCartApiTest extends JsonApiTestCase
 
         $bus->handle(new CompleteOrder($token, 'sylius@example.com'));
 
-        $this->client->request('DELETE', '/shop-api/carts/' . $order->getTokenValue(), [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('DELETE', '/shop-api/WEB_GB/carts/' . $order->getTokenValue(), [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/validation_cart_not_exists_response', Response::HTTP_BAD_REQUEST);

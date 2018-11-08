@@ -26,7 +26,7 @@ final class CartPickupApiTest extends JsonApiTestCase
         }
 EOT;
 
-        $this->client->request('POST', '/shop-api/carts', [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('POST', '/shop-api/WEB_GB/carts', [], [], static::$acceptAndContentTypeHeader, $data);
 
         $response = $this->client->getResponse();
 
@@ -47,7 +47,7 @@ EOT;
         }
 EOT;
 
-        $this->client->request('POST', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325', [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('POST', '/shop-api/WEB_GB/carts/SDAOSLEFNWU35H3QLI5325', [], [], static::$acceptAndContentTypeHeader, $data);
 
         $response = $this->client->getResponse();
 
@@ -74,7 +74,7 @@ EOT;
         }
 EOT;
 
-        $this->client->request('POST', '/shop-api/carts/' . $token, [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('POST', '/shop-api/WEB_GB/carts/' . $token, [], [], static::$acceptAndContentTypeHeader, $data);
 
         $response = $this->client->getResponse();
 
@@ -95,7 +95,7 @@ EOT;
         }
 EOT;
 
-        $this->client->request('POST', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325', [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('POST', '/shop-api/WEB_GB/carts/SDAOSLEFNWU35H3QLI5325', [], [], static::$acceptAndContentTypeHeader, $data);
 
         $response = $this->client->getResponse();
 
@@ -109,7 +109,7 @@ EOT;
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
-        $this->client->request('POST', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325', [], [], static::$acceptAndContentTypeHeader);
+        $this->client->request('POST', '/shop-api/WEB_GB/carts/SDAOSLEFNWU35H3QLI5325', [], [], static::$acceptAndContentTypeHeader);
 
         $response = $this->client->getResponse();
 

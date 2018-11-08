@@ -57,7 +57,7 @@ final class CheckoutCompleteOrderApiTest extends JsonApiTestCase
             "email": "example@cusomer.com"
         }
 EOT;
-        $this->client->request('PUT', sprintf('/shop-api/checkout/%s/complete', $token), [], [], [
+        $this->client->request('PUT', sprintf('/shop-api/WEB_GB/checkout/%s/complete', $token), [], [], [
             'CONTENT_TYPE' => 'application/json',
             'ACCEPT' => 'application/json',
         ], $data);
@@ -109,7 +109,7 @@ EOT;
             "notes": "BRING IT AS FAST AS YOU CAN, PLEASE!"
         }
 EOT;
-        $this->client->request('PUT', sprintf('/shop-api/checkout/%s/complete', $token), [], [], [
+        $this->client->request('PUT', sprintf('/shop-api/WEB_GB/checkout/%s/complete', $token), [], [], [
             'CONTENT_TYPE' => 'application/json',
             'ACCEPT' => 'application/json',
         ], $data);
@@ -167,7 +167,7 @@ EOT;
         $response = json_decode($this->client->getResponse()->getContent(), true);
 
         $this->client->setServerParameter('HTTP_Authorization', sprintf('Bearer %s', $response['token']));
-        $this->client->request('PUT', sprintf('/shop-api/checkout/%s/complete', $token), [], [], [
+        $this->client->request('PUT', sprintf('/shop-api/WEB_GB/checkout/%s/complete', $token), [], [], [
             'CONTENT_TYPE' => 'application/json',
             'ACCEPT' => 'application/json',
         ]);

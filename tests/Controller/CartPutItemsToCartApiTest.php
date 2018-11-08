@@ -47,7 +47,7 @@ final class CartPutItemsToCartApiTest extends JsonApiTestCase
             }
         ]
 EOT;
-        $this->client->request('POST', sprintf('/shop-api/carts/%s/multiple-items', $token), [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('POST', sprintf('/shop-api/WEB_GB/carts/%s/multiple-items', $token), [], [], static::$acceptAndContentTypeHeader, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/add_multiple_products_to_cart_response', Response::HTTP_CREATED);
@@ -87,8 +87,8 @@ EOT;
             }
         ]
 EOT;
-        $this->client->request('POST', sprintf('/shop-api/carts/%s/multiple-items', $token), [], [], static::$acceptAndContentTypeHeader, $data);
-        $this->client->request('GET', sprintf('/shop-api/carts/%s', $token), [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('POST', sprintf('/shop-api/WEB_GB/carts/%s/multiple-items', $token), [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('GET', sprintf('/shop-api/WEB_GB/carts/%s', $token), [], [], static::$acceptAndContentTypeHeader, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/empty_response', Response::HTTP_OK);
@@ -127,7 +127,7 @@ EOT;
             }
         ]
 EOT;
-        $this->client->request('POST', sprintf('/shop-api/carts/%s/multiple-items', $token), [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('POST', sprintf('/shop-api/WEB_GB/carts/%s/multiple-items', $token), [], [], static::$acceptAndContentTypeHeader, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/add_multiple_products_to_cart_validation_error_response', Response::HTTP_BAD_REQUEST);

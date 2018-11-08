@@ -29,7 +29,7 @@ final class CartRemoveCouponShopApiTest extends JsonApiTestCase
         $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
         $bus->handle(new AddCoupon($token, 'BANANAS'));
 
-        $this->client->request('DELETE', sprintf('/shop-api/carts/%s/coupon', $token), [], [], static::$acceptAndContentTypeHeader, null);
+        $this->client->request('DELETE', sprintf('/shop-api/WEB_GB/carts/%s/coupon', $token), [], [], static::$acceptAndContentTypeHeader, null);
 
         $response = $this->client->getResponse();
 
@@ -50,7 +50,7 @@ final class CartRemoveCouponShopApiTest extends JsonApiTestCase
         $bus->handle(new PickupCart($token, 'WEB_GB'));
         $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
 
-        $this->client->request('DELETE', sprintf('/shop-api/carts/%s/coupon', $token), [], [], static::$acceptAndContentTypeHeader, null);
+        $this->client->request('DELETE', sprintf('/shop-api/WEB_GB/carts/%s/coupon', $token), [], [], static::$acceptAndContentTypeHeader, null);
 
         $response = $this->client->getResponse();
 
@@ -64,7 +64,7 @@ final class CartRemoveCouponShopApiTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
-        $this->client->request('DELETE', '/shop-api/carts/WRONGTOKEN/coupon', [], [], static::$acceptAndContentTypeHeader, null);
+        $this->client->request('DELETE', '/shop-api/WEB_GB/carts/WRONGTOKEN/coupon', [], [], static::$acceptAndContentTypeHeader, null);
 
         $response = $this->client->getResponse();
 

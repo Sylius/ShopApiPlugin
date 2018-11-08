@@ -19,7 +19,7 @@ final class AddressBookShowApiTest extends JsonApiTestCase
         $this->loadFixturesFromFiles(['customer.yml', 'country.yml', 'address.yml']);
         $this->logInUser('oliver@queen.com', '123password');
 
-        $this->client->request('GET', '/shop-api/address-book', [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('GET', '/shop-api/WEB_GB/address-book', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'address_book/show_address_book_response', Response::HTTP_OK);
@@ -30,7 +30,7 @@ final class AddressBookShowApiTest extends JsonApiTestCase
      */
     public function it_returns_an_unauthorized_exception_if_there_is_no_logged_in_user()
     {
-        $this->client->request('GET', '/shop-api/address-book', [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('GET', '/shop-api/WEB_GB/address-book', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_UNAUTHORIZED);

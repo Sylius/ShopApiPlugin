@@ -4,10 +4,10 @@
     "pages": 3,
     "total": 25,
     "_links": {
-        "self": "\/shop-api\/product-reviews-by-slug\/logan-mug?channel=WEB_GB&page=1&limit=10",
-        "first": "\/shop-api\/product-reviews-by-slug\/logan-mug?channel=WEB_GB&page=1&limit=10",
-        "last": "\/shop-api\/product-reviews-by-slug\/logan-mug?channel=WEB_GB&page=3&limit=10",
-        "next": "\/shop-api\/product-reviews-by-slug\/logan-mug?channel=WEB_GB&page=2&limit=10"
+        "self": "\/shop-api\/WEB_GB\/product-reviews-by-slug\/logan-mug?channel=WEB_GB&page=1&limit=10",
+        "first": "\/shop-api\/WEB_GB\/product-reviews-by-slug\/logan-mug?channel=WEB_GB&page=1&limit=10",
+        "last": "\/shop-api\/WEB_GB\/product-reviews-by-slug\/logan-mug?channel=WEB_GB&page=3&limit=10",
+        "next": "\/shop-api\/WEB_GB\/product-reviews-by-slug\/logan-mug?channel=WEB_GB&page=2&limit=10"
     },
     "items": [
         {
