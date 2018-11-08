@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\Validator;
+namespace spec\Sylius\ShopApiPlugin\Validator\Product;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;

@@ -3,25 +3,25 @@
         <defaults public="true" />
 
         <service id="sylius.shop_api_plugin.validator.token_is_not_used_validator"
-                 class="Sylius\ShopApiPlugin\Validator\TokenIsNotUsedValidator">
+                 class="Sylius\ShopApiPlugin\Validator\Cart\TokenIsNotUsedValidator">
             <argument type="service" id="sylius.repository.order" />
             <tag name="validator.constraint_validator" alias="sylius_shop_api_token_is_not_used_validator" />
         </service>
 
         <service id="sylius.shop_api_plugin.validator.cart_exists_validator"
-                 class="Sylius\ShopApiPlugin\Validator\CartExistsValidator">
+                 class="Sylius\ShopApiPlugin\Validator\Cart\CartExistsValidator">
             <argument type="service" id="sylius.repository.order" />
             <tag name="validator.constraint_validator" alias="sylius_shop_api_cart_exists_validator" />
         </service>
 
         <service id="sylius.shop_api_plugin.validator.cart_item_exists_validator"
-                 class="Sylius\ShopApiPlugin\Validator\CartItemExistsValidator">
+                 class="Sylius\ShopApiPlugin\Validator\Cart\CartItemExistsValidator">
             <argument type="service" id="sylius.repository.order_item" />
             <tag name="validator.constraint_validator" alias="sylius_shop_api_cart_item_exists_validator" />
         </service>
 
         <service id="sylius.shop_api_plugin.validator.valid_promotion_coupon_code_validator"
-                 class="Sylius\ShopApiPlugin\Validator\ValidPromotionCouponCodeValidator">
+                 class="Sylius\ShopApiPlugin\Validator\Cart\ValidPromotionCouponCodeValidator">
             <argument type="service" id="sylius.repository.order" />
             <argument type="service" id="sylius.repository.promotion_coupon" />
             <argument type="service" id="sylius.shop_api_plugin.checker.promotion_coupon_eligibility_checker" />

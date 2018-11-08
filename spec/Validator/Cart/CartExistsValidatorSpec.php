@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\Validator;
+namespace spec\Sylius\ShopApiPlugin\Validator\Cart;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Sylius\ShopApiPlugin\Validator\Constraints\TokenIsNotUsed;
+use Sylius\ShopApiPlugin\Validator\Constraints\CartExists;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
-final class TokenIsNotUsedValidatorSpec extends ObjectBehavior
+final class CartExistsValidatorSpec extends ObjectBehavior
 {
     function let(ExecutionContextInterface $executionContext, OrderRepositoryInterface $orderRepository): void
     {
@@ -21,25 +21,25 @@ final class TokenIsNotUsedValidatorSpec extends ObjectBehavior
     }
 
     function it_does_not_add_constraint_if_order_exists(
-        OrderRepositoryInterface $orderRepository,
-        ExecutionContextInterface $executionContext
-    ): void {
-        $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn(null);
-
-        $executionContext->addViolation(Argument::any(), Argument::any())->shouldNotBeCalled();
-
-        $this->validate('ORDERTOKEN', new TokenIsNotUsed());
-    }
-
-    function it_adds_constraint_if_order_does_not_exits_exists(
         OrderInterface $order,
         OrderRepositoryInterface $orderRepository,
         ExecutionContextInterface $executionContext
     ): void {
-        $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
+        $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN', 'state' => OrderInterface::STATE_CART])->willReturn($order);
 
-        $executionContext->addViolation('sylius.shop_api.token.already_taken')->shouldBeCalled();
+        $executionContext->addViolation(Argument::any(), Argument::any())->shouldNotBeCalled();
 
-        $this->validate('ORDERTOKEN', new TokenIsNotUsed());
+        $this->validate('ORDERTOKEN', new CartExists());
+    }
+
+    function it_adds_constraint_if_order_does_not_exits_exists(
+        OrderRepositoryInterface $orderRepository,
+        ExecutionContextInterface $executionContext
+    ): void {
+        $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN', 'state' => OrderInterface::STATE_CART])->willReturn(null);
+
+        $executionContext->addViolation('sylius.shop_api.cart.not_exists')->shouldBeCalled();
+
+        $this->validate('ORDERTOKEN', new CartExists());
     }
 }
