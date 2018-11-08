@@ -15,7 +15,28 @@ final class CartPickupApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_creates_a_new_cart()
+    public function it_creates_a_new_cart(): void
+    {
+        $this->loadFixturesFromFiles(['shop.yml']);
+
+        $data =
+            <<<EOT
+        {
+            "channel": "WEB_GB"
+        }
+EOT;
+
+        $this->client->request('POST', '/shop-api/carts', [], [], static::$acceptAndContentTypeHeader, $data);
+
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'cart/empty_response', Response::HTTP_CREATED);
+    }
+
+    /**
+     * @test
+     */
+    public function it_creates_a_new_cart_using_deprecated_api(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -30,7 +51,7 @@ EOT;
 
         $response = $this->client->getResponse();
 
-        $this->assertResponse($response, 'cart/empty_response', Response::HTTP_CREATED);
+        $this->assertResponse($response, 'cart/deprecated_empty_response', Response::HTTP_CREATED);
     }
 
     /**

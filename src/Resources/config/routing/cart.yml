@@ -1,4 +1,10 @@
 sylius_shop_api_pickup_cart:
+    path: /carts
+    methods: [POST]
+    defaults:
+        _controller: sylius.shop_api_plugin.controller.cart.pickup_action
+
+sylius_shop_api_pickup_cart_deprecated:
     path: /carts/{token}
     methods: [POST]
     defaults:
