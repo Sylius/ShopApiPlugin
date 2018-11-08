@@ -12,14 +12,17 @@
     },
     "require-dev": {
         "lakion/api-test-case": "^3.1",
-        "phpspec/phpspec": "^5.0",
         "lexik/jwt-authentication-bundle": "^2.5",
         "matthiasnoback/symfony-config-test": "^3.1",
         "matthiasnoback/symfony-dependency-injection-test": "^2.3",
+        "phpspec/phpspec": "^5.0",
+        "phpstan/phpstan-shim": "^0.10.3",
+        "phpstan/phpstan-webmozart-assert": "^0.10.0",
         "phpunit/phpunit": "^6.5",
         "sylius-labs/coding-standard": "^2.0",
-        "phpstan/phpstan-shim": "^0.10.3",
-        "phpstan/phpstan-webmozart-assert": "^0.10.0"
+        "symfony/debug-bundle": "^3.4|^4.1",
+        "symfony/web-profiler-bundle": "^3.4|^4.1",
+        "symfony/web-server-bundle": "^3.4|^4.1"
     },
     "autoload": {
         "psr-4": {
