@@ -29,6 +29,10 @@
             <argument type="service" id="sylius.promotion_coupon_eligibility_checker"/>
         </service>
 
+        <service id="sylius.shop_api_plugin.checker.channel_existence" class="Sylius\ShopApiPlugin\Checker\ChannelExistenceChecker">
+            <argument type="service" id="sylius.repository.channel"/>
+        </service>
+
         <service id="sylius.shop_api_plugin.event_listener.user_registration_listener" class="Sylius\ShopApiPlugin\EventListener\UserRegistrationListener">
             <argument type="service" id="tactician.commandbus" />
             <argument type="service" id="sylius.repository.channel"/>
