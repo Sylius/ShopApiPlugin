@@ -41,6 +41,11 @@
             <tag name="kernel.event_listener" event="sylius.customer.post_api_registered" method="handleUserVerification" />
         </service>
 
+        <service id="sylius.shop_api_plugin.event_subscriber.request_channel" class="Sylius\ShopApiPlugin\EventSubscriber\RequestChannelSubscriber">
+            <argument type="service" id="sylius.shop_api_plugin.checker.channel_existence" />
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
         <service id="sylius.shop_api_plugin.generator.product_breadcrumb_generator" class="Sylius\ShopApiPlugin\Generator\ProductBreadcrumbGenerator" />
 
         <service id="sylius.shop_api_plugin.event_listener.request_locale_setter" class="Sylius\ShopApiPlugin\EventListener\RequestLocaleSetter" >

@@ -162,7 +162,7 @@ EOT;
         $this->client->request('POST', '/shop-api/SPACE_KLINGON/address-book', [], [], self::$acceptAndContentTypeHeader, $data);
 
         $response = $this->client->getResponse();
-        $this->assertResponse($response, 'address_book/channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
+        $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
     }
 
 }
