@@ -29,13 +29,9 @@ final class ShowLatestProductAction
 
     public function __invoke(Request $request): Response
     {
-        if (!$request->query->has('channel')) {
-            throw new NotFoundHttpException('Cannot find product without channel provided');
-        }
-
         try {
             return $this->viewHandler->handle(View::create($this->productLatestQuery->getLatestProducts(
-                $request->query->get('channel'),
+                $request->attributes->get('channelCode'),
                 $request->query->get('locale'),
                 $request->query->getInt('limit', 4)
             ), Response::HTTP_OK));

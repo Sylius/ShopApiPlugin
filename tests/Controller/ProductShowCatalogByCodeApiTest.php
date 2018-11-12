@@ -15,7 +15,7 @@ final class ProductShowCatalogByCodeApiTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
-        $this->client->request('GET', '/shop-api/WEB_GB/taxon-products/BRAND?channel=WEB_GB', [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('GET', '/shop-api/WEB_GB/taxon-products/BRAND', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'product/product_list_page_by_code_response', Response::HTTP_OK);
@@ -28,7 +28,7 @@ final class ProductShowCatalogByCodeApiTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
-        $this->client->request('GET', '/shop-api/WEB_GB/taxon-products/WOMEN_T_SHIRTS?channel=WEB_GB', [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('GET', '/shop-api/WEB_GB/taxon-products/WOMEN_T_SHIRTS', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'product/product_t_shirt_list_page_by_code_response', Response::HTTP_OK);
@@ -41,7 +41,7 @@ final class ProductShowCatalogByCodeApiTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
-        $this->client->request('GET', '/shop-api/WEB_GB/taxon-products/BRAND?channel=WEB_GB&locale=de_DE', [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('GET', '/shop-api/WEB_GB/taxon-products/BRAND?locale=de_DE', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'product/german_product_list_page_by_code_response', Response::HTTP_OK);
@@ -54,7 +54,7 @@ final class ProductShowCatalogByCodeApiTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
-        $this->client->request('GET', '/shop-api/WEB_GB/taxon-products/BRAND?channel=WEB_GB&limit=1&page=2', [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('GET', '/shop-api/WEB_GB/taxon-products/BRAND?limit=1&page=2', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'product/limited_product_list_page_by_code_response', Response::HTTP_OK);
@@ -67,7 +67,7 @@ final class ProductShowCatalogByCodeApiTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
-        $this->client->request('GET', '/shop-api/SPACE_KLINGON/taxon-products/BRAND?channel=WEB_GB', [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('GET', '/shop-api/SPACE_KLINGON/taxon-products/BRAND', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);

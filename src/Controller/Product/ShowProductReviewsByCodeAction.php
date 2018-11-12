@@ -30,13 +30,9 @@ final class ShowProductReviewsByCodeAction
 
     public function __invoke(Request $request): Response
     {
-        if (!$request->query->has('channel')) {
-            throw new NotFoundHttpException('Cannot find product without channel provided');
-        }
-
         $page = $this->productReviewsViewRepository->getByProductCode(
             $request->attributes->get('code'),
-            $request->query->get('channel'),
+            $request->attributes->get('channelCode'),
             new PaginatorDetails($request->attributes->get('_route'), $request->query->all())
         );
 

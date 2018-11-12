@@ -4,10 +4,10 @@
     "pages": 1,
     "total": 3,
     "_links": {
-        "self": "\/shop-api\/WEB_GB\/taxon-products\/BRAND?channel=WEB_GB&page=1&limit=10",
-        "first": "\/shop-api\/WEB_GB\/taxon-products\/BRAND?channel=WEB_GB&page=1&limit=10",
-        "last": "\/shop-api\/WEB_GB\/taxon-products\/BRAND?channel=WEB_GB&page=1&limit=10",
-        "next": "\/shop-api\/WEB_GB\/taxon-products\/BRAND?channel=WEB_GB&page=1&limit=10"
+        "self": "\/shop-api\/WEB_GB\/taxon-products\/BRAND?page=1&limit=10",
+        "first": "\/shop-api\/WEB_GB\/taxon-products\/BRAND?page=1&limit=10",
+        "last": "\/shop-api\/WEB_GB\/taxon-products\/BRAND?page=1&limit=10",
+        "next": "\/shop-api\/WEB_GB\/taxon-products\/BRAND?page=1&limit=10"
     },
     "items": [
         {
