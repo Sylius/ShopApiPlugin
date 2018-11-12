@@ -63,6 +63,54 @@ EOT;
     }
 
     /**
+     * @test
+     */
+    public function it_does_not_allow_to_choose_payment_method_in_non_existent_channel()
+    {
+        $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml', 'payment.yml']);
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var CommandBus $bus */
+        $bus = $this->get('tactician.commandbus');
+        $bus->handle(new PickupCart($token, 'WEB_GB'));
+        $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
+        $bus->handle(new AddressOrder(
+            $token,
+            Address::createFromArray([
+                'firstName' => 'Sherlock',
+                'lastName' => 'Holmes',
+                'city' => 'London',
+                'street' => 'Baker Street 221b',
+                'countryCode' => 'GB',
+                'postcode' => 'NWB',
+                'provinceName' => 'Greater London',
+            ]), Address::createFromArray([
+                'firstName' => 'Sherlock',
+                'lastName' => 'Holmes',
+                'city' => 'London',
+                'street' => 'Baker Street 221b',
+                'countryCode' => 'GB',
+                'postcode' => 'NWB',
+                'provinceName' => 'Greater London',
+            ])
+        ));
+        $bus->handle(new ChooseShippingMethod($token, 0, 'DHL'));
+
+        $data =
+<<<EOT
+        {
+            "method": "PBC"
+        }
+EOT;
+
+        $this->client->request('PUT', sprintf('/shop-api/SPACE_KLINGON/checkout/%s/payment/0', $token), [], [], ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'], $data);
+
+        $response = $this->client->getResponse();
+        $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
+    }
+
+    /**
      * @param string $token
      *
      * @return string

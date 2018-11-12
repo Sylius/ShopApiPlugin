@@ -60,19 +60,42 @@ final class ProductShowCatalogBySlugApiTest extends JsonApiTestCase
         $this->assertResponse($response, 'product/limited_product_list_page_by_slug_response', Response::HTTP_OK);
     }
 
+    /**
+     * TODO check is it possible (test annotation make it fail)
+     */
     public function it_shows_sorted_product_list()
     {
+        $this->loadFixturesFromFiles(['shop.yml']);
+
         $this->client->request('GET', '/shop-api/WEB_GB/taxon-products-by-slug/x-man?channel=WEB_GB&sorting[createdAt]=desc', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'product/product_list_page_by_slug_response', Response::HTTP_OK);
     }
 
+    /**
+     * TODO check is it possible (test annotation make it fail)
+     */
     public function it_expose_only_some_of_products_in_the_list()
     {
+        $this->loadFixturesFromFiles(['shop.yml']);
+
         $this->client->request('GET', '/shop-api/WEB_GB/taxon-products-by-slug/x-man?channel=WEB_GB&criteria[search][value]=Logans+Hat', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'product/product_list_page_by_slug_response', Response::HTTP_OK);
+    }
+
+    /**
+     * @test
+     */
+    public function it_does_not_show_product_catalog_by_slug_in_non_existent_channel()
+    {
+        $this->loadFixturesFromFiles(['shop.yml']);
+
+        $this->client->request('GET', '/shop-api/SPACE_KLINGON/taxon-products-by-slug/brands?channel=WEB_GB', [], [], ['ACCEPT' => 'application/json']);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
     }
 }

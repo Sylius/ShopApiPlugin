@@ -20,4 +20,17 @@ final class ProductShowReviewsByCodeApiTest extends JsonApiTestCase
 
         $this->assertResponse($response, 'product/product_review_list_page_by_code_response', Response::HTTP_OK);
     }
+
+    /**
+     * @test
+     */
+    public function it_does_not_show_product_reviews_by_code_in_non_existent_channel()
+    {
+        $this->loadFixturesFromFiles(['channel.yml']);
+
+        $this->client->request('GET', '/shop-api/SPACE_KLINGON/products/LOGAN_MUG_CODE/reviews?channel=WEB_GB', [], [], ['ACCEPT' => 'application/json']);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
+    }
 }

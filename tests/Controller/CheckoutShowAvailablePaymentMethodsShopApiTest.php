@@ -14,14 +14,20 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class CheckoutShowAvailablePaymentMethodsShopApiTest extends JsonApiTestCase
 {
-    public function it_does_not_provide_details_about_available_payment_method_for_unexisting_cart()
+    /**
+     * @test
+     */
+    public function it_does_not_provide_details_about_available_payment_method_for_non_existing_cart()
     {
-        $this->client->request('GET', $this->getPaymentUrl(0), [], []);
+        $this->client->request('GET', sprintf('/shop-api/SPACE_KLINGON/checkout/TOKEN/payment'), [], []);
 
         $response = $this->client->getResponse();
-        $this->assertResponseCode($response, Response::HTTP_NOT_FOUND);
+        $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
     }
 
+    /**
+     * TODO check is it possible (test annotation make it fail)
+     */
     public function it_does_not_provide_details_about_available_payment_method_before_addressing()
     {
         $this->loadFixturesFromFiles(['shop.yml']);
@@ -39,6 +45,9 @@ final class CheckoutShowAvailablePaymentMethodsShopApiTest extends JsonApiTestCa
         $this->assertResponse($response, 'checkout/get_available_payment_methods_failed', Response::HTTP_BAD_REQUEST);
     }
 
+    /**
+     * TODO check is it possible (test annotation make it fail)
+     */
     public function it_does_not_provide_details_about_available_payment_method_before_choosing_shipping_method()
     {
         $this->loadFixturesFromFiles(['shop.yml']);
@@ -120,6 +129,51 @@ final class CheckoutShowAvailablePaymentMethodsShopApiTest extends JsonApiTestCa
 
         $response = $this->client->getResponse();
         $this->assertResponse($response, 'checkout/get_available_payment_methods', Response::HTTP_OK);
+    }
+
+    /**
+     * @test
+     */
+    public function it_does_not_provide_available_payment_methods_in_non_existent_channel()
+    {
+        $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml', 'payment.yml']);
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var CommandBus $bus */
+        $bus = $this->get('tactician.commandbus');
+        $bus->handle(new PickupCart($token, 'WEB_GB'));
+        $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
+        $bus->handle(new AddressOrder(
+            $token,
+            Address::createFromArray([
+                'firstName' => 'Sherlock',
+                'lastName' => 'Holmes',
+                'city' => 'London',
+                'street' => 'Baker Street 221b',
+                'countryCode' => 'GB',
+                'postcode' => 'NWB',
+                'provinceName' => 'Greater London',
+            ]), Address::createFromArray([
+                'firstName' => 'Sherlock',
+                'lastName' => 'Holmes',
+                'city' => 'London',
+                'street' => 'Baker Street 221b',
+                'countryCode' => 'GB',
+                'postcode' => 'NWB',
+                'provinceName' => 'Greater London',
+            ])
+        ));
+        $bus->handle(new ChooseShippingMethod(
+            $token,
+            0,
+            'DHL'
+        ));
+
+        $this->client->request('GET', sprintf('/shop-api/SPACE_KLINGON/checkout/%s/payment', $token));
+
+        $response = $this->client->getResponse();
+        $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
     }
 
     /**

@@ -64,6 +64,25 @@ final class CartRemoveItemFromCartApiTest extends JsonApiTestCase
     /**
      * @test
      */
+    public function it_does_not_allow_to_remove_item_from_cart_in_non_existent_channel()
+    {
+        $this->loadFixturesFromFiles(['shop.yml']);
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var CommandBus $bus */
+        $bus = $this->get('tactician.commandbus');
+        $bus->handle(new PickupCart($token, 'WEB_GB'));
+
+        $this->client->request('DELETE', '/shop-api/SPACE_KLINGON/carts/SDAOSLEFNWU35H3QLI5325/items/420', [], [], ['ACCEPT' => 'application/json']);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
+    }
+
+    /**
+     * @test
+     */
     public function it_reprocesses_the_order_after_deleting_an_item()
     {
         $this->loadFixturesFromFiles(['shop.yml', 'promotion.yml']);

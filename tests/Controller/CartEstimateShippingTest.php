@@ -60,6 +60,19 @@ final class CartEstimateShippingTest extends JsonApiTestCase
     }
 
     /**
+     * @test
+     */
+    public function it_does_not_allow_to_estimate_shipping_in_non_existent_channel()
+    {
+        $this->loadFixturesFromFiles(['shop.yml', 'country.yml']);
+
+        $this->client->request('GET', '/shop-api/SPACE_KLINGON/carts/SDAOSLEFNWU35H3QLI5325/estimated-shipping-cost', [], [], ['ACCEPT' => 'application/json']);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
+    }
+
+    /**
      * @param string $token
      * @param string $channelCode
      */

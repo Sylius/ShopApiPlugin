@@ -22,7 +22,7 @@ final class CartDropCartApiTest extends JsonApiTestCase
      */
     public function it_returns_not_found_exception_if_cart_has_not_been_found()
     {
-        $this->loadFixturesFromFiles(['shop.yml']);
+        $this->loadFixturesFromFiles(['channel.yml', 'shop.yml']);
 
         $this->client->request('DELETE', '/shop-api/WEB_GB/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
@@ -40,7 +40,7 @@ final class CartDropCartApiTest extends JsonApiTestCase
      */
     public function it_deletes_a_cart()
     {
-        $this->loadFixturesFromFiles(['shop.yml']);
+        $this->loadFixturesFromFiles(['channel.yml', 'shop.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -60,7 +60,7 @@ final class CartDropCartApiTest extends JsonApiTestCase
      */
     public function it_returns_not_found_exception_if_order_is_in_different_state_then_cart()
     {
-        $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml', 'payment.yml']);
+        $this->loadFixturesFromFiles(['channel.yml', 'shop.yml', 'country.yml', 'shipping.yml', 'payment.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -100,5 +100,25 @@ final class CartDropCartApiTest extends JsonApiTestCase
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/validation_cart_not_exists_response', Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @test
+     */
+    public function it_does_not_allow_to_delete_cart_in_non_existent_channel()
+    {
+        $this->loadFixturesFromFiles(['channel.yml', 'shop.yml']);
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var CommandBus $bus */
+        $bus = $this->get('tactician.commandbus');
+        $bus->handle(new PickupCart($token, 'WEB_GB'));
+        $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
+
+        $this->client->request('DELETE', '/shop-api/SPACE_KLINGON/carts/' . $token, [], [], ['ACCEPT' => 'application/json']);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
     }
 }

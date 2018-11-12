@@ -21,7 +21,7 @@ final class CustomerUpdateCustomerApiTest extends JsonApiTestCase
      */
     public function it_updates_customer()
     {
-        $this->loadFixturesFromFiles(['customer.yml']);
+        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
         $this->logInUser('oliver@queen.com', '123password');
 
         /** @var CustomerRepositoryInterface $customerRepository */
@@ -60,7 +60,7 @@ EOT;
      */
     public function it_does_not_allow_to_update_customer_without_being_logged_in()
     {
-        $this->loadFixturesFromFiles(['customer.yml']);
+        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
 
         $data =
 <<<EOT
@@ -84,7 +84,7 @@ EOT;
      */
     public function it_does_not_allow_to_update_customer_without_passing_required_data()
     {
-        $this->loadFixturesFromFiles(['customer.yml']);
+        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
         $this->logInUser('oliver@queen.com', '123password');
 
         $data =
@@ -100,5 +100,28 @@ EOT;
         $this->client->request('PUT', '/shop-api/WEB_GB/me', [], [], self::$contentTypeHeader, $data);
         $response = $this->client->getResponse();
         $this->assertResponse($response, 'customer/validation_empty_data', Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @test
+     */
+    public function it_does_not_allow_to_update_customer_in_non_existent_channel()
+    {
+        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
+        $this->logInUser('oliver@queen.com', '123password');
+
+        $data =
+<<<EOT
+        {
+            "firstName": "",
+            "lastName": "",
+            "email": "",
+            "gender": "",
+            "phoneNumber": ""
+        }
+EOT;
+        $this->client->request('PUT', '/shop-api/SPACE_KLINGON/me', [], [], self::$contentTypeHeader, $data);
+        $response = $this->client->getResponse();
+        $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
     }
 }

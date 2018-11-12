@@ -17,9 +17,9 @@ final class CustomerResetPasswordApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_allows_to_verify_customer()
+    public function it_allows_to_reset_customer_password()
     {
-        $this->loadFixturesFromFiles(['customer.yml']);
+        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
 
         $data = '{"email": "oliver@queen.com"}';
 
@@ -44,6 +44,38 @@ EOT;
 
         $response = $this->client->getResponse();
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * @test
+     */
+    public function it_does_not_allow_to_reset_customer_password_in_non_existent_channel()
+    {
+        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
+
+        $data = '{"email": "oliver@queen.com"}';
+
+        $this->client->request('PUT', '/shop-api/WEB_GB/request-password-reset', [], [], ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'], $data);
+
+        /** @var UserRepositoryInterface $userRepository */
+        $userRepository = $this->get('sylius.repository.shop_user');
+        /** @var ShopUserInterface $user */
+        $user = $userRepository->findOneByEmail('oliver@queen.com');
+
+        $newPasswords =
+<<<EOT
+        {
+            "password" : {
+                "first": "somepass",
+                "second": "somepass"
+            }
+        }
+EOT;
+
+        $this->client->request('PUT', '/shop-api/SPACE_KLINGON/password-reset/' . $user->getPasswordResetToken(), [], [], ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'], $newPasswords);
+
+        $response = $this->client->getResponse();
+        $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
     }
 
     protected function getContainer(): ContainerInterface

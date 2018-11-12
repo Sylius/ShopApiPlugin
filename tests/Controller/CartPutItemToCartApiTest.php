@@ -579,4 +579,30 @@ EOT;
 
         $this->assertResponse($response, 'cart/add_product_variant_based_on_options_multiple_times_to_cart_response', Response::HTTP_CREATED);
     }
+
+    /**
+     * @test
+     */
+    public function it_does_not_allow_to_put_item_to_cart_in_non_existent_channel()
+    {
+        $this->loadFixturesFromFiles(['shop.yml']);
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var CommandBus $bus */
+        $bus = $this->get('tactician.commandbus');
+        $bus->handle(new PickupCart($token, 'WEB_GB'));
+
+        $data =
+<<<EOT
+        {
+            "productCode": "LOGAN_MUG_CODE",
+            "quantity": 3
+        }
+EOT;
+        $this->client->request('POST', sprintf('/shop-api/SPACE_KLINGON/carts/%s/items', $token), [], [], static::$acceptAndContentTypeHeader, $data);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
+    }
 }

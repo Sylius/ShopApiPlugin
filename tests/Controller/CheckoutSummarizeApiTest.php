@@ -270,4 +270,40 @@ EOT;
         $response = $this->client->getResponse();
         $this->assertResponse($response, 'checkout/cart_with_chosen_payment_response', Response::HTTP_OK);
     }
+    /**
+     * @test
+     */
+    public function it_does_not_allow_to_summarize_cart_in_non_existent_channel()
+    {
+        $this->loadFixturesFromFiles(['shop.yml']);
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var CommandBus $bus */
+        $bus = $this->get('tactician.commandbus');
+        $bus->handle(new PickupCart($token, 'WEB_GB'));
+        $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
+
+        $data =
+            <<<EOT
+        {
+            "shippingAddress": {
+                "firstName": "Sherlock",
+                "lastName": "Holmes",
+                "countryCode": "GB",
+                "street": "Baker Street 221b",
+                "city": "London",
+                "postcode": "NW1",
+                "provinceName": "Greater London"
+            }
+        }
+EOT;
+
+        $this->client->request('PUT', sprintf('/shop-api/WEB_GB/checkout/%s/address', $token), [], [], static::$acceptAndContentTypeHeader, $data);
+
+        $this->client->request('GET', '/shop-api/SPACE_KLINGON/checkout/' . $token, [], [], static::$acceptAndContentTypeHeader);
+
+        $response = $this->client->getResponse();
+        $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
+    }
 }

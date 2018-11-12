@@ -21,7 +21,7 @@ final class AddressBookUpdateAddressApiTest extends JsonApiTestCase
      */
     public function it_updates_address_in_address_book()
     {
-        $this->loadFixturesFromFiles(['customer.yml', 'country.yml', 'address.yml']);
+        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'country.yml', 'address.yml']);
         $this->logInUser('oliver@queen.com', '123password');
 
         /** @var AddressRepositoryInterface $addressRepository */
@@ -64,7 +64,7 @@ EOT;
      */
     public function it_does_not_allow_to_update_address_if_country_or_province_code_are_not_valid()
     {
-        $this->loadFixturesFromFiles(['customer.yml', 'country.yml', 'address.yml']);
+        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'country.yml', 'address.yml']);
         $this->logInUser('oliver@queen.com', '123password');
 
         /** @var AddressRepositoryInterface $addressRepository */
@@ -97,7 +97,7 @@ EOT;
      */
     public function it_does_not_allow_to_update_address_without_passing_required_data()
     {
-        $this->loadFixturesFromFiles(['customer.yml', 'country.yml', 'address.yml']);
+        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'country.yml', 'address.yml']);
         $this->logInUser('oliver@queen.com', '123password');
 
         /** @var AddressRepositoryInterface $addressRepository */
@@ -120,5 +120,33 @@ EOT;
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @test
+     */
+    public function it_does_not_allow_to_update_address_in_non_existent_channel()
+    {
+        $this->loadFixturesFromFile('channel.yml');
+
+        $data =
+<<<EOT
+        {
+            "firstName": "New name",
+            "lastName": "New lastName",
+            "company": "Locastic",
+            "street": "New street",
+            "countryCode": "WRONG_CODE",
+            "provinceCode": "WRONG_CODE",
+            "city": "New city",
+            "postcode": "2000",
+            "phoneNumber": "0918972132"
+        }
+EOT;
+
+        $this->client->request('PUT', '/shop-api/SPACE_KLINGON/address-book/1', [], [], self::$contentTypeHeader, $data);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
     }
 }

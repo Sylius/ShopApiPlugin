@@ -30,9 +30,24 @@ final class OrdersListApiTest extends JsonApiTestCase
      */
     public function it_returns_an_unauthorized_exception_if_there_is_no_logged_in_user(): void
     {
+        $this->loadFixturesFromFile('channel.yml');
+
         $this->client->request('GET', '/shop-api/WEB_GB/orders', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_UNAUTHORIZED);
+    }
+
+    /**
+     * @test
+     */
+    public function it_does_not_show_orders_list_in_non_existent_channel()
+    {
+        $this->loadFixturesFromFile('channel.yml');
+
+        $this->client->request('GET', '/shop-api/SPACE_KLINGON/orders', [], [], ['ACCEPT' => 'application/json']);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
     }
 }

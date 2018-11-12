@@ -141,6 +141,30 @@ EOT;
         $this->assertResponse($response, 'customer/validation_registration_data_response', Response::HTTP_BAD_REQUEST);
     }
 
+    /**
+     * @test
+     */
+    public function it_does_not_allow_to_register_in_non_existent_channel()
+    {
+        $this->loadFixturesFromFiles(['channel.yml']);
+
+        $data =
+<<<EOT
+        {
+            "firstName": "Vin",
+            "lastName": "Diesel",
+            "plainPassword": "somepass",
+            "channel": "WEB_GB"
+        }
+EOT;
+
+        $this->client->request('POST', '/shop-api/SPACE_KLINGON/register', [], [], ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'], $data);
+
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
+    }
+
     protected function getContainer(): ContainerInterface
     {
         return static::$sharedKernel->getContainer();
