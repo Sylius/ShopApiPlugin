@@ -11,6 +11,9 @@ Sylius\ShopApiPlugin\View\ProductView:
         slug:
             expose: true
             type: string
+        channelCode:
+            expose: true
+            type: string
         breadcrumb:
             expose: true
             type: string
@@ -48,5 +51,5 @@ Sylius\ShopApiPlugin\View\ProductView:
             href:
                 route: sylius_shop_api_product_show_details_by_slug
                 parameters:
-                    channelCode: "WEB_GB"
+                    channelCode: expr(object.channelCode)
                     slug: expr(object.slug)

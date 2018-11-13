@@ -36,7 +36,7 @@ final class UserRegistrationListenerSpec extends ObjectBehavior
         $channel->isAccountVerificationRequired()->willReturn(true);
 
         $bus->handle(new GenerateVerificationToken('shop@example.com'))->shouldBeCalled();
-        $bus->handle(new SendVerificationToken('shop@example.com'))->shouldBeCalled();
+        $bus->handle(new SendVerificationToken('shop@example.com', 'FOOBAR'))->shouldBeCalled();
 
         $this->handleUserVerification(new CustomerRegistered(
             'shop@example.com',

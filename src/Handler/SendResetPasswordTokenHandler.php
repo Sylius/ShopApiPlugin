@@ -35,6 +35,10 @@ final class SendResetPasswordTokenHandler
         Assert::notNull($user, sprintf('User with %s email has not been found.', $email));
         Assert::notNull($user->getPasswordResetToken(), sprintf('User with %s email has not verification token defined.', $email));
 
-        $this->sender->send(Emails::EMAIL_RESET_PASSWORD_TOKEN, [$email], ['user' => $user]);
+        $this->sender->send(
+            Emails::EMAIL_RESET_PASSWORD_TOKEN,
+            [$email],
+            ['user' => $user, 'channelCode' => $resendResetPasswordToken->channelCode()]
+        );
     }
 }

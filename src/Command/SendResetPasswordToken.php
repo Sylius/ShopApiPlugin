@@ -9,13 +9,22 @@ final class SendResetPasswordToken
     /** @var string */
     private $email;
 
-    public function __construct(string $email)
+    /** @var string */
+    private $channelCode;
+
+    public function __construct(string $email, string $channelCode)
     {
         $this->email = $email;
+        $this->channelCode = $channelCode;
     }
 
     public function email(): string
     {
         return $this->email;
+    }
+
+    public function channelCode(): string
+    {
+        return $this->channelCode;
     }
 }

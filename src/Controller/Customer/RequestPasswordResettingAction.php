@@ -31,7 +31,7 @@ final class RequestPasswordResettingAction
     public function __invoke(Request $request): Response
     {
         $this->bus->handle(new GenerateResetPasswordToken($request->request->get('email')));
-        $this->bus->handle(new SendResetPasswordToken($request->request->get('email')));
+        $this->bus->handle(new SendResetPasswordToken($request->request->get('email'), $request->attributes->get('channelCode')));
 
         return $this->viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));
     }

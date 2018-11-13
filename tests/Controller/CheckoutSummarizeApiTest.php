@@ -270,6 +270,7 @@ EOT;
         $response = $this->client->getResponse();
         $this->assertResponse($response, 'checkout/cart_with_chosen_payment_response', Response::HTTP_OK);
     }
+
     /**
      * @test
      */

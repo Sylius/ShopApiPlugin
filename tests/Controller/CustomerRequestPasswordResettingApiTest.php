@@ -33,7 +33,6 @@ final class CustomerRequestPasswordResettingApiTest extends JsonApiTestCase
         $this->assertTrue($emailChecker->hasRecipient('oliver@queen.com'));
     }
 
-
     /**
      * @test
      */

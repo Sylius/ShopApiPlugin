@@ -14,6 +14,7 @@
             "code": "LOGAN_MUG_CODE",
             "name": "Logan Becher",
             "slug": "logan-becher",
+            "channelCode": "WEB_GB",
             "averageRating": 0,
             "taxons": {
                 "main": "MUG",
@@ -64,6 +65,7 @@
             "code": "LOGAN_HAT_CODE",
             "name": "Logan Hut",
             "slug": "logan-hut",
+            "channelCode": "WEB_GB",
             "description": "Einige Beschreibung Lorem ipsum dolor sit amet.",
             "averageRating": 0,
             "taxons": {
@@ -150,6 +152,7 @@
                         "code": "LOGAN_MUG_CODE",
                         "name": "Logan Becher",
                         "slug": "logan-becher",
+                        "channelCode": "WEB_GB",
                         "averageRating": 0,
                         "taxons": {
                             "main": "MUG",
@@ -200,6 +203,7 @@
                         "code": "LOGAN_T_SHIRT_CODE",
                         "name": "Logan T-Shirt",
                         "slug": "logan-t-shirt",
+                        "channelCode": "WEB_GB",
                         "description": "Some description Lorem ipsum dolor sit amet.",
                         "averageRating": 0,
                         "taxons": {

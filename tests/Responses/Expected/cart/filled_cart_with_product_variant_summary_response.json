@@ -13,6 +13,7 @@
                 "code": "LOGAN_T_SHIRT_CODE",
                 "name": "Logan T-Shirt",
                 "slug": "logan-t-shirt",
+                "channelCode": "WEB_GB",
                 "description": "Some description Lorem ipsum dolor sit amet.",
                 "averageRating": 0,
                 "taxons": {
@@ -66,6 +67,7 @@
                 "code": "LOGAN_HAT_CODE",
                 "name": "Logan Hat",
                 "slug": "logan-hat",
+                "channelCode": "WEB_GB",
                 "averageRating": 0,
                 "description": "Some description Lorem ipsum dolor sit amet.",
                 "taxons": {

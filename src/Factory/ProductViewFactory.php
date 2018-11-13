@@ -59,6 +59,7 @@ final class ProductViewFactory implements ProductViewFactoryInterface
         $productView->shortDescription = $translation->getShortDescription();
         $productView->metaKeywords = $translation->getMetaKeywords();
         $productView->metaDescription = $translation->getMetaDescription();
+        $productView->channelCode = $channel->getCode();
 
         /** @var ProductImageInterface $image */
         foreach ($product->getImages() as $image) {

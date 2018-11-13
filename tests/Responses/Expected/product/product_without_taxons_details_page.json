@@ -2,6 +2,7 @@
     "code": "LOGAN_SHOES_CODE",
     "name": "Logan Shoes",
     "slug": "logan-shoes",
+    "channelCode": "WEB_GB",
     "breadcrumb": "logan-shoes",
     "description": "Some description Lorem ipsum dolor sit amet.",
     "averageRating": 0,

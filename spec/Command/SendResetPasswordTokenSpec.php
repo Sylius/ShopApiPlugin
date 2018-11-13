@@ -11,7 +11,7 @@ final class SendResetPasswordTokenSpec extends ObjectBehavior
 {
     function let(): void
     {
-        $this->beConstructedWith('example@customer.com');
+        $this->beConstructedWith('example@customer.com', 'WEB_GB');
     }
 
     function it_is_initializable(): void
@@ -22,5 +22,10 @@ final class SendResetPasswordTokenSpec extends ObjectBehavior
     function it_has_email(): void
     {
         $this->email()->shouldReturn('example@customer.com');
+    }
+
+    function it_has_channel_code(): void
+    {
+        $this->channelCode()->shouldReturn('WEB_GB');
     }
 }

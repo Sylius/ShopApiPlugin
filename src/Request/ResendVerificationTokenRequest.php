@@ -12,13 +12,17 @@ final class ResendVerificationTokenRequest
     /** @var string */
     private $email;
 
+    /** @var string */
+    private $channelCode;
+
     public function __construct(Request $request)
     {
         $this->email = $request->request->get('email');
+        $this->channelCode = $request->attributes->get('channelCode');
     }
 
     public function getCommand(): SendVerificationToken
     {
-        return new SendVerificationToken($this->email);
+        return new SendVerificationToken($this->email, $this->channelCode);
     }
 }

@@ -172,7 +172,7 @@ EOT;
      */
     public function it_does_not_allow_to_add_promotion_code_in_non_existent_channel()
     {
-        $this->loadFixturesFromFiles(['channel.yml' ,'shop.yml', 'coupon_based_promotion.yml']);
+        $this->loadFixturesFromFiles(['channel.yml', 'shop.yml', 'coupon_based_promotion.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 

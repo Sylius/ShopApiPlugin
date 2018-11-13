@@ -36,6 +36,7 @@ EOT;
         $response = $this->client->getResponse();
         $this->assertResponse($response, 'customer/logged_in_customer_details_response', Response::HTTP_OK);
     }
+
     /**
      * @test
      */
