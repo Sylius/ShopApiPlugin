@@ -9,7 +9,7 @@ info:
         name: "MIT"
         url: "https://opensource.org/licenses/MIT"
 host: "demo.sylius.org"
-basePath: "/shop-api"
+basePath: "/shop-api/{channelCode}"
 tags:
 - name: "cart"
   description: "All actions related to cart management."
