@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace spec\Sylius\ShopApiPlugin\Checker;
 
 use PhpSpec\ObjectBehavior;
+use Sylius\Component\Channel\Context\ChannelNotFoundException;
 use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\ShopApiPlugin\Checker\ChannelExistenceCheckerInterface;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final class ChannelExistenceCheckerSpec extends ObjectBehavior
 {
@@ -37,7 +37,7 @@ final class ChannelExistenceCheckerSpec extends ObjectBehavior
         $channelRepository->findOneByCode('WEB_US')->willReturn(null);
 
         $this
-            ->shouldThrow(NotFoundHttpException::class)
+            ->shouldThrow(ChannelNotFoundException::class)
             ->during('withCode', ['WEB_US'])
         ;
     }

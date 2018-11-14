@@ -2,14 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\EventSubscriber;
+namespace Sylius\ShopApiPlugin\Http;
 
+use Sylius\Component\Channel\Context\ChannelNotFoundException;
 use Sylius\ShopApiPlugin\Checker\ChannelExistenceCheckerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-final class RequestChannelSubscriber implements EventSubscriberInterface
+final class RequestChannelEnsurer implements EventSubscriberInterface
 {
     /** @var ChannelExistenceCheckerInterface */
     private $channelExistenceChecker;
@@ -27,7 +29,11 @@ final class RequestChannelSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $this->channelExistenceChecker->withCode($requestAttributes->get('channelCode'));
+        try {
+            $this->channelExistenceChecker->withCode($requestAttributes->get('channelCode'));
+        } catch (ChannelNotFoundException $exception) {
+            throw new NotFoundHttpException($exception->getMessage());
+        }
     }
 
     public static function getSubscribedEvents(): array

@@ -46,7 +46,7 @@ final class AddressBookRemoveAddressApiTest extends JsonApiTestCase
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'country.yml', 'address.yml']);
         $this->logInUser('oliver@queen.com', '123password');
 
-        $this->client->request('DELETE', sprintf('/shop-api/WEB_GB/address-book/-1'), [], [], self::$acceptAndContentTypeHeader);
+        $this->client->request('DELETE', '/shop-api/WEB_GB/address-book/-1', [], [], self::$acceptAndContentTypeHeader);
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_BAD_REQUEST);
@@ -79,7 +79,7 @@ final class AddressBookRemoveAddressApiTest extends JsonApiTestCase
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'country.yml', 'address.yml']);
         $this->logInUser('oliver@queen.com', '123password');
 
-        $this->client->request('DELETE', sprintf('/shop-api/SPACE_KLINGON/address-book/1'), [], [], self::$acceptAndContentTypeHeader);
+        $this->client->request('DELETE', '/shop-api/SPACE_KLINGON/address-book/1', [], [], self::$acceptAndContentTypeHeader);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);

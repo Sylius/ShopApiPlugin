@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\EventSubscriber;
+namespace spec\Sylius\ShopApiPlugin\Http;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use Sylius\Component\Channel\Context\ChannelNotFoundException;
 use Sylius\ShopApiPlugin\Checker\ChannelExistenceCheckerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\ParameterBag;
@@ -13,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-final class RequestChannelSubscriberSpec extends ObjectBehavior
+final class RequestChannelEnsurerSpec extends ObjectBehavior
 {
     function let(ChannelExistenceCheckerInterface $channelExistenceChecker): void
     {
@@ -25,7 +26,7 @@ final class RequestChannelSubscriberSpec extends ObjectBehavior
         $this->shouldImplement(EventSubscriberInterface::class);
     }
 
-    function it_validates_channel_code_put_in_request_attributes(
+    function it_ensures_that_channel_code_passed_in_request_is_valid(
         ChannelExistenceCheckerInterface $channelExistenceChecker,
         FilterControllerEvent $event,
         Request $request
@@ -33,7 +34,7 @@ final class RequestChannelSubscriberSpec extends ObjectBehavior
         $event->getRequest()->willReturn($request);
         $request->attributes = new ParameterBag(['channelCode' => 'WEB_US']);
 
-        $channelExistenceChecker->withCode('WEB_US')->willThrow(NotFoundHttpException::class);
+        $channelExistenceChecker->withCode('WEB_US')->willThrow(ChannelNotFoundException::class);
 
         $this
             ->shouldThrow(NotFoundHttpException::class)

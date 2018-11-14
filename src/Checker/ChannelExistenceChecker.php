@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Checker;
 
+use Sylius\Component\Channel\Context\ChannelNotFoundException;
 use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final class ChannelExistenceChecker implements ChannelExistenceCheckerInterface
 {
@@ -22,7 +22,7 @@ final class ChannelExistenceChecker implements ChannelExistenceCheckerInterface
         $channel = $this->channelRepository->findOneByCode($channelCode);
 
         if (null === $channel) {
-            throw new NotFoundHttpException(sprintf('Channel with code %s has not been found.', $channelCode));
+            throw new ChannelNotFoundException(sprintf('Channel with code %s has not been found.', $channelCode));
         }
     }
 }
