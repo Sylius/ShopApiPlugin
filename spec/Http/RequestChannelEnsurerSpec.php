@@ -6,8 +6,8 @@ namespace spec\Sylius\ShopApiPlugin\Http;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use Sylius\Component\Channel\Context\ChannelNotFoundException;
 use Sylius\ShopApiPlugin\Checker\ChannelExistenceCheckerInterface;
+use Sylius\ShopApiPlugin\Exception\ChannelNotFoundException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;

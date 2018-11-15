@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace spec\Sylius\ShopApiPlugin\Checker;
 
 use PhpSpec\ObjectBehavior;
-use Sylius\Component\Channel\Context\ChannelNotFoundException;
 use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\ShopApiPlugin\Checker\ChannelExistenceCheckerInterface;
+use Sylius\ShopApiPlugin\Exception\ChannelNotFoundException;
 
 final class ChannelExistenceCheckerSpec extends ObjectBehavior
 {

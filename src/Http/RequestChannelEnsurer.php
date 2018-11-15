@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Http;
 
-use Sylius\Component\Channel\Context\ChannelNotFoundException;
 use Sylius\ShopApiPlugin\Checker\ChannelExistenceCheckerInterface;
+use Sylius\ShopApiPlugin\Exception\ChannelNotFoundException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
