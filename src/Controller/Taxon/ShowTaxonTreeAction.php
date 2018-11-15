@@ -6,12 +6,10 @@ namespace Sylius\ShopApiPlugin\Controller\Taxon;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
-use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
-use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Taxonomy\Repository\TaxonRepositoryInterface;
 use Sylius\ShopApiPlugin\Factory\TaxonViewFactoryInterface;
-use Sylius\ShopApiPlugin\Provider\SupportedLocaleProviderInterface;
+use Sylius\ShopApiPlugin\Http\RequestBasedLocaleProviderInterface;
 use Sylius\ShopApiPlugin\View\TaxonView;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,31 +25,24 @@ final class ShowTaxonTreeAction
     /** @var TaxonViewFactoryInterface */
     private $taxonViewFactory;
 
-    /** @var ChannelRepositoryInterface */
-    private $channelRepository;
-
-    /** @var SupportedLocaleProviderInterface */
-    private $supportedLocaleProvider;
+    /** @var RequestBasedLocaleProviderInterface */
+    private $requestBasedLocaleProvider;
 
     public function __construct(
         TaxonRepositoryInterface $taxonRepository,
         ViewHandlerInterface $viewHandler,
         TaxonViewFactoryInterface $taxonViewFactory,
-        ChannelRepositoryInterface $channelRepository,
-        SupportedLocaleProviderInterface $supportedLocaleProvider
+        RequestBasedLocaleProviderInterface $requestBasedLocaleProvider
     ) {
         $this->taxonRepository = $taxonRepository;
         $this->viewHandler = $viewHandler;
         $this->taxonViewFactory = $taxonViewFactory;
-        $this->channelRepository = $channelRepository;
-        $this->supportedLocaleProvider = $supportedLocaleProvider;
+        $this->requestBasedLocaleProvider = $requestBasedLocaleProvider;
     }
 
     public function __invoke(Request $request): Response
     {
-        /** @var ChannelInterface $channel */
-        $channel = $this->channelRepository->findOneByCode($request->attributes->get('channelCode'));
-        $locale = $this->supportedLocaleProvider->provide($request->query->get('locale'), $channel);
+        $locale = $this->requestBasedLocaleProvider->getLocaleCode($request);
 
         $taxons = $this->taxonRepository->findRootNodes();
         $taxonViews = [];
