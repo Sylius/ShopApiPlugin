@@ -27,25 +27,27 @@ final class CartPutItemsToCartApiTest extends JsonApiTestCase
 
         $data =
 <<<EOT
-        [
-            {
-                "productCode": "LOGAN_MUG_CODE",
-                "quantity": 3
-            },
-            {
-                "productCode": "LOGAN_T_SHIRT_CODE",
-                "variantCode": "SMALL_LOGAN_T_SHIRT_CODE",
-                "quantity": 3
-            },
-            {
-                "productCode": "LOGAN_HAT_CODE",
-                "options": {
-                    "HAT_SIZE": "HAT_SIZE_S",
-                    "HAT_COLOR": "HAT_COLOR_RED"
+        {
+            "items": [
+                {
+                    "productCode": "LOGAN_MUG_CODE",
+                    "quantity": 3
                 },
-                "quantity": 3
-            }
-        ]
+                {
+                    "productCode": "LOGAN_T_SHIRT_CODE",
+                    "variantCode": "SMALL_LOGAN_T_SHIRT_CODE",
+                    "quantity": 3
+                },
+                {
+                    "productCode": "LOGAN_HAT_CODE",
+                    "options": {
+                        "HAT_SIZE": "HAT_SIZE_S",
+                        "HAT_COLOR": "HAT_COLOR_RED"
+                    },
+                    "quantity": 3
+                }
+            ]
+        }
 EOT;
         $this->client->request('POST', sprintf('/shop-api/WEB_GB/carts/%s/multiple-items', $token), [], [], static::$acceptAndContentTypeHeader, $data);
         $response = $this->client->getResponse();
@@ -68,24 +70,26 @@ EOT;
 
         $data =
 <<<EOT
-        [
-            {
-                "productCode": "LOGAN_MUG_CODE",
-                "quantity": 3
-            },
-            {
-                "productCode": "LOGAN_T_SHIRT_CODE",
-                "variantCode": "SMALL_LOGAN_T_SHIRT_CODE"
-            },
-            {
-                "productCode": "LOGAN_HAT_CODE",
-                "options": {
-                    "HAT_SIZE": "HAT_SIZE_S",
-                    "HAT_COLOR": "HAT_COLOR_RED"
+        {
+            "items": [
+                {
+                    "productCode": "LOGAN_MUG_CODE",
+                    "quantity": 3
                 },
-                "quantity": 3
-            }
-        ]
+                {
+                    "productCode": "LOGAN_T_SHIRT_CODE",
+                    "variantCode": "SMALL_LOGAN_T_SHIRT_CODE"
+                },
+                {
+                    "productCode": "LOGAN_HAT_CODE",
+                    "options": {
+                        "HAT_SIZE": "HAT_SIZE_S",
+                        "HAT_COLOR": "HAT_COLOR_RED"
+                    },
+                    "quantity": 3
+                }
+            ]
+        }
 EOT;
         $this->client->request('POST', sprintf('/shop-api/WEB_GB/carts/%s/multiple-items', $token), [], [], static::$acceptAndContentTypeHeader, $data);
         $this->client->request('GET', sprintf('/shop-api/WEB_GB/carts/%s', $token), [], [], static::$acceptAndContentTypeHeader, $data);
@@ -109,23 +113,25 @@ EOT;
 
         $data =
 <<<EOT
-        [
-            {
-                "productCode": "LOGAN_MUG_CODE",
-                "quantity": 3
-            },
-            {
-                "productCode": "LOGAN_T_SHIRT_CODE",
-                "variantCode": "SMALL_LOGAN_T_SHIRT_CODE"
-            },
-            {
-                "productCode": "LOGAN_HAT_CODE",
-                "options": {
-                    "HAT_SIZE": "HAT_SIZE_S",
-                    "HAT_COLOR": "HAT_COLOR_RED"
+        {
+            "items": [
+                {
+                    "productCode": "LOGAN_MUG_CODE",
+                    "quantity": 3
+                },
+                {
+                    "productCode": "LOGAN_T_SHIRT_CODE",
+                    "variantCode": "SMALL_LOGAN_T_SHIRT_CODE"
+                },
+                {
+                    "productCode": "LOGAN_HAT_CODE",
+                    "options": {
+                        "HAT_SIZE": "HAT_SIZE_S",
+                        "HAT_COLOR": "HAT_COLOR_RED"
+                    }
                 }
-            }
-        ]
+            ]
+        }
 EOT;
         $this->client->request('POST', sprintf('/shop-api/WEB_GB/carts/%s/multiple-items', $token), [], [], static::$acceptAndContentTypeHeader, $data);
         $response = $this->client->getResponse();
@@ -181,26 +187,26 @@ EOT;
 
         $data =
 <<<EOT
-        [
-            {
-                "productCode": "LOGAN_MUG_CODE",
-                "quantity": 3
-            },
-            {
-                "productCode": "LOGAN_T_SHIRT_CODE",
-                "variantCode": "SMALL_LOGAN_T_SHIRT_CODE",
-                "quantity": 3
-            },
-            {
-                "productCode": "LOGAN_HAT_CODE",
-                "options": {
-                    "HAT_SIZE": "HAT_SIZE_S",
-                    "HAT_COLOR": "HAT_COLOR_RED"
-                },
-                "quantity": 3
-            },
-        ],
         {
+            "items": [
+                {
+                    "productCode": "LOGAN_MUG_CODE",
+                    "quantity": 3
+                },
+                {
+                    "productCode": "LOGAN_T_SHIRT_CODE",
+                    "variantCode": "SMALL_LOGAN_T_SHIRT_CODE",
+                    "quantity": 3
+                },
+                {
+                    "productCode": "LOGAN_HAT_CODE",
+                    "options": {
+                        "HAT_SIZE": "HAT_SIZE_S",
+                        "HAT_COLOR": "HAT_COLOR_RED"
+                    },
+                    "quantity": 3
+                }
+            ],
             "channel": "WEB_GB"
         }
 EOT;

@@ -74,7 +74,7 @@ final class RequestCartTokenNormalizerSpec extends ObjectBehavior
 
         $validator->validate(Argument::type(PickupCartRequest::class))->willReturn($constraintViolationList);
 
-        $bus->handle(Argument::that(function(PickupCart $pickupCart): bool {
+        $bus->handle(Argument::that(function (PickupCart $pickupCart): bool {
             return
                 !empty($pickupCart->orderToken()) &&
                 $pickupCart->channelCode() === 'en_GB'
