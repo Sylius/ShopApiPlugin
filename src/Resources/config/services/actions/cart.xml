@@ -87,6 +87,7 @@
             <argument type="service" id="validator" />
             <argument type="service" id="sylius.shop_api_plugin.factory.validation_error_view_factory" />
             <argument type="service" id="sylius.shop_api_plugin.view_repository.cart_view_repository" />
+            <argument type="service" id="sylius.shop_api_plugin.normalizer.request_cart_token_normalizer" />
         </service>
 
         <service id="sylius.shop_api_plugin.controller.cart.put_items_to_cart_action"
@@ -96,6 +97,7 @@
             <argument type="service" id="tactician.commandbus" />
             <argument type="service" id="validator" />
             <argument type="service" id="sylius.shop_api_plugin.view_repository.cart_view_repository" />
+            <argument type="service" id="sylius.shop_api_plugin.normalizer.request_cart_token_normalizer" />
             <argument type="string">%sylius.shop_api.view.validation_error.class%</argument>
         </service>
     </services>

@@ -8,6 +8,7 @@ use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
+use Sylius\ShopApiPlugin\Normalizer\RequestCartTokenNormalizerInterface;
 use Sylius\ShopApiPlugin\Request\PutOptionBasedConfigurableItemToCartRequest;
 use Sylius\ShopApiPlugin\Request\PutSimpleItemToCartRequest;
 use Sylius\ShopApiPlugin\Request\PutVariantBasedConfigurableItemToCartRequest;
@@ -35,28 +36,43 @@ final class PutItemToCartAction
     /** @var CartViewRepositoryInterface */
     private $cartQuery;
 
+    /** @var RequestCartTokenNormalizerInterface */
+    private $requestCartTokenNormalizer;
+
     public function __construct(
         ViewHandlerInterface $viewHandler,
         CommandBus $bus,
         ValidatorInterface $validator,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
-        CartViewRepositoryInterface $cartQuery
+        CartViewRepositoryInterface $cartQuery,
+        RequestCartTokenNormalizerInterface $requestCartTokenNormalizer
     ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
         $this->validator = $validator;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->cartQuery = $cartQuery;
+        $this->requestCartTokenNormalizer = $requestCartTokenNormalizer;
     }
 
     public function __invoke(Request $request): Response
     {
+        try {
+            $request = $this->requestCartTokenNormalizer->__invoke($request);
+        } catch (\InvalidArgumentException $exception) {
+            throw new BadRequestHttpException($exception->getMessage());
+        }
+
         $commandRequest = $this->provideCommandRequest($request);
 
         $validationResults = $this->validator->validate($commandRequest);
 
         if (0 !== count($validationResults)) {
-            return $this->viewHandler->handle(View::create($this->validationErrorViewFactory->create($validationResults), Response::HTTP_BAD_REQUEST));
+            return $this->viewHandler->handle(
+                View::create($this->validationErrorViewFactory->create($validationResults),
+                    Response::HTTP_BAD_REQUEST
+                )
+            );
         }
 
         $command = $commandRequest->getCommand();
