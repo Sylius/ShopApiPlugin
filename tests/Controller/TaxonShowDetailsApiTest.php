@@ -11,11 +11,11 @@ final class TaxonShowDetailsApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_shows_summary_of_a_chosen_taxon()
+    public function it_shows_summary_of_a_chosen_taxon_with_fallback_locale_from_channel()
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
-        $this->client->request('GET', '/shop-api/WEB_GB/taxons/T_SHIRTS?locale=en_GB', [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('GET', '/shop-api/WEB_GB/taxons/T_SHIRTS', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'taxon/one_of_taxons_response', Response::HTTP_OK);
