@@ -10,7 +10,6 @@ use Sylius\ShopApiPlugin\Model\PaginatorDetails;
 use Sylius\ShopApiPlugin\ViewRepository\ProductReviewsViewRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final class ShowProductReviewsBySlugAction
 {
@@ -30,13 +29,9 @@ final class ShowProductReviewsBySlugAction
 
     public function __invoke(Request $request): Response
     {
-        if (!$request->query->has('channel')) {
-            throw new NotFoundHttpException('Cannot find product without channel provided');
-        }
-
         $page = $this->productReviewsViewRepository->getByProductSlug(
             $request->attributes->get('slug'),
-            $request->query->get('channel'),
+            $request->attributes->get('channelCode'),
             new PaginatorDetails($request->attributes->get('_route'), $request->query->all()),
             $request->query->get('locale')
         );

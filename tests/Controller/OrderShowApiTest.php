@@ -23,7 +23,7 @@ final class OrderShowApiTest extends JsonApiTestCase
         /** @var OrderInterface $placedOrder */
         $placedOrder = $fixtures['placed_order'];
 
-        $this->client->request('GET', '/shop-api/orders/' . $placedOrder->getId(), [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('GET', '/shop-api/WEB_GB/orders/' . $placedOrder->getId(), [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'order/order_details_response', Response::HTTP_OK);
@@ -34,10 +34,10 @@ final class OrderShowApiTest extends JsonApiTestCase
      */
     public function it_returns_a_not_found_exception_if_there_is_no_placed_order_with_given_id(): void
     {
-        $this->loadFixturesFromFiles(['customer.yml']);
+        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
         $this->logInUser('oliver@queen.com', '123password');
 
-        $this->client->request('GET', '/shop-api/orders/13', [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('GET', '/shop-api/WEB_GB/orders/13', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'order/order_not_found_response', Response::HTTP_NOT_FOUND);
@@ -48,9 +48,24 @@ final class OrderShowApiTest extends JsonApiTestCase
      */
     public function it_returns_an_unauthorized_exception_if_there_is_no_logged_in_user(): void
     {
-        $this->client->request('GET', '/shop-api/orders/2', [], [], ['ACCEPT' => 'application/json']);
+        $this->loadFixturesFromFiles(['channel.yml']);
+
+        $this->client->request('GET', '/shop-api/WEB_GB/orders/2', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_UNAUTHORIZED);
+    }
+
+    /**
+     * @test
+     */
+    public function it_does_not_show_order_details_in_non_existent_channel()
+    {
+        $this->loadFixturesFromFiles(['channel.yml']);
+
+        $this->client->request('GET', '/shop-api/SPACE_KLINGON/orders/2', [], [], ['ACCEPT' => 'application/json']);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
     }
 }

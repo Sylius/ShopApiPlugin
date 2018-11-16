@@ -13,6 +13,7 @@
                 "code": "LOGAN_MUG_CODE",
                 "name": "Logan Becher",
                 "slug": "logan-becher",
+                "channelCode": "WEB_DE",
                 "averageRating": 0,
                 "taxons": {
                     "main": "MUG",
@@ -50,7 +51,7 @@
                 ],
                 "_links": {
                     "self": {
-                        "href": "\/shop-api\/products-by-slug\/logan-becher"
+                        "href": "\/shop-api\/WEB_DE\/products-by-slug\/logan-becher"
                     }
                 }
             }

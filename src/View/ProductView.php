@@ -16,6 +16,9 @@ class ProductView
     public $slug;
 
     /** @var string */
+    public $channelCode;
+
+    /** @var string */
     public $breadcrumb;
 
     /** @var string */

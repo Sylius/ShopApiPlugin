@@ -13,6 +13,7 @@
                 "code": "LOGAN_HAT_CODE",
                 "name": "Logan Hut",
                 "slug": "logan-hut",
+                "channelCode": "WEB_DE",
                 "description": "Einige Beschreibung Lorem ipsum dolor sit amet.",
                 "averageRating": 0,
                 "taxons": {
@@ -46,7 +47,7 @@
                 "images": [],
                 "_links": {
                     "self": {
-                        "href": "\/shop-api\/products-by-slug\/logan-hut"
+                        "href": "\/shop-api\/WEB_DE\/products-by-slug\/logan-hut"
                     }
                 }
             }

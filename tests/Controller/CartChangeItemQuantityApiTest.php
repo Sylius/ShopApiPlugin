@@ -20,7 +20,7 @@ final class CartChangeItemQuantityApiTest extends JsonApiTestCase
      */
     public function it_does_not_allow_to_change_quantity_if_cart_does_not_exists()
     {
-        $this->loadFixturesFromFiles(['shop.yml']);
+        $this->loadFixturesFromFiles(['channel.yml', 'shop.yml']);
 
         $data =
 <<<EOT
@@ -28,7 +28,7 @@ final class CartChangeItemQuantityApiTest extends JsonApiTestCase
             "quantity": 5
         }
 EOT;
-        $this->client->request('PUT', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/items/1', [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('PUT', '/shop-api/WEB_GB/carts/SDAOSLEFNWU35H3QLI5325/items/1', [], [], static::$acceptAndContentTypeHeader, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/validation_cart_and_cart_item_not_exist_response', Response::HTTP_BAD_REQUEST);
@@ -39,7 +39,7 @@ EOT;
      */
     public function it_changes_item_quantity()
     {
-        $this->loadFixturesFromFiles(['shop.yml']);
+        $this->loadFixturesFromFiles(['channel.yml', 'shop.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -54,7 +54,7 @@ EOT;
             "quantity": 5
         }
 EOT;
-        $this->client->request('PUT', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/items/' . $this->getFirstOrderItemId($token), [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('PUT', '/shop-api/WEB_GB/carts/SDAOSLEFNWU35H3QLI5325/items/' . $this->getFirstOrderItemId($token), [], [], static::$acceptAndContentTypeHeader, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/filled_cart_with_simple_product_summary_response', Response::HTTP_OK);
@@ -65,7 +65,7 @@ EOT;
      */
     public function it_does_not_allow_to_set_quantity_lower_than_one()
     {
-        $this->loadFixturesFromFiles(['shop.yml']);
+        $this->loadFixturesFromFiles(['channel.yml', 'shop.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -80,7 +80,7 @@ EOT;
             "quantity": 0
         }
 EOT;
-        $this->client->request('PUT', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/items/' . $this->getFirstOrderItemId($token), [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('PUT', '/shop-api/WEB_GB/carts/SDAOSLEFNWU35H3QLI5325/items/' . $this->getFirstOrderItemId($token), [], [], static::$acceptAndContentTypeHeader, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/validation_quantity_lower_than_one_response', Response::HTTP_BAD_REQUEST);
@@ -91,7 +91,7 @@ EOT;
      */
     public function it_does_not_allow_to_change_quantity_without_quantity_defined()
     {
-        $this->loadFixturesFromFiles(['shop.yml']);
+        $this->loadFixturesFromFiles(['channel.yml', 'shop.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -100,7 +100,7 @@ EOT;
         $bus->handle(new PickupCart($token, 'WEB_GB'));
         $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 3));
 
-        $this->client->request('PUT', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/items/' . $this->getFirstOrderItemId($token), [], [], static::$acceptAndContentTypeHeader);
+        $this->client->request('PUT', '/shop-api/WEB_GB/carts/SDAOSLEFNWU35H3QLI5325/items/' . $this->getFirstOrderItemId($token), [], [], static::$acceptAndContentTypeHeader);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/validation_quantity_lower_than_one_response', Response::HTTP_BAD_REQUEST);
@@ -111,7 +111,7 @@ EOT;
      */
     public function it_does_not_allow_to_change_quantity_if_cart_item_does_not_exists()
     {
-        $this->loadFixturesFromFiles(['shop.yml']);
+        $this->loadFixturesFromFiles(['channel.yml', 'shop.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -125,10 +125,35 @@ EOT;
             "quantity": 5
         }
 EOT;
-        $this->client->request('PUT', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/items/420', [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('PUT', '/shop-api/WEB_GB/carts/SDAOSLEFNWU35H3QLI5325/items/420', [], [], static::$acceptAndContentTypeHeader, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/validation_cart_item_not_exists_response', Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @test
+     */
+    public function it_does_not_allow_to_change_item_quantity_in_non_existent_channel()
+    {
+        $this->loadFixturesFromFiles(['channel.yml', 'shop.yml']);
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var CommandBus $bus */
+        $bus = $this->get('tactician.commandbus');
+        $bus->handle(new PickupCart($token, 'WEB_GB'));
+
+        $data =
+<<<EOT
+        {
+            "quantity": 5
+        }
+EOT;
+        $this->client->request('PUT', '/shop-api/SPACE_KLINGON/carts/SDAOSLEFNWU35H3QLI5325/items/420', [], [], static::$acceptAndContentTypeHeader, $data);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
     }
 
     private function getFirstOrderItemId(string $orderToken): string

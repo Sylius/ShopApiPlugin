@@ -2,6 +2,7 @@
     "code": "LOGAN_HAT_CODE",
     "name": "Logan Hut",
     "slug": "logan-hut",
+    "channelCode": "WEB_GB",
     "breadcrumb": "hute\/logan-hut",
     "description": "Einige Beschreibung Lorem ipsum dolor sit amet.",
     "averageRating": 0,
@@ -89,6 +90,7 @@
                 "code": "LOGAN_MUG_CODE",
                 "name": "Logan Becher",
                 "slug": "logan-becher",
+                "channelCode": "WEB_GB",
                 "averageRating": 0,
                 "taxons": {
                     "main": "MUG",
@@ -131,7 +133,7 @@
                 ],
                 "_links": {
                     "self": {
-                        "href": "\/shop-api\/products-by-slug\/logan-becher"
+                        "href": "\/shop-api\/WEB_GB\/products-by-slug\/logan-becher"
                     }
                 }
             },
@@ -139,6 +141,7 @@
                 "code": "LOGAN_T_SHIRT_CODE",
                 "name": "Logan T-Shirt",
                 "slug": "logan-t-shirt",
+                "channelCode": "WEB_GB",
                 "description": "Some description Lorem ipsum dolor sit amet.",
                 "averageRating": 0,
                 "taxons": {
@@ -200,7 +203,7 @@
                 ],
                 "_links": {
                     "self": {
-                        "href": "\/shop-api\/products-by-slug\/logan-t-shirt"
+                        "href": "\/shop-api\/WEB_GB\/products-by-slug\/logan-t-shirt"
                     }
                 }
             }
@@ -209,7 +212,7 @@
     "images": [],
     "_links": {
         "self": {
-            "href": "\/shop-api\/products-by-slug\/logan-hut"
+            "href": "\/shop-api\/WEB_GB\/products-by-slug\/logan-hut"
         }
     }
 }

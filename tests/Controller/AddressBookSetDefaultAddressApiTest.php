@@ -23,7 +23,7 @@ final class AddressBookSetDefaultAddressApiTest extends JsonApiTestCase
      */
     public function it_sets_given_address_as_default()
     {
-        $this->loadFixturesFromFiles(['customer.yml', 'country.yml', 'address.yml']);
+        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'country.yml', 'address.yml']);
         $this->logInUser('oliver@queen.com', '123password');
 
         /** @var AddressRepositoryInterface $addressRepository */
@@ -31,7 +31,7 @@ final class AddressBookSetDefaultAddressApiTest extends JsonApiTestCase
         /** @var ResourceInterface $address */
         $address = $addressRepository->findOneBy(['street' => 'Kupreska']);
 
-        $this->client->request('PATCH', sprintf('/shop-api/address-book/%s/default', $address->getId()), [], [], self::$acceptAndContentTypeHeader);
+        $this->client->request('PATCH', sprintf('/shop-api/WEB_GB/address-book/%s/default', $address->getId()), [], [], self::$acceptAndContentTypeHeader);
         $response = $this->client->getResponse();
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
 
@@ -44,5 +44,19 @@ final class AddressBookSetDefaultAddressApiTest extends JsonApiTestCase
             $shopUser->getCustomer()->getDefaultAddress()->getId(),
             $address->getId()
         );
+    }
+
+    /**
+     * @test
+     */
+    public function it_does_not_allow_to_set_address_as_default_in_non_existent_channel()
+    {
+        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'country.yml', 'address.yml']);
+        $this->logInUser('oliver@queen.com', '123password');
+
+        $this->client->request('PATCH', sprintf('/shop-api/SPACE_KLINGON/address-book/1/default'), [], [], self::$acceptAndContentTypeHeader);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
     }
 }

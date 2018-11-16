@@ -30,14 +30,10 @@ final class ShowProductCatalogByTaxonCodeAction
 
     public function __invoke(Request $request): Response
     {
-        if (!$request->query->has('channel')) {
-            throw new NotFoundHttpException('Cannot find product without channel provided');
-        }
-
         try {
             return $this->viewHandler->handle(View::create($this->productCatalogQuery->findByTaxonCode(
                 $request->attributes->get('code'),
-                $request->query->get('channel'),
+                $request->attributes->get('channelCode'),
                 new PaginatorDetails($request->attributes->get('_route'), $request->query->all()),
                 $request->query->get('locale')
             ), Response::HTTP_OK));

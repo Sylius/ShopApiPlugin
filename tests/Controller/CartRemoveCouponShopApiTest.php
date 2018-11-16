@@ -29,7 +29,7 @@ final class CartRemoveCouponShopApiTest extends JsonApiTestCase
         $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
         $bus->handle(new AddCoupon($token, 'BANANAS'));
 
-        $this->client->request('DELETE', sprintf('/shop-api/carts/%s/coupon', $token), [], [], static::$acceptAndContentTypeHeader, null);
+        $this->client->request('DELETE', sprintf('/shop-api/WEB_GB/carts/%s/coupon', $token), [], [], static::$acceptAndContentTypeHeader, null);
 
         $response = $this->client->getResponse();
 
@@ -50,7 +50,7 @@ final class CartRemoveCouponShopApiTest extends JsonApiTestCase
         $bus->handle(new PickupCart($token, 'WEB_GB'));
         $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
 
-        $this->client->request('DELETE', sprintf('/shop-api/carts/%s/coupon', $token), [], [], static::$acceptAndContentTypeHeader, null);
+        $this->client->request('DELETE', sprintf('/shop-api/WEB_GB/carts/%s/coupon', $token), [], [], static::$acceptAndContentTypeHeader, null);
 
         $response = $this->client->getResponse();
 
@@ -64,10 +64,24 @@ final class CartRemoveCouponShopApiTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
-        $this->client->request('DELETE', '/shop-api/carts/WRONGTOKEN/coupon', [], [], static::$acceptAndContentTypeHeader, null);
+        $this->client->request('DELETE', '/shop-api/WEB_GB/carts/WRONGTOKEN/coupon', [], [], static::$acceptAndContentTypeHeader, null);
 
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/validation_cart_not_exists_response', Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @test
+     */
+    public function it_does_not_allow_to_add_promotion_code_in_non_existent_channel()
+    {
+        $this->loadFixturesFromFiles(['shop.yml']);
+
+        $this->client->request('DELETE', '/shop-api/SPACE_KLINGON/carts/WRONGTOKEN/coupon', [], [], static::$acceptAndContentTypeHeader, null);
+
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
     }
 }

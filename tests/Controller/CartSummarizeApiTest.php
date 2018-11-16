@@ -27,7 +27,7 @@ final class CartSummarizeApiTest extends JsonApiTestCase
         $bus = $this->get('tactician.commandbus');
         $bus->handle(new PickupCart($token, 'WEB_GB'));
 
-        $this->client->request('GET', '/shop-api/carts/' . $token, [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('GET', '/shop-api/WEB_GB/carts/' . $token, [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/empty_response', Response::HTTP_OK);
@@ -40,10 +40,23 @@ final class CartSummarizeApiTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
-        $this->client->request('GET', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('GET', '/shop-api/WEB_GB/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/cart_has_not_been_found_response', Response::HTTP_NOT_FOUND);
+    }
+
+    /**
+     * @test
+     */
+    public function it_does_not_allow_to_summarize_cart_in_non_existent_channel()
+    {
+        $this->loadFixturesFromFiles(['shop.yml']);
+
+        $this->client->request('GET', '/shop-api/SPACE_KLINGON/carts/SDAOSLEFNWU35H3QLI5325', [], [], ['ACCEPT' => 'application/json']);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
     }
 
     /**
@@ -60,7 +73,7 @@ final class CartSummarizeApiTest extends JsonApiTestCase
         $bus->handle(new PickupCart($token, 'WEB_GB'));
         $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
 
-        $this->client->request('GET', '/shop-api/carts/' . $token, [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('GET', '/shop-api/WEB_GB/carts/' . $token, [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/filled_cart_with_simple_product_summary_response', Response::HTTP_OK);
@@ -80,7 +93,7 @@ final class CartSummarizeApiTest extends JsonApiTestCase
         $bus->handle(new PickupCart($token, 'WEB_DE'));
         $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
 
-        $this->client->request('GET', sprintf('/shop-api/carts/%s', $token), [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('GET', sprintf('/shop-api/WEB_GB/carts/%s', $token), [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/german_filled_cart_with_simple_product_summary_response', Response::HTTP_OK);
@@ -119,10 +132,10 @@ EOT;
             "quantity": 3
         }
 EOT;
-        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], static::$acceptAndContentTypeHeader, $regularVariant);
-        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], static::$acceptAndContentTypeHeader, $variantWithOptions);
+        $this->client->request('POST', sprintf('/shop-api/WEB_GB/carts/%s/items', $token), [], [], static::$acceptAndContentTypeHeader, $regularVariant);
+        $this->client->request('POST', sprintf('/shop-api/WEB_GB/carts/%s/items', $token), [], [], static::$acceptAndContentTypeHeader, $variantWithOptions);
 
-        $this->client->request('GET', sprintf('/shop-api/carts/%s', $token), [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('GET', sprintf('/shop-api/WEB_GB/carts/%s', $token), [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/filled_cart_with_product_variant_summary_response', Response::HTTP_OK);
@@ -153,9 +166,9 @@ EOT;
         }
 EOT;
 
-        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], static::$acceptAndContentTypeHeader, $variantWithOptions);
+        $this->client->request('POST', sprintf('/shop-api/WEB_GB/carts/%s/items', $token), [], [], static::$acceptAndContentTypeHeader, $variantWithOptions);
 
-        $this->client->request('GET', sprintf('/shop-api/carts/%s', $token), [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('GET', sprintf('/shop-api/WEB_GB/carts/%s', $token), [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/german_filled_cart_with_product_variant_summary_response', Response::HTTP_OK);
@@ -176,7 +189,7 @@ EOT;
         $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
         $bus->handle(new AddCoupon($token, 'BANANAS'));
 
-        $this->client->request('GET', '/shop-api/checkout/' . $token, [], [], static::$acceptAndContentTypeHeader);
+        $this->client->request('GET', '/shop-api/WEB_GB/checkout/' . $token, [], [], static::$acceptAndContentTypeHeader);
 
         $response = $this->client->getResponse();
         $this->assertResponse($response, 'cart/cart_with_coupon_based_promotion_applied_response', Response::HTTP_OK);

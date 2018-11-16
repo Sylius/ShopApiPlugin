@@ -31,18 +31,18 @@ final class UserRegistrationListenerSpec extends ObjectBehavior
         ChannelRepositoryInterface $channelRepository,
         ChannelInterface $channel
     ): void {
-        $channelRepository->findOneByCode('FOOBAR')->willReturn($channel);
+        $channelRepository->findOneByCode('WEB_GB')->willReturn($channel);
 
         $channel->isAccountVerificationRequired()->willReturn(true);
 
         $bus->handle(new GenerateVerificationToken('shop@example.com'))->shouldBeCalled();
-        $bus->handle(new SendVerificationToken('shop@example.com'))->shouldBeCalled();
+        $bus->handle(new SendVerificationToken('shop@example.com', 'WEB_GB'))->shouldBeCalled();
 
         $this->handleUserVerification(new CustomerRegistered(
             'shop@example.com',
             'Shop',
             'Example',
-            'FOOBAR'
+            'WEB_GB'
         ));
     }
 
@@ -54,7 +54,7 @@ final class UserRegistrationListenerSpec extends ObjectBehavior
         ChannelInterface $channel
     ): void {
         $userRepository->findOneByEmail('shop@example.com')->willReturn($user);
-        $channelRepository->findOneByCode('FOOBAR')->willReturn($channel);
+        $channelRepository->findOneByCode('WEB_GB')->willReturn($channel);
 
         $channel->isAccountVerificationRequired()->willReturn(false);
 
@@ -67,19 +67,19 @@ final class UserRegistrationListenerSpec extends ObjectBehavior
             'shop@example.com',
             'Shop',
             'Example',
-            'FOOBAR'
+            'WEB_GB'
         ));
     }
 
     function it_throws_an_exception_if_channel_cannot_be_found(ChannelRepositoryInterface $channelRepository): void
     {
-        $channelRepository->findOneByCode('FOOBAR')->willReturn(null);
+        $channelRepository->findOneByCode('WEB_GB')->willReturn(null);
 
         $this->shouldThrow(\InvalidArgumentException::class)->during('handleUserVerification', [new CustomerRegistered(
             'shop@example.com',
             'Shop',
             'Example',
-            'FOOBAR'
+            'WEB_GB'
         )]);
     }
 }

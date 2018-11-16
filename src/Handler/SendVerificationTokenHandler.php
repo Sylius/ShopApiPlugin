@@ -35,6 +35,10 @@ final class SendVerificationTokenHandler
         Assert::notNull($user, sprintf('User with %s email has not been found.', $email));
         Assert::notNull($user->getEmailVerificationToken(), sprintf('User with %s email has not verification token defined.', $email));
 
-        $this->sender->send(Emails::EMAIL_VERIFICATION_TOKEN, [$email], ['user' => $user]);
+        $this->sender->send(
+            Emails::EMAIL_VERIFICATION_TOKEN,
+            [$email],
+            ['user' => $user, 'channelCode' => $resendVerificationToken->channelCode()]
+        );
     }
 }

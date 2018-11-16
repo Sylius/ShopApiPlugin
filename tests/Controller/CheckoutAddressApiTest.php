@@ -13,12 +13,50 @@ final class CheckoutAddressApiTest extends JsonApiTestCase
 {
     private static $acceptAndContentTypeHeader = ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'];
 
+    /**
+     * TODO check is it possible (test annotation make it fail)
+     */
     public function it_does_not_allow_to_address_unexisting_order()
     {
-        $this->client->request('PUT', '/shop-api/checkout/SDAOSLEFNWU35H3QLI5325/address', [], [], static::$acceptAndContentTypeHeader);
+        $this->client->request('PUT', '/shop-api/WEB_GB/checkout/SDAOSLEFNWU35H3QLI5325/address', [], [], static::$acceptAndContentTypeHeader);
 
         $response = $this->client->getResponse();
         $this->assertResponse($response, 'cart/cart_has_not_been_found_response', Response::HTTP_NOT_FOUND);
+    }
+
+    /**
+     * @test
+     */
+    public function it_does_not_allow_to_address_cart_in_non_existent_channel()
+    {
+        $this->loadFixturesFromFiles(['shop.yml']);
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var CommandBus $bus */
+        $bus = $this->get('tactician.commandbus');
+        $bus->handle(new PickupCart($token, 'WEB_GB'));
+        $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
+
+        $data =
+<<<EOT
+        {
+            "shippingAddress": {
+                "firstName": "Sherlock",
+                "lastName": "Holmes",
+                "countryCode": "GB",
+                "street": "Baker Street 221b",
+                "city": "London",
+                "postcode": "NW1",
+                "provinceName": "Greater London"
+            }
+        }
+EOT;
+
+        $this->client->request('PUT', sprintf('/shop-api/SPACE_KLINGON/checkout/%s/address', $token), [], [], static::$acceptAndContentTypeHeader, $data);
+
+        $response = $this->client->getResponse();
+        $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
     }
 
     /**
@@ -50,7 +88,7 @@ final class CheckoutAddressApiTest extends JsonApiTestCase
         }
 EOT;
 
-        $this->client->request('PUT', sprintf('/shop-api/checkout/%s/address', $token), [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('PUT', sprintf('/shop-api/WEB_GB/checkout/%s/address', $token), [], [], static::$acceptAndContentTypeHeader, $data);
 
         $response = $this->client->getResponse();
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
@@ -84,7 +122,7 @@ EOT;
         }
 EOT;
 
-        $this->client->request('PUT', '/shop-api/checkout/SDAOSLEFNWU35H3QLI5325/address', [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('PUT', '/shop-api/WEB_GB/checkout/SDAOSLEFNWU35H3QLI5325/address', [], [], static::$acceptAndContentTypeHeader, $data);
 
         $response = $this->client->getResponse();
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
@@ -128,7 +166,7 @@ EOT;
         }
 EOT;
 
-        $this->client->request('PUT', sprintf('/shop-api/checkout/%s/address', $token), [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('PUT', sprintf('/shop-api/WEB_GB/checkout/%s/address', $token), [], [], static::$acceptAndContentTypeHeader, $data);
 
         $response = $this->client->getResponse();
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);

@@ -23,7 +23,7 @@ final class AddressBookCreateAddressApiTest extends JsonApiTestCase
      */
     public function it_allows_user_to_add_new_address_to_address_book()
     {
-        $this->loadFixturesFromFiles(['customer.yml', 'country.yml']);
+        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'country.yml']);
         $this->logInUser('oliver@queen.com', '123password');
 
         $data =
@@ -39,7 +39,7 @@ final class AddressBookCreateAddressApiTest extends JsonApiTestCase
         }
 EOT;
 
-        $this->client->request('POST', '/shop-api/address-book', [], [], self::$acceptAndContentTypeHeader, $data);
+        $this->client->request('POST', '/shop-api/WEB_GB/address-book', [], [], self::$acceptAndContentTypeHeader, $data);
 
         $response = $this->client->getResponse();
         $this->assertResponse($response, 'address_book/add_address_response', Response::HTTP_CREATED);
@@ -64,7 +64,7 @@ EOT;
      */
     public function it_does_not_allow_user_to_add_new_address_to_address_book_without_passing_required_data()
     {
-        $this->loadFixturesFromFiles(['customer.yml', 'country.yml']);
+        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'country.yml']);
         $this->logInUser('oliver@queen.com', '123password');
 
         $data =
@@ -80,7 +80,7 @@ EOT;
         }
 EOT;
 
-        $this->client->request('POST', '/shop-api/address-book', [], [], self::$acceptAndContentTypeHeader, $data);
+        $this->client->request('POST', '/shop-api/WEB_GB/address-book', [], [], self::$acceptAndContentTypeHeader, $data);
 
         $response = $this->client->getResponse();
         $this->assertResponse($response, 'address_book/validation_create_address_book_response', Response::HTTP_BAD_REQUEST);
@@ -91,7 +91,7 @@ EOT;
      */
     public function it_does_not_allow_user_to_add_new_address_to_address_book_without_passing_correct_country_code()
     {
-        $this->loadFixturesFromFiles(['customer.yml', 'country.yml']);
+        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'country.yml']);
         $this->logInUser('oliver@queen.com', '123password');
 
         $data =
@@ -106,7 +106,7 @@ EOT;
         }
 EOT;
 
-        $this->client->request('POST', '/shop-api/address-book', [], [], self::$acceptAndContentTypeHeader, $data);
+        $this->client->request('POST', '/shop-api/WEB_GB/address-book', [], [], self::$acceptAndContentTypeHeader, $data);
 
         $response = $this->client->getResponse();
         $this->assertResponse($response, 'address_book/validation_create_address_book_with_wrong_country_response', Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -117,7 +117,7 @@ EOT;
      */
     public function it_does_not_allow_user_to_add_new_address_to_address_book_without_passing_correct_province_code()
     {
-        $this->loadFixturesFromFiles(['customer.yml', 'country.yml']);
+        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'country.yml']);
         $this->logInUser('oliver@queen.com', '123password');
 
         $data =
@@ -133,9 +133,35 @@ EOT;
         }
 EOT;
 
-        $this->client->request('POST', '/shop-api/address-book', [], [], self::$acceptAndContentTypeHeader, $data);
+        $this->client->request('POST', '/shop-api/WEB_GB/address-book', [], [], self::$acceptAndContentTypeHeader, $data);
 
         $response = $this->client->getResponse();
         $this->assertResponse($response, 'address_book/validation_create_address_book_with_wrong_province_response', Response::HTTP_INTERNAL_SERVER_ERROR);
+    }
+
+    /**
+     * @test
+     */
+    public function it_does_not_allow_user_to_add_new_address_to_address_book_in_non_existent_channel()
+    {
+        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'country.yml']);
+        $this->logInUser('oliver@queen.com', '123password');
+
+        $data =
+            <<<EOT
+        {
+            "firstName": "Davor",
+            "lastName": "Duhovic",
+            "countryCode": "WRONG_COUNTRY_NAME",
+            "street": "Marmontova 21",
+            "city": "Split",
+            "postcode": "2100"
+        }
+EOT;
+
+        $this->client->request('POST', '/shop-api/SPACE_KLINGON/address-book', [], [], self::$acceptAndContentTypeHeader, $data);
+
+        $response = $this->client->getResponse();
+        $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
     }
 }

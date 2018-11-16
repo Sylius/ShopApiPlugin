@@ -4,16 +4,17 @@
     "pages": 1,
     "total": 3,
     "_links": {
-        "self": "\/shop-api\/taxon-products\/BRAND?channel=WEB_GB&page=1&limit=10",
-        "first": "\/shop-api\/taxon-products\/BRAND?channel=WEB_GB&page=1&limit=10",
-        "last": "\/shop-api\/taxon-products\/BRAND?channel=WEB_GB&page=1&limit=10",
-        "next": "\/shop-api\/taxon-products\/BRAND?channel=WEB_GB&page=1&limit=10"
+        "self": "\/shop-api\/WEB_GB\/taxon-products\/BRAND?page=1&limit=10",
+        "first": "\/shop-api\/WEB_GB\/taxon-products\/BRAND?page=1&limit=10",
+        "last": "\/shop-api\/WEB_GB\/taxon-products\/BRAND?page=1&limit=10",
+        "next": "\/shop-api\/WEB_GB\/taxon-products\/BRAND?page=1&limit=10"
     },
     "items": [
         {
             "code": "LOGAN_MUG_CODE",
             "name": "Logan Mug",
             "slug": "logan-mug",
+            "channelCode": "WEB_GB",
             "description": "Some description Lorem ipsum dolor sit amet.",
             "averageRating": 0,
             "taxons": {
@@ -57,7 +58,7 @@
             ],
             "_links": {
                 "self": {
-                    "href": "\/shop-api\/products-by-slug\/logan-mug"
+                    "href": "\/shop-api\/WEB_GB\/products-by-slug\/logan-mug"
                 }
             }
         },
@@ -65,6 +66,7 @@
             "code": "LOGAN_T_SHIRT_CODE",
             "name": "Logan T-Shirt",
             "slug": "logan-t-shirt",
+            "channelCode": "WEB_GB",
             "description": "Some description Lorem ipsum dolor sit amet.",
             "averageRating": 0,
             "taxons": {
@@ -126,7 +128,7 @@
             ],
             "_links": {
                 "self": {
-                    "href": "\/shop-api\/products-by-slug\/logan-t-shirt"
+                    "href": "\/shop-api\/WEB_GB\/products-by-slug\/logan-t-shirt"
                 }
             }
         },
@@ -134,6 +136,7 @@
             "code": "LOGAN_HAT_CODE",
             "name": "Logan Hat",
             "slug": "logan-hat",
+            "channelCode": "WEB_GB",
             "description": "Some description Lorem ipsum dolor sit amet.",
             "averageRating": 0,
             "taxons": {
@@ -220,6 +223,7 @@
                         "code": "LOGAN_MUG_CODE",
                         "name": "Logan Mug",
                         "slug": "logan-mug",
+                        "channelCode": "WEB_GB",
                         "description": "Some description Lorem ipsum dolor sit amet.",
                         "averageRating": 0,
                         "taxons": {
@@ -263,7 +267,7 @@
                         ],
                         "_links": {
                             "self": {
-                                "href": "\/shop-api\/products-by-slug\/logan-mug"
+                                "href": "\/shop-api\/WEB_GB\/products-by-slug\/logan-mug"
                             }
                         }
                     },
@@ -271,6 +275,7 @@
                         "code": "LOGAN_T_SHIRT_CODE",
                         "name": "Logan T-Shirt",
                         "slug": "logan-t-shirt",
+                        "channelCode": "WEB_GB",
                         "description": "Some description Lorem ipsum dolor sit amet.",
                         "averageRating": 0,
                         "taxons": {
@@ -332,7 +337,7 @@
                         ],
                         "_links": {
                             "self": {
-                                "href": "\/shop-api\/products-by-slug\/logan-t-shirt"
+                                "href": "\/shop-api\/WEB_GB\/products-by-slug\/logan-t-shirt"
                             }
                         }
                     }
@@ -341,7 +346,7 @@
             "images": [],
             "_links": {
                 "self": {
-                    "href": "\/shop-api\/products-by-slug\/logan-hat"
+                    "href": "\/shop-api\/WEB_GB\/products-by-slug\/logan-hat"
                 }
             }
         }

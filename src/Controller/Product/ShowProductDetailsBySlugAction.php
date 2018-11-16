@@ -29,14 +29,10 @@ final class ShowProductDetailsBySlugAction
 
     public function __invoke(Request $request): Response
     {
-        if (!$request->query->has('channel')) {
-            throw new NotFoundHttpException('Cannot find product without channel provided');
-        }
-
         try {
             return $this->viewHandler->handle(View::create($this->productCatalog->findOneBySlug(
                 $request->attributes->get('slug'),
-                $request->query->get('channel'),
+                $request->attributes->get('channelCode'),
                 $request->query->get('locale')
             ), Response::HTTP_OK));
         } catch (\InvalidArgumentException $exception) {

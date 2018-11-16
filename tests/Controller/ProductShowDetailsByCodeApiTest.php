@@ -15,7 +15,7 @@ final class ProductShowDetailsByCodeApiTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
-        $this->client->request('GET', '/shop-api/products/LOGAN_MUG_CODE?channel=WEB_GB', [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('GET', '/shop-api/WEB_GB/products/LOGAN_MUG_CODE', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'product/simple_product_details_page', Response::HTTP_OK);
@@ -26,7 +26,7 @@ final class ProductShowDetailsByCodeApiTest extends JsonApiTestCase
      */
     public function it_throws_a_not_found_exception_if_channel_has_not_been_found()
     {
-        $this->client->request('GET', '/shop-api/products/LOGAN_MUG_CODE?channel=WEB_GB', [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('GET', '/shop-api/WEB_GB/products/LOGAN_MUG_CODE', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'product/channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
@@ -39,7 +39,7 @@ final class ProductShowDetailsByCodeApiTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
-        $this->client->request('GET', '/shop-api/products/WRONG_PRODUCT_CODE?channel=WEB_GB', [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('GET', '/shop-api/WEB_GB/products/WRONG_PRODUCT_CODE', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'product/product_has_not_been_found_for_given_code_response', Response::HTTP_NOT_FOUND);
@@ -52,7 +52,7 @@ final class ProductShowDetailsByCodeApiTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
-        $this->client->request('GET', '/shop-api/products/LOGAN_MUG_CODE?channel=WEB_GB&locale=de_DE', [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('GET', '/shop-api/WEB_GB/products/LOGAN_MUG_CODE?locale=de_DE', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'product/german_simple_product_details_page', Response::HTTP_OK);
@@ -65,7 +65,7 @@ final class ProductShowDetailsByCodeApiTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
-        $this->client->request('GET', '/shop-api/products/LOGAN_T_SHIRT_CODE?channel=WEB_GB', [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('GET', '/shop-api/WEB_GB/products/LOGAN_T_SHIRT_CODE', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'product/product_with_variant_details_page', Response::HTTP_OK);
@@ -78,7 +78,7 @@ final class ProductShowDetailsByCodeApiTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
-        $this->client->request('GET', '/shop-api/products/LOGAN_HAT_CODE?channel=WEB_GB', [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('GET', '/shop-api/WEB_GB/products/LOGAN_HAT_CODE', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'product/product_with_options_details_page', Response::HTTP_OK);
@@ -91,9 +91,22 @@ final class ProductShowDetailsByCodeApiTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
-        $this->client->request('GET', '/shop-api/products/LOGAN_HAT_CODE?channel=WEB_GB&locale=de_DE', [], [], ['ACCEPT' => 'application/json']);
+        $this->client->request('GET', '/shop-api/WEB_GB/products/LOGAN_HAT_CODE?locale=de_DE', [], [], ['ACCEPT' => 'application/json']);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'product/german_product_with_options_details_page', Response::HTTP_OK);
+    }
+
+    /**
+     * @test
+     */
+    public function it_does_not_show_product_details_by_code_in_non_existent_channel()
+    {
+        $this->loadFixturesFromFiles(['shop.yml']);
+
+        $this->client->request('GET', '/shop-api/SPACE_KLINGON/products/LOGAN_MUG_CODE', [], [], ['ACCEPT' => 'application/json']);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
     }
 }

@@ -66,6 +66,8 @@ final class ProductViewFactorySpec extends ObjectBehavior
         $taxon->getCode()->willReturn('TAXON');
         $mainTaxon->getCode()->willReturn('MAIN');
 
+        $channel->getCode()->willReturn('WEB_GB');
+
         $firstProductImage->getProductVariants()->willReturn(new ArrayCollection([]));
         $secondProductImage->getProductVariants()->willReturn(new ArrayCollection([]));
 
@@ -97,6 +99,7 @@ final class ProductViewFactorySpec extends ObjectBehavior
         $productView->taxons = $taxonView;
         $productView->images = [new ImageView(), new ImageView()];
         $productView->attributes = [];
+        $productView->channelCode = 'WEB_GB';
 
         $this->create($product, $channel, 'en_GB')->shouldBeLike($productView);
     }

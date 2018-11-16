@@ -18,7 +18,7 @@ final class CartAddCouponShopApiTest extends JsonApiTestCase
      */
     public function it_allows_to_add_promotion_coupon_to_the_cart()
     {
-        $this->loadFixturesFromFiles(['shop.yml', 'coupon_based_promotion.yml']);
+        $this->loadFixturesFromFiles(['channel.yml', 'shop.yml', 'coupon_based_promotion.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -34,7 +34,7 @@ final class CartAddCouponShopApiTest extends JsonApiTestCase
         }
 EOT;
 
-        $this->client->request('PUT', sprintf('/shop-api/carts/%s/coupon', $token), [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('PUT', sprintf('/shop-api/WEB_GB/carts/%s/coupon', $token), [], [], static::$acceptAndContentTypeHeader, $data);
 
         $response = $this->client->getResponse();
 
@@ -46,7 +46,7 @@ EOT;
      */
     public function it_does_not_allow_to_add_promotion_if_coupon_is_not_specified()
     {
-        $this->loadFixturesFromFiles(['shop.yml']);
+        $this->loadFixturesFromFiles(['channel.yml', 'shop.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -55,7 +55,7 @@ EOT;
         $bus->handle(new PickupCart($token, 'WEB_GB'));
         $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
 
-        $this->client->request('PUT', sprintf('/shop-api/carts/%s/coupon', $token), [], [], static::$acceptAndContentTypeHeader);
+        $this->client->request('PUT', sprintf('/shop-api/WEB_GB/carts/%s/coupon', $token), [], [], static::$acceptAndContentTypeHeader);
 
         $response = $this->client->getResponse();
 
@@ -67,7 +67,7 @@ EOT;
      */
     public function it_does_not_allow_to_add_promotion_code_if_cart_does_not_exists()
     {
-        $this->loadFixturesFromFiles(['shop.yml']);
+        $this->loadFixturesFromFiles(['channel.yml', 'shop.yml']);
 
         $data =
 <<<EOT
@@ -76,7 +76,7 @@ EOT;
         }
 EOT;
 
-        $this->client->request('PUT', '/shop-api/carts/WRONGTOKEN/coupon', [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('PUT', '/shop-api/WEB_GB/carts/WRONGTOKEN/coupon', [], [], static::$acceptAndContentTypeHeader, $data);
 
         $response = $this->client->getResponse();
 
@@ -88,7 +88,7 @@ EOT;
      */
     public function it_does_not_allow_to_add_promotion_code_if_promotion_code_does_not_exist()
     {
-        $this->loadFixturesFromFiles(['shop.yml']);
+        $this->loadFixturesFromFiles(['channel.yml', 'shop.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -104,7 +104,7 @@ EOT;
         }
 EOT;
 
-        $this->client->request('PUT', sprintf('/shop-api/carts/%s/coupon', $token), [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('PUT', sprintf('/shop-api/WEB_GB/carts/%s/coupon', $token), [], [], static::$acceptAndContentTypeHeader, $data);
 
         $response = $this->client->getResponse();
 
@@ -116,7 +116,7 @@ EOT;
      */
     public function it_does_not_allow_to_add_promotion_code_if_code_is_invalid()
     {
-        $this->loadFixturesFromFiles(['shop.yml', 'coupon_based_promotion.yml']);
+        $this->loadFixturesFromFiles(['channel.yml', 'shop.yml', 'coupon_based_promotion.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -132,7 +132,7 @@ EOT;
         }
 EOT;
 
-        $this->client->request('PUT', sprintf('/shop-api/carts/%s/coupon', $token), [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('PUT', sprintf('/shop-api/WEB_GB/carts/%s/coupon', $token), [], [], static::$acceptAndContentTypeHeader, $data);
 
         $response = $this->client->getResponse();
 
@@ -144,7 +144,7 @@ EOT;
      */
     public function it_does_not_allow_to_add_promotion_code_if_related_promotion_is_not_valid()
     {
-        $this->loadFixturesFromFiles(['shop.yml', 'coupon_based_promotion.yml']);
+        $this->loadFixturesFromFiles(['channel.yml', 'shop.yml', 'coupon_based_promotion.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -160,10 +160,37 @@ EOT;
         }
 EOT;
 
-        $this->client->request('PUT', sprintf('/shop-api/carts/%s/coupon', $token), [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('PUT', sprintf('/shop-api/WEB_GB/carts/%s/coupon', $token), [], [], static::$acceptAndContentTypeHeader, $data);
 
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/validation_coupon_not_valid_response', Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @test
+     */
+    public function it_does_not_allow_to_add_promotion_code_in_non_existent_channel()
+    {
+        $this->loadFixturesFromFiles(['channel.yml', 'shop.yml', 'coupon_based_promotion.yml']);
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var CommandBus $bus */
+        $bus = $this->get('tactician.commandbus');
+        $bus->handle(new PickupCart($token, 'WEB_GB'));
+        $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
+
+        $data =
+<<<EOT
+        {
+            "coupon": "PINEAPPLE"
+        }
+EOT;
+
+        $this->client->request('PUT', sprintf('/shop-api/SPACE_KLINGON/carts/%s/coupon', $token), [], [], static::$acceptAndContentTypeHeader, $data);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
     }
 }

@@ -32,9 +32,9 @@ final class SendResetPasswordTokenHandlerSpec extends ObjectBehavior
         $userRepository->findOneByEmail('example@customer.com')->willReturn($user);
         $user->getPasswordResetToken()->willReturn('SOMERANDOMSTRINGASDAFSASFAFAFAACEAFCCEFACVAFVSF');
 
-        $sender->send(Emails::EMAIL_RESET_PASSWORD_TOKEN, ['example@customer.com'], ['user' => $user])->shouldBeCalled();
+        $sender->send(Emails::EMAIL_RESET_PASSWORD_TOKEN, ['example@customer.com'], ['user' => $user, 'channelCode' => 'WEB_GB'])->shouldBeCalled();
 
-        $this->handle(new SendResetPasswordToken('example@customer.com'));
+        $this->handle(new SendResetPasswordToken('example@customer.com', 'WEB_GB'));
     }
 
     function it_throws_an_exception_if_user_has_not_been_found(
@@ -42,7 +42,7 @@ final class SendResetPasswordTokenHandlerSpec extends ObjectBehavior
     ): void {
         $userRepository->findOneByEmail('example@customer.com')->willReturn(null);
 
-        $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [new SendResetPasswordToken('example@customer.com')]);
+        $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [new SendResetPasswordToken('example@customer.com', 'WEB_GB')]);
     }
 
     function it_throws_an_exception_if_user_has_not_verification_token(
@@ -52,6 +52,6 @@ final class SendResetPasswordTokenHandlerSpec extends ObjectBehavior
         $userRepository->findOneByEmail('example@customer.com')->willReturn($user);
         $user->getPasswordResetToken()->willReturn(null);
 
-        $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [new SendResetPasswordToken('example@customer.com')]);
+        $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [new SendResetPasswordToken('example@customer.com', 'WEB_GB')]);
     }
 }

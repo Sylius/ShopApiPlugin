@@ -18,7 +18,7 @@ final class ProductAddReviewByCodeApiTest extends JsonApiTestCase
         $this->loadFixturesFromFiles(['shop.yml']);
 
         $data =
-<<<EOT
+            <<<EOT
         {
             "channelCode": "WEB_GB",
             "title": "Awesome product",
@@ -27,7 +27,7 @@ final class ProductAddReviewByCodeApiTest extends JsonApiTestCase
             "email": "oliver@example.com"
         }
 EOT;
-        $this->client->request('POST', '/shop-api/products/LOGAN_MUG_CODE/reviews', [], [], self::$acceptAndContentTypeHeader, $data);
+        $this->client->request('POST', '/shop-api/WEB_GB/products/LOGAN_MUG_CODE/reviews', [], [], self::$acceptAndContentTypeHeader, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_CREATED);
@@ -50,9 +50,32 @@ EOT;
             "email": "oliver@example.com"
         }
 EOT;
-        $this->client->request('POST', '/shop-api/products/LOGAN_MUG_CODE/reviews', [], [], self::$acceptAndContentTypeHeader, $data);
+        $this->client->request('POST', '/shop-api/WEB_GB/products/LOGAN_MUG_CODE/reviews', [], [], self::$acceptAndContentTypeHeader, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_CREATED);
+    }
+
+    /**
+     * @test
+     */
+    public function it_does_not_allow_to_add_product_review_by_code_in_non_existent_channel()
+    {
+        $this->loadFixturesFromFiles(['shop.yml']);
+
+        $data =
+<<<EOT
+        {
+            "channelCode": "WEB_GB",
+            "title": "Awesome product",
+            "rating": 5,
+            "comment": "If I were a mug, I would like to be like this one!",
+            "email": "oliver@example.com"
+        }
+EOT;
+        $this->client->request('POST', '/shop-api/SPACE_KLINGON/products/LOGAN_MUG_CODE/reviews', [], [], self::$acceptAndContentTypeHeader, $data);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
     }
 }

@@ -59,6 +59,6 @@ final class UserRegistrationListener
         }
 
         $this->bus->handle(new GenerateVerificationToken($event->email()));
-        $this->bus->handle(new SendVerificationToken($event->email()));
+        $this->bus->handle(new SendVerificationToken($event->email(), $event->channelCode()));
     }
 }
