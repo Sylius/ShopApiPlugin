@@ -7,6 +7,7 @@ namespace Sylius\ShopApiPlugin\Controller\Cart;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
+use Sylius\ShopApiPlugin\Normalizer\RequestCartTokenNormalizerInterface;
 use Sylius\ShopApiPlugin\Request\PutOptionBasedConfigurableItemToCartRequest;
 use Sylius\ShopApiPlugin\Request\PutSimpleItemToCartRequest;
 use Sylius\ShopApiPlugin\Request\PutVariantBasedConfigurableItemToCartRequest;
@@ -37,17 +38,22 @@ final class PutItemsToCartAction
     /** @var string */
     private $validationErrorViewClass;
 
+    /** @var RequestCartTokenNormalizerInterface */
+    private $requestCartTokenNormalizer;
+
     public function __construct(
         ViewHandlerInterface $viewHandler,
         CommandBus $bus,
         ValidatorInterface $validator,
         CartViewRepositoryInterface $cartQuery,
+        RequestCartTokenNormalizerInterface $requestCartTokenNormalizer,
         string $validationErrorViewClass
     ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
         $this->validator = $validator;
         $this->cartQuery = $cartQuery;
+        $this->requestCartTokenNormalizer = $requestCartTokenNormalizer;
         $this->validationErrorViewClass = $validationErrorViewClass;
     }
 
@@ -57,9 +63,16 @@ final class PutItemsToCartAction
         $validationResults = [];
         $commandRequests = [];
         $commandsToExecute = [];
+
+        try {
+            $request = $this->requestCartTokenNormalizer->doNotAllowNullCartToken($request);
+        } catch (\InvalidArgumentException $exception) {
+            throw new BadRequestHttpException($exception->getMessage());
+        }
+
         $token = $request->attributes->get('token');
 
-        foreach ($request->request->all() as $item) {
+        foreach ($request->request->get('items') as $item) {
             $item['token'] = $token;
             $commandRequests[] = $this->provideCommandRequest($item);
         }

@@ -16,11 +16,23 @@ sylius_shop_api_cart_summary:
     defaults:
         _controller: sylius.shop_api_plugin.controller.cart.summarize_action
 
+sylius_shop_api_add_to_new_cart:
+    path: /carts/new/items
+    methods: [POST]
+    defaults:
+        _controller: sylius.shop_api_plugin.controller.cart.put_item_to_cart_action
+
 sylius_shop_api_add_to_cart:
     path: /carts/{token}/items
     methods: [POST]
     defaults:
         _controller: sylius.shop_api_plugin.controller.cart.put_item_to_cart_action
+
+sylius_shop_api_add_multiple_items_to_new_cart:
+    path: /carts/new/multiple-items
+    methods: [POST]
+    defaults:
+        _controller: sylius.shop_api_plugin.controller.cart.put_items_to_cart_action
 
 sylius_shop_api_add_multiple_items_to_cart:
     path: /carts/{token}/multiple-items
