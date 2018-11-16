@@ -40,7 +40,7 @@ final class RequestCartTokenNormalizerSpec extends ObjectBehavior
         $validator->validate(Argument::any())->shouldNotBeCalled();
         $bus->handle(Argument::any())->shouldNotBeCalled();
 
-        $this->__invoke($request)->shouldReturn($request);
+        $this->doNotAllowNullCartToken($request)->shouldReturn($request);
     }
 
     public function it_throws_exception_when_pickup_cart_request_is_not_valid(
@@ -58,7 +58,7 @@ final class RequestCartTokenNormalizerSpec extends ObjectBehavior
 
         $bus->handle(Argument::any())->shouldNotBeCalled();
 
-        $this->shouldThrow(\InvalidArgumentException::class)->during('__invoke', [$request]);
+        $this->shouldThrow(\InvalidArgumentException::class)->during('doNotAllowNullCartToken', [$request]);
     }
 
     public function it_picks_up_new_cart_and_sets_its_token_on_request_if_token_was_not_passed(
@@ -81,6 +81,6 @@ final class RequestCartTokenNormalizerSpec extends ObjectBehavior
             ;
         }))->shouldBeCalled();
 
-        $this->__invoke($request);
+        $this->doNotAllowNullCartToken($request);
     }
 }

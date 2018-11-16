@@ -65,7 +65,7 @@ final class PutItemsToCartAction
         $commandsToExecute = [];
 
         try {
-            $request = $this->requestCartTokenNormalizer->__invoke($request);
+            $request = $this->requestCartTokenNormalizer->doNotAllowNullCartToken($request);
         } catch (\InvalidArgumentException $exception) {
             throw new BadRequestHttpException($exception->getMessage());
         }

@@ -23,7 +23,7 @@ final class RequestCartTokenNormalizer implements RequestCartTokenNormalizerInte
         $this->bus = $bus;
     }
 
-    public function __invoke(Request $request): Request
+    public function doNotAllowNullCartToken(Request $request): Request
     {
         if ($request->attributes->has('token')) {
             return $request;
@@ -38,12 +38,9 @@ final class RequestCartTokenNormalizer implements RequestCartTokenNormalizerInte
         }
 
         $pickupCartCommand = $pickupRequest->getCommand();
-
         $this->bus->handle($pickupCartCommand);
 
-        $token = $pickupCartCommand->orderToken();
-
-        $request->attributes->set('token', $token);
+        $request->attributes->set('token', $pickupCartCommand->orderToken());
 
         return $request;
     }

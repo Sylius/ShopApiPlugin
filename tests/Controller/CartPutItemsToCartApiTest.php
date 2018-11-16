@@ -210,7 +210,7 @@ EOT;
             "channel": "WEB_GB"
         }
 EOT;
-        $this->client->request('POST', '/shop-api/carts/new/multiple-items', [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('POST', '/shop-api/WEB_GB/carts/new/multiple-items', [], [], static::$acceptAndContentTypeHeader, $data);
 
         $response = $this->client->getResponse();
 

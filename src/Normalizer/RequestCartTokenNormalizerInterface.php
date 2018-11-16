@@ -8,6 +8,5 @@ use Symfony\Component\HttpFoundation\Request;
 
 interface RequestCartTokenNormalizerInterface
 {
-    /** Should be used only when passing nullable cart token is an acceptable behavior */
-    public function __invoke(Request $request): Request;
+    public function doNotAllowNullCartToken(Request $request): Request;
 }

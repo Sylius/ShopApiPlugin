@@ -621,7 +621,7 @@ EOT;
             "channel": "WEB_GB"
         }
 EOT;
-        $this->client->request('POST', '/shop-api/carts/new/items', [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('POST', '/shop-api/WEB_GB/carts/new/items', [], [], static::$acceptAndContentTypeHeader, $data);
 
         $response = $this->client->getResponse();
 

@@ -58,7 +58,7 @@ final class PutItemToCartAction
     public function __invoke(Request $request): Response
     {
         try {
-            $request = $this->requestCartTokenNormalizer->__invoke($request);
+            $request = $this->requestCartTokenNormalizer->doNotAllowNullCartToken($request);
         } catch (\InvalidArgumentException $exception) {
             throw new BadRequestHttpException($exception->getMessage());
         }
