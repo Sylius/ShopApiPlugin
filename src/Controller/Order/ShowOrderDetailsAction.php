@@ -30,9 +30,9 @@ final class ShowOrderDetailsAction
         LoggedInUserProviderInterface $loggedInUserProvider,
         PlacedOrderViewRepositoryInterface $placedOrderQuery
     ) {
-        $this->viewHandler = $viewHandler;
+        $this->viewHandler          = $viewHandler;
         $this->loggedInUserProvider = $loggedInUserProvider;
-        $this->placedOrderQuery = $placedOrderQuery;
+        $this->placedOrderQuery     = $placedOrderQuery;
     }
 
     public function __invoke(Request $request): Response
@@ -41,10 +41,21 @@ final class ShowOrderDetailsAction
             /** @var ShopUserInterface $user */
             $user = $this->loggedInUserProvider->provide();
 
-            $order = $this
-                ->placedOrderQuery
-                ->getOneCompletedByCustomerEmailAndId($user->getCustomer()->getEmail(), (int) $request->attributes->get('id'))
-            ;
+            // It is either "id" or "tokenValue". Other routes dont even get here or get cancelled with 404 no-route
+            if ($request->attributes->has('id')) {
+                $order = $this->placedOrderQuery
+                    ->getOneCompletedByCustomerEmailAndId(
+                        $user->getCustomer()->getEmail(),
+                        $request->attributes->get('id')
+                    );
+            } else {
+                $order = $this->placedOrderQuery
+                    ->getOneCompletedByCustomerEmailAndToken(
+                        $user->getCustomer()->getEmail(),
+                        $request->attributes->get('tokenValue')
+                    );
+            }
+
         } catch (TokenNotFoundException $exception) {
             return $this->viewHandler->handle(View::create(null, Response::HTTP_UNAUTHORIZED));
         } catch (\InvalidArgumentException $exception) {

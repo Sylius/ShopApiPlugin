@@ -42,58 +42,60 @@ final class PlacedOrderViewFactory implements PlacedOrderViewFactoryInterface
         AdjustmentViewFactoryInterface $adjustmentViewFactory,
         string $placedOrderViewClass
     ) {
-        $this->orderItemFactory = $orderItemFactory;
-        $this->addressViewFactory = $addressViewFactory;
-        $this->totalViewFactory = $totalViewFactory;
-        $this->shipmentViewFactory = $shipmentViewFactory;
-        $this->paymentViewFactory = $paymentViewFactory;
+        $this->orderItemFactory      = $orderItemFactory;
+        $this->addressViewFactory    = $addressViewFactory;
+        $this->totalViewFactory      = $totalViewFactory;
+        $this->shipmentViewFactory   = $shipmentViewFactory;
+        $this->paymentViewFactory    = $paymentViewFactory;
         $this->adjustmentViewFactory = $adjustmentViewFactory;
-        $this->placedOrderViewClass = $placedOrderViewClass;
+        $this->placedOrderViewClass  = $placedOrderViewClass;
     }
 
-    public function create(OrderInterface $cart, string $localeCode): PlacedOrderView
+    public function create(OrderInterface $order, string $localeCode): PlacedOrderView
     {
-        /** @var PlacedOrderView $cartView */
-        $cartView = new $this->placedOrderViewClass();
-        $cartView->channel = $cart->getChannel()->getCode();
-        $cartView->currency = $cart->getCurrencyCode();
-        $cartView->locale = $localeCode;
-        $cartView->checkoutState = $cart->getCheckoutState();
-        $cartView->totals = $this->totalViewFactory->create($cart);
+        /** @var PlacedOrderView $placedOrderView */
+        $placedOrderView                = new $this->placedOrderViewClass();
+        $placedOrderView->channel       = $order->getChannel()->getCode();
+        $placedOrderView->currency      = $order->getCurrencyCode();
+        $placedOrderView->locale        = $localeCode;
+        $placedOrderView->checkoutState = $order->getCheckoutState();
+        $placedOrderView->totals        = $this->totalViewFactory->create($order);
+        $placedOrderView->tokenValue    = $order->getTokenValue();
+        $placedOrderView->number        = $order->getNumber();
 
         /** @var OrderItemInterface $item */
-        foreach ($cart->getItems() as $item) {
-            $cartView->items[] = $this->orderItemFactory->create($item, $cart->getChannel(), $localeCode);
+        foreach ($order->getItems() as $item) {
+            $placedOrderView->items[] = $this->orderItemFactory->create($item, $order->getChannel(), $localeCode);
         }
 
-        foreach ($cart->getShipments() as $shipment) {
-            $cartView->shipments[] = $this->shipmentViewFactory->create($shipment, $localeCode);
+        foreach ($order->getShipments() as $shipment) {
+            $placedOrderView->shipments[] = $this->shipmentViewFactory->create($shipment, $localeCode);
         }
 
-        foreach ($cart->getPayments() as $payment) {
-            $cartView->payments[] = $this->paymentViewFactory->create($payment, $localeCode);
+        foreach ($order->getPayments() as $payment) {
+            $placedOrderView->payments[] = $this->paymentViewFactory->create($payment, $localeCode);
         }
 
         /** @var AdjustmentView[] $cartDiscounts */
         $cartDiscounts = [];
         /** @var AdjustmentInterface $adjustment */
-        foreach ($cart->getAdjustmentsRecursively(AdjustmentInterface::ORDER_PROMOTION_ADJUSTMENT) as $adjustment) {
-            $originCode = $adjustment->getOriginCode();
+        foreach ($order->getAdjustmentsRecursively(AdjustmentInterface::ORDER_PROMOTION_ADJUSTMENT) as $adjustment) {
+            $originCode       = $adjustment->getOriginCode();
             $additionalAmount = isset($cartDiscounts[$originCode]) ? $cartDiscounts[$originCode]->amount->current : 0;
 
-            $cartDiscounts[$originCode] = $this->adjustmentViewFactory->create($adjustment, $additionalAmount, $cart->getCurrencyCode());
+            $cartDiscounts[$originCode] = $this->adjustmentViewFactory->create($adjustment, $additionalAmount, $order->getCurrencyCode());
         }
 
-        $cartView->cartDiscounts = $cartDiscounts;
+        $placedOrderView->cartDiscounts = $cartDiscounts;
 
-        if (null !== $cart->getShippingAddress()) {
-            $cartView->shippingAddress = $this->addressViewFactory->create($cart->getShippingAddress());
+        if (null !== $order->getShippingAddress()) {
+            $placedOrderView->shippingAddress = $this->addressViewFactory->create($order->getShippingAddress());
         }
 
-        if (null !== $cart->getBillingAddress()) {
-            $cartView->billingAddress = $this->addressViewFactory->create($cart->getBillingAddress());
+        if (null !== $order->getBillingAddress()) {
+            $placedOrderView->billingAddress = $this->addressViewFactory->create($order->getBillingAddress());
         }
 
-        return $cartView;
+        return $placedOrderView;
     }
 }

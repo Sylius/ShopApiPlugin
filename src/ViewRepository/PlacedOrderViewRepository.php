@@ -29,8 +29,8 @@ final class PlacedOrderViewRepository implements PlacedOrderViewRepositoryInterf
         CustomerRepositoryInterface $customerRepository,
         PlacedOrderViewFactoryInterface $placedOrderViewFactory
     ) {
-        $this->orderRepository = $orderRepository;
-        $this->customerRepository = $customerRepository;
+        $this->orderRepository        = $orderRepository;
+        $this->customerRepository     = $customerRepository;
         $this->placedOrderViewFactory = $placedOrderViewFactory;
     }
 
@@ -66,6 +66,24 @@ final class PlacedOrderViewRepository implements PlacedOrderViewRepositoryInterf
         ;
 
         Assert::notNull($order, sprintf('There is no placed order with with id %d for customer with email %s', $id, $customerEmail));
+
+        return $this->placedOrderViewFactory->create($order, $order->getLocaleCode());
+    }
+
+    public function getOneCompletedByCustomerEmailAndToken(string $customerEmail, string $tokenValue): PlacedOrderView
+    {
+        /** @var CustomerInterface|null $customer */
+        $customer = $this->customerRepository->findOneBy(['email' => $customerEmail]);
+
+        Assert::notNull($customer);
+
+        /** @var OrderInterface|null $order */
+        $order = $this
+            ->orderRepository
+            ->findOneBy(['tokenValue' => $tokenValue, 'customer' => $customer, 'checkoutState' => OrderCheckoutStates::STATE_COMPLETED])
+        ;
+
+        Assert::notNull($order, sprintf('There is no placed order with with token %s for customer with email %s', $tokenValue, $customerEmail));
 
         return $this->placedOrderViewFactory->create($order, $order->getLocaleCode());
     }

@@ -4,7 +4,13 @@ sylius_shop_orders_list:
     defaults:
         _controller: sylius.shop_api_plugin.controller.order.show_orders_list_action
 
-sylius_shop_order_details:
+sylius_shop_order_details_token:
+    path: /orders/{orderToken}
+    methods: [GET]
+    defaults:
+        _controller: sylius.shop_api_plugin.controller.order.show_order_details_action
+
+sylius_shop_order_details_id:
     path: /orders/{id}
     methods: [GET]
     defaults:
