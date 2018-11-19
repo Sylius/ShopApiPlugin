@@ -52,7 +52,7 @@ final class ShowOrderDetailsAction
                 $order = $this->placedOrderQuery
                     ->getOneCompletedByCustomerEmailAndToken(
                         $user->getCustomer()->getEmail(),
-                        $request->attributes->get('tokenValue')
+                        $request->attributes->get('orderToken')
                     );
             }
 
