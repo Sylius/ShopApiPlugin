@@ -11,7 +11,7 @@ final class TaxonShowTreeApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_shows_tree_of_all_taxons()
+    public function it_shows_tree_of_all_taxons_with_fallback_locale_from_channel()
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 

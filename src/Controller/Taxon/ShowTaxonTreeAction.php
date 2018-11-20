@@ -9,6 +9,7 @@ use FOS\RestBundle\View\ViewHandlerInterface;
 use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Taxonomy\Repository\TaxonRepositoryInterface;
 use Sylius\ShopApiPlugin\Factory\TaxonViewFactoryInterface;
+use Sylius\ShopApiPlugin\Http\RequestBasedLocaleProviderInterface;
 use Sylius\ShopApiPlugin\View\TaxonView;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,24 +25,24 @@ final class ShowTaxonTreeAction
     /** @var TaxonViewFactoryInterface */
     private $taxonViewFactory;
 
-    /** @var string */
-    private $fallbackLocale;
+    /** @var RequestBasedLocaleProviderInterface */
+    private $requestBasedLocaleProvider;
 
     public function __construct(
         TaxonRepositoryInterface $taxonRepository,
         ViewHandlerInterface $viewHandler,
         TaxonViewFactoryInterface $taxonViewFactory,
-        string $fallbackLocale
+        RequestBasedLocaleProviderInterface $requestBasedLocaleProvider
     ) {
         $this->taxonRepository = $taxonRepository;
         $this->viewHandler = $viewHandler;
         $this->taxonViewFactory = $taxonViewFactory;
-        $this->fallbackLocale = $fallbackLocale;
+        $this->requestBasedLocaleProvider = $requestBasedLocaleProvider;
     }
 
     public function __invoke(Request $request): Response
     {
-        $locale = $request->query->get('locale', $this->fallbackLocale);
+        $locale = $this->requestBasedLocaleProvider->getLocaleCode($request);
 
         $taxons = $this->taxonRepository->findRootNodes();
         $taxonViews = [];

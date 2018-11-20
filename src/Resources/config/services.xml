@@ -16,6 +16,7 @@
         <import resource="services/controllers.xml"/>
         <import resource="services/factories.xml"/>
         <import resource="services/handlers.xml"/>
+        <import resource="services/http.xml"/>
         <import resource="services/validators.xml"/>
         <import resource="services/queries.xml"/>
         <import resource="services/shipping.xml" />
@@ -39,11 +40,6 @@
             <argument type="service" id="sylius.repository.shop_user"/>
             <argument type="service" id="sylius.manager.shop_user"/>
             <tag name="kernel.event_listener" event="sylius.customer.post_api_registered" method="handleUserVerification" />
-        </service>
-
-        <service id="sylius.shop_api_plugin.http.request_channel_ensurer" class="Sylius\ShopApiPlugin\Http\RequestChannelEnsurer">
-            <argument type="service" id="sylius.shop_api_plugin.checker.channel_existence" />
-            <tag name="kernel.event_subscriber"/>
         </service>
 
         <service id="sylius.shop_api_plugin.generator.product_breadcrumb_generator" class="Sylius\ShopApiPlugin\Generator\ProductBreadcrumbGenerator" />
