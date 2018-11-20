@@ -915,34 +915,56 @@ paths:
               500:
                 description: "Channel not found"
     /orders:
-        get:
-            tags:
-            - "order"
-            summary: "Shows a list of orders of the customer"
-            operationId: "showsOrderId"
-            responses:
-                200:
-                    description: "Shows a list of placed orders of the customer"
-                    type: "array"
-                    items:
-                        type: "object"
-                        $ref: "#/definitions/PlacedOrder"
-                401:
-                    description: "User token invalid"
+      get:
+        tags:
+        - "order"
+        summary: "Shows a list of orders of the customer"
+        operationId: "showsOrderId"
+        responses:
+          200:
+            description: "Shows a list of placed orders of the customer"
+            type: "array"
+            items:
+              type: "object"
+              $ref: "#/definitions/PlacedOrder"
+          401:
+            description: "User token invalid"
     /orders/{id}:
-        get:
-            tags:
-            - "order"
-            summary: "Shows details of specific customer's order"
-            responses:
-                200:
-                    description: "Shows details of specific customer's order with given ID"
-                    type: "object"
-                    $ref: "#/definitions/PlacedOrderDetails"
-                401:
-                    description: "User token invalid"
-                404:
-                    description: "Order with given ID not found"
+      get:
+        tags:
+        - "order"
+        summary: "Shows details of specific customer's order"
+        parameters:
+          - name: "id"
+            in: "request"
+            type: "string"
+        responses:
+          200:
+            description: "Shows details of specific customer's order with given ID"
+            type: "object"
+            $ref: "#/definitions/PlacedOrderDetails"
+          401:
+            description: "User token invalid"
+          404:
+            description: "Order with given ID not found"
+    /orders/{orderToken}:
+      get:
+        tags:
+        - "order"
+        summary: "Shows details of specific customer's order"
+        parameters:
+          - name: "orderToken"
+            in: "request"
+            type: "string"
+        responses:
+          200:
+            description: "Shows details of specific customer's order with given orderToken"
+            type: "object"
+            $ref: "#/definitions/PlacedOrderDetails"
+          401:
+            description: "User token invalid"
+          404:
+            description: "Order with given ID not found"
     /me:
         get:
             tags:
