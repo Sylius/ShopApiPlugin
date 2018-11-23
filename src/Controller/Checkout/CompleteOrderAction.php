@@ -13,6 +13,7 @@ use Sylius\ShopApiPlugin\Exception\NotLoggedInException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 final class CompleteOrderAction
 {
@@ -45,6 +46,13 @@ final class CompleteOrderAction
                 )
             );
         } catch (NotLoggedInException $notLoggedInException) {
+            return $this->viewHandler->handle(
+                View::create(
+                    'You need to be logged in with the same user that wants to complete the order',
+                    Response::HTTP_UNAUTHORIZED
+                )
+            );
+        } catch (TokenNotFoundException $notLoggedInException) {
             return $this->viewHandler->handle(
                 View::create(
                     'You need to be logged in with the same user that wants to complete the order',
