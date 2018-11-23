@@ -31,8 +31,72 @@ final class AddressOrderHandlerSpec extends ObjectBehavior
         OrderRepositoryInterface $orderRepository,
         StateMachineInterface $stateMachine
     ): void {
+        $order->getShippingAddress()->willReturn(null);
+        $order->getBillingAddress()->willReturn(null);
+
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
         $addressFactory->createNew()->willReturn($shippingAddress, $billingAddress);
+
+        $shippingAddress->setFirstName('Sherlock')->shouldBeCalled();
+        $shippingAddress->setLastName('Holmes')->shouldBeCalled();
+        $shippingAddress->setCity('London')->shouldBeCalled();
+        $shippingAddress->setStreet('Baker Street 221b')->shouldBeCalled();
+        $shippingAddress->setCountryCode('GB')->shouldBeCalled();
+        $shippingAddress->setPostcode('NWB')->shouldBeCalled();
+        $shippingAddress->setProvinceName('Greater London')->shouldBeCalled();
+
+        $billingAddress->setFirstName('John')->shouldBeCalled();
+        $billingAddress->setLastName('Watson')->shouldBeCalled();
+        $billingAddress->setCity('London City')->shouldBeCalled();
+        $billingAddress->setStreet('Baker Street 21b')->shouldBeCalled();
+        $billingAddress->setCountryCode('GB')->shouldBeCalled();
+        $billingAddress->setPostcode('NWB')->shouldBeCalled();
+        $billingAddress->setProvinceName('Greater London')->shouldBeCalled();
+
+        $order->setShippingAddress($shippingAddress)->shouldBeCalled();
+        $order->setBillingAddress($billingAddress)->shouldBeCalled();
+
+        $stateMachineFactory->get($order, OrderCheckoutTransitions::GRAPH)->willReturn($stateMachine);
+        $stateMachine->can('address')->willReturn(true);
+        $stateMachine->apply('address')->shouldBeCalled();
+
+        $this->handle(new AddressShipmentCommand(
+            'ORDERTOKEN',
+            Address::createFromArray([
+                'firstName' => 'Sherlock',
+                'lastName' => 'Holmes',
+                'city' => 'London',
+                'street' => 'Baker Street 221b',
+                'countryCode' => 'GB',
+                'postcode' => 'NWB',
+                'provinceName' => 'Greater London',
+            ]),
+            Address::createFromArray([
+                'firstName' => 'John',
+                'lastName' => 'Watson',
+                'city' => 'London City',
+                'street' => 'Baker Street 21b',
+                'countryCode' => 'GB',
+                'postcode' => 'NWB',
+                'provinceName' => 'Greater London',
+            ])
+        ));
+    }
+
+    function it_does_not_create_new_addresses_for_already_addressed_order(
+        AddressFactoryInterface $addressFactory,
+        AddressInterface $shippingAddress,
+        AddressInterface $billingAddress,
+        FactoryInterface $stateMachineFactory,
+        OrderInterface $order,
+        OrderRepositoryInterface $orderRepository,
+        StateMachineInterface $stateMachine
+    ): void {
+        $order->getShippingAddress()->willReturn($shippingAddress);
+        $order->getBillingAddress()->willReturn($billingAddress);
+
+        $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
+        $addressFactory->createNew()->shouldNotBeCalled();
 
         $shippingAddress->setFirstName('Sherlock')->shouldBeCalled();
         $shippingAddress->setLastName('Holmes')->shouldBeCalled();
