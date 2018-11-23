@@ -9,6 +9,7 @@ use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\ShopApiPlugin\Command\CompleteOrder;
+use Sylius\ShopApiPlugin\Exception\NotLoggedInException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -34,12 +35,17 @@ final class CompleteOrderAction
     public function __invoke(Request $request): Response
     {
         $email = $this->provideUserEmail($request);
-
-        $this->bus->handle(new CompleteOrder(
-            $request->attributes->get('token'),
-            $email,
-            $request->request->get('notes')
-        ));
+        try {
+            $this->bus->handle(
+                new CompleteOrder(
+                    $request->attributes->get('token'),
+                    $email,
+                    $request->request->get('notes')
+                )
+            );
+        }catch (NotLoggedInException $notLoggedInException) {
+            return $this->viewHandler->handle(View::create("You need to be logged in with the same user that wants to complete the order", Response::HTTP_UNAUTHORIZED));
+        }
 
         return $this->viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));
     }
