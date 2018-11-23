@@ -181,7 +181,7 @@ EOT;
      */
     public function it_does_not_allow_to_complete_order_in_non_existent_channel()
     {
-        $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml', 'payment.yml']);
+        $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml', 'payment.yml', 'customer.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -218,7 +218,7 @@ EOT;
             "email": "example@cusomer.com"
         }
 EOT;
-        $this->client->request('PUT', sprintf('/shop-api/SPACE_KLINGON/checkout/%s/complete', $token), [], [], [
+        $this->client->request('PUT', sprintf('/shop-api/WEB_GB/checkout/%s/complete', $token), [], [], [
             'CONTENT_TYPE' => 'application/json',
             'ACCEPT' => 'application/json',
         ], $data);
