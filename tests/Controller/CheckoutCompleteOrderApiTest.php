@@ -218,7 +218,7 @@ EOT;
             "email": "example@cusomer.com"
         }
 EOT;
-        $this->client->request('PUT', sprintf('/shop-api/WEB_GB/checkout/%s/complete', $token), [], [], [
+        $this->client->request('PUT', sprintf('/shop-api/SPACE_KLINGON/checkout/%s/complete', $token), [], [], [
             'CONTENT_TYPE' => 'application/json',
             'ACCEPT' => 'application/json',
         ], $data);
@@ -262,13 +262,14 @@ EOT;
         ));
         $bus->handle(new ChooseShippingMethod($token, 0, 'DHL'));
         $bus->handle(new ChoosePaymentMethod($token, 0, 'PBC'));
+
         $data = <<<EOT
         {
             "email": "oliver@queen.com",
             "notes": "BRING IT AS FAST AS YOU CAN, PLEASE!"
         }
 EOT;
-        $this->client->request('PUT', sprintf('/shop-api/checkout/%s/complete', $token), [], [], [
+        $this->client->request('PUT', sprintf('/shop-api/WEB_GB/checkout/%s/complete', $token), [], [], [
             'CONTENT_TYPE' => 'application/json',
             'ACCEPT' => 'application/json',
         ], $data);
