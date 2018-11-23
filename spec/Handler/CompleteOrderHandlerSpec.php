@@ -15,7 +15,7 @@ use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\ShopApiPlugin\Command\CompleteOrder;
-use Sylius\ShopApiPlugin\Exception\NotLoggedInException;
+use Sylius\ShopApiPlugin\Exception\WrongUserException;
 use Sylius\ShopApiPlugin\Provider\LoggedInUserProviderInterface;
 
 final class CompleteOrderHandlerSpec extends ObjectBehavior
@@ -139,7 +139,7 @@ final class CompleteOrderHandlerSpec extends ObjectBehavior
         $order->setCustomer($customer)->shouldNotBeCalled();
         $stateMachine->apply('complete')->shouldNotBeCalled();
 
-        $this->shouldThrow(NotLoggedInException::class)
+        $this->shouldThrow(WrongUserException::class)
              ->during('handle', [new CompleteOrder('ORDERTOKEN', 'example@customer.com', 'Some notes')])
         ;
     }
