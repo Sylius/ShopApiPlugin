@@ -35,6 +35,7 @@ final class CompleteOrderAction
     public function __invoke(Request $request): Response
     {
         $email = $this->provideUserEmail($request);
+
         try {
             $this->bus->handle(
                 new CompleteOrder(
@@ -43,8 +44,13 @@ final class CompleteOrderAction
                     $request->request->get('notes')
                 )
             );
-        }catch (NotLoggedInException $notLoggedInException) {
-            return $this->viewHandler->handle(View::create("You need to be logged in with the same user that wants to complete the order", Response::HTTP_UNAUTHORIZED));
+        } catch (NotLoggedInException $notLoggedInException) {
+            return $this->viewHandler->handle(
+                View::create(
+                    'You need to be logged in with the same user that wants to complete the order',
+                    Response::HTTP_UNAUTHORIZED
+                )
+            );
         }
 
         return $this->viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));

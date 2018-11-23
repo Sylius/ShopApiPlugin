@@ -13,7 +13,7 @@ use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\ShopApiPlugin\Command\CompleteOrder;
 use Sylius\ShopApiPlugin\Exception\NotLoggedInException;
-use Sylius\ShopApiPlugin\Provider\LoggedInUserProvider;
+use Sylius\ShopApiPlugin\Provider\LoggedInUserProviderInterface;
 use Webmozart\Assert\Assert;
 
 final class CompleteOrderHandler
@@ -30,14 +30,14 @@ final class CompleteOrderHandler
     /** @var FactoryInterface */
     private $customerFactory;
 
-    /** @var LoggedInUserProvider */
+    /** @var LoggedInUserProviderInterface */
     private $loggedInUserProvider;
 
     public function __construct(
         OrderRepositoryInterface $orderRepository,
         CustomerRepositoryInterface $customerRepository,
         FactoryInterface $customerFactory,
-        LoggedInUserProvider $loggedInUserProvider,
+        LoggedInUserProviderInterface $loggedInUserProvider,
         StateMachineFactory $stateMachineFactory
     ) {
         $this->orderRepository = $orderRepository;
@@ -58,13 +58,15 @@ final class CompleteOrderHandler
 
         Assert::true($stateMachine->can(OrderCheckoutTransitions::TRANSITION_COMPLETE), sprintf('Order with %s token cannot be completed.', $completeOrder->orderToken()));
 
+        $customer = $this->getCustomer($completeOrder->email());
         $order->setNotes($completeOrder->notes());
-        $order->setCustomer($this->getCustomer($completeOrder->email()));
+        $order->setCustomer($customer);
 
         $stateMachine->apply(OrderCheckoutTransitions::TRANSITION_COMPLETE);
     }
 
-    private function getCustomer(string $emailAddress): CustomerInterface {
+    private function getCustomer(string $emailAddress): CustomerInterface
+    {
         /** @var CustomerInterface|null $customer */
         $customer = $this->customerRepository->findOneBy(['email' => $emailAddress]);
 
@@ -78,7 +80,7 @@ final class CompleteOrderHandler
 
         // If the customer does exist the user has to be logged in with this customer. Otherwise the user is not authorized to complete the checkout
         $loggedInUser = $this->loggedInUserProvider->provide();
-        if($loggedInUser === null || $loggedInUser->getCustomer() !== $customer) {
+        if ($loggedInUser === null || $loggedInUser->getCustomer() !== $customer) {
             throw new NotLoggedInException();
         }
 
