@@ -72,6 +72,7 @@ final class CompleteOrderHandler
 
         // If the customer does not exist then it's  normal checkout
         if ($customer === null) {
+            /** @var CustomerInterface $customer */
             $customer = $this->customerFactory->createNew();
             $customer->setEmail($emailAddress);
 
@@ -80,7 +81,8 @@ final class CompleteOrderHandler
 
         // If the customer does exist the user has to be logged in with this customer. Otherwise the user is not authorized to complete the checkout
         $loggedInUser = $this->loggedInUserProvider->provide();
-        if ($loggedInUser === null || $loggedInUser->getCustomer() !== $customer) {
+
+        if ($loggedInUser->getCustomer() !== $customer) {
             throw new NotLoggedInException();
         }
 
