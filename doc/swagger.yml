@@ -1677,13 +1677,13 @@ definitions:
             plainPassword:
                 type: "string"
                 example: "test12334verysecure"
-            firstname:
+            firstName:
                 type: "string"
                 example: "Sherlock"
             lastName:
                 type: "string"
                 example: "Holmes"
-            channelCode:
+            channel:
                 type: "string"
                 example: "WEB_GB"
     UpdateUserRequest:
