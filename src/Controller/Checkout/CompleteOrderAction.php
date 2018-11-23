@@ -7,12 +7,11 @@ namespace Sylius\ShopApiPlugin\Controller\Checkout;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
-use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\ShopApiPlugin\Command\CompleteOrder;
 use Sylius\ShopApiPlugin\Exception\NotLoggedInException;
+use Sylius\ShopApiPlugin\Provider\LoggedInUserProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 final class CompleteOrderAction
@@ -23,14 +22,17 @@ final class CompleteOrderAction
     /** @var CommandBus */
     private $bus;
 
-    /** @var TokenStorageInterface */
-    private $tokenStorage;
+    /** @var LoggedInUserProviderInterface */
+    private $loggedInUserProvider;
 
-    public function __construct(ViewHandlerInterface $viewHandler, CommandBus $bus, TokenStorageInterface $tokenStorage)
-    {
+    public function __construct(
+        ViewHandlerInterface $viewHandler,
+        CommandBus $bus,
+        LoggedInUserProviderInterface $loggedInUserProvider
+    ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
-        $this->tokenStorage = $tokenStorage;
+        $this->loggedInUserProvider = $loggedInUserProvider;
     }
 
     public function __invoke(Request $request): Response
@@ -66,12 +68,10 @@ final class CompleteOrderAction
 
     private function provideUserEmail(Request $request): string
     {
-        $user = $this->tokenStorage->getToken()->getUser();
-
-        if ($user instanceof ShopUserInterface) {
-            return $user->getCustomer()->getEmail();
+        try {
+            return $this->loggedInUserProvider->provide()->getEmail();
+        } catch (TokenNotFoundException $tokenNotFoundException) {
+            return $request->request->get('email');
         }
-
-        return $request->request->get('email');
     }
 }

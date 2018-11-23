@@ -543,6 +543,8 @@ paths:
                     description: "Invalid input, validation failed."
                     schema:
                         $ref: "#/definitions/GeneralError"
+                403:
+                  description: "Not logged in or wrong email"
     /taxon-products-by-slug/{slug}:
         get:
             tags:
