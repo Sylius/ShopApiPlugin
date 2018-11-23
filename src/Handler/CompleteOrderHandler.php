@@ -12,7 +12,7 @@ use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\ShopApiPlugin\Command\CompleteOrder;
-use Sylius\ShopApiPlugin\Exception\NotLoggedInException;
+use Sylius\ShopApiPlugin\Exception\WrongUserException;
 use Sylius\ShopApiPlugin\Provider\LoggedInUserProviderInterface;
 use Webmozart\Assert\Assert;
 
@@ -83,7 +83,7 @@ final class CompleteOrderHandler
         $loggedInUser = $this->loggedInUserProvider->provide();
 
         if ($loggedInUser->getCustomer() !== $customer) {
-            throw new NotLoggedInException();
+            throw new WrongUserException();
         }
 
         return $customer;

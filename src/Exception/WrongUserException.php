@@ -6,6 +6,6 @@ namespace Sylius\ShopApiPlugin\Exception;
 
 use Exception;
 
-class NotLoggedInException extends Exception
+class WrongUserException extends Exception
 {
 }

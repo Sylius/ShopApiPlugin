@@ -8,7 +8,7 @@ use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
 use Sylius\ShopApiPlugin\Command\CompleteOrder;
-use Sylius\ShopApiPlugin\Exception\NotLoggedInException;
+use Sylius\ShopApiPlugin\Exception\WrongUserException;
 use Sylius\ShopApiPlugin\Provider\LoggedInUserProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -47,7 +47,7 @@ final class CompleteOrderAction
                     $request->request->get('notes')
                 )
             );
-        } catch (NotLoggedInException $notLoggedInException) {
+        } catch (WrongUserException $notLoggedInException) {
             return $this->viewHandler->handle(
                 View::create(
                     'You need to be logged in with the same user that wants to complete the order',
@@ -56,10 +56,7 @@ final class CompleteOrderAction
             );
         } catch (TokenNotFoundException $notLoggedInException) {
             return $this->viewHandler->handle(
-                View::create(
-                    'You need to be logged in with the same user that wants to complete the order',
-                    Response::HTTP_UNAUTHORIZED
-                )
+                View::create('You need to be logged in', Response::HTTP_UNAUTHORIZED)
             );
         }
 
