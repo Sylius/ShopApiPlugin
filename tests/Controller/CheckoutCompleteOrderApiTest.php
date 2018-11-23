@@ -226,4 +226,53 @@ EOT;
         $response = $this->client->getResponse();
         $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
     }
+
+    /**
+     * @test
+     */
+    public function it_disallows_users_to_complete_checkout_for_someone_else()
+    {
+        $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml', 'payment.yml', 'customer.yml']);
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var CommandBus $bus */
+        $bus = $this->get('tactician.commandbus');
+        $bus->handle(new PickupCart($token, 'WEB_GB'));
+        $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
+        $bus->handle(new AddressOrder(
+            $token,
+            Address::createFromArray([
+                'firstName' => 'Sherlock',
+                'lastName' => 'Holmes',
+                'city' => 'London',
+                'street' => 'Baker Street 221b',
+                'countryCode' => 'GB',
+                'postcode' => 'NWB',
+                'provinceName' => 'Greater London',
+            ]), Address::createFromArray([
+            'firstName' => 'Sherlock',
+            'lastName' => 'Holmes',
+            'city' => 'London',
+            'street' => 'Baker Street 221b',
+            'countryCode' => 'GB',
+            'postcode' => 'NWB',
+            'provinceName' => 'Greater London',
+        ])
+        ));
+        $bus->handle(new ChooseShippingMethod($token, 0, 'DHL'));
+        $bus->handle(new ChoosePaymentMethod($token, 0, 'PBC'));
+        $data = <<<EOT
+        {
+            "email": "oliver@queen.com",
+            "notes": "BRING IT AS FAST AS YOU CAN, PLEASE!"
+        }
+EOT;
+        $this->client->request('PUT', sprintf('/shop-api/checkout/%s/complete', $token), [], [], [
+            'CONTENT_TYPE' => 'application/json',
+            'ACCEPT' => 'application/json',
+        ], $data);
+        $response = $this->client->getResponse();
+        $this->assertResponseCode($response, Response::HTTP_UNAUTHORIZED);
+    }
 }
