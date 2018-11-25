@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Model;
 
+use Sylius\ShopApiPlugin\Request\AddressRequest;
 use Symfony\Component\HttpFoundation\Request;
-use Webmozart\Assert\Assert;
 
 final class Address
 {
@@ -63,29 +63,6 @@ final class Address
         $this->company = $company;
     }
 
-    public static function createFromArray(array $address): self
-    {
-        Assert::keyExists($address, 'firstName');
-        Assert::keyExists($address, 'lastName');
-        Assert::keyExists($address, 'city');
-        Assert::keyExists($address, 'street');
-        Assert::keyExists($address, 'countryCode');
-        Assert::keyExists($address, 'postcode');
-
-        return new self(
-            $address['firstName'],
-            $address['lastName'],
-            $address['city'],
-            $address['street'],
-            $address['countryCode'],
-            $address['postcode'],
-            $address['provinceName'] ?? null,
-            $address['provinceCode'] ?? null,
-            $address['phoneNumber'] ?? null,
-            $address['company'] ?? null
-        );
-    }
-
     public static function createFromRequest(Request $request): self
     {
         return new self(
@@ -99,6 +76,22 @@ final class Address
             $request->request->get('provinceCode'),
             $request->request->get('phoneNumber'),
             $request->request->get('company')
+        );
+    }
+
+    public static function createFromAddressRequest(AddressRequest $addressRequest): self
+    {
+        return new self(
+            $addressRequest->firstName(),
+            $addressRequest->lastName(),
+            $addressRequest->city(),
+            $addressRequest->street(),
+            $addressRequest->countryCode(),
+            $addressRequest->postcode(),
+            $addressRequest->provinceName(),
+            $addressRequest->provinceCode(),
+            $addressRequest->phoneNumber(),
+            $addressRequest->company()
         );
     }
 
