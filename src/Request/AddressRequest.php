@@ -36,7 +36,7 @@ final class AddressRequest
     /** @var string|null */
     private $phoneNumber;
 
-    public function __construct($address) {
+    public function __construct(?array $address) {
         $this->firstName = $address['firstName'] ?? null;
         $this->lastName = $address['lastName'] ?? null;
         $this->city = $address['city'] ?? null;
