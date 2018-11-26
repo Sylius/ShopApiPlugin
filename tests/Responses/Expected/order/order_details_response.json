@@ -108,5 +108,7 @@
             }
         }
     ],
-    "cartDiscounts": []
+    "cartDiscounts": [],
+    "tokenValue": @string@,
+    "number": @string@
 }

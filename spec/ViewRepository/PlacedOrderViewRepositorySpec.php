@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace spec\Sylius\ShopApiPlugin\ViewRepository;
 
 use PhpSpec\ObjectBehavior;
+use Prophecy\Argument;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\OrderCheckoutStates;
@@ -63,7 +64,7 @@ final class PlacedOrderViewRepositorySpec extends ObjectBehavior
         $customerRepository->findOneBy(['email' => 'test@example.com'])->willReturn($customer);
 
         $orderRepository
-            ->findOneBy(['id' => 1, 'customer' => $customer, 'checkoutState' => OrderCheckoutStates::STATE_COMPLETED])
+            ->findOneBy(['tokenValue' => 'ORDERTOKEN', 'customer' => $customer, 'checkoutState' => OrderCheckoutStates::STATE_COMPLETED])
             ->willReturn($order)
         ;
 
@@ -71,7 +72,7 @@ final class PlacedOrderViewRepositorySpec extends ObjectBehavior
 
         $placedOrderViewFactory->create($order, 'en_GB')->willReturn($placedOrderView);
 
-        $this->getOneCompletedByCustomerEmailAndId('test@example.com', 1)->shouldReturn($placedOrderView);
+        $this->getOneCompletedByCustomerEmailAndToken('test@example.com', 'ORDERTOKEN')->shouldReturn($placedOrderView);
     }
 
     function it_throws_exception_if_there_is_no_placed_order_for_given_customer_email_and_order_id(
@@ -82,18 +83,19 @@ final class PlacedOrderViewRepositorySpec extends ObjectBehavior
         $customerRepository->findOneBy(['email' => 'test@example.com'])->willReturn($customer);
 
         $orderRepository
-            ->findOneBy(['id' => 1, 'customer' => $customer, 'checkoutState' => OrderCheckoutStates::STATE_COMPLETED])
+            ->findOneBy(['tokenValue' => 'ORDERTOKEN', 'customer' => $customer, 'checkoutState' => OrderCheckoutStates::STATE_COMPLETED])
             ->willReturn(null)
         ;
 
         $this
             ->shouldThrow(\InvalidArgumentException::class)
-            ->during('getOneCompletedByCustomerEmailAndId', ['test@example.com', 1])
+            ->during('getOneCompletedByCustomerEmailAndToken', ['test@example.com', 'ORDERTOKEN'])
         ;
     }
 
     function it_throws_exception_if_there_is_no_customer_with_given_email(
-        CustomerRepositoryInterface $customerRepository
+        CustomerRepositoryInterface $customerRepository,
+        OrderRepositoryInterface $orderRepository
     ): void {
         $customerRepository->findOneBy(['email' => 'test@example.com'])->willReturn(null, null);
 
@@ -102,9 +104,6 @@ final class PlacedOrderViewRepositorySpec extends ObjectBehavior
             ->during('getAllCompletedByCustomerEmail', ['test@example.com'])
         ;
 
-        $this
-            ->shouldThrow(\InvalidArgumentException::class)
-            ->during('getOneCompletedByCustomerEmailAndId', ['test@example.com', 1])
-        ;
+        $orderRepository->findOneBy(Argument::any())->shouldNotBeCalled();
     }
 }
