@@ -23,9 +23,11 @@ Sylius\Component\Payment\Model\PaymentMethodTranslation:
         name: 'Cash on delivery'
         locale: 'en_GB'
         description: <paragraph(2)>
+        instructions: "Please put the money in the bag!"
         translatable: "@cash_on_delivery"
     pay_by_check_translation:
         name: 'Pay by check'
         locale: 'en_GB'
         description: <paragraph(2)>
+        instructions: "Please put the money in the bag!"
         translatable: "@pay_by_check"
