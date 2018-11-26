@@ -101,6 +101,8 @@ final class PlacedOrderViewFactorySpec extends ObjectBehavior
         $placedOrderView->items = [new ItemView()];
         $placedOrderView->totals = new TotalsView();
         $placedOrderView->cartDiscounts = ['PROMOTION_CODE' => new AdjustmentView()];
+        $placedOrderView->tokenValue = 'ORDERTOKEN';
+        $placedOrderView->number = 'ORDERNUMBER';
 
         $this->create($cart, 'en_GB')->shouldBeLike($placedOrderView);
     }
