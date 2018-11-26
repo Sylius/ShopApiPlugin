@@ -29,8 +29,8 @@ final class PlacedOrderViewRepository implements PlacedOrderViewRepositoryInterf
         CustomerRepositoryInterface $customerRepository,
         PlacedOrderViewFactoryInterface $placedOrderViewFactory
     ) {
-        $this->orderRepository        = $orderRepository;
-        $this->customerRepository     = $customerRepository;
+        $this->orderRepository = $orderRepository;
+        $this->customerRepository = $customerRepository;
         $this->placedOrderViewFactory = $placedOrderViewFactory;
     }
 

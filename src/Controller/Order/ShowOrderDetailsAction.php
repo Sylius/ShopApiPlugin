@@ -30,9 +30,9 @@ final class ShowOrderDetailsAction
         LoggedInUserProviderInterface $loggedInUserProvider,
         PlacedOrderViewRepositoryInterface $placedOrderQuery
     ) {
-        $this->viewHandler          = $viewHandler;
+        $this->viewHandler = $viewHandler;
         $this->loggedInUserProvider = $loggedInUserProvider;
-        $this->placedOrderQuery     = $placedOrderQuery;
+        $this->placedOrderQuery = $placedOrderQuery;
     }
 
     public function __invoke(Request $request): Response
@@ -55,7 +55,6 @@ final class ShowOrderDetailsAction
                         $request->attributes->get('orderToken')
                     );
             }
-
         } catch (TokenNotFoundException $exception) {
             return $this->viewHandler->handle(View::create(null, Response::HTTP_UNAUTHORIZED));
         } catch (\InvalidArgumentException $exception) {

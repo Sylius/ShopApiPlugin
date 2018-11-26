@@ -64,6 +64,7 @@ final class PlacedOrderViewFactorySpec extends ObjectBehavior
         $cart->getCurrencyCode()->willReturn('GBP');
         $cart->getCheckoutState()->willReturn(OrderCheckoutStates::STATE_COMPLETED);
         $cart->getTokenValue()->willReturn('ORDERTOKEN');
+        $cart->getNumber()->willReturn('ORDERNUMBER');
         $cart->getShippingTotal()->willReturn(500);
         $cart->getTaxTotal()->willReturn(600);
         $cart->getItems()->willReturn(new ArrayCollection([$orderItem->getWrappedObject()]));
