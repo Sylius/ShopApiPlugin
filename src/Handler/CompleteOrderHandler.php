@@ -14,6 +14,7 @@ use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\ShopApiPlugin\Command\CompleteOrder;
 use Sylius\ShopApiPlugin\Exception\WrongUserException;
 use Sylius\ShopApiPlugin\Provider\LoggedInUserProviderInterface;
+use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 use Webmozart\Assert\Assert;
 
 final class CompleteOrderHandler
@@ -67,25 +68,31 @@ final class CompleteOrderHandler
 
     private function getCustomer(string $emailAddress): CustomerInterface
     {
-        /** @var CustomerInterface|null $customer */
-        $customer = $this->customerRepository->findOneBy(['email' => $emailAddress]);
+        try {
+            $loggedInUser = $this->loggedInUserProvider->provide();
 
-        // If the customer does not exist then it's  normal checkout
-        if ($customer === null) {
+            if ($emailAddress !== '') {
+                throw new \InvalidArgumentException('Can not have a logged in user and an email address');
+            }
+
             /** @var CustomerInterface $customer */
-            $customer = $this->customerFactory->createNew();
-            $customer->setEmail($emailAddress);
+            $customer = $loggedInUser->getCustomer();
 
             return $customer;
+        } catch (TokenNotFoundException $notLoggedIn) {
+            /** @var CustomerInterface|null $customer */
+            $customer = $this->customerRepository->findOneBy(['email' => $emailAddress]);
+
+            // If the customer does not exist then it's  normal checkout
+            if ($customer === null) {
+                /** @var CustomerInterface $customer */
+                $customer = $this->customerFactory->createNew();
+                $customer->setEmail($emailAddress);
+
+                return $customer;
+            }
+
+            throw new WrongUserException('Email is already taken');
         }
-
-        // If the customer does exist the user has to be logged in with this customer. Otherwise the user is not authorized to complete the checkout
-        $loggedInUser = $this->loggedInUserProvider->provide();
-
-        if ($loggedInUser->getCustomer() !== $customer) {
-            throw new WrongUserException();
-        }
-
-        return $customer;
     }
 }
