@@ -34,7 +34,7 @@ final class RequestCartTokenNormalizerSpec extends ObjectBehavior
     ): void {
         $request->attributes = new ParameterBag([
             'token' => 'sample_cart_token',
-            'channel' => 'en_GB',
+            'channelCode' => 'en_GB',
         ]);
 
         $validator->validate(Argument::any())->shouldNotBeCalled();
@@ -49,8 +49,7 @@ final class RequestCartTokenNormalizerSpec extends ObjectBehavior
         CommandBus $bus,
         ConstraintViolationListInterface $constraintViolationList
     ): void {
-        $request->attributes = new ParameterBag([]);
-        $request->request = new ParameterBag(['channel' => 'non_existing_channel']);
+        $request->attributes = new ParameterBag(['channelCode' => 'non_existing_channel']);
 
         $constraintViolationList->count()->willReturn(1);
 
@@ -67,8 +66,7 @@ final class RequestCartTokenNormalizerSpec extends ObjectBehavior
         CommandBus $bus,
         ConstraintViolationListInterface $constraintViolationList
     ): void {
-        $request->attributes = new ParameterBag([]);
-        $request->request = new ParameterBag(['channel' => 'en_GB']);
+        $request->attributes = new ParameterBag(['channelCode' => 'en_GB']);
 
         $constraintViolationList->count()->willReturn(0);
 
