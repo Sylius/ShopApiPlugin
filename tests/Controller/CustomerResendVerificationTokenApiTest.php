@@ -26,8 +26,7 @@ final class CustomerResendVerificationTokenApiTest extends JsonApiTestCase
             "firstName": "Vin",
             "lastName": "Diesel",
             "email": "vinny@fandf.com",
-            "plainPassword": "somepass",
-            "channel": "WEB_GB"
+            "plainPassword": "somepass"
         }
 EOT;
 

@@ -23,7 +23,7 @@ final class PickupCartRequest
         }
 
         $this->token = $request->attributes->get('token', Uuid::uuid4()->toString());
-        $this->channel = $request->request->get('channel');
+        $this->channel = $request->attributes->get('channelCode');
     }
 
     public function getCommand(): PickupCart

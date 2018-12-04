@@ -617,8 +617,7 @@ EOT;
 <<<EOT
         {
             "productCode": "LOGAN_MUG_CODE",
-            "quantity": 3,
-            "channel": "WEB_GB"
+            "quantity": 3
         }
 EOT;
         $this->client->request('POST', '/shop-api/WEB_GB/carts/new/items', [], [], static::$acceptAndContentTypeHeader, $data);
