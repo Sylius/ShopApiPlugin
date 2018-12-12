@@ -64,6 +64,7 @@ final class PlacedOrderViewFactorySpec extends ObjectBehavior
         $cart->getCurrencyCode()->willReturn('GBP');
         $cart->getCheckoutState()->willReturn(OrderCheckoutStates::STATE_COMPLETED);
         $cart->getTokenValue()->willReturn('ORDERTOKEN');
+        $cart->getNumber()->willReturn('ORDERNUMBER');
         $cart->getShippingTotal()->willReturn(500);
         $cart->getTaxTotal()->willReturn(600);
         $cart->getItems()->willReturn(new ArrayCollection([$orderItem->getWrappedObject()]));
@@ -100,6 +101,8 @@ final class PlacedOrderViewFactorySpec extends ObjectBehavior
         $placedOrderView->items = [new ItemView()];
         $placedOrderView->totals = new TotalsView();
         $placedOrderView->cartDiscounts = ['PROMOTION_CODE' => new AdjustmentView()];
+        $placedOrderView->tokenValue = 'ORDERTOKEN';
+        $placedOrderView->number = 'ORDERNUMBER';
 
         $this->create($cart, 'en_GB')->shouldBeLike($placedOrderView);
     }

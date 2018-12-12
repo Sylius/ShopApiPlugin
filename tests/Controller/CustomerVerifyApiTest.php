@@ -26,8 +26,7 @@ final class CustomerVerifyApiTest extends JsonApiTestCase
             "firstName": "Vin",
             "lastName": "Diesel",
             "email": "vinny@fandf.com",
-            "plainPassword": "somepass",
-            "channel": "WEB_GB"
+            "plainPassword": "somepass"
         }
 EOT;
 
@@ -58,8 +57,7 @@ EOT;
             "firstName": "Vin",
             "lastName": "Diesel",
             "email": "vinny@fandf.com",
-            "plainPassword": "somepass",
-            "channel": "WEB_GB"
+            "plainPassword": "somepass"
         }
 EOT;
 

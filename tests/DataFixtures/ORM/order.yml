@@ -11,6 +11,8 @@ Sylius\Component\Core\Model\Order:
         shipments: ["@placed_order_shipment"]
         shippingAddress: "@customer_oliver_home_address"
         billingAddress: "@customer_oliver_work_address"
+        number: "ORDERNUMBERPLACED"
+        tokenValue: "ORDERTOKENPLACED"
     not_placed_order:
         channel: "@gb_web_channel"
         items: ["@large_t_shirt_item"]
@@ -23,6 +25,8 @@ Sylius\Component\Core\Model\Order:
         shipments: ["@not_placed_order_shipment"]
         shippingAddress: "@customer_oliver_freelance_address"
         billingAddress: "@customer_hater_address"
+        number: "ORDERNUMBERUNPLACED"
+        tokenValue: "ORDERTOKENUNPLACED"
 
 Sylius\Component\Core\Model\OrderItem:
     mug_item:

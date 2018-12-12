@@ -20,7 +20,6 @@ final class ProductAddReviewByCodeApiTest extends JsonApiTestCase
         $data =
             <<<EOT
         {
-            "channelCode": "WEB_GB",
             "title": "Awesome product",
             "rating": 5,
             "comment": "If I were a mug, I would like to be like this one!",
@@ -43,7 +42,6 @@ EOT;
         $data =
 <<<EOT
         {
-            "channelCode": "WEB_GB",
             "title": "Awesome product",
             "rating": 5,
             "comment": "If I were a mug, I would like to be like this one!",
@@ -66,7 +64,6 @@ EOT;
         $data =
 <<<EOT
         {
-            "channelCode": "WEB_GB",
             "title": "Awesome product",
             "rating": 5,
             "comment": "If I were a mug, I would like to be like this one!",

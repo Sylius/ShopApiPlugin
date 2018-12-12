@@ -28,8 +28,7 @@ final class CustomerRegisterApiTest extends JsonApiTestCase
             "firstName": "Vin",
             "lastName": "Diesel",
             "email": "vinny@fandf.com",
-            "plainPassword": "somepass",
-            "channel": "WEB_GB"
+            "plainPassword": "somepass"
         }
 EOT;
 
@@ -58,17 +57,16 @@ EOT;
         $this->loadFixturesFromFiles(['channel.yml']);
 
         $data =
-            <<<EOT
+<<<EOT
         {
             "firstName": "Vin",
             "lastName": "Diesel",
             "email": "vinny@fandf.com",
-            "plainPassword": "somepass",
-            "channel": "WEB_DE"
+            "plainPassword": "somepass"
         }
 EOT;
 
-        $this->client->request('POST', '/shop-api/WEB_GB/register', [], [], ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'], $data);
+        $this->client->request('POST', '/shop-api/WEB_DE/register', [], [], ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'], $data);
 
         $response = $this->client->getResponse();
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
@@ -105,8 +103,7 @@ EOT;
             "firstName": "Oliver",
             "lastName": "Queen",
             "email": "oliver@queen.com",
-            "plainPassword": "somepass",
-            "channel": "WEB_GB"
+            "plainPassword": "somepass"
         }
 EOT;
 
@@ -129,8 +126,7 @@ EOT;
         {
             "firstName": "Vin",
             "lastName": "Diesel",
-            "plainPassword": "somepass",
-            "channel": "WEB_GB"
+            "plainPassword": "somepass"
         }
 EOT;
 
@@ -153,8 +149,7 @@ EOT;
         {
             "firstName": "Vin",
             "lastName": "Diesel",
-            "plainPassword": "somepass",
-            "channel": "WEB_GB"
+            "plainPassword": "somepass"
         }
 EOT;
 

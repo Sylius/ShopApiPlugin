@@ -26,11 +26,12 @@ final class RegisterCustomerRequest
 
     public function __construct(Request $request)
     {
+        $this->channelCode = $request->attributes->get('channelCode');
+
         $this->email = $request->request->get('email');
         $this->plainPassword = $request->request->get('plainPassword');
         $this->firstName = $request->request->get('firstName');
         $this->lastName = $request->request->get('lastName');
-        $this->channelCode = $request->request->get('channel');
     }
 
     public function getCommand(): RegisterCustomer

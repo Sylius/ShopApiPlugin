@@ -13,7 +13,7 @@ final class PickupCartRequestTest extends TestCase
     /** @test */
     public function it_creates_pickup_cart_command(): void
     {
-        $pickupCartRequest = new PickupCartRequest(new Request([], ['channel' => 'WEB_GB']));
+        $pickupCartRequest = new PickupCartRequest(new Request([], [], ['channelCode' => 'WEB_GB']));
 
         $pickupCartCommand = $pickupCartRequest->getCommand();
 
@@ -34,7 +34,7 @@ final class PickupCartRequestTest extends TestCase
         });
 
         // Do the test
-        $pickupCartRequest = new PickupCartRequest(new Request([], ['channel' => 'WEB_GB'], ['token' => 'ORDERTOKEN']));
+        $pickupCartRequest = new PickupCartRequest(new Request([], [], ['channelCode' => 'WEB_GB', 'token' => 'ORDERTOKEN']));
 
         $pickupCartCommand = $pickupCartRequest->getCommand();
 

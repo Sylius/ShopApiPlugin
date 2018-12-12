@@ -78,14 +78,7 @@ final class CartEstimateShippingTest extends JsonApiTestCase
      */
     private function pickupCart(string $token, string $channelCode)
     {
-        $data =
-<<<EOT
-        {
-            "channel": "$channelCode"
-        }
-EOT;
-
-        $this->client->request('POST', '/shop-api/WEB_GB/carts/' . $token, [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('POST', '/shop-api/WEB_GB/carts/' . $token, [], [], static::$acceptAndContentTypeHeader);
     }
 
     /**

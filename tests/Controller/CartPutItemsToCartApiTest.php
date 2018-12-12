@@ -206,8 +206,7 @@ EOT;
                     },
                     "quantity": 3
                 }
-            ],
-            "channel": "WEB_GB"
+            ]
         }
 EOT;
         $this->client->request('POST', '/shop-api/WEB_GB/carts/new/multiple-items', [], [], static::$acceptAndContentTypeHeader, $data);

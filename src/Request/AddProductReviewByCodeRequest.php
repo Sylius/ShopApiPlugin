@@ -30,9 +30,9 @@ final class AddProductReviewByCodeRequest
     public function __construct(Request $request)
     {
         $this->code = $request->attributes->get('code');
+        $this->channelCode = $request->attributes->get('channelCode');
 
         $this->title = $request->request->get('title');
-        $this->channelCode = $request->request->get('channelCode');
         $this->rating = $request->request->get('rating');
         $this->comment = $request->request->get('comment');
         $this->email = $request->request->get('email');

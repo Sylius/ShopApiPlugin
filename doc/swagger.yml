@@ -931,20 +931,20 @@ paths:
                         $ref: "#/definitions/PlacedOrder"
                 401:
                     description: "User token invalid"
-    /orders/{id}:
+    /orders/{tokenValue}:
         get:
             tags:
             - "order"
             summary: "Shows details of specific customer's order"
             responses:
                 200:
-                    description: "Shows details of specific customer's order with given ID"
+                    description: "Shows details of specific customer's order with given tokenValue"
                     type: "object"
                     $ref: "#/definitions/PlacedOrderDetails"
                 401:
                     description: "User token invalid"
                 404:
-                    description: "Order with given ID not found"
+                    description: "Order with given tokenValue not found"
     /me:
         get:
             tags:
