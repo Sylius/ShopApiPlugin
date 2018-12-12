@@ -30,20 +30,18 @@ final class CompleteOrderAction
         CommandBus $bus,
         LoggedInUserProviderInterface $loggedInUserProvider
     ) {
-        $this->viewHandler = $viewHandler;
-        $this->bus = $bus;
+        $this->viewHandler          = $viewHandler;
+        $this->bus                  = $bus;
         $this->loggedInUserProvider = $loggedInUserProvider;
     }
 
     public function __invoke(Request $request): Response
     {
-        $email = $this->provideUserEmail($request);
-
         try {
             $this->bus->handle(
                 new CompleteOrder(
                     $request->attributes->get('token'),
-                    $email,
+                    $request->request->get('email', ''),
                     $request->request->get('notes')
                 )
             );
@@ -63,12 +61,4 @@ final class CompleteOrderAction
         return $this->viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));
     }
 
-    private function provideUserEmail(Request $request): string
-    {
-        try {
-            return $this->loggedInUserProvider->provide()->getEmail();
-        } catch (TokenNotFoundException $tokenNotFoundException) {
-            return $request->request->get('email');
-        }
-    }
 }
