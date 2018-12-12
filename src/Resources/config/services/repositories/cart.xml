@@ -1,0 +1,11 @@
+<container xmlns="http://symfony.com/schema/dic/services">
+    <services>
+        <defaults public="true" />
+
+        <service id="sylius.shop_api_plugin.view_repository.cart_view_repository"
+                 class="Sylius\ShopApiPlugin\ViewRepository\Cart\CartViewRepository">
+            <argument type="service" id="sylius.repository.order" />
+            <argument type="service" id="sylius.shop_api_plugin.factory.cart_view_factory" />
+        </service>
+    </services>
+</container>
