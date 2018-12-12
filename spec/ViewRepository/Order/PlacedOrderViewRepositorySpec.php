@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\ViewRepository;
+namespace spec\Sylius\ShopApiPlugin\ViewRepository\Order;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\ViewRepository;
+namespace spec\Sylius\ShopApiPlugin\ViewRepository\Cart;
 
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\OrderInterface;
