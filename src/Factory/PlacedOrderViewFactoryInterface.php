@@ -9,5 +9,5 @@ use Sylius\ShopApiPlugin\View\PlacedOrderView;
 
 interface PlacedOrderViewFactoryInterface
 {
-    public function create(OrderInterface $cart, string $localeCode): PlacedOrderView;
+    public function create(OrderInterface $order, string $localeCode): PlacedOrderView;
 }

@@ -39,6 +39,12 @@ class PlacedOrderView
     /** @var array|AdjustmentView[] */
     public $cartDiscounts = [];
 
+    /** @var string */
+    public $tokenValue;
+
+    /** @var string */
+    public $number;
+
     public function __construct()
     {
         $this->totals = new TotalsView();

@@ -52,7 +52,7 @@ final class PlacedOrderViewRepository implements PlacedOrderViewRepositoryInterf
         return $cartViews;
     }
 
-    public function getOneCompletedByCustomerEmailAndId(string $customerEmail, int $id): PlacedOrderView
+    public function getOneCompletedByCustomerEmailAndToken(string $customerEmail, string $tokenValue): PlacedOrderView
     {
         /** @var CustomerInterface|null $customer */
         $customer = $this->customerRepository->findOneBy(['email' => $customerEmail]);
@@ -62,10 +62,10 @@ final class PlacedOrderViewRepository implements PlacedOrderViewRepositoryInterf
         /** @var OrderInterface|null $order */
         $order = $this
             ->orderRepository
-            ->findOneBy(['id' => $id, 'customer' => $customer, 'checkoutState' => OrderCheckoutStates::STATE_COMPLETED])
+            ->findOneBy(['tokenValue' => $tokenValue, 'customer' => $customer, 'checkoutState' => OrderCheckoutStates::STATE_COMPLETED])
         ;
 
-        Assert::notNull($order, sprintf('There is no placed order with with id %d for customer with email %s', $id, $customerEmail));
+        Assert::notNull($order, sprintf('There is no placed order with with token %s for customer with email %s', $tokenValue, $customerEmail));
 
         return $this->placedOrderViewFactory->create($order, $order->getLocaleCode());
     }

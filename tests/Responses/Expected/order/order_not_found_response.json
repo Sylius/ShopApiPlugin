@@ -1,4 +1,4 @@
 {
     "code": 404,
-    "message": "There is no placed order with with id 13 for customer with email oliver@queen.com"
+    "message": "There is no placed order with with token NOT_EXISTING_TOKEN for customer with email oliver@queen.com"
 }
