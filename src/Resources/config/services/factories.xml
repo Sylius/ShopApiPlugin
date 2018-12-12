@@ -3,13 +3,7 @@
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <imports>
-        <import resource="factories/address_book.xml"/>
-        <import resource="factories/cart.xml"/>
-        <import resource="factories/checkout.xml"/>
-        <import resource="factories/customer.xml"/>
-        <import resource="factories/order.xml"/>
-        <import resource="factories/product.xml"/>
-        <import resource="factories/taxon.xml"/>
+        <import resource="factories/**/*"/>
     </imports>
 
     <services>

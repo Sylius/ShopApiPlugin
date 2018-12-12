@@ -2,12 +2,6 @@
 
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <imports>
-        <import resource="actions/address_book.xml"/>
-        <import resource="actions/checkout.xml"/>
-        <import resource="actions/cart.xml"/>
-        <import resource="actions/customer.xml"/>
-        <import resource="actions/order.xml"/>
-        <import resource="actions/product.xml"/>
-        <import resource="actions/taxon.xml"/>
+        <import resource="actions/**/*"/>
     </imports>
 </container>
