@@ -98,12 +98,11 @@ final class PlacedOrderViewRepositorySpec extends ObjectBehavior
         OrderRepositoryInterface $orderRepository
     ): void {
         $customerRepository->findOneBy(['email' => 'test@example.com'])->willReturn(null, null);
+        $orderRepository->findOneBy(Argument::any())->shouldNotBeCalled();
 
         $this
             ->shouldThrow(\InvalidArgumentException::class)
             ->during('getAllCompletedByCustomerEmail', ['test@example.com'])
         ;
-
-        $orderRepository->findOneBy(Argument::any())->shouldNotBeCalled();
     }
 }
