@@ -21,12 +21,12 @@ final class LoggedInUserProvider implements LoggedInUserProviderInterface
     public function provide(): ShopUserInterface
     {
         $token = $this->tokenStorage->getToken();
-        if($token === null) {
+        if ($token === null) {
             throw new TokenNotFoundException('No token found');
         }
 
         /** @var ShopUserInterface|null $user */
-        $user  = $token->getUser();
+        $user = $token->getUser();
 
         if (!$user instanceof ShopUserInterface) {
             throw new TokenNotFoundException('No logged in user');

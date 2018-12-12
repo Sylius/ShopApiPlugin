@@ -72,7 +72,8 @@ final class CompleteOrderHandler
             $loggedInUser = $this->loggedInUserProvider->provide();
 
             if ($emailAddress !== '') {
-                throw new \InvalidArgumentException($emailAddress.' has to be empty');
+                throw new \InvalidArgumentException($emailAddress . ' has to be empty');
+
                 throw new \InvalidArgumentException('Can not have a logged in user and an email address');
             }
 
