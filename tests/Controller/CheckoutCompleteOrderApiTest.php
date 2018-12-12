@@ -12,9 +12,12 @@ use Sylius\ShopApiPlugin\Command\PickupCart;
 use Sylius\ShopApiPlugin\Command\PutSimpleItemToCart;
 use Sylius\ShopApiPlugin\Model\Address;
 use Symfony\Component\HttpFoundation\Response;
+use Tests\Sylius\ShopApiPlugin\Controller\Utils\ShopUserLoginTrait;
 
 final class CheckoutCompleteOrderApiTest extends JsonApiTestCase
 {
+    use ShopUserLoginTrait;
+
     /**
      * @test
      */
@@ -154,19 +157,8 @@ EOT;
         $bus->handle(new ChooseShippingMethod($token, 0, 'DHL'));
         $bus->handle(new ChoosePaymentMethod($token, 0, 'PBC'));
 
-        $data =
-<<<EOT
-        {
-            "_username": "oliver@queen.com",
-            "_password": "123password"
-        }
-EOT;
+        $this->logInUser('oliver@queen.com', '123password');
 
-        $this->client->request('POST', '/shop-api/login_check', [], [], ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'], $data);
-
-        $response = json_decode($this->client->getResponse()->getContent(), true);
-
-        $this->client->setServerParameter('HTTP_Authorization', sprintf('Bearer %s', $response['token']));
         $this->client->request('PUT', sprintf('/shop-api/WEB_GB/checkout/%s/complete', $token), [], [], [
             'CONTENT_TYPE' => 'application/json',
             'ACCEPT' => 'application/json',
