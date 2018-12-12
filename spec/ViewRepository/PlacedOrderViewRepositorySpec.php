@@ -13,7 +13,7 @@ use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\ShopApiPlugin\Factory\PlacedOrderViewFactoryInterface;
 use Sylius\ShopApiPlugin\View\PlacedOrderView;
-use Sylius\ShopApiPlugin\ViewRepository\PlacedOrderViewRepositoryInterface;
+use Sylius\ShopApiPlugin\ViewRepository\Order\PlacedOrderViewRepositoryInterface;
 
 final class PlacedOrderViewRepositorySpec extends ObjectBehavior
 {
