@@ -30,8 +30,8 @@ final class CompleteOrderAction
         CommandBus $bus,
         LoggedInUserProviderInterface $loggedInUserProvider
     ) {
-        $this->viewHandler          = $viewHandler;
-        $this->bus                  = $bus;
+        $this->viewHandler = $viewHandler;
+        $this->bus = $bus;
         $this->loggedInUserProvider = $loggedInUserProvider;
     }
 
@@ -60,5 +60,4 @@ final class CompleteOrderAction
 
         return $this->viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));
     }
-
 }
