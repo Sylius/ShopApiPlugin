@@ -57,6 +57,8 @@ final class OrderModifier implements OrderModifierInterface
         $this->orderProcessor->process($order);
 
         $this->orderManager->persist($order);
+
+        $this->orderManager->flush();
     }
 
     private function getCartItemToModify(OrderInterface $cart, ProductVariantInterface $productVariant): ?OrderItemInterface

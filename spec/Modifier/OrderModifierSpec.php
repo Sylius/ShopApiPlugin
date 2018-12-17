@@ -74,6 +74,8 @@ final class OrderModifierSpec extends ObjectBehavior
 
         $orderManager->persist($order)->shouldBeCalled();
 
+        $orderManager->flush()->shouldBeCalled();
+
         $this->modify($order, $productVariant, 4);
     }
 }
