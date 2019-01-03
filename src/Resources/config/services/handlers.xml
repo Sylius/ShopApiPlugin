@@ -5,10 +5,7 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <imports>
-        <import resource="handler/address_book.xml"/>
-        <import resource="handler/cart.xml"/>
-        <import resource="handler/customer.xml"/>
-        <import resource="handler/product.xml"/>
+        <import resource="handler/**/*"/>
     </imports>
 
 </container>

@@ -2,35 +2,35 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\ViewRepository;
+namespace Sylius\ShopApiPlugin\ViewRepository\Product;
 
-use Pagerfanta\Adapter\ArrayAdapter;
+use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
 use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
+use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
-use Sylius\Component\Core\Repository\ProductReviewRepositoryInterface;
-use Sylius\Component\Review\Model\ReviewInterface;
+use Sylius\Component\Taxonomy\Repository\TaxonRepositoryInterface;
 use Sylius\ShopApiPlugin\Factory\PageViewFactoryInterface;
-use Sylius\ShopApiPlugin\Factory\ProductReviewViewFactoryInterface;
+use Sylius\ShopApiPlugin\Factory\ProductViewFactoryInterface;
 use Sylius\ShopApiPlugin\Model\PaginatorDetails;
 use Sylius\ShopApiPlugin\Provider\SupportedLocaleProviderInterface;
 use Sylius\ShopApiPlugin\View\PageView;
 use Webmozart\Assert\Assert;
 
-final class ProductReviewsViewRepository implements ProductReviewsViewRepositoryInterface
+final class ProductCatalogViewRepository implements ProductCatalogViewRepositoryInterface
 {
     /** @var ChannelRepositoryInterface */
     private $channelRepository;
 
-    /** @var ProductReviewRepositoryInterface */
-    private $productReviewRepository;
-
     /** @var ProductRepositoryInterface */
     private $productRepository;
 
-    /** @var ProductReviewViewFactoryInterface */
-    private $productReviewViewFactory;
+    /** @var ProductViewFactoryInterface */
+    private $productViewFactory;
+
+    /** @var TaxonRepositoryInterface */
+    private $taxonRepository;
 
     /** @var PageViewFactoryInterface */
     private $pageViewFactory;
@@ -40,46 +40,48 @@ final class ProductReviewsViewRepository implements ProductReviewsViewRepository
 
     public function __construct(
         ChannelRepositoryInterface $channelRepository,
-        ProductReviewRepositoryInterface $productReviewRepository,
         ProductRepositoryInterface $productRepository,
-        ProductReviewViewFactoryInterface $productReviewViewFactory,
+        TaxonRepositoryInterface $taxonRepository,
+        ProductViewFactoryInterface $productViewFactory,
         PageViewFactoryInterface $pageViewFactory,
         SupportedLocaleProviderInterface $supportedLocaleProvider
     ) {
         $this->channelRepository = $channelRepository;
-        $this->productReviewRepository = $productReviewRepository;
         $this->productRepository = $productRepository;
-        $this->productReviewViewFactory = $productReviewViewFactory;
+        $this->productViewFactory = $productViewFactory;
+        $this->taxonRepository = $taxonRepository;
         $this->pageViewFactory = $pageViewFactory;
         $this->supportedLocaleProvider = $supportedLocaleProvider;
     }
 
-    public function getByProductSlug(string $productSlug, string $channelCode, PaginatorDetails $paginatorDetails, ?string $localeCode): PageView
+    public function findByTaxonSlug(string $taxonSlug, string $channelCode, PaginatorDetails $paginatorDetails, ?string $localeCode): PageView
     {
         $channel = $this->getChannel($channelCode);
         $localeCode = $this->supportedLocaleProvider->provide($localeCode, $channel);
 
-        $reviews = $this->productReviewRepository->findAcceptedByProductSlugAndChannel($productSlug, $localeCode, $channel);
+        /** @var TaxonInterface $taxon */
+        $taxon = $this->taxonRepository->findOneBySlug($taxonSlug, $localeCode);
 
-        $paginatorDetails->addToParameters('slug', $productSlug);
+        Assert::notNull($taxon, sprintf('Taxon with slug %s in locale %s has not been found', $taxonSlug, $localeCode));
+        $paginatorDetails->addToParameters('taxonSlug', $taxonSlug);
         $paginatorDetails->addToParameters('channelCode', $channelCode);
 
-        return $this->createProductReviewPage($reviews, $paginatorDetails);
+        return $this->findByTaxon($taxon, $channel, $paginatorDetails, $localeCode);
     }
 
-    public function getByProductCode(string $productCode, string $channelCode, PaginatorDetails $paginatorDetails): PageView
+    public function findByTaxonCode(string $taxonCode, string $channelCode, PaginatorDetails $paginatorDetails, ?string $localeCode): PageView
     {
         $channel = $this->getChannel($channelCode);
+        $localeCode = $this->supportedLocaleProvider->provide($localeCode, $channel);
 
-        $product = $this->productRepository->findOneByCode($productCode);
-        Assert::true($product->hasChannel($channel));
+        /** @var TaxonInterface $taxon */
+        $taxon = $this->taxonRepository->findOneBy(['code' => $taxonCode]);
 
-        $reviews = $this->productReviewRepository->findBy(['reviewSubject' => $product->getId(), 'status' => ReviewInterface::STATUS_ACCEPTED]);
-
-        $paginatorDetails->addToParameters('code', $productCode);
+        Assert::notNull($taxon, sprintf('Taxon with code %s has not been found', $taxonCode));
+        $paginatorDetails->addToParameters('code', $taxonCode);
         $paginatorDetails->addToParameters('channelCode', $channelCode);
 
-        return $this->createProductReviewPage($reviews, $paginatorDetails);
+        return $this->findByTaxon($taxon, $channel, $paginatorDetails, $localeCode);
     }
 
     private function getChannel(string $channelCode): ChannelInterface
@@ -92,9 +94,12 @@ final class ProductReviewsViewRepository implements ProductReviewsViewRepository
         return $channel;
     }
 
-    private function createProductReviewPage(array $reviews, PaginatorDetails $paginatorDetails): PageView
+    private function findByTaxon(TaxonInterface $taxon, ChannelInterface $channel, PaginatorDetails $paginatorDetails, string $localeCode): PageView
     {
-        $pagerfanta = new Pagerfanta(new ArrayAdapter($reviews));
+        $queryBuilder = $this->productRepository->createShopListQueryBuilder($channel, $taxon, $localeCode);
+        $queryBuilder->addOrderBy('productTaxon.position');
+
+        $pagerfanta = new Pagerfanta(new DoctrineORMAdapter($queryBuilder));
 
         $pagerfanta->setMaxPerPage($paginatorDetails->limit());
         $pagerfanta->setCurrentPage($paginatorDetails->page());
@@ -102,7 +107,7 @@ final class ProductReviewsViewRepository implements ProductReviewsViewRepository
         $pageView = $this->pageViewFactory->create($pagerfanta, $paginatorDetails->route(), $paginatorDetails->parameters());
 
         foreach ($pagerfanta->getCurrentPageResults() as $currentPageResult) {
-            $pageView->items[] = $this->productReviewViewFactory->create($currentPageResult);
+            $pageView->items[] = $this->productViewFactory->create($currentPageResult, $channel, $localeCode);
         }
 
         return $pageView;

@@ -7,7 +7,7 @@ namespace Sylius\ShopApiPlugin\Controller\Product;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Sylius\ShopApiPlugin\Model\PaginatorDetails;
-use Sylius\ShopApiPlugin\ViewRepository\ProductReviewsViewRepositoryInterface;
+use Sylius\ShopApiPlugin\ViewRepository\Product\ProductReviewsViewRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 

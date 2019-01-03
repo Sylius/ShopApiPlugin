@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\ViewRepository;
+namespace spec\Sylius\ShopApiPlugin\ViewRepository\Order;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -13,7 +13,7 @@ use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\ShopApiPlugin\Factory\PlacedOrderViewFactoryInterface;
 use Sylius\ShopApiPlugin\View\PlacedOrderView;
-use Sylius\ShopApiPlugin\ViewRepository\PlacedOrderViewRepositoryInterface;
+use Sylius\ShopApiPlugin\ViewRepository\Order\PlacedOrderViewRepositoryInterface;
 
 final class PlacedOrderViewRepositorySpec extends ObjectBehavior
 {

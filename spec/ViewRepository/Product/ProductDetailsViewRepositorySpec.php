@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\ShopApiPlugin\ViewRepository;
+namespace spec\Sylius\ShopApiPlugin\ViewRepository\Product;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -13,7 +13,7 @@ use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Sylius\ShopApiPlugin\Factory\ProductViewFactoryInterface;
 use Sylius\ShopApiPlugin\Provider\SupportedLocaleProviderInterface;
 use Sylius\ShopApiPlugin\View\ProductView;
-use Sylius\ShopApiPlugin\ViewRepository\ProductDetailsViewRepositoryInterface;
+use Sylius\ShopApiPlugin\ViewRepository\Product\ProductDetailsViewRepositoryInterface;
 
 final class ProductDetailsViewRepositorySpec extends ObjectBehavior
 {
@@ -31,7 +31,7 @@ final class ProductDetailsViewRepositorySpec extends ObjectBehavior
         );
     }
 
-    function it_is_product_catalog(): void
+    function it_is_product_detail(): void
     {
         $this->shouldImplement(ProductDetailsViewRepositoryInterface::class);
     }

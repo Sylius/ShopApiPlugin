@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\ViewRepository;
+namespace Sylius\ShopApiPlugin\ViewRepository\Cart;
 
 use Sylius\ShopApiPlugin\View\CartSummaryView;
 

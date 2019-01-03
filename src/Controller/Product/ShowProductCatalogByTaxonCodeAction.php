@@ -7,7 +7,7 @@ namespace Sylius\ShopApiPlugin\Controller\Product;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Sylius\ShopApiPlugin\Model\PaginatorDetails;
-use Sylius\ShopApiPlugin\ViewRepository\ProductCatalogViewRepositoryInterface;
+use Sylius\ShopApiPlugin\ViewRepository\Product\ProductCatalogViewRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;

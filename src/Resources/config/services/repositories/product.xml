@@ -1,0 +1,41 @@
+<container xmlns="http://symfony.com/schema/dic/services">
+    <services>
+        <defaults public="true" />
+
+        <service id="sylius.shop_api_plugin.view_repository.product_details_view_repository"
+                 class="Sylius\ShopApiPlugin\ViewRepository\Product\ProductDetailsViewRepository">
+            <argument type="service" id="sylius.repository.channel" />
+            <argument type="service" id="sylius.repository.product" />
+            <argument type="service" id="sylius.shop_api_plugin.factory.detailed_product_view_factory" />
+            <argument type="service" id="sylius.shop_api_plugin.provider.supported_locale_provider"/>
+        </service>
+
+        <service id="sylius.shop_api_plugin.view_repository.product_catalog_view_repository"
+                 class="Sylius\ShopApiPlugin\ViewRepository\Product\ProductCatalogViewRepository">
+            <argument type="service" id="sylius.repository.channel" />
+            <argument type="service" id="sylius.repository.product" />
+            <argument type="service" id="sylius.repository.taxon" />
+            <argument type="service" id="sylius.shop_api_plugin.factory.list_product_view_factory" />
+            <argument type="service" id="sylius.shop_api_plugin.factory.page_view_factory" />
+            <argument type="service" id="sylius.shop_api_plugin.provider.supported_locale_provider"/>
+        </service>
+
+        <service id="sylius.shop_api_plugin.view_repository.product_reviews_view_repository"
+                 class="Sylius\ShopApiPlugin\ViewRepository\Product\ProductReviewsViewRepository">
+            <argument type="service" id="sylius.repository.channel" />
+            <argument type="service" id="sylius.repository.product_review" />
+            <argument type="service" id="sylius.repository.product" />
+            <argument type="service" id="sylius.shop_api_plugin.factory.product_review_view_factory" />
+            <argument type="service" id="sylius.shop_api_plugin.factory.page_view_factory" />
+            <argument type="service" id="sylius.shop_api_plugin.provider.supported_locale_provider"/>
+        </service>
+
+        <service id="sylius.shop_api_plugin.view_repository.product_latest_view_repository"
+                 class="Sylius\ShopApiPlugin\ViewRepository\Product\ProductLatestViewRepository">
+            <argument type="service" id="sylius.repository.channel" />
+            <argument type="service" id="sylius.repository.product" />
+            <argument type="service" id="sylius.shop_api_plugin.factory.list_product_view_factory" />
+            <argument type="service" id="sylius.shop_api_plugin.provider.supported_locale_provider"/>
+        </service>
+    </services>
+</container>
