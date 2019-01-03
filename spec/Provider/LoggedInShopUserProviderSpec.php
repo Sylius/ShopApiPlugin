@@ -57,9 +57,9 @@ final class LoggedInShopUserProviderSpec extends ObjectBehavior
         $tokenStorage->getToken()->willReturn(null, $token);
         $token->getUser()->willReturn(null, $anotherUser, $shopUser);
 
-        $this->check()->shouldReturn(false);
-        $this->check()->shouldReturn(false);
-        $this->check()->shouldReturn(false);
-        $this->check()->shouldReturn(true);
+        $this->isUserLoggedIn()->shouldReturn(false);
+        $this->isUserLoggedIn()->shouldReturn(false);
+        $this->isUserLoggedIn()->shouldReturn(false);
+        $this->isUserLoggedIn()->shouldReturn(true);
     }
 }

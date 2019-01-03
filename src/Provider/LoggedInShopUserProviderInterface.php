@@ -10,5 +10,5 @@ interface LoggedInShopUserProviderInterface
 {
     public function provide(): ShopUserInterface;
 
-    public function check(): bool;
+    public function isUserLoggedIn(): bool;
 }

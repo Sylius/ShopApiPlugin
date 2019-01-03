@@ -35,7 +35,7 @@ final class LoggedInShopUserProvider implements LoggedInShopUserProviderInterfac
         return $user;
     }
 
-    public function check(): bool
+    public function isUserLoggedIn(): bool
     {
         $token = $this->tokenStorage->getToken();
 

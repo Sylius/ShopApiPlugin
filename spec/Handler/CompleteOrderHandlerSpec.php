@@ -5,38 +5,28 @@ declare(strict_types=1);
 namespace spec\Sylius\ShopApiPlugin\Handler;
 
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use SM\Factory\FactoryInterface as StateMachineFactoryInterface;
 use SM\StateMachine\StateMachineInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\Core\OrderCheckoutTransitions;
-use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\ShopApiPlugin\Command\CompleteOrder;
-use Sylius\ShopApiPlugin\Exception\WrongUserException;
-use Sylius\ShopApiPlugin\Provider\LoggedInShopUserProviderInterface;
-use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
+use Sylius\ShopApiPlugin\Provider\CustomerProviderInterface;
 
 final class CompleteOrderHandlerSpec extends ObjectBehavior
 {
     function let(
         OrderRepositoryInterface $orderRepository,
-        CustomerRepositoryInterface $customerRepository,
-        FactoryInterface $customerFactory,
-        LoggedInShopUserProviderInterface $loggedInUserProvider,
+        CustomerProviderInterface $customerProvider,
         StateMachineFactoryInterface $stateMachineFactory
     ): void {
-        $this->beConstructedWith($orderRepository, $customerRepository, $customerFactory, $loggedInUserProvider, $stateMachineFactory);
+        $this->beConstructedWith($orderRepository, $customerProvider, $stateMachineFactory);
     }
 
-    function it_handles_order_completion_for_guest_checkout(
+    function it_handles_order_completion(
         CustomerInterface $customer,
-        CustomerRepositoryInterface $customerRepository,
-        LoggedInShopUserProviderInterface $loggedInUserProvider,
-        FactoryInterface $customerFactory,
+        CustomerProviderInterface $customerProvider,
         OrderInterface $order,
         OrderRepositoryInterface $orderRepository,
         StateMachineFactoryInterface $stateMachineFactory,
@@ -44,9 +34,7 @@ final class CompleteOrderHandlerSpec extends ObjectBehavior
     ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
 
-        $customerRepository->findOneBy(['email' => 'example@customer.com'])->willReturn(null);
-        $customerFactory->createNew()->willReturn($customer);
-        $loggedInUserProvider->provide()->willThrow(TokenNotFoundException::class);
+        $customerProvider->provide('example@customer.com')->willReturn($customer);
 
         $stateMachineFactory->get($order, OrderCheckoutTransitions::GRAPH)->willReturn($stateMachine);
         $stateMachine->can('complete')->willReturn(true);
@@ -58,64 +46,9 @@ final class CompleteOrderHandlerSpec extends ObjectBehavior
         $this->handle(new CompleteOrder('ORDERTOKEN', 'example@customer.com'));
     }
 
-    function it_throws_an_exception_if_the_email_address_has_already_a_customer(
-        CustomerInterface $customer,
-        CustomerRepositoryInterface $customerRepository,
-        LoggedInShopUserProviderInterface $loggedInUserProvider,
-        ShopUserInterface $shopUser,
-        OrderInterface $order,
-        OrderRepositoryInterface $orderRepository,
-        StateMachineFactoryInterface $stateMachineFactory,
-        StateMachineInterface $stateMachine
-    ): void {
-        $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
-
-        $customerRepository->findOneBy(['email' => 'example@customer.com'])->willReturn($customer);
-        $shopUser->getCustomer()->willReturn($customer);
-        $loggedInUserProvider->provide()->willThrow(TokenNotFoundException::class);
-
-        $stateMachineFactory->get($order, OrderCheckoutTransitions::GRAPH)->willReturn($stateMachine);
-        $stateMachine->can('complete')->willReturn(true);
-
-        $order->setNotes(Argument::any())->shouldNotBeCalled();
-        $order->setCustomer(Argument::any())->shouldNotBeCalled();
-        $stateMachine->apply(Argument::any())->shouldNotBeCalled();
-
-        $this->shouldThrow(WrongUserException::class)
-           ->during('handle', [new CompleteOrder('ORDERTOKEN', 'example@customer.com')]);
-    }
-
-    function it_handles_order_completetion(
-        CustomerRepositoryInterface $customerRepository,
-        LoggedInShopUserProviderInterface $loggedInUserProvider,
-        CustomerInterface $loggedInCustomer,
-        ShopUserInterface $shopUser,
-        OrderInterface $order,
-        OrderRepositoryInterface $orderRepository,
-        StateMachineFactoryInterface $stateMachineFactory,
-        StateMachineInterface $stateMachine
-    ): void {
-        $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
-
-        $customerRepository->findOneBy(Argument::any())->shouldNotBeCalled();
-        $shopUser->getCustomer()->willReturn($loggedInCustomer);
-        $loggedInUserProvider->provide()->willReturn($shopUser);
-
-        $stateMachineFactory->get($order, OrderCheckoutTransitions::GRAPH)->willReturn($stateMachine);
-        $stateMachine->can('complete')->willReturn(true);
-
-        $order->setCustomer($loggedInCustomer)->shouldBeCalled();
-        $order->setNotes(null)->shouldBeCalled();
-        $stateMachine->apply('complete')->shouldBeCalled();
-
-        $this->handle(new CompleteOrder('ORDERTOKEN', ''));
-    }
-
     function it_handles_order_completion_with_notes(
         CustomerInterface $customer,
-        CustomerRepositoryInterface $customerRepository,
-        LoggedInShopUserProviderInterface $loggedInUserProvider,
-        ShopUserInterface $shopUser,
+        CustomerProviderInterface $customerProvider,
         OrderInterface $order,
         OrderRepositoryInterface $orderRepository,
         StateMachineFactoryInterface $stateMachineFactory,
@@ -123,9 +56,7 @@ final class CompleteOrderHandlerSpec extends ObjectBehavior
     ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
 
-        $customerRepository->findOneBy(['email' => 'example@customer.com'])->willReturn($customer);
-        $shopUser->getCustomer()->willReturn($customer);
-        $loggedInUserProvider->provide()->willReturn($shopUser);
+        $customerProvider->provide('example@customer.com')->willReturn($customer);
 
         $stateMachineFactory->get($order, OrderCheckoutTransitions::GRAPH)->willReturn($stateMachine);
         $stateMachine->can('complete')->willReturn(true);
@@ -134,7 +65,7 @@ final class CompleteOrderHandlerSpec extends ObjectBehavior
         $order->setCustomer($customer)->shouldBeCalled();
         $stateMachine->apply('complete')->shouldBeCalled();
 
-        $this->handle(new CompleteOrder('ORDERTOKEN', '', 'Some notes'));
+        $this->handle(new CompleteOrder('ORDERTOKEN', 'example@customer.com', 'Some notes'));
     }
 
     function it_throws_an_exception_if_order_does_not_exist(
@@ -142,41 +73,13 @@ final class CompleteOrderHandlerSpec extends ObjectBehavior
     ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn(null);
 
-        $this->shouldThrow(\InvalidArgumentException::class)
-             ->during('handle', [new CompleteOrder('ORDERTOKEN', 'example@customer.com')])
+        $this
+            ->shouldThrow(\InvalidArgumentException::class)
+            ->during('handle', [new CompleteOrder('ORDERTOKEN', 'example@customer.com')])
         ;
     }
 
-    function it_throws_an_exception_if_the_user_is_logged_in_and_provides_email(
-        CustomerInterface $customer,
-        CustomerRepositoryInterface $customerRepository,
-        LoggedInShopUserProviderInterface $loggedInUserProvider,
-        CustomerInterface $loggedInCustomer,
-        ShopUserInterface $shopUser,
-        OrderInterface $order,
-        OrderRepositoryInterface $orderRepository,
-        StateMachineFactoryInterface $stateMachineFactory,
-        StateMachineInterface $stateMachine
-    ): void {
-        $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
-
-        $customerRepository->findOneBy(Argument::any())->shouldNotBeCalled();
-        $shopUser->getCustomer()->willReturn($loggedInCustomer);
-        $loggedInUserProvider->provide()->willReturn($shopUser);
-
-        $stateMachineFactory->get($order, OrderCheckoutTransitions::GRAPH)->willReturn($stateMachine);
-        $stateMachine->can('complete')->willReturn(true);
-
-        $order->setCustomer($customer)->shouldNotBeCalled();
-        $order->setNotes('Some notes');
-        $stateMachine->apply('complete')->shouldNotBeCalled();
-
-        $this->shouldThrow(\InvalidArgumentException::class)
-             ->during('handle', [new CompleteOrder('ORDERTOKEN', 'example@customer.com', 'Some notes')])
-        ;
-    }
-
-    function it_throws_an_exception_if_order_cannot_be_addressed(
+    function it_throws_an_exception_if_order_cannot_be_completed(
         StateMachineFactoryInterface $stateMachineFactory,
         OrderInterface $order,
         OrderRepositoryInterface $orderRepository,
@@ -185,8 +88,11 @@ final class CompleteOrderHandlerSpec extends ObjectBehavior
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
 
         $stateMachineFactory->get($order, OrderCheckoutTransitions::GRAPH)->willReturn($stateMachine);
-        $stateMachine->can('complete')->willReturn(false);
+        $stateMachine->can(OrderCheckoutTransitions::TRANSITION_COMPLETE)->willReturn(false);
 
-        $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [new CompleteOrder('ORDERTOKEN', 'example@customer.com')]);
+        $this
+            ->shouldThrow(\InvalidArgumentException::class)
+            ->during('handle', [new CompleteOrder('ORDERTOKEN', 'example@customer.com')])
+        ;
     }
 }
