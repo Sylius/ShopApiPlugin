@@ -14,7 +14,7 @@ use Sylius\ShopApiPlugin\Command\CreateAddress;
 use Sylius\ShopApiPlugin\Factory\AddressBookViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
 use Sylius\ShopApiPlugin\Model\Address;
-use Sylius\ShopApiPlugin\Provider\LoggedInUserProviderInterface;
+use Sylius\ShopApiPlugin\Provider\LoggedInShopUserProviderInterface;
 use Sylius\ShopApiPlugin\View\AddressBookView;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,7 +35,7 @@ final class CreateAddressAction
     /** @var ValidationErrorViewFactoryInterface */
     private $validationErrorViewFactory;
 
-    /** @var LoggedInUserProviderInterface */
+    /** @var LoggedInShopUserProviderInterface */
     private $loggedInUserProvider;
 
     /** @var AddressBookViewFactoryInterface */
@@ -51,7 +51,7 @@ final class CreateAddressAction
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         AddressBookViewFactoryInterface $addressViewFactory,
         AddressRepositoryInterface $addressRepository,
-        LoggedInUserProviderInterface $loggedInUserProvider
+        LoggedInShopUserProviderInterface $loggedInUserProvider
     ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;

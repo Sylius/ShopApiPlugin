@@ -13,7 +13,7 @@ use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\ShopApiPlugin\Command\CompleteOrder;
 use Sylius\ShopApiPlugin\Exception\WrongUserException;
-use Sylius\ShopApiPlugin\Provider\LoggedInUserProviderInterface;
+use Sylius\ShopApiPlugin\Provider\LoggedInShopUserProviderInterface;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 use Webmozart\Assert\Assert;
 
@@ -31,14 +31,14 @@ final class CompleteOrderHandler
     /** @var FactoryInterface */
     private $customerFactory;
 
-    /** @var LoggedInUserProviderInterface */
+    /** @var LoggedInShopUserProviderInterface */
     private $loggedInUserProvider;
 
     public function __construct(
         OrderRepositoryInterface $orderRepository,
         CustomerRepositoryInterface $customerRepository,
         FactoryInterface $customerFactory,
-        LoggedInUserProviderInterface $loggedInUserProvider,
+        LoggedInShopUserProviderInterface $loggedInUserProvider,
         StateMachineFactory $stateMachineFactory
     ) {
         $this->orderRepository = $orderRepository;
@@ -48,7 +48,7 @@ final class CompleteOrderHandler
         $this->loggedInUserProvider = $loggedInUserProvider;
     }
 
-    public function handle(CompleteOrder $completeOrder)
+    public function handle(CompleteOrder $completeOrder): void
     {
         /** @var OrderInterface $order */
         $order = $this->orderRepository->findOneBy(['tokenValue' => $completeOrder->orderToken()]);

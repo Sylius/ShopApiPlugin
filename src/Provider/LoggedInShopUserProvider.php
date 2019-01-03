@@ -8,7 +8,7 @@ use Sylius\Component\Core\Model\ShopUserInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
-final class LoggedInUserProvider implements LoggedInUserProviderInterface
+final class LoggedInShopUserProvider implements LoggedInShopUserProviderInterface
 {
     /** @var TokenStorageInterface */
     private $tokenStorage;
@@ -33,5 +33,12 @@ final class LoggedInUserProvider implements LoggedInUserProviderInterface
         }
 
         return $user;
+    }
+
+    public function check(): bool
+    {
+        $token = $this->tokenStorage->getToken();
+
+        return $token !== null && $token->getUser() instanceof ShopUserInterface;
     }
 }

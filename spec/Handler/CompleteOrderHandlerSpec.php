@@ -17,7 +17,7 @@ use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\ShopApiPlugin\Command\CompleteOrder;
 use Sylius\ShopApiPlugin\Exception\WrongUserException;
-use Sylius\ShopApiPlugin\Provider\LoggedInUserProviderInterface;
+use Sylius\ShopApiPlugin\Provider\LoggedInShopUserProviderInterface;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 final class CompleteOrderHandlerSpec extends ObjectBehavior
@@ -26,7 +26,7 @@ final class CompleteOrderHandlerSpec extends ObjectBehavior
         OrderRepositoryInterface $orderRepository,
         CustomerRepositoryInterface $customerRepository,
         FactoryInterface $customerFactory,
-        LoggedInUserProviderInterface $loggedInUserProvider,
+        LoggedInShopUserProviderInterface $loggedInUserProvider,
         StateMachineFactoryInterface $stateMachineFactory
     ): void {
         $this->beConstructedWith($orderRepository, $customerRepository, $customerFactory, $loggedInUserProvider, $stateMachineFactory);
@@ -35,7 +35,7 @@ final class CompleteOrderHandlerSpec extends ObjectBehavior
     function it_handles_order_completion_for_guest_checkout(
         CustomerInterface $customer,
         CustomerRepositoryInterface $customerRepository,
-        LoggedInUserProviderInterface $loggedInUserProvider,
+        LoggedInShopUserProviderInterface $loggedInUserProvider,
         FactoryInterface $customerFactory,
         OrderInterface $order,
         OrderRepositoryInterface $orderRepository,
@@ -61,7 +61,7 @@ final class CompleteOrderHandlerSpec extends ObjectBehavior
     function it_throws_an_exception_if_the_email_address_has_already_a_customer(
         CustomerInterface $customer,
         CustomerRepositoryInterface $customerRepository,
-        LoggedInUserProviderInterface $loggedInUserProvider,
+        LoggedInShopUserProviderInterface $loggedInUserProvider,
         ShopUserInterface $shopUser,
         OrderInterface $order,
         OrderRepositoryInterface $orderRepository,
@@ -87,7 +87,7 @@ final class CompleteOrderHandlerSpec extends ObjectBehavior
 
     function it_handles_order_completetion(
         CustomerRepositoryInterface $customerRepository,
-        LoggedInUserProviderInterface $loggedInUserProvider,
+        LoggedInShopUserProviderInterface $loggedInUserProvider,
         CustomerInterface $loggedInCustomer,
         ShopUserInterface $shopUser,
         OrderInterface $order,
@@ -114,7 +114,7 @@ final class CompleteOrderHandlerSpec extends ObjectBehavior
     function it_handles_order_completion_with_notes(
         CustomerInterface $customer,
         CustomerRepositoryInterface $customerRepository,
-        LoggedInUserProviderInterface $loggedInUserProvider,
+        LoggedInShopUserProviderInterface $loggedInUserProvider,
         ShopUserInterface $shopUser,
         OrderInterface $order,
         OrderRepositoryInterface $orderRepository,
@@ -150,7 +150,7 @@ final class CompleteOrderHandlerSpec extends ObjectBehavior
     function it_throws_an_exception_if_the_user_is_logged_in_and_provides_email(
         CustomerInterface $customer,
         CustomerRepositoryInterface $customerRepository,
-        LoggedInUserProviderInterface $loggedInUserProvider,
+        LoggedInShopUserProviderInterface $loggedInUserProvider,
         CustomerInterface $loggedInCustomer,
         ShopUserInterface $shopUser,
         OrderInterface $order,

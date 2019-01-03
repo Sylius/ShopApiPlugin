@@ -16,7 +16,7 @@
         </service>
 
         <service id="sylius.shop_api_plugin.provider.current_user_provider"
-                 class="Sylius\ShopApiPlugin\Provider\LoggedInUserProvider">
+                 class="Sylius\ShopApiPlugin\Provider\LoggedInShopUserProvider">
             <argument type="service" id="security.token_storage"/>
         </service>
 

@@ -9,7 +9,7 @@ use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
 use Sylius\ShopApiPlugin\Command\CompleteOrder;
 use Sylius\ShopApiPlugin\Exception\WrongUserException;
-use Sylius\ShopApiPlugin\Provider\LoggedInUserProviderInterface;
+use Sylius\ShopApiPlugin\Provider\LoggedInShopUserProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
@@ -22,13 +22,13 @@ final class CompleteOrderAction
     /** @var CommandBus */
     private $bus;
 
-    /** @var LoggedInUserProviderInterface */
+    /** @var LoggedInShopUserProviderInterface */
     private $loggedInUserProvider;
 
     public function __construct(
         ViewHandlerInterface $viewHandler,
         CommandBus $bus,
-        LoggedInUserProviderInterface $loggedInUserProvider
+        LoggedInShopUserProviderInterface $loggedInUserProvider
     ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
