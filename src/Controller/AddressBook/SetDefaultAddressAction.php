@@ -10,7 +10,7 @@ use League\Tactician\CommandBus;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\ShopApiPlugin\Command\SetDefaultAddress;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
-use Sylius\ShopApiPlugin\Provider\LoggedInUserProviderInterface;
+use Sylius\ShopApiPlugin\Provider\LoggedInShopUserProviderInterface;
 use Sylius\ShopApiPlugin\Request\SetDefaultAddressRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,7 +31,7 @@ final class SetDefaultAddressAction
     /** @var ValidationErrorViewFactoryInterface */
     private $validationErrorViewFactory;
 
-    /** @var LoggedInUserProviderInterface */
+    /** @var LoggedInShopUserProviderInterface */
     private $loggedInUserProvider;
 
     public function __construct(
@@ -39,7 +39,7 @@ final class SetDefaultAddressAction
         CommandBus $bus,
         ValidatorInterface $validator,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
-        LoggedInUserProviderInterface $loggedInUserProvider
+        LoggedInShopUserProviderInterface $loggedInUserProvider
     ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;

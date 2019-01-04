@@ -7,11 +7,11 @@ namespace Sylius\ShopApiPlugin\Controller\Checkout;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
-use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\ShopApiPlugin\Command\CompleteOrder;
+use Sylius\ShopApiPlugin\Exception\WrongUserException;
+use Sylius\ShopApiPlugin\Provider\LoggedInShopUserProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 final class CompleteOrderAction
 {
@@ -21,37 +21,42 @@ final class CompleteOrderAction
     /** @var CommandBus */
     private $bus;
 
-    /** @var TokenStorageInterface */
-    private $tokenStorage;
+    /** @var LoggedInShopUserProviderInterface */
+    private $loggedInUserProvider;
 
-    public function __construct(ViewHandlerInterface $viewHandler, CommandBus $bus, TokenStorageInterface $tokenStorage)
-    {
+    public function __construct(
+        ViewHandlerInterface $viewHandler,
+        CommandBus $bus,
+        LoggedInShopUserProviderInterface $loggedInUserProvider
+    ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
-        $this->tokenStorage = $tokenStorage;
+        $this->loggedInUserProvider = $loggedInUserProvider;
     }
 
     public function __invoke(Request $request): Response
     {
-        $email = $this->provideUserEmail($request);
-
-        $this->bus->handle(new CompleteOrder(
-            $request->attributes->get('token'),
-            $email,
-            $request->request->get('notes')
-        ));
-
-        return $this->viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));
-    }
-
-    private function provideUserEmail(Request $request): string
-    {
-        $user = $this->tokenStorage->getToken()->getUser();
-
-        if ($user instanceof ShopUserInterface) {
-            return $user->getCustomer()->getEmail();
+        if ($this->loggedInUserProvider->isUserLoggedIn()) {
+            $defaultEmail = $this->loggedInUserProvider->provide()->getEmail();
         }
 
-        return $request->request->get('email');
+        try {
+            $this->bus->handle(
+                new CompleteOrder(
+                    $request->attributes->get('token'),
+                    $request->request->get('email', $defaultEmail ?? null),
+                    $request->request->get('notes')
+                )
+            );
+        } catch (WrongUserException $notLoggedInException) {
+            return $this->viewHandler->handle(
+                View::create(
+                    'You need to be logged in with the same user that wants to complete the order',
+                    Response::HTTP_UNAUTHORIZED
+                )
+            );
+        }
+
+        return $this->viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));
     }
 }

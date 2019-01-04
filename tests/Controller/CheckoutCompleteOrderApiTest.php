@@ -12,9 +12,12 @@ use Sylius\ShopApiPlugin\Command\PickupCart;
 use Sylius\ShopApiPlugin\Command\PutSimpleItemToCart;
 use Sylius\ShopApiPlugin\Model\Address;
 use Symfony\Component\HttpFoundation\Response;
+use Tests\Sylius\ShopApiPlugin\Controller\Utils\ShopUserLoginTrait;
 
 final class CheckoutCompleteOrderApiTest extends JsonApiTestCase
 {
+    use ShopUserLoginTrait;
+
     /**
      * @test
      */
@@ -154,19 +157,8 @@ EOT;
         $bus->handle(new ChooseShippingMethod($token, 0, 'DHL'));
         $bus->handle(new ChoosePaymentMethod($token, 0, 'PBC'));
 
-        $data =
-<<<EOT
-        {
-            "_username": "oliver@queen.com",
-            "_password": "123password"
-        }
-EOT;
+        $this->logInUser('oliver@queen.com', '123password');
 
-        $this->client->request('POST', '/shop-api/login_check', [], [], ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'], $data);
-
-        $response = json_decode($this->client->getResponse()->getContent(), true);
-
-        $this->client->setServerParameter('HTTP_Authorization', sprintf('Bearer %s', $response['token']));
         $this->client->request('PUT', sprintf('/shop-api/WEB_GB/checkout/%s/complete', $token), [], [], [
             'CONTENT_TYPE' => 'application/json',
             'ACCEPT' => 'application/json',
@@ -181,7 +173,7 @@ EOT;
      */
     public function it_does_not_allow_to_complete_order_in_non_existent_channel()
     {
-        $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml', 'payment.yml']);
+        $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml', 'payment.yml', 'customer.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -225,5 +217,106 @@ EOT;
 
         $response = $this->client->getResponse();
         $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
+    }
+
+    /**
+     * @test
+     */
+    public function it_disallows_users_to_complete_checkout_for_user_with_account_without_loggin_in()
+    {
+        $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml', 'payment.yml', 'customer.yml']);
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var CommandBus $bus */
+        $bus = $this->get('tactician.commandbus');
+        $bus->handle(new PickupCart($token, 'WEB_GB'));
+        $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
+        $bus->handle(new AddressOrder(
+            $token,
+            Address::createFromArray([
+                'firstName' => 'Sherlock',
+                'lastName' => 'Holmes',
+                'city' => 'London',
+                'street' => 'Baker Street 221b',
+                'countryCode' => 'GB',
+                'postcode' => 'NWB',
+                'provinceName' => 'Greater London',
+            ]), Address::createFromArray([
+            'firstName' => 'Sherlock',
+            'lastName' => 'Holmes',
+            'city' => 'London',
+            'street' => 'Baker Street 221b',
+            'countryCode' => 'GB',
+            'postcode' => 'NWB',
+            'provinceName' => 'Greater London',
+        ])
+        ));
+        $bus->handle(new ChooseShippingMethod($token, 0, 'DHL'));
+        $bus->handle(new ChoosePaymentMethod($token, 0, 'PBC'));
+
+        $data = <<<EOT
+        {
+            "email": "oliver@queen.com",
+            "notes": "BRING IT AS FAST AS YOU CAN, PLEASE!"
+        }
+EOT;
+        $this->client->request('PUT', sprintf('/shop-api/WEB_GB/checkout/%s/complete', $token), [], [], [
+            'CONTENT_TYPE' => 'application/json',
+            'ACCEPT' => 'application/json',
+        ], $data);
+        $response = $this->client->getResponse();
+        $this->assertResponseCode($response, Response::HTTP_UNAUTHORIZED);
+    }
+
+    /**
+     * @test
+     */
+    public function it_disallows_users_to_complete_checkout_for_someone_else()
+    {
+        $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml', 'payment.yml', 'customer.yml']);
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var CommandBus $bus */
+        $bus = $this->get('tactician.commandbus');
+        $bus->handle(new PickupCart($token, 'WEB_GB'));
+        $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
+        $bus->handle(new AddressOrder(
+            $token,
+            Address::createFromArray([
+                'firstName' => 'Sherlock',
+                'lastName' => 'Holmes',
+                'city' => 'London',
+                'street' => 'Baker Street 221b',
+                'countryCode' => 'GB',
+                'postcode' => 'NWB',
+                'provinceName' => 'Greater London',
+            ]), Address::createFromArray([
+            'firstName' => 'Sherlock',
+            'lastName' => 'Holmes',
+            'city' => 'London',
+            'street' => 'Baker Street 221b',
+            'countryCode' => 'GB',
+            'postcode' => 'NWB',
+            'provinceName' => 'Greater London',
+        ])
+        ));
+        $bus->handle(new ChooseShippingMethod($token, 0, 'DHL'));
+        $bus->handle(new ChoosePaymentMethod($token, 0, 'PBC'));
+
+        $this->logInUser('oliver@queen.com', '123password');
+
+        $data = <<<EOT
+        {
+            "email": "example@cusomer.com"
+        }
+EOT;
+        $this->client->request('PUT', sprintf('/shop-api/WEB_GB/checkout/%s/complete', $token), [], [], [
+            'CONTENT_TYPE' => 'application/json',
+            'ACCEPT' => 'application/json',
+        ], $data);
+        $response = $this->client->getResponse();
+        $this->assertResponseCode($response, Response::HTTP_UNAUTHORIZED);
     }
 }

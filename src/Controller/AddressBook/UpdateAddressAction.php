@@ -14,7 +14,7 @@ use Sylius\ShopApiPlugin\Command\UpdateAddress;
 use Sylius\ShopApiPlugin\Factory\AddressBookViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
 use Sylius\ShopApiPlugin\Model\Address;
-use Sylius\ShopApiPlugin\Provider\LoggedInUserProviderInterface;
+use Sylius\ShopApiPlugin\Provider\LoggedInShopUserProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
@@ -40,7 +40,7 @@ final class UpdateAddressAction
     /** @var AddressRepositoryInterface */
     private $addressRepository;
 
-    /** @var LoggedInUserProviderInterface */
+    /** @var LoggedInShopUserProviderInterface */
     private $loggedInUserProvider;
 
     public function __construct(
@@ -50,7 +50,7 @@ final class UpdateAddressAction
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         AddressBookViewFactoryInterface $addressViewFactory,
         AddressRepositoryInterface $addressRepository,
-        LoggedInUserProviderInterface $loggedInUserProvider
+        LoggedInShopUserProviderInterface $loggedInUserProvider
     ) {
         $this->viewHandler = $viewHandler;
         $this->validator = $validator;

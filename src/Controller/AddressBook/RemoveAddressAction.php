@@ -10,7 +10,7 @@ use League\Tactician\CommandBus;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\ShopApiPlugin\Command\RemoveAddress;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactory;
-use Sylius\ShopApiPlugin\Provider\LoggedInUserProviderInterface;
+use Sylius\ShopApiPlugin\Provider\LoggedInShopUserProviderInterface;
 use Sylius\ShopApiPlugin\Request\RemoveAddressRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,7 +31,7 @@ final class RemoveAddressAction
     /** @var CommandBus */
     private $bus;
 
-    /** @var LoggedInUserProviderInterface */
+    /** @var LoggedInShopUserProviderInterface */
     private $loggedInUserProvider;
 
     public function __construct(
@@ -39,7 +39,7 @@ final class RemoveAddressAction
         ValidatorInterface $validator,
         ValidationErrorViewFactory $validationErrorViewFactory,
         CommandBus $bus,
-        LoggedInUserProviderInterface $loggedInUserProvider
+        LoggedInShopUserProviderInterface $loggedInUserProvider
     ) {
         $this->viewHandler = $viewHandler;
         $this->validator = $validator;

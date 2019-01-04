@@ -33,7 +33,7 @@ final class CompleteOrderHandler
         $this->stateMachineFactory = $stateMachineFactory;
     }
 
-    public function handle(CompleteOrder $completeOrder)
+    public function handle(CompleteOrder $completeOrder): void
     {
         /** @var OrderInterface $order */
         $order = $this->orderRepository->findOneBy(['tokenValue' => $completeOrder->orderToken()]);
@@ -45,7 +45,6 @@ final class CompleteOrderHandler
         Assert::true($stateMachine->can(OrderCheckoutTransitions::TRANSITION_COMPLETE), sprintf('Order with %s token cannot be completed.', $completeOrder->orderToken()));
 
         $customer = $this->customerProvider->provide($completeOrder->email());
-
         $order->setNotes($completeOrder->notes());
         $order->setCustomer($customer);
 

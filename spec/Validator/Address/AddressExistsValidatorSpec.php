@@ -10,7 +10,7 @@ use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\Core\Repository\AddressRepositoryInterface;
-use Sylius\ShopApiPlugin\Provider\LoggedInUserProviderInterface;
+use Sylius\ShopApiPlugin\Provider\LoggedInShopUserProviderInterface;
 use Sylius\ShopApiPlugin\Validator\Constraints\AddressExists;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
@@ -19,7 +19,7 @@ final class AddressExistsValidatorSpec extends ObjectBehavior
     function let(
         ExecutionContextInterface $executionContext,
         AddressRepositoryInterface $addressRepository,
-        LoggedInUserProviderInterface $currentUserProvider
+        LoggedInShopUserProviderInterface $currentUserProvider
     ): void {
         $this->beConstructedWith($addressRepository, $currentUserProvider);
 
@@ -30,7 +30,7 @@ final class AddressExistsValidatorSpec extends ObjectBehavior
         AddressInterface $address,
         ShopUserInterface $shopUser,
         CustomerInterface $customerOwner,
-        LoggedInUserProviderInterface $currentUserProvider,
+        LoggedInShopUserProviderInterface $currentUserProvider,
         AddressRepositoryInterface $addressRepository,
         ExecutionContextInterface $executionContext
     ): void {
@@ -61,7 +61,7 @@ final class AddressExistsValidatorSpec extends ObjectBehavior
     function it_adds_constraint_if_current_user_is_not_address_owner(
         AddressInterface $address,
         AddressRepositoryInterface $addressRepository,
-        LoggedInUserProviderInterface $currentUserProvider,
+        LoggedInShopUserProviderInterface $currentUserProvider,
         ShopUserInterface $shopUser,
         CustomerInterface $customerOwner,
         ExecutionContextInterface $executionContext

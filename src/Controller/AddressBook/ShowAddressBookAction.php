@@ -10,7 +10,7 @@ use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\Customer;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\ShopApiPlugin\Factory\AddressBookViewFactoryInterface;
-use Sylius\ShopApiPlugin\Provider\LoggedInUserProviderInterface;
+use Sylius\ShopApiPlugin\Provider\LoggedInShopUserProviderInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
@@ -19,7 +19,7 @@ final class ShowAddressBookAction
     /** @var ViewHandlerInterface */
     private $viewHandler;
 
-    /** @var LoggedInUserProviderInterface */
+    /** @var LoggedInShopUserProviderInterface */
     private $loggedInUserProvider;
 
     /** @var AddressBookViewFactoryInterface */
@@ -27,7 +27,7 @@ final class ShowAddressBookAction
 
     public function __construct(
         ViewHandlerInterface $viewHandler,
-        LoggedInUserProviderInterface $loggedInUserProvider,
+        LoggedInShopUserProviderInterface $loggedInUserProvider,
         AddressBookViewFactoryInterface $addressBookViewFactory
     ) {
         $this->viewHandler = $viewHandler;

@@ -16,12 +16,15 @@ use Sylius\ShopApiPlugin\Provider\CustomerProviderInterface;
 
 final class CompleteOrderHandlerSpec extends ObjectBehavior
 {
-    function let(OrderRepositoryInterface $orderRepository, CustomerProviderInterface $customerProvider, StateMachineFactoryInterface $stateMachineFactory): void
-    {
+    function let(
+        OrderRepositoryInterface $orderRepository,
+        CustomerProviderInterface $customerProvider,
+        StateMachineFactoryInterface $stateMachineFactory
+    ): void {
         $this->beConstructedWith($orderRepository, $customerProvider, $stateMachineFactory);
     }
 
-    function it_handles_order_completion_for_existing_customer(
+    function it_handles_order_completion(
         CustomerInterface $customer,
         CustomerProviderInterface $customerProvider,
         OrderInterface $order,
@@ -30,6 +33,7 @@ final class CompleteOrderHandlerSpec extends ObjectBehavior
         StateMachineInterface $stateMachine
     ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
+
         $customerProvider->provide('example@customer.com')->willReturn($customer);
 
         $stateMachineFactory->get($order, OrderCheckoutTransitions::GRAPH)->willReturn($stateMachine);
@@ -51,6 +55,7 @@ final class CompleteOrderHandlerSpec extends ObjectBehavior
         StateMachineInterface $stateMachine
     ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
+
         $customerProvider->provide('example@customer.com')->willReturn($customer);
 
         $stateMachineFactory->get($order, OrderCheckoutTransitions::GRAPH)->willReturn($stateMachine);
@@ -63,14 +68,18 @@ final class CompleteOrderHandlerSpec extends ObjectBehavior
         $this->handle(new CompleteOrder('ORDERTOKEN', 'example@customer.com', 'Some notes'));
     }
 
-    function it_throws_an_exception_if_order_does_not_exist(OrderRepositoryInterface $orderRepository): void
-    {
+    function it_throws_an_exception_if_order_does_not_exist(
+        OrderRepositoryInterface $orderRepository
+    ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn(null);
 
-        $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [new CompleteOrder('ORDERTOKEN', 'example@customer.com')]);
+        $this
+            ->shouldThrow(\InvalidArgumentException::class)
+            ->during('handle', [new CompleteOrder('ORDERTOKEN', 'example@customer.com')])
+        ;
     }
 
-    function it_throws_an_exception_if_order_cannot_be_addressed(
+    function it_throws_an_exception_if_order_cannot_be_completed(
         StateMachineFactoryInterface $stateMachineFactory,
         OrderInterface $order,
         OrderRepositoryInterface $orderRepository,
@@ -79,8 +88,11 @@ final class CompleteOrderHandlerSpec extends ObjectBehavior
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
 
         $stateMachineFactory->get($order, OrderCheckoutTransitions::GRAPH)->willReturn($stateMachine);
-        $stateMachine->can('complete')->willReturn(false);
+        $stateMachine->can(OrderCheckoutTransitions::TRANSITION_COMPLETE)->willReturn(false);
 
-        $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [new CompleteOrder('ORDERTOKEN', 'example@customer.com')]);
+        $this
+            ->shouldThrow(\InvalidArgumentException::class)
+            ->during('handle', [new CompleteOrder('ORDERTOKEN', 'example@customer.com')])
+        ;
     }
 }
