@@ -29,12 +29,14 @@ final class PaymentMethodViewFactorySpec extends ObjectBehavior
 
         $paymentMethodTranslation->getName()->willReturn('Cash on delivery');
         $paymentMethodTranslation->getDescription()->willReturn('Really nice payment method');
+        $paymentMethodTranslation->getInstructions()->willReturn('Put the money in this bag, right here!');
 
         $paymentMethodView = new PaymentMethodView();
 
         $paymentMethodView->code = 'COD_CODE';
         $paymentMethodView->name = 'Cash on delivery';
         $paymentMethodView->description = 'Really nice payment method';
+        $paymentMethodView->instructions = 'Put the money in this bag, right here!';
 
         $this->create($paymentMethod, 'en_GB')->shouldBeLike($paymentMethodView);
     }

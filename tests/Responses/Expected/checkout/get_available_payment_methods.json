@@ -5,12 +5,14 @@
                 "COD": {
                     "code": "COD",
                     "name": "Cash on delivery",
-                    "description": "@string@"
+                    "description": "@string@",
+                    "instructions": "@string@"
                 },
                 "PBC": {
                     "code": "PBC",
                     "name": "Pay by check",
-                    "description": "@string@"
+                    "description": "@string@",
+                    "instructions": "@string@"
                 }
             }
         }

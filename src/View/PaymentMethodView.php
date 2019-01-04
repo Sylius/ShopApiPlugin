@@ -14,4 +14,7 @@ class PaymentMethodView
 
     /** @var string */
     public $description;
+
+    /** @var string */
+    public $instructions;
 }

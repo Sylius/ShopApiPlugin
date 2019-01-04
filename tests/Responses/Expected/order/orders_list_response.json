@@ -87,7 +87,8 @@
                 "method": {
                     "code": "PBC",
                     "name": "Pay by check",
-                    "description": @string@
+                    "description": @string@,
+                    "instructions": @string@
                 },
                 "price": {
                     "current": 5498,

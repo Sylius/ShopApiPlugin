@@ -23,9 +23,12 @@ final class PaymentMethodViewFactory implements PaymentMethodViewFactoryInterfac
         /** @var PaymentMethodView $paymentMethodView */
         $paymentMethodView = new $this->paymentMethodViewClass();
 
-        $paymentMethodView->code = $paymentMethod->getCode();
-        $paymentMethodView->name = $paymentMethod->getTranslation($locale)->getName();
-        $paymentMethodView->description = $paymentMethod->getTranslation($locale)->getDescription();
+        $translation = $paymentMethod->getTranslation($locale);
+
+        $paymentMethodView->code = $paymentMethod->getCode() ?? '';
+        $paymentMethodView->name = $translation->getName() ?? '';
+        $paymentMethodView->description = $translation->getDescription() ?? '';
+        $paymentMethodView->instructions = $translation->getInstructions() ?? '';
 
         return $paymentMethodView;
     }
