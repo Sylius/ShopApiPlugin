@@ -3,7 +3,7 @@
         <defaults public="true"/>
 
         <service id="sylius.shop_api_plugin.handler.add_product_review_by_slug_handler"
-                 class="Sylius\ShopApiPlugin\Handler\AddProductReviewBySlugHandler">
+                 class="Sylius\ShopApiPlugin\Handler\Product\AddProductReviewBySlugHandler">
             <argument type="service" id="sylius.repository.product_review"/>
             <argument type="service" id="sylius.repository.channel"/>
             <argument type="service" id="sylius.repository.product"/>
@@ -13,7 +13,7 @@
         </service>
 
         <service id="sylius.shop_api_plugin.handler.add_product_review_by_code_handler"
-                 class="Sylius\ShopApiPlugin\Handler\AddProductReviewByCodeHandler">
+                 class="Sylius\ShopApiPlugin\Handler\Product\AddProductReviewByCodeHandler">
             <argument type="service" id="sylius.repository.product_review"/>
             <argument type="service" id="sylius.repository.channel"/>
             <argument type="service" id="sylius.repository.product"/>
