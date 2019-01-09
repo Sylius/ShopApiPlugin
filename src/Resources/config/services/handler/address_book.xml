@@ -2,7 +2,8 @@
     <services>
         <defaults public="true" />
 
-        <service id="sylius.shop_api_plugin.handler.create_address_handler" class="Sylius\ShopApiPlugin\Handler\CreateAddressHandler">
+        <service id="sylius.shop_api_plugin.handler.create_address_handler"
+                 class="Sylius\ShopApiPlugin\Handler\AddressBook\CreateAddressHandler">
             <argument type="service" id="sylius.repository.address" />
             <argument type="service" id="sylius.repository.country" />
             <argument type="service" id="sylius.repository.province" />
@@ -11,20 +12,23 @@
             <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\CreateAddress" />
         </service>
 
-        <service id="sylius.shop_api_plugin.handler.remove_address_handler" class="Sylius\ShopApiPlugin\Handler\RemoveAddressHandler">
+        <service id="sylius.shop_api_plugin.handler.remove_address_handler"
+                 class="Sylius\ShopApiPlugin\Handler\AddressBook\RemoveAddressHandler">
             <argument type="service" id="sylius.repository.address" />
             <argument type="service" id="sylius.repository.order" />
             <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\RemoveAddress" />
         </service>
 
-        <service id="sylius.shop_api_plugin.handler.set_default_address_handler" class="Sylius\ShopApiPlugin\Handler\SetDefaultAddressHandler">
+        <service id="sylius.shop_api_plugin.handler.set_default_address_handler"
+                 class="Sylius\ShopApiPlugin\Handler\AddressBook\SetDefaultAddressHandler">
             <argument type="service" id="sylius.repository.customer" />
             <argument type="service" id="sylius.repository.address" />
             <argument type="service" id="sylius.repository.shop_user" />
             <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\SetDefaultAddress" />
         </service>
 
-        <service id="sylius.shop_api_plugin.handler.update_address_book_address" class="Sylius\ShopApiPlugin\Handler\UpdateAddressBookAddressHandler">
+        <service id="sylius.shop_api_plugin.handler.update_address_book_address"
+                 class="Sylius\ShopApiPlugin\Handler\AddressBook\UpdateAddressBookAddressHandler">
             <argument type="service" id="sylius.repository.address" />
             <argument type="service" id="sylius.repository.country" />
             <argument type="service" id="sylius.repository.province" />

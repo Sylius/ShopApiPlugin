@@ -3,7 +3,7 @@
         <defaults public="true"/>
 
         <service id="sylius.shop_api_plugin.handler.address_shipment"
-                 class="Sylius\ShopApiPlugin\Handler\AddressOrderHandler">
+                 class="Sylius\ShopApiPlugin\Handler\Cart\AddressOrderHandler">
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.factory.address"/>
             <argument type="service" id="sm.factory"/>
@@ -11,7 +11,7 @@
         </service>
 
         <service id="sylius.shop_api_plugin.handler.pickup_cart_handler"
-                 class="Sylius\ShopApiPlugin\Handler\PickupCartHandler">
+                 class="Sylius\ShopApiPlugin\Handler\Cart\PickupCartHandler">
             <argument type="service" id="sylius.factory.order"/>
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.repository.channel"/>
@@ -19,13 +19,13 @@
         </service>
 
         <service id="sylius.shop_api_plugin.handler.drop_cart_handler"
-                 class="Sylius\ShopApiPlugin\Handler\DropCartHandler">
+                 class="Sylius\ShopApiPlugin\Handler\Cart\DropCartHandler">
             <argument type="service" id="sylius.repository.order"/>
             <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\DropCart"/>
         </service>
 
         <service id="sylius.shop_api_plugin.handler.put_simple_item_to_cart_handler"
-                 class="Sylius\ShopApiPlugin\Handler\PutSimpleItemToCartHandler">
+                 class="Sylius\ShopApiPlugin\Handler\Cart\PutSimpleItemToCartHandler">
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.repository.product"/>
             <argument type="service" id="sylius.shop_api_plugin.modifier.order_modifier"/>
@@ -33,7 +33,7 @@
         </service>
 
         <service id="sylius.shop_api_plugin.handler.put_variant_based_configurable_item_to_cart_handler"
-                 class="Sylius\ShopApiPlugin\Handler\PutVariantBasedConfigurableItemToCartHandler">
+                 class="Sylius\ShopApiPlugin\Handler\Cart\PutVariantBasedConfigurableItemToCartHandler">
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.repository.product_variant"/>
             <argument type="service" id="sylius.shop_api_plugin.modifier.order_modifier"/>
@@ -41,7 +41,7 @@
         </service>
 
         <service id="sylius.shop_api_plugin.handler.put_option_based_configurable_item_to_cart_handler"
-                 class="Sylius\ShopApiPlugin\Handler\PutOptionBasedConfigurableItemToCartHandler">
+                 class="Sylius\ShopApiPlugin\Handler\Cart\PutOptionBasedConfigurableItemToCartHandler">
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.repository.product"/>
             <argument type="service" id="sylius.shop_api_plugin.modifier.order_modifier"/>
@@ -49,7 +49,7 @@
         </service>
 
         <service id="sylius.shop_api_plugin.handler.change_item_quantity_handler"
-                 class="Sylius\ShopApiPlugin\Handler\ChangeItemQuantityHandler">
+                 class="Sylius\ShopApiPlugin\Handler\Cart\ChangeItemQuantityHandler">
             <argument type="service" id="sylius.repository.order_item"/>
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.order_item_quantity_modifier"/>
@@ -58,7 +58,7 @@
         </service>
 
         <service id="sylius.shop_api_plugin.handler.remove_item_from_cart_handler"
-                 class="Sylius\ShopApiPlugin\Handler\RemoveItemFromCartHandler">
+                 class="Sylius\ShopApiPlugin\Handler\Cart\RemoveItemFromCartHandler">
             <argument type="service" id="sylius.repository.order_item"/>
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.order_processing.order_processor"/>
@@ -66,7 +66,7 @@
         </service>
 
         <service id="sylius.shop_api_plugin.handler.choose_shipping_method_handler"
-                 class="Sylius\ShopApiPlugin\Handler\ChooseShippingMethodHandler">
+                 class="Sylius\ShopApiPlugin\Handler\Cart\ChooseShippingMethodHandler">
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.repository.shipping_method"/>
             <argument type="service" id="sylius.shipping_eligibility_checker"/>
@@ -75,7 +75,7 @@
         </service>
 
         <service id="sylius.shop_api_plugin.handler.choose_payment_method_handler"
-                 class="Sylius\ShopApiPlugin\Handler\ChoosePaymentMethodHandler">
+                 class="Sylius\ShopApiPlugin\Handler\Cart\ChoosePaymentMethodHandler">
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.repository.payment_method"/>
             <argument type="service" id="sm.factory"/>
@@ -83,7 +83,7 @@
         </service>
 
         <service id="sylius.shop_api_plugin.handler.add_coupon_handler"
-                 class="Sylius\ShopApiPlugin\Handler\AddCouponHandler">
+                 class="Sylius\ShopApiPlugin\Handler\Cart\AddCouponHandler">
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.repository.promotion_coupon"/>
             <argument type="service" id="sylius.order_processing.order_processor"/>
@@ -92,14 +92,14 @@
         </service>
 
         <service id="sylius.shop_api_plugin.handler.remove_coupon_handler"
-                 class="Sylius\ShopApiPlugin\Handler\RemoveCouponHandler">
+                 class="Sylius\ShopApiPlugin\Handler\Cart\RemoveCouponHandler">
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.order_processing.order_processor"/>
             <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\RemoveCoupon"/>
         </service>
 
         <service id="sylius.shop_api_plugin.handler.complete_order_handler"
-                 class="Sylius\ShopApiPlugin\Handler\CompleteOrderHandler">
+                 class="Sylius\ShopApiPlugin\Handler\Cart\CompleteOrderHandler">
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.shop_api_plugin.provider.customer_provider" />
             <argument type="service" id="sm.factory"/>
