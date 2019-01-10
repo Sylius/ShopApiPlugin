@@ -23,5 +23,11 @@
 
         <service id="sylius.shop_api_plugin.provider.supported_locale_provider"
                  class="Sylius\ShopApiPlugin\Provider\SupportedLocaleProvider"/>
+
+        <service id="sylius.shop_api_plugin.provider.validator_provider"
+                 class="Sylius\ShopApiPlugin\Provider\ValidatorProvider">
+            <argument type="service" id="validator" />
+            <argument type="service" id="fos_rest.view_handler" />
+        </service>
     </services>
 </container>
