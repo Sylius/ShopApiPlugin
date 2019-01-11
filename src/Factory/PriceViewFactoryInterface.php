@@ -8,5 +8,5 @@ use Sylius\ShopApiPlugin\View\PriceView;
 
 interface PriceViewFactoryInterface
 {
-    public function create(int $price, string $currency): PriceView;
+    public function create($price, string $currency): PriceView;
 }
