@@ -6,16 +6,16 @@ namespace Sylius\ShopApiPlugin\Request;
 
 use Symfony\Component\HttpFoundation\Request;
 
-final class EstimateShippingCostRequest
+class EstimateShippingCostRequest
 {
     /** @var string */
-    private $cartToken;
+    protected $cartToken;
 
     /** @var string */
-    private $countryCode;
+    protected $countryCode;
 
     /** @var string */
-    private $provinceCode;
+    protected $provinceCode;
 
     public function __construct(Request $request)
     {

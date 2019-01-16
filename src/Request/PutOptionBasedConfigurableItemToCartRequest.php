@@ -7,19 +7,19 @@ namespace Sylius\ShopApiPlugin\Request;
 use Sylius\ShopApiPlugin\Command\PutOptionBasedConfigurableItemToCart;
 use Symfony\Component\HttpFoundation\Request;
 
-final class PutOptionBasedConfigurableItemToCartRequest
+class PutOptionBasedConfigurableItemToCartRequest
 {
     /** @var string */
-    private $token;
+    protected $token;
 
     /** @var string */
-    private $productCode;
+    protected $productCode;
 
     /** @var array|null */
-    private $options;
+    protected $options;
 
     /** @var int */
-    private $quantity;
+    protected $quantity;
 
     private function __construct($token, $productCode, $options, $quantity)
     {

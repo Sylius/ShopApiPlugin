@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Command;
 
-final class SendResetPasswordToken
+class SendResetPasswordToken
 {
     /** @var string */
-    private $email;
+    protected $email;
 
     /** @var string */
-    private $channelCode;
+    protected $channelCode;
 
     public function __construct(string $email, string $channelCode)
     {

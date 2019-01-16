@@ -7,16 +7,16 @@ namespace Sylius\ShopApiPlugin\Request;
 use Sylius\ShopApiPlugin\Command\PutSimpleItemToCart;
 use Symfony\Component\HttpFoundation\Request;
 
-final class PutSimpleItemToCartRequest
+class PutSimpleItemToCartRequest
 {
     /** @var string */
-    private $token;
+    protected $token;
 
     /** @var string */
-    private $productCode;
+    protected $productCode;
 
     /** @var int */
-    private $quantity;
+    protected $quantity;
 
     private function __construct($token, $productCode, $quantity)
     {

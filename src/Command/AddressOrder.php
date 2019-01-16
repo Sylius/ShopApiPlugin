@@ -6,16 +6,16 @@ namespace Sylius\ShopApiPlugin\Command;
 
 use Sylius\ShopApiPlugin\Model\Address;
 
-final class AddressOrder
+class AddressOrder
 {
     /** @var string */
-    private $orderToken;
+    protected $orderToken;
 
     /** @var Address */
-    private $address;
+    protected $address;
 
     /** @var Address */
-    private $billingAddress;
+    protected $billingAddress;
 
     public function __construct(string $orderToken, Address $shippingAddress, Address $billingAddress)
     {

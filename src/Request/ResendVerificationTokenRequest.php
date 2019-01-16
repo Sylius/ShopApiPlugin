@@ -7,13 +7,13 @@ namespace Sylius\ShopApiPlugin\Request;
 use Sylius\ShopApiPlugin\Command\SendVerificationToken;
 use Symfony\Component\HttpFoundation\Request;
 
-final class ResendVerificationTokenRequest
+class ResendVerificationTokenRequest
 {
     /** @var string */
-    private $email;
+    protected $email;
 
     /** @var string */
-    private $channelCode;
+    protected $channelCode;
 
     public function __construct(Request $request)
     {

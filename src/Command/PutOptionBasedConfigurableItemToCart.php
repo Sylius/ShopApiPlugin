@@ -6,19 +6,19 @@ namespace Sylius\ShopApiPlugin\Command;
 
 use Webmozart\Assert\Assert;
 
-final class PutOptionBasedConfigurableItemToCart
+class PutOptionBasedConfigurableItemToCart
 {
     /** @var string */
-    private $orderToken;
+    protected $orderToken;
 
     /** @var string */
-    private $product;
+    protected $product;
 
     /** @var array */
-    private $options;
+    protected $options;
 
     /** @var int */
-    private $quantity;
+    protected $quantity;
 
     public function __construct(string $orderToken, string $product, array $options, int $quantity)
     {

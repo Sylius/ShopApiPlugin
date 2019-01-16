@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Command;
 
-final class CompleteOrder
+class CompleteOrder
 {
     /** @var string */
-    private $orderToken;
+    protected $orderToken;
 
     /** @var string */
-    private $email;
+    protected $email;
 
     /** @var string|null */
-    private $notes;
+    protected $notes;
 
     public function __construct(string $orderToken, string $email, ?string $notes = null)
     {

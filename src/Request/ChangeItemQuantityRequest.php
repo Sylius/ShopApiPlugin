@@ -7,16 +7,16 @@ namespace Sylius\ShopApiPlugin\Request;
 use Sylius\ShopApiPlugin\Command\ChangeItemQuantity;
 use Symfony\Component\HttpFoundation\Request;
 
-final class ChangeItemQuantityRequest
+class ChangeItemQuantityRequest
 {
     /** @var string */
-    private $token;
+    protected $token;
 
     /** @var mixed */
-    private $id;
+    protected $id;
 
     /** @var int */
-    private $quantity;
+    protected $quantity;
 
     public function __construct(Request $request)
     {

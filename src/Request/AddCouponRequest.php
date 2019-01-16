@@ -7,13 +7,13 @@ namespace Sylius\ShopApiPlugin\Request;
 use Sylius\ShopApiPlugin\Command\AddCoupon;
 use Symfony\Component\HttpFoundation\Request;
 
-final class AddCouponRequest
+class AddCouponRequest
 {
     /** @var string|null */
-    private $token;
+    protected $token;
 
     /** @var string|null */
-    private $coupon;
+    protected $coupon;
 
     public function __construct(Request $request)
     {

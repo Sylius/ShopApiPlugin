@@ -6,13 +6,13 @@ namespace Sylius\ShopApiPlugin\Command;
 
 use Sylius\ShopApiPlugin\Model\Address;
 
-final class CreateAddress
+class CreateAddress
 {
     /** @var Address */
-    private $address;
+    protected $address;
 
     /** @var string */
-    private $userEmail;
+    protected $userEmail;
 
     public function __construct(Address $address, string $userEmail)
     {

@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Command;
 
-final class ChooseShippingMethod
+class ChooseShippingMethod
 {
     /** @var mixed */
-    private $shipmentIdentifier;
+    protected $shipmentIdentifier;
 
     /** @var string */
-    private $shippingMethod;
+    protected $shippingMethod;
 
     /** @var string */
-    private $orderToken;
+    protected $orderToken;
 
     public function __construct(string $orderToken, $shipmentIdentifier, string $shippingMethod)
     {

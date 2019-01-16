@@ -8,28 +8,28 @@ use DateTimeInterface;
 use Sylius\ShopApiPlugin\Command\UpdateCustomer;
 use Symfony\Component\HttpFoundation\Request;
 
-final class UpdateCustomerRequest
+class UpdateCustomerRequest
 {
     /** @var string */
-    private $firstName;
+    protected $firstName;
 
     /** @var string */
-    private $lastName;
+    protected $lastName;
 
     /** @var string|null */
-    private $email;
+    protected $email;
 
     /** @var DateTimeInterface|null */
-    private $birthday;
+    protected $birthday;
 
     /** @var string */
-    private $gender;
+    protected $gender;
 
     /** @var string|null */
-    private $phoneNumber;
+    protected $phoneNumber;
 
     /** @var bool */
-    private $subscribedToNewsletter;
+    protected $subscribedToNewsletter;
 
     public function __construct(Request $request)
     {

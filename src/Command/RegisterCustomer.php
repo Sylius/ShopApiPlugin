@@ -4,22 +4,22 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Command;
 
-final class RegisterCustomer
+class RegisterCustomer
 {
     /** @var string */
-    private $email;
+    protected $email;
 
     /** @var string */
-    private $plainPassword;
+    protected $plainPassword;
 
     /** @var string */
-    private $firstName;
+    protected $firstName;
 
     /** @var string */
-    private $lastName;
+    protected $lastName;
 
     /** @var string */
-    private $channelCode;
+    protected $channelCode;
 
     public function __construct(string $email, string $plainPassword, string $firstName, string $lastName, string $channelCode)
     {
