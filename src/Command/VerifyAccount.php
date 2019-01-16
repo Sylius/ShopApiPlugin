@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Command;
 
-final class VerifyAccount
+class VerifyAccount
 {
     /** @var string */
-    private $token;
+    protected $token;
 
     public function __construct(string $token)
     {

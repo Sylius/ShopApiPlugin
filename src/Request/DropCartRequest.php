@@ -7,10 +7,10 @@ namespace Sylius\ShopApiPlugin\Request;
 use Sylius\ShopApiPlugin\Command\DropCart;
 use Symfony\Component\HttpFoundation\Request;
 
-final class DropCartRequest
+class DropCartRequest
 {
     /** @var string */
-    private $token;
+    protected $token;
 
     public function __construct(Request $request)
     {

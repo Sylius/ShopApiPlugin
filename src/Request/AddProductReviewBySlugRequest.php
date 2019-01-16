@@ -7,25 +7,25 @@ namespace Sylius\ShopApiPlugin\Request;
 use Sylius\ShopApiPlugin\Command\AddProductReviewBySlug;
 use Symfony\Component\HttpFoundation\Request;
 
-final class AddProductReviewBySlugRequest
+class AddProductReviewBySlugRequest
 {
     /** @var string */
-    private $slug;
+    protected $slug;
 
     /** @var string */
-    private $channelCode;
+    protected $channelCode;
 
     /** @var string */
-    private $title;
+    protected $title;
 
     /** @var int */
-    private $rating;
+    protected $rating;
 
     /** @var string */
-    private $comment;
+    protected $comment;
 
     /** @var string */
-    private $email;
+    protected $email;
 
     public function __construct(Request $request)
     {

@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Command;
 
-final class RemoveItemFromCart
+class RemoveItemFromCart
 {
     /** @var string */
-    private $orderToken;
+    protected $orderToken;
 
     /** @var mixed */
-    private $itemIdentifier;
+    protected $itemIdentifier;
 
     public function __construct(string $orderToken, $itemIdentifier)
     {

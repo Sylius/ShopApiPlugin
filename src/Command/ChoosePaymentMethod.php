@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Command;
 
-final class ChoosePaymentMethod
+class ChoosePaymentMethod
 {
     /** @var mixed */
-    private $paymentIdentifier;
+    protected $paymentIdentifier;
 
     /** @var string */
-    private $paymentMethod;
+    protected $paymentMethod;
 
     /** @var string */
-    private $orderToken;
+    protected $orderToken;
 
     public function __construct(string $orderToken, $paymentIdentifier, string $paymentMethod)
     {

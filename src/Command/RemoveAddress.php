@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Command;
 
-final class RemoveAddress
+class RemoveAddress
 {
     /** @var mixed */
-    private $id;
+    protected $id;
 
     /** @var string */
-    private $userEmail;
+    protected $userEmail;
 
     public function __construct($id, string $userEmail)
     {

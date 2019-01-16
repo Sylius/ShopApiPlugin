@@ -6,10 +6,10 @@ namespace Sylius\ShopApiPlugin\Request;
 
 use Symfony\Component\HttpFoundation\Request;
 
-final class RemoveAddressRequest
+class RemoveAddressRequest
 {
     /** @var int|string */
-    private $id;
+    protected $id;
 
     public function __construct(Request $request)
     {

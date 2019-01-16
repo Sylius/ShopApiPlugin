@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Command;
 
-final class PickupCart
+class PickupCart
 {
     /** @var string */
-    private $orderToken;
+    protected $orderToken;
 
     /** @var string */
-    private $channelCode;
+    protected $channelCode;
 
     public function __construct(string $orderToken, string $channelCode)
     {

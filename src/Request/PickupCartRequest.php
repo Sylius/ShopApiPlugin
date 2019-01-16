@@ -8,13 +8,13 @@ use Ramsey\Uuid\Uuid;
 use Sylius\ShopApiPlugin\Command\PickupCart;
 use Symfony\Component\HttpFoundation\Request;
 
-final class PickupCartRequest
+class PickupCartRequest
 {
     /** @var string */
-    private $token;
+    protected $token;
 
     /** @var string */
-    private $channel;
+    protected $channel;
 
     public function __construct(Request $request)
     {

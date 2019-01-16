@@ -7,10 +7,10 @@ namespace Sylius\ShopApiPlugin\Request;
 use Sylius\ShopApiPlugin\Command\VerifyAccount;
 use Symfony\Component\HttpFoundation\Request;
 
-final class VerifyAccountRequest
+class VerifyAccountRequest
 {
     /** @var string */
-    private $token;
+    protected $token;
 
     public function __construct(Request $request)
     {

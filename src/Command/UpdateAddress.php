@@ -6,16 +6,16 @@ namespace Sylius\ShopApiPlugin\Command;
 
 use Sylius\ShopApiPlugin\Model\Address;
 
-final class UpdateAddress
+class UpdateAddress
 {
     /** @var Address */
-    private $address;
+    protected $address;
 
     /** @var string */
-    private $userEmail;
+    protected $userEmail;
 
     /** @var string */
-    private $addressId;
+    protected $addressId;
 
     public function __construct(Address $address, string $userEmail, string $addressId)
     {

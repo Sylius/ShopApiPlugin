@@ -7,10 +7,10 @@ namespace Sylius\ShopApiPlugin\Request;
 use Sylius\ShopApiPlugin\Command\RemoveCoupon;
 use Symfony\Component\HttpFoundation\Request;
 
-final class RemoveCouponRequest
+class RemoveCouponRequest
 {
     /** @var string */
-    private $token;
+    protected $token;
 
     public function __construct(Request $request)
     {

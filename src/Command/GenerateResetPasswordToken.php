@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Command;
 
-final class GenerateResetPasswordToken
+class GenerateResetPasswordToken
 {
     /** @var string */
-    private $email;
+    protected $email;
 
     public function __construct(string $email)
     {

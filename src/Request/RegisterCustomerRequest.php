@@ -7,22 +7,22 @@ namespace Sylius\ShopApiPlugin\Request;
 use Sylius\ShopApiPlugin\Command\RegisterCustomer;
 use Symfony\Component\HttpFoundation\Request;
 
-final class RegisterCustomerRequest
+class RegisterCustomerRequest
 {
     /** @var string */
-    private $email;
+    protected $email;
 
     /** @var string */
-    private $plainPassword;
+    protected $plainPassword;
 
     /** @var string */
-    private $firstName;
+    protected $firstName;
 
     /** @var string */
-    private $lastName;
+    protected $lastName;
 
     /** @var string */
-    private $channelCode;
+    protected $channelCode;
 
     public function __construct(Request $request)
     {

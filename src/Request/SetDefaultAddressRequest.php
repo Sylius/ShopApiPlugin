@@ -6,10 +6,10 @@ namespace Sylius\ShopApiPlugin\Request;
 
 use Symfony\Component\HttpFoundation\Request;
 
-final class SetDefaultAddressRequest
+class SetDefaultAddressRequest
 {
     /** @var mixed */
-    private $id;
+    protected $id;
 
     public function __construct(Request $request)
     {

@@ -4,25 +4,25 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Command;
 
-final class AddProductReviewByCode
+class AddProductReviewByCode
 {
     /** @var string */
-    private $productCode;
+    protected $productCode;
 
     /** @var string */
-    private $channelCode;
+    protected $channelCode;
 
     /** @var string */
-    private $title;
+    protected $title;
 
     /** @var int */
-    private $rating;
+    protected $rating;
 
     /** @var string */
-    private $comment;
+    protected $comment;
 
     /** @var string */
-    private $email;
+    protected $email;
 
     public function __construct(string $productCode, string $channelCode, string $title, int $rating, string $comment, string $email)
     {

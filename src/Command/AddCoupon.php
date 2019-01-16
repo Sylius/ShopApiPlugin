@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Command;
 
-final class AddCoupon
+class AddCoupon
 {
     /** @var string */
-    private $orderToken;
+    protected $orderToken;
 
     /** @var string */
-    private $couponCode;
+    protected $couponCode;
 
     public function __construct(string $orderToken, string $couponCode)
     {

@@ -4,28 +4,28 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Command;
 
-final class UpdateCustomer
+class UpdateCustomer
 {
     /** @var string */
-    private $firstName;
+    protected $firstName;
 
     /** @var string */
-    private $lastName;
+    protected $lastName;
 
     /** @var string */
-    private $email;
+    protected $email;
 
     /** @var string|null */
-    private $birthday;
+    protected $birthday;
 
     /** @var string */
-    private $gender;
+    protected $gender;
 
     /** @var string|null */
-    private $phoneNumber;
+    protected $phoneNumber;
 
     /** @var bool */
-    private $subscribedToNewsletter;
+    protected $subscribedToNewsletter;
 
     public function __construct(string $firstName, string $lastName, string $email, ?string $birthday, string $gender, ?string $phoneNumber, ?bool $subscribedToNewsletter)
     {
