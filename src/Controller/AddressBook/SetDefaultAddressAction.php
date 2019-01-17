@@ -8,7 +8,6 @@ use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
 use Sylius\Component\Core\Model\ShopUserInterface;
-use Sylius\ShopApiPlugin\Command\SetDefaultAddress;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
 use Sylius\ShopApiPlugin\Provider\LoggedInShopUserProviderInterface;
 use Sylius\ShopApiPlugin\Request\SetDefaultAddressRequest;
@@ -50,7 +49,14 @@ final class SetDefaultAddressAction
 
     public function __invoke(Request $request): Response
     {
-        $setDefaultAddressRequest = new SetDefaultAddressRequest($request);
+        try {
+            /** @var ShopUserInterface $user */
+            $user = $this->loggedInUserProvider->provide();
+        } catch (TokenNotFoundException $exception) {
+            return $this->viewHandler->handle(View::create(null, Response::HTTP_UNAUTHORIZED));
+        }
+
+        $setDefaultAddressRequest = new SetDefaultAddressRequest($request, $user->getEmail());
 
         $validationResults = $this->validator->validate($setDefaultAddressRequest);
 
@@ -60,15 +66,8 @@ final class SetDefaultAddressAction
             );
         }
 
-        try {
-            /** @var ShopUserInterface $user */
-            $user = $this->loggedInUserProvider->provide();
-        } catch (TokenNotFoundException $exception) {
-            return $this->viewHandler->handle(View::create(null, Response::HTTP_UNAUTHORIZED));
-        }
-
         if ($user->getCustomer() !== null) {
-            $this->bus->handle(new SetDefaultAddress($request->attributes->get('id'), $user->getEmail()));
+            $this->bus->handle($setDefaultAddressRequest->getCommand());
 
             return $this->viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));
         }
