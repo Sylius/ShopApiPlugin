@@ -8,7 +8,6 @@ use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
 use Sylius\Component\Core\Model\ShopUserInterface;
-use Sylius\ShopApiPlugin\Command\RemoveAddress;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactory;
 use Sylius\ShopApiPlugin\Provider\LoggedInShopUserProviderInterface;
 use Sylius\ShopApiPlugin\Request\RemoveAddressRequest;
@@ -50,7 +49,14 @@ final class RemoveAddressAction
 
     public function __invoke(Request $request): Response
     {
-        $removeAddressRequest = new RemoveAddressRequest($request);
+        try {
+            /** @var ShopUserInterface $user */
+            $user = $this->loggedInUserProvider->provide();
+        } catch (TokenNotFoundException $exception) {
+            return $this->viewHandler->handle(View::create(null, Response::HTTP_UNAUTHORIZED));
+        }
+
+        $removeAddressRequest = new RemoveAddressRequest($request, $user->getEmail());
 
         $validationResults = $this->validator->validate($removeAddressRequest);
 
@@ -60,15 +66,8 @@ final class RemoveAddressAction
             );
         }
 
-        try {
-            /** @var ShopUserInterface $user */
-            $user = $this->loggedInUserProvider->provide();
-        } catch (TokenNotFoundException $exception) {
-            return $this->viewHandler->handle(View::create(null, Response::HTTP_UNAUTHORIZED));
-        }
-
         if ($user->getCustomer() !== null) {
-            $this->bus->handle(new RemoveAddress($removeAddressRequest->id(), $user->getEmail()));
+            $this->bus->handle($removeAddressRequest->getCommand());
 
             return $this->viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));
         }
