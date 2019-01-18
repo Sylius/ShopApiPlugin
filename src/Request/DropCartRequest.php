@@ -7,17 +7,17 @@ namespace Sylius\ShopApiPlugin\Request;
 use Sylius\ShopApiPlugin\Command\DropCart;
 use Symfony\Component\HttpFoundation\Request;
 
-class DropCartRequest
+class DropCartRequest implements CommandRequestInterface
 {
     /** @var string */
     protected $token;
 
-    public function __construct(Request $request)
+    public function populateData(Request $request): void
     {
         $this->token = $request->attributes->get('token');
     }
 
-    public function getCommand(): DropCart
+    public function getCommand(): object
     {
         return new DropCart($this->token);
     }

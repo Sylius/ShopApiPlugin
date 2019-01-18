@@ -41,7 +41,8 @@ final class DropCartAction
 
     public function __invoke(Request $request): Response
     {
-        $pickupRequest = new DropCartRequest($request);
+        $pickupRequest = new DropCartRequest();
+        $pickupRequest->populateData($request);
 
         $validationResults = $this->validator->validate($pickupRequest);
 

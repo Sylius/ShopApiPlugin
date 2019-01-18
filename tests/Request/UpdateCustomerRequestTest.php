@@ -16,7 +16,8 @@ final class UpdateCustomerRequestTest extends TestCase
      */
     public function it_creates_update_customer_command()
     {
-        $updateCustomerRequest = new UpdateCustomerRequest(new Request([], [
+        $updateCustomerRequest = new UpdateCustomerRequest();
+        $updateCustomerRequest->populateData(new Request([], [
             'firstName' => 'ivan',
             'lastName' => 'Mts',
             'email' => 'ivan.matas@locastic.com',

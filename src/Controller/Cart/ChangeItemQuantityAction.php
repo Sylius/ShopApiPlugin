@@ -48,7 +48,8 @@ final class ChangeItemQuantityAction
 
     public function __invoke(Request $request): Response
     {
-        $changeItemQuantityRequest = new ChangeItemQuantityRequest($request);
+        $changeItemQuantityRequest = new ChangeItemQuantityRequest();
+        $changeItemQuantityRequest->populateData($request);
 
         $validationResults = $this->validator->validate($changeItemQuantityRequest);
 

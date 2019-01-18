@@ -41,7 +41,8 @@ final class VerifyAccountAction
 
     public function __invoke(Request $request): Response
     {
-        $resendVerificationTokenRequest = new VerifyAccountRequest($request);
+        $resendVerificationTokenRequest = new VerifyAccountRequest();
+        $resendVerificationTokenRequest->populateData($request);
 
         $validationResults = $this->validator->validate($resendVerificationTokenRequest);
 

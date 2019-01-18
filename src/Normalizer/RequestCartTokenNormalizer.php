@@ -29,7 +29,8 @@ final class RequestCartTokenNormalizer implements RequestCartTokenNormalizerInte
             return $request;
         }
 
-        $pickupRequest = new PickupCartRequest($request);
+        $pickupRequest = new PickupCartRequest();
+        $pickupRequest->populateData($request);
 
         $validationResults = $this->validator->validate($pickupRequest);
 

@@ -88,7 +88,7 @@ EOT;
         $data =
 <<<EOT
         {
-            "productCode": "LOGAN_HAT_CODE",
+            "productCode": "LOGAN_HAT",
             "quantity": 3
         }
 EOT;

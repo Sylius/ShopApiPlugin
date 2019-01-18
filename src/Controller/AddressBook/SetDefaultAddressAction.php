@@ -56,7 +56,9 @@ final class SetDefaultAddressAction
             return $this->viewHandler->handle(View::create(null, Response::HTTP_UNAUTHORIZED));
         }
 
-        $setDefaultAddressRequest = new SetDefaultAddressRequest($request, $user->getEmail());
+        $setDefaultAddressRequest = new SetDefaultAddressRequest();
+        $setDefaultAddressRequest->populateData($request);
+        $setDefaultAddressRequest->setUserEmail($user->getEmail());
 
         $validationResults = $this->validator->validate($setDefaultAddressRequest);
 

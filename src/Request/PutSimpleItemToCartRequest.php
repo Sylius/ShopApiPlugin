@@ -35,7 +35,7 @@ class PutSimpleItemToCartRequest
         return new self($request->attributes->get('token'), $request->request->get('productCode'), $request->request->getInt('quantity', 1));
     }
 
-    public function getCommand(): PutSimpleItemToCart
+    public function getCommand(): object
     {
         return new PutSimpleItemToCart($this->token, $this->productCode, $this->quantity);
     }

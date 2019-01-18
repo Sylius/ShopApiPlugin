@@ -48,7 +48,8 @@ final class PickupAction
 
     public function __invoke(Request $request): Response
     {
-        $pickupRequest = new PickupCartRequest($request);
+        $pickupRequest = new PickupCartRequest();
+        $pickupRequest->populateData($request);
 
         $validationResults = $this->validator->validate($pickupRequest);
 

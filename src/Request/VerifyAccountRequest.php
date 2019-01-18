@@ -7,17 +7,17 @@ namespace Sylius\ShopApiPlugin\Request;
 use Sylius\ShopApiPlugin\Command\VerifyAccount;
 use Symfony\Component\HttpFoundation\Request;
 
-class VerifyAccountRequest
+class VerifyAccountRequest implements CommandRequestInterface
 {
     /** @var string */
     protected $token;
 
-    public function __construct(Request $request)
+    public function populateData(Request $request): void
     {
         $this->token = $request->request->get('token');
     }
 
-    public function getCommand(): VerifyAccount
+    public function getCommand(): object
     {
         return new VerifyAccount($this->token);
     }

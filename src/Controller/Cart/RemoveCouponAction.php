@@ -48,7 +48,8 @@ final class RemoveCouponAction
 
     public function __invoke(Request $request): Response
     {
-        $removeCouponRequest = new RemoveCouponRequest($request);
+        $removeCouponRequest = new RemoveCouponRequest();
+        $removeCouponRequest->populateData($request);
 
         $validationResults = $this->validator->validate($removeCouponRequest);
 

@@ -39,7 +39,7 @@ class PutVariantBasedConfigurableItemToCartRequest
         return new self($request->attributes->get('token'), $request->request->get('productCode'), $request->request->get('variantCode'), $request->request->getInt('quantity', 1));
     }
 
-    public function getCommand(): PutVariantBasedConfigurableItemToCart
+    public function getCommand(): object
     {
         return new PutVariantBasedConfigurableItemToCart($this->token, $this->productCode, $this->variantCode, $this->quantity);
     }

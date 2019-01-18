@@ -39,7 +39,7 @@ class PutOptionBasedConfigurableItemToCartRequest
         return new self($request->attributes->get('token'), $request->request->get('productCode'), $request->request->get('options'), $request->request->getInt('quantity', 1));
     }
 
-    public function getCommand(): PutOptionBasedConfigurableItemToCart
+    public function getCommand(): object
     {
         return new PutOptionBasedConfigurableItemToCart($this->token, $this->productCode, $this->options, $this->quantity);
     }

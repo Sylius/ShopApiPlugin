@@ -8,6 +8,7 @@ use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
 use Sylius\ShopApiPlugin\Normalizer\RequestCartTokenNormalizerInterface;
+use Sylius\ShopApiPlugin\Request\PutItemToCartRequest;
 use Sylius\ShopApiPlugin\Request\PutOptionBasedConfigurableItemToCartRequest;
 use Sylius\ShopApiPlugin\Request\PutSimpleItemToCartRequest;
 use Sylius\ShopApiPlugin\Request\PutVariantBasedConfigurableItemToCartRequest;
@@ -74,7 +75,10 @@ final class PutItemsToCartAction
 
         foreach ($request->request->get('items') as $item) {
             $item['token'] = $token;
-            $commandRequests[] = $this->provideCommandRequest($item);
+
+            $commandRequest = new PutItemToCartRequest();
+            $commandRequest->populateData($request);
+            $commandRequests[] = $commandRequest->getCommand();
         }
 
         foreach ($commandRequests as $commandRequest) {

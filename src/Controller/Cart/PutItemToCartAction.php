@@ -9,6 +9,7 @@ use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
 use Sylius\ShopApiPlugin\Normalizer\RequestCartTokenNormalizerInterface;
+use Sylius\ShopApiPlugin\Request\PutItemToCartRequest;
 use Sylius\ShopApiPlugin\Request\PutOptionBasedConfigurableItemToCartRequest;
 use Sylius\ShopApiPlugin\Request\PutSimpleItemToCartRequest;
 use Sylius\ShopApiPlugin\Request\PutVariantBasedConfigurableItemToCartRequest;
@@ -63,7 +64,8 @@ final class PutItemToCartAction
             throw new BadRequestHttpException($exception->getMessage());
         }
 
-        $commandRequest = $this->provideCommandRequest($request);
+        $commandRequest = new PutItemToCartRequest();
+        $commandRequest->populateData($request);
 
         $validationResults = $this->validator->validate($commandRequest);
 
@@ -85,26 +87,5 @@ final class PutItemToCartAction
         } catch (\InvalidArgumentException $exception) {
             throw new BadRequestHttpException($exception->getMessage());
         }
-    }
-
-    /** @return PutOptionBasedConfigurableItemToCartRequest|PutSimpleItemToCartRequest|PutVariantBasedConfigurableItemToCartRequest */
-    private function provideCommandRequest(Request $request)
-    {
-        $hasVariantCode = $request->request->has('variantCode');
-        $hasOptionCode = $request->request->has('options');
-
-        if (!$hasVariantCode && !$hasOptionCode) {
-            return PutSimpleItemToCartRequest::fromRequest($request);
-        }
-
-        if ($hasVariantCode && !$hasOptionCode) {
-            return PutVariantBasedConfigurableItemToCartRequest::fromRequest($request);
-        }
-
-        if (!$hasVariantCode && $hasOptionCode) {
-            return PutOptionBasedConfigurableItemToCartRequest::fromRequest($request);
-        }
-
-        throw new NotFoundHttpException('Variant not found for given configuration');
     }
 }

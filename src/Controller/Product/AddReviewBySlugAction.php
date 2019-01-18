@@ -41,7 +41,8 @@ final class AddReviewBySlugAction
 
     public function __invoke(Request $request): Response
     {
-        $addReviewRequest = new AddProductReviewBySlugRequest($request);
+        $addReviewRequest = new AddProductReviewBySlugRequest();
+        $addReviewRequest->populateData($request);
 
         $validationResults = $this->validator->validate($addReviewRequest);
 

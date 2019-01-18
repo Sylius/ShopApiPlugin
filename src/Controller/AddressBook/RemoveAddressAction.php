@@ -56,7 +56,9 @@ final class RemoveAddressAction
             return $this->viewHandler->handle(View::create(null, Response::HTTP_UNAUTHORIZED));
         }
 
-        $removeAddressRequest = new RemoveAddressRequest($request, $user->getEmail());
+        $removeAddressRequest = new RemoveAddressRequest();
+        $removeAddressRequest->populateData($request);
+        $removeAddressRequest->setUserEmail($user->getEmail());
 
         $validationResults = $this->validator->validate($removeAddressRequest);
 

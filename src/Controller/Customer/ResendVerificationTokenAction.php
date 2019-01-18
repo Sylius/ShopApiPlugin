@@ -41,7 +41,8 @@ final class ResendVerificationTokenAction
 
     public function __invoke(Request $request): Response
     {
-        $resendVerificationTokenRequest = new ResendVerificationTokenRequest($request);
+        $resendVerificationTokenRequest = new ResendVerificationTokenRequest();
+        $resendVerificationTokenRequest->populateData($request);
 
         $validationResults = $this->validator->validate($resendVerificationTokenRequest);
 
