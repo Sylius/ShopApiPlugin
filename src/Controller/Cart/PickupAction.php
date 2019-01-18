@@ -7,6 +7,7 @@ namespace Sylius\ShopApiPlugin\Controller\Cart;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
+use Sylius\ShopApiPlugin\Command\PickupCart;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
 use Sylius\ShopApiPlugin\Request\PickupCartRequest;
 use Sylius\ShopApiPlugin\ViewRepository\Cart\CartViewRepositoryInterface;
@@ -55,6 +56,7 @@ final class PickupAction
 
         if (0 === count($validationResults)) {
             $pickupCartCommand = $pickupRequest->getCommand();
+            assert($pickupCartCommand instanceof PickupCart);
 
             $this->bus->handle($pickupCartCommand);
 

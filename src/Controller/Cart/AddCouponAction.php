@@ -7,6 +7,7 @@ namespace Sylius\ShopApiPlugin\Controller\Cart;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
+use Sylius\ShopApiPlugin\Command\AddCoupon;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
 use Sylius\ShopApiPlugin\Request\AddCouponRequest;
 use Sylius\ShopApiPlugin\ViewRepository\Cart\CartViewRepositoryInterface;
@@ -54,6 +55,7 @@ final class AddCouponAction
 
         if (0 === count($validationResults)) {
             $addCouponCommand = $addCouponRequest->getCommand();
+            assert($addCouponCommand instanceof AddCoupon);
 
             $this->bus->handle($addCouponCommand);
 

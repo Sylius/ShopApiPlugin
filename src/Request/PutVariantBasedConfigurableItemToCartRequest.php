@@ -7,7 +7,7 @@ namespace Sylius\ShopApiPlugin\Request;
 use Sylius\ShopApiPlugin\Command\PutVariantBasedConfigurableItemToCart;
 use Symfony\Component\HttpFoundation\Request;
 
-class PutVariantBasedConfigurableItemToCartRequest
+class PutVariantBasedConfigurableItemToCartRequest implements CommandRequestInterface
 {
     /** @var string */
     protected $token;
@@ -21,22 +21,23 @@ class PutVariantBasedConfigurableItemToCartRequest
     /** @var int */
     protected $quantity;
 
-    private function __construct($token, $productCode, $variantCode, $quantity)
-    {
-        $this->token = $token;
-        $this->productCode = $productCode;
-        $this->variantCode = $variantCode;
-        $this->quantity = $quantity;
-    }
-
     public static function fromArray(array $item): self
     {
-        return new self($item['token'] ?? null, $item['productCode'] ?? null, $item['variantCode'] ?? null, $item['quantity'] ?? null);
+        $commandRequest = new self();
+        $commandRequest->token = $item['token'] ?? null;
+        $commandRequest->productCode = $item['productCode'] ?? null;
+        $commandRequest->variantCode = $item['variantCode'] ?? null;
+        $commandRequest->quantity = $item['quantity'] ?? null;
+
+        return $commandRequest;
     }
 
-    public static function fromRequest(Request $request): self
+    public function populateData(Request $request): void
     {
-        return new self($request->attributes->get('token'), $request->request->get('productCode'), $request->request->get('variantCode'), $request->request->getInt('quantity', 1));
+        $this->token = $request->attributes->get('token');
+        $this->productCode = $request->request->get('productCode');
+        $this->variantCode = $request->request->get('variantCode');
+        $this->quantity = $request->request->getInt('quantity', 1);
     }
 
     public function getCommand(): object

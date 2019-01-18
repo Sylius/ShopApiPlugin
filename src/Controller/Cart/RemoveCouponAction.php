@@ -7,6 +7,7 @@ namespace Sylius\ShopApiPlugin\Controller\Cart;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
+use Sylius\ShopApiPlugin\Command\RemoveCoupon;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
 use Sylius\ShopApiPlugin\Request\RemoveCouponRequest;
 use Sylius\ShopApiPlugin\ViewRepository\Cart\CartViewRepositoryInterface;
@@ -55,6 +56,7 @@ final class RemoveCouponAction
 
         if (0 === count($validationResults)) {
             $removeCouponCommand = $removeCouponRequest->getCommand();
+            assert($removeCouponCommand instanceof RemoveCoupon);
 
             $this->bus->handle($removeCouponCommand);
 

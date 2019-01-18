@@ -7,9 +7,11 @@ namespace Sylius\ShopApiPlugin\Controller\Cart;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
+use Sylius\ShopApiPlugin\Command\PutSimpleItemToCart;
+use Sylius\ShopApiPlugin\Command\PutVariantBasedConfigurableItemToCart;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
 use Sylius\ShopApiPlugin\Normalizer\RequestCartTokenNormalizerInterface;
-use Sylius\ShopApiPlugin\Request\PutItemToCartRequest;
+use Sylius\ShopApiPlugin\Request\CommandRequestInterface;
 use Sylius\ShopApiPlugin\Request\PutOptionBasedConfigurableItemToCartRequest;
 use Sylius\ShopApiPlugin\Request\PutSimpleItemToCartRequest;
 use Sylius\ShopApiPlugin\Request\PutVariantBasedConfigurableItemToCartRequest;
@@ -64,9 +66,7 @@ final class PutItemToCartAction
             throw new BadRequestHttpException($exception->getMessage());
         }
 
-        $commandRequest = new PutItemToCartRequest();
-        $commandRequest->populateData($request);
-
+        $commandRequest = $this->provideCommandRequest($request);
         $validationResults = $this->validator->validate($commandRequest);
 
         if (0 !== count($validationResults)) {
@@ -78,6 +78,12 @@ final class PutItemToCartAction
         }
 
         $command = $commandRequest->getCommand();
+        assert(
+            $command instanceof PutSimpleItemToCart ||
+            $command instanceof PutVariantBasedConfigurableItemToCart ||
+            $command instanceof PutVariantBasedConfigurableItemToCart
+        );
+
         $this->bus->handle($command);
 
         try {
@@ -87,5 +93,34 @@ final class PutItemToCartAction
         } catch (\InvalidArgumentException $exception) {
             throw new BadRequestHttpException($exception->getMessage());
         }
+    }
+
+    private function provideCommandRequest(Request $request): CommandRequestInterface
+    {
+        $hasVariantCode = $request->request->has('variantCode');
+        $hasOptionCode = $request->request->has('options');
+
+        if (!$hasVariantCode && !$hasOptionCode) {
+            $commandRequest = new PutSimpleItemToCartRequest();
+            $commandRequest->populateData($request);
+
+            return $commandRequest;
+        }
+
+        if ($hasVariantCode && !$hasOptionCode) {
+            $commandRequest = new PutVariantBasedConfigurableItemToCartRequest();
+            $commandRequest->populateData($request);
+
+            return $commandRequest;
+        }
+
+        if (!$hasVariantCode && $hasOptionCode) {
+            $commandRequest = new PutOptionBasedConfigurableItemToCartRequest();
+            $commandRequest->populateData($request);
+
+            return $commandRequest;
+        }
+
+        throw new NotFoundHttpException('Variant not found for given configuration');
     }
 }

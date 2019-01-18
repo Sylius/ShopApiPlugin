@@ -7,6 +7,7 @@ namespace Sylius\ShopApiPlugin\Controller\Cart;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
+use Sylius\ShopApiPlugin\Command\ChangeItemQuantity;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
 use Sylius\ShopApiPlugin\Request\ChangeItemQuantityRequest;
 use Sylius\ShopApiPlugin\ViewRepository\Cart\CartViewRepositoryInterface;
@@ -58,6 +59,7 @@ final class ChangeItemQuantityAction
         }
 
         $changeItemQuantityCommand = $changeItemQuantityRequest->getCommand();
+        assert($changeItemQuantityCommand instanceof ChangeItemQuantity);
 
         $this->bus->handle($changeItemQuantityCommand);
 
