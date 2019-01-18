@@ -52,6 +52,7 @@
             <argument type="service" id="tactician.commandbus" />
             <argument type="service" id="validator" />
             <argument type="service" id="sylius.shop_api_plugin.factory.validation_error_view_factory" />
+            <argument type="service" id="Sylius\ShopApiPlugin\Parser\CommandRequestParser" />
         </service>
 
         <service id="sylius.shop_api_plugin.controller.product.add_review_by_code_action"

@@ -1,0 +1,16 @@
+<container xmlns="http://symfony.com/schema/dic/services">
+    <services>
+        <defaults public="true" />
+
+        <service id="Sylius\ShopApiPlugin\Request\AddProductReviewByCodeRequest">
+            <tag name="sylius_shop_api.command_request" command="Sylius\ShopApiPlugin\Command\AddProductReviewByCode" />
+        </service>
+        <service id="Sylius\ShopApiPlugin\Request\AddProductReviewBySlugRequest">
+            <tag name="sylius_shop_api.command_request" command="Sylius\ShopApiPlugin\Command\AddProductReviewBySlug" />
+        </service>
+
+        <service id="Sylius\ShopApiPlugin\Parser\CommandRequestParser">
+            <argument>%sylius_shop_api.command_requests_map%</argument>
+        </service>
+    </services>
+</container>

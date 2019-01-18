@@ -8,6 +8,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\DependencyInjection\Reference;
 
 final class ShopApiExtension extends Extension
 {
@@ -24,5 +25,12 @@ final class ShopApiExtension extends Extension
         $container->setParameter('sylius.shop_api.included_attributes', $config['included_attributes']);
 
         $loader->load('services.xml');
+
+        $commandRequestsMap = [];
+        foreach ($container->findTaggedServiceIds('sylius_shop_api.command_request') as $id => $attributes) {
+            $commandRequestsMap[$attributes[0]['command']] = $id;
+        }
+
+        $container->setParameter('sylius_shop_api.command_requests_map', $commandRequestsMap);
     }
 }
