@@ -8,9 +8,10 @@ use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
 use Sylius\Component\Core\Model\ShopUserInterface;
+use Sylius\ShopApiPlugin\Command\UpdateCustomer;
 use Sylius\ShopApiPlugin\Factory\CustomerViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
-use Sylius\ShopApiPlugin\Request\UpdateCustomerRequest;
+use Sylius\ShopApiPlugin\Parser\CommandRequestParserInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -37,13 +38,17 @@ final class UpdateCustomerAction
     /** @var TokenStorageInterface */
     private $tokenStorage;
 
+    /** @var CommandRequestParserInterface */
+    private $commandRequestParser;
+
     public function __construct(
         ViewHandlerInterface $viewHandler,
         ValidatorInterface $validator,
         CommandBus $bus,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         CustomerViewFactoryInterface $customerViewFactory,
-        TokenStorageInterface $tokenStorage
+        TokenStorageInterface $tokenStorage,
+        CommandRequestParserInterface $commandRequestParser
     ) {
         $this->viewHandler = $viewHandler;
         $this->validator = $validator;
@@ -51,6 +56,7 @@ final class UpdateCustomerAction
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->customerViewFactory = $customerViewFactory;
         $this->tokenStorage = $tokenStorage;
+        $this->commandRequestParser = $commandRequestParser;
     }
 
     public function __invoke(Request $request): Response
@@ -61,7 +67,7 @@ final class UpdateCustomerAction
         Assert::isInstanceOf($user, ShopUserInterface::class);
 
         $customer = $user->getCustomer();
-        $updateCustomerRequest = new UpdateCustomerRequest($request);
+        $updateCustomerRequest = $this->commandRequestParser->parse($request, UpdateCustomer::class);
 
         $validationResults = $this->validator->validate($updateCustomerRequest, null, 'sylius_customer_profile_update');
 

@@ -16,7 +16,8 @@ final class AddProductReviewBySlugRequestTest extends TestCase
      */
     public function it_creates_review_with_author()
     {
-        $addReviewRequest = new AddProductReviewBySlugRequest(new Request([], [
+        $addReviewRequest = new AddProductReviewBySlugRequest();
+        $addReviewRequest->populateData(new Request([], [
             'title' => 'Awesome beer',
             'rating' => 5,
             'comment' => 'I love this beer',

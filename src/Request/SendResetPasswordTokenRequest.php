@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Request;
 
-use Sylius\ShopApiPlugin\Command\SendVerificationToken;
+use Sylius\ShopApiPlugin\Command\SendResetPasswordToken;
 use Symfony\Component\HttpFoundation\Request;
 
-class ResendVerificationTokenRequest implements CommandRequestInterface
+class SendResetPasswordTokenRequest implements CommandRequestInterface
 {
     /** @var string */
     protected $email;
@@ -23,6 +23,6 @@ class ResendVerificationTokenRequest implements CommandRequestInterface
 
     public function getCommand(): object
     {
-        return new SendVerificationToken($this->email, $this->channelCode);
+        return new SendResetPasswordToken($this->email, $this->channelCode);
     }
 }

@@ -8,9 +8,12 @@ use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
 use Sylius\Component\Core\Model\ShopUserInterface;
+use Sylius\ShopApiPlugin\Command\SetDefaultAddress;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
+use Sylius\ShopApiPlugin\Parser\CommandRequestParserInterface;
 use Sylius\ShopApiPlugin\Provider\LoggedInShopUserProviderInterface;
 use Sylius\ShopApiPlugin\Request\SetDefaultAddressRequest;
+use Sylius\ShopApiPlugin\Request\UserEmailBasedCommandRequestInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
@@ -33,18 +36,23 @@ final class SetDefaultAddressAction
     /** @var LoggedInShopUserProviderInterface */
     private $loggedInUserProvider;
 
+    /** @var CommandRequestParserInterface */
+    private $commandRequestParser;
+
     public function __construct(
         ViewHandlerInterface $viewHandler,
         CommandBus $bus,
         ValidatorInterface $validator,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
-        LoggedInShopUserProviderInterface $loggedInUserProvider
+        LoggedInShopUserProviderInterface $loggedInUserProvider,
+        CommandRequestParserInterface $commandRequestParser
     ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
         $this->validator = $validator;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->loggedInUserProvider = $loggedInUserProvider;
+        $this->commandRequestParser = $commandRequestParser;
     }
 
     public function __invoke(Request $request): Response
@@ -56,7 +64,9 @@ final class SetDefaultAddressAction
             return $this->viewHandler->handle(View::create(null, Response::HTTP_UNAUTHORIZED));
         }
 
-        $setDefaultAddressRequest = new SetDefaultAddressRequest($request, $user->getEmail());
+        /** @var UserEmailBasedCommandRequestInterface $setDefaultAddressRequest */
+        $setDefaultAddressRequest = $this->commandRequestParser->parse($request, SetDefaultAddress::class);
+        $setDefaultAddressRequest->setUserEmail($user->getEmail());
 
         $validationResults = $this->validator->validate($setDefaultAddressRequest);
 

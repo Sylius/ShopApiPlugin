@@ -7,7 +7,7 @@ namespace Sylius\ShopApiPlugin\Request;
 use Sylius\ShopApiPlugin\Command\PutSimpleItemToCart;
 use Symfony\Component\HttpFoundation\Request;
 
-class PutSimpleItemToCartRequest
+class PutSimpleItemToCartRequest implements CommandRequestInterface
 {
     /** @var string */
     protected $token;
@@ -18,24 +18,24 @@ class PutSimpleItemToCartRequest
     /** @var int */
     protected $quantity;
 
-    private function __construct($token, $productCode, $quantity)
-    {
-        $this->token = $token;
-        $this->productCode = $productCode;
-        $this->quantity = $quantity;
-    }
-
     public static function fromArray(array $item): self
     {
-        return new self($item['token'] ?? null, $item['productCode'] ?? null, $item['quantity'] ?? null);
+        $commandRequest = new self();
+        $commandRequest->token = $item['token'] ?? null;
+        $commandRequest->productCode = $item['productCode'] ?? null;
+        $commandRequest->quantity = $item['quantity'] ?? null;
+
+        return $commandRequest;
     }
 
-    public static function fromRequest(Request $request): self
+    public function populateData(Request $request): void
     {
-        return new self($request->attributes->get('token'), $request->request->get('productCode'), $request->request->getInt('quantity', 1));
+        $this->token = $request->attributes->get('token');
+        $this->productCode = $request->request->get('productCode');
+        $this->quantity = $request->request->getInt('quantity', 1);
     }
 
-    public function getCommand(): PutSimpleItemToCart
+    public function getCommand(): object
     {
         return new PutSimpleItemToCart($this->token, $this->productCode, $this->quantity);
     }

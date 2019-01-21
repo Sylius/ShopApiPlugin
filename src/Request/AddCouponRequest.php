@@ -21,7 +21,7 @@ class AddCouponRequest
         $this->coupon = $request->request->get('coupon');
     }
 
-    public function getCommand(): AddCoupon
+    public function getCommand(): object
     {
         return new AddCoupon($this->token, $this->coupon);
     }

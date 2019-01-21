@@ -7,7 +7,7 @@ namespace Sylius\ShopApiPlugin\Request;
 use Sylius\ShopApiPlugin\Command\RemoveItemFromCart;
 use Symfony\Component\HttpFoundation\Request;
 
-class RemoveItemFromCartRequest
+class RemoveItemFromCartRequest implements CommandRequestInterface
 {
     /** @var string */
     protected $token;
@@ -15,13 +15,13 @@ class RemoveItemFromCartRequest
     /** @var mixed */
     protected $id;
 
-    public function __construct(Request $request)
+    public function populateData(Request $request): void
     {
         $this->token = $request->attributes->get('token');
         $this->id = $request->attributes->get('id');
     }
 
-    public function getCommand(): RemoveItemFromCart
+    public function getCommand(): object
     {
         return new RemoveItemFromCart($this->token, $this->id);
     }

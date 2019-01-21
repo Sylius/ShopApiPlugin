@@ -16,7 +16,8 @@ final class VerifyAccountRequestTest extends TestCase
      */
     public function it_creates_put_simple_item_to_cart_command()
     {
-        $verifyAccountRequest = new VerifyAccountRequest(new Request([], ['token' => 'RANDOMSTRINGAFAFAKASNFJAFAJ'], []));
+        $verifyAccountRequest = new VerifyAccountRequest();
+        $verifyAccountRequest->populateData(new Request([], ['token' => 'RANDOMSTRINGAFAFAKASNFJAFAJ'], []));
 
         $this->assertEquals($verifyAccountRequest->getCommand(), new VerifyAccount('RANDOMSTRINGAFAFAKASNFJAFAJ'));
     }

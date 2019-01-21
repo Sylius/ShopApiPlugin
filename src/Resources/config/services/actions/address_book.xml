@@ -30,6 +30,7 @@
             <argument type="service" id="sylius.shop_api_plugin.factory.validation_error_view_factory" />
             <argument type="service" id="tactician.commandbus" />
             <argument type="service" id="sylius.shop_api_plugin.provider.current_user_provider" />
+            <argument type="service" id="Sylius\ShopApiPlugin\Parser\CommandRequestParser" />
         </service>
         <service id="sylius.shop_api_plugin.controller.address_book.update_address_action"
                  class="Sylius\ShopApiPlugin\Controller\AddressBook\UpdateAddressAction"
@@ -50,6 +51,7 @@
             <argument type="service" id="validator" />
             <argument type="service" id="sylius.shop_api_plugin.factory.validation_error_view_factory" />
             <argument type="service" id="sylius.shop_api_plugin.provider.current_user_provider" />
+            <argument type="service" id="Sylius\ShopApiPlugin\Parser\CommandRequestParser" />
         </service>
     </services>
 </container>
