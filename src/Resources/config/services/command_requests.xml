@@ -6,11 +6,15 @@
 
         <service id="sylius_shop_api.command_request_locator" class="Symfony\Component\DependencyInjection\ServiceLocator">
             <argument type="collection">
+                <argument key="Sylius\ShopApiPlugin\Command\AddressOrder" type="service" id="Sylius\ShopApiPlugin\Request\AddressOrderRequest" />
                 <argument key="Sylius\ShopApiPlugin\Command\AddProductReviewByCode" type="service" id="Sylius\ShopApiPlugin\Request\AddProductReviewByCodeRequest" />
                 <argument key="Sylius\ShopApiPlugin\Command\AddProductReviewBySlug" type="service" id="Sylius\ShopApiPlugin\Request\AddProductReviewBySlugRequest" />
                 <argument key="Sylius\ShopApiPlugin\Command\ChangeItemQuantity" type="service" id="Sylius\ShopApiPlugin\Request\ChangeItemQuantityRequest" />
+                <argument key="Sylius\ShopApiPlugin\Command\ChoosePaymentMethod" type="service" id="Sylius\ShopApiPlugin\Request\ChoosePaymentMethodRequest" />
+                <argument key="Sylius\ShopApiPlugin\Command\ChooseShippingMethod" type="service" id="Sylius\ShopApiPlugin\Request\ChooseShippingMethodRequest" />
+                <argument key="Sylius\ShopApiPlugin\Command\CompleteOrder" type="service" id="Sylius\ShopApiPlugin\Request\CompleteOrderRequest" />
                 <argument key="Sylius\ShopApiPlugin\Command\DropCart" type="service" id="Sylius\ShopApiPlugin\Request\DropCartRequest" />
-                <argument key="Sylius\ShopApiPlugin\Command\EstimateShippingCost" type="service" id="Sylius\ShopApiPlugin\Request\EstimateShippingCostRequest" />
+                <argument key="Sylius\ShopApiPlugin\Command\GenerateResetPasswordToken" type="service" id="Sylius\ShopApiPlugin\Request\GenerateResetPasswordTokenRequest" />
                 <argument key="Sylius\ShopApiPlugin\Command\PickupCart" type="service" id="Sylius\ShopApiPlugin\Request\PickupCartRequest" />
                 <argument key="Sylius\ShopApiPlugin\Command\PutOptionBasedConfigurableItemToCart" type="service" id="Sylius\ShopApiPlugin\Request\PutOptionBasedConfigurableItemToCartRequest" />
                 <argument key="Sylius\ShopApiPlugin\Command\PutSimpleItemToCart" type="service" id="Sylius\ShopApiPlugin\Request\PutSimpleItemToCartRequest" />
@@ -19,6 +23,7 @@
                 <argument key="Sylius\ShopApiPlugin\Command\RemoveAddress" type="service" id="Sylius\ShopApiPlugin\Request\RemoveAddressRequest" />
                 <argument key="Sylius\ShopApiPlugin\Command\RemoveCoupon" type="service" id="Sylius\ShopApiPlugin\Request\RemoveCouponRequest" />
                 <argument key="Sylius\ShopApiPlugin\Command\RemoveItemFromCart" type="service" id="Sylius\ShopApiPlugin\Request\RemoveItemFromCartRequest" />
+                <argument key="Sylius\ShopApiPlugin\Command\SendResetPasswordToken" type="service" id="Sylius\ShopApiPlugin\Request\SendResetPasswordTokenRequest" />
                 <argument key="Sylius\ShopApiPlugin\Command\SendVerificationToken" type="service" id="Sylius\ShopApiPlugin\Request\ResendVerificationTokenRequest" />
                 <argument key="Sylius\ShopApiPlugin\Command\SetDefaultAddress" type="service" id="Sylius\ShopApiPlugin\Request\SetDefaultAddressRequest" />
                 <argument key="Sylius\ShopApiPlugin\Command\UpdateCustomer" type="service" id="Sylius\ShopApiPlugin\Request\UpdateCustomerRequest" />

@@ -10,7 +10,6 @@ use League\Tactician\CommandBus;
 use Sylius\ShopApiPlugin\Command\RemoveCoupon;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
 use Sylius\ShopApiPlugin\Parser\CommandRequestParserInterface;
-use Sylius\ShopApiPlugin\Request\RemoveCouponRequest;
 use Sylius\ShopApiPlugin\ViewRepository\Cart\CartViewRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

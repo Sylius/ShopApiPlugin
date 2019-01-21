@@ -10,7 +10,6 @@ use League\Tactician\CommandBus;
 use Sylius\ShopApiPlugin\Command\SendVerificationToken;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
 use Sylius\ShopApiPlugin\Parser\CommandRequestParserInterface;
-use Sylius\ShopApiPlugin\Request\ResendVerificationTokenRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Validator\ValidatorInterface;

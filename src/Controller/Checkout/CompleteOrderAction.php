@@ -9,6 +9,7 @@ use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
 use Sylius\ShopApiPlugin\Command\CompleteOrder;
 use Sylius\ShopApiPlugin\Exception\WrongUserException;
+use Sylius\ShopApiPlugin\Parser\CommandRequestParserInterface;
 use Sylius\ShopApiPlugin\Provider\LoggedInShopUserProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,30 +25,29 @@ final class CompleteOrderAction
     /** @var LoggedInShopUserProviderInterface */
     private $loggedInUserProvider;
 
+    /** @var CommandRequestParserInterface */
+    private $commandRequestParser;
+
     public function __construct(
         ViewHandlerInterface $viewHandler,
         CommandBus $bus,
-        LoggedInShopUserProviderInterface $loggedInUserProvider
+        LoggedInShopUserProviderInterface $loggedInUserProvider,
+        CommandRequestParserInterface $commandRequestParser
     ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
         $this->loggedInUserProvider = $loggedInUserProvider;
+        $this->commandRequestParser = $commandRequestParser;
     }
 
     public function __invoke(Request $request): Response
     {
-        if ($this->loggedInUserProvider->isUserLoggedIn()) {
-            $defaultEmail = $this->loggedInUserProvider->provide()->getEmail();
-        }
+        $this->setDefaultEmailOnRequestIfNeeded($request);
+
+        $commandRequest = $this->commandRequestParser->parse($request, CompleteOrder::class);
 
         try {
-            $this->bus->handle(
-                new CompleteOrder(
-                    $request->attributes->get('token'),
-                    $request->request->get('email', $defaultEmail ?? null),
-                    $request->request->get('notes')
-                )
-            );
+            $this->bus->handle($commandRequest->getCommand());
         } catch (WrongUserException $notLoggedInException) {
             return $this->viewHandler->handle(
                 View::create(
@@ -58,5 +58,17 @@ final class CompleteOrderAction
         }
 
         return $this->viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));
+    }
+
+    private function setDefaultEmailOnRequestIfNeeded(Request $request): void
+    {
+        $defaultEmail = null;
+        if ($this->loggedInUserProvider->isUserLoggedIn()) {
+            $defaultEmail = $this->loggedInUserProvider->provide()->getEmail();
+        }
+
+        if (!$request->request->has('email')) {
+            $request->request->set('email', $defaultEmail);
+        }
     }
 }

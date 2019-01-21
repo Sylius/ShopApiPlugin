@@ -8,7 +8,7 @@ use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
 use Sylius\ShopApiPlugin\Command\AddressOrder;
-use Sylius\ShopApiPlugin\Model\Address;
+use Sylius\ShopApiPlugin\Parser\CommandRequestParserInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -20,19 +20,24 @@ final class AddressAction
     /** @var CommandBus */
     private $bus;
 
-    public function __construct(ViewHandlerInterface $viewHandler, CommandBus $bus)
-    {
+    /** @var CommandRequestParserInterface */
+    private $commandRequestParser;
+
+    public function __construct(
+        ViewHandlerInterface $viewHandler,
+        CommandBus $bus,
+        CommandRequestParserInterface $commandRequestParser
+    ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
+        $this->commandRequestParser = $commandRequestParser;
     }
 
     public function __invoke(Request $request): Response
     {
-        $this->bus->handle(new AddressOrder(
-            $request->attributes->get('token'),
-            Address::createFromArray($request->request->get('shippingAddress')),
-            Address::createFromArray($request->request->get('billingAddress') ?: $request->request->get('shippingAddress'))
-        ));
+        $commandRequest = $this->commandRequestParser->parse($request, AddressOrder::class);
+
+        $this->bus->handle($commandRequest->getCommand());
 
         return $this->viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));
     }

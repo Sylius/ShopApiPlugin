@@ -39,6 +39,7 @@
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="tactician.commandbus" />
+            <argument type="service" id="Sylius\ShopApiPlugin\Parser\CommandRequestParser" />
         </service>
 
         <service id="sylius.shop_api_plugin.controller.customer.logged_in_customer_details_action"
