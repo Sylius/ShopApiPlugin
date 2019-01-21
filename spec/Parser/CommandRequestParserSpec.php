@@ -18,7 +18,7 @@ final class CommandRequestParserSpec extends ObjectBehavior
         $this->beConstructedWith($commandRequestLocator);
     }
 
-    function it_is_command_request(): void
+    function it_is_command_request_parser(): void
     {
         $this->shouldImplement(CommandRequestParserInterface::class);
     }

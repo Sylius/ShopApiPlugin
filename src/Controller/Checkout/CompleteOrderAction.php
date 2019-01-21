@@ -62,13 +62,12 @@ final class CompleteOrderAction
 
     private function setDefaultEmailOnRequestIfNeeded(Request $request): void
     {
-        $defaultEmail = null;
         if ($this->loggedInUserProvider->isUserLoggedIn()) {
             $defaultEmail = $this->loggedInUserProvider->provide()->getEmail();
         }
 
         if (!$request->request->has('email')) {
-            $request->request->set('email', $defaultEmail);
+            $request->request->set('email', $defaultEmail ?? null);
         }
     }
 }
