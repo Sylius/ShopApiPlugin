@@ -7,19 +7,15 @@ namespace spec\Sylius\ShopApiPlugin\Parser;
 use PhpSpec\ObjectBehavior;
 use Sylius\ShopApiPlugin\Exception\CannotParseCommand;
 use Sylius\ShopApiPlugin\Parser\CommandRequestParserInterface;
-use Sylius\ShopApiPlugin\Request\ChangeItemQuantityRequest;
-use Sylius\ShopApiPlugin\Request\PickupCartRequest;
-use Symfony\Component\HttpFoundation\ParameterBag;
+use Sylius\ShopApiPlugin\Request\CommandRequestInterface;
+use Symfony\Component\DependencyInjection\ServiceLocator;
 use Symfony\Component\HttpFoundation\Request;
 
 final class CommandRequestParserSpec extends ObjectBehavior
 {
-    function let(): void
+    function let(ServiceLocator $commandRequestLocator): void
     {
-        $this->beConstructedWith([
-            'ChangeItemQuantity' => ChangeItemQuantityRequest::class,
-            'PickupCart' => PickupCartRequest::class,
-        ]);
+        $this->beConstructedWith($commandRequestLocator);
     }
 
     function it_is_command_request(): void
@@ -27,17 +23,25 @@ final class CommandRequestParserSpec extends ObjectBehavior
         $this->shouldImplement(CommandRequestParserInterface::class);
     }
 
-    function it_provides_command_request_object_for_command_name(Request $request): void
-    {
-        $request->attributes = new ParameterBag([]);
-        $request->request = new ParameterBag([]);
+    function it_provides_command_request_object_for_command_name(
+        ServiceLocator $commandRequestLocator,
+        Request $request,
+        CommandRequestInterface $commandRequest
+    ): void {
+        $commandRequestLocator->has('ValidCommand')->willReturn(true);
 
-        $this->parse($request, 'ChangeItemQuantity')->shouldHaveType(ChangeItemQuantityRequest::class);
-        $this->parse($request, 'PickupCart')->shouldHaveType(PickupCartRequest::class);
+        $commandRequestLocator->get('ValidCommand')->willReturn($commandRequest);
+        $commandRequest->populateData($request)->shouldBeCalled();
+
+        $this->parse($request, 'ValidCommand')->shouldReturn($commandRequest);
     }
 
-    function it_throws_exception_if_command_request_cannot_be_parsed(Request $request): void
-    {
+    function it_throws_exception_if_command_request_cannot_be_parsed(
+        ServiceLocator $commandRequestLocator,
+        Request $request
+    ): void {
+        $commandRequestLocator->has('InvalidCommand')->willReturn(false);
+
         $this
             ->shouldThrow(CannotParseCommand::withCommandName('InvalidCommand'))
             ->during('parse', [$request, 'InvalidCommand'])

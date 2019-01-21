@@ -12,7 +12,6 @@ use Sylius\ShopApiPlugin\Command\UpdateCustomer;
 use Sylius\ShopApiPlugin\Factory\CustomerViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
 use Sylius\ShopApiPlugin\Parser\CommandRequestParserInterface;
-use Sylius\ShopApiPlugin\Request\UpdateCustomerRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
