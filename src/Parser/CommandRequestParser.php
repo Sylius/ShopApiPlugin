@@ -6,26 +6,26 @@ namespace Sylius\ShopApiPlugin\Parser;
 
 use Sylius\ShopApiPlugin\Exception\CannotParseCommand;
 use Sylius\ShopApiPlugin\Request\CommandRequestInterface;
+use Symfony\Component\DependencyInjection\ServiceLocator;
 use Symfony\Component\HttpFoundation\Request;
 
 final class CommandRequestParser implements CommandRequestParserInterface
 {
-    /** @var array */
-    private $commandRequestsMap = [];
+    /** @var ServiceLocator */
+    private $commandRequestLocator;
 
-    public function __construct(array $commandRequestsMap)
+    public function __construct(ServiceLocator $commandRequestLocator)
     {
-        $this->commandRequestsMap = $commandRequestsMap;
+        $this->commandRequestLocator = $commandRequestLocator;
     }
 
     public function parse(Request $request, string $commandName): CommandRequestInterface
     {
-        if (!isset($this->commandRequestsMap[$commandName])) {
+        if (!$this->commandRequestLocator->has($commandName)) {
             throw CannotParseCommand::withCommandName($commandName);
         }
 
-        /** @var CommandRequestInterface $commandRequest */
-        $commandRequest = new $this->commandRequestsMap[$commandName]();
+        $commandRequest = $this->commandRequestLocator->get($commandName);
         $commandRequest->populateData($request);
 
         return $commandRequest;

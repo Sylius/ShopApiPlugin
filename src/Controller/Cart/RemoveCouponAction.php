@@ -9,6 +9,7 @@ use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
 use Sylius\ShopApiPlugin\Command\RemoveCoupon;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
+use Sylius\ShopApiPlugin\Parser\CommandRequestParserInterface;
 use Sylius\ShopApiPlugin\Request\RemoveCouponRequest;
 use Sylius\ShopApiPlugin\ViewRepository\Cart\CartViewRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,24 +34,28 @@ final class RemoveCouponAction
     /** @var CartViewRepositoryInterface */
     private $cartQuery;
 
+    /** @var CommandRequestParserInterface */
+    private $commandRequestParser;
+
     public function __construct(
         ViewHandlerInterface $viewHandler,
         CommandBus $bus,
         ValidatorInterface $validator,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
-        CartViewRepositoryInterface $cartQuery
+        CartViewRepositoryInterface $cartQuery,
+        CommandRequestParserInterface $commandRequestParser
     ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
         $this->validator = $validator;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->cartQuery = $cartQuery;
+        $this->commandRequestParser = $commandRequestParser;
     }
 
     public function __invoke(Request $request): Response
     {
-        $removeCouponRequest = new RemoveCouponRequest();
-        $removeCouponRequest->populateData($request);
+        $removeCouponRequest = $this->commandRequestParser->parse($request, RemoveCoupon::class);
 
         $validationResults = $this->validator->validate($removeCouponRequest);
 

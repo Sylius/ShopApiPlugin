@@ -7,7 +7,9 @@ namespace Sylius\ShopApiPlugin\Controller\Product;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
+use Sylius\ShopApiPlugin\Command\AddProductReviewByCode;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
+use Sylius\ShopApiPlugin\Parser\CommandRequestParserInterface;
 use Sylius\ShopApiPlugin\Request\AddProductReviewByCodeRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,22 +29,26 @@ final class AddReviewByCodeAction
     /** @var ValidationErrorViewFactoryInterface */
     private $validationErrorViewFactory;
 
+    /** @var CommandRequestParserInterface */
+    private $commandRequestParser;
+
     public function __construct(
         ViewHandlerInterface $viewHandler,
         CommandBus $bus,
         ValidatorInterface $validator,
-        ValidationErrorViewFactoryInterface $validationErrorViewFactory
+        ValidationErrorViewFactoryInterface $validationErrorViewFactory,
+        CommandRequestParserInterface $commandRequestParser
     ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
         $this->validator = $validator;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
+        $this->commandRequestParser = $commandRequestParser;
     }
 
     public function __invoke(Request $request): Response
     {
-        $addReviewRequest = new AddProductReviewByCodeRequest();
-        $addReviewRequest->populateData($request);
+        $addReviewRequest = $this->commandRequestParser->parse($request, AddProductReviewByCode::class);
 
         $validationResults = $this->validator->validate($addReviewRequest);
 
