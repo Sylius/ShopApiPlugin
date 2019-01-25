@@ -1,0 +1,42 @@
+---------------------------------------------------------------------------
+
+by dlobato at 2019-01-25T09:50:32Z
+
+@mamazu I did test most of the endpoints and so far I did not find any mismatch on the response codes. Anyway we are implementing a client right now, so we will very likely spot problems.
+
+---------------------------------------------------------------------------
+
+by mamazu at 2019-01-25T09:57:54Z
+
+Normally the response codes in the Actions would give it away but I am sure you'll find those errors as well.
+
+---------------------------------------------------------------------------
+
+by mamazu at 2019-01-25T12:06:51Z
+
+The current version of the documentation has different levels of indentation in different parts. But 2 spaces are the convention for yml.
+
+---------------------------------------------------------------------------
+
+by dlobato at 2019-01-25T12:32:50Z
+
+@lchrusciel No reason for changing. But because there was 4 and 2 on different places, I just normalized to 2.  There's still 4 spaces on some places... I'll fix it. I don't have any preference. What do you prefer?
+
+---------------------------------------------------------------------------
+
+by dlobato at 2019-01-25T12:48:47Z
+
+2 spaces => https://pastebin.com/dKZKPC5s
+4 spaces => https://pastebin.com/ufQQX01F
+
+---------------------------------------------------------------------------
+
+by lchrusciel at 2019-01-25T16:45:41Z
+
+Oh, the main problem was, that it was hard to comprehend changes in the file, what has been changed. In this situation, it will not help much. Nevertheless, I would prefer 4, if you don't mind changing it.
+
+---------------------------------------------------------------------------
+
+by lchrusciel at 2019-01-25T19:59:51Z
+
+Thank you, David! :1st_place_medal:
