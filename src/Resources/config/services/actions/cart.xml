@@ -16,9 +16,8 @@
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="tactician.commandbus" />
-            <argument type="service" id="validator" />
             <argument type="service" id="sylius.shop_api_plugin.factory.validation_error_view_factory" />
-            <argument type="service" id="Sylius\ShopApiPlugin\Parser\CommandRequestParser" />
+            <argument type="service" id="Sylius\ShopApiPlugin\CommandProvider\DropCartCommandProvider" />
         </service>
 
         <service class="Sylius\ShopApiPlugin\Controller\Cart\EstimateShippingCostAction"

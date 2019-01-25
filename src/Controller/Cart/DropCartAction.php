@@ -7,12 +7,10 @@ namespace Sylius\ShopApiPlugin\Controller\Cart;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
-use Sylius\ShopApiPlugin\Command\DropCart;
+use Sylius\ShopApiPlugin\CommandProvider\CommandProviderInterface;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
-use Sylius\ShopApiPlugin\Parser\CommandRequestParserInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class DropCartAction
 {
@@ -22,37 +20,30 @@ final class DropCartAction
     /** @var CommandBus */
     private $bus;
 
-    /** @var ValidatorInterface */
-    private $validator;
-
     /** @var ValidationErrorViewFactoryInterface */
     private $validationErrorViewFactory;
 
-    /** @var CommandRequestParserInterface */
-    private $commandRequestParser;
+    /** @var CommandProviderInterface */
+    private $dropCartCommandProvider;
 
     public function __construct(
         ViewHandlerInterface $viewHandler,
         CommandBus $bus,
-        ValidatorInterface $validator,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
-        CommandRequestParserInterface $commandRequestParser
+        CommandProviderInterface $dropCartCommandProvider
     ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
-        $this->validator = $validator;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
-        $this->commandRequestParser = $commandRequestParser;
+        $this->dropCartCommandProvider = $dropCartCommandProvider;
     }
 
     public function __invoke(Request $request): Response
     {
-        $dropCartRequest = $this->commandRequestParser->parse($request, DropCart::class);
-
-        $validationResults = $this->validator->validate($dropCartRequest);
+        $validationResults = $this->dropCartCommandProvider->validate($request);
 
         if (0 === count($validationResults)) {
-            $this->bus->handle($dropCartRequest->getCommand());
+            $this->bus->handle($this->dropCartCommandProvider->getCommand($request));
 
             return $this->viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));
         }
