@@ -7,7 +7,7 @@ namespace Sylius\ShopApiPlugin\Request;
 use Sylius\ShopApiPlugin\Command\RemoveAddress;
 use Symfony\Component\HttpFoundation\Request;
 
-class RemoveAddressRequest implements UserEmailBasedCommandRequestInterface
+class RemoveAddressRequest
 {
     /** @var int|string */
     protected $id;
@@ -15,17 +15,13 @@ class RemoveAddressRequest implements UserEmailBasedCommandRequestInterface
     /** @var string */
     protected $userEmail;
 
-    public function populateData(Request $request): void
+    public function __construct(Request $request, string $userEmail)
     {
         $this->id = $request->attributes->get('id');
-    }
-
-    public function setUserEmail(string $userEmail): void
-    {
         $this->userEmail = $userEmail;
     }
 
-    public function getCommand(): object
+    public function getCommand(): RemoveAddress
     {
         return new RemoveAddress($this->id, $this->userEmail);
     }

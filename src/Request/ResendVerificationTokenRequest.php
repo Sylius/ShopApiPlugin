@@ -7,7 +7,7 @@ namespace Sylius\ShopApiPlugin\Request;
 use Sylius\ShopApiPlugin\Command\SendVerificationToken;
 use Symfony\Component\HttpFoundation\Request;
 
-class ResendVerificationTokenRequest implements CommandRequestInterface
+class ResendVerificationTokenRequest
 {
     /** @var string */
     protected $email;
@@ -15,13 +15,13 @@ class ResendVerificationTokenRequest implements CommandRequestInterface
     /** @var string */
     protected $channelCode;
 
-    public function populateData(Request $request): void
+    public function __construct(Request $request)
     {
         $this->email = $request->request->get('email');
         $this->channelCode = $request->attributes->get('channelCode');
     }
 
-    public function getCommand(): object
+    public function getCommand(): SendVerificationToken
     {
         return new SendVerificationToken($this->email, $this->channelCode);
     }

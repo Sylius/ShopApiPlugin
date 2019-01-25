@@ -7,9 +7,8 @@ namespace Sylius\ShopApiPlugin\Controller\Cart;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
-use Sylius\ShopApiPlugin\Command\ChangeItemQuantity;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
-use Sylius\ShopApiPlugin\Parser\CommandRequestParserInterface;
+use Sylius\ShopApiPlugin\Request\ChangeItemQuantityRequest;
 use Sylius\ShopApiPlugin\ViewRepository\Cart\CartViewRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,28 +32,23 @@ final class ChangeItemQuantityAction
     /** @var CartViewRepositoryInterface */
     private $cartQuery;
 
-    /** @var CommandRequestParserInterface */
-    private $commandRequestParser;
-
     public function __construct(
         ViewHandlerInterface $viewHandler,
         CommandBus $bus,
         ValidatorInterface $validator,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
-        CartViewRepositoryInterface $cartQuery,
-        CommandRequestParserInterface $commandRequestParser
+        CartViewRepositoryInterface $cartQuery
     ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
         $this->validator = $validator;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->cartQuery = $cartQuery;
-        $this->commandRequestParser = $commandRequestParser;
     }
 
     public function __invoke(Request $request): Response
     {
-        $changeItemQuantityRequest = $this->commandRequestParser->parse($request, ChangeItemQuantity::class);
+        $changeItemQuantityRequest = new ChangeItemQuantityRequest($request);
 
         $validationResults = $this->validator->validate($changeItemQuantityRequest);
 
@@ -63,7 +57,6 @@ final class ChangeItemQuantityAction
         }
 
         $changeItemQuantityCommand = $changeItemQuantityRequest->getCommand();
-        assert($changeItemQuantityCommand instanceof ChangeItemQuantity);
 
         $this->bus->handle($changeItemQuantityCommand);
 

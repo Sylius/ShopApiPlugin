@@ -7,7 +7,7 @@ namespace Sylius\ShopApiPlugin\Request;
 use Sylius\ShopApiPlugin\Command\PutOptionBasedConfigurableItemToCart;
 use Symfony\Component\HttpFoundation\Request;
 
-class PutOptionBasedConfigurableItemToCartRequest implements CommandRequestInterface
+class PutOptionBasedConfigurableItemToCartRequest
 {
     /** @var string */
     protected $token;
@@ -21,26 +21,25 @@ class PutOptionBasedConfigurableItemToCartRequest implements CommandRequestInter
     /** @var int */
     protected $quantity;
 
+    private function __construct($token, $productCode, $options, $quantity)
+    {
+        $this->token = $token;
+        $this->productCode = $productCode;
+        $this->options = $options;
+        $this->quantity = $quantity;
+    }
+
     public static function fromArray(array $item): self
     {
-        $commandRequest = new self();
-        $commandRequest->token = $item['token'] ?? null;
-        $commandRequest->productCode = $item['productCode'] ?? null;
-        $commandRequest->options = $item['options'] ?? null;
-        $commandRequest->quantity = $item['quantity'] ?? null;
-
-        return $commandRequest;
+        return new self($item['token'] ?? null, $item['productCode'] ?? null, $item['options'] ?? null, $item['quantity'] ?? null);
     }
 
-    public function populateData(Request $request): void
+    public static function fromRequest(Request $request): self
     {
-        $this->token = $request->attributes->get('token');
-        $this->productCode = $request->request->get('productCode');
-        $this->options = $request->request->get('options');
-        $this->quantity = $request->request->getInt('quantity', 1);
+        return new self($request->attributes->get('token'), $request->request->get('productCode'), $request->request->get('options'), $request->request->getInt('quantity', 1));
     }
 
-    public function getCommand(): object
+    public function getCommand(): PutOptionBasedConfigurableItemToCart
     {
         return new PutOptionBasedConfigurableItemToCart($this->token, $this->productCode, $this->options, $this->quantity);
     }

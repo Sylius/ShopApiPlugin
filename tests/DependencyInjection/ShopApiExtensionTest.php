@@ -15,11 +15,10 @@ final class ShopApiExtensionTest extends AbstractExtensionTestCase
      */
     public function it_sets_up_parameter_with_attributes_to_serialize(): void
     {
-        $this->setParameter('kernel.project_dir', __DIR__.'/../../');
         $this->load([
             'included_attributes' => [
                 'ATTRIBUTE_CODE',
-            ]
+            ],
         ]);
 
         $this->assertContainerBuilderHasParameter('sylius.shop_api.included_attributes', ['ATTRIBUTE_CODE']);
@@ -30,7 +29,6 @@ final class ShopApiExtensionTest extends AbstractExtensionTestCase
      */
     public function it_defines_view_classes_parameters(): void
     {
-        $this->setParameter('kernel.project_dir', __DIR__.'/../../');
         $this->load([]);
 
         $nameToClass = [

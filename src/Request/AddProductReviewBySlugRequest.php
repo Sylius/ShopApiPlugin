@@ -7,7 +7,7 @@ namespace Sylius\ShopApiPlugin\Request;
 use Sylius\ShopApiPlugin\Command\AddProductReviewBySlug;
 use Symfony\Component\HttpFoundation\Request;
 
-class AddProductReviewBySlugRequest implements CommandRequestInterface
+class AddProductReviewBySlugRequest
 {
     /** @var string */
     protected $slug;
@@ -27,7 +27,7 @@ class AddProductReviewBySlugRequest implements CommandRequestInterface
     /** @var string */
     protected $email;
 
-    public function populateData(Request $request): void
+    public function __construct(Request $request)
     {
         $this->slug = $request->attributes->get('slug');
         $this->channelCode = $request->attributes->get('channelCode');
@@ -38,7 +38,7 @@ class AddProductReviewBySlugRequest implements CommandRequestInterface
         $this->email = $request->request->get('email');
     }
 
-    public function getCommand(): object
+    public function getCommand(): AddProductReviewBySlug
     {
         return new AddProductReviewBySlug($this->slug, $this->channelCode, $this->title, $this->rating, $this->comment, $this->email);
     }

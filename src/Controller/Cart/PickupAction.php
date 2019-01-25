@@ -7,9 +7,8 @@ namespace Sylius\ShopApiPlugin\Controller\Cart;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
-use Sylius\ShopApiPlugin\Command\PickupCart;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
-use Sylius\ShopApiPlugin\Parser\CommandRequestParserInterface;
+use Sylius\ShopApiPlugin\Request\PickupCartRequest;
 use Sylius\ShopApiPlugin\ViewRepository\Cart\CartViewRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,34 +32,28 @@ final class PickupAction
     /** @var CartViewRepositoryInterface */
     private $cartQuery;
 
-    /** @var CommandRequestParserInterface */
-    private $commandRequestParser;
-
     public function __construct(
         ViewHandlerInterface $viewHandler,
         CommandBus $bus,
         ValidatorInterface $validator,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
-        CartViewRepositoryInterface $cartQuery,
-        CommandRequestParserInterface $commandRequestParser
+        CartViewRepositoryInterface $cartQuery
     ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
         $this->validator = $validator;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->cartQuery = $cartQuery;
-        $this->commandRequestParser = $commandRequestParser;
     }
 
     public function __invoke(Request $request): Response
     {
-        $pickupRequest = $this->commandRequestParser->parse($request, PickupCart::class);
+        $pickupRequest = new PickupCartRequest($request);
 
         $validationResults = $this->validator->validate($pickupRequest);
 
         if (0 === count($validationResults)) {
             $pickupCartCommand = $pickupRequest->getCommand();
-            assert($pickupCartCommand instanceof PickupCart);
 
             $this->bus->handle($pickupCartCommand);
 
