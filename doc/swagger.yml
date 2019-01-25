@@ -9,96 +9,92 @@ info:
         name: "MIT"
         url: "https://opensource.org/licenses/MIT"
 host: "demo.sylius.org"
-basePath: "/shop-api/{channelCode}"
+basePath: "/shop-api"
+consumes:
+    - "application/json"
+produces:
+    - "application/json"
 tags:
-- name: "cart"
-  description: "All actions related to cart management."
-  externalDocs:
-      description: "Find out more"
-      url: "http://docs.sylius.org/en/latest/book/orders/index.html"
-- name: "products"
-  description: "Show product catalog and add product reviews."
-  externalDocs:
-      description: "Find out more"
-      url: "http://docs.sylius.org/en/latest/book/products/index.html"
-- name: "taxons"
-  description: "Show taxon tree"
-  externalDocs:
-      description: "Find out more"
-      url: "http://docs.sylius.org/en/latest/book/products/taxons.html"
-- name: "checkout"
-  description: "All actions related to checkout fulfillment. It is important, to execute them in given order (address, choose shipment, choose payment and complete)."
-  externalDocs:
-      description: "Find out more"
-      url: "http://docs.sylius.org/en/latest/book/orders/checkout.html"
-- name: "order"
-  description: "Showing the order information"
-  externalDocs:
-    description: "Find out more"
-    url: "http://docs.sylius.com/en/latest/book/orders/orders.html"
-- name: "users"
-  description: "All actions related to user functionality."
-  externalDocs:
-      description: "Find out more"
-      url: "http://docs.sylius.org/en/latest/book/customers/customer_and_shopuser.html"
-- name: "address"
-  description: "All functions related to the Sylius Customer Address Book"
-  externalDocs:
-      description: "Find out more"
-      url: "https://docs.sylius.com/en/latest/book/customers/addresses/address_book.html"
+    -   name: "cart"
+        description: "All actions related to cart management."
+        externalDocs:
+            description: "Find out more"
+            url: "http://docs.sylius.org/en/latest/book/orders/index.html"
+    -   name: "products"
+        description: "Show product catalog and add product reviews."
+        externalDocs:
+            description: "Find out more"
+            url: "http://docs.sylius.org/en/latest/book/products/index.html"
+    -   name: "taxons"
+        description: "Show taxon tree"
+        externalDocs:
+            description: "Find out more"
+            url: "http://docs.sylius.org/en/latest/book/products/taxons.html"
+    -   name: "checkout"
+        description: "All actions related to checkout fulfillment. It is important, to execute them in given order (address, choose shipment, choose payment and complete)."
+        externalDocs:
+            description: "Find out more"
+            url: "http://docs.sylius.org/en/latest/book/orders/checkout.html"
+    -   name: "order"
+        description: "Showing the order information"
+        externalDocs:
+            description: "Find out more"
+            url: "http://docs.sylius.com/en/latest/book/orders/orders.html"
+    -   name: "users"
+        description: "All actions related to user functionality."
+        externalDocs:
+            description: "Find out more"
+            url: "http://docs.sylius.org/en/latest/book/customers/customer_and_shopuser.html"
+    -   name: "address"
+        description: "All functions related to the Sylius Customer Address Book"
+        externalDocs:
+            description: "Find out more"
+            url: "https://docs.sylius.com/en/latest/book/customers/addresses/address_book.html"
 schemes:
-- "https"
+    - "https"
+parameters:
+    ChannelCode:
+        in: "path"
+        description: "The request channel code"
+        name: "channelCode"
+        required: true
+        type: "string"
+    CartToken:
+        in: "path"
+        name: "token"
+        description: "Cart identifier."
+        required: true
+        type: "string"
 paths:
-    /carts:
+    /{channelCode}/carts:
+        parameters:
+            -   $ref: "#/parameters/ChannelCode"
         post:
             tags:
-            - "cart"
+                - "cart"
             summary: "Pick up your cart from the store"
             description: "This endpoint will allow you to create a new cart."
             operationId: "cartPickUp"
-            consumes:
-            - "application/json"
-            produces:
-            - "application/json"
-            parameters:
-            -   in: "body"
-                name: "content"
-                description: "Contains an information about the channel which should be associated with the newly created cart"
-                required: true
-                schema:
-                    $ref: "#/definitions/PickupCartRequest"
             responses:
                 201:
                     description: "Cart has been picked up"
+                    schema:
+                        $ref: "#/definitions/Cart"
                 400:
                     description: "Invalid input"
                     schema:
                         $ref: "#/definitions/GeneralError"
-    /carts/{token}:
+    /{channelCode}/carts/{token}:
         parameters:
-        - name: "token"
-          in: "path"
-          description: "Cart identifier."
-          required: true
-          type: "string"
+            -   $ref: "#/parameters/ChannelCode"
+            -   $ref: "#/parameters/CartToken"
         post:
             deprecated: true
             tags:
-            - "cart"
+                - "cart"
             summary: "Pick up your cart from the store"
             description: "This endpoint will allow you to assign a new cart to the provided token. We recommend using UUID as a token to avoid duplication. If any of previous carts or orders already have the same token value an exception will be thrown."
             operationId: "deprecatedCartPickUp"
-            consumes:
-            - "application/json"
-            produces:
-            - "application/json"
-            parameters:
-            - in: "body"
-              name: "content"
-              description: "Contains an information about the channel which should be associated with the newly created cart"
-              required: true
-              schema:
-                $ref: "#/definitions/PickupCartRequest"
             responses:
                 201:
                     description: "Cart has been picked up and assigned to given token"
@@ -108,14 +104,10 @@ paths:
                         $ref: "#/definitions/GeneralError"
         get:
             tags:
-            - "cart"
+                - "cart"
             summary: "Show summarized cart."
             description: "This endpoint shows you the current calculated state of cart."
             operationId: "cartSummarize"
-            consumes:
-            - "application/json"
-            produces:
-            - "application/json"
             responses:
                 200:
                     description: "Current state of the cart, with calculated prices and related items."
@@ -127,14 +119,10 @@ paths:
                         $ref: "#/definitions/GeneralError"
         delete:
             tags:
-            - "cart"
+                - "cart"
             summary: "Drop your cart."
             description: "This endpoint will remove the cart and all of the related cart items."
             operationId: "cartDrop"
-            consumes:
-            - "application/json"
-            produces:
-            - "application/json"
             responses:
                 204:
                     description: "Cart has been dropped."
@@ -142,30 +130,23 @@ paths:
                     description: "Invalid input (E.g. token has not been found)"
                     schema:
                         $ref: "#/definitions/GeneralError"
-    /carts/{token}/items:
+    /{channelCode}/carts/{token}/items:
         parameters:
-        - name: "token"
-          in: "path"
-          description: "Cart identifier."
-          required: true
-          type: "string"
+            -   $ref: "#/parameters/ChannelCode"
+            -   $ref: "#/parameters/CartToken"
         post:
             tags:
-            - "cart"
+                - "cart"
             summary: "Add an item to your cart."
             description: "This endpoint will allow you to add a new item to your cart."
-            operationId: "cartPutItem"
-            consumes:
-            - "application/json"
-            produces:
-            - "application/json"
+            operationId: "cartAddItem"
             parameters:
-            - in: "body"
-              name: "content"
-              description: "Description of an item. The smallest required amount of data is a product code and quantity for a simple product. Configurable products will require an additional `variant_code` or `options` field, but never both."
-              required: true
-              schema:
-                $ref: "#/definitions/PutItemToCartRequest"
+                -   in: "body"
+                    name: "content"
+                    description: "Description of an item. The smallest required amount of data is a product code and quantity for a simple product. Configurable products will require an additional `variant_code` or `options` field, but never both."
+                    required: true
+                    schema:
+                        $ref: "#/definitions/PutItemToCartRequest"
             responses:
                 201:
                     description: "Item has been added to the cart"
@@ -175,30 +156,23 @@ paths:
                     description: "Invalid input, validation failed."
                     schema:
                         $ref: "#/definitions/GeneralError"
-    /carts/{token}/multiple-items:
+    /{channelCode}/carts/{token}/multiple-items:
         parameters:
-        - name: "token"
-          in: "path"
-          description: "Cart identifier."
-          required: true
-          type: "string"
+            -   $ref: "#/parameters/ChannelCode"
+            -   $ref: "#/parameters/CartToken"
         post:
             tags:
-            - "cart"
+                - "cart"
             summary: "Add multiple items to your cart."
             description: "This endpoint will allow you to add a new item to your cart."
             operationId: "cartPutItems"
-            consumes:
-            - "application/json"
-            produces:
-            - "application/json"
             parameters:
-            - in: "body"
-              name: "content"
-              description: "Description of items. The same rules applied to each of the array values as to the previous point."
-              required: true
-              schema:
-                $ref: "#/definitions/PutItemsToCartRequest"
+                -   in: "body"
+                    name: "content"
+                    description: "Description of items. The same rules applied to each of the array values as to the previous point."
+                    required: true
+                    schema:
+                        $ref: "#/definitions/PutItemsToCartRequest"
             responses:
                 201:
                     description: "Item has been added to the cart"
@@ -208,33 +182,26 @@ paths:
                     description: "Invalid input, validation failed."
                     schema:
                         $ref: "#/definitions/GeneralError"
-    /carts/{token}/items/{identifier}:
+    /{channelCode}/carts/{token}/items/{identifier}:
         parameters:
-        - name: "token"
-          in: "path"
-          description: "Cart identifier."
-          required: true
-          type: "string"
-        - name: "identifier"
-          in: "path"
-          description: "Identifier of a specific item. Can be found in the cart summary."
-          required: true
-          type: "string"
+            -   $ref: "#/parameters/ChannelCode"
+            -   $ref: "#/parameters/CartToken"
+            -   name: "identifier"
+                in: "path"
+                description: "Identifier of a specific item. Can be found in the cart summary."
+                required: true
+                type: "string"
         put:
             tags:
-            - "cart"
+                - "cart"
             summary: "Change quantity of a cart item."
-            operationId: "cartPutItem"
-            consumes:
-            - "application/json"
-            produces:
-            - "application/json"
+            operationId: "cartUpdateItem"
             parameters:
-            - in: "body"
-              name: "content"
-              required: true
-              schema:
-                $ref: "#/definitions/ChangeItemQuantityRequest"
+                -   in: "body"
+                    name: "content"
+                    required: true
+                    schema:
+                        $ref: "#/definitions/ChangeItemQuantityRequest"
             responses:
                 204:
                     description: "Quantity has been changed."
@@ -244,13 +211,10 @@ paths:
                         $ref: "#/definitions/GeneralError"
         delete:
             tags:
-            - "cart"
+                - "cart"
             summary: "Remove cart item."
+            operationId: "cartDeleteItem"
             description: "This endpoint will remove one item from your cart"
-            consumes:
-            - "application/json"
-            produces:
-            - "application/json"
             responses:
                 204:
                     description: "Cart item has been removed."
@@ -258,32 +222,26 @@ paths:
                     description: "Invalid input (E.g. token has not been found)"
                     schema:
                         $ref: "#/definitions/GeneralError"
-    /carts/{token}/estimated-shipping-cost:
+    /{channelCode}/carts/{token}/estimated-shipping-cost:
+        parameters:
+            -   $ref: "#/parameters/ChannelCode"
+            -   $ref: "#/parameters/CartToken"
         get:
             tags:
-            - "cart"
+                - "cart"
             summary: "Estimates the shipping cost of the cart"
             operationId: "estimateShippingCost"
-            consumes:
-            - "application/json"
-            produces:
-            - "application/json"
             parameters:
-            - name: "token"
-              in: "path"
-              description: "Cart identifier"
-              required: true
-              type: "string"
-            - name: "countryCode"
-              in: "query"
-              description: "Shipping Country"
-              required: true
-              type: "string"
-            - name: "provinceCode"
-              in: "query"
-              description: "Province to ship to"
-              required: true
-              type: "string"
+                -   name: "countryCode"
+                    in: "query"
+                    description: "Shipping Country"
+                    required: true
+                    type: "string"
+                -   name: "provinceCode"
+                    in: "query"
+                    description: "Province to ship to"
+                    required: true
+                    type: "string"
             responses:
                 200:
                     description: "Price was calculated"
@@ -294,29 +252,22 @@ paths:
                     schema:
                         $ref: "#/definitions/GeneralError"
 
-    /carts/{token}/coupon:
+    /{channelCode}/carts/{token}/coupon:
         parameters:
-        - name: "token"
-          in: "path"
-          description: "Cart identifier."
-          required: true
-          type: "string"
+            -   $ref: "#/parameters/ChannelCode"
+            -   $ref: "#/parameters/CartToken"
         put:
             tags:
-            - "cart"
+                - "cart"
             summary: "Add a promotion coupon code to the cart."
             description: "This endpoint will allow you to add a promotion coupon code to the cart and receive the discount."
             operationId: "cartAddCoupon"
-            consumes:
-            - "application/json"
-            produces:
-            - "application/json"
             parameters:
-            - in: "body"
-              name: "content"
-              required: true
-              schema:
-                  $ref: "#/definitions/AddCouponRequest"
+                -   in: "body"
+                    name: "content"
+                    required: true
+                    schema:
+                        $ref: "#/definitions/AddCouponRequest"
             responses:
                 204:
                     description: "Coupon has been assigned to the cart."
@@ -326,14 +277,10 @@ paths:
                         $ref: "#/definitions/GeneralError"
         delete:
             tags:
-            - "cart"
+                - "cart"
             summary: "Remove a promotion coupon code from the cart."
             description: "This endpoint will allow you to remove a promotion coupon code from the cart."
             operationId: "cartRemoveCoupon"
-            consumes:
-            - "application/json"
-            produces:
-            - "application/json"
             responses:
                 204:
                     description: "Coupon has been removed from the cart."
@@ -341,23 +288,16 @@ paths:
                     description: "Invalid input, validation failed."
                     schema:
                         $ref: "#/definitions/GeneralError"
-    /checkout/{token}:
+    /{channelCode}/checkout/{token}:
+        parameters:
+            -   $ref: "#/parameters/ChannelCode"
+            -   $ref: "#/parameters/CartToken"
         get:
             tags:
-            - "checkout"
+                - "checkout"
             summary: "Show checkout summary"
             description: "This endpoint will show the summarized cart during checkout. This action is an equivalent of cart summarize action."
             operationId: "checkoutSummarize"
-            consumes:
-            - "application/json"
-            produces:
-            - "application/json"
-            parameters:
-            - name: "token"
-              in: "path"
-              description: "Cart identifier."
-              required: true
-              type: "string"
             responses:
                 200:
                     description: "Current state of the cart, with calculated prices and related items."
@@ -367,28 +307,22 @@ paths:
                     description: "Invalid input (E.g. token has not been found)"
                     schema:
                         $ref: "#/definitions/GeneralError"
-    /checkout/{token}/address:
+    /{channelCode}/checkout/{token}/address:
+        parameters:
+            -   $ref: "#/parameters/ChannelCode"
+            -   $ref: "#/parameters/CartToken"
         put:
             tags:
-            - "checkout"
+                - "checkout"
             summary: "Address cart."
             description: "This endpoint will allow you to add billing and shipping addresses to the cart and begin the checkout process. You can either define the same shipping and billing address or specify them separately."
             operationId: "checkoutAddress"
-            consumes:
-            - "application/json"
-            produces:
-            - "application/json"
             parameters:
-            - name: "token"
-              in: "path"
-              description: "Cart identifier."
-              required: true
-              type: "string"
-            - in: "body"
-              name: "content"
-              required: true
-              schema:
-                  $ref: "#/definitions/CheckoutAddressRequest"
+                -   in: "body"
+                    name: "content"
+                    required: true
+                    schema:
+                        $ref: "#/definitions/CheckoutAddressRequest"
             responses:
                 204:
                     description: "Cart has been addressed."
@@ -396,58 +330,46 @@ paths:
                     description: "Invalid input, validation failed."
                     schema:
                         $ref: "#/definitions/GeneralError"
-    /checkout/{token}/shipping/:
+    /{channelCode}/checkout/{token}/shipping/:
+        parameters:
+            -   $ref: "#/parameters/ChannelCode"
+            -   $ref: "#/parameters/CartToken"
         get:
             tags:
-            - "checkout"
+                - "checkout"
             summary: "Get available shipping methods."
             description: "This endpoint will show you available shipping methods for all cart shipments."
             operationId: "checkoutShowAvailableShippingMethods"
-            consumes:
-            - "application/json"
-            produces:
-            - "application/json"
-            parameters:
-            - name: "token"
-              in: "path"
-              description: "Cart identifier."
-              required: true
-              type: "string"
             responses:
                 200:
+                    description: "Get available shipping methods."
                     schema:
                         $ref: "#/definitions/AvailableShippingMethods"
                 400:
                     description: "Invalid input, validation failed."
                     schema:
                         $ref: "#/definitions/GeneralError"
-    /checkout/{token}/shipping/{id}:
+    /{channelCode}/checkout/{token}/shipping/{id}:
+        parameters:
+            -   $ref: "#/parameters/ChannelCode"
+            -   $ref: "#/parameters/CartToken"
         put:
             tags:
-            - "checkout"
+                - "checkout"
             summary: "Choosing a cart shipping method."
             description: "This endpoint will allow you to choose a cart shipping method."
             operationId: "checkoutChooseShippingMethod"
-            consumes:
-            - "application/json"
-            produces:
-            - "application/json"
             parameters:
-            - name: "token"
-              in: "path"
-              description: "Cart identifier."
-              required: true
-              type: "string"
-            - name: "id"
-              in: "path"
-              description: "Order number of shipment for which shipping method should be specified."
-              required: true
-              type: "string"
-            - in: "body"
-              name: "content"
-              required: true
-              schema:
-                  $ref: "#/definitions/CheckoutChooseShippingMethodRequest"
+                -   name: "id"
+                    in: "path"
+                    description: "Order number of shipment for which shipping method should be specified."
+                    required: true
+                    type: "string"
+                -   in: "body"
+                    name: "content"
+                    required: true
+                    schema:
+                        $ref: "#/definitions/CheckoutChooseShippingMethodRequest"
             responses:
                 204:
                     description: "Shipping method has been chosen."
@@ -455,58 +377,46 @@ paths:
                     description: "Invalid input, validation failed."
                     schema:
                         $ref: "#/definitions/GeneralError"
-    /checkout/{token}/payment/:
+    /{channelCode}/checkout/{token}/payment/:
+        parameters:
+            -   $ref: "#/parameters/ChannelCode"
+            -   $ref: "#/parameters/CartToken"
         get:
             tags:
-            - "checkout"
+                - "checkout"
             summary: "Get available payment methods."
             description: "This endpoint will show you available payment methods for all cart payments."
             operationId: "checkoutShowAvailablePaymentMethods"
-            consumes:
-            - "application/json"
-            produces:
-            - "application/json"
-            parameters:
-            - name: "token"
-              in: "path"
-              description: "Cart identifier."
-              required: true
-              type: "string"
             responses:
                 200:
+                    description: "Get available payment methods."
                     schema:
                         $ref: "#/definitions/AvailablePaymentMethods"
                 400:
                     description: "Invalid input, validation failed."
                     schema:
                         $ref: "#/definitions/GeneralError"
-    /checkout/{token}/payment/{id}:
+    /{channelCode}/checkout/{token}/payment/{id}:
+        parameters:
+            -   $ref: "#/parameters/ChannelCode"
+            -   $ref: "#/parameters/CartToken"
         put:
             tags:
-            - "checkout"
+                - "checkout"
             summary: "Choosing cart payment method."
             description: "This endpoint will allow you to choose cart a payment method."
             operationId: "checkoutChoosePaymentMethod"
-            consumes:
-            - "application/json"
-            produces:
-            - "application/json"
             parameters:
-            - name: "token"
-              in: "path"
-              description: "Cart identifier."
-              required: true
-              type: "string"
-            - name: "id"
-              in: "path"
-              description: "Order number of payment for which payment method should be specified."
-              required: true
-              type: "string"
-            - in: "body"
-              name: "content"
-              required: true
-              schema:
-                  $ref: "#/definitions/CheckoutChoosePaymentMethodRequest"
+                -   name: "id"
+                    in: "path"
+                    description: "Order number of payment for which payment method should be specified."
+                    required: true
+                    type: "string"
+                -   in: "body"
+                    name: "content"
+                    required: true
+                    schema:
+                        $ref: "#/definitions/CheckoutChoosePaymentMethodRequest"
             responses:
                 204:
                     description: "Payment method has been chosen."
@@ -514,28 +424,22 @@ paths:
                     description: "Invalid input, validation failed."
                     schema:
                         $ref: "#/definitions/GeneralError"
-    /checkout/{token}/complete:
+    /{channelCode}/checkout/{token}/complete:
+        parameters:
+            -   $ref: "#/parameters/ChannelCode"
+            -   $ref: "#/parameters/CartToken"
         put:
             tags:
-            - "checkout"
+                - "checkout"
             summary: "Completing checkout."
             description: "This endpoint will allow you to complete the checkout."
             operationId: "checkoutComplete"
-            consumes:
-            - "application/json"
-            produces:
-            - "application/json"
             parameters:
-            - name: "token"
-              in: "path"
-              description: "Cart identifier."
-              required: true
-              type: "string"
-            - in: "body"
-              name: "content"
-              required: true
-              schema:
-                  $ref: "#/definitions/CheckoutCompleteRequest"
+                -   in: "body"
+                    name: "content"
+                    required: true
+                    schema:
+                        $ref: "#/definitions/CheckoutCompleteRequest"
             responses:
                 204:
                     description: "Checkout has been completed."
@@ -544,197 +448,147 @@ paths:
                     schema:
                         $ref: "#/definitions/GeneralError"
                 403:
-                  description: "Not logged in or wrong email"
-    /taxon-products-by-slug/{slug}:
+                    description: "Not logged in or wrong email"
+    /{channelCode}/taxon-products-by-slug/{slug}:
+        parameters:
+            -   $ref: "#/parameters/ChannelCode"
         get:
             tags:
-            - "products"
+                - "products"
             summary: "Show product catalog."
             description: "This endpoint will return a paginated list of products for given taxon."
-            operationId: "productCatalog"
-            consumes:
-            - "application/json"
-            produces:
-            - "application/json"
+            operationId: "productCatalogBySlug"
             parameters:
-            - name: "slug"
-              in: "path"
-              description: "Slug of taxonomy for which products should be listed."
-              required: true
-              type: "string"
-              example: "categories/t-shirts"
-            - name: "channel"
-              in: "query"
-              description: "Channel from which products should be gathered."
-              required: true
-              type: "string"
-              example: "en_GB"
-            - name: "locale"
-              in: "query"
-              description: "Locale in which products should be shown."
-              required: false
-              type: "string"
-              example: "en_GB"
-            - name: "limit"
-              in: "query"
-              description: "Number of expected products per page."
-              required: false
-              type: "integer"
-              example: 5
-            - name: "page"
-              in: "query"
-              description: "Page number."
-              required: false
-              type: "integer"
-              example: 2
+                -   name: "slug"
+                    in: "path"
+                    description: "Slug of taxonomy for which products should be listed."
+                    required: true
+                    type: "string"
+                -   name: "locale"
+                    in: "query"
+                    description: "Locale in which products should be shown."
+                    required: false
+                    type: "string"
+                -   name: "limit"
+                    in: "query"
+                    description: "Number of expected products per page."
+                    required: false
+                    type: "integer"
+                -   name: "page"
+                    in: "query"
+                    description: "Page number."
+                    required: false
+                    type: "integer"
             responses:
                 200:
                     description: "Paginated product list."
                     schema:
-                        type: "object"
                         $ref: "#/definitions/ProductsPage"
-    /taxon-products/{code}:
+    /{channelCode}/taxon-products/{code}:
+        parameters:
+            -   $ref: "#/parameters/ChannelCode"
         get:
             tags:
-            - "products"
+                - "products"
             summary: "Show product catalog."
             description: "This endpoint will return a paginated list of products for given taxon."
             operationId: "productCatalog"
-            consumes:
-            - "application/json"
-            produces:
-            - "application/json"
             parameters:
-            - name: "code"
-              in: "path"
-              description: "Code of taxonomy for which products should be listed."
-              required: true
-              type: "string"
-              example: "T_SHIRT_TAXONOMY_CODE"
-            - name: "channel"
-              in: "query"
-              description: "Channel code from which products should be gathered."
-              required: true
-              type: "string"
-              example: "WEB_UK"
-            - name: "locale"
-              in: "query"
-              description: "Locale in which products should be shown."
-              required: false
-              type: "string"
-              example: "en_GB"
-            - name: "limit"
-              in: "query"
-              description: "Number of expected products per page."
-              required: false
-              type: "integer"
-              example: 5
-            - name: "page"
-              in: "query"
-              description: "Page number."
-              required: false
-              type: "integer"
-              example: 2
+                -   name: "code"
+                    in: "path"
+                    description: "Code of taxonomy for which products should be listed."
+                    required: true
+                    type: "string"
+                -   name: "locale"
+                    in: "query"
+                    description: "Locale in which products should be shown."
+                    required: false
+                    type: "string"
+                -   name: "limit"
+                    in: "query"
+                    description: "Number of expected products per page."
+                    required: false
+                    type: "integer"
+                -   name: "page"
+                    in: "query"
+                    description: "Page number."
+                    required: false
+                    type: "integer"
             responses:
                 200:
                     description: "Paginated product list."
                     schema:
-                        type: "object"
                         $ref: "#/definitions/ProductsPage"
-    /products-by-slug/{slug}:
+    /{channelCode}/products-by-slug/{slug}:
+        parameters:
+            -   $ref: "#/parameters/ChannelCode"
         get:
             tags:
-            - "products"
+                - "products"
             summary: "Show a product with the given slug."
             description: "This endpoint will return a product with the given slug."
-            operationId: "productDetails"
-            consumes:
-            - "application/json"
-            produces:
-            - "application/json"
+            operationId: "productDetailsBySlug"
             parameters:
-            - name: "slug"
-              in: "path"
-              description: "Slug of expected product."
-              required: true
-              type: "string"
-              example: "king-arthurs-mug"
-            - name: "channel"
-              in: "query"
-              description: "Channel from which products should be gathered."
-              required: true
-              type: "string"
-              example: "en_GB"
-            - name: "locale"
-              in: "query"
-              description: "Locale in which products should be shown."
-              required: false
-              type: "string"
-              example: "en_GB"
+                -   name: "slug"
+                    in: "path"
+                    description: "Slug of expected product."
+                    required: true
+                    type: "string"
+                -   name: "locale"
+                    in: "query"
+                    description: "Locale in which products should be shown."
+                    required: false
+                    type: "string"
             responses:
                 200:
+                    description: "Show a product with the given slug."
                     schema:
-                        type: "object"
                         $ref: "#/definitions/ProductDetails"
-    /products/{code}:
+    /{channelCode}/products/{code}:
+        parameters:
+            -   $ref: "#/parameters/ChannelCode"
         get:
             tags:
-            - "products"
+                - "products"
             summary: "Show a product with the given code."
             description: "This endpoint will return a product with the given code."
             operationId: "productDetails"
-            consumes:
-            - "application/json"
-            produces:
-            - "application/json"
             parameters:
-            - name: "code"
-              in: "path"
-              description: "Code of expected product."
-              required: true
-              type: "string"
-              example: "AWESOME_KING_ARTHURS_MUG"
-            - name: "channel"
-              in: "query"
-              description: "Channel from which products should be gathered."
-              required: true
-              type: "string"
-              example: "en_GB"
-            - name: "locale"
-              in: "query"
-              description: "Locale in which products should be shown."
-              required: false
-              type: "string"
-              example: "en_GB"
+                -   name: "code"
+                    in: "path"
+                    description: "Code of expected product."
+                    required: true
+                    type: "string"
+                -   name: "locale"
+                    in: "query"
+                    description: "Locale in which products should be shown."
+                    required: false
+                    type: "string"
             responses:
                 200:
+                    description: "Show a product with the given code."
                     schema:
-                        type: "object"
                         $ref: "#/definitions/ProductDetails"
-    /product-reviews-by-slug/{slug}:
+    /{channelCode}/product-reviews-by-slug/{slug}:
         parameters:
-        - name: "slug"
-          in: "path"
-          description: "Slug of expected product."
-          required: true
-          type: "string"
-          example: "king-arthurs-mug"
+            -   $ref: "#/parameters/ChannelCode"
+            -   name: "slug"
+                in: "path"
+                description: "Slug of expected product."
+                required: true
+                type: "string"
         post:
             tags:
-            - "products"
+                - "products"
             summary: "Add a review to the product."
             description: "This endpoint will allow you to add a new review to the product. Remember, that it should be accepted by an administrator before it will be available in the review list."
-            operationId: "productAddReview"
-            consumes:
-            - "application/json"
-            produces:
-            - "application/json"
+            operationId: "productAddReviewBySlug"
             parameters:
-            - in: "body"
-              name: "content"
-              required: true
-              schema:
-                  $ref: "#/definitions/AddReviewRequest"
+                -   in: "body"
+                    name: "content"
+                    required: true
+                    schema:
+                        $ref: "#/definitions/AddReviewRequest"
             responses:
                 201:
                     description: "Review has been added to the product."
@@ -744,50 +598,35 @@ paths:
                         $ref: "#/definitions/GeneralError"
         get:
             tags:
-            - "products"
+                - "products"
             summary: "Show reviews."
             description: "This endpoint will return a paginated list of all reviews related to the product identified by slug."
-            operationId: "productReviews"
-            consumes:
-            - "application/json"
-            produces:
-            - "application/json"
-            parameters:
-            - name: "channel"
-              in: "query"
-              description: "Channel from which products should be gathered."
-              required: true
-              type: "string"
-              example: "en_GB"
+            operationId: "productReviewsBySlug"
             responses:
                 200:
+                    description: "A paginated list of all reviews related to the product identified by slug."
                     schema:
-                        type: "object"
                         $ref: "#/definitions/ProductReviewsPage"
-    /product/{code}/reviews:
+    /{channelCode}/product/{code}/reviews:
         parameters:
-        - name: "code"
-          in: "path"
-          description: "Code of expected product."
-          required: true
-          type: "string"
-          example: "AWESOME_KING_ARTHURS_MUG"
+            -   $ref: "#/parameters/ChannelCode"
+            -   name: "code"
+                in: "path"
+                description: "Code of expected product."
+                required: true
+                type: "string"
         post:
             tags:
-            - "products"
+                - "products"
             summary: "Add a review to the product."
             description: "This endpoint will allow you to add a new review to the product. Remember, that it should be accepted by an administrator before it will be available in the review list."
             operationId: "productAddReview"
-            consumes:
-            - "application/json"
-            produces:
-            - "application/json"
             parameters:
-            - in: "body"
-              name: "content"
-              required: true
-              schema:
-                  $ref: "#/definitions/AddReviewRequest"
+                -   in: "body"
+                    name: "content"
+                    required: true
+                    schema:
+                        $ref: "#/definitions/AddReviewRequest"
             responses:
                 201:
                     description: "Review has been added to the product."
@@ -797,182 +636,172 @@ paths:
                         $ref: "#/definitions/GeneralError"
         get:
             tags:
-            - "products"
+                - "products"
             summary: "Show reviews."
             description: "This endpoint will return a paginated list of all reviews related to the product identified by slug."
             operationId: "productReviews"
-            consumes:
-            - "application/json"
-            produces:
-            - "application/json"
-            parameters:
-            - name: "channel"
-              in: "query"
-              description: "Channel from which products should be gathered."
-              required: true
-              type: "string"
-              example: "en_GB"
             responses:
                 200:
+                    description: "A paginated list of all reviews related to the product identified by slug."
                     schema:
-                        type: "object"
                         $ref: "#/definitions/ProductReviewsPage"
-    /taxons:
+    /{channelCode}/taxons:
+        parameters:
+            -   $ref: "#/parameters/ChannelCode"
         get:
             tags:
-            - "taxons"
+                - "taxons"
             summary: "Show taxon tree."
             description: "This endpoint will return an array of all available taxon roots with all of its children."
             operationId: "taxonTree"
-            consumes:
-            - "application/json"
-            produces:
-            - "application/json"
             parameters:
-            - name: "locale"
-              in: "query"
-              description: "Locale in which taxons should be shown."
-              required: false
-              type: "string"
-              example: "en_GB"
+                -   name: "locale"
+                    in: "query"
+                    description: "Locale in which taxons should be shown."
+                    required: false
+                    type: "string"
             responses:
                 200:
                     description: "Array of all available taxons."
                     schema:
                         type: "array"
                         items:
-                            type: "object"
                             $ref: "#/definitions/Taxon"
-    /taxons/{code}:
+    /{channelCode}/taxons/{code}:
+        parameters:
+            -   $ref: "#/parameters/ChannelCode"
         get:
             tags:
-            - "taxons"
+                - "taxons"
             summary: "Show taxon with given code."
             description: "This endpoint will return a taxon with given code, children and the root node with direct path to this taxon."
             operationId: "taxonDetails"
-            consumes:
-            - "application/json"
-            produces:
-            - "application/json"
             parameters:
-            - name: "code"
-              in: "path"
-              description: "Code of expected taxon."
-              required: true
-              type: "string"
-              example: "CATEGORIES_CODE"
-            - name: "locale"
-              in: "query"
-              description: "Locale in which taxons should be shown."
-              required: false
-              type: "string"
-              example: "en_GB"
+                -   name: "code"
+                    in: "path"
+                    description: "Code of expected taxon."
+                    required: true
+                    type: "string"
+                -   name: "locale"
+                    in: "query"
+                    description: "Locale in which taxons should be shown."
+                    required: false
+                    type: "string"
             responses:
                 200:
                     description: "Requested taxon with children."
                     schema:
-                        type: "object"
                         $ref: "#/definitions/Taxon"
-    /request-password-reset:
+    /{channelCode}/request-password-reset:
+        parameters:
+            -   $ref: "#/parameters/ChannelCode"
         put:
             tags:
-            - "users"
+                - "users"
             summary: "Request resetting password of user with passed email."
             description: "Email with reset password path will be sent to user. Default path for password resetting is `/password-reset/{token}`. To change it, you need to override template `@SyliusShopApi\\Email\\passwordReset.html.twig`."
             operationId: "requestPasswordReset"
-            consumes:
-            - "application/json"
             parameters:
-            - name: "email"
-              in: "body"
-              description: "Email of user which want to reset password."
-              required: true
-              schema:
-                $ref: "#/definitions/RequestPasswordResetting"
+                -   name: "email"
+                    in: "body"
+                    description: "Email of user which want to reset password."
+                    required: true
+                    schema:
+                        $ref: "#/definitions/RequestPasswordResetting"
             responses:
-              204:
-                description: "Reset password request has been sent."
-              500:
-                description: "User with provided email has not been found."
-    /register:
+                204:
+                    description: "Reset password request has been sent."
+                500:
+                    description: "User with provided email has not been found."
+    /{channelCode}/register:
+        parameters:
+            -   $ref: "#/parameters/ChannelCode"
         post:
             tags:
-            - "users"
+                - "users"
             summary: "Registering a new user"
             description: "This creates a new user that can log in the shop"
             operationId: "registerUser"
-            consumes:
-            - "application/json"
             parameters:
-              - name: "content"
-                in: "body"
-                required: true
-                schema:
-                  $ref: "#/definitions/RegisterRequest"
+                -   name: "content"
+                    in: "body"
+                    required: true
+                    schema:
+                        $ref: "#/definitions/RegisterRequest"
             responses:
-              204:
-                description: "The user was successfully created"
-              400:
-                description: "There were validation errors"
-              500:
-                description: "Channel not found"
-    /orders:
+                204:
+                    description: "The user was successfully created"
+                400:
+                    description: "There were validation errors"
+                500:
+                    description: "Channel not found"
+    /{channelCode}/orders:
+        parameters:
+            -   $ref: "#/parameters/ChannelCode"
         get:
             tags:
-            - "order"
+                - "order"
             summary: "Shows a list of orders of the customer"
-            operationId: "showsOrderId"
+            operationId: "orders"
             responses:
                 200:
                     description: "Shows a list of placed orders of the customer"
-                    type: "array"
-                    items:
-                        type: "object"
-                        $ref: "#/definitions/PlacedOrder"
+                    schema:
+                        type: "array"
+                        items:
+                            $ref: "#/definitions/PlacedOrder"
                 401:
                     description: "User token invalid"
-    /orders/{tokenValue}:
+    /{channelCode}/orders/{tokenValue}:
+        parameters:
+            -   $ref: "#/parameters/ChannelCode"
+            -   in: "path"
+                name: "tokenValue"
+                description: "Order token."
+                required: true
+                type: "string"
         get:
             tags:
-            - "order"
+                - "order"
             summary: "Shows details of specific customer's order"
+            operationId: "order"
             responses:
                 200:
                     description: "Shows details of specific customer's order with given tokenValue"
-                    type: "object"
-                    $ref: "#/definitions/PlacedOrderDetails"
+                    schema:
+                        $ref: "#/definitions/PlacedOrder"
                 401:
                     description: "User token invalid"
                 404:
                     description: "Order with given tokenValue not found"
-    /me:
+    /{channelCode}/me:
+        parameters:
+            -   $ref: "#/parameters/ChannelCode"
         get:
             tags:
-            - "users"
+                - "users"
             summary: "Provides currently logged in user details."
             operationId: "me"
             responses:
                 200:
+                    description: "Provides currently logged in user details."
                     schema:
-                        type: "object"
                         $ref: "#/definitions/LoggedInCustomerDetails"
                 500:
                     description: "There is no currently logged in user."
             security:
-             - bearerAuth: []
+                -   bearerAuth: []
         put:
             tags:
-            - "users"
+                - "users"
             summary: "Updates currently logged in users details."
             operationId: "updateUser"
-            consumes:
-            - "application/json"
             parameters:
-            - name: "content"
-              in: "body"
-              required: true
-              schema:
-                $ref: "#/definitions/UpdateUserRequest"
+                -   name: "content"
+                    in: "body"
+                    required: true
+                    schema:
+                        $ref: "#/definitions/UpdateUserRequest"
             responses:
                 200:
                     description: "User successfully updated."
@@ -983,160 +812,152 @@ paths:
                 500:
                     description: "There is no currently logged in user."
             security:
-             - bearerAuth: []
-    /address-book:
+                -   bearerAuth: []
+    /{channelCode}/address-book:
+        parameters:
+            -   $ref: "#/parameters/ChannelCode"
         get:
-          tags: ["address"]
-          summary: "Gets the address book of the currently logged in user"
-          operationId: "getAddressBook"
-          responses:
-            200:
-              description: "Successfully fetched Address Book"
-              schema:
-                $ref: "#/definitions/LoggedInCustomerAddressBook"
-            500:
-              description: "User not logged in"
-          security:
-             - bearerAuth: []
+            tags:
+                - "address"
+            summary: "Gets the address book of the currently logged in user"
+            operationId: "addressBook"
+            responses:
+                200:
+                    description: "Successfully fetched Address Book"
+                    schema:
+                        $ref: "#/definitions/LoggedInCustomerAddressBook"
+                500:
+                    description: "User not logged in"
+            security:
+                -   bearerAuth: []
         post:
-          tags: ["address"]
-          summary: "Creates a new address in the the address book"
-          operationId: "createAddress"
-          consumes: ["application/json"]
-          parameters:
-          - name: "content"
-            in: "body"
-            required: true
-            schema:
-              $ref: "#/definitions/LoggedInCustomerAddressBookAddress"
-          responses:
-            201:
-              description: "Successfully created the address"
-              schema:
-                - $ref: "#/definitions/LoggedInCustomerAddressBookAddress"
-            400:
-              description: "Validation failed"
-              schema:
-                  $ref: "#/definitions/GeneralError"
-            401:
-              description: "No user is logged in"
-            500:
-              description: "The user does not own the address"
-          security:
-             - bearerAuth: []
-    /address-book/{id}:
+            tags:
+                - "address"
+            summary: "Creates a new address in the the address book"
+            operationId: "createAddress"
+            parameters:
+                -   name: "content"
+                    in: "body"
+                    required: true
+                    schema:
+                        $ref: "#/definitions/LoggedInCustomerAddressBookAddress"
+            responses:
+                201:
+                    description: "Successfully created the address"
+                    schema:
+                        $ref: "#/definitions/LoggedInCustomerAddressBookAddress"
+                400:
+                    description: "Validation failed"
+                    schema:
+                        $ref: "#/definitions/GeneralError"
+                401:
+                    description: "No user is logged in"
+                500:
+                    description: "The user does not own the address"
+            security:
+                -   bearerAuth: []
+    /{channelCode}/address-book/{id}:
+        parameters:
+            -   $ref: "#/parameters/ChannelCode"
         put:
-          tags:
-          - "address"
-          summary: "Updates an address in the address book"
-          operationId: "updateAddressBook"
-          consumes: ["application/json"]
-          parameters:
-          - name: "id"
-            in: "path"
-            required: true
-            type: "integer"
-            example: 1
-            description: "Id of the address to update"
-          - name: "content"
-            in: "body"
-            required: true
-            schema:
-              $ref: "#/definitions/LoggedInCustomerAddressBookAddress"
-          responses:
-            200:
-              description: "Successfully updated the address"
-              schema:
-                $ref: "#/definitions/LoggedInCustomerAddressBookAddress"
-            400:
-              description: "Validation failed"
-              schema:
-                  $ref: "#/definitions/GeneralError"
-            401:
-              description: "No user is logged in"
-            500:
-              description: "The user does not own the address"
-          security:
-             - bearerAuth: []
+            tags:
+                - "address"
+            summary: "Updates an address in the address book"
+            operationId: "updateAddressBook"
+            parameters:
+                -   name: "id"
+                    in: "path"
+                    required: true
+                    type: "integer"
+                    description: "Id of the address to update"
+                -   name: "content"
+                    in: "body"
+                    required: true
+                    schema:
+                        $ref: "#/definitions/LoggedInCustomerAddressBookAddress"
+            responses:
+                200:
+                    description: "Successfully updated the address"
+                    schema:
+                        $ref: "#/definitions/LoggedInCustomerAddressBookAddress"
+                400:
+                    description: "Validation failed"
+                    schema:
+                        $ref: "#/definitions/GeneralError"
+                401:
+                    description: "No user is logged in"
+                500:
+                    description: "The user does not own the address"
+            security:
+                -   bearerAuth: []
         delete:
-          tags: ["address"]
-          summary: "Deletes an address from the address book"
-          operationId: "deleteAddress"
-          consumes: ["application/json"]
-          parameters:
-          - name: "id"
-            in: "path"
-            required: true
-            type: "integer"
-            example: 1
-            description: "Id of the address to update"
-          responses:
-            204:
-              description: "Successfully removed the address"
-            400:
-              description: "Validation failed"
-              schema:
-                  $ref: "#/definitions/GeneralError"
-            401:
-              description: "No user is logged in"
-            500:
-              description: "The user does not own the address"
-          security:
-             - bearerAuth: []
-    /address-book/{id}/default:
+            tags:
+                - "address"
+            summary: "Deletes an address from the address book"
+            operationId: "deleteAddress"
+            parameters:
+                -   name: "id"
+                    in: "path"
+                    required: true
+                    type: "integer"
+                    description: "Id of the address to update"
+            responses:
+                204:
+                    description: "Successfully removed the address"
+                400:
+                    description: "Validation failed"
+                    schema:
+                        $ref: "#/definitions/GeneralError"
+                401:
+                    description: "No user is logged in"
+                500:
+                    description: "The user does not own the address"
+            security:
+                -   bearerAuth: []
+    /{channelCode}/address-book/{id}/default:
+        parameters:
+            -   $ref: "#/parameters/ChannelCode"
         patch:
-          tags: ["address"]
-          summary: "Change the default address in the address book"
-          operationId: "updateDefaultAddress"
-          consumes: ["application/json"]
-          parameters:
-          - name: "id"
-            in: "path"
-            required: true
-            type: "integer"
-            example: 1
-            description: "Id of the address to be the default address"
-          responses:
-            204:
-              description: "Successfully updated the address"
-            400:
-              description: "Validation failed"
-              schema:
-                  $ref: "#/definitions/GeneralError"
-            401:
-              description: "No user is logged in"
-            500:
-              description: "The user does not own the address"
-          security:
-             - bearerAuth: []
+            tags:
+                - "address"
+            summary: "Change the default address in the address book"
+            operationId: "updateDefaultAddress"
+            parameters:
+                -   name: "id"
+                    in: "path"
+                    required: true
+                    type: "integer"
+                    description: "Id of the address to be the default address"
+            responses:
+                204:
+                    description: "Successfully updated the address"
+                400:
+                    description: "Validation failed"
+                    schema:
+                        $ref: "#/definitions/GeneralError"
+                401:
+                    description: "No user is logged in"
+                500:
+                    description: "The user does not own the address"
+            security:
+                -   bearerAuth: []
+
 securityDefinitions:
-  bearerAuth:
-    type: "apiKey"
-    name: "Authorization"
-    in: "header"
+    bearerAuth:
+        type: "apiKey"
+        name: "Authorization"
+        in: "header"
+
 definitions:
-    PickupCartRequest:
-        type: "object"
-        description: "Body of request with a channel code."
-        required:
-        - "channel"
-        properties:
-            channel:
-                type: "string"
-                example: "WEB_GB"
     AddReviewRequest:
         type: "object"
         description: "Body of request with a channel code."
         required:
-        - "channelCode"
-        - "title"
-        - "rating"
-        - "comment"
-        - "email"
+            - "title"
+            - "rating"
+            - "comment"
+            - "email"
         properties:
-            channelCode:
-                type: "string"
-                example: "WEB_GB"
             title:
                 type: "string"
                 example: "Awesome product"
@@ -1154,7 +975,7 @@ definitions:
         type: "object"
         description: "Body of request used to put item to the cart."
         required:
-        - "productCode"
+            - "productCode"
         properties:
             productCode:
                 type: "string"
@@ -1183,7 +1004,7 @@ definitions:
         type: "object"
         description: "Body of request used to change quantity of an item."
         required:
-        - "quantity"
+            - "quantity"
         properties:
             quantity:
                 type: "integer"
@@ -1192,7 +1013,7 @@ definitions:
         type: "object"
         description: "Body of request used to add promotion coupon code to cart."
         required:
-        - "coupon"
+            - "coupon"
         properties:
             coupon:
                 type: "string"
@@ -1201,7 +1022,7 @@ definitions:
         type: "object"
         description: "Body of request used for cart addressing."
         required:
-        - "shippingAddress"
+            - "shippingAddress"
         properties:
             shippingAddress:
                 type: "object"
@@ -1213,7 +1034,7 @@ definitions:
         type: "object"
         description: "Body of request used to choose shipping method."
         required:
-        - "method"
+            - "method"
         properties:
             method:
                 type: "string"
@@ -1223,7 +1044,7 @@ definitions:
         type: "object"
         description: "Body of request used to choose payment method."
         required:
-        - "method"
+            - "method"
         properties:
             method:
                 type: "string"
@@ -1233,7 +1054,7 @@ definitions:
         type: "object"
         description: "Body of request used to complete checkout."
         required:
-        - "email"
+            - "email"
         properties:
             email:
                 type: "string"
@@ -1264,13 +1085,13 @@ definitions:
                 type: "string"
                 default: "cart"
                 externalDocs:
-                  description: "Find out more about shipment states in the Sylius documentation."
-                  url: "http://docs.sylius.org/en/latest/book/orders/shipments.html#the-shipment-state-machine"
+                    description: "Find out more about shipment states in the Sylius documentation."
+                    url: "http://docs.sylius.org/en/latest/book/orders/shipments.html#the-shipment-state-machine"
                 enum:
-                - "cart"
-                - "ready"
-                - "cancelled"
-                - "shipped"
+                    - "cart"
+                    - "ready"
+                    - "cancelled"
+                    - "shipped"
             method:
                 type: "object"
                 $ref: "#/definitions/ShippingMethod"
@@ -1296,16 +1117,16 @@ definitions:
                 type: "string"
                 default: "cart"
                 externalDocs:
-                  description: "Find out more about payment states in the Sylius documentation."
-                  url: "http://docs.sylius.org/en/latest/book/orders/payments.html#payment-state-machine"
+                    description: "Find out more about payment states in the Sylius documentation."
+                    url: "http://docs.sylius.org/en/latest/book/orders/payments.html#payment-state-machine"
                 enum:
-                - "cart"
-                - "new"
-                - "processing"
-                - "completed"
-                - "failed"
-                - "cancelled"
-                - "refunded"
+                    - "cart"
+                    - "new"
+                    - "processing"
+                    - "completed"
+                    - "failed"
+                    - "cancelled"
+                    - "refunded"
             method:
                 type: "object"
                 $ref: "#/definitions/PaymentMethod"
@@ -1338,15 +1159,15 @@ definitions:
                     description: "Find out more about checkout states in the Sylius documentation."
                     url: "http://docs.sylius.org/en/latest/book/orders/checkout.html#checkout-state-machine"
                 enum:
-                - "cart"
-                - "addressed"
-                - "shipping_selected"
-                - "payment_selected"
-                - "completed"
+                    - "cart"
+                    - "addressed"
+                    - "shipping_selected"
+                    - "payment_selected"
+                    - "completed"
             items:
                 type: "array"
                 items:
-                    $ref: '#/definitions/CartItem'
+                    $ref: "#/definitions/Item"
             totals:
                 type: "object"
                 $ref: "#/definitions/TotalsView"
@@ -1368,13 +1189,12 @@ definitions:
                 type: "array"
                 items:
                     type: "object"
-                    properties:
-                        additionalProperties:
-                            type: "object"
-                            $ref: "#/definitions/Discount"
-    CartItem:
+                    additionalProperties:
+                        type: "object"
+                        $ref: "#/definitions/Discount"
+    Item:
         type: "object"
-        description: "Cart item with calculated prices, quantity and related product."
+        description: "Item with calculated prices, quantity and related product."
         properties:
             id:
                 type: "integer"
@@ -1383,10 +1203,10 @@ definitions:
                 type: "integer"
                 example: 2
             total:
-                type: "object"
+                type: "integer"
                 example: 1000
             product:
-                $ref: '#/definitions/Product'
+                $ref: "#/definitions/Product"
     Product:
         type: "object"
         description: "Product with its basic information, variants, attributes, association and images."
@@ -1401,32 +1221,32 @@ definitions:
                 type: "string"
                 example: "logan-mug"
             averageRating:
-                type: "integer"
-                example: 4.5
+                type: "string"
+                example: "4.5"
             taxons:
-                $ref: '#/definitions/ProductTaxon'
+                $ref: "#/definitions/ProductTaxon"
             variants:
                 description: "Keys reference to code of a variant."
                 type: "object"
                 additionalProperties:
                     type: "array"
                     items:
-                        $ref: '#/definitions/Variant'
+                        $ref: "#/definitions/Variant"
             attributes:
                 type: "array"
                 items:
-                    $ref: '#/definitions/Attribute'
+                    $ref: "#/definitions/Attribute"
             associations:
                 description: "Keys reference to code of an association."
                 type: "object"
                 additionalProperties:
                     type: "array"
                     items:
-                        $ref: '#/definitions/Product'
+                        $ref: "#/definitions/Product"
             images:
                 type: "array"
                 items:
-                    $ref: '#/definitions/Image'
+                    $ref: "#/definitions/Image"
     Image:
         type: "object"
         properties:
@@ -1435,7 +1255,7 @@ definitions:
                 example: "thumbnail"
             path:
                 type: "string"
-                example: "\/uo\/mug.jpg"
+                example: "/uo/mug.jpg"
     Variant:
         type: "object"
         description: "If the product is simple it will have only one variant with the same code and name. Otherwise, the product can have a list of variants with different fields."
@@ -1447,22 +1267,22 @@ definitions:
                 type: "string"
                 example: "Logan Mug"
             axis:
-                    type: "array"
-                    description: "List of codes of associated product options."
-                    items:
-                        type: "string"
-                        example: "HAT_SIZE_S"
+                type: "array"
+                description: "List of codes of associated product options."
+                items:
+                    type: "string"
+                    example: "HAT_SIZE_S"
             nameAxis:
                 description: "Map of keys from previous field to translated values of given variant."
                 type: "object"
                 additionalProperties:
                     type: "string"
             price:
-                $ref: '#/definitions/Price'
+                $ref: "#/definitions/Price"
             images:
                 type: "array"
                 items:
-                    $ref: '#/definitions/Image'
+                    $ref: "#/definitions/Image"
     Attribute:
         type: "object"
         properties:
@@ -1494,18 +1314,18 @@ definitions:
                 type: "array"
                 description: "Based on this tree one can build a breadcrumb on a frontend. Otherwise (e.g. presenting a tree of all taxons) children will contain all children of given taxon."
                 items:
-                    $ref: '#/definitions/Taxon'
+                    $ref: "#/definitions/Taxon"
             images:
                 type: "array"
                 items:
-                    $ref: '#/definitions/Image'
+                    $ref: "#/definitions/Image"
     TaxonDetails:
         type: "object"
         properties:
             self:
-                $ref: '#/definitions/Taxon'
+                $ref: "#/definitions/Taxon"
             parentTree:
-                $ref: '#/definitions/Taxon'
+                $ref: "#/definitions/Taxon"
     ProductTaxon:
         type: "object"
         properties:
@@ -1515,7 +1335,7 @@ definitions:
             others:
                 type: "array"
                 items:
-                    type: string
+                    type: "string"
                     example: "OTHER_TAXON_CODE"
     Discount:
         type: "object"
@@ -1525,7 +1345,7 @@ definitions:
                 type: "string"
                 example: "Summer sale"
             amount:
-                $ref: '#/definitions/Price'
+                $ref: "#/definitions/Price"
     Page:
         type: "object"
         description: "Generic page object."
@@ -1540,65 +1360,65 @@ definitions:
                 example: 10
             pages:
                 description: "Number of available pages for given limit."
-                type: "object"
+                type: "integer"
                 example: 3
             total:
                 description: "Amount of all paginated resources."
-                type: "object"
+                type: "integer"
                 example: 25
             _links:
                 type: "object"
                 properties:
                     self:
                         description: "Link to the current page."
-                        type: "integer"
-                        example: "\/shop-api\/some-path?page=1&limit=10"
+                        type: "string"
+                        example: "/shop-api/some-path?page=1&limit=10"
                     first:
                         description: "Link to the fist page."
                         type: "string"
-                        example: "\/shop-api\/some-path?page=1&limit=10"
+                        example: "/shop-api/some-path?page=1&limit=10"
                     last:
                         description: "Link to the last page."
                         type: "string"
-                        example: "\/shop-api\/some-path?page=1&limit=10"
+                        example: "/shop-api/some-path?page=1&limit=10"
                     next:
                         description: "Link to the next page."
                         type: "string"
-                        example: "\/shop-api\/some-path?page=1&limit=10"
+                        example: "/shop-api/some-path?page=1&limit=10"
     ProductsPage:
         allOf:
-        - $ref: '#/definitions/Page'
-        - type: object
-          properties:
-              items:
-                  type: "array"
-                  items:
-                      $ref: '#/definitions/Product'
+            -   $ref: "#/definitions/Page"
+            -   type: "object"
+                properties:
+                    items:
+                        type: "array"
+                        items:
+                            $ref: "#/definitions/Product"
     ProductDetails:
         allOf:
-        - $ref: '#/definitions/Product'
-        - type: object
-          properties:
-              breadcrumb:
-                  type: "string"
-                  example: "categories/mugs/logan-mug"
+            -   $ref: "#/definitions/Product"
+            -   type: "object"
+                properties:
+                    breadcrumb:
+                        type: "string"
+                        example: "categories/mugs/logan-mug"
     ProductReviewsPage:
         allOf:
-        - $ref: '#/definitions/Page'
-        - type: object
-          properties:
-              title:
-                  type: "string"
-                  example: "Nice mug"
-              rating:
-                  type: "integer"
-                  example: 5
-              comment:
-                  type: "string"
-                  example: "It is a really nice mug."
-              author:
-                  type: "string"
-                  example: "example@shop.com"
+            -   $ref: "#/definitions/Page"
+            -   type: "object"
+                properties:
+                    title:
+                        type: "string"
+                        example: "Nice mug"
+                    rating:
+                        type: "integer"
+                        example: 5
+                    comment:
+                        type: "string"
+                        example: "It is a really nice mug."
+                    author:
+                        type: "string"
+                        example: "example@shop.com"
     Price:
         type: "object"
         properties:
@@ -1613,7 +1433,7 @@ definitions:
         type: "object"
         properties:
             price:
-                $ref: '#/definitions/Price'
+                $ref: "#/definitions/Price"
     Address:
         type: "object"
         properties:
@@ -1650,6 +1470,9 @@ definitions:
             description:
                 type: "string"
                 example: "Some strange description."
+            instructions:
+                type: "string"
+                example: "Some instructions."
     ShippingMethod:
         type: "object"
         properties:
@@ -1663,7 +1486,7 @@ definitions:
                 type: "string"
                 example: "DHL Delivery will deliver your parcel even next day!"
             price:
-                $ref: '#/definitions/Price'
+                $ref: "#/definitions/Price"
     RequestPasswordResetting:
         type: "object"
         properties:
@@ -1689,28 +1512,28 @@ definitions:
                 type: "string"
                 example: "WEB_GB"
     UpdateUserRequest:
-        type: object
+        type: "object"
         properties:
             firstName:
-                type: string
-                example: 'Sherlock'
+                type: "string"
+                example: "Sherlock"
             lastName:
-                type: string
-                example: 'Holmes'
+                type: "string"
+                example: "Holmes"
             email:
-                type: string
-                example: 'sherlock@holmes.com'
+                type: "string"
+                example: "sherlock@holmes.com"
             birthday:
-                type: string
-                example: '2017-08-12'
+                type: "string"
+                example: "2017-08-12"
             gender:
-                type: string
-                example: 'f'
+                type: "string"
+                example: "f"
             phoneNumber:
-                type: string
+                type: "string"
                 example: "+490000000000"
             subscribedToNewsletter:
-                type: integer
+                type: "integer"
                 example: 0
     LoggedInCustomerDetails:
         type: "object"
@@ -1725,15 +1548,15 @@ definitions:
                 type: "string"
                 example: "sherlock@holmes.com"
     LoggedInCustomerAddressBook:
-      type: "array"
-      items:
-          allOf:
-              - $ref: "#/definitions/LoggedInCustomerAddressBookAddress"
-              - type: "object"
-                properties:
-                    default:
-                        type: "boolean"
-                        example: false
+        type: "array"
+        items:
+            allOf:
+                -   $ref: "#/definitions/LoggedInCustomerAddressBookAddress"
+                -   type: "object"
+                    properties:
+                        default:
+                            type: "boolean"
+                            example: false
     LoggedInCustomerAddressBookAddress:
         type: "object"
         properties:
@@ -1794,46 +1617,66 @@ definitions:
                 type: "integer"
                 example: 0
     PlacedOrder:
-        channel:
-            type: "string"
-            example: "WEB_US"
-        currency:
-            type: "string"
-            example: "USD"
-        locale:
-            type: "string"
-            example: "en_US"
-        checkoutState:
-            type: "string"
-            example: "shipped"
-        totals:
-            $ref: "#/definitions/TotalsView"
-        items:
-            type: "array"
+        type: "object"
+        description: "Placed order with information about items, current state, totals and more."
+        properties:
+            tokenValue:
+                type: "string"
+                example: "SDAOSLEFNWU35H3QLI5325"
+            channel:
+                type: "string"
+                example: "WEB_GB"
+                externalDocs:
+                    description: "Find out more about channels in the Sylius documentation."
+                    url: "http://docs.sylius.org/en/latest/book/configuration/channels.html"
+            currency:
+                description: "Code of the cart currency according to ISO 4217. This value is inherited from channel"
+                type: "string"
+                example: "GBP"
+            locale:
+                description: "Code of the order locale. This value is inherited from channel"
+                type: "string"
+                example: "en_GB"
+            checkoutState:
+                description: "Current state of a checkout."
+                type: "string"
+                default: "cart"
+                externalDocs:
+                    description: "Find out more about checkout states in the Sylius documentation."
+                    url: "http://docs.sylius.org/en/latest/book/orders/checkout.html#checkout-state-machine"
+                enum:
+                    - "cart"
+                    - "new"
+                    - "fulfilled"
+                    - "cancelled"
             items:
-                $ref: "#/definitions/OrderItem"
-        shipments:
-            type: "array"
-            items:
-                $ref: "#/definitions/Shipment"
-        payment:
-            type: "array"
-            items:
-                $ref: "#/definitions/Payment"
-        cartDiscounts:
-            type: "object"
-            someCode:
-                $ref: "#/definitions/Discount"
-            someOtherCode:
-                $ref: "#/definitions/Discount"
-        shippingAddress:
-            type: "object"
-            $ref: "#/definitions/Address"
-        billingAddress:
-            type: "object"
-            $ref: "#/definitions/Address"
-
-
+                type: "array"
+                items:
+                    $ref: "#/definitions/Item"
+            totals:
+                type: "object"
+                $ref: "#/definitions/TotalsView"
+            shippingAddress:
+                type: "object"
+                $ref: "#/definitions/Address"
+            billingAddress:
+                type: "object"
+                $ref: "#/definitions/Address"
+            payments:
+                type: "array"
+                items:
+                    $ref: "#/definitions/Payment"
+            shipments:
+                type: "array"
+                items:
+                    $ref: "#/definitions/Shipment"
+            cartDiscounts:
+                type: "array"
+                items:
+                    type: "object"
+                    additionalProperties:
+                        type: "object"
+                        $ref: "#/definitions/Discount"
     GeneralError:
         type: "object"
         properties:
