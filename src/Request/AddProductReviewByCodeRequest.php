@@ -7,7 +7,7 @@ namespace Sylius\ShopApiPlugin\Request;
 use Sylius\ShopApiPlugin\Command\AddProductReviewByCode;
 use Symfony\Component\HttpFoundation\Request;
 
-class AddProductReviewByCodeRequest implements CommandRequestInterface
+class AddProductReviewByCodeRequest
 {
     /** @var string */
     protected $code;
@@ -27,7 +27,7 @@ class AddProductReviewByCodeRequest implements CommandRequestInterface
     /** @var string */
     protected $email;
 
-    public function populateData(Request $request): void
+    public function __construct(Request $request)
     {
         $this->code = $request->attributes->get('code');
         $this->channelCode = $request->attributes->get('channelCode');
@@ -38,7 +38,7 @@ class AddProductReviewByCodeRequest implements CommandRequestInterface
         $this->email = $request->request->get('email');
     }
 
-    public function getCommand(): object
+    public function getCommand(): AddProductReviewByCode
     {
         return new AddProductReviewByCode($this->code, $this->channelCode, $this->title, $this->rating, $this->comment, $this->email);
     }

@@ -16,8 +16,7 @@ final class ResendVerificationTokenRequestTest extends TestCase
      */
     public function it_creates_put_simple_item_to_cart_command()
     {
-        $putSimpleItemToCartRequest = new ResendVerificationTokenRequest();
-        $putSimpleItemToCartRequest->populateData(new Request([], ['email' => 'daffy@the-duck.com'], ['channelCode' => 'WEB_GB']));
+        $putSimpleItemToCartRequest = new ResendVerificationTokenRequest(new Request([], ['email' => 'daffy@the-duck.com'], ['channelCode' => 'WEB_GB']));
 
         $this->assertEquals($putSimpleItemToCartRequest->getCommand(), new SendVerificationToken('daffy@the-duck.com', 'WEB_GB'));
     }

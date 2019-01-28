@@ -16,8 +16,7 @@ final class AddProductReviewByCodeRequestTest extends TestCase
      */
     public function it_creates_review_with_author()
     {
-        $addReviewRequest = new AddProductReviewByCodeRequest();
-        $addReviewRequest->populateData(new Request([], [
+        $addReviewRequest = new AddProductReviewByCodeRequest(new Request([], [
             'title' => 'Awesome beer',
             'rating' => 5,
             'comment' => 'I love this beer',

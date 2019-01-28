@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Sylius\ShopApiPlugin\Normalizer;
 
 use League\Tactician\CommandBus;
-use Sylius\ShopApiPlugin\Command\PickupCart;
 use Sylius\ShopApiPlugin\Request\PickupCartRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -30,8 +29,7 @@ final class RequestCartTokenNormalizer implements RequestCartTokenNormalizerInte
             return $request;
         }
 
-        $pickupRequest = new PickupCartRequest();
-        $pickupRequest->populateData($request);
+        $pickupRequest = new PickupCartRequest($request);
 
         $validationResults = $this->validator->validate($pickupRequest);
 
@@ -40,8 +38,6 @@ final class RequestCartTokenNormalizer implements RequestCartTokenNormalizerInte
         }
 
         $pickupCartCommand = $pickupRequest->getCommand();
-        assert($pickupCartCommand instanceof PickupCart);
-
         $this->bus->handle($pickupCartCommand);
 
         $request->attributes->set('token', $pickupCartCommand->orderToken());

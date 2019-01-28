@@ -8,12 +8,9 @@ use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
 use Sylius\Component\Core\Model\ShopUserInterface;
-use Sylius\ShopApiPlugin\Command\RemoveAddress;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactory;
-use Sylius\ShopApiPlugin\Parser\CommandRequestParserInterface;
 use Sylius\ShopApiPlugin\Provider\LoggedInShopUserProviderInterface;
 use Sylius\ShopApiPlugin\Request\RemoveAddressRequest;
-use Sylius\ShopApiPlugin\Request\UserEmailBasedCommandRequestInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
@@ -36,23 +33,18 @@ final class RemoveAddressAction
     /** @var LoggedInShopUserProviderInterface */
     private $loggedInUserProvider;
 
-    /** @var CommandRequestParserInterface */
-    private $commandRequestParser;
-
     public function __construct(
         ViewHandlerInterface $viewHandler,
         ValidatorInterface $validator,
         ValidationErrorViewFactory $validationErrorViewFactory,
         CommandBus $bus,
-        LoggedInShopUserProviderInterface $loggedInUserProvider,
-        CommandRequestParserInterface $commandRequestParser
+        LoggedInShopUserProviderInterface $loggedInUserProvider
     ) {
         $this->viewHandler = $viewHandler;
         $this->validator = $validator;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->bus = $bus;
         $this->loggedInUserProvider = $loggedInUserProvider;
-        $this->commandRequestParser = $commandRequestParser;
     }
 
     public function __invoke(Request $request): Response
@@ -64,9 +56,7 @@ final class RemoveAddressAction
             return $this->viewHandler->handle(View::create(null, Response::HTTP_UNAUTHORIZED));
         }
 
-        /** @var UserEmailBasedCommandRequestInterface $removeAddressRequest */
-        $removeAddressRequest = $this->commandRequestParser->parse($request, RemoveAddress::class);
-        $removeAddressRequest->setUserEmail($user->getEmail());
+        $removeAddressRequest = new RemoveAddressRequest($request, $user->getEmail());
 
         $validationResults = $this->validator->validate($removeAddressRequest);
 

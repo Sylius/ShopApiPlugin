@@ -8,7 +8,6 @@ use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
 use Sylius\ShopApiPlugin\Command\ChooseShippingMethod;
-use Sylius\ShopApiPlugin\Parser\CommandRequestParserInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -20,24 +19,19 @@ final class ChooseShippingMethodAction
     /** @var CommandBus */
     private $bus;
 
-    /** @var CommandRequestParserInterface */
-    private $commandRequestParser;
-
-    public function __construct(
-        ViewHandlerInterface $viewHandler,
-        CommandBus $bus,
-        CommandRequestParserInterface $commandRequestParser
-    ) {
+    public function __construct(ViewHandlerInterface $viewHandler, CommandBus $bus)
+    {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
-        $this->commandRequestParser = $commandRequestParser;
     }
 
     public function __invoke(Request $request): Response
     {
-        $commandRequest = $this->commandRequestParser->parse($request, ChooseShippingMethod::class);
-
-        $this->bus->handle($commandRequest->getCommand());
+        $this->bus->handle(new ChooseShippingMethod(
+            $request->attributes->get('token'),
+            $request->attributes->get('shippingId'),
+            $request->request->get('method')
+        ));
 
         return $this->viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));
     }

@@ -7,13 +7,11 @@ namespace Sylius\ShopApiPlugin\Controller\Cart;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
-use Sylius\ShopApiPlugin\Command\PutOptionBasedConfigurableItemToCart;
-use Sylius\ShopApiPlugin\Command\PutSimpleItemToCart;
-use Sylius\ShopApiPlugin\Command\PutVariantBasedConfigurableItemToCart;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
 use Sylius\ShopApiPlugin\Normalizer\RequestCartTokenNormalizerInterface;
-use Sylius\ShopApiPlugin\Parser\CommandRequestParserInterface;
-use Sylius\ShopApiPlugin\Request\CommandRequestInterface;
+use Sylius\ShopApiPlugin\Request\PutOptionBasedConfigurableItemToCartRequest;
+use Sylius\ShopApiPlugin\Request\PutSimpleItemToCartRequest;
+use Sylius\ShopApiPlugin\Request\PutVariantBasedConfigurableItemToCartRequest;
 use Sylius\ShopApiPlugin\ViewRepository\Cart\CartViewRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -41,17 +39,13 @@ final class PutItemToCartAction
     /** @var RequestCartTokenNormalizerInterface */
     private $requestCartTokenNormalizer;
 
-    /** @var CommandRequestParserInterface */
-    private $commandRequestParser;
-
     public function __construct(
         ViewHandlerInterface $viewHandler,
         CommandBus $bus,
         ValidatorInterface $validator,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         CartViewRepositoryInterface $cartQuery,
-        RequestCartTokenNormalizerInterface $requestCartTokenNormalizer,
-        CommandRequestParserInterface $commandRequestParser
+        RequestCartTokenNormalizerInterface $requestCartTokenNormalizer
     ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
@@ -59,7 +53,6 @@ final class PutItemToCartAction
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->cartQuery = $cartQuery;
         $this->requestCartTokenNormalizer = $requestCartTokenNormalizer;
-        $this->commandRequestParser = $commandRequestParser;
     }
 
     public function __invoke(Request $request): Response
@@ -71,6 +64,7 @@ final class PutItemToCartAction
         }
 
         $commandRequest = $this->provideCommandRequest($request);
+
         $validationResults = $this->validator->validate($commandRequest);
 
         if (0 !== count($validationResults)) {
@@ -82,12 +76,6 @@ final class PutItemToCartAction
         }
 
         $command = $commandRequest->getCommand();
-        assert(
-            $command instanceof PutSimpleItemToCart ||
-            $command instanceof PutVariantBasedConfigurableItemToCart ||
-            $command instanceof PutOptionBasedConfigurableItemToCart
-        );
-
         $this->bus->handle($command);
 
         try {
@@ -99,21 +87,22 @@ final class PutItemToCartAction
         }
     }
 
-    private function provideCommandRequest(Request $request): CommandRequestInterface
+    /** @return PutOptionBasedConfigurableItemToCartRequest|PutSimpleItemToCartRequest|PutVariantBasedConfigurableItemToCartRequest */
+    private function provideCommandRequest(Request $request)
     {
         $hasVariantCode = $request->request->has('variantCode');
         $hasOptionCode = $request->request->has('options');
 
         if (!$hasVariantCode && !$hasOptionCode) {
-            return $this->commandRequestParser->parse($request, PutSimpleItemToCart::class);
+            return PutSimpleItemToCartRequest::fromRequest($request);
         }
 
         if ($hasVariantCode && !$hasOptionCode) {
-            return $this->commandRequestParser->parse($request, PutVariantBasedConfigurableItemToCart::class);
+            return PutVariantBasedConfigurableItemToCartRequest::fromRequest($request);
         }
 
         if (!$hasVariantCode && $hasOptionCode) {
-            return $this->commandRequestParser->parse($request, PutOptionBasedConfigurableItemToCart::class);
+            return PutOptionBasedConfigurableItemToCartRequest::fromRequest($request);
         }
 
         throw new NotFoundHttpException('Variant not found for given configuration');

@@ -8,7 +8,7 @@ use DateTimeInterface;
 use Sylius\ShopApiPlugin\Command\UpdateCustomer;
 use Symfony\Component\HttpFoundation\Request;
 
-class UpdateCustomerRequest implements CommandRequestInterface
+class UpdateCustomerRequest
 {
     /** @var string */
     protected $firstName;
@@ -31,7 +31,7 @@ class UpdateCustomerRequest implements CommandRequestInterface
     /** @var bool */
     protected $subscribedToNewsletter;
 
-    public function populateData(Request $request): void
+    public function __construct(Request $request)
     {
         $this->firstName = $request->request->get('firstName');
         $this->lastName = $request->request->get('lastName');
@@ -42,7 +42,7 @@ class UpdateCustomerRequest implements CommandRequestInterface
         $this->subscribedToNewsletter = $request->request->getBoolean('subscribedToNewsletter') ?? false;
     }
 
-    public function getCommand(): object
+    public function getCommand(): UpdateCustomer
     {
         return new UpdateCustomer($this->firstName, $this->lastName, $this->email, $this->birthday, $this->gender, $this->phoneNumber, $this->subscribedToNewsletter);
     }
