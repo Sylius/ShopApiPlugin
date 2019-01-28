@@ -8,7 +8,6 @@ use Sylius\ShopApiPlugin\Command\DropCart;
 use Sylius\ShopApiPlugin\Validator\Constraints\CartExists;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class DropCartCommandProvider implements CommandProviderInterface
@@ -21,33 +20,23 @@ final class DropCartCommandProvider implements CommandProviderInterface
         $this->validator = $validator;
     }
 
-    public function validate(Request $request): ConstraintViolationListInterface
+    public function provide(Request $request): object
     {
-        $constraint = new Assert\Collection([
+        $rawData = [
+            'token' => $request->attributes->get('token'),
+        ];
+
+        $violationList = $this->validator->validate($rawData, new Assert\Collection([
             'token' => [
                 new Assert\NotBlank(),
                 new CartExists(),
             ],
-        ]);
+        ]));
 
-        return $this->validator->validate($this->provideRawData($request), $constraint);
-    }
-
-    public function getCommand(Request $request): object
-    {
-        $violationList = $this->validate($request);
-
-        if (0 === count($violationList)) {
-            $rawData = $this->provideRawData($request);
-
-            return new DropCart($rawData['token']);
+        if (count($violationList) > 0) {
+            throw ValidationFailedException::fromSymfonyConstraintValidationList($violationList);
         }
 
-        throw new \InvalidArgumentException('Command cannot be created');
-    }
-
-    private function provideRawData(Request $request): array
-    {
-        return ['token' => $request->attributes->get('token')];
+        return new DropCart($rawData['token']);
     }
 }
