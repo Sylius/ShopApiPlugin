@@ -36,9 +36,9 @@ EOT;
         $userRepository = $this->get('sylius.repository.shop_user');
         $user = $userRepository->findOneByEmail('vinny@fandf.com');
 
-        $verifyEmail = sprintf('{"token": "%s"}', $user->getEmailVerificationToken());
+        $parameters = ['token' => $user->getEmailVerificationToken()];
 
-        $this->client->request('PUT', '/shop-api/WEB_GB/verify-account', [], [], ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'], $verifyEmail);
+        $this->client->request('GET', '/shop-api/WEB_GB/verify-account', $parameters, [], ['ACCEPT' => 'application/json']);
 
         $response = $this->client->getResponse();
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
@@ -67,9 +67,9 @@ EOT;
         $userRepository = $this->get('sylius.repository.shop_user');
         $user = $userRepository->findOneByEmail('vinny@fandf.com');
 
-        $verifyEmail = sprintf('{"token": "%s"}', $user->getEmailVerificationToken());
+        $parameters = ['token' => $user->getEmailVerificationToken()];
 
-        $this->client->request('PUT', '/shop-api/SPACE_KLINGON/verify-account', [], [], ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'], $verifyEmail);
+        $this->client->request('GET', '/shop-api/SPACE_KLINGON/verify-account', $parameters, [], ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json']);
 
         $response = $this->client->getResponse();
         $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
