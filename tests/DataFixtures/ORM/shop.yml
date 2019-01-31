@@ -6,7 +6,7 @@ Sylius\Component\Core\Model\Channel:
         description: "Lorem ipsum"
         baseCurrency: "@pound"
         defaultLocale: "@locale_en_gb"
-        locales: ["@locale_en_gb", "@locale_de_de"]
+        locales: ["@locale_en_gb", "@locale_de_de", "@locale_en_us"]
         color: "black"
         enabled: true
         taxCalculationStrategy: "order_items_based"
@@ -33,6 +33,8 @@ Sylius\Component\Locale\Model\Locale:
         code: en_GB
     locale_de_de:
         code: de_DE
+    locale_en_us:
+        code: en_US
 
 Sylius\Component\Core\Model\Product:
     mug:
@@ -450,6 +452,12 @@ Sylius\Component\Taxonomy\Model\TaxonTranslation:
     en_gb_yet_another_taxon_translation:
         slug: "yet_another_taxons"
         locale: "en_GB"
+        name: "Yet another taxon"
+        description: "Some description Lorem ipsum dolor sit amet."
+        translatable: "@yet_another_taxon"
+    en_us_yet_another_taxon_translation:
+        slug: "yet_another_taxons"
+        locale: "en_US"
         name: "Yet another taxon"
         description: "Some description Lorem ipsum dolor sit amet."
         translatable: "@yet_another_taxon"

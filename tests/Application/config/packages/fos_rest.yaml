@@ -8,4 +8,5 @@ fos_rest:
     format_listener:
         rules:
             - { path: '^/api/.*', priorities: ['json', 'xml'], fallback_format: json, prefer_extension: true }
+            - { path: '^/shop-api/.*', priorities: ['json', 'xml'], fallback_format: json, prefer_extension: true }
             - { path: '^/', stop: true }
