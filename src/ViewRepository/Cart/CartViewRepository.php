@@ -6,7 +6,7 @@ namespace Sylius\ShopApiPlugin\ViewRepository\Cart;
 
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Sylius\ShopApiPlugin\Factory\CartViewFactoryInterface;
+use Sylius\ShopApiPlugin\Factory\Cart\CartViewFactoryInterface;
 use Sylius\ShopApiPlugin\View\CartSummaryView;
 use Webmozart\Assert\Assert;
 

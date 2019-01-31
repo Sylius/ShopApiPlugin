@@ -8,7 +8,7 @@ use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
 use Sylius\Component\Core\Model\ShopUserInterface;
-use Sylius\ShopApiPlugin\Factory\CustomerViewFactoryInterface;
+use Sylius\ShopApiPlugin\Factory\Customer\CustomerViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
 use Sylius\ShopApiPlugin\Request\UpdateCustomerRequest;
 use Symfony\Component\HttpFoundation\Request;

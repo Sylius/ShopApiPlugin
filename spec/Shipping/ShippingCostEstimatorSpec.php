@@ -29,7 +29,11 @@ final class ShippingCostEstimatorSpec extends ObjectBehavior
         ServiceRegistryInterface $calculators
     ): void {
         $this->beConstructedWith(
-            $cartRepository, $addressFactory, $shipmentFactory, $shippingMethodResolver, $calculators
+            $cartRepository,
+            $addressFactory,
+            $shipmentFactory,
+            $shippingMethodResolver,
+            $calculators
         );
     }
 

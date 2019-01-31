@@ -17,17 +17,17 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class RequestCartTokenNormalizerSpec extends ObjectBehavior
 {
-    public function let(ValidatorInterface $validator, CommandBus $bus): void
+    function let(ValidatorInterface $validator, CommandBus $bus): void
     {
         $this->beConstructedWith($validator, $bus);
     }
 
-    public function it_implements_request_cart_token_normalizer_interface(): void
+    function it_implements_request_cart_token_normalizer_interface(): void
     {
         $this->shouldImplement(RequestCartTokenNormalizerInterface::class);
     }
 
-    public function it_returns_passed_request_if_cart_token_was_set(
+    function it_returns_passed_request_if_cart_token_was_set(
         Request $request,
         ValidatorInterface $validator,
         CommandBus $bus
@@ -43,7 +43,7 @@ final class RequestCartTokenNormalizerSpec extends ObjectBehavior
         $this->doNotAllowNullCartToken($request)->shouldReturn($request);
     }
 
-    public function it_throws_exception_when_pickup_cart_request_is_not_valid(
+    function it_throws_exception_when_pickup_cart_request_is_not_valid(
         Request $request,
         ValidatorInterface $validator,
         CommandBus $bus,
@@ -60,7 +60,7 @@ final class RequestCartTokenNormalizerSpec extends ObjectBehavior
         $this->shouldThrow(\InvalidArgumentException::class)->during('doNotAllowNullCartToken', [$request]);
     }
 
-    public function it_picks_up_new_cart_and_sets_its_token_on_request_if_token_was_not_passed(
+    function it_picks_up_new_cart_and_sets_its_token_on_request_if_token_was_not_passed(
         Request $request,
         ValidatorInterface $validator,
         CommandBus $bus,

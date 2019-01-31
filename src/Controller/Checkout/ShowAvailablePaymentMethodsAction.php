@@ -11,7 +11,7 @@ use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Payment\Resolver\PaymentMethodsResolverInterface;
-use Sylius\ShopApiPlugin\Factory\PaymentMethodViewFactoryInterface;
+use Sylius\ShopApiPlugin\Factory\Checkout\PaymentMethodViewFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
