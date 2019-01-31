@@ -51,6 +51,27 @@ security:
             stateless: true
             anonymous: true
 
+        sylius_shop_api_login:
+            pattern:  "%shop_api.security.regex%/login"
+            stateless: true
+            anonymous: true
+            form_login:
+                provider: sylius_shop_user_provider
+                login_path: /shop-api/login_check
+                check_path: /shop-api/login_check
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+                require_previous_session: false
+
+        shop_api:
+            pattern: "%shop_api.security.regex%"
+            stateless: true
+            anonymous: true
+            guard:
+                provider: sylius_shop_user_provider
+                authenticators:
+                    - lexik_jwt_authentication.jwt_token_authenticator
+
         shop:
             switch_user: { role: ROLE_ALLOWED_TO_SWITCH }
             context: shop
@@ -84,27 +105,6 @@ security:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
-
-        sylius_shop_api_login:
-            pattern:  "%shop_api.security.regex%/login"
-            stateless: true
-            anonymous: true
-            form_login:
-                provider: sylius_shop_user_provider
-                login_path: sylius_shop_api_login_check
-                check_path: sylius_shop_api_login_check
-                success_handler: lexik_jwt_authentication.handler.authentication_success
-                failure_handler: lexik_jwt_authentication.handler.authentication_failure
-                require_previous_session: false
-
-        shop_api:
-            pattern: "%shop_api.security.regex%"
-            stateless: true
-            anonymous: true
-            guard:
-                provider: sylius_shop_user_provider
-                authenticators:
-                    - lexik_jwt_authentication.jwt_token_authenticator
 
     access_control:
         - { path: "%sylius.security.admin_regex%/_partial", role: IS_AUTHENTICATED_ANONYMOUSLY, ips: [127.0.0.1, ::1] }

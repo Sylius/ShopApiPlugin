@@ -6,7 +6,7 @@ Sylius\Component\Core\Model\Channel:
         description: "Lorem ipsum"
         baseCurrency: "@pound"
         defaultLocale: "@locale_en_gb"
-        locales: ["@locale_en_gb", "@locale_de_de", "@locale_en_US"]
+        locales: ["@locale_en_gb", "@locale_de_de"]
         color: "black"
         enabled: true
         taxCalculationStrategy: "order_items_based"
@@ -35,5 +35,3 @@ Sylius\Component\Locale\Model\Locale:
         code: en_GB
     locale_de_de:
         code: de_DE
-    locale_en_US:
-        code: en_US

@@ -16,3 +16,10 @@ sylius_customer:
         customer:
             classes:
                 controller: Sylius\ShopApiPlugin\Controller\Customer\CustomerController
+
+sylius_product:
+    resources:
+        product:
+            classes:
+                # temporarily, until Sylius 1.4 release
+                repository: Sylius\ShopApiPlugin\Doctrine\ORM\ProductRepository
