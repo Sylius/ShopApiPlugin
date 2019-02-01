@@ -5,7 +5,7 @@
         <defaults public="true"/>
 
         <service id="sylius.shop_api_plugin.factory.customer_view_factory"
-                 class="Sylius\ShopApiPlugin\Factory\CustomerViewFactory">
+                 class="Sylius\ShopApiPlugin\Factory\Customer\CustomerViewFactory">
             <argument type="string">%sylius.shop_api.view.customer.class%</argument>
         </service>
     </services>

@@ -9,7 +9,7 @@ use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\OrderCheckoutStates;
 use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Sylius\ShopApiPlugin\Factory\PlacedOrderViewFactoryInterface;
+use Sylius\ShopApiPlugin\Factory\Order\PlacedOrderViewFactoryInterface;
 use Sylius\ShopApiPlugin\View\PlacedOrderView;
 use Webmozart\Assert\Assert;
 

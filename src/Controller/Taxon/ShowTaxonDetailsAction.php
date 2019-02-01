@@ -7,7 +7,7 @@ namespace Sylius\ShopApiPlugin\Controller\Taxon;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Sylius\Component\Taxonomy\Repository\TaxonRepositoryInterface;
-use Sylius\ShopApiPlugin\Factory\TaxonDetailsViewFactoryInterface;
+use Sylius\ShopApiPlugin\Factory\Taxon\TaxonDetailsViewFactoryInterface;
 use Sylius\ShopApiPlugin\Http\RequestBasedLocaleProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

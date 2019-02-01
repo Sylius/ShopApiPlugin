@@ -7,12 +7,12 @@
         <defaults public="true"/>
 
         <service id="sylius.shop_api_plugin.factory.address_book_view_factory"
-                 class="Sylius\ShopApiPlugin\Factory\AddressBookViewFactory">
+                 class="Sylius\ShopApiPlugin\Factory\AddressBook\AddressBookViewFactory">
             <argument type="string">%sylius.shop_api.view.address_book.class%</argument>
         </service>
 
         <service id="sylius.shop_api_plugin.factory.address_view_factory"
-                 class="Sylius\ShopApiPlugin\Factory\AddressViewFactory">
+                 class="Sylius\ShopApiPlugin\Factory\AddressBook\AddressViewFactory">
             <argument type="string">%sylius.shop_api.view.address.class%</argument>
         </service>
     </services>

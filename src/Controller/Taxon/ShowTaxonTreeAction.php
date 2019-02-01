@@ -8,7 +8,7 @@ use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Taxonomy\Repository\TaxonRepositoryInterface;
-use Sylius\ShopApiPlugin\Factory\TaxonViewFactoryInterface;
+use Sylius\ShopApiPlugin\Factory\Taxon\TaxonViewFactoryInterface;
 use Sylius\ShopApiPlugin\Http\RequestBasedLocaleProviderInterface;
 use Sylius\ShopApiPlugin\View\TaxonView;
 use Symfony\Component\HttpFoundation\Request;

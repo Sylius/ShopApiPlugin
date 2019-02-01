@@ -7,18 +7,18 @@
         <defaults public="true"/>
 
         <service id="sylius.shop_api_plugin.factory.image_view_factory"
-                 class="Sylius\ShopApiPlugin\Factory\ImageViewFactory">
+                 class="Sylius\ShopApiPlugin\Factory\Taxon\ImageViewFactory">
             <argument type="string">%sylius.shop_api.view.image.class%</argument>
         </service>
 
         <service id="sylius.shop_api_plugin.factory.taxon_view_factory"
-                 class="Sylius\ShopApiPlugin\Factory\TaxonViewFactory">
+                 class="Sylius\ShopApiPlugin\Factory\Taxon\TaxonViewFactory">
             <argument type="service" id="sylius.shop_api_plugin.factory.image_view_factory"/>
             <argument type="string">%sylius.shop_api.view.taxon.class%</argument>
         </service>
 
         <service id="sylius.shop_api_plugin.factory.taxon_details_view_factory"
-                 class="Sylius\ShopApiPlugin\Factory\TaxonDetailsViewFactory">
+                 class="Sylius\ShopApiPlugin\Factory\Taxon\TaxonDetailsViewFactory">
             <argument type="service" id="sylius.shop_api_plugin.factory.taxon_view_factory"/>
             <argument type="string">%sylius.shop_api.view.taxon_details.class%</argument>
         </service>
