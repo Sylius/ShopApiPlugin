@@ -37,6 +37,7 @@ Sylius\Component\Locale\Model\Locale:
 Sylius\Component\Core\Model\Product:
     mug:
         code: "LOGAN_MUG_CODE"
+        createdAt: "<date_create('2019-02-01 03:00:00')>"
         channels: ["@gb_web_channel"]
         currentLocale: "en_GB"
         translations: ["@en_gb_mug_product_translation", "@de_de_mug_product_translation"]
@@ -50,6 +51,7 @@ Sylius\Component\Core\Model\Product:
             - "@de_de_mug_holiday_material_value"
     t_shirt:
         code: "LOGAN_T_SHIRT_CODE"
+        createdAt: "<date_create('2019-02-01 01:00:00')>"
         channels: ["@gb_web_channel"]
         currentLocale: "en_GB"
         images: ["@t_shirt_thumbnail", "@small_t_shirt_thumbnail", "@large_t_shirt_thumbnail"]
@@ -57,6 +59,7 @@ Sylius\Component\Core\Model\Product:
         productTaxons: ["@women_t_shirt_product_taxon"]
     hat:
         code: "LOGAN_HAT_CODE"
+        createdAt: "<date_create('2019-02-01 04:00:00')>"
         channels: ["@gb_web_channel"]
         options: ["@hat_size"]
         currentLocale: "en_GB"
@@ -66,6 +69,7 @@ Sylius\Component\Core\Model\Product:
         productTaxons: ["@hat_product_taxon"]
     shoes:
         code: "LOGAN_SHOES_CODE"
+        createdAt: "<date_create('2019-02-01 02:00:00')>"
         channels: ["@gb_web_channel"]
         currentLocale: "en_GB"
         translations: ["@en_gb_shoes_product_translation"]

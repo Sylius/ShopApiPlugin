@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Doctrine\ORM;
 
+use Doctrine\ORM\QueryBuilder;
 use Sylius\Bundle\CoreBundle\Doctrine\ORM\ProductRepository as BaseProductRepository;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\TaxonInterface;
-use Doctrine\ORM\QueryBuilder;
 
 final class ProductRepository extends BaseProductRepository
 {
