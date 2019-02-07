@@ -45,7 +45,7 @@ EOT;
 <<<EOT
         {
             "comment": "Hello",
-            "rating": 100,
+            "rating": 4,
             "email": "test.com",
             "title": "Testing"
         }

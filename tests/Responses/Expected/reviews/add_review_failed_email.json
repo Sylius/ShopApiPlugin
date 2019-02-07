@@ -3,7 +3,7 @@
     "message": "Validation failed",
     "errors": {
         "email": [
-            "This valid is not a valid email address."
+            "This value is not a valid email address."
         ]
     }
 }
