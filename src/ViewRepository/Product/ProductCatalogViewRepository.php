@@ -97,6 +97,7 @@ final class ProductCatalogViewRepository implements ProductCatalogViewRepository
     private function findByTaxon(TaxonInterface $taxon, ChannelInterface $channel, PaginatorDetails $paginatorDetails, string $localeCode): PageView
     {
         $queryBuilder = $this->productRepository->createShopListQueryBuilder($channel, $taxon, $localeCode);
+        $queryBuilder->addSelect('productTaxon');
         $queryBuilder->addOrderBy('productTaxon.position');
 
         $pagerfanta = new Pagerfanta(new DoctrineORMAdapter($queryBuilder));
