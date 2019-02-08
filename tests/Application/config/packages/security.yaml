@@ -1,19 +1,15 @@
-# This file is part of the Sylius package.
-# (c) Paweł Jędrzejewski
-
 parameters:
     sylius.security.admin_regex: "^/admin"
     sylius.security.api_regex: "^/api"
-    sylius.security.shop_regex: "^/(?!admin|api|shop-api)[^/]++"
+    sylius.security.shop_regex: "^/(?!admin|api/.*|api$|media/.*)[^/]++"
     shop_api.security.regex: "^/shop-api"
 
 security:
     providers:
-        # ShopUser provider has to be defined as a first one in order to make JWT and SymfonyAuthorization work
-        sylius_shop_user_provider:
-            id: sylius.shop_user_provider.email_or_name_based
         sylius_admin_user_provider:
             id: sylius.admin_user_provider.email_or_name_based
+        sylius_shop_user_provider:
+            id: sylius.shop_user_provider.email_or_name_based
     encoders:
         Sylius\Component\User\Model\UserInterface: sha512
     firewalls:
@@ -34,7 +30,7 @@ security:
                 csrf_parameter: _csrf_admin_security_token
                 csrf_token_id: admin_authenticate
             remember_me:
-                secret: "%secret%"
+                secret: "%env(APP_SECRET)%"
                 path: /admin
                 name: APP_ADMIN_REMEMBER_ME
                 lifetime: 31536000
@@ -49,7 +45,7 @@ security:
             security: false
 
         api:
-            pattern: "%sylius.security.api_regex%"
+            pattern: "%sylius.security.api_regex%/.*"
             provider: sylius_admin_user_provider
             fos_oauth: true
             stateless: true
@@ -61,8 +57,8 @@ security:
             anonymous: true
             form_login:
                 provider: sylius_shop_user_provider
-                login_path: sylius_shop_api_login_check
-                check_path: sylius_shop_api_login_check
+                login_path: /shop-api/login_check
+                check_path: /shop-api/login_check
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
                 require_previous_session: false
@@ -95,7 +91,7 @@ security:
                 csrf_parameter: _csrf_shop_security_token
                 csrf_token_id: shop_authenticate
             remember_me:
-                secret: "%secret%"
+                secret: "%env(APP_SECRET)%"
                 name: APP_SHOP_REMEMBER_ME
                 lifetime: 31536000
                 remember_me_parameter: _remember_me
@@ -126,5 +122,5 @@ security:
         - { path: "%shop_api.security.regex%/register", role: IS_AUTHENTICATED_ANONYMOUSLY }
 
         - { path: "%sylius.security.admin_regex%", role: ROLE_ADMINISTRATION_ACCESS }
-        - { path: "%sylius.security.api_regex%", role: ROLE_API_ACCESS }
+        - { path: "%sylius.security.api_regex%/.*", role: ROLE_API_ACCESS }
         - { path: "%sylius.security.shop_regex%/account", role: ROLE_USER }
