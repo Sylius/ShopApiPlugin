@@ -14,7 +14,7 @@ class VerifyAccountRequest
 
     public function __construct(Request $request)
     {
-        $this->token = $request->request->get('token');
+        $this->token = $request->query->get('token');
     }
 
     public function getCommand(): VerifyAccount
