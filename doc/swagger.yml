@@ -1547,6 +1547,19 @@ definitions:
             email:
                 type: "string"
                 example: "sherlock@holmes.com"
+            birthday:
+                type: "string"
+                example: "2017-08-12"
+            gender:
+                type: "string"
+                example: "m"
+            phoneNumber:
+                type: "string"
+                example: "+490000000000"
+            subscribedToNewsletter:
+                type: "boolean"
+                example: false
+
     LoggedInCustomerAddressBook:
         type: "array"
         items:

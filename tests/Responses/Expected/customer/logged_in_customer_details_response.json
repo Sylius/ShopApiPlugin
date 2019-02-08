@@ -1,5 +1,8 @@
 {
     "firstName": "Oliver",
     "lastName": "Queen",
-    "email": "oliver@queen.com"
+    "email": "oliver@queen.com",
+    "gender": "m",
+    "phoneNumber": "0212115512",
+    "subscribedToNewsletter": false
 }
