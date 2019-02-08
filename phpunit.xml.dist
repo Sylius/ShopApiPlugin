@@ -11,7 +11,7 @@
     </testsuites>
 
     <php>
-        <server name="KERNEL_CLASS" value="AppKernel" />
+        <server name="KERNEL_CLASS" value="Tests\Sylius\ShopApiPlugin\Application\Kernel" />
         <server name="IS_DOCTRINE_ORM_SUPPORTED" value="true" />
         <server name="ESCAPE_JSON" value="true" />
     </php>
