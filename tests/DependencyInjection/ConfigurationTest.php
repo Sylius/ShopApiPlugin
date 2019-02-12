@@ -63,7 +63,7 @@ final class ConfigurationTest extends TestCase
                 'page_links' => View\PageLinksView::class,
                 'payment' => View\PaymentView::class,
                 'payment_method' => View\PaymentMethodView::class,
-        'placed_order' => View\PlacedOrderView::class,
+                'placed_order' => View\PlacedOrderView::class,
                 'price' => View\PriceView::class,
                 'product' => View\ProductView::class,
                 'product_attribute_value' => View\ProductAttributeValueView::class,
