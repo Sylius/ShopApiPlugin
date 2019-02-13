@@ -75,4 +75,50 @@ EOT;
 
         $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
     }
+
+    /**
+     * @test
+     */
+    public function it_does_not_allow_to_add_review_when_rating_is_out_of_bounds()
+    {
+        $this->loadFixturesFromFiles(['channel.yml', 'shop.yml']);
+
+        $data =
+<<<EOT
+        {
+            "comment": "Hello",
+            "rating": 100,
+            "email": "test@test.com",
+            "title": "Testing"
+        }
+EOT;
+
+        $this->client->request('POST', '/shop-api/WEB_GB/product-reviews-by-slug/mug', [], [], self::$acceptAndContentTypeHeader, $data);
+
+        $response = $this->client->getResponse();
+        $this->assertResponse($response, 'reviews/add_review_failed_rating', Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @test
+     */
+    public function it_does_not_allow_to_add_review_when_rating_email_is_not_valid()
+    {
+        $this->loadFixturesFromFiles(['channel.yml', 'shop.yml']);
+
+        $data =
+<<<EOT
+        {
+            "comment": "Hello",
+            "rating": 4,
+            "email": "test.com",
+            "title": "Testing"
+        }
+EOT;
+
+        $this->client->request('POST', '/shop-api/WEB_GB/product-reviews-by-slug/mug', [], [], self::$acceptAndContentTypeHeader, $data);
+
+        $response = $this->client->getResponse();
+        $this->assertResponse($response, 'reviews/add_review_failed_email', Response::HTTP_BAD_REQUEST);
+    }
 }
