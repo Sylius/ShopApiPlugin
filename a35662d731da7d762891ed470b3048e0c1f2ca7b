@@ -1,0 +1,23 @@
+---------------------------------------------------------------------------
+
+by mamazu at 2019-02-05T16:43:46Z
+
+The reason why this fails is because the master also fails. Probably the dependencies have changes the way taxons are handled. We might want to consider running the unit tests every day to track those changes. Or what do you think @lchrusciel?
+
+---------------------------------------------------------------------------
+
+by Zales0123 at 2019-02-06T07:39:35Z
+
+This is the same reason as in https://github.com/Sylius/ShopApiPlugin/pull/385, there must have been some changes in Symfony or in serializer :/ I don't know, to be honest, how to fix it, although I've spent some time debugging it cc @pamil @lchrusciel 🚁
+
+---------------------------------------------------------------------------
+
+by mamazu at 2019-02-10T15:10:57Z
+
+Fixed
+
+---------------------------------------------------------------------------
+
+by lchrusciel at 2019-02-13T12:24:19Z
+
+Thank you, @mamazu! :1st_place_medal:
