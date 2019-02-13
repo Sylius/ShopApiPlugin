@@ -17,8 +17,6 @@ final class AddressBookSetDefaultAddressApiTest extends JsonApiTestCase
 {
     use ShopUserLoginTrait;
 
-    private static $acceptAndContentTypeHeader = ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'];
-
     /**
      * @test
      */
@@ -32,7 +30,7 @@ final class AddressBookSetDefaultAddressApiTest extends JsonApiTestCase
         /** @var ResourceInterface $address */
         $address = $addressRepository->findOneBy(['street' => 'Kupreska']);
 
-        $this->client->request('PATCH', sprintf('/shop-api/WEB_GB/address-book/%s/default', $address->getId()), [], [], self::$acceptAndContentTypeHeader);
+        $this->client->request('PATCH', sprintf('/shop-api/WEB_GB/address-book/%s/default', $address->getId()), [], [], self::CONTENT_TYPE_HEADER);
         $response = $this->client->getResponse();
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
 
@@ -55,7 +53,7 @@ final class AddressBookSetDefaultAddressApiTest extends JsonApiTestCase
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'country.yml', 'address.yml']);
         $this->logInUser('oliver@queen.com', '123password');
 
-        $this->client->request('PATCH', sprintf('/shop-api/SPACE_KLINGON/address-book/1/default'), [], [], self::$acceptAndContentTypeHeader);
+        $this->client->request('PATCH', sprintf('/shop-api/SPACE_KLINGON/address-book/1/default'), [], [], self::CONTENT_TYPE_HEADER);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);

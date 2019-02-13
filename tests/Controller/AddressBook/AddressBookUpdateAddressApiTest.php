@@ -15,8 +15,6 @@ final class AddressBookUpdateAddressApiTest extends JsonApiTestCase
 {
     use ShopUserLoginTrait;
 
-    private static $contentTypeHeader = ['CONTENT_TYPE' => 'application/json'];
-
     /**
      * @test
      */
@@ -44,7 +42,7 @@ final class AddressBookUpdateAddressApiTest extends JsonApiTestCase
             "phoneNumber": "0918972132"
         }
 EOT;
-        $this->client->request('PUT', sprintf('/shop-api/WEB_GB/address-book/%s', $address->getId()), [], [], self::$contentTypeHeader, $data);
+        $this->client->request('PUT', sprintf('/shop-api/WEB_GB/address-book/%s', $address->getId()), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'address_book/update_address', Response::HTTP_OK);
@@ -87,7 +85,7 @@ EOT;
             "phoneNumber": "0918972132"
         }
 EOT;
-        $this->client->request('PUT', sprintf('/shop-api/WEB_GB/address-book/%s', $address->getId()), [], [], self::$contentTypeHeader, $data);
+        $this->client->request('PUT', sprintf('/shop-api/WEB_GB/address-book/%s', $address->getId()), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -117,7 +115,7 @@ EOT;
             "postcode": "",
         }
 EOT;
-        $this->client->request('PUT', sprintf('/shop-api/WEB_GB/address-book/%s', $address->getId()), [], [], self::$contentTypeHeader, $data);
+        $this->client->request('PUT', sprintf('/shop-api/WEB_GB/address-book/%s', $address->getId()), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_BAD_REQUEST);
@@ -145,7 +143,7 @@ EOT;
         }
 EOT;
 
-        $this->client->request('PUT', '/shop-api/SPACE_KLINGON/address-book/1', [], [], self::$contentTypeHeader, $data);
+        $this->client->request('PUT', '/shop-api/SPACE_KLINGON/address-book/1', [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);

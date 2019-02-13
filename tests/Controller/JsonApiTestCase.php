@@ -6,6 +6,8 @@ namespace Tests\Sylius\ShopApiPlugin\Controller;
 
 abstract class JsonApiTestCase extends \Lakion\ApiTestCase\JsonApiTestCase
 {
+    const CONTENT_TYPE_HEADER = ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'];
+
     public function __construct(?string $name = null, array $data = [], string $dataName = '')
     {
         parent::__construct($name, $data, $dataName);

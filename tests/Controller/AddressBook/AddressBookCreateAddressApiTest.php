@@ -17,8 +17,6 @@ final class AddressBookCreateAddressApiTest extends JsonApiTestCase
 {
     use ShopUserLoginTrait;
 
-    private static $acceptAndContentTypeHeader = ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'];
-
     /**
      * @test
      */
@@ -40,7 +38,7 @@ final class AddressBookCreateAddressApiTest extends JsonApiTestCase
         }
 EOT;
 
-        $this->client->request('POST', '/shop-api/WEB_GB/address-book', [], [], self::$acceptAndContentTypeHeader, $data);
+        $this->client->request('POST', '/shop-api/WEB_GB/address-book', [], [], self::CONTENT_TYPE_HEADER, $data);
 
         $response = $this->client->getResponse();
         $this->assertResponse($response, 'address_book/add_address_response', Response::HTTP_CREATED);
@@ -81,7 +79,7 @@ EOT;
         }
 EOT;
 
-        $this->client->request('POST', '/shop-api/WEB_GB/address-book', [], [], self::$acceptAndContentTypeHeader, $data);
+        $this->client->request('POST', '/shop-api/WEB_GB/address-book', [], [], self::CONTENT_TYPE_HEADER, $data);
 
         $response = $this->client->getResponse();
         $this->assertResponse($response, 'address_book/validation_create_address_book_response', Response::HTTP_BAD_REQUEST);
@@ -107,7 +105,7 @@ EOT;
         }
 EOT;
 
-        $this->client->request('POST', '/shop-api/WEB_GB/address-book', [], [], self::$acceptAndContentTypeHeader, $data);
+        $this->client->request('POST', '/shop-api/WEB_GB/address-book', [], [], self::CONTENT_TYPE_HEADER, $data);
 
         $response = $this->client->getResponse();
         $this->assertResponse($response, 'address_book/validation_create_address_book_with_wrong_country_response', Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -134,7 +132,7 @@ EOT;
         }
 EOT;
 
-        $this->client->request('POST', '/shop-api/WEB_GB/address-book', [], [], self::$acceptAndContentTypeHeader, $data);
+        $this->client->request('POST', '/shop-api/WEB_GB/address-book', [], [], self::CONTENT_TYPE_HEADER, $data);
 
         $response = $this->client->getResponse();
         $this->assertResponse($response, 'address_book/validation_create_address_book_with_wrong_province_response', Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -160,7 +158,7 @@ EOT;
         }
 EOT;
 
-        $this->client->request('POST', '/shop-api/SPACE_KLINGON/address-book', [], [], self::$acceptAndContentTypeHeader, $data);
+        $this->client->request('POST', '/shop-api/SPACE_KLINGON/address-book', [], [], self::CONTENT_TYPE_HEADER, $data);
 
         $response = $this->client->getResponse();
         $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
