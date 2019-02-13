@@ -16,7 +16,7 @@ final class CartRemoveCouponShopApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_allows_to_remove_a_promotion_coupon_from_the_cart()
+    public function it_allows_to_remove_a_promotion_coupon_from_the_cart(): void
     {
         $this->loadFixturesFromFiles(['shop.yml', 'coupon_based_promotion.yml']);
 
@@ -38,7 +38,7 @@ final class CartRemoveCouponShopApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_allows_to_remove_a_promotion_coupon_from_the_cart_even_if_it_does_not_exist()
+    public function it_allows_to_remove_a_promotion_coupon_from_the_cart_even_if_it_does_not_exist(): void
     {
         $this->loadFixturesFromFiles(['shop.yml', 'coupon_based_promotion.yml']);
 
@@ -59,7 +59,7 @@ final class CartRemoveCouponShopApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_does_not_allow_to_add_promotion_code_if_cart_does_not_exists()
+    public function it_does_not_allow_to_add_promotion_code_if_cart_does_not_exists(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -73,7 +73,7 @@ final class CartRemoveCouponShopApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_does_not_allow_to_add_promotion_code_in_non_existent_channel()
+    public function it_does_not_allow_to_add_promotion_code_in_non_existent_channel(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 

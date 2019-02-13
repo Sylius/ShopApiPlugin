@@ -17,7 +17,7 @@ final class CustomerVerifyApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_allows_to_verify_customer()
+    public function it_allows_to_verify_customer(): void
     {
         $this->loadFixturesFromFiles(['channel.yml']);
 
@@ -48,7 +48,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_allow_to_verify_customer_in_non_existent_channel()
+    public function it_does_not_allow_to_verify_customer_in_non_existent_channel(): void
     {
         $this->loadFixturesFromFiles(['channel.yml']);
 

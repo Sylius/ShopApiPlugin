@@ -60,7 +60,7 @@ final class OrderShowApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_does_not_show_order_details_in_non_existent_channel()
+    public function it_does_not_show_order_details_in_non_existent_channel(): void
     {
         $this->loadFixturesFromFiles(['channel.yml']);
 

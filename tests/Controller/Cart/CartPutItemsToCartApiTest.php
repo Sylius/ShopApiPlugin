@@ -14,7 +14,7 @@ final class CartPutItemsToCartApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_adds_a_product_to_the_cart()
+    public function it_adds_a_product_to_the_cart(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -57,7 +57,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_nothing_if_any_of_requested_products_is_not_valid()
+    public function it_does_nothing_if_any_of_requested_products_is_not_valid(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -100,7 +100,7 @@ EOT;
     /**
      * @test
      */
-    public function it_shows_validation_error_for_proper_product()
+    public function it_shows_validation_error_for_proper_product(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -141,7 +141,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_allow_to_put_items_to_cart_in_non_existent_channel()
+    public function it_does_not_allow_to_put_items_to_cart_in_non_existent_channel(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 

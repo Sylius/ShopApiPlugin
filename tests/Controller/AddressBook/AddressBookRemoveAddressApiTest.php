@@ -18,7 +18,7 @@ final class AddressBookRemoveAddressApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_deletes_address_from_address_book()
+    public function it_deletes_address_from_address_book(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'country.yml', 'address.yml']);
         $this->logInUser('oliver@queen.com', '123password');
@@ -40,7 +40,7 @@ final class AddressBookRemoveAddressApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_returns_bad_request_exception_if_address_has_not_been_found()
+    public function it_returns_bad_request_exception_if_address_has_not_been_found(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'country.yml', 'address.yml']);
         $this->logInUser('oliver@queen.com', '123password');
@@ -54,7 +54,7 @@ final class AddressBookRemoveAddressApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_validates_if_current_user_is_owner_of_address()
+    public function it_validates_if_current_user_is_owner_of_address(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'country.yml', 'address.yml']);
         $this->logInUser('oliver@queen.com', '123password');
@@ -73,7 +73,7 @@ final class AddressBookRemoveAddressApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_does_not_allow_user_to_delete_address_in_non_existent_channel()
+    public function it_does_not_allow_user_to_delete_address_in_non_existent_channel(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'country.yml', 'address.yml']);
         $this->logInUser('oliver@queen.com', '123password');

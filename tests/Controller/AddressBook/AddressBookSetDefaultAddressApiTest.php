@@ -20,7 +20,7 @@ final class AddressBookSetDefaultAddressApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_sets_given_address_as_default()
+    public function it_sets_given_address_as_default(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'country.yml', 'address.yml']);
         $this->logInUser('oliver@queen.com', '123password');
@@ -48,7 +48,7 @@ final class AddressBookSetDefaultAddressApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_does_not_allow_to_set_address_as_default_in_non_existent_channel()
+    public function it_does_not_allow_to_set_address_as_default_in_non_existent_channel(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'country.yml', 'address.yml']);
         $this->logInUser('oliver@queen.com', '123password');

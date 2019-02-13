@@ -12,7 +12,7 @@ final class TaxonShowDetailsApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_shows_summary_of_a_chosen_taxon_with_fallback_locale_from_channel()
+    public function it_shows_summary_of_a_chosen_taxon_with_fallback_locale_from_channel(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -25,7 +25,7 @@ final class TaxonShowDetailsApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_shows_summary_of_a_chosen_taxon_with_strange_code()
+    public function it_shows_summary_of_a_chosen_taxon_with_strange_code(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -38,7 +38,7 @@ final class TaxonShowDetailsApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_shows_summary_of_a_chosen_taxon_in_different_language()
+    public function it_shows_summary_of_a_chosen_taxon_in_different_language(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -51,7 +51,7 @@ final class TaxonShowDetailsApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_does_not_show_taxon_details_in_non_existent_channel()
+    public function it_does_not_show_taxon_details_in_non_existent_channel(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 

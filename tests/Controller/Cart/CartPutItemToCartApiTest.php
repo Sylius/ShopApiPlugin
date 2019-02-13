@@ -21,7 +21,7 @@ final class CartPutItemToCartApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_adds_a_product_to_the_cart()
+    public function it_adds_a_product_to_the_cart(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -47,7 +47,7 @@ EOT;
     /**
      * @test
      */
-    public function it_increases_quantity_of_existing_item_if_the_same_product_is_added_to_the_cart()
+    public function it_increases_quantity_of_existing_item_if_the_same_product_is_added_to_the_cart(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -74,7 +74,7 @@ EOT;
     /**
      * @test
      */
-    public function it_validates_if_product_is_simple_during_add_simple_product()
+    public function it_validates_if_product_is_simple_during_add_simple_product(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -100,7 +100,7 @@ EOT;
     /**
      * @test
      */
-    public function it_validates_if_quantity_is_larger_than_0_during_add_simple_product()
+    public function it_validates_if_quantity_is_larger_than_0_during_add_simple_product(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -126,7 +126,7 @@ EOT;
     /**
      * @test
      */
-    public function it_converts_quantity_as_an_integer_and_adds_simple_product()
+    public function it_converts_quantity_as_an_integer_and_adds_simple_product(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -152,7 +152,7 @@ EOT;
     /**
      * @test
      */
-    public function it_validates_if_product_code_is_defined_during_add_simple_product()
+    public function it_validates_if_product_code_is_defined_during_add_simple_product(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -177,7 +177,7 @@ EOT;
     /**
      * @test
      */
-    public function it_validates_if_product_exists_during_add_simple_product()
+    public function it_validates_if_product_exists_during_add_simple_product(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -203,7 +203,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_allow_to_add_product_if_cart_does_not_exists_during_add_simple_product()
+    public function it_does_not_allow_to_add_product_if_cart_does_not_exists_during_add_simple_product(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -225,7 +225,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_allow_to_add_product_if_order_has_been_placed()
+    public function it_does_not_allow_to_add_product_if_order_has_been_placed(): void
     {
         $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml', 'payment.yml']);
 
@@ -279,7 +279,7 @@ EOT;
     /**
      * @test
      */
-    public function it_adds_a_product_variant_to_the_cart()
+    public function it_adds_a_product_variant_to_the_cart(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -306,7 +306,7 @@ EOT;
     /**
      * @test
      */
-    public function it_increases_quantity_of_existing_item_if_the_same_variant_is_added_to_the_cart()
+    public function it_increases_quantity_of_existing_item_if_the_same_variant_is_added_to_the_cart(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -334,7 +334,7 @@ EOT;
     /**
      * @test
      */
-    public function it_validates_if_quantity_is_larger_than_0_during_add_variant_based_configurable_product()
+    public function it_validates_if_quantity_is_larger_than_0_during_add_variant_based_configurable_product(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -361,7 +361,7 @@ EOT;
     /**
      * @test
      */
-    public function it_converts_quantity_as_an_integer_and_adds_variant_based_configurable_product()
+    public function it_converts_quantity_as_an_integer_and_adds_variant_based_configurable_product(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -388,7 +388,7 @@ EOT;
     /**
      * @test
      */
-    public function it_validates_if_product_code_is_defined_during_add_variant_based_configurable_product()
+    public function it_validates_if_product_code_is_defined_during_add_variant_based_configurable_product(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -414,7 +414,7 @@ EOT;
     /**
      * @test
      */
-    public function it_validates_if_product_exists_during_add_variant_based_configurable_product()
+    public function it_validates_if_product_exists_during_add_variant_based_configurable_product(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -441,7 +441,7 @@ EOT;
     /**
      * @test
      */
-    public function it_validates_if_product_is_configurable_during_add_variant_based_configurable_product()
+    public function it_validates_if_product_is_configurable_during_add_variant_based_configurable_product(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -468,7 +468,7 @@ EOT;
     /**
      * @test
      */
-    public function it_validates_if_product_variant_exist_during_add_variant_based_configurable_product()
+    public function it_validates_if_product_variant_exist_during_add_variant_based_configurable_product(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -492,7 +492,7 @@ EOT;
         $this->assertResponse($response, 'cart/validation_product_variant_not_exists_response', Response::HTTP_BAD_REQUEST);
     }
 
-    public function it_throws_an_exception_if_product_variant_has_not_been_found()
+    public function it_throws_an_exception_if_product_variant_has_not_been_found(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -521,7 +521,7 @@ EOT;
     /**
      * @test
      */
-    public function it_adds_a_product_variant_based_on_options_to_the_cart()
+    public function it_adds_a_product_variant_based_on_options_to_the_cart(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -551,7 +551,7 @@ EOT;
     /**
      * @test
      */
-    public function it_increases_quantity_of_existing_item_while_adding_the_same_product_variant_based_on_option_to_the_cart()
+    public function it_increases_quantity_of_existing_item_while_adding_the_same_product_variant_based_on_option_to_the_cart(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -582,7 +582,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_allow_to_put_item_to_cart_in_non_existent_channel()
+    public function it_does_not_allow_to_put_item_to_cart_in_non_existent_channel(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 

@@ -18,7 +18,7 @@ final class CustomerResetPasswordApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_allows_to_reset_customer_password()
+    public function it_allows_to_reset_customer_password(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
 
@@ -28,6 +28,7 @@ final class CustomerResetPasswordApiTest extends JsonApiTestCase
 
         /** @var UserRepositoryInterface $userRepository */
         $userRepository = $this->get('sylius.repository.shop_user');
+
         /** @var ShopUserInterface $user */
         $user = $userRepository->findOneByEmail('oliver@queen.com');
 
@@ -50,7 +51,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_allow_to_reset_customer_password_in_non_existent_channel()
+    public function it_does_not_allow_to_reset_customer_password_in_non_existent_channel(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
 

@@ -12,7 +12,7 @@ final class ProductAddReviewBySlugApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_adds_review_to_product()
+    public function it_adds_review_to_product(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -34,7 +34,7 @@ EOT;
     /**
      * @test
      */
-    public function it_adds_review_to_the_product_for_registered_user()
+    public function it_adds_review_to_the_product_for_registered_user(): void
     {
         $this->loadFixturesFromFiles(['shop.yml', 'customer.yml']);
 
@@ -56,7 +56,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_allow_to_add_product_review_by_slug_in_non_existent_channel()
+    public function it_does_not_allow_to_add_product_review_by_slug_in_non_existent_channel(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -78,7 +78,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_allow_to_add_review_when_rating_is_out_of_bounds()
+    public function it_does_not_allow_to_add_review_when_rating_is_out_of_bounds(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'shop.yml']);
 
@@ -101,7 +101,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_allow_to_add_review_when_rating_email_is_not_valid()
+    public function it_does_not_allow_to_add_review_when_rating_email_is_not_valid(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'shop.yml']);
 

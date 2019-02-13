@@ -17,7 +17,7 @@ final class CustomerRequestPasswordResettingApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_allows_to_reset_user_password()
+    public function it_allows_to_reset_user_password(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
 
@@ -37,7 +37,7 @@ final class CustomerRequestPasswordResettingApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_does_not_allow_to_reset_user_password_in_non_existent_channel()
+    public function it_does_not_allow_to_reset_user_password_in_non_existent_channel(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
 

@@ -12,7 +12,7 @@ final class CartEstimateShippingTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_returns_not_found_exception_if_cart_has_not_been_found()
+    public function it_returns_not_found_exception_if_cart_has_not_been_found(): void
     {
         $this->loadFixturesFromFiles(['shop.yml', 'country.yml']);
 
@@ -25,7 +25,7 @@ final class CartEstimateShippingTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_calculates_estimated_shipping_cost_based_on_country()
+    public function it_calculates_estimated_shipping_cost_based_on_country(): void
     {
         $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml']);
 
@@ -43,7 +43,7 @@ final class CartEstimateShippingTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_calculates_estimated_shipping_cost_based_on_country_and_province()
+    public function it_calculates_estimated_shipping_cost_based_on_country_and_province(): void
     {
         $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml']);
 
@@ -61,7 +61,7 @@ final class CartEstimateShippingTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_does_not_allow_to_estimate_shipping_in_non_existent_channel()
+    public function it_does_not_allow_to_estimate_shipping_in_non_existent_channel(): void
     {
         $this->loadFixturesFromFiles(['shop.yml', 'country.yml']);
 
@@ -74,7 +74,7 @@ final class CartEstimateShippingTest extends JsonApiTestCase
     /**
      * @param string $token
      */
-    private function pickupCart(string $token)
+    private function pickupCart(string $token): void
     {
         $this->client->request('POST', '/shop-api/WEB_GB/carts/' . $token, [], [], static::CONTENT_TYPE_HEADER);
     }
@@ -82,7 +82,7 @@ final class CartEstimateShippingTest extends JsonApiTestCase
     /**
      * @param string $token
      */
-    private function putItemToCart(string $token)
+    private function putItemToCart(string $token): void
     {
         $data =
 <<<EOT

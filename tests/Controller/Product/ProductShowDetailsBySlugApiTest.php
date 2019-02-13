@@ -12,7 +12,7 @@ final class ProductShowDetailsBySlugApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_shows_simple_product_details_page()
+    public function it_shows_simple_product_details_page(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -25,7 +25,7 @@ final class ProductShowDetailsBySlugApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_shows_product_without_taxon_details_page()
+    public function it_shows_product_without_taxon_details_page(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -38,7 +38,7 @@ final class ProductShowDetailsBySlugApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_throws_a_not_found_exception_if_channel_has_not_been_found()
+    public function it_throws_a_not_found_exception_if_channel_has_not_been_found(): void
     {
         $this->client->request('GET', '/shop-api/WEB_GB/products-by-slug/logan-mug', [], [], self::CONTENT_TYPE_HEADER);
         $response = $this->client->getResponse();
@@ -49,7 +49,7 @@ final class ProductShowDetailsBySlugApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_throws_a_not_found_exception_if_product_has_not_been_found()
+    public function it_throws_a_not_found_exception_if_product_has_not_been_found(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -62,7 +62,7 @@ final class ProductShowDetailsBySlugApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_shows_simple_product_details_page_in_different_locale()
+    public function it_shows_simple_product_details_page_in_different_locale(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -75,7 +75,7 @@ final class ProductShowDetailsBySlugApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_shows_product_with_variant_details_page()
+    public function it_shows_product_with_variant_details_page(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -88,7 +88,7 @@ final class ProductShowDetailsBySlugApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_shows_product_with_options_details_page()
+    public function it_shows_product_with_options_details_page(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -101,7 +101,7 @@ final class ProductShowDetailsBySlugApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_shows_product_with_options_details_page_in_different_locale()
+    public function it_shows_product_with_options_details_page_in_different_locale(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -114,7 +114,7 @@ final class ProductShowDetailsBySlugApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_does_not_show_product_details_by_slug_in_non_existent_channel()
+    public function it_does_not_show_product_details_by_slug_in_non_existent_channel(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 

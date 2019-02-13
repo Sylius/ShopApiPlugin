@@ -12,7 +12,7 @@ final class ProductShowCatalogByCodeApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_shows_paginated_products_from_some_taxon_by_code()
+    public function it_shows_paginated_products_from_some_taxon_by_code(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -25,7 +25,7 @@ final class ProductShowCatalogByCodeApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_shows_products_for_sub_taxons_by_code()
+    public function it_shows_products_for_sub_taxons_by_code(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -38,7 +38,7 @@ final class ProductShowCatalogByCodeApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_shows_paginated_products_from_some_taxon_by_code_in_different_language()
+    public function it_shows_paginated_products_from_some_taxon_by_code_in_different_language(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -51,7 +51,7 @@ final class ProductShowCatalogByCodeApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_shows_second_page_of_paginated_products_from_some_taxon_by_code()
+    public function it_shows_second_page_of_paginated_products_from_some_taxon_by_code(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -64,7 +64,7 @@ final class ProductShowCatalogByCodeApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_does_not_show_product_catalog_by_code_in_non_existent_channel()
+    public function it_does_not_show_product_catalog_by_code_in_non_existent_channel(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 

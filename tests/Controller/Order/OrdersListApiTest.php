@@ -42,7 +42,7 @@ final class OrdersListApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_does_not_show_orders_list_in_non_existent_channel()
+    public function it_does_not_show_orders_list_in_non_existent_channel(): void
     {
         $this->loadFixturesFromFile('channel.yml');
 

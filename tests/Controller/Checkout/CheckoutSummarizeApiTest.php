@@ -20,7 +20,7 @@ final class CheckoutSummarizeApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_shows_an_order_with_same_shipping_and_billing_address_with_province()
+    public function it_shows_an_order_with_same_shipping_and_billing_address_with_province(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -57,7 +57,7 @@ EOT;
     /**
      * @test
      */
-    public function it_shows_an_order_with_different_shipping_and_billing_address_with_province()
+    public function it_shows_an_order_with_different_shipping_and_billing_address_with_province(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -103,7 +103,7 @@ EOT;
     /**
      * @test
      */
-    public function it_shows_an_order_with_chosen_shipment()
+    public function it_shows_an_order_with_chosen_shipment(): void
     {
         $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml']);
 
@@ -153,7 +153,7 @@ EOT;
     /**
      * @test
      */
-    public function it_modifies_shipping_cost_when_changing_item_quantity()
+    public function it_modifies_shipping_cost_when_changing_item_quantity(): void
     {
         $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml']);
 
@@ -222,7 +222,7 @@ EOT;
     /**
      * @test
      */
-    public function it_shows_an_order_with_chosen_payment()
+    public function it_shows_an_order_with_chosen_payment(): void
     {
         $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml', 'payment.yml']);
 
@@ -273,7 +273,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_allow_to_summarize_cart_in_non_existent_channel()
+    public function it_does_not_allow_to_summarize_cart_in_non_existent_channel(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 

@@ -18,7 +18,7 @@ final class CheckoutChoosePaymentMethodApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_allows_to_choose_payment_method()
+    public function it_allows_to_choose_payment_method(): void
     {
         $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml', 'payment.yml']);
 
@@ -66,7 +66,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_allow_to_choose_payment_method_in_non_existent_channel()
+    public function it_does_not_allow_to_choose_payment_method_in_non_existent_channel(): void
     {
         $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml', 'payment.yml']);
 
@@ -116,7 +116,7 @@ EOT;
      *
      * @return string
      */
-    private function getPaymentUrl($token)
+    private function getPaymentUrl($token): string
     {
         return sprintf('/shop-api/WEB_GB/checkout/%s/payment', $token);
     }

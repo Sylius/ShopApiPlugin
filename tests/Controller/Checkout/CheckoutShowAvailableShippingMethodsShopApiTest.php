@@ -17,7 +17,7 @@ final class CheckoutShowAvailableShippingMethodsShopApiTest extends JsonApiTestC
     /**
      * @test
      */
-    public function it_does_not_provide_details_about_available_shipping_method_for_non_existing_cart()
+    public function it_does_not_provide_details_about_available_shipping_method_for_non_existing_cart(): void
     {
         $this->client->request('GET', $this->getShippingUrl(0), [], [], self::CONTENT_TYPE_HEADER);
 
@@ -28,7 +28,7 @@ final class CheckoutShowAvailableShippingMethodsShopApiTest extends JsonApiTestC
     /**
      * @test
      */
-    public function it_provides_details_about_available_shipping_method()
+    public function it_provides_details_about_available_shipping_method(): void
     {
         $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml']);
 
@@ -68,7 +68,7 @@ final class CheckoutShowAvailableShippingMethodsShopApiTest extends JsonApiTestC
     /**
      * TODO check is it possible (test annotation make it fail)
      */
-    public function it_does_not_provide_details_about_available_shipping_method_before_addressing()
+    public function it_does_not_provide_details_about_available_shipping_method_before_addressing(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -88,7 +88,7 @@ final class CheckoutShowAvailableShippingMethodsShopApiTest extends JsonApiTestC
     /**
      * @test
      */
-    public function it_does_not_provide_available_shipping_methods_in_non_existent_channel()
+    public function it_does_not_provide_available_shipping_methods_in_non_existent_channel(): void
     {
         $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml']);
 
@@ -130,7 +130,7 @@ final class CheckoutShowAvailableShippingMethodsShopApiTest extends JsonApiTestC
      *
      * @return string
      */
-    private function getShippingUrl($token)
+    private function getShippingUrl($token): string
     {
         return sprintf('/shop-api/WEB_GB/checkout/%s/shipping', $token);
     }

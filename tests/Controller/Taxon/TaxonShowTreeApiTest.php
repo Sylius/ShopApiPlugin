@@ -12,7 +12,7 @@ final class TaxonShowTreeApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_shows_tree_of_all_taxons_with_fallback_locale_from_channel()
+    public function it_shows_tree_of_all_taxons_with_fallback_locale_from_channel(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -26,7 +26,7 @@ final class TaxonShowTreeApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_shows_tree_of_all_taxons_in_different_language()
+    public function it_shows_tree_of_all_taxons_in_different_language(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -40,7 +40,7 @@ final class TaxonShowTreeApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_does_not_show_taxons_tree_in_non_existent_channel()
+    public function it_does_not_show_taxons_tree_in_non_existent_channel(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 

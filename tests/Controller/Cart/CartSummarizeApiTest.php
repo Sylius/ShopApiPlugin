@@ -16,7 +16,7 @@ final class CartSummarizeApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_shows_summary_of_an_empty_cart()
+    public function it_shows_summary_of_an_empty_cart(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -35,7 +35,7 @@ final class CartSummarizeApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_returns_not_found_exception_if_cart_has_not_been_found()
+    public function it_returns_not_found_exception_if_cart_has_not_been_found(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -48,7 +48,7 @@ final class CartSummarizeApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_does_not_allow_to_summarize_cart_in_non_existent_channel()
+    public function it_does_not_allow_to_summarize_cart_in_non_existent_channel(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -61,7 +61,7 @@ final class CartSummarizeApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_shows_summary_of_a_cart_filled_with_a_simple_product()
+    public function it_shows_summary_of_a_cart_filled_with_a_simple_product(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -81,7 +81,7 @@ final class CartSummarizeApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_shows_summary_of_a_cart_filled_with_a_simple_product_in_different_language()
+    public function it_shows_summary_of_a_cart_filled_with_a_simple_product_in_different_language(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -101,7 +101,7 @@ final class CartSummarizeApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_shows_summary_of_a_cart_filled_with_a_product_with_variant()
+    public function it_shows_summary_of_a_cart_filled_with_a_product_with_variant(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -143,7 +143,7 @@ EOT;
     /**
      * @test
      */
-    public function it_shows_summary_of_a_cart_filled_with_a_product_with_variant_in_different_language()
+    public function it_shows_summary_of_a_cart_filled_with_a_product_with_variant_in_different_language(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -176,7 +176,7 @@ EOT;
     /**
      * @test
      */
-    public function it_shows_summary_of_a_cart_with_coupon_applied()
+    public function it_shows_summary_of_a_cart_with_coupon_applied(): void
     {
         $this->loadFixturesFromFiles(['shop.yml', 'coupon_based_promotion.yml']);
 

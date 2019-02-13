@@ -42,7 +42,7 @@ final class CartPickupApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_does_not_allow_to_create_a_new_cart_if_token_is_already_used()
+    public function it_does_not_allow_to_create_a_new_cart_if_token_is_already_used(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -62,7 +62,7 @@ final class CartPickupApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_does_not_allow_to_create_a_new_cart_in_non_existent_channel()
+    public function it_does_not_allow_to_create_a_new_cart_in_non_existent_channel(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 

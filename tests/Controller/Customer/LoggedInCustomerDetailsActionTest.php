@@ -12,7 +12,7 @@ final class LoggedInCustomerDetailsActionTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_shows_currently_logged_in_customer_details()
+    public function it_shows_currently_logged_in_customer_details(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
 
@@ -41,7 +41,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_show_currently_logged_in_customer_details_in_non_existent_channel()
+    public function it_does_not_show_currently_logged_in_customer_details_in_non_existent_channel(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
 

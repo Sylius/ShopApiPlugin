@@ -19,7 +19,7 @@ final class CustomerRegisterApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_allows_to_register_in_shop_and_sends_a_verification_email_if_channel_requires_verification()
+    public function it_allows_to_register_in_shop_and_sends_a_verification_email_if_channel_requires_verification(): void
     {
         $this->loadFixturesFromFiles(['channel.yml']);
 
@@ -53,7 +53,7 @@ EOT;
     /**
      * @test
      */
-    public function it_allows_to_register_in_shop_and_automatically_enables_user_if_channel_does_not_require_verification()
+    public function it_allows_to_register_in_shop_and_automatically_enables_user_if_channel_does_not_require_verification(): void
     {
         $this->loadFixturesFromFiles(['channel.yml']);
 
@@ -94,7 +94,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_allow_to_register_in_shop_if_email_is_already_taken()
+    public function it_does_not_allow_to_register_in_shop_if_email_is_already_taken(): void
     {
         $this->loadFixturesFromFiles(['customer.yml', 'channel.yml']);
 
@@ -118,7 +118,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_allow_to_register_in_shop_without_passing_required_data()
+    public function it_does_not_allow_to_register_in_shop_without_passing_required_data(): void
     {
         $this->loadFixturesFromFiles(['channel.yml']);
 
@@ -141,7 +141,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_allow_to_register_in_non_existent_channel()
+    public function it_does_not_allow_to_register_in_non_existent_channel(): void
     {
         $this->loadFixturesFromFiles(['channel.yml']);
 
@@ -161,4 +161,8 @@ EOT;
         $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
     }
 
+    protected function getContainer(): ContainerInterface
+    {
+        return static::$sharedKernel->getContainer();
+    }
 }

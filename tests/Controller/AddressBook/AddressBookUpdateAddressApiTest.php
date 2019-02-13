@@ -18,7 +18,7 @@ final class AddressBookUpdateAddressApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_updates_address_in_address_book()
+    public function it_updates_address_in_address_book(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'country.yml', 'address.yml']);
         $this->logInUser('oliver@queen.com', '123password');
@@ -61,7 +61,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_allow_to_update_address_if_country_or_province_code_are_not_valid()
+    public function it_does_not_allow_to_update_address_if_country_or_province_code_are_not_valid(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'country.yml', 'address.yml']);
         $this->logInUser('oliver@queen.com', '123password');
@@ -94,7 +94,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_allow_to_update_address_without_passing_required_data()
+    public function it_does_not_allow_to_update_address_without_passing_required_data(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'country.yml', 'address.yml']);
         $this->logInUser('oliver@queen.com', '123password');
@@ -124,7 +124,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_allow_to_update_address_in_non_existent_channel()
+    public function it_does_not_allow_to_update_address_in_non_existent_channel(): void
     {
         $this->loadFixturesFromFile('channel.yml');
 

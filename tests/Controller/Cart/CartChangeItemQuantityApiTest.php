@@ -17,7 +17,7 @@ final class CartChangeItemQuantityApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_does_not_allow_to_change_quantity_if_cart_does_not_exists()
+    public function it_does_not_allow_to_change_quantity_if_cart_does_not_exists(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'shop.yml']);
 
@@ -36,7 +36,7 @@ EOT;
     /**
      * @test
      */
-    public function it_changes_item_quantity()
+    public function it_changes_item_quantity(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'shop.yml']);
 
@@ -62,7 +62,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_allow_to_set_quantity_lower_than_one()
+    public function it_does_not_allow_to_set_quantity_lower_than_one(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'shop.yml']);
 
@@ -88,7 +88,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_allow_to_change_quantity_without_quantity_defined()
+    public function it_does_not_allow_to_change_quantity_without_quantity_defined(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'shop.yml']);
 
@@ -108,7 +108,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_allow_to_change_quantity_if_cart_item_does_not_exists()
+    public function it_does_not_allow_to_change_quantity_if_cart_item_does_not_exists(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'shop.yml']);
 
@@ -133,7 +133,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_allow_to_change_item_quantity_in_non_existent_channel()
+    public function it_does_not_allow_to_change_item_quantity_in_non_existent_channel(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'shop.yml']);
 

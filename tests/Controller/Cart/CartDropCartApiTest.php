@@ -21,7 +21,7 @@ final class CartDropCartApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_returns_not_found_exception_if_cart_has_not_been_found()
+    public function it_returns_not_found_exception_if_cart_has_not_been_found(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'shop.yml']);
 
@@ -39,7 +39,7 @@ final class CartDropCartApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_deletes_a_cart()
+    public function it_deletes_a_cart(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'shop.yml']);
 
@@ -59,7 +59,7 @@ final class CartDropCartApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_returns_not_found_exception_if_order_is_in_different_state_then_cart()
+    public function it_returns_not_found_exception_if_order_is_in_different_state_then_cart(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'shop.yml', 'country.yml', 'shipping.yml', 'payment.yml']);
 
@@ -106,7 +106,7 @@ final class CartDropCartApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_does_not_allow_to_delete_cart_in_non_existent_channel()
+    public function it_does_not_allow_to_delete_cart_in_non_existent_channel(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'shop.yml']);
 

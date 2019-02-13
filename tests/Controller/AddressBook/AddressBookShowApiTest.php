@@ -15,7 +15,7 @@ final class AddressBookShowApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_shows_address_book()
+    public function it_shows_address_book(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'country.yml', 'address.yml']);
         $this->logInUser('oliver@queen.com', '123password');
@@ -29,7 +29,7 @@ final class AddressBookShowApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_returns_an_unauthorized_exception_if_there_is_no_logged_in_user()
+    public function it_returns_an_unauthorized_exception_if_there_is_no_logged_in_user(): void
     {
         $this->loadFixturesFromFile('channel.yml');
 
@@ -42,7 +42,7 @@ final class AddressBookShowApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_does_not_show_address_book_in_non_existent_channel()
+    public function it_does_not_show_address_book_in_non_existent_channel(): void
     {
         $this->loadFixturesFromFile('channel.yml');
 

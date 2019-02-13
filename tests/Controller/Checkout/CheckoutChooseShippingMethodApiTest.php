@@ -17,7 +17,7 @@ final class CheckoutChooseShippingMethodApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_allows_to_choose_shipping_method()
+    public function it_allows_to_choose_shipping_method(): void
     {
         $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml']);
 
@@ -64,7 +64,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_allow_to_choose_shipping_method_in_non_existent_channel()
+    public function it_does_not_allow_to_choose_shipping_method_in_non_existent_channel(): void
     {
         $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml']);
 
@@ -113,7 +113,7 @@ EOT;
      *
      * @return string
      */
-    private function getShippingUrl($token)
+    private function getShippingUrl($token): string
     {
         return sprintf('/shop-api/WEB_GB/checkout/%s/shipping', $token);
     }

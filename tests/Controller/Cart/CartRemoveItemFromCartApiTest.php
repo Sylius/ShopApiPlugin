@@ -18,7 +18,7 @@ final class CartRemoveItemFromCartApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_deletes_item()
+    public function it_deletes_item(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -46,7 +46,7 @@ final class CartRemoveItemFromCartApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_returns_not_found_exception_if_cart_item_has_not_been_found()
+    public function it_returns_not_found_exception_if_cart_item_has_not_been_found(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -65,7 +65,7 @@ final class CartRemoveItemFromCartApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_does_not_allow_to_remove_item_from_cart_in_non_existent_channel()
+    public function it_does_not_allow_to_remove_item_from_cart_in_non_existent_channel(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -84,7 +84,7 @@ final class CartRemoveItemFromCartApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_reprocesses_the_order_after_deleting_an_item()
+    public function it_reprocesses_the_order_after_deleting_an_item(): void
     {
         $this->loadFixturesFromFiles(['shop.yml', 'promotion.yml']);
 

@@ -18,7 +18,7 @@ final class CustomerUpdateCustomerApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_updates_customer()
+    public function it_updates_customer(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
         $this->logInUser('oliver@queen.com', '123password');
@@ -57,7 +57,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_allow_to_update_customer_without_being_logged_in()
+    public function it_does_not_allow_to_update_customer_without_being_logged_in(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
 
@@ -81,7 +81,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_allow_to_update_customer_without_passing_required_data()
+    public function it_does_not_allow_to_update_customer_without_passing_required_data(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
         $this->logInUser('oliver@queen.com', '123password');
@@ -104,7 +104,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_allow_to_update_customer_in_non_existent_channel()
+    public function it_does_not_allow_to_update_customer_in_non_existent_channel(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
         $this->logInUser('oliver@queen.com', '123password');

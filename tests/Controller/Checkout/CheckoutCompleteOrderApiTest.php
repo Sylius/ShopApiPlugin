@@ -22,7 +22,7 @@ final class CheckoutCompleteOrderApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_allows_to_complete_checkout()
+    public function it_allows_to_complete_checkout(): void
     {
         $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml', 'payment.yml']);
 
@@ -71,7 +71,7 @@ EOT;
     /**
      * @test
      */
-    public function it_allows_to_complete_checkout_with_notes()
+    public function it_allows_to_complete_checkout_with_notes(): void
     {
         $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml', 'payment.yml']);
 
@@ -121,7 +121,7 @@ EOT;
     /**
      * @test
      */
-    public function it_allows_to_complete_checkout_without_email_for_logged_in_customer()
+    public function it_allows_to_complete_checkout_without_email_for_logged_in_customer(): void
     {
         $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml', 'payment.yml', 'customer.yml']);
 
@@ -165,7 +165,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_allow_to_complete_order_in_non_existent_channel()
+    public function it_does_not_allow_to_complete_order_in_non_existent_channel(): void
     {
         $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml', 'payment.yml', 'customer.yml']);
 
@@ -213,7 +213,7 @@ EOT;
     /**
      * @test
      */
-    public function it_disallows_users_to_complete_checkout_for_user_with_account_without_loggin_in()
+    public function it_disallows_users_to_complete_checkout_for_user_with_account_without_loggin_in(): void
     {
         $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml', 'payment.yml', 'customer.yml']);
 
@@ -260,7 +260,7 @@ EOT;
     /**
      * @test
      */
-    public function it_disallows_users_to_complete_checkout_for_someone_else()
+    public function it_disallows_users_to_complete_checkout_for_someone_else(): void
     {
         $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml', 'payment.yml', 'customer.yml']);
 

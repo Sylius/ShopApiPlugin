@@ -20,7 +20,7 @@ final class AddressBookCreateAddressApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_allows_user_to_add_new_address_to_address_book()
+    public function it_allows_user_to_add_new_address_to_address_book(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'country.yml']);
         $this->logInUser('oliver@queen.com', '123password');
@@ -61,7 +61,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_allow_user_to_add_new_address_to_address_book_without_passing_required_data()
+    public function it_does_not_allow_user_to_add_new_address_to_address_book_without_passing_required_data(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'country.yml']);
         $this->logInUser('oliver@queen.com', '123password');
@@ -88,7 +88,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_allow_user_to_add_new_address_to_address_book_without_passing_correct_country_code()
+    public function it_does_not_allow_user_to_add_new_address_to_address_book_without_passing_correct_country_code(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'country.yml']);
         $this->logInUser('oliver@queen.com', '123password');
@@ -114,7 +114,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_allow_user_to_add_new_address_to_address_book_without_passing_correct_province_code()
+    public function it_does_not_allow_user_to_add_new_address_to_address_book_without_passing_correct_province_code(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'country.yml']);
         $this->logInUser('oliver@queen.com', '123password');
@@ -141,7 +141,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_allow_user_to_add_new_address_to_address_book_in_non_existent_channel()
+    public function it_does_not_allow_user_to_add_new_address_to_address_book_in_non_existent_channel(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'country.yml']);
         $this->logInUser('oliver@queen.com', '123password');

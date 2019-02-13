@@ -12,7 +12,7 @@ final class ProductShowReviewsByCodeApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_shows_reviews_for_product_by_slug()
+    public function it_shows_reviews_for_product_by_slug(): void
     {
         $this->loadFixturesFromFiles(['shop.yml', 'customer.yml', 'mug_review.yml']);
 
@@ -25,7 +25,7 @@ final class ProductShowReviewsByCodeApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_does_not_show_product_reviews_by_code_in_non_existent_channel()
+    public function it_does_not_show_product_reviews_by_code_in_non_existent_channel(): void
     {
         $this->loadFixturesFromFiles(['channel.yml']);
 

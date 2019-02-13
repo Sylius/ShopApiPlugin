@@ -17,7 +17,7 @@ final class CustomerResendVerificationTokenApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_allows_to_resend_verification_token()
+    public function it_allows_to_resend_verification_token(): void
     {
         $this->loadFixturesFromFiles(['channel.yml']);
 
@@ -49,7 +49,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_allow_to_resend_verification_email_if_email_is_not_defined()
+    public function it_does_not_allow_to_resend_verification_email_if_email_is_not_defined(): void
     {
         $this->loadFixturesFromFiles(['channel.yml']);
 
@@ -62,7 +62,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_allow_to_resend_verification_email_if_email_is_not_malformed()
+    public function it_does_not_allow_to_resend_verification_email_if_email_is_not_malformed(): void
     {
         $this->loadFixturesFromFiles(['channel.yml']);
 
@@ -77,7 +77,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_allow_to_resend_verification_email_if_customer_does_not_exists()
+    public function it_does_not_allow_to_resend_verification_email_if_customer_does_not_exists(): void
     {
         $this->loadFixturesFromFiles(['channel.yml']);
 
@@ -92,7 +92,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_allow_to_resend_verification_token_in_non_existent_channel()
+    public function it_does_not_allow_to_resend_verification_token_in_non_existent_channel(): void
     {
         $this->loadFixturesFromFiles(['channel.yml']);
 

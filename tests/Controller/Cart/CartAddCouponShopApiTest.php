@@ -15,7 +15,7 @@ final class CartAddCouponShopApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_allows_to_add_promotion_coupon_to_the_cart()
+    public function it_allows_to_add_promotion_coupon_to_the_cart(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'shop.yml', 'coupon_based_promotion.yml']);
 
@@ -43,7 +43,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_allow_to_add_promotion_if_coupon_is_not_specified()
+    public function it_does_not_allow_to_add_promotion_if_coupon_is_not_specified(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'shop.yml']);
 
@@ -64,7 +64,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_allow_to_add_promotion_code_if_cart_does_not_exists()
+    public function it_does_not_allow_to_add_promotion_code_if_cart_does_not_exists(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'shop.yml']);
 
@@ -85,7 +85,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_allow_to_add_promotion_code_if_promotion_code_does_not_exist()
+    public function it_does_not_allow_to_add_promotion_code_if_promotion_code_does_not_exist(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'shop.yml']);
 
@@ -113,7 +113,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_allow_to_add_promotion_code_if_code_is_invalid()
+    public function it_does_not_allow_to_add_promotion_code_if_code_is_invalid(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'shop.yml', 'coupon_based_promotion.yml']);
 
@@ -141,7 +141,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_allow_to_add_promotion_code_if_related_promotion_is_not_valid()
+    public function it_does_not_allow_to_add_promotion_code_if_related_promotion_is_not_valid(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'shop.yml', 'coupon_based_promotion.yml']);
 
@@ -169,7 +169,7 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_allow_to_add_promotion_code_in_non_existent_channel()
+    public function it_does_not_allow_to_add_promotion_code_in_non_existent_channel(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'shop.yml', 'coupon_based_promotion.yml']);
 

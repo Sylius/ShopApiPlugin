@@ -12,7 +12,7 @@ final class ProductShowLatestApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_shows_latest_products_with_default_count()
+    public function it_shows_latest_products_with_default_count(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -26,7 +26,7 @@ final class ProductShowLatestApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_shows_latest_2_products()
+    public function it_shows_latest_2_products(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
@@ -40,7 +40,7 @@ final class ProductShowLatestApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_does_not_show_latest_products_in_non_existent_channel()
+    public function it_does_not_show_latest_products_in_non_existent_channel(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
