@@ -18,7 +18,6 @@ use Tests\Sylius\ShopApiPlugin\Controller\JsonApiTestCase;
 
 final class CartDropCartApiTest extends JsonApiTestCase
 {
-
     /**
      * @test
      */

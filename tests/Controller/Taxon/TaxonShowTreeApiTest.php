@@ -16,7 +16,7 @@ final class TaxonShowTreeApiTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
-        $this->client->request('GET', '/shop-api/WEB_GB/taxons/', [], [], self::CONTENT_HEADER);
+        $this->client->request('GET', '/shop-api/WEB_GB/taxons/', [], [], self::CONTENT_TYPE_HEADER);
 
         $response = $this->client->getResponse();
 
@@ -30,7 +30,7 @@ final class TaxonShowTreeApiTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
-        $this->client->request('GET', '/shop-api/WEB_GB/taxons/?locale=de_DE', [], [], self::CONTENT_HEADER);
+        $this->client->request('GET', '/shop-api/WEB_GB/taxons/?locale=de_DE', [], [], self::CONTENT_TYPE_HEADER);
 
         $response = $this->client->getResponse();
 
@@ -44,7 +44,7 @@ final class TaxonShowTreeApiTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
-        $this->client->request('GET', '/shop-api/SPACE_KLINGON/taxons/', [], [], self::CONTENT_HEADER);
+        $this->client->request('GET', '/shop-api/SPACE_KLINGON/taxons/', [], [], self::CONTENT_TYPE_HEADER);
 
         $response = $this->client->getResponse();
 

@@ -62,9 +62,7 @@ final class CheckoutCompleteOrderApiTest extends JsonApiTestCase
         }
 EOT;
         $this->client->request('PUT', sprintf('/shop-api/WEB_GB/checkout/%s/complete', $token), [], [],
-            self::CONTENT_TYPE_HEADER
-
-        , $data);
+            self::CONTENT_TYPE_HEADER, $data);
 
         $response = $this->client->getResponse();
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
@@ -114,8 +112,7 @@ EOT;
         }
 EOT;
         $this->client->request('PUT', sprintf('/shop-api/WEB_GB/checkout/%s/complete', $token), [], [],
-            self::CONTENT_TYPE_HEADER
-        , $data);
+            self::CONTENT_TYPE_HEADER, $data);
 
         $response = $this->client->getResponse();
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
