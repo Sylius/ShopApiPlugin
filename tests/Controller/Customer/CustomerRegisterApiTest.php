@@ -29,7 +29,7 @@ final class CustomerRegisterApiTest extends JsonApiTestCase
             "firstName": "Vin",
             "lastName": "Diesel",
             "email": "vinny@fandf.com",
-            "plainPassword": "somepass"
+            "plainPassword": "bananas1234"
         }
 EOT;
 
@@ -63,7 +63,7 @@ EOT;
             "firstName": "Vin",
             "lastName": "Diesel",
             "email": "vinny@fandf.com",
-            "plainPassword": "somepass"
+            "plainPassword": "12345password"
         }
 EOT;
 
@@ -161,8 +161,4 @@ EOT;
         $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
     }
 
-    protected function getContainer(): ContainerInterface
-    {
-        return static::$sharedKernel->getContainer();
-    }
 }

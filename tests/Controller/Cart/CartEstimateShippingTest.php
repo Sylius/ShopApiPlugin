@@ -31,7 +31,7 @@ final class CartEstimateShippingTest extends JsonApiTestCase
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
-        $this->pickupCart($token, 'WEB_GB');
+        $this->pickupCart($token);
         $this->putItemToCart($token);
 
         $this->client->request('GET', sprintf('/shop-api/WEB_GB/carts/%s/estimated-shipping-cost?countryCode=GB', $token), [], [], self::CONTENT_TYPE_HEADER);
@@ -49,7 +49,7 @@ final class CartEstimateShippingTest extends JsonApiTestCase
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
-        $this->pickupCart($token, 'WEB_GB');
+        $this->pickupCart($token);
         $this->putItemToCart($token);
 
         $this->client->request('GET', sprintf('/shop-api/WEB_GB/carts/%s/estimated-shipping-cost?countryCode=GB&provinceCode=GB-SCT', $token), [], [], self::CONTENT_TYPE_HEADER);
@@ -73,9 +73,8 @@ final class CartEstimateShippingTest extends JsonApiTestCase
 
     /**
      * @param string $token
-     * @param string $channelCode
      */
-    private function pickupCart(string $token, string $channelCode)
+    private function pickupCart(string $token)
     {
         $this->client->request('POST', '/shop-api/WEB_GB/carts/' . $token, [], [], static::CONTENT_TYPE_HEADER);
     }

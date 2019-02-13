@@ -47,8 +47,8 @@ EOT;
             "email": "vinny@fandf.com",
             "user": {
                 "plainPassword" : {
-                    "first": "somepass",
-                    "second": "somepass"
+                    "first": "password_123",
+                    "second": "password_123"
                 }
             }
         }
