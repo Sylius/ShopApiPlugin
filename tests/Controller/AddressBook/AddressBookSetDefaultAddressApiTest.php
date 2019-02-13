@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Sylius\ShopApiPlugin\Controller;
+namespace Tests\Sylius\ShopApiPlugin\Controller\AddressBook;
 
 use PHPUnit\Framework\Assert;
 use Sylius\Component\Core\Model\ShopUser;
@@ -10,6 +10,7 @@ use Sylius\Component\Core\Repository\AddressRepositoryInterface;
 use Sylius\Component\Resource\Model\ResourceInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Tests\Sylius\ShopApiPlugin\Controller\JsonApiTestCase;
 use Tests\Sylius\ShopApiPlugin\Controller\Utils\ShopUserLoginTrait;
 
 final class AddressBookSetDefaultAddressApiTest extends JsonApiTestCase
