@@ -330,7 +330,7 @@ paths:
                     description: "Invalid input, validation failed."
                     schema:
                         $ref: "#/definitions/GeneralError"
-    /{channelCode}/checkout/{token}/shipping/:
+    /{channelCode}/checkout/{token}/shipping:
         parameters:
             -   $ref: "#/parameters/ChannelCode"
             -   $ref: "#/parameters/CartToken"
@@ -377,7 +377,7 @@ paths:
                     description: "Invalid input, validation failed."
                     schema:
                         $ref: "#/definitions/GeneralError"
-    /{channelCode}/checkout/{token}/payment/:
+    /{channelCode}/checkout/{token}/payment:
         parameters:
             -   $ref: "#/parameters/ChannelCode"
             -   $ref: "#/parameters/CartToken"
@@ -1076,7 +1076,9 @@ definitions:
                     properties:
                         methods:
                             type: "object"
-                            $ref: "#/definitions/ShippingMethod"
+                            additionalProperties:
+                                type: "object"
+                                $ref: "#/definitions/ShippingMethod"
     Shipment:
         type: "object"
         properties:
