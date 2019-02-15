@@ -63,6 +63,7 @@ final class PlacedOrderViewFactorySpec extends ObjectBehavior
         $cart->getChannel()->willReturn($channel);
         $cart->getCurrencyCode()->willReturn('GBP');
         $cart->getCheckoutState()->willReturn(OrderCheckoutStates::STATE_COMPLETED);
+        $cart->getCheckoutCompletedAt()->willReturn(new \DateTime('2019-02-15T15:00:00+00:00'));
         $cart->getTokenValue()->willReturn('ORDER_TOKEN');
         $cart->getNumber()->willReturn('ORDER_NUMBER');
         $cart->getShippingTotal()->willReturn(500);
@@ -97,6 +98,7 @@ final class PlacedOrderViewFactorySpec extends ObjectBehavior
         $placedOrderView->currency = 'GBP';
         $placedOrderView->locale = 'en_GB';
         $placedOrderView->checkoutState = OrderCheckoutStates::STATE_COMPLETED;
+        $placedOrderView->checkoutCompletedAt = '2019-02-15T15:00:00+00:00';
 
         $placedOrderView->items = [new ItemView()];
         $placedOrderView->totals = new TotalsView();
