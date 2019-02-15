@@ -1694,6 +1694,11 @@ definitions:
                     - "new"
                     - "fulfilled"
                     - "cancelled"
+            checkoutCompletedAt:
+                description: "Date the order was completed in ISO 8601 format."
+                type: "string"
+                format: "date-time"
+                exmple: "2019-02-01T03:00:00+00:00"
             items:
                 type: "array"
                 items:

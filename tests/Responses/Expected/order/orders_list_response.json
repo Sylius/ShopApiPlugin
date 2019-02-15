@@ -4,6 +4,7 @@
         "currency": "GBP",
         "locale": "en_GB",
         "checkoutState": "completed",
+        "checkoutCompletedAt": "2019-02-01T03:00:00+00:00",
         "items": [
             {
                 "id": @integer@,
