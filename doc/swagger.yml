@@ -449,6 +449,9 @@ paths:
                         $ref: "#/definitions/GeneralError"
                 403:
                     description: "Not logged in or wrong email"
+            security:
+                - {}
+                -   bearerAuth: []
     /{channelCode}/taxon-products-by-slug/{slug}:
         parameters:
             -   $ref: "#/parameters/ChannelCode"
