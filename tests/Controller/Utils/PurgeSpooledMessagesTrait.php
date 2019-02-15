@@ -14,7 +14,7 @@ trait PurgeSpooledMessagesTrait
     /**
      * @before
      */
-    public function purgeSpooledMessages()
+    public function purgeSpooledMessages(): void
     {
         $emailChecker = $this->getContainer()->get('sylius.behat.email_checker');
 
