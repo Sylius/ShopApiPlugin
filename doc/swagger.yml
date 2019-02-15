@@ -713,6 +713,31 @@ paths:
                     description: "Reset password request has been sent."
                 500:
                     description: "User with provided email has not been found."
+    /{channelCode}/password-reset/{token}:
+        parameters:
+            -   $ref: "#/parameters/ChannelCode"
+            -   in: "path"
+                name: "token"
+                description: "Password reset token."
+                required: true
+                type: "string"
+        put:
+            tags:
+                - "users"
+            summary: "Password reset."
+            description: "This endpoint resets the user password."
+            operationId: "passwordReset"
+            parameters:
+                -   name: "content"
+                    in: "body"
+                    required: true
+                    schema:
+                        $ref: "#/definitions/PasswordResetRequest"
+            responses:
+                204:
+                    description: "Update password request success."
+                400:
+                    description: "Token not found."
     /{channelCode}/register:
         parameters:
             -   $ref: "#/parameters/ChannelCode"
@@ -752,6 +777,8 @@ paths:
                             $ref: "#/definitions/PlacedOrder"
                 401:
                     description: "User token invalid"
+            security:
+                - bearerAuth: []
     /{channelCode}/orders/{tokenValue}:
         parameters:
             -   $ref: "#/parameters/ChannelCode"
@@ -774,6 +801,8 @@ paths:
                     description: "User token invalid"
                 404:
                     description: "Order with given tokenValue not found"
+            security:
+                -   bearerAuth: []
     /{channelCode}/me:
         parameters:
             -   $ref: "#/parameters/ChannelCode"
@@ -1495,6 +1524,20 @@ definitions:
             email:
                 type: "string"
                 example: "test@example.com"
+    PasswordResetRequest:
+        type: "object"
+        properties:
+            password:
+                $ref: "#/definitions/PasswordReset"
+    PasswordReset:
+        type: object
+        properties:
+            first:
+                type: "string"
+                example: "a-new-password"
+            second:
+                type: "string"
+                example: "a-new-password"
     RegisterRequest:
         type: "object"
         properties:
