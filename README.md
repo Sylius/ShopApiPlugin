@@ -8,6 +8,8 @@
 
 [![License](https://img.shields.io/packagist/l/sylius/shop-api-plugin.svg)](https://packagist.org/packages/sylius/shop-api-plugin) [![Version](https://img.shields.io/packagist/v/sylius/shop-api-plugin.svg)](https://packagist.org/packages/sylius/shop-api-plugin) [![Build Status](https://travis-ci.org/Sylius/ShopApiPlugin.svg?branch=master)](https://travis-ci.org/Sylius/ShopApiPlugin) [![Scrutinizer Quality Score](https://img.shields.io/scrutinizer/g/Sylius/SyliusShopApiPlugin.svg)](https://scrutinizer-ci.com/g/Sylius/SyliusShopApiPlugin/)
 
+<p align="center"><a href="https://sylius.com/plugins/" target="_blank"><img src="https://sylius.com/assets/badge-official-sylius-plugin.png" width="200"></a></p>
+
 <p align="center">This repository contains a plugin that extends the <a href="https://github.com/Sylius/Sylius">Sylius eCommerce Framework</a> with an API in JSON that allows performing all standard shop operations from the customer perspective.</p>
 
 ## Documentation
