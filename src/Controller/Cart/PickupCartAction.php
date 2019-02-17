@@ -8,14 +8,16 @@ use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
+use Sylius\ShopApiPlugin\Provider\LoggedInShopUserProviderInterface;
 use Sylius\ShopApiPlugin\Request\PickupCartRequest;
+use Sylius\ShopApiPlugin\Request\PickupLoggedInCartRequest;
 use Sylius\ShopApiPlugin\ViewRepository\Cart\CartViewRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-final class PickupAction
+final class PickupCartAction
 {
     /** @var ViewHandlerInterface */
     private $viewHandler;
@@ -32,9 +34,13 @@ final class PickupAction
     /** @var CartViewRepositoryInterface */
     private $cartQuery;
 
+    /** @var LoggedInShopUserProviderInterface */
+    private $loggedInShopUserProvider;
+
     public function __construct(
         ViewHandlerInterface $viewHandler,
         CommandBus $bus,
+        LoggedInShopUserProviderInterface $loggedInShopUserProvider,
         ValidatorInterface $validator,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         CartViewRepositoryInterface $cartQuery
@@ -44,11 +50,15 @@ final class PickupAction
         $this->validator = $validator;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->cartQuery = $cartQuery;
+        $this->loggedInShopUserProvider = $loggedInShopUserProvider;
     }
 
     public function __invoke(Request $request): Response
     {
         $pickupRequest = new PickupCartRequest($request);
+        if ($this->loggedInShopUserProvider->isUserLoggedIn()) {
+            $pickupRequest = new PickupLoggedInCartRequest($request);
+        }
 
         $validationResults = $this->validator->validate($pickupRequest);
 
@@ -66,6 +76,8 @@ final class PickupAction
             }
         }
 
-        return $this->viewHandler->handle(View::create($this->validationErrorViewFactory->create($validationResults), Response::HTTP_BAD_REQUEST));
+        return $this->viewHandler->handle(
+            View::create($this->validationErrorViewFactory->create($validationResults), Response::HTTP_BAD_REQUEST)
+        );
     }
 }

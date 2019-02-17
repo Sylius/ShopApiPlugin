@@ -5,33 +5,33 @@ declare(strict_types=1);
 namespace spec\Sylius\ShopApiPlugin\Handler\Cart;
 
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
-use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Currency\Model\CurrencyInterface;
 use Sylius\Component\Locale\Model\LocaleInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\ShopApiPlugin\Command\PickupCart;
-use Sylius\ShopApiPlugin\Provider\LoggedInShopUserProviderInterface;
+use Sylius\ShopApiPlugin\Handler\Cart\PickupCartHandler;
 
 final class PickupCartHandlerSpec extends ObjectBehavior
 {
     function let(
         FactoryInterface $cartFactory,
         OrderRepositoryInterface $cartRepository,
-        ChannelRepositoryInterface $channelRepository,
-        LoggedInShopUserProviderInterface $loggedInShopUserProvider
+        ChannelRepositoryInterface $channelRepository
     ): void {
         $this->beConstructedWith(
             $cartFactory,
             $cartRepository,
-            $channelRepository,
-            $loggedInShopUserProvider
+            $channelRepository
         );
+    }
+
+    function it_is_initializable(): void
+    {
+        $this->shouldHaveType(PickupCartHandler::class);
     }
 
     function it_handles_cart_pickup_for_not_logged_in_user(
@@ -40,7 +40,6 @@ final class PickupCartHandlerSpec extends ObjectBehavior
         ChannelRepositoryInterface $channelRepository,
         FactoryInterface $cartFactory,
         LocaleInterface $locale,
-        LoggedInShopUserProviderInterface $loggedInShopUserProvider,
         OrderInterface $cart,
         OrderRepositoryInterface $cartRepository
     ): void {
@@ -57,33 +56,7 @@ final class PickupCartHandlerSpec extends ObjectBehavior
         $cart->setCurrencyCode('EUR')->shouldBeCalled();
         $cart->setLocaleCode('de_DE')->shouldBeCalled();
 
-        $loggedInShopUserProvider->isUserLoggedIn()->willReturn(false);
-        $cart->setCustomer(Argument::any())->shouldNotBeCalled();
-
         $cartRepository->add($cart)->shouldBeCalledOnce();
-
-        $this->handle(new PickupCart('ORDERTOKEN', 'CHANNEL_CODE'));
-    }
-
-    function it_handles_cart_pickup_for_a_logged_in_user(
-        ChannelInterface $channel,
-        ChannelRepositoryInterface $channelRepository,
-        LoggedInShopUserProviderInterface $loggedInShopUserProvider,
-        ShopUserInterface $user,
-        CustomerInterface $customer,
-        OrderInterface $cart,
-        OrderRepositoryInterface $cartRepository
-    ): void {
-        $channelRepository->findOneByCode('CHANNEL_CODE')->willReturn($channel);
-
-        $loggedInShopUserProvider->isUserLoggedIn()->willReturn(true);
-        $loggedInShopUserProvider->provide()->willReturn($user);
-
-        $user->getCustomer()->willReturn($customer);
-        $cartRepository->findOneBy(['customer' => $customer, 'channel' => $channel])->willReturn($cart);
-        $cart->setTokenValue('ORDERTOKEN')->shouldBeCalled();
-
-        $cartRepository->add(Argument::any())->shouldNotBeCalled();
 
         $this->handle(new PickupCart('ORDERTOKEN', 'CHANNEL_CODE'));
     }

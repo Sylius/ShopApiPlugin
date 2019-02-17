@@ -15,8 +15,15 @@
             <argument type="service" id="sylius.factory.order"/>
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.repository.channel"/>
-            <argument type="service" id="sylius.shop_api_plugin.provider.current_user_provider"/>
             <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\PickupCart"/>
+        </service>
+
+        <service id="sylius.shop_api_plugin.handler.pickup_logged_in_cart_handler"
+                 class="Sylius\ShopApiPlugin\Handler\Cart\PickupLoggedInCartHandler">
+            <argument type="service" id="sylius.repository.order"/>
+            <argument type="service" id="sylius.repository.channel"/>
+            <argument type="service" id="sylius.shop_api_plugin.provider.current_user_provider"/>
+            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\PickupLoggedInCart"/>
         </service>
 
         <service id="sylius.shop_api_plugin.handler.drop_cart_handler"
