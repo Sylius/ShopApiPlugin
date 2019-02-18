@@ -18,6 +18,9 @@ class PlacedOrderView
     /** @var string */
     public $checkoutState;
 
+    /** @var string */
+    public $checkoutCompletedAt;
+
     /** @var array|ItemView[] */
     public $items = [];
 
