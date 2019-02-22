@@ -63,5 +63,10 @@
             <argument type="service" id="validator" />
             <argument type="service" id="tactician.commandbus" />
         </service>
+
+        <!-- Removing the create cart context from composite context (see: https://github.com/Sylius/Sylius/issues/10192) -->
+        <service id="sylius.context.cart.new" class="Sylius\Component\Order\Context\CartContext">
+            <argument type="service" id="sylius.factory.order" />
+        </service>
     </services>
 </container>
