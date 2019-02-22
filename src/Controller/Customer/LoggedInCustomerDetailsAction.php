@@ -39,6 +39,10 @@ final class LoggedInCustomerDetailsAction
             'firstName' => $customer->getFirstName(),
             'lastName' => $customer->getLastName(),
             'email' => $customer->getEmail(),
+            'gender' => $customer->getGender(),
+            'birthday' => $customer->getBirthday(),
+            'phoneNumber' => $customer->getPhoneNumber(),
+            'subscribedToNewsletter' => $customer->isSubscribedToNewsletter(),
         ], Response::HTTP_OK));
     }
 }
