@@ -1,0 +1,33 @@
+---------------------------------------------------------------------------
+
+by mamazu at 2019-02-18T14:16:47Z
+
+@lchrusciel This is the current best fix. What do you think? The other approach would be to use a different context that does't automatically create a cart or exclude the cart pickup form those routes. Which I both find not optimal.
+
+---------------------------------------------------------------------------
+
+by lchrusciel at 2019-02-22T14:42:53Z
+
+If I understood you correctly, the main issue is with `UserCartRecalculationListener`. This service is called each time we send authorization token, so it makes absolute sense. However, in this case, this solution seems to be more like a workaround. We should resolve this issue by customizing `UserCartRecalculationListener` instead. IMHO we should just turn off `UserCartRecalculationListener` for Shop API context. Still, I don't have an idea how :D
+
+PS. Sorry, for misclick and closing PR :)
+
+---------------------------------------------------------------------------
+
+by mamazu at 2019-02-22T17:24:08Z
+
+Correct, the `UserCartRecalculationListener` also has a fail save, when there is no cart then there is nothing to calculate and therefore returns. The problem is that the `cartContext` that the listener is provided with, doesn't throw an exception if the cart is not found but silently creates a new one.
+
+---------------------------------------------------------------------------
+
+by mamazu at 2019-02-22T17:51:23Z
+
+Alternatively you could also remove the `sylius.context.cart.new` context from the composite cart (see context.https://github.com/Sylius/Sylius/issues/10192) which is the best solution in my opinion.
+
+This also fixes the problem in a different place. Currently with the service enabled you get a cart whenever you log in. Even if you never have ever put something into the cart or visited the cart overview once. So this fix also reduces the overhead on any logged in request.
+
+---------------------------------------------------------------------------
+
+by lchrusciel at 2019-03-07T12:21:42Z
+
+Thanks, @mamazu! :1st_place_medal:
