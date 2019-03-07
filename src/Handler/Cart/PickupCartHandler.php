@@ -23,17 +23,19 @@ final class PickupCartHandler
     /** @var ChannelRepositoryInterface */
     private $channelRepository;
 
-    public function __construct(FactoryInterface $cartFactory, OrderRepositoryInterface $cartRepository, ChannelRepositoryInterface $channelRepository)
-    {
+    public function __construct(
+        FactoryInterface $cartFactory,
+        OrderRepositoryInterface $cartRepository,
+        ChannelRepositoryInterface $channelRepository
+    ) {
         $this->cartFactory = $cartFactory;
         $this->cartRepository = $cartRepository;
         $this->channelRepository = $channelRepository;
     }
 
-    /** @param PickupCart $pickupCart */
     public function handle(PickupCart $pickupCart)
     {
-        /** @var ChannelInterface $channel */
+        /** @var ChannelInterface|null $channel */
         $channel = $this->channelRepository->findOneByCode($pickupCart->channelCode());
 
         Assert::notNull($channel, sprintf('Channel with %s code has not been found.', $pickupCart->channelCode()));

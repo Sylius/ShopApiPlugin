@@ -13,15 +13,28 @@ use Sylius\Component\Currency\Model\CurrencyInterface;
 use Sylius\Component\Locale\Model\LocaleInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\ShopApiPlugin\Command\PickupCart;
+use Sylius\ShopApiPlugin\Handler\Cart\PickupCartHandler;
 
 final class PickupCartHandlerSpec extends ObjectBehavior
 {
-    function let(FactoryInterface $cartFactory, OrderRepositoryInterface $cartRepository, ChannelRepositoryInterface $channelRepository): void
-    {
-        $this->beConstructedWith($cartFactory, $cartRepository, $channelRepository);
+    function let(
+        FactoryInterface $cartFactory,
+        OrderRepositoryInterface $cartRepository,
+        ChannelRepositoryInterface $channelRepository
+    ): void {
+        $this->beConstructedWith(
+            $cartFactory,
+            $cartRepository,
+            $channelRepository
+        );
     }
 
-    function it_handles_cart_pickup(
+    function it_is_initializable(): void
+    {
+        $this->shouldHaveType(PickupCartHandler::class);
+    }
+
+    function it_handles_cart_pickup_for_not_logged_in_user(
         ChannelInterface $channel,
         CurrencyInterface  $currency,
         ChannelRepositoryInterface $channelRepository,
@@ -43,7 +56,7 @@ final class PickupCartHandlerSpec extends ObjectBehavior
         $cart->setCurrencyCode('EUR')->shouldBeCalled();
         $cart->setLocaleCode('de_DE')->shouldBeCalled();
 
-        $cartRepository->add($cart)->shouldBeCalled();
+        $cartRepository->add($cart)->shouldBeCalledOnce();
 
         $this->handle(new PickupCart('ORDERTOKEN', 'CHANNEL_CODE'));
     }

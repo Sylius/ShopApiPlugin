@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-final class PickupAction
+final class PickupCartAction
 {
     /** @var ViewHandlerInterface */
     private $viewHandler;
@@ -66,6 +66,8 @@ final class PickupAction
             }
         }
 
-        return $this->viewHandler->handle(View::create($this->validationErrorViewFactory->create($validationResults), Response::HTTP_BAD_REQUEST));
+        return $this->viewHandler->handle(
+            View::create($this->validationErrorViewFactory->create($validationResults), Response::HTTP_BAD_REQUEST)
+        );
     }
 }
