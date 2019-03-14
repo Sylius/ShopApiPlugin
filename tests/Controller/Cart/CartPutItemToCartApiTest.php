@@ -632,6 +632,40 @@ EOT;
     /**
      * @test
      */
+    public function it_link_cart_to_customer_if_user_login_after_cart_creation(): void
+    {
+        $this->loadFixturesFromFiles(['shop.yml', 'customer.yml']);
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var CommandBus $bus */
+        $bus = $this->get('tactician.commandbus');
+        $bus->handle(new PickupCart($token, 'WEB_GB'));
+
+        $orderRepository = $this->get('sylius.repository.order');
+        $order = current($orderRepository->findAll());
+
+        $this->assertNull($order->getCustomer());
+
+        $this->logInUser('olivia@king.com', '123password');
+
+        $data =
+<<<EOT
+        {
+            "productCode": "LOGAN_MUG_CODE",
+            "quantity": 3
+        }
+EOT;
+        $this->client->request('POST', sprintf('/shop-api/WEB_GB/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
+        $response = $this->client->getResponse();
+
+        $order = current($orderRepository->findAll());
+        $this->assertNotNull($order->getCustomer());
+    }
+
+    /**
+     * @test
+     */
     public function it_apply_customer_group_promotion(): void
     {
         $this->loadFixturesFromFiles(['shop.yml', 'customer.yml', 'promotion.yml']);
