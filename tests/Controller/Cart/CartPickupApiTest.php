@@ -37,7 +37,7 @@ final class CartPickupApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_only_creates_one_cart_if_user_is_logged_in(): void
+    public function it_creates_one_cart_linked_to_user_if_user_is_logged_in(): void
     {
         $this->loadFixturesFromFiles(['shop.yml', 'customer.yml']);
 
@@ -52,6 +52,10 @@ final class CartPickupApiTest extends JsonApiTestCase
         $orders = $orderRepository->findAll();
 
         $this->assertCount(1, $orders, 'Only one cart should be created');
+
+        $order = current($orders);
+
+        $this->assertNotNull($order->getCustomer());
     }
 
     /**

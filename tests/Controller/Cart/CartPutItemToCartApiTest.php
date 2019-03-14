@@ -15,9 +15,12 @@ use Sylius\ShopApiPlugin\Command\PutSimpleItemToCart;
 use Sylius\ShopApiPlugin\Model\Address;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\Sylius\ShopApiPlugin\Controller\JsonApiTestCase;
+use Tests\Sylius\ShopApiPlugin\Controller\Utils\ShopUserLoginTrait;
 
 final class CartPutItemToCartApiTest extends JsonApiTestCase
 {
+    use ShopUserLoginTrait;
+
     /**
      * @test
      */
@@ -624,5 +627,33 @@ EOT;
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/add_simple_product_to_new_cart_response', Response::HTTP_CREATED);
+    }
+
+    /**
+     * @test
+     */
+    public function it_apply_customer_group_promotion(): void
+    {
+        $this->loadFixturesFromFiles(['shop.yml', 'customer.yml', 'promotion.yml']);
+
+        $this->logInUser('olivia@king.com', '123password');
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var CommandBus $bus */
+        $bus = $this->get('tactician.commandbus');
+        $bus->handle(new PickupCart($token, 'WEB_GB'));
+
+        $data =
+<<<EOT
+        {
+            "productCode": "LOGAN_MUG_CODE",
+            "quantity": 3
+        }
+EOT;
+        $this->client->request('POST', sprintf('/shop-api/WEB_GB/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'cart/add_product_with_customer_group_promotion_to_cart_response', Response::HTTP_CREATED);
     }
 }

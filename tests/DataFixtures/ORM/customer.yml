@@ -7,6 +7,14 @@ Sylius\Component\Core\Model\ShopUser:
         username: "oliver@queen.com"
         usernameCanonical: "oliver@queen.com"
 
+    user_olivia:
+        plainPassword: "123password"
+        roles: ["ROLE_USER"]
+        enabled: "true"
+        customer: "@premium_customer"
+        username: "olivia@king.com"
+        usernameCanonical: "olivia@king.com"
+
     user_hater:
         plainPassword: "123password"
         roles: ["ROLE_USER"]
@@ -24,8 +32,22 @@ Sylius\Component\Core\Model\Customer:
         gender: "m"
         phoneNumber: "0212115512"
 
+    premium_customer:
+        firstName: "Olivia"
+        lastName: "King"
+        email: "olivia@king.com"
+        emailCanonical: "olivia@king.com"
+        gender: "f"
+        phoneNumber: "0212115513"
+        group: "@premium"
+
     hater:
         firstName: "Slade"
         lastName: "Wilson"
         email: "hater@queen.com"
         emailCanonical: "slade@queen.com"
+
+Sylius\Component\Customer\Model\CustomerGroup:
+    premium:
+        code: "premium"
+        name: "Premium customers"

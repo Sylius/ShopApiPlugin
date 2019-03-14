@@ -10,6 +10,7 @@ use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\ShopApiPlugin\Command\PickupCart;
+use Sylius\ShopApiPlugin\Provider\LoggedInShopUserProviderInterface;
 use Webmozart\Assert\Assert;
 
 final class PickupCartHandler
@@ -23,14 +24,19 @@ final class PickupCartHandler
     /** @var ChannelRepositoryInterface */
     private $channelRepository;
 
+    /** @var LoggedInShopUserProviderInterface */
+    private $loggedInShopUserProvider;
+
     public function __construct(
         FactoryInterface $cartFactory,
         OrderRepositoryInterface $cartRepository,
-        ChannelRepositoryInterface $channelRepository
+        ChannelRepositoryInterface $channelRepository,
+        LoggedInShopUserProviderInterface $loggedInShopUserProvider
     ) {
         $this->cartFactory = $cartFactory;
         $this->cartRepository = $cartRepository;
         $this->channelRepository = $channelRepository;
+        $this->loggedInShopUserProvider = $loggedInShopUserProvider;
     }
 
     public function handle(PickupCart $pickupCart)
@@ -46,6 +52,14 @@ final class PickupCartHandler
         $cart->setCurrencyCode($channel->getBaseCurrency()->getCode());
         $cart->setLocaleCode($channel->getDefaultLocale()->getCode());
         $cart->setTokenValue($pickupCart->orderToken());
+
+        if ($this->loggedInShopUserProvider->isUserLoggedIn()) {
+            $loggedInUser = $this->loggedInShopUserProvider->provide();
+
+            /** @var CustomerInterface $customer */
+            $customer = $loggedInUser->getCustomer();
+            $cart->setCustomer($customer);
+        }
 
         $this->cartRepository->add($cart);
     }
