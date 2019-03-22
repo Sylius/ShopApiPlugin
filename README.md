@@ -149,9 +149,9 @@ The latest documentation is available [here](https://app.swaggerhub.com/apis/Syl
 
 ### Attributes
 
-If you would like to receive serialized attributes you need to define an array of theirs codes under `shop_api.included_attributes` key. E.g.
+If you would like to receive serialized attributes you need to define an array of theirs codes under `sylius_shop_api.included_attributes` key. E.g.
 ```yml
-shop_api:
+sylius_shop_api:
     included_attributes:
         - "MUG_MATERIAL_CODE"
 ```

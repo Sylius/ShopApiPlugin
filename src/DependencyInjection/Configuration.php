@@ -15,7 +15,7 @@ final class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('shop_api');
+        $rootNode = $treeBuilder->root('sylius_shop_api');
 
         $this->buildIncludedAttributesNode($rootNode);
         $this->buildViewClassesNode($rootNode);
