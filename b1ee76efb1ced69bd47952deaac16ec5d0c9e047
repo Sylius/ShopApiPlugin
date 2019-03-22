@@ -1,0 +1,39 @@
+---------------------------------------------------------------------------
+
+by lchrusciel at 2019-03-20T15:03:36Z
+
+Fixing #263, probably we should document some UPGRADE.md file
+
+---------------------------------------------------------------------------
+
+by lchrusciel at 2019-03-20T15:04:34Z
+
+Also, it should be adjusted at least [here](https://github.com/Sylius/ShopApiPlugin#attributes)
+
+---------------------------------------------------------------------------
+
+by mamazu at 2019-03-20T15:12:20Z
+
+> Fixing #263, probably we should document some UPGRADE.md file
+
+But for which version?
+
+---------------------------------------------------------------------------
+
+by lchrusciel at 2019-03-21T16:59:52Z
+
+We need to create a new record in https://github.com/Sylius/ShopApiPlugin/blob/master/UPGRADE.md, and notice all the changes, that are BC-Breaks. Problem is that we are over 200 commits from the last release. Nevertheless, some changes that are pretty straightforward to describe.
+
+(just to keep a track #340)
+
+---------------------------------------------------------------------------
+
+by mamazu at 2019-03-22T08:45:35Z
+
+Can you generate a list of all the commit messages and I will try to craft a `UPGRADE.md` that reflects those changes.
+
+---------------------------------------------------------------------------
+
+by lchrusciel at 2019-03-22T15:09:33Z
+
+Thank you, @mamazu! :tada:
