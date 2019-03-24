@@ -180,7 +180,7 @@ $ bin/phpunit
 If you think that you have found a security issue, please do not use the issue tracker and do not post it publicly. 
 Instead, all security issues must be sent to `security@sylius.com`.
 
-## Maintanance
+## Maintenance
 
-This library is officially maintained by (Sylius)[sylius.com] together with following contributors outside of organization:
+This library is officially maintained by [Sylius](https://sylius.com) together with the following contributors outside of the organization:
  * [Maximilian Pesch](https://github.com/mamazu)
