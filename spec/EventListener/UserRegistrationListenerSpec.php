@@ -11,8 +11,8 @@ use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\GenerateVerificationToken;
-use Sylius\ShopApiPlugin\Command\SendVerificationToken;
+use Sylius\ShopApiPlugin\Command\Customer\GenerateVerificationToken;
+use Sylius\ShopApiPlugin\Command\Customer\SendVerificationToken;
 use Sylius\ShopApiPlugin\Event\CustomerRegistered;
 
 final class UserRegistrationListenerSpec extends ObjectBehavior

@@ -14,7 +14,7 @@ use Sylius\Component\Order\Processor\OrderProcessorInterface;
 use Sylius\Component\Promotion\Checker\Eligibility\PromotionCouponEligibilityCheckerInterface;
 use Sylius\Component\Promotion\Checker\Eligibility\PromotionEligibilityCheckerInterface;
 use Sylius\Component\Promotion\Repository\PromotionCouponRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\AddCoupon;
+use Sylius\ShopApiPlugin\Command\Cart\AddCoupon;
 
 final class AddCouponHandlerSpec extends ObjectBehavior
 {

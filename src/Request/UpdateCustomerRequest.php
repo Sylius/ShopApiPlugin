@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Sylius\ShopApiPlugin\Request;
 
 use DateTimeInterface;
-use Sylius\ShopApiPlugin\Command\UpdateCustomer;
+use Sylius\ShopApiPlugin\Command\Customer\UpdateCustomer;
 use Symfony\Component\HttpFoundation\Request;
 
 class UpdateCustomerRequest

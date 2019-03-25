@@ -8,7 +8,7 @@ use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\VerifyAccount;
+use Sylius\ShopApiPlugin\Command\Customer\VerifyAccount;
 use Sylius\ShopApiPlugin\Handler\Customer\VerifyAccountHandler;
 
 final class VerifyAccountHandlerSpec extends ObjectBehavior

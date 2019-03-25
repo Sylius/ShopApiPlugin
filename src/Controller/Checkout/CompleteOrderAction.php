@@ -7,7 +7,7 @@ namespace Sylius\ShopApiPlugin\Controller\Checkout;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
-use Sylius\ShopApiPlugin\Command\CompleteOrder;
+use Sylius\ShopApiPlugin\Command\Cart\CompleteOrder;
 use Sylius\ShopApiPlugin\Exception\WrongUserException;
 use Sylius\ShopApiPlugin\Provider\LoggedInShopUserProviderInterface;
 use Symfony\Component\HttpFoundation\Request;

@@ -9,8 +9,8 @@ use League\Tactician\CommandBus;
 use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\GenerateVerificationToken;
-use Sylius\ShopApiPlugin\Command\SendVerificationToken;
+use Sylius\ShopApiPlugin\Command\Customer\GenerateVerificationToken;
+use Sylius\ShopApiPlugin\Command\Customer\SendVerificationToken;
 use Sylius\ShopApiPlugin\Event\CustomerRegistered;
 use Webmozart\Assert\Assert;
 

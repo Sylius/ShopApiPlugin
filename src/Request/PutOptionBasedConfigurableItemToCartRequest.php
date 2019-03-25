@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Request;
 
-use Sylius\ShopApiPlugin\Command\PutOptionBasedConfigurableItemToCart;
+use Sylius\ShopApiPlugin\Command\Cart\PutOptionBasedConfigurableItemToCart;
 use Symfony\Component\HttpFoundation\Request;
 
 class PutOptionBasedConfigurableItemToCartRequest

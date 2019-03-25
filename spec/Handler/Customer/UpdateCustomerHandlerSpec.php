@@ -7,7 +7,7 @@ namespace spec\Sylius\ShopApiPlugin\Handler\Customer;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
-use Sylius\ShopApiPlugin\Command\UpdateCustomer;
+use Sylius\ShopApiPlugin\Command\Customer\UpdateCustomer;
 
 final class UpdateCustomerHandlerSpec extends ObjectBehavior
 {

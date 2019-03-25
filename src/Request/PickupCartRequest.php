@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Sylius\ShopApiPlugin\Request;
 
 use Ramsey\Uuid\Uuid;
-use Sylius\ShopApiPlugin\Command\PickupCart;
+use Sylius\ShopApiPlugin\Command\Cart\PickupCart;
 use Symfony\Component\HttpFoundation\Request;
 
 class PickupCartRequest

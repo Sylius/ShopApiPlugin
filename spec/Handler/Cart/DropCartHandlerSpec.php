@@ -7,7 +7,7 @@ namespace spec\Sylius\ShopApiPlugin\Handler\Cart;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\DropCart;
+use Sylius\ShopApiPlugin\Command\Cart\DropCart;
 
 final class DropCartHandlerSpec extends ObjectBehavior
 {

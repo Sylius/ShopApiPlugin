@@ -7,7 +7,7 @@ namespace spec\Sylius\ShopApiPlugin\Normalizer;
 use League\Tactician\CommandBus;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use Sylius\ShopApiPlugin\Command\PickupCart;
+use Sylius\ShopApiPlugin\Command\Cart\PickupCart;
 use Sylius\ShopApiPlugin\Normalizer\RequestCartTokenNormalizerInterface;
 use Sylius\ShopApiPlugin\Request\PickupCartRequest;
 use Symfony\Component\HttpFoundation\ParameterBag;

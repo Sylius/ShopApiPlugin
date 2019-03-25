@@ -7,7 +7,7 @@ namespace Sylius\ShopApiPlugin\Controller\Checkout;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
-use Sylius\ShopApiPlugin\Command\ChooseShippingMethod;
+use Sylius\ShopApiPlugin\Command\Cart\ChooseShippingMethod;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 

@@ -8,7 +8,7 @@ use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\PutSimpleItemToCart;
+use Sylius\ShopApiPlugin\Command\Cart\PutSimpleItemToCart;
 use Sylius\ShopApiPlugin\Modifier\OrderModifierInterface;
 use Webmozart\Assert\Assert;
 

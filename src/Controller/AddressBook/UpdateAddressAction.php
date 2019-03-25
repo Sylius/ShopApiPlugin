@@ -10,7 +10,7 @@ use League\Tactician\CommandBus;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\Core\Repository\AddressRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\UpdateAddress;
+use Sylius\ShopApiPlugin\Command\AddressBook\UpdateAddress;
 use Sylius\ShopApiPlugin\Factory\AddressBook\AddressBookViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
 use Sylius\ShopApiPlugin\Model\Address;

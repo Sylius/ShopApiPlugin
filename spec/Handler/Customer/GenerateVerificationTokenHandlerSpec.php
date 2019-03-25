@@ -8,7 +8,7 @@ use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
 use Sylius\Component\User\Security\Generator\GeneratorInterface;
-use Sylius\ShopApiPlugin\Command\GenerateVerificationToken;
+use Sylius\ShopApiPlugin\Command\Customer\GenerateVerificationToken;
 use Sylius\ShopApiPlugin\Handler\Customer\GenerateVerificationTokenHandler;
 
 final class GenerateVerificationTokenHandlerSpec extends ObjectBehavior

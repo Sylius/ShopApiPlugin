@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Request;
 
-use Sylius\ShopApiPlugin\Command\RegisterCustomer;
+use Sylius\ShopApiPlugin\Command\Customer\RegisterCustomer;
 use Symfony\Component\HttpFoundation\Request;
 
 class RegisterCustomerRequest

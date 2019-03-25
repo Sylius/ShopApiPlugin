@@ -7,7 +7,7 @@ namespace Sylius\ShopApiPlugin\Handler\Customer;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
 use Sylius\Component\User\Security\Generator\GeneratorInterface;
-use Sylius\ShopApiPlugin\Command\GenerateResetPasswordToken;
+use Sylius\ShopApiPlugin\Command\Customer\GenerateResetPasswordToken;
 use Webmozart\Assert\Assert;
 
 final class GenerateResetPasswordTokenHandler

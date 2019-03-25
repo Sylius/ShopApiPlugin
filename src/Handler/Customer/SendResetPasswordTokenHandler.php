@@ -7,7 +7,7 @@ namespace Sylius\ShopApiPlugin\Handler\Customer;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\Mailer\Sender\SenderInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\SendResetPasswordToken;
+use Sylius\ShopApiPlugin\Command\Customer\SendResetPasswordToken;
 use Sylius\ShopApiPlugin\Mailer\Emails;
 use Webmozart\Assert\Assert;
 

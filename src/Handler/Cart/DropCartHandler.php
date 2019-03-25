@@ -6,7 +6,7 @@ namespace Sylius\ShopApiPlugin\Handler\Cart;
 
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\DropCart;
+use Sylius\ShopApiPlugin\Command\Cart\DropCart;
 use Webmozart\Assert\Assert;
 
 final class DropCartHandler

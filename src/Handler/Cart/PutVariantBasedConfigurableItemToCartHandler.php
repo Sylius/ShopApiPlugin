@@ -8,7 +8,7 @@ use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\ProductVariantRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\PutVariantBasedConfigurableItemToCart;
+use Sylius\ShopApiPlugin\Command\Cart\PutVariantBasedConfigurableItemToCart;
 use Sylius\ShopApiPlugin\Modifier\OrderModifierInterface;
 use Webmozart\Assert\Assert;
 
