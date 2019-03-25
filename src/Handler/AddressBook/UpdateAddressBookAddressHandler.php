@@ -9,7 +9,7 @@ use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
-use Sylius\ShopApiPlugin\Command\UpdateAddress;
+use Sylius\ShopApiPlugin\Command\AddressBook\UpdateAddress;
 use Webmozart\Assert\Assert;
 
 final class UpdateAddressBookAddressHandler

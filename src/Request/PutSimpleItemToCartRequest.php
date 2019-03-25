@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Request;
 
-use Sylius\ShopApiPlugin\Command\PutSimpleItemToCart;
+use Sylius\ShopApiPlugin\Command\Cart\PutSimpleItemToCart;
 use Symfony\Component\HttpFoundation\Request;
 
 class PutSimpleItemToCartRequest

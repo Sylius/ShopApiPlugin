@@ -8,7 +8,7 @@ use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\Mailer\Sender\SenderInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\SendVerificationToken;
+use Sylius\ShopApiPlugin\Command\Customer\SendVerificationToken;
 use Sylius\ShopApiPlugin\Handler\Customer\SendVerificationTokenHandler;
 use Sylius\ShopApiPlugin\Mailer\Emails;
 

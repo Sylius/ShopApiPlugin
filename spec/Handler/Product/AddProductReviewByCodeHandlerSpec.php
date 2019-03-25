@@ -13,7 +13,7 @@ use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Sylius\Component\Core\Repository\ProductReviewRepositoryInterface;
 use Sylius\Component\Review\Factory\ReviewFactoryInterface;
 use Sylius\Component\Review\Model\ReviewInterface;
-use Sylius\ShopApiPlugin\Command\AddProductReviewByCode;
+use Sylius\ShopApiPlugin\Command\Product\AddProductReviewByCode;
 use Sylius\ShopApiPlugin\Handler\Product\AddProductReviewByCodeHandler;
 use Sylius\ShopApiPlugin\Provider\ProductReviewerProviderInterface;
 

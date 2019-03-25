@@ -10,7 +10,7 @@ use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Core\OrderCheckoutTransitions;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\PaymentMethodRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\ChoosePaymentMethod;
+use Sylius\ShopApiPlugin\Command\Cart\ChoosePaymentMethod;
 use Webmozart\Assert\Assert;
 
 final class ChoosePaymentMethodHandler

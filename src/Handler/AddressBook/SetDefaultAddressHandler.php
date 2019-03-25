@@ -10,7 +10,7 @@ use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\Core\Repository\AddressRepositoryInterface;
 use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
-use Sylius\ShopApiPlugin\Command\SetDefaultAddress;
+use Sylius\ShopApiPlugin\Command\AddressBook\SetDefaultAddress;
 use Webmozart\Assert\Assert;
 
 final class SetDefaultAddressHandler

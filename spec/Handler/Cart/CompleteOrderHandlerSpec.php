@@ -11,7 +11,7 @@ use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\OrderCheckoutTransitions;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\CompleteOrder;
+use Sylius\ShopApiPlugin\Command\Cart\CompleteOrder;
 use Sylius\ShopApiPlugin\Provider\CustomerProviderInterface;
 
 final class CompleteOrderHandlerSpec extends ObjectBehavior

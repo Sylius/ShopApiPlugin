@@ -6,12 +6,12 @@ namespace Tests\Sylius\ShopApiPlugin\Controller\Cart;
 
 use League\Tactician\CommandBus;
 use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\ShopApiPlugin\Command\AddressOrder;
-use Sylius\ShopApiPlugin\Command\ChoosePaymentMethod;
-use Sylius\ShopApiPlugin\Command\ChooseShippingMethod;
-use Sylius\ShopApiPlugin\Command\CompleteOrder;
-use Sylius\ShopApiPlugin\Command\PickupCart;
-use Sylius\ShopApiPlugin\Command\PutSimpleItemToCart;
+use Sylius\ShopApiPlugin\Command\Cart\AddressOrder;
+use Sylius\ShopApiPlugin\Command\Cart\ChoosePaymentMethod;
+use Sylius\ShopApiPlugin\Command\Cart\ChooseShippingMethod;
+use Sylius\ShopApiPlugin\Command\Cart\CompleteOrder;
+use Sylius\ShopApiPlugin\Command\Cart\PickupCart;
+use Sylius\ShopApiPlugin\Command\Cart\PutSimpleItemToCart;
 use Sylius\ShopApiPlugin\Model\Address;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\Sylius\ShopApiPlugin\Controller\JsonApiTestCase;

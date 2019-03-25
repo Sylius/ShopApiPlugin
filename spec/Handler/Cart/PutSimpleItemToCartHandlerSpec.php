@@ -11,7 +11,7 @@ use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\PutSimpleItemToCart;
+use Sylius\ShopApiPlugin\Command\Cart\PutSimpleItemToCart;
 use Sylius\ShopApiPlugin\Modifier\OrderModifierInterface;
 
 final class PutSimpleItemToCartHandlerSpec extends ObjectBehavior

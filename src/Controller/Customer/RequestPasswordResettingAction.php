@@ -7,8 +7,8 @@ namespace Sylius\ShopApiPlugin\Controller\Customer;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use League\Tactician\CommandBus;
-use Sylius\ShopApiPlugin\Command\GenerateResetPasswordToken;
-use Sylius\ShopApiPlugin\Command\SendResetPasswordToken;
+use Sylius\ShopApiPlugin\Command\Customer\GenerateResetPasswordToken;
+use Sylius\ShopApiPlugin\Command\Customer\SendResetPasswordToken;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 

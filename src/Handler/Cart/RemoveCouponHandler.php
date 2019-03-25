@@ -7,7 +7,7 @@ namespace Sylius\ShopApiPlugin\Handler\Cart;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Order\Processor\OrderProcessorInterface;
-use Sylius\ShopApiPlugin\Command\RemoveCoupon;
+use Sylius\ShopApiPlugin\Command\Cart\RemoveCoupon;
 use Webmozart\Assert\Assert;
 
 final class RemoveCouponHandler

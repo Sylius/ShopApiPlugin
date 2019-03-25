@@ -6,7 +6,7 @@ namespace Tests\Sylius\ShopApiPlugin\Controller\Cart;
 
 use League\Tactician\CommandBus;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\PickupCart;
+use Sylius\ShopApiPlugin\Command\Cart\PickupCart;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\Sylius\ShopApiPlugin\Controller\JsonApiTestCase;
 use Tests\Sylius\ShopApiPlugin\Controller\Utils\ShopUserLoginTrait;

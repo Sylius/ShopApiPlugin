@@ -12,7 +12,7 @@ use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\OrderCheckoutTransitions;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\AddressOrder as AddressShipmentCommand;
+use Sylius\ShopApiPlugin\Command\Cart\AddressOrder as AddressShipmentCommand;
 use Sylius\ShopApiPlugin\Model\Address;
 
 final class AddressOrderHandlerSpec extends ObjectBehavior

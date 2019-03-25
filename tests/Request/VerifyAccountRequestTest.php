@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Sylius\ShopApiPlugin\Request;
 
 use PHPUnit\Framework\TestCase;
-use Sylius\ShopApiPlugin\Command\VerifyAccount;
+use Sylius\ShopApiPlugin\Command\Customer\VerifyAccount;
 use Sylius\ShopApiPlugin\Request\VerifyAccountRequest;
 use Symfony\Component\HttpFoundation\Request;
 

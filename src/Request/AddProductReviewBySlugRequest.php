@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Request;
 
-use Sylius\ShopApiPlugin\Command\AddProductReviewBySlug;
+use Sylius\ShopApiPlugin\Command\Product\AddProductReviewBySlug;
 use Symfony\Component\HttpFoundation\Request;
 
 class AddProductReviewBySlugRequest

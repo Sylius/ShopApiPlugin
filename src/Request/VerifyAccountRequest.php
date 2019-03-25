@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Request;
 
-use Sylius\ShopApiPlugin\Command\VerifyAccount;
+use Sylius\ShopApiPlugin\Command\Customer\VerifyAccount;
 use Symfony\Component\HttpFoundation\Request;
 
 class VerifyAccountRequest

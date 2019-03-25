@@ -12,7 +12,7 @@ use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Currency\Model\CurrencyInterface;
 use Sylius\Component\Locale\Model\LocaleInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
-use Sylius\ShopApiPlugin\Command\PickupCart;
+use Sylius\ShopApiPlugin\Command\Cart\PickupCart;
 use Sylius\ShopApiPlugin\Handler\Cart\PickupCartHandler;
 
 final class PickupCartHandlerSpec extends ObjectBehavior

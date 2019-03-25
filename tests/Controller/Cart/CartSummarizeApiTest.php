@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Tests\Sylius\ShopApiPlugin\Controller\Cart;
 
 use League\Tactician\CommandBus;
-use Sylius\ShopApiPlugin\Command\AddCoupon;
-use Sylius\ShopApiPlugin\Command\PickupCart;
-use Sylius\ShopApiPlugin\Command\PutSimpleItemToCart;
+use Sylius\ShopApiPlugin\Command\Cart\AddCoupon;
+use Sylius\ShopApiPlugin\Command\Cart\PickupCart;
+use Sylius\ShopApiPlugin\Command\Cart\PutSimpleItemToCart;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\Sylius\ShopApiPlugin\Controller\JsonApiTestCase;
 

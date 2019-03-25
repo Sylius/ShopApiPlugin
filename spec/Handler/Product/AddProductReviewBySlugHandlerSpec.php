@@ -14,7 +14,7 @@ use Sylius\Component\Core\Repository\ProductReviewRepositoryInterface;
 use Sylius\Component\Locale\Model\LocaleInterface;
 use Sylius\Component\Review\Factory\ReviewFactoryInterface;
 use Sylius\Component\Review\Model\ReviewInterface;
-use Sylius\ShopApiPlugin\Command\AddProductReviewBySlug;
+use Sylius\ShopApiPlugin\Command\Product\AddProductReviewBySlug;
 use Sylius\ShopApiPlugin\Handler\Product\AddProductReviewBySlugHandler;
 use Sylius\ShopApiPlugin\Provider\ProductReviewerProviderInterface;
 

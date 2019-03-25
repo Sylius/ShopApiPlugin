@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Sylius\ShopApiPlugin\Request;
 
 use PHPUnit\Framework\TestCase;
-use Sylius\ShopApiPlugin\Command\AddProductReviewByCode;
+use Sylius\ShopApiPlugin\Command\Product\AddProductReviewByCode;
 use Sylius\ShopApiPlugin\Request\AddProductReviewByCodeRequest;
 use Symfony\Component\HttpFoundation\Request;
 
