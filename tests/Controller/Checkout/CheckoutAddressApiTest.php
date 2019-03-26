@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Sylius\ShopApiPlugin\Controller\Checkout;
 
 use League\Tactician\CommandBus;
+use Sylius\Component\Core\Repository\AddressRepositoryInterface;
 use Sylius\ShopApiPlugin\Command\Cart\PickupCart;
 use Sylius\ShopApiPlugin\Command\Cart\PutSimpleItemToCart;
 use Symfony\Component\HttpFoundation\Response;
@@ -169,5 +170,66 @@ EOT;
 
         $response = $this->client->getResponse();
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * @test
+     */
+    public function changing_address_does_not_fill_up_database()
+    {
+        $this->loadFixturesFromFiles(['shop.yml']);
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var AddressRepositoryInterface $addressRepository */
+        $addressRepository = $this->get('sylius.repository.address');
+
+        /** @var CommandBus $bus */
+        $bus = $this->get('tactician.commandbus');
+        $bus->handle(new PickupCart($token, 'WEB_GB'));
+        $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
+
+        $data =
+            <<<EOT
+        {
+            "shippingAddress": {
+                "firstName": "Sherlock",
+                "lastName": "Holmes",
+                "countryCode": "GB",
+                "street": "Baker Street 221b",
+                "city": "London",
+                "postcode": "NW1",
+                "provinceName": "Greater London"
+            }
+        }
+EOT;
+
+        $this->client->request('PUT', sprintf('/shop-api/WEB_GB/checkout/%s/address', $token), [], [], static::CONTENT_TYPE_HEADER, $data);
+
+        $firstAddressCount = count($addressRepository->findAll());
+
+        $data =
+            <<<EOT
+        {
+            "shippingAddress": {
+                "firstName": "John",
+                "lastName": "Watson",
+                "countryCode": "GB",
+                "street": "Baker Street 21b",
+                "city": "London",
+                "postcode": "NW1",
+                "provinceName": "Greater London"
+            }
+        }
+EOT;
+
+        $this->client->request('PUT', sprintf('/shop-api/WEB_GB/checkout/%s/address', $token), [], [], static::CONTENT_TYPE_HEADER, $data);
+
+        $response = $this->client->getResponse();
+        $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
+
+        $secondAddressCount = count($addressRepository->findAll());
+
+        $this->assertSame($firstAddressCount, $secondAddressCount);
     }
 }
