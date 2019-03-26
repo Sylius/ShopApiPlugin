@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Tests\Sylius\ShopApiPlugin\Controller\Checkout;
 
 use League\Tactician\CommandBus;
+use Sylius\Component\Core\Repository\AddressRepositoryInterface;
 use Sylius\ShopApiPlugin\Command\Cart\PickupCart;
 use Sylius\ShopApiPlugin\Command\Cart\PutSimpleItemToCart;
-use Sylius\Component\Core\Repository\AddressRepositoryInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\Sylius\ShopApiPlugin\Controller\JsonApiTestCase;
 
@@ -204,7 +204,7 @@ EOT;
         }
 EOT;
 
-        $this->client->request('PUT', sprintf('/shop-api/WEB_GB/checkout/%s/address', $token), [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('PUT', sprintf('/shop-api/WEB_GB/checkout/%s/address', $token), [], [], static::CONTENT_TYPE_HEADER, $data);
 
         $firstAddressCount = count($addressRepository->findAll());
 
@@ -223,7 +223,7 @@ EOT;
         }
 EOT;
 
-        $this->client->request('PUT', sprintf('/shop-api/WEB_GB/checkout/%s/address', $token), [], [], static::$acceptAndContentTypeHeader, $data);
+        $this->client->request('PUT', sprintf('/shop-api/WEB_GB/checkout/%s/address', $token), [], [], static::CONTENT_TYPE_HEADER, $data);
 
         $response = $this->client->getResponse();
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
