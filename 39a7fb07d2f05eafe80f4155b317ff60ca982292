@@ -1,0 +1,58 @@
+---------------------------------------------------------------------------
+
+by mamazu at 2019-01-16T19:46:21Z
+
+@JakobTolkemit Could you fix the merge conflicts and then mention lchrusciel to check it?
+
+---------------------------------------------------------------------------
+
+by lchrusciel at 2019-01-17T07:54:37Z
+
+The PR is checked already. What we need here is one more functional test. Just to check if the order is addressed twice only one address exists in the database.
+
+---------------------------------------------------------------------------
+
+by mamazu at 2019-01-17T09:00:49Z
+
+Is that a thing to test with unit or better with spec?
+
+---------------------------------------------------------------------------
+
+by lchrusciel at 2019-01-17T09:18:58Z
+
+The spec is already there. I would add one unit with it.
+
+---------------------------------------------------------------------------
+
+by mamazu at 2019-01-17T10:04:27Z
+
+I'll see if I can get to it today.
+
+---------------------------------------------------------------------------
+
+by mamazu at 2019-02-01T08:35:30Z
+
+@lchrusciel Jakob implemented it. :D
+
+---------------------------------------------------------------------------
+
+by mamazu at 2019-03-13T15:02:29Z
+
+@JakobTolkemit Could you resolve the conflicts that have occurred with the current master?
+
+---------------------------------------------------------------------------
+
+by mamazu at 2019-03-22T15:49:52Z
+
+Thanks for contributing to the ShopApiPlugin and welcome to the community.
+
+The base of this pull-request was changed, you need fetch and reset your local branch
+if you want to add new commits to this pull request. Reset before you pull, else commits
+may become messed-up. Unless you added new commits (to this branch) locally that you did not push yet,
+execute git fetch origin && git reset "fix_order_addressing" to update your local branch. Feel free to ask for assistance when you get stuck. :+1:
+
+---------------------------------------------------------------------------
+
+by mamazu at 2019-03-26T09:47:40Z
+
+Thanks, Jakob! :tada:
