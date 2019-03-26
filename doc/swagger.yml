@@ -1226,6 +1226,10 @@ definitions:
                     additionalProperties:
                         type: "object"
                         $ref: "#/definitions/Discount"
+            couponCode:
+                description: "Code of the coupon that is associated with this cart"
+                type: "string"
+                example: "LD11FA"
     Item:
         type: "object"
         description: "Item with calculated prices, quantity and related product."

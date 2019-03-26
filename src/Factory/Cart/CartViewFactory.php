@@ -99,6 +99,11 @@ final class CartViewFactory implements CartViewFactoryInterface
             $cartView->billingAddress = $this->addressViewFactory->create($cart->getBillingAddress());
         }
 
+        $coupon = $cart->getPromotionCoupon();
+        if($coupon !== null) {
+            $cartView->couponCode = $coupon->getCode();
+        }
+
         return $cartView;
     }
 }
