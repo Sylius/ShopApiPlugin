@@ -100,7 +100,7 @@ final class CartViewFactory implements CartViewFactoryInterface
         }
 
         $coupon = $cart->getPromotionCoupon();
-        if($coupon !== null) {
+        if ($coupon !== null) {
             $cartView->couponCode = $coupon->getCode();
         }
 
