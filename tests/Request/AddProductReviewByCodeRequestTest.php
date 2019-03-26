@@ -6,7 +6,7 @@ namespace Tests\Sylius\ShopApiPlugin\Request;
 
 use PHPUnit\Framework\TestCase;
 use Sylius\ShopApiPlugin\Command\Product\AddProductReviewByCode;
-use Sylius\ShopApiPlugin\Request\AddProductReviewByCodeRequest;
+use Sylius\ShopApiPlugin\Request\Product\AddProductReviewByCodeRequest;
 use Symfony\Component\HttpFoundation\Request;
 
 final class AddProductReviewByCodeRequestTest extends TestCase

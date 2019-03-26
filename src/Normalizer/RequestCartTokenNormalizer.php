@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Sylius\ShopApiPlugin\Normalizer;
 
 use League\Tactician\CommandBus;
-use Sylius\ShopApiPlugin\Request\PickupCartRequest;
+use Sylius\ShopApiPlugin\Request\Cart\PickupCartRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 

@@ -9,7 +9,7 @@ use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Sylius\ShopApiPlugin\Command\Cart\PickupCart;
 use Sylius\ShopApiPlugin\Normalizer\RequestCartTokenNormalizerInterface;
-use Sylius\ShopApiPlugin\Request\PickupCartRequest;
+use Sylius\ShopApiPlugin\Request\Cart\PickupCartRequest;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\ConstraintViolationListInterface;

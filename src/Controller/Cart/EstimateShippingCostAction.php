@@ -8,7 +8,7 @@ use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Sylius\ShopApiPlugin\Factory\PriceViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
-use Sylius\ShopApiPlugin\Request\EstimateShippingCostRequest;
+use Sylius\ShopApiPlugin\Request\Cart\EstimateShippingCostRequest;
 use Sylius\ShopApiPlugin\Shipping\ShippingCostEstimatorInterface;
 use Sylius\ShopApiPlugin\View\EstimatedShippingCostView;
 use Symfony\Component\HttpFoundation\Request;
