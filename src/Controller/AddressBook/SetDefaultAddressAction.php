@@ -10,7 +10,7 @@ use League\Tactician\CommandBus;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
 use Sylius\ShopApiPlugin\Provider\LoggedInShopUserProviderInterface;
-use Sylius\ShopApiPlugin\Request\SetDefaultAddressRequest;
+use Sylius\ShopApiPlugin\Request\AddressBook\SetDefaultAddressRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;

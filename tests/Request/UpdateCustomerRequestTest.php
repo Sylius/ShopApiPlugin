@@ -6,7 +6,7 @@ namespace Tests\Sylius\ShopApiPlugin\Request;
 
 use PHPUnit\Framework\TestCase;
 use Sylius\ShopApiPlugin\Command\Customer\UpdateCustomer;
-use Sylius\ShopApiPlugin\Request\UpdateCustomerRequest;
+use Sylius\ShopApiPlugin\Request\Customer\UpdateCustomerRequest;
 use Symfony\Component\HttpFoundation\Request;
 
 final class UpdateCustomerRequestTest extends TestCase
