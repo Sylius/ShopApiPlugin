@@ -1,0 +1,39 @@
+---------------------------------------------------------------------------
+
+by mamazu at 2019-02-17T14:10:32Z
+
+The checkout behaves different in those cases. If you are a logged in user you should not provide an email address in the request.
+
+---------------------------------------------------------------------------
+
+by dlobato at 2019-02-18T09:21:06Z
+
+Yes, I noticed. This only says, you can use no auth or bearerAuth. Not sure this is 100% correct on openAPIv2 though, I only found the subject mentioned on openAPIv3: https://stackoverflow.com/questions/47659324/how-to-specify-an-endpoints-authorization-is-optional-in-openapi-v3
+
+Also, maybe email should not be required because when you are logged in, the endpoint controller fill email with the logged user email.
+
+---------------------------------------------------------------------------
+
+by mamazu at 2019-02-18T12:02:18Z
+
+Can you add a second definition with the same route but different parameters and different authentication?
+
+---------------------------------------------------------------------------
+
+by dlobato at 2019-02-19T12:08:34Z
+
+Sure it's possible. So you suggest to have to different operations, one to complete checkout as guest (checkoutCompleteAsGuest) and one to complete checkout as logged in user (checkoutCompleteAsLoggedUser), right?
+
+---------------------------------------------------------------------------
+
+by mamazu at 2019-03-08T17:24:36Z
+
+Well the current implementation has one route for checkout but in the handler it will throw an exception if the user is logged in and the form provides a different email (as discussed in this ticket: https://github.com/Sylius/ShopApiPlugin/pull/365#issue-242013792) The current implementation might not make it very clear.
+
+But your pull request is completely right. This route can be accessed with no authentication and an email => guest checkout or with a logged in user and no email => "customer" checkout.
+
+---------------------------------------------------------------------------
+
+by mamazu at 2019-03-26T09:48:40Z
+
+Thank you, David! :1st_place_medal:
