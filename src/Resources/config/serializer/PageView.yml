@@ -1,4 +1,4 @@
-Sylius\ShopApiPlugin\View\PageView:
+Sylius\ShopApiPlugin\View\Product\PageView:
     exclusion_policy: ALL
     xml_root_name: page_view
     properties:
