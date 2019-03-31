@@ -30,5 +30,7 @@ final class EstimatedShippingCostViewFactory implements EstimatedShippingCostVie
         $estimatedShippingCostView->price = $this->priceViewFactory->create(
             $shippingCost->price(), $shippingCost->currency()
         );
+
+        return $estimatedShippingCostView;
     }
 }

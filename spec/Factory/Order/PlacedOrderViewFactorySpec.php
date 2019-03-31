@@ -19,9 +19,9 @@ use Sylius\ShopApiPlugin\Factory\Checkout\PaymentViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\Checkout\ShipmentViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\Order\PlacedOrderViewFactoryInterface;
 use Sylius\ShopApiPlugin\View\Cart\AdjustmentView;
+use Sylius\ShopApiPlugin\View\Cart\TotalsView;
 use Sylius\ShopApiPlugin\View\ItemView;
 use Sylius\ShopApiPlugin\View\Order\PlacedOrderView;
-use Sylius\ShopApiPlugin\View\Cart\TotalsView;
 
 final class PlacedOrderViewFactorySpec extends ObjectBehavior
 {
