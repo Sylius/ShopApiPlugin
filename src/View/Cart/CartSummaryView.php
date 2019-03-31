@@ -2,10 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\View;
+namespace Sylius\ShopApiPlugin\View\Cart;
 
-class PlacedOrderView
+use Sylius\ShopApiPlugin\View\AddressBook\AddressView;
+use Sylius\ShopApiPlugin\View\Checkout\ShipmentView;
+use Sylius\ShopApiPlugin\View\ItemView;
+
+class CartSummaryView
 {
+    /** @var string */
+    public $tokenValue;
+
     /** @var string */
     public $channel;
 
@@ -17,9 +24,6 @@ class PlacedOrderView
 
     /** @var string */
     public $checkoutState;
-
-    /** @var string */
-    public $checkoutCompletedAt;
 
     /** @var array|ItemView[] */
     public $items = [];
@@ -42,11 +46,8 @@ class PlacedOrderView
     /** @var array|AdjustmentView[] */
     public $cartDiscounts = [];
 
-    /** @var string */
-    public $tokenValue;
-
-    /** @var string */
-    public $number;
+    /** @var string|null */
+    public $couponCode;
 
     public function __construct()
     {

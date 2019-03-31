@@ -21,13 +21,13 @@ use Sylius\ShopApiPlugin\Factory\Cart\CartViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\Cart\TotalViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\Checkout\PaymentViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\Checkout\ShipmentViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\AddressView;
-use Sylius\ShopApiPlugin\View\AdjustmentView;
-use Sylius\ShopApiPlugin\View\CartSummaryView;
+use Sylius\ShopApiPlugin\View\AddressBook\AddressView;
+use Sylius\ShopApiPlugin\View\Cart\AdjustmentView;
+use Sylius\ShopApiPlugin\View\Cart\CartSummaryView;
 use Sylius\ShopApiPlugin\View\ItemView;
-use Sylius\ShopApiPlugin\View\PaymentView;
-use Sylius\ShopApiPlugin\View\ShipmentView;
-use Sylius\ShopApiPlugin\View\TotalsView;
+use Sylius\ShopApiPlugin\View\Cart\PaymentView;
+use Sylius\ShopApiPlugin\View\Checkout\ShipmentView;
+use Sylius\ShopApiPlugin\View\Cart\TotalsView;
 
 final class CartViewFactorySpec extends ObjectBehavior
 {

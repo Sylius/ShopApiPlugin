@@ -6,7 +6,7 @@ namespace Sylius\ShopApiPlugin\Factory\AddressBook;
 
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
-use Sylius\ShopApiPlugin\View\AddressBookView;
+use Sylius\ShopApiPlugin\View\AddressBook\AddressBookView;
 
 interface AddressBookViewFactoryInterface
 {

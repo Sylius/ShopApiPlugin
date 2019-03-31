@@ -10,8 +10,8 @@ use Sylius\Component\Core\Model\ShipmentInterface;
 use Sylius\Component\Core\Model\ShippingMethodInterface;
 use Sylius\ShopApiPlugin\Factory\Checkout\ShipmentViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\Checkout\ShippingMethodViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\ShipmentView;
-use Sylius\ShopApiPlugin\View\ShippingMethodView;
+use Sylius\ShopApiPlugin\View\Checkout\ShipmentView;
+use Sylius\ShopApiPlugin\View\Cart\ShippingMethodView;
 
 final class ShipmentViewFactorySpec extends ObjectBehavior
 {

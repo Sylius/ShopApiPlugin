@@ -6,7 +6,7 @@ namespace Sylius\ShopApiPlugin\Factory\Cart;
 
 use Sylius\Component\Order\Model\AdjustmentInterface;
 use Sylius\ShopApiPlugin\Factory\PriceViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\AdjustmentView;
+use Sylius\ShopApiPlugin\View\Cart\AdjustmentView;
 
 final class AdjustmentViewFactory implements AdjustmentViewFactoryInterface
 {

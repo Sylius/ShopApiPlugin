@@ -15,7 +15,7 @@ use Sylius\ShopApiPlugin\Factory\AddressBook\AddressBookViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
 use Sylius\ShopApiPlugin\Model\Address;
 use Sylius\ShopApiPlugin\Provider\LoggedInShopUserProviderInterface;
-use Sylius\ShopApiPlugin\View\AddressBookView;
+use Sylius\ShopApiPlugin\View\AddressBook\AddressBookView;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;

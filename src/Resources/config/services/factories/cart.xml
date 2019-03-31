@@ -30,6 +30,13 @@
             <argument type="string">%sylius.shop_api.view.adjustment.class%</argument>
         </service>
 
+        <service id="sylius.shop_api_plugin.factory.estimated_shipping_cost_view_factory"
+                 class="Sylius\ShopApiPlugin\Factory\Cart\EstimatedShippingCostViewFactory"
+        >
+            <argument type="service" id="sylius.shop_api_plugin.factory.price_view_factory"/>
+            <argument type="string">%sylius.shop_api.view.estimated_shipping_cost.class%</argument>
+        </service>
+
         <service id="sylius.shop_api_plugin.factory.total_view_factory"
                  class="Sylius\ShopApiPlugin\Factory\Cart\TotalViewFactory">
             <argument type="string">%sylius.shop_api.view.totals.class%</argument>

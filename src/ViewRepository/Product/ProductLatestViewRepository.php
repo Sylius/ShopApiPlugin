@@ -9,7 +9,7 @@ use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Sylius\ShopApiPlugin\Factory\Product\ProductViewFactoryInterface;
 use Sylius\ShopApiPlugin\Provider\SupportedLocaleProviderInterface;
-use Sylius\ShopApiPlugin\View\ProductListView;
+use Sylius\ShopApiPlugin\View\Product\ProductListView;
 use Webmozart\Assert\Assert;
 
 final class ProductLatestViewRepository implements ProductLatestViewRepositoryInterface

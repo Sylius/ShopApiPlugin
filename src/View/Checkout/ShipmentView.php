@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\View;
+namespace Sylius\ShopApiPlugin\View\Checkout;
+
+use Sylius\ShopApiPlugin\View\Cart\ShippingMethodView;
 
 class ShipmentView
 {

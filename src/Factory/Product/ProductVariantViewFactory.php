@@ -8,7 +8,7 @@ use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\ShopApiPlugin\Exception\ViewCreationException;
 use Sylius\ShopApiPlugin\Factory\PriceViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\ProductVariantView;
+use Sylius\ShopApiPlugin\View\Product\ProductVariantView;
 
 final class ProductVariantViewFactory implements ProductVariantViewFactoryInterface
 {

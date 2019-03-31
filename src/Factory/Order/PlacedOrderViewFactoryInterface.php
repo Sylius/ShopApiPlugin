@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Sylius\ShopApiPlugin\Factory\Order;
 
 use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\ShopApiPlugin\View\PlacedOrderView;
+use Sylius\ShopApiPlugin\View\Order\PlacedOrderView;
 
 interface PlacedOrderViewFactoryInterface
 {

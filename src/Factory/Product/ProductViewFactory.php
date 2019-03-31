@@ -10,8 +10,8 @@ use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Model\ProductTranslationInterface;
 use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\ShopApiPlugin\Factory\Taxon\ImageViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\ProductTaxonView;
-use Sylius\ShopApiPlugin\View\ProductView;
+use Sylius\ShopApiPlugin\View\Product\ProductTaxonView;
+use Sylius\ShopApiPlugin\View\Product\ProductView;
 
 final class ProductViewFactory implements ProductViewFactoryInterface
 {

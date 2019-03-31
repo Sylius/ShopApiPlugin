@@ -15,8 +15,8 @@ use Sylius\ShopApiPlugin\Exception\ViewCreationException;
 use Sylius\ShopApiPlugin\Factory\Product\ProductVariantViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\Product\ProductViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\Taxon\ImageViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\ProductVariantView;
-use Sylius\ShopApiPlugin\View\ProductView;
+use Sylius\ShopApiPlugin\View\Product\ProductVariantView;
+use Sylius\ShopApiPlugin\View\Product\ProductView;
 
 final class ListProductViewFactorySpec extends ObjectBehavior
 {

@@ -8,7 +8,7 @@ use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\ShopApiPlugin\Factory\Customer\CustomerViewFactory;
 use Sylius\ShopApiPlugin\Factory\Customer\CustomerViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\CustomerView;
+use Sylius\ShopApiPlugin\View\Customer\CustomerView;
 
 final class CustomerViewFactorySpec extends ObjectBehavior
 {

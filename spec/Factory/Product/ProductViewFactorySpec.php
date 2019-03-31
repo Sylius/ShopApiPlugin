@@ -15,9 +15,9 @@ use Sylius\Component\Product\Model\ProductAttributeValueInterface;
 use Sylius\ShopApiPlugin\Factory\Product\ProductAttributeValuesViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\Product\ProductViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\Taxon\ImageViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\ImageView;
-use Sylius\ShopApiPlugin\View\ProductTaxonView;
-use Sylius\ShopApiPlugin\View\ProductView;
+use Sylius\ShopApiPlugin\View\Taxon\ImageView;
+use Sylius\ShopApiPlugin\View\Product\ProductTaxonView;
+use Sylius\ShopApiPlugin\View\Product\ProductView;
 
 final class ProductViewFactorySpec extends ObjectBehavior
 {
