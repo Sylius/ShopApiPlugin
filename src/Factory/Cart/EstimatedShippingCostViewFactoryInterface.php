@@ -1,12 +1,5 @@
 <?php
-
 declare(strict_types=1);
-/**
- * Created by PhpStorm.
- * User: mamazu
- * Date: 3/31/19
- * Time: 7:01 PM
- */
 
 namespace Sylius\ShopApiPlugin\Factory\Cart;
 
