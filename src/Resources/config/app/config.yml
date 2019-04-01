@@ -1,10 +1,10 @@
 jms_serializer:
     metadata:
         directories:
-            sylius-shop-api_taxon:
+            sylius-shop-api-taxon:
                 namespace_prefix: "Sylius\\ShopApiPlugin\\View\\Taxon"
                 path: "@ShopApiPlugin/Resources/config/serializer/Taxon"
-            sylius-shop-api_product:
+            sylius-shop-api-product:
                 namespace_prefix: "Sylius\\ShopApiPlugin\\View\\Product"
                 path: "@ShopApiPlugin/Resources/config/serializer/Product"
 tactician:
