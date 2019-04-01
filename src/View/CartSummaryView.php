@@ -42,6 +42,9 @@ class CartSummaryView
     /** @var array|AdjustmentView[] */
     public $cartDiscounts = [];
 
+    /** @var string|null */
+    public $couponCode;
+
     public function __construct()
     {
         $this->totals = new TotalsView();

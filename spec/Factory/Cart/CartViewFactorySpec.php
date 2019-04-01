@@ -12,6 +12,7 @@ use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
+use Sylius\Component\Core\Model\PromotionCouponInterface;
 use Sylius\Component\Core\Model\ShipmentInterface;
 use Sylius\ShopApiPlugin\Factory\AddressBook\AddressViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\Cart\AdjustmentViewFactoryInterface;
@@ -77,6 +78,7 @@ final class CartViewFactorySpec extends ObjectBehavior
         $cartItemViewFactory->create($secondOrderItem, $channel, 'en_GB')->willReturn(new ItemView());
 
         $totalViewFactory->create($cart)->willReturn(new TotalsView());
+        $cart->getPromotionCoupon()->willReturn(null);
 
         $cartView = new CartSummaryView();
         $cartView->channel = 'WEB_GB';
@@ -127,6 +129,7 @@ final class CartViewFactorySpec extends ObjectBehavior
 
         $addressViewFactory->create($shippingAddress)->willReturn(new AddressView());
         $addressViewFactory->create($billingAddress)->willReturn(new AddressView());
+        $cart->getPromotionCoupon()->willReturn(null);
 
         $cartView = new CartSummaryView();
         $cartView->channel = 'WEB_GB';
@@ -181,6 +184,7 @@ final class CartViewFactorySpec extends ObjectBehavior
         $cartItemViewFactory->create($secondOrderItem, $channel, 'en_GB')->willReturn(new ItemView());
 
         $totalViewFactory->create($cart)->willReturn(new TotalsView());
+        $cart->getPromotionCoupon()->willReturn(null);
 
         $cartView = new CartSummaryView();
         $cartView->channel = 'WEB_GB';
@@ -233,6 +237,7 @@ final class CartViewFactorySpec extends ObjectBehavior
         $paymentViewFactory->create($payment, 'en_GB')->willReturn(new PaymentView());
 
         $totalViewFactory->create($cart)->willReturn(new TotalsView());
+        $cart->getPromotionCoupon()->willReturn(null);
 
         $cartView = new CartSummaryView();
         $cartView->channel = 'WEB_GB';
@@ -281,6 +286,8 @@ final class CartViewFactorySpec extends ObjectBehavior
         $adjustmentViewFactory->create($adjustment, 0, 'GBP')->willReturn(new AdjustmentView());
 
         $totalViewFactory->create($cart)->willReturn(new TotalsView());
+
+        $cart->getPromotionCoupon()->willReturn(null);
 
         $cartView = new CartSummaryView();
         $cartView->channel = 'WEB_GB';
@@ -337,6 +344,8 @@ final class CartViewFactorySpec extends ObjectBehavior
 
         $totalViewFactory->create($cart)->willReturn(new TotalsView());
 
+        $cart->getPromotionCoupon()->willReturn(null);
+
         $cartView = new CartSummaryView();
         $cartView->channel = 'WEB_GB';
         $cartView->currency = 'GBP';
@@ -345,6 +354,66 @@ final class CartViewFactorySpec extends ObjectBehavior
         $cartView->tokenValue = 'ORDER_TOKEN';
         $cartView->items = [new ItemView()];
         $cartView->totals = new TotalsView();
+        $cartView->cartDiscounts = ['PROMOTION_CODE' => new AdjustmentView()];
+
+        $this->create($cart, 'en_GB')->shouldBeLike($cartView);
+    }
+
+    function it_creates_a_cart_view_with_a_promotion_code(
+        CartItemViewFactoryInterface $cartItemViewFactory,
+        ChannelInterface $channel,
+        OrderInterface $cart,
+        OrderItemInterface $orderItem,
+        AdjustmentInterface $adjustment,
+        AdjustmentInterface $similarAdjustment,
+        AdjustmentViewFactoryInterface $adjustmentViewFactory,
+        PromotionCouponInterface $promotionCoupon,
+        TotalViewFactoryInterface $totalViewFactory
+    ): void {
+        $cart->getItemsTotal()->willReturn(1100);
+        $cart->getChannel()->willReturn($channel);
+        $cart->getCurrencyCode()->willReturn('GBP');
+        $cart->getCheckoutState()->willReturn('cart');
+        $cart->getTokenValue()->willReturn('ORDER_TOKEN');
+        $cart->getShippingTotal()->willReturn(500);
+        $cart->getTaxTotal()->willReturn(600);
+        $cart->getItems()->willReturn(new ArrayCollection([$orderItem->getWrappedObject()]));
+        $cart->getShippingAddress()->willReturn(null);
+        $cart->getBillingAddress()->willReturn(null);
+        $cart->getShipments()->willReturn(new ArrayCollection([]));
+        $cart->getPayments()->willReturn(new ArrayCollection([]));
+        $cart
+            ->getAdjustmentsRecursively(AdjustmentInterface::ORDER_PROMOTION_ADJUSTMENT)
+            ->willReturn(new ArrayCollection([$adjustment->getWrappedObject(), $similarAdjustment->getWrappedObject()]))
+        ;
+
+        $channel->getCode()->willReturn('WEB_GB');
+
+        $cartItemViewFactory->create($orderItem, $channel, 'en_GB')->willReturn(new ItemView());
+
+        $adjustmentView = new AdjustmentView();
+        $adjustmentView->amount->current = 500;
+
+        $adjustment->getOriginCode()->willReturn('PROMOTION_CODE');
+        $adjustmentViewFactory->create($adjustment, 0, 'GBP')->willReturn($adjustmentView);
+
+        $similarAdjustment->getOriginCode()->willReturn('PROMOTION_CODE');
+        $adjustmentViewFactory->create($similarAdjustment, 500, 'GBP')->willReturn(new AdjustmentView());
+
+        $totalViewFactory->create($cart)->willReturn(new TotalsView());
+
+        $cart->getPromotionCoupon()->willReturn($promotionCoupon);
+        $promotionCoupon->getCode()->willReturn('coupon');
+
+        $cartView = new CartSummaryView();
+        $cartView->channel = 'WEB_GB';
+        $cartView->currency = 'GBP';
+        $cartView->locale = 'en_GB';
+        $cartView->checkoutState = 'cart';
+        $cartView->tokenValue = 'ORDER_TOKEN';
+        $cartView->items = [new ItemView()];
+        $cartView->totals = new TotalsView();
+        $cartView->couponCode = 'coupon';
         $cartView->cartDiscounts = ['PROMOTION_CODE' => new AdjustmentView()];
 
         $this->create($cart, 'en_GB')->shouldBeLike($cartView);
