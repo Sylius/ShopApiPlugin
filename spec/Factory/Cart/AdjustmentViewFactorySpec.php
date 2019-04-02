@@ -8,7 +8,7 @@ use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\AdjustmentInterface;
 use Sylius\ShopApiPlugin\Factory\Cart\AdjustmentViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\PriceViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\AdjustmentView;
+use Sylius\ShopApiPlugin\View\Cart\AdjustmentView;
 use Sylius\ShopApiPlugin\View\PriceView;
 
 final class AdjustmentViewFactorySpec extends ObjectBehavior

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\ViewRepository\Product;
 
-use Sylius\ShopApiPlugin\View\ProductView;
+use Sylius\ShopApiPlugin\View\Product\ProductView;
 
 interface ProductDetailsViewRepositoryInterface
 {

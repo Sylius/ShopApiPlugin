@@ -15,7 +15,7 @@ use Sylius\ShopApiPlugin\Factory\Product\PageViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\Product\ProductReviewViewFactoryInterface;
 use Sylius\ShopApiPlugin\Model\PaginatorDetails;
 use Sylius\ShopApiPlugin\Provider\SupportedLocaleProviderInterface;
-use Sylius\ShopApiPlugin\View\PageView;
+use Sylius\ShopApiPlugin\View\Product\PageView;
 use Webmozart\Assert\Assert;
 
 final class ProductReviewsViewRepository implements ProductReviewsViewRepositoryInterface

@@ -10,8 +10,8 @@ use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Model\ProductTranslationInterface;
 use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\ShopApiPlugin\Factory\Taxon\ImageViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\ProductTaxonView;
-use Sylius\ShopApiPlugin\View\ProductView;
+use Sylius\ShopApiPlugin\View\Product\ProductTaxonView;
+use Sylius\ShopApiPlugin\View\Product\ProductView;
 
 final class ProductViewFactory implements ProductViewFactoryInterface
 {
@@ -50,7 +50,7 @@ final class ProductViewFactory implements ProductViewFactoryInterface
         /** @var ProductView $productView */
         $productView = new $this->productViewClass();
         $productView->code = $product->getCode();
-        $productView->averageRating = (string) $product->getAverageRating();
+        $productView->averageRating = $product->getAverageRating();
 
         /** @var ProductTranslationInterface $translation */
         $translation = $product->getTranslation($locale);

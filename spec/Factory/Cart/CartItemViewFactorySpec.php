@@ -13,8 +13,8 @@ use Sylius\ShopApiPlugin\Factory\Cart\CartItemViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\Product\ProductVariantViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\Product\ProductViewFactoryInterface;
 use Sylius\ShopApiPlugin\View\ItemView;
-use Sylius\ShopApiPlugin\View\ProductVariantView;
-use Sylius\ShopApiPlugin\View\ProductView;
+use Sylius\ShopApiPlugin\View\Product\ProductVariantView;
+use Sylius\ShopApiPlugin\View\Product\ProductView;
 
 final class CartItemViewFactorySpec extends ObjectBehavior
 {

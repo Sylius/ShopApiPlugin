@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Sylius\ShopApiPlugin\Factory\AddressBook;
 
 use Sylius\Component\Core\Model\AddressInterface;
-use Sylius\ShopApiPlugin\View\AddressView;
+use Sylius\ShopApiPlugin\View\AddressBook\AddressView;
 
 final class AddressViewFactory implements AddressViewFactoryInterface
 {

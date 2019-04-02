@@ -7,7 +7,7 @@ namespace spec\Sylius\ShopApiPlugin\Factory\AddressBook;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\ShopApiPlugin\Factory\AddressBook\AddressViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\AddressView;
+use Sylius\ShopApiPlugin\View\AddressBook\AddressView;
 
 final class AddressViewFactorySpec extends ObjectBehavior
 {

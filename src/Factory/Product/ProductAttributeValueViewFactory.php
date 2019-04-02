@@ -6,7 +6,7 @@ namespace Sylius\ShopApiPlugin\Factory\Product;
 
 use Sylius\Component\Product\Model\ProductAttributeTranslationInterface;
 use Sylius\Component\Product\Model\ProductAttributeValueInterface;
-use Sylius\ShopApiPlugin\View\ProductAttributeValueView;
+use Sylius\ShopApiPlugin\View\Product\ProductAttributeValueView;
 
 final class ProductAttributeValueViewFactory implements ProductAttributeValueViewFactoryInterface
 {

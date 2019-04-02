@@ -6,7 +6,7 @@ namespace Sylius\ShopApiPlugin\Factory\Checkout;
 
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\ShipmentInterface;
-use Sylius\ShopApiPlugin\View\ShipmentView;
+use Sylius\ShopApiPlugin\View\Checkout\ShipmentView;
 
 final class ShipmentViewFactory implements ShipmentViewFactoryInterface
 {

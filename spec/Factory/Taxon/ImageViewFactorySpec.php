@@ -7,7 +7,7 @@ namespace spec\Sylius\ShopApiPlugin\Factory\Taxon;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\ImageInterface;
 use Sylius\ShopApiPlugin\Factory\Taxon\ImageViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\ImageView;
+use Sylius\ShopApiPlugin\View\Taxon\ImageView;
 
 final class ImageViewFactorySpec extends ObjectBehavior
 {

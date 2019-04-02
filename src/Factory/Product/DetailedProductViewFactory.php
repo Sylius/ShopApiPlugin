@@ -7,7 +7,7 @@ namespace Sylius\ShopApiPlugin\Factory\Product;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\ShopApiPlugin\Generator\ProductBreadcrumbGeneratorInterface;
-use Sylius\ShopApiPlugin\View\ProductView;
+use Sylius\ShopApiPlugin\View\Product\ProductView;
 
 final class DetailedProductViewFactory implements ProductViewFactoryInterface
 {

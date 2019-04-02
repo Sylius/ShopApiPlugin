@@ -10,7 +10,7 @@ use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Taxonomy\Repository\TaxonRepositoryInterface;
 use Sylius\ShopApiPlugin\Factory\Taxon\TaxonViewFactoryInterface;
 use Sylius\ShopApiPlugin\Http\RequestBasedLocaleProviderInterface;
-use Sylius\ShopApiPlugin\View\TaxonView;
+use Sylius\ShopApiPlugin\View\Taxon\TaxonView;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
