@@ -169,10 +169,21 @@ From the test app.
 
 ## Testing
 
-The application can be tested with API Test Case. In order to run test suite execute the following command:
+The application can be tested with API Test Case. In order to run test suite execute the following commands:
 
 ```bash
-$ bin/phpunit
+$ cp tests/Application/.env.test.dist tests/Application/.env.test
+$ set -a && source tests/Application/.env.test && set +a
+$ (cd tests/Application && bin/console doctrine:database:create -e test)
+$ (cd tests/Application && bin/console doctrine:schema:create -e test)
+
+$ vendor/bin/phpunit
+```
+
+The application can be also tested with PHPSpec:
+
+```bash
+$ vendor/bin/phpspec run
 ```
 
 ## Security issues
