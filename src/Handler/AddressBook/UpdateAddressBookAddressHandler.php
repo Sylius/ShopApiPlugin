@@ -43,7 +43,7 @@ final class UpdateAddressBookAddressHandler
         $this->shopUserRepository = $shopUserRepository;
     }
 
-    public function handle(UpdateAddress $command): void
+    public function __invoke(UpdateAddress $command): void
     {
         /** @var AddressInterface $address */
         $address = $this->addressRepository->findOneBy(['id' => $command->id()]);

@@ -43,7 +43,7 @@ final class CreateAddressHandler
         $this->customerRepository = $customerRepository;
     }
 
-    public function handle(CreateAddress $command): void
+    public function __invoke(CreateAddress $command): void
     {
         /** @var CustomerInterface|null $customer */
         $customer = $this->customerRepository->findOneBy(['email' => $command->userEmail()]);

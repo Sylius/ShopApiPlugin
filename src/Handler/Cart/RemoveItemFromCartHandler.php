@@ -33,7 +33,7 @@ final class RemoveItemFromCartHandler
         $this->orderProcessor = $orderProcessor;
     }
 
-    public function handle(RemoveItemFromCart $command): void
+    public function __invoke(RemoveItemFromCart $command): void
     {
         /** @var OrderInterface|null $order */
         $order = $this->orderRepository->findOneBy(['tokenValue' => $command->orderToken(), 'state' => OrderInterface::STATE_CART]);

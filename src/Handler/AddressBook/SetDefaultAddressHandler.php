@@ -34,7 +34,7 @@ final class SetDefaultAddressHandler
         $this->shopUserRepository = $shopUserRepository;
     }
 
-    public function handle(SetDefaultAddress $setDefaultAddress): void
+    public function __invoke(SetDefaultAddress $setDefaultAddress): void
     {
         /** @var AddressInterface $address */
         $address = $this->addressRepository->find($setDefaultAddress->id());

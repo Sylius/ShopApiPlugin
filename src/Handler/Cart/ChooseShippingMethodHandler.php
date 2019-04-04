@@ -40,8 +40,7 @@ final class ChooseShippingMethodHandler
         $this->stateMachineFactory = $stateMachineFactory;
     }
 
-    /** @param ChooseShippingMethod $chooseShippingMethod */
-    public function handle(ChooseShippingMethod $chooseShippingMethod)
+    public function __invoke(ChooseShippingMethod $chooseShippingMethod): void
     {
         /** @var OrderInterface $cart */
         $cart = $this->orderRepository->findOneBy(['tokenValue' => $chooseShippingMethod->orderToken()]);

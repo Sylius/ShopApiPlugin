@@ -38,7 +38,7 @@
 
         <service id="sylius.shop_api_plugin.event_listener.user_registration_listener"
                  class="Sylius\ShopApiPlugin\EventListener\UserRegistrationListener">
-            <argument type="service" id="tactician.commandbus" />
+            <argument type="service" id="sylius_shop_api_plugin.command_bus" />
             <argument type="service" id="sylius.repository.channel"/>
             <argument type="service" id="sylius.repository.shop_user"/>
             <argument type="service" id="sylius.manager.shop_user"/>
@@ -67,7 +67,7 @@
                 class="Sylius\ShopApiPlugin\Normalizer\RequestCartTokenNormalizer"
         >
             <argument type="service" id="validator" />
-            <argument type="service" id="tactician.commandbus" />
+            <argument type="service" id="sylius_shop_api_plugin.command_bus" />
         </service>
 
         <!-- Removing the create cart context from composite context (see: https://github.com/Sylius/Sylius/issues/10192) -->

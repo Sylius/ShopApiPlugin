@@ -28,7 +28,6 @@ The latest documentation is available [here](https://app.swaggerhub.com/apis/Syl
         {
             return array_merge(parent::registerBundles(), [
                 new \Sylius\ShopApiPlugin\ShopApiPlugin(),
-                new \League\Tactician\Bundle\TacticianBundle(),
             ]);
         }
     ```

@@ -25,7 +25,7 @@ final class SendVerificationTokenHandler
         $this->sender = $sender;
     }
 
-    public function handle(SendVerificationToken $resendVerificationToken)
+    public function __invoke(SendVerificationToken $resendVerificationToken): void
     {
         $email = $resendVerificationToken->email();
 

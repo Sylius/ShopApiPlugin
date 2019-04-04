@@ -45,7 +45,7 @@ final class RegisterCustomerHandler
         $this->eventDispatcher = $eventDispatcher;
     }
 
-    public function handle(RegisterCustomer $command): void
+    public function __invoke(RegisterCustomer $command): void
     {
         $this->assertEmailIsNotTaken($command->email());
         $this->assertChannelExists($command->channelCode());

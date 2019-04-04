@@ -40,7 +40,7 @@ final class AddCouponHandler
     }
 
     /** @param AddCoupon $addCoupon */
-    public function handle(AddCoupon $addCoupon)
+    public function __invoke(AddCoupon $addCoupon): void
     {
         /** @var OrderInterface $cart */
         $cart = $this->orderRepository->findOneBy(['tokenValue' => $addCoupon->orderToken()]);

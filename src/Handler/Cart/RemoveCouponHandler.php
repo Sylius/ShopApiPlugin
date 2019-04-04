@@ -26,8 +26,7 @@ final class RemoveCouponHandler
         $this->orderProcessor = $orderProcessor;
     }
 
-    /** @param RemoveCoupon $removeCoupon */
-    public function handle(RemoveCoupon $removeCoupon)
+    public function __invoke(RemoveCoupon $removeCoupon): void
     {
         /** @var OrderInterface $cart */
         $cart = $this->orderRepository->findOneBy(['tokenValue' => $removeCoupon->orderToken()]);

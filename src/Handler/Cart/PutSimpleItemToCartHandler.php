@@ -33,7 +33,7 @@ final class PutSimpleItemToCartHandler
         $this->orderModifier = $orderModifier;
     }
 
-    public function handle(PutSimpleItemToCart $putSimpleItemToCart)
+    public function __invoke(PutSimpleItemToCart $putSimpleItemToCart): void
     {
         /** @var OrderInterface $cart */
         $cart = $this->cartRepository->findOneBy(['tokenValue' => $putSimpleItemToCart->orderToken()]);

@@ -6,13 +6,13 @@ namespace Sylius\ShopApiPlugin\Controller\Customer;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
-use League\Tactician\CommandBus;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\ShopApiPlugin\Factory\Customer\CustomerViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
 use Sylius\ShopApiPlugin\Request\Customer\UpdateCustomerRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Webmozart\Assert\Assert;
@@ -25,7 +25,7 @@ final class UpdateCustomerAction
     /** @var ValidatorInterface */
     private $validator;
 
-    /** @var CommandBus */
+    /** @var MessageBusInterface */
     private $bus;
 
     /** @var ValidationErrorViewFactoryInterface */
@@ -40,7 +40,7 @@ final class UpdateCustomerAction
     public function __construct(
         ViewHandlerInterface $viewHandler,
         ValidatorInterface $validator,
-        CommandBus $bus,
+        MessageBusInterface $bus,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         CustomerViewFactoryInterface $customerViewFactory,
         TokenStorageInterface $tokenStorage
@@ -70,7 +70,7 @@ final class UpdateCustomerAction
         }
 
         $updateCustomerCommand = $updateCustomerRequest->getCommand();
-        $this->bus->handle($updateCustomerCommand);
+        $this->bus->dispatch($updateCustomerCommand);
 
         return $this->viewHandler->handle(View::create(
             $this->customerViewFactory->create($customer),

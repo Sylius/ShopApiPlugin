@@ -6,6 +6,7 @@
 * The requests have been moved to the appropriate directories depending on the context.
 * The views have been moved to the appropriate directories depending on the context.
     * This might require changing the serializer settings in your application
+* Tactician has been replaced with Symfony Messenger.
 
 # UPGRADE FROM 1.0.0-beta.17 to 1.0.0-beta.18
 

@@ -34,7 +34,7 @@ final class PutOptionBasedConfigurableItemToCartHandler
         $this->orderModifier = $orderModifier;
     }
 
-    public function handle(PutOptionBasedConfigurableItemToCart $putConfigurableItemToCart): void
+    public function __invoke(PutOptionBasedConfigurableItemToCart $putConfigurableItemToCart): void
     {
         /** @var OrderInterface $cart */
         $cart = $this->cartRepository->findOneBy(['tokenValue' => $putConfigurableItemToCart->orderToken()]);
