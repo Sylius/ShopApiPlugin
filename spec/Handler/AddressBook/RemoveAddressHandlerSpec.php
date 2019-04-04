@@ -30,6 +30,6 @@ final class RemoveAddressHandlerSpec extends ObjectBehavior
 
         $addressRepository->remove($address)->shouldBeCalled();
 
-        $this->handle(new RemoveAddress('ADDRESS_ID', 'user@email.com'));
+        $this(new RemoveAddress('ADDRESS_ID', 'user@email.com'));
     }
 }

@@ -37,7 +37,7 @@ final class UpdateCustomerHandlerSpec extends ObjectBehavior
 
         $customerRepository->add($customer)->shouldBeCalled();
 
-        $this->handle(
+        $this(
             new UpdateCustomer(
                 'Sherlock',
                 'Holmes',

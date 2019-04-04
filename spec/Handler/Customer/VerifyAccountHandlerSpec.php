@@ -33,7 +33,7 @@ final class VerifyAccountHandlerSpec extends ObjectBehavior
         $user->setVerifiedAt(Argument::type(\DateTime::class))->shouldBeCalled();
         $user->enable()->shouldBeCalled();
 
-        $this->handle(new VerifyAccount('RANDOM_TOKEN'));
+        $this(new VerifyAccount('RANDOM_TOKEN'));
     }
 
     function it_throws_an_exception_if_user_has_not_been_found(
@@ -41,6 +41,6 @@ final class VerifyAccountHandlerSpec extends ObjectBehavior
     ): void {
         $userRepository->findOneBy(['emailVerificationToken' => 'RANDOM_TOKEN'])->willReturn(null);
 
-        $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [new VerifyAccount('RANDOM_TOKEN')]);
+        $this->shouldThrow(\InvalidArgumentException::class)->during('__invoke', [new VerifyAccount('RANDOM_TOKEN')]);
     }
 }

@@ -36,7 +36,7 @@ final class GenerateResetPasswordTokenHandlerSpec extends ObjectBehavior
         $user->setPasswordResetToken('RANDOM_TOKEN')->shouldBeCalled();
         $user->setPasswordRequestedAt(Argument::type(\DateTime::class))->shouldBeCalled();
 
-        $this->handle(new GenerateResetPasswordToken('example@customer.com'));
+        $this(new GenerateResetPasswordToken('example@customer.com'));
     }
 
     function it_throws_an_exception_if_user_has_not_been_found(
@@ -44,6 +44,6 @@ final class GenerateResetPasswordTokenHandlerSpec extends ObjectBehavior
     ): void {
         $userRepository->findOneByEmail('example@customer.com')->willReturn(null);
 
-        $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [new GenerateResetPasswordToken('example@customer.com')]);
+        $this->shouldThrow(\InvalidArgumentException::class)->during('__invoke', [new GenerateResetPasswordToken('example@customer.com')]);
     }
 }

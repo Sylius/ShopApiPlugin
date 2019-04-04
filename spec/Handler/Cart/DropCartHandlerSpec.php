@@ -23,14 +23,14 @@ final class DropCartHandlerSpec extends ObjectBehavior
 
         $cartRepository->remove($cart)->shouldBeCalled();
 
-        $this->handle(new DropCart('ORDERTOKEN'));
+        $this(new DropCart('ORDERTOKEN'));
     }
 
     function it_throws_an_exception_if_cart_does_not_exist(OrderRepositoryInterface $cartRepository): void
     {
         $cartRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn(null);
 
-        $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [new DropCart('ORDERTOKEN')]);
+        $this->shouldThrow(\InvalidArgumentException::class)->during('__invoke', [new DropCart('ORDERTOKEN')]);
     }
 
     function it_throws_an_exception_if_order_is_not_in_a_cart_state(OrderInterface $cart, OrderRepositoryInterface $cartRepository): void
@@ -40,6 +40,6 @@ final class DropCartHandlerSpec extends ObjectBehavior
 
         $cartRepository->remove($cart)->shouldNotBeCalled();
 
-        $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [new DropCart('ORDERTOKEN')]);
+        $this->shouldThrow(\InvalidArgumentException::class)->during('__invoke', [new DropCart('ORDERTOKEN')]);
     }
 }
