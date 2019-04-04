@@ -9,3 +9,15 @@ sylius_shop_api_order_details:
     methods: [GET]
     defaults:
         _controller: sylius.shop_api_plugin.controller.order.show_order_details_action
+
+sylius_shop_api_order_available_payment_methods:
+    path: /orders/{token}/payment
+    methods: [GET]
+    defaults:
+        _controller: sylius.shop_api_plugin.controller.checkout.show_available_payment_methods_action
+
+sylius_shop_api_order_update_payment_method:
+    path: /orders/{token}/payment/{paymentId}
+    methods: [PUT]
+    defaults:
+        _controller: sylius.shop_api_plugin.controller.order.update_payment_method_action

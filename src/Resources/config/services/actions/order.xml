@@ -19,5 +19,14 @@
             <argument type="service" id="sylius.shop_api_plugin.provider.current_user_provider" />
             <argument type="service" id="sylius.shop_api_plugin.view_repository.placed_order_view_repository" />
         </service>
+
+        <service id="sylius.shop_api_plugin.controller.order.update_payment_method_action"
+                 class="Sylius\ShopApiPlugin\Controller\Order\UpdatePaymentMethodAction"
+        >
+            <argument type="service" id="fos_rest.view_handler" />
+            <argument type="service" id="sylius_shop_api_plugin.command_bus" />
+            <argument type="service" id="validator" />
+            <argument type="service" id="sylius.shop_api_plugin.factory.validation_error_view_factory" />
+        </service>
     </services>
 </container>

@@ -11,6 +11,7 @@ use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Core\OrderCheckoutStates;
+use Sylius\Component\Core\OrderPaymentStates;
 use Sylius\ShopApiPlugin\Factory\AddressBook\AddressViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\Cart\AdjustmentViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\Cart\CartItemViewFactoryInterface;
@@ -64,6 +65,7 @@ final class PlacedOrderViewFactorySpec extends ObjectBehavior
         $cart->getCurrencyCode()->willReturn('GBP');
         $cart->getCheckoutState()->willReturn(OrderCheckoutStates::STATE_COMPLETED);
         $cart->getCheckoutCompletedAt()->willReturn(new \DateTime('2019-02-15T15:00:00+00:00'));
+        $cart->getPaymentState()->willReturn(OrderPaymentStates::STATE_AWAITING_PAYMENT);
         $cart->getTokenValue()->willReturn('ORDER_TOKEN');
         $cart->getNumber()->willReturn('ORDER_NUMBER');
         $cart->getShippingTotal()->willReturn(500);
@@ -99,6 +101,7 @@ final class PlacedOrderViewFactorySpec extends ObjectBehavior
         $placedOrderView->locale = 'en_GB';
         $placedOrderView->checkoutState = OrderCheckoutStates::STATE_COMPLETED;
         $placedOrderView->checkoutCompletedAt = '2019-02-15T15:00:00+00:00';
+        $placedOrderView->paymentState = OrderPaymentStates::STATE_AWAITING_PAYMENT;
 
         $placedOrderView->items = [new ItemView()];
         $placedOrderView->totals = new TotalsView();
