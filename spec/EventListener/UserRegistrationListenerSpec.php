@@ -6,12 +6,10 @@ namespace spec\Sylius\ShopApiPlugin\EventListener;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\Cart\PickupCart;
 use Sylius\ShopApiPlugin\Command\Customer\GenerateVerificationToken;
 use Sylius\ShopApiPlugin\Command\Customer\SendVerificationToken;
 use Sylius\ShopApiPlugin\Event\CustomerRegistered;
@@ -41,25 +39,8 @@ final class UserRegistrationListenerSpec extends ObjectBehavior
         $firstCommand = new GenerateVerificationToken('shop@example.com');
         $bus->dispatch($firstCommand)->willReturn(new Envelope($firstCommand))->shouldBeCalled();
 
-        $bus
-            ->dispatch(Argument::that(function (PickupCart $pickupCart): bool {
-                return !empty($pickupCart->orderToken()) && $pickupCart->channelCode() === 'en_GB';
-            }))
-            ->willReturn(new Envelope(new \stdClass()))
-            ->shouldBeCalled()
-        ;
-
-
         $secondCommand = new SendVerificationToken('shop@example.com', 'WEB_GB');
         $bus->dispatch($secondCommand)->willReturn(new Envelope($secondCommand))->shouldBeCalled();
-
-        $bus
-            ->dispatch(Argument::that(function (PickupCart $pickupCart): bool {
-                return !empty($pickupCart->orderToken()) && $pickupCart->channelCode() === 'en_GB';
-            }))
-            ->willReturn(new Envelope(new \stdClass()))
-            ->shouldBeCalled()
-        ;
 
         $this->handleUserVerification(new CustomerRegistered(
             'shop@example.com',
