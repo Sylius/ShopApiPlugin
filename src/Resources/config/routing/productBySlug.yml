@@ -3,7 +3,7 @@ sylius_shop_api_product_show_details_by_slug_deprecated:
     methods: [GET]
     defaults:
         _controller: 'Symfony\Bundle\FrameworkBundle\Controller\RedirectController:urlRedirectAction'
-        path: /{channelCode}/products/by-slug/{slug}
+        path: /shop-api/{channelCode}/products/by-slug/{slug}
         permanent: true
 
 sylius_shop_api_add_product_review_by_slug_deprecated:
