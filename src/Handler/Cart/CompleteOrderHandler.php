@@ -33,7 +33,7 @@ final class CompleteOrderHandler
         $this->stateMachineFactory = $stateMachineFactory;
     }
 
-    public function handle(CompleteOrder $completeOrder): void
+    public function __invoke(CompleteOrder $completeOrder): void
     {
         /** @var OrderInterface $order */
         $order = $this->orderRepository->findOneBy(['tokenValue' => $completeOrder->orderToken()]);

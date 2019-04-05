@@ -45,7 +45,7 @@ final class SetDefaultAddressHandlerSpec extends ObjectBehavior
 
         $customer->setDefaultAddress($address)->shouldBeCalled();
 
-        $this->handle(new SetDefaultAddress(1, 'user@email.com'));
+        $this(new SetDefaultAddress(1, 'user@email.com'));
     }
 
     function it_throws_exception_if_address_does_not_belong_to_current_user(
@@ -65,7 +65,7 @@ final class SetDefaultAddressHandlerSpec extends ObjectBehavior
         $customer->getId()->willReturn('CUSTOMER_ID');
         $anotherCustomer->getId()->willReturn('ANOTHER_CUSTOMER_ID');
 
-        $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [
+        $this->shouldThrow(\InvalidArgumentException::class)->during('__invoke', [
             new SetDefaultAddress(1, 'user@email.com'),
         ]);
     }
@@ -83,7 +83,7 @@ final class SetDefaultAddressHandlerSpec extends ObjectBehavior
 
         $user->getCustomer()->shouldNotBeCalled();
 
-        $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [
+        $this->shouldThrow(\InvalidArgumentException::class)->during('__invoke', [
             new SetDefaultAddress(1, 'user@email.com'),
         ]);
     }

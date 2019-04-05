@@ -19,7 +19,7 @@ final class VerifyAccountHandler
         $this->userRepository = $userRepository;
     }
 
-    public function handle(VerifyAccount $resendVerificationToken)
+    public function __invoke(VerifyAccount $resendVerificationToken): void
     {
         /** @var ShopUserInterface $user */
         $user = $this->userRepository->findOneBy(['emailVerificationToken' => $resendVerificationToken->token()]);

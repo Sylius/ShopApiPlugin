@@ -34,8 +34,7 @@ final class ChoosePaymentMethodHandler
         $this->stateMachineFactory = $stateMachineFactory;
     }
 
-    /** @param ChoosePaymentMethod $choosePaymentMethod */
-    public function handle(ChoosePaymentMethod $choosePaymentMethod)
+    public function __invoke(ChoosePaymentMethod $choosePaymentMethod): void
     {
         /** @var OrderInterface $cart */
         $cart = $this->orderRepository->findOneBy(['tokenValue' => $choosePaymentMethod->orderToken()]);

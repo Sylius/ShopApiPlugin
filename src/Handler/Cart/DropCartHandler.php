@@ -19,7 +19,7 @@ final class DropCartHandler
         $this->cartRepository = $cartRepository;
     }
 
-    public function handle(DropCart $dropCart)
+    public function __invoke(DropCart $dropCart): void
     {
         /** @var OrderInterface $cart */
         $cart = $this->cartRepository->findOneBy(['tokenValue' => $dropCart->orderToken()]);

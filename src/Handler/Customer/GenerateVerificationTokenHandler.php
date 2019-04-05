@@ -24,7 +24,7 @@ final class GenerateVerificationTokenHandler
         $this->tokenGenerator = $tokenGenerator;
     }
 
-    public function handle(GenerateVerificationToken $generateVerificationToken)
+    public function __invoke(GenerateVerificationToken $generateVerificationToken): void
     {
         $email = $generateVerificationToken->email();
 

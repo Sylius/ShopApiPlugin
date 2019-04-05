@@ -7,7 +7,7 @@
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.factory.address"/>
             <argument type="service" id="sm.factory"/>
-            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\Cart\AddressOrder"/>
+            <tag name="messenger.message_handler" />
         </service>
 
         <service id="sylius.shop_api_plugin.handler.pickup_cart_handler"
@@ -15,13 +15,13 @@
             <argument type="service" id="sylius.factory.order"/>
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.repository.channel"/>
-            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\Cart\PickupCart"/>
+            <tag name="messenger.message_handler" />
         </service>
 
         <service id="sylius.shop_api_plugin.handler.drop_cart_handler"
                  class="Sylius\ShopApiPlugin\Handler\Cart\DropCartHandler">
             <argument type="service" id="sylius.repository.order"/>
-            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\Cart\DropCart"/>
+            <tag name="messenger.message_handler" />
         </service>
 
         <service id="sylius.shop_api_plugin.handler.put_simple_item_to_cart_handler"
@@ -29,7 +29,7 @@
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.repository.product"/>
             <argument type="service" id="sylius.shop_api_plugin.modifier.order_modifier"/>
-            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\Cart\PutSimpleItemToCart"/>
+            <tag name="messenger.message_handler" />
         </service>
 
         <service id="sylius.shop_api_plugin.handler.put_variant_based_configurable_item_to_cart_handler"
@@ -37,7 +37,7 @@
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.repository.product_variant"/>
             <argument type="service" id="sylius.shop_api_plugin.modifier.order_modifier"/>
-            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\Cart\PutVariantBasedConfigurableItemToCart"/>
+            <tag name="messenger.message_handler" />
         </service>
 
         <service id="sylius.shop_api_plugin.handler.put_option_based_configurable_item_to_cart_handler"
@@ -45,7 +45,7 @@
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.repository.product"/>
             <argument type="service" id="sylius.shop_api_plugin.modifier.order_modifier"/>
-            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\Cart\PutOptionBasedConfigurableItemToCart"/>
+            <tag name="messenger.message_handler" />
         </service>
 
         <service id="sylius.shop_api_plugin.handler.change_item_quantity_handler"
@@ -54,7 +54,7 @@
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.order_item_quantity_modifier"/>
             <argument type="service" id="sylius.order_processing.order_processor"/>
-            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\Cart\ChangeItemQuantity"/>
+            <tag name="messenger.message_handler" />
         </service>
 
         <service id="sylius.shop_api_plugin.handler.remove_item_from_cart_handler"
@@ -62,7 +62,7 @@
             <argument type="service" id="sylius.repository.order_item"/>
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.order_processing.order_processor"/>
-            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\Cart\RemoveItemFromCart"/>
+            <tag name="messenger.message_handler" />
         </service>
 
         <service id="sylius.shop_api_plugin.handler.choose_shipping_method_handler"
@@ -71,7 +71,7 @@
             <argument type="service" id="sylius.repository.shipping_method"/>
             <argument type="service" id="sylius.shipping_eligibility_checker"/>
             <argument type="service" id="sm.factory"/>
-            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\Cart\ChooseShippingMethod"/>
+            <tag name="messenger.message_handler" />
         </service>
 
         <service id="sylius.shop_api_plugin.handler.choose_payment_method_handler"
@@ -79,7 +79,7 @@
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.repository.payment_method"/>
             <argument type="service" id="sm.factory"/>
-            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\Cart\ChoosePaymentMethod"/>
+            <tag name="messenger.message_handler" />
         </service>
 
         <service id="sylius.shop_api_plugin.handler.add_coupon_handler"
@@ -88,14 +88,14 @@
             <argument type="service" id="sylius.repository.promotion_coupon"/>
             <argument type="service" id="sylius.order_processing.order_processor"/>
             <argument type="service" id="sylius.shop_api_plugin.checker.promotion_coupon_eligibility_checker"/>
-            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\Cart\AddCoupon"/>
+            <tag name="messenger.message_handler" />
         </service>
 
         <service id="sylius.shop_api_plugin.handler.remove_coupon_handler"
                  class="Sylius\ShopApiPlugin\Handler\Cart\RemoveCouponHandler">
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.order_processing.order_processor"/>
-            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\Cart\RemoveCoupon"/>
+            <tag name="messenger.message_handler" />
         </service>
 
         <service id="sylius.shop_api_plugin.handler.complete_order_handler"
@@ -103,7 +103,7 @@
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.shop_api_plugin.provider.customer_provider" />
             <argument type="service" id="sm.factory"/>
-            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\Cart\CompleteOrder"/>
+            <tag name="messenger.message_handler" />
         </service>
     </services>
 </container>

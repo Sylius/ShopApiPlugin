@@ -44,7 +44,7 @@ final class AddProductReviewBySlugHandler
         $this->reviewFactory = $reviewFactory;
     }
 
-    public function handle(AddProductReviewBySlug $addReview): void
+    public function __invoke(AddProductReviewBySlug $addReview): void
     {
         /** @var ChannelInterface $channel */
         $channel = $this->channelRepository->findOneByCode($addReview->channelCode());

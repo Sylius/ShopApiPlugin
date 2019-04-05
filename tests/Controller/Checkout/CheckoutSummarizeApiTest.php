@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller\Checkout;
 
-use League\Tactician\CommandBus;
 use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\ShopApiPlugin\Command\Cart\AddressOrder;
@@ -13,6 +12,7 @@ use Sylius\ShopApiPlugin\Command\Cart\PickupCart;
 use Sylius\ShopApiPlugin\Command\Cart\PutSimpleItemToCart;
 use Sylius\ShopApiPlugin\Model\Address;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Tests\Sylius\ShopApiPlugin\Controller\JsonApiTestCase;
 
 final class CheckoutSummarizeApiTest extends JsonApiTestCase
@@ -26,10 +26,10 @@ final class CheckoutSummarizeApiTest extends JsonApiTestCase
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
-        /** @var CommandBus $bus */
-        $bus = $this->get('tactician.commandbus');
-        $bus->handle(new PickupCart($token, 'WEB_GB'));
-        $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
+        /** @var MessageBusInterface $bus */
+        $bus = $this->get('sylius_shop_api_plugin.command_bus');
+        $bus->dispatch(new PickupCart($token, 'WEB_GB'));
+        $bus->dispatch(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
 
         $data =
 <<<EOT
@@ -63,10 +63,10 @@ EOT;
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
-        /** @var CommandBus $bus */
-        $bus = $this->get('tactician.commandbus');
-        $bus->handle(new PickupCart($token, 'WEB_GB'));
-        $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
+        /** @var MessageBusInterface $bus */
+        $bus = $this->get('sylius_shop_api_plugin.command_bus');
+        $bus->dispatch(new PickupCart($token, 'WEB_GB'));
+        $bus->dispatch(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
 
         $data =
 <<<EOT
@@ -109,11 +109,11 @@ EOT;
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
-        /** @var CommandBus $bus */
-        $bus = $this->get('tactician.commandbus');
-        $bus->handle(new PickupCart($token, 'WEB_GB'));
-        $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
-        $bus->handle(new AddressOrder(
+        /** @var MessageBusInterface $bus */
+        $bus = $this->get('sylius_shop_api_plugin.command_bus');
+        $bus->dispatch(new PickupCart($token, 'WEB_GB'));
+        $bus->dispatch(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
+        $bus->dispatch(new AddressOrder(
             $token,
             Address::createFromArray([
                 'firstName' => 'Sherlock',
@@ -159,11 +159,11 @@ EOT;
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
-        /** @var CommandBus $bus */
-        $bus = $this->get('tactician.commandbus');
-        $bus->handle(new PickupCart($token, 'WEB_GB'));
-        $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
-        $bus->handle(new AddressOrder(
+        /** @var MessageBusInterface $bus */
+        $bus = $this->get('sylius_shop_api_plugin.command_bus');
+        $bus->dispatch(new PickupCart($token, 'WEB_GB'));
+        $bus->dispatch(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
+        $bus->dispatch(new AddressOrder(
             $token,
             Address::createFromArray([
                 'firstName' => 'Sherlock',
@@ -228,11 +228,11 @@ EOT;
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
-        /** @var CommandBus $bus */
-        $bus = $this->get('tactician.commandbus');
-        $bus->handle(new PickupCart($token, 'WEB_GB'));
-        $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
-        $bus->handle(new AddressOrder(
+        /** @var MessageBusInterface $bus */
+        $bus = $this->get('sylius_shop_api_plugin.command_bus');
+        $bus->dispatch(new PickupCart($token, 'WEB_GB'));
+        $bus->dispatch(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
+        $bus->dispatch(new AddressOrder(
             $token,
             Address::createFromArray([
                 'firstName' => 'Sherlock',
@@ -253,7 +253,7 @@ EOT;
                 'provinceName' => 'Greater London',
             ])
         ));
-        $bus->handle(new ChooseShippingMethod($token, 0, 'DHL'));
+        $bus->dispatch(new ChooseShippingMethod($token, 0, 'DHL'));
 
         $data =
 <<<EOT
@@ -279,10 +279,10 @@ EOT;
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
-        /** @var CommandBus $bus */
-        $bus = $this->get('tactician.commandbus');
-        $bus->handle(new PickupCart($token, 'WEB_GB'));
-        $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
+        /** @var MessageBusInterface $bus */
+        $bus = $this->get('sylius_shop_api_plugin.command_bus');
+        $bus->dispatch(new PickupCart($token, 'WEB_GB'));
+        $bus->dispatch(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
 
         $data =
             <<<EOT

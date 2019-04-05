@@ -33,7 +33,7 @@ final class PickupCartHandler
         $this->channelRepository = $channelRepository;
     }
 
-    public function handle(PickupCart $pickupCart)
+    public function __invoke(PickupCart $pickupCart): void
     {
         /** @var ChannelInterface|null $channel */
         $channel = $this->channelRepository->findOneByCode($pickupCart->channelCode());

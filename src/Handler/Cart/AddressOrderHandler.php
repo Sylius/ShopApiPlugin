@@ -34,7 +34,7 @@ final class AddressOrderHandler
         $this->stateMachineFactory = $stateMachineFactory;
     }
 
-    public function handle(AddressOrder $addressOrder)
+    public function __invoke(AddressOrder $addressOrder): void
     {
         /** @var OrderInterface $order */
         $order = $this->orderRepository->findOneBy(['tokenValue' => $addressOrder->orderToken()]);

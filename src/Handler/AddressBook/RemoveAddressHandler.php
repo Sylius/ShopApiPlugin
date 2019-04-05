@@ -23,7 +23,7 @@ final class RemoveAddressHandler
         $this->orderRepository = $orderRepository;
     }
 
-    public function handle(RemoveAddress $removeAddress): void
+    public function __invoke(RemoveAddress $removeAddress): void
     {
         /** @var AddressInterface $address */
         $address = $this->addressRepository->findOneBy(['id' => $removeAddress->id()]);

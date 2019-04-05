@@ -39,7 +39,7 @@ final class ChangeItemQuantityHandler
         $this->orderProcessor = $orderProcessor;
     }
 
-    public function handle(ChangeItemQuantity $changeItemQuantity)
+    public function __invoke(ChangeItemQuantity $changeItemQuantity): void
     {
         /** @var OrderInterface $order */
         $order = $this->orderRepository->findOneBy(['tokenValue' => $changeItemQuantity->orderToken(), 'state' => OrderInterface::STATE_CART]);
