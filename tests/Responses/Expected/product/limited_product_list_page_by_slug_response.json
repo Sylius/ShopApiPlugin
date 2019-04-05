@@ -4,10 +4,10 @@
     "pages": 3,
     "total": 3,
     "_links": {
-        "self": "\/shop-api\/WEB_GB\/taxon-products-by-slug\/brands?limit=1&page=2",
-        "first": "\/shop-api\/WEB_GB\/taxon-products-by-slug\/brands?limit=1&page=1",
-        "last": "\/shop-api\/WEB_GB\/taxon-products-by-slug\/brands?limit=1&page=3",
-        "next": "\/shop-api\/WEB_GB\/taxon-products-by-slug\/brands?limit=1&page=3"
+        "self": "\/shop-api\/WEB_GB\/taxon-products\/by-slug\/brands?limit=1&page=2",
+        "first": "\/shop-api\/WEB_GB\/taxon-products\/by-slug\/brands?limit=1&page=1",
+        "last": "\/shop-api\/WEB_GB\/taxon-products\/by-slug\/brands?limit=1&page=3",
+        "next": "\/shop-api\/WEB_GB\/taxon-products\/by-slug\/brands?limit=1&page=3"
     },
     "items": [
         {

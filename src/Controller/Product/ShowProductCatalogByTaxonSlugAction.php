@@ -32,7 +32,7 @@ final class ShowProductCatalogByTaxonSlugAction
     {
         try {
             return $this->viewHandler->handle(View::create($this->productCatalogQuery->findByTaxonSlug(
-                $request->attributes->get('slug'),
+                $request->attributes->get('taxonSlug'),
                 $request->attributes->get('channelCode'),
                 new PaginatorDetails($request->attributes->get('_route'), $request->query->all()),
                 $request->query->get('locale')
