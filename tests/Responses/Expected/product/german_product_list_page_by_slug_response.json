@@ -57,7 +57,7 @@
             ],
             "_links": {
                 "self": {
-                    "href": "\/shop-api\/WEB_GB\/products-by-slug\/logan-becher"
+                    "href": "\/shop-api\/WEB_GB\/products\/by-slug\/logan-becher"
                 }
             }
         },
@@ -195,7 +195,7 @@
                         ],
                         "_links": {
                             "self": {
-                                "href": "\/shop-api\/WEB_GB\/products-by-slug\/logan-becher"
+                                "href": "\/shop-api\/WEB_GB\/products\/by-slug\/logan-becher"
                             }
                         }
                     },
@@ -265,7 +265,7 @@
                         ],
                         "_links": {
                             "self": {
-                                "href": "\/shop-api\/WEB_GB\/products-by-slug\/logan-t-shirt"
+                                "href": "\/shop-api\/WEB_GB\/products\/by-slug\/logan-t-shirt"
                             }
                         }
                     }
@@ -274,7 +274,7 @@
             "images": [],
             "_links": {
                 "self": {
-                    "href": "\/shop-api\/WEB_GB\/products-by-slug\/logan-hut"
+                    "href": "\/shop-api\/WEB_GB\/products\/by-slug\/logan-hut"
                 }
             }
         }
