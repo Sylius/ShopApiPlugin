@@ -1,3 +1,17 @@
+# UPGRADE FROM 1.0.0-beta.22 to 1.0.0-beta.23
+The product routes have been moved:
+
+| Old Route                             | New route                            |
+|:--------------------------------------|:-------------------------------------|
+| `products/{code}`                     | `products/by-code/{code}`            |
+| `products-by-slug/{slug}`             | `products/by-slug/{slug}`            |
+| `products/{code}/reviews`             | `products/by-code/{code}/reviews`    |
+| `products-reviews-by-slug/{slug}`     | `products/by-slug/{slug}/reviews`    |
+| `taxon-products/{code}`               | `taxon-products/by-code/{taxonCode}` |
+| `taxon-products-by-slug/{taxonSlug}`  | `taxon-products/by-slug/{taxonSlug}` |
+
+
+
 # UPGRADE FROM 1.0.0-beta.21 to 1.0.0-beta.22
 
 * The configuration key for the shop api is now `sylius_shop_api`.
