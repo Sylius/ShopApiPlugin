@@ -19,7 +19,7 @@ final class CheckoutShowAvailableShippingMethodsShopApiTest extends JsonApiTestC
      */
     public function it_does_not_provide_details_about_available_shipping_method_for_non_existing_cart(): void
     {
-        $this->client->request('GET', $this->getShippingUrl(0), [], [], self::CONTENT_TYPE_HEADER);
+        $this->client->request('GET', $this->getShippingUrl('0'), [], [], self::CONTENT_TYPE_HEADER);
 
         $response = $this->client->getResponse();
         $this->assertResponseCode($response, Response::HTTP_NOT_FOUND);
@@ -125,12 +125,7 @@ final class CheckoutShowAvailableShippingMethodsShopApiTest extends JsonApiTestC
         $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
     }
 
-    /**
-     * @param string $token
-     *
-     * @return string
-     */
-    private function getShippingUrl($token): string
+    private function getShippingUrl(string $token): string
     {
         return sprintf('/shop-api/WEB_GB/checkout/%s/shipping', $token);
     }

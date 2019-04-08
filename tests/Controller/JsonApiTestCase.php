@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller;
 
-abstract class JsonApiTestCase extends \Lakion\ApiTestCase\JsonApiTestCase
+abstract class JsonApiTestCase extends \ApiTestCase\JsonApiTestCase
 {
-    const CONTENT_TYPE_HEADER = ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'];
+    public const CONTENT_TYPE_HEADER = ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'];
 
     public function __construct(?string $name = null, array $data = [], string $dataName = '')
     {

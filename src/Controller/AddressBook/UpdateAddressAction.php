@@ -62,7 +62,6 @@ final class UpdateAddressAction
     }
 
     /**
-     * @param Request $request
      * @param string|int $id
      */
     public function __invoke(Request $request, $id): Response

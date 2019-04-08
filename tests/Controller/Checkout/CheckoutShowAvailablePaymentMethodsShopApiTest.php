@@ -177,12 +177,7 @@ final class CheckoutShowAvailablePaymentMethodsShopApiTest extends JsonApiTestCa
         $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
     }
 
-    /**
-     * @param string $token
-     *
-     * @return string
-     */
-    private function getPaymentUrl($token): string
+    private function getPaymentUrl(string $token): string
     {
         return sprintf('/shop-api/WEB_GB/checkout/%s/payment', $token);
     }
