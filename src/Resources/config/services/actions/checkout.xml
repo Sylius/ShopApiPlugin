@@ -9,6 +9,8 @@
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="sylius_shop_api_plugin.command_bus" />
+            <argument type="service" id="validator" />
+            <argument type="service" id="sylius.shop_api_plugin.factory.validation_error_view_factory" />
         </service>
 
         <service id="sylius.shop_api_plugin.controller.checkout.show_available_shipping_methods_action"

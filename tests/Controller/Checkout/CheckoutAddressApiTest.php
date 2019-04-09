@@ -14,14 +14,30 @@ use Tests\Sylius\ShopApiPlugin\Controller\JsonApiTestCase;
 final class CheckoutAddressApiTest extends JsonApiTestCase
 {
     /**
-     * TODO check is it possible (test annotation make it fail)
+     * @test
      */
     public function it_does_not_allow_to_address_non_existing_order(): void
     {
-        $this->client->request('PUT', '/shop-api/WEB_GB/checkout/SDAOSLEFNWU35H3QLI5325/address', [], [], self::CONTENT_TYPE_HEADER);
+        $this->loadFixturesFromFiles(['shop.yml']);
+
+        $data =
+<<<EOT
+        {
+            "shippingAddress": {
+                "firstName": "Sherlock",
+                "lastName": "Holmes",
+                "countryCode": "GB",
+                "street": "Baker Street 221b",
+                "city": "London",
+                "postcode": "NW1",
+                "provinceName": "Greater London"
+            }
+        }
+EOT;
+        $this->client->request('PUT', '/shop-api/WEB_GB/checkout/WRONGTOKEN/address', [], [], self::CONTENT_TYPE_HEADER, $data);
 
         $response = $this->client->getResponse();
-        $this->assertResponse($response, 'cart/cart_has_not_been_found_response', Response::HTTP_NOT_FOUND);
+        $this->assertResponse($response, 'cart/validation_cart_not_exists_response', Response::HTTP_BAD_REQUEST);
     }
 
     /**
