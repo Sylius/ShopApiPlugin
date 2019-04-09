@@ -1,16 +1,4 @@
 # UPGRADE FROM 1.0.0-beta.21 to 1.0.0-beta.22
-The product routes have been moved:
-
-| Old Route                             | New route                            |
-|:--------------------------------------|:-------------------------------------|
-| `products/{code}`                     | `products/by-code/{code}`            |
-| `products-by-slug/{slug}`             | `products/by-slug/{slug}`            |
-| `products/{code}/reviews`             | `products/by-code/{code}/reviews`    |
-| `products-reviews-by-slug/{slug}`     | `products/by-slug/{slug}/reviews`    |
-| `taxon-products/{code}`               | `taxon-products/by-code/{taxonCode}` |
-| `taxon-products-by-slug/{taxonSlug}`  | `taxon-products/by-slug/{taxonSlug}` |
-
-# UPGRADE FROM 1.0.0-beta.21 to 1.0.0-beta.22
 
 * The configuration key for the shop api is now `sylius_shop_api`.
 * The route names of the address book and the order are now renames to fit the schema `sylius_shop_api...`
@@ -22,6 +10,17 @@ The product routes have been moved:
     * Used `League\Tactician\CommandBus` has been replaced with `Symfony\Component\Messenger\MessageBusInterface`
     * The commands are now dispatched using `dispatch()` method instead of `handle()`
     * The method name in handlers has been changed from `handle()` to `__invoke()`
+
+The product routes have been moved:
+
+| Old Route                             | New route                            |
+|:--------------------------------------|:-------------------------------------|
+| `products/{code}`                     | `products/by-code/{code}`            |
+| `products-by-slug/{slug}`             | `products/by-slug/{slug}`            |
+| `products/{code}/reviews`             | `products/by-code/{code}/reviews`    |
+| `products-reviews-by-slug/{slug}`     | `products/by-slug/{slug}/reviews`    |
+| `taxon-products/{code}`               | `taxon-products/by-code/{code}`      |
+| `taxon-products-by-slug/{taxonSlug}`  | `taxon-products/by-slug/{taxonSlug}` |
 
 # UPGRADE FROM 1.0.0-beta.17 to 1.0.0-beta.18
 
