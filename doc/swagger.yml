@@ -705,9 +705,8 @@ paths:
             description: "Email with reset password path will be sent to user. Default path for password resetting is `/password-reset/{token}`. To change it, you need to override template `@SyliusShopApi\\Email\\passwordReset.html.twig`."
             operationId: "requestPasswordReset"
             parameters:
-                -   name: "email"
+                -   name: "content"
                     in: "body"
-                    description: "Email of user which want to reset password."
                     required: true
                     schema:
                         $ref: "#/definitions/RequestPasswordResetting"
