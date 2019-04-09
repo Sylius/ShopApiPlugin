@@ -108,12 +108,7 @@ EOT;
         $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
     }
 
-    /**
-     * @param string $token
-     *
-     * @return string
-     */
-    private function getShippingUrl($token): string
+    private function getShippingUrl(string $token): string
     {
         return sprintf('/shop-api/WEB_GB/checkout/%s/shipping', $token);
     }

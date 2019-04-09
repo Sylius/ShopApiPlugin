@@ -11,7 +11,6 @@ interface ProductAttributeValuesViewFactoryInterface
 {
     /**
      * @param array|AttributeValueInterface[] $attributeValues
-     * @param string $locale
      *
      * @return array|ProductAttributeValueView[]
      */
