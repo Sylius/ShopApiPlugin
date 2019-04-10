@@ -66,7 +66,7 @@ final class CheckoutShowAvailableShippingMethodsShopApiTest extends JsonApiTestC
     }
 
     /**
-     * TODO check is it possible (test annotation make it fail)
+     * @test
      */
     public function it_does_not_provide_details_about_available_shipping_method_before_addressing(): void
     {

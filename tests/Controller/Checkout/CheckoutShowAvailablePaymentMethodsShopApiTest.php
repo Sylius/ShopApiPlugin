@@ -27,7 +27,7 @@ final class CheckoutShowAvailablePaymentMethodsShopApiTest extends JsonApiTestCa
     }
 
     /**
-     * TODO check is it possible (test annotation make it fail)
+     * @test
      */
     public function it_does_not_provide_details_about_available_payment_method_before_addressing(): void
     {
@@ -47,7 +47,7 @@ final class CheckoutShowAvailablePaymentMethodsShopApiTest extends JsonApiTestCa
     }
 
     /**
-     * TODO check is it possible (test annotation make it fail)
+     * @test
      */
     public function it_does_not_provide_details_about_available_payment_method_before_choosing_shipping_method(): void
     {

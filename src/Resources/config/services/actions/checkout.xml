@@ -9,6 +9,8 @@
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="sylius_shop_api_plugin.command_bus" />
+            <argument type="service" id="validator" />
+            <argument type="service" id="sylius.shop_api_plugin.factory.validation_error_view_factory" />
         </service>
 
         <service id="sylius.shop_api_plugin.controller.checkout.show_available_shipping_methods_action"
@@ -18,6 +20,7 @@
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="sylius.shipping_methods_resolver" />
             <argument type="service" id="sylius.shop_api_plugin.factory.shipping_method_view_factory" />
+            <argument type="service" id="sm.factory" />
         </service>
 
         <service id="sylius.shop_api_plugin.controller.checkout.choose_shipping_method_action"
@@ -34,6 +37,7 @@
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="sylius.payment_methods_resolver" />
             <argument type="service" id="sylius.shop_api_plugin.factory.payment_method_view_factory" />
+            <argument type="service" id="sm.factory" />
         </service>
 
         <service id="sylius.shop_api_plugin.controller.checkout.choose_payment_method_action"
