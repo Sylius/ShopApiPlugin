@@ -16,7 +16,7 @@ final class ProductShowCatalogBySlugApiTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
-        $this->client->request('GET', '/shop-api/WEB_GB/taxon-products-by-slug/brands', [], [], self::CONTENT_TYPE_HEADER);
+        $this->client->request('GET', '/shop-api/WEB_GB/taxon-products/by-slug/brands', [], [], self::CONTENT_TYPE_HEADER);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'product/product_list_page_by_slug_response', Response::HTTP_OK);
@@ -29,7 +29,7 @@ final class ProductShowCatalogBySlugApiTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
-        $this->client->request('GET', '/shop-api/WEB_GB/taxon-products-by-slug/categories/t-shirts/women-t-shirts', [], [], self::CONTENT_TYPE_HEADER);
+        $this->client->request('GET', '/shop-api/WEB_GB/taxon-products/by-slug/categories/t-shirts/women-t-shirts', [], [], self::CONTENT_TYPE_HEADER);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'product/product_t_shirt_list_page_by_slug_response', Response::HTTP_OK);
@@ -42,7 +42,7 @@ final class ProductShowCatalogBySlugApiTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
-        $this->client->request('GET', '/shop-api/WEB_GB/taxon-products-by-slug/marken?locale=de_DE', [], [], self::CONTENT_TYPE_HEADER);
+        $this->client->request('GET', '/shop-api/WEB_GB/taxon-products/by-slug/marken?locale=de_DE', [], [], self::CONTENT_TYPE_HEADER);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'product/german_product_list_page_by_slug_response', Response::HTTP_OK);
@@ -55,7 +55,7 @@ final class ProductShowCatalogBySlugApiTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
-        $this->client->request('GET', '/shop-api/WEB_GB/taxon-products-by-slug/brands?limit=1&page=2', [], [], self::CONTENT_TYPE_HEADER);
+        $this->client->request('GET', '/shop-api/WEB_GB/taxon-products/by-slug/brands?limit=1&page=2', [], [], self::CONTENT_TYPE_HEADER);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'product/limited_product_list_page_by_slug_response', Response::HTTP_OK);
@@ -68,7 +68,7 @@ final class ProductShowCatalogBySlugApiTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
-        $this->client->request('GET', '/shop-api/WEB_GB/taxon-products-by-slug/x-man?sorting[createdAt]=desc', [], [], self::CONTENT_TYPE_HEADER);
+        $this->client->request('GET', '/shop-api/WEB_GB/taxon-products/by-slug/x-man?sorting[createdAt]=desc', [], [], self::CONTENT_TYPE_HEADER);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'product/product_list_page_by_slug_response', Response::HTTP_OK);
@@ -81,7 +81,7 @@ final class ProductShowCatalogBySlugApiTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
-        $this->client->request('GET', '/shop-api/WEB_GB/taxon-products-by-slug/x-man?criteria[search][value]=Logans+Hat', [], [], self::CONTENT_TYPE_HEADER);
+        $this->client->request('GET', '/shop-api/WEB_GB/taxon-products/by-slug/x-man?criteria[search][value]=Logans+Hat', [], [], self::CONTENT_TYPE_HEADER);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'product/product_list_page_by_slug_response', Response::HTTP_OK);
@@ -94,7 +94,7 @@ final class ProductShowCatalogBySlugApiTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
-        $this->client->request('GET', '/shop-api/SPACE_KLINGON/taxon-products-by-slug/brands', [], [], self::CONTENT_TYPE_HEADER);
+        $this->client->request('GET', '/shop-api/SPACE_KLINGON/taxon-products/by-slug/brands', [], [], self::CONTENT_TYPE_HEADER);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);

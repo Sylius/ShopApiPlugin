@@ -47,7 +47,7 @@
                 "images": [],
                 "_links": {
                     "self": {
-                        "href": "\/shop-api\/WEB_GB\/products-by-slug\/logan-hat"
+                        "href": "\/shop-api\/WEB_GB\/products\/by-slug\/logan-hat"
                     }
                 }
             }
