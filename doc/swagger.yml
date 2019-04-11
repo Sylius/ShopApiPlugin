@@ -523,7 +523,7 @@ paths:
                     description: "Paginated product list."
                     schema:
                         $ref: "#/definitions/ProductsPage"
-    /{channelCode}/taxon-products/by-code/{code}:
+    /{channelCode}/taxon-products/by-code/{taxonCode}:
         parameters:
             -   $ref: "#/parameters/ChannelCode"
         get:
@@ -533,7 +533,7 @@ paths:
             description: "This endpoint will return a paginated list of products for given taxon."
             operationId: "productCatalog"
             parameters:
-                -   name: "code"
+                -   name: "taxonCode"
                     in: "path"
                     description: "Code of taxonomy for which products should be listed."
                     required: true
