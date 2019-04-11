@@ -4,12 +4,6 @@ sylius_shop_api_pickup_cart:
     defaults:
         _controller: sylius.shop_api_plugin.controller.cart.pickup_action
 
-sylius_shop_api_pickup_cart_deprecated:
-    path: /carts/{token}
-    methods: [POST]
-    defaults:
-        _controller: sylius.shop_api_plugin.controller.cart.pickup_action
-
 sylius_shop_api_cart_summary:
     path: /carts/{token}
     methods: [GET]

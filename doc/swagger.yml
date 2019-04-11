@@ -88,20 +88,6 @@ paths:
         parameters:
             -   $ref: "#/parameters/ChannelCode"
             -   $ref: "#/parameters/CartToken"
-        post:
-            deprecated: true
-            tags:
-                - "cart"
-            summary: "Pick up your cart from the store"
-            description: "This endpoint will allow you to assign a new cart to the provided token. We recommend using UUID as a token to avoid duplication. If any of previous carts or orders already have the same token value an exception will be thrown."
-            operationId: "deprecatedCartPickUp"
-            responses:
-                201:
-                    description: "Cart has been picked up and assigned to given token"
-                400:
-                    description: "Invalid input"
-                    schema:
-                        $ref: "#/definitions/GeneralError"
         get:
             tags:
                 - "cart"

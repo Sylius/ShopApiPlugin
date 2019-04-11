@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace Tests\Sylius\ShopApiPlugin\Controller\Cart;
 
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\Cart\PickupCart;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Tests\Sylius\ShopApiPlugin\Controller\JsonApiTestCase;
 use Tests\Sylius\ShopApiPlugin\Controller\Utils\ShopUserLoginTrait;
 
@@ -55,44 +53,6 @@ final class CartPickupApiTest extends JsonApiTestCase
     }
 
     /**
-     * @deprecated
-     * @test
-     */
-    public function it_creates_a_new_cart_using_deprecated_api(): void
-    {
-        $this->loadFixturesFromFiles(['shop.yml']);
-
-        $this->client->request(
-            'POST', '/shop-api/WEB_GB/carts/SDAOSLEFNWU35H3QLI5325', [], [], self::CONTENT_TYPE_HEADER
-        );
-
-        $response = $this->client->getResponse();
-
-        $this->assertResponse($response, 'cart/deprecated_empty_response', Response::HTTP_CREATED);
-    }
-
-    /**
-     * @deprecated
-     * @test
-     */
-    public function it_does_not_allow_to_create_a_new_cart_if_token_is_already_used(): void
-    {
-        $this->loadFixturesFromFiles(['shop.yml']);
-
-        $token = 'SDAOSLEFNWU35H3QLI5325';
-
-        /** @var MessageBusInterface $bus */
-        $bus = $this->get('sylius_shop_api_plugin.command_bus');
-        $bus->dispatch(new PickupCart($token, 'WEB_GB'));
-
-        $this->client->request('POST', '/shop-api/WEB_GB/carts/' . $token, [], [], self::CONTENT_TYPE_HEADER);
-
-        $response = $this->client->getResponse();
-
-        $this->assertResponse($response, 'cart/validation_token_already_used_response', Response::HTTP_BAD_REQUEST);
-    }
-
-    /**
      * @test
      */
     public function it_does_not_allow_to_create_a_new_cart_in_non_existent_channel(): void
@@ -100,7 +60,7 @@ final class CartPickupApiTest extends JsonApiTestCase
         $this->loadFixturesFromFiles(['shop.yml']);
 
         $this->client->request(
-            'POST', '/shop-api/SPACE_KLINGON/carts/SDAOSLEFNWU35H3QLI5325', [], [], self::CONTENT_TYPE_HEADER
+            'POST', '/shop-api/SPACE_KLINGON/carts/', [], [], self::CONTENT_TYPE_HEADER
         );
 
         $response = $this->client->getResponse();
