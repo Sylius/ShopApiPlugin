@@ -60,7 +60,7 @@ final class CartPickupApiTest extends JsonApiTestCase
         $this->loadFixturesFromFiles(['shop.yml']);
 
         $this->client->request(
-            'POST', '/shop-api/SPACE_KLINGON/carts/', [], [], self::CONTENT_TYPE_HEADER
+            'POST', '/shop-api/SPACE_KLINGON/carts', [], [], self::CONTENT_TYPE_HEADER
         );
 
         $response = $this->client->getResponse();

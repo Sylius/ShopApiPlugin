@@ -27,11 +27,10 @@ final class CartEstimateShippingTest extends JsonApiTestCase
      */
     public function it_calculates_estimated_shipping_cost_based_on_country(): void
     {
-        $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml']);
+        $this->loadFixturesFromFiles(['shop.yml', 'cart.yml', 'country.yml', 'shipping.yml']);
 
-        $token = 'SDAOSLEFNWU35H3QLI5325';
+        $token = 'PICKEDUPCARTTOKEN';
 
-        $this->pickupCart($token);
         $this->putItemToCart($token);
 
         $this->client->request('GET', sprintf('/shop-api/WEB_GB/carts/%s/estimated-shipping-cost?countryCode=GB', $token), [], [], self::CONTENT_TYPE_HEADER);
@@ -45,11 +44,10 @@ final class CartEstimateShippingTest extends JsonApiTestCase
      */
     public function it_calculates_estimated_shipping_cost_based_on_country_and_province(): void
     {
-        $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml']);
+        $this->loadFixturesFromFiles(['shop.yml', 'cart.yml', 'country.yml', 'shipping.yml']);
 
-        $token = 'SDAOSLEFNWU35H3QLI5325';
+        $token = 'PICKEDUPCARTTOKEN';
 
-        $this->pickupCart($token);
         $this->putItemToCart($token);
 
         $this->client->request('GET', sprintf('/shop-api/WEB_GB/carts/%s/estimated-shipping-cost?countryCode=GB&provinceCode=GB-SCT', $token), [], [], self::CONTENT_TYPE_HEADER);
@@ -69,11 +67,6 @@ final class CartEstimateShippingTest extends JsonApiTestCase
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
-    }
-
-    private function pickupCart(string $token): void
-    {
-        $this->client->request('POST', '/shop-api/WEB_GB/carts/' . $token, [], [], static::CONTENT_TYPE_HEADER);
     }
 
     private function putItemToCart(string $token): void
