@@ -10,7 +10,7 @@ use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\OrderCheckoutTransitions;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\AddressOrder;
+use Sylius\ShopApiPlugin\Command\Cart\AddressOrder;
 use Webmozart\Assert\Assert;
 
 final class AddressOrderHandler
@@ -34,7 +34,7 @@ final class AddressOrderHandler
         $this->stateMachineFactory = $stateMachineFactory;
     }
 
-    public function handle(AddressOrder $addressOrder)
+    public function __invoke(AddressOrder $addressOrder): void
     {
         /** @var OrderInterface $order */
         $order = $this->orderRepository->findOneBy(['tokenValue' => $addressOrder->orderToken()]);
@@ -46,7 +46,7 @@ final class AddressOrderHandler
         Assert::true($stateMachine->can(OrderCheckoutTransitions::TRANSITION_ADDRESS), sprintf('Order with %s token cannot be addressed.', $addressOrder->orderToken()));
 
         /** @var AddressInterface $shippingAddress */
-        $shippingAddress = $this->addressFactory->createNew();
+        $shippingAddress = $order->getShippingAddress() ?? $this->addressFactory->createNew();
 
         $shippingAddress->setFirstName($addressOrder->shippingAddress()->firstName());
         $shippingAddress->setLastName($addressOrder->shippingAddress()->lastName());
@@ -57,7 +57,7 @@ final class AddressOrderHandler
         $shippingAddress->setProvinceName($addressOrder->shippingAddress()->provinceName());
 
         /** @var AddressInterface $billingAddress */
-        $billingAddress = $this->addressFactory->createNew();
+        $billingAddress = $order->getBillingAddress() ?? $this->addressFactory->createNew();
 
         $billingAddress->setFirstName($addressOrder->billingAddress()->firstName());
         $billingAddress->setLastName($addressOrder->billingAddress()->lastName());

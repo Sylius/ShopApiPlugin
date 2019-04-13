@@ -9,7 +9,7 @@ use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Order\Processor\OrderProcessorInterface;
 use Sylius\Component\Order\Repository\OrderItemRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\RemoveItemFromCart;
+use Sylius\ShopApiPlugin\Command\Cart\RemoveItemFromCart;
 use Webmozart\Assert\Assert;
 
 final class RemoveItemFromCartHandler
@@ -33,7 +33,7 @@ final class RemoveItemFromCartHandler
         $this->orderProcessor = $orderProcessor;
     }
 
-    public function handle(RemoveItemFromCart $command): void
+    public function __invoke(RemoveItemFromCart $command): void
     {
         /** @var OrderInterface|null $order */
         $order = $this->orderRepository->findOneBy(['tokenValue' => $command->orderToken(), 'state' => OrderInterface::STATE_CART]);

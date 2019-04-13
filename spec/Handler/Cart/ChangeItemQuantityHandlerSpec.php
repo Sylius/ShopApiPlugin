@@ -11,7 +11,7 @@ use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Order\Modifier\OrderItemQuantityModifierInterface;
 use Sylius\Component\Order\Processor\OrderProcessorInterface;
 use Sylius\Component\Order\Repository\OrderItemRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\ChangeItemQuantity;
+use Sylius\ShopApiPlugin\Command\Cart\ChangeItemQuantity;
 
 final class ChangeItemQuantityHandlerSpec extends ObjectBehavior
 {
@@ -40,14 +40,14 @@ final class ChangeItemQuantityHandlerSpec extends ObjectBehavior
         $orderItemModifier->modify($orderItem, 5)->shouldBeCalled();
         $orderProcessor->process($order)->shouldBeCalled();
 
-        $this->handle(new ChangeItemQuantity('ORDERTOKEN', 1, 5));
+        $this(new ChangeItemQuantity('ORDERTOKEN', 1, 5));
     }
 
     function it_throws_an_exception_if_order_has_not_been_found(OrderRepositoryInterface $orderRepository): void
     {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN', 'state' => OrderInterface::STATE_CART])->willReturn(null);
 
-        $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [
+        $this->shouldThrow(\InvalidArgumentException::class)->during('__invoke', [
             new ChangeItemQuantity('ORDERTOKEN', 1, 5),
         ]);
     }
@@ -60,7 +60,7 @@ final class ChangeItemQuantityHandlerSpec extends ObjectBehavior
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN', 'state' => OrderInterface::STATE_CART])->willReturn($order);
         $orderItemRepository->find(1)->willReturn(null);
 
-        $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [
+        $this->shouldThrow(\InvalidArgumentException::class)->during('__invoke', [
             new ChangeItemQuantity('ORDERTOKEN', 1, 5),
         ]);
     }
@@ -76,7 +76,7 @@ final class ChangeItemQuantityHandlerSpec extends ObjectBehavior
 
         $order->hasItem($orderItem)->willReturn(false);
 
-        $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [
+        $this->shouldThrow(\InvalidArgumentException::class)->during('__invoke', [
             new ChangeItemQuantity('ORDERTOKEN', 1, 5),
         ]);
     }

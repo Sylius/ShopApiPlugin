@@ -9,7 +9,7 @@ use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\ShopApiPlugin\Factory\Product\ProductViewFactoryInterface;
 use Sylius\ShopApiPlugin\Generator\ProductBreadcrumbGeneratorInterface;
-use Sylius\ShopApiPlugin\View\ProductView;
+use Sylius\ShopApiPlugin\View\Product\ProductView;
 
 final class DetailedProductViewFactorySpec extends ObjectBehavior
 {

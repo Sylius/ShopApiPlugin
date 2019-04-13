@@ -10,7 +10,7 @@ use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Order\Modifier\OrderItemQuantityModifierInterface;
 use Sylius\Component\Order\Processor\OrderProcessorInterface;
 use Sylius\Component\Order\Repository\OrderItemRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\ChangeItemQuantity;
+use Sylius\ShopApiPlugin\Command\Cart\ChangeItemQuantity;
 use Webmozart\Assert\Assert;
 
 final class ChangeItemQuantityHandler
@@ -39,7 +39,7 @@ final class ChangeItemQuantityHandler
         $this->orderProcessor = $orderProcessor;
     }
 
-    public function handle(ChangeItemQuantity $changeItemQuantity)
+    public function __invoke(ChangeItemQuantity $changeItemQuantity): void
     {
         /** @var OrderInterface $order */
         $order = $this->orderRepository->findOneBy(['tokenValue' => $changeItemQuantity->orderToken(), 'state' => OrderInterface::STATE_CART]);

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Normalizer;
 
-use League\Tactician\CommandBus;
-use Sylius\ShopApiPlugin\Request\PickupCartRequest;
+use Sylius\ShopApiPlugin\Request\Cart\PickupCartRequest;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class RequestCartTokenNormalizer implements RequestCartTokenNormalizerInterface
@@ -14,10 +14,10 @@ final class RequestCartTokenNormalizer implements RequestCartTokenNormalizerInte
     /** @var ValidatorInterface */
     private $validator;
 
-    /** @var CommandBus */
+    /** @var MessageBusInterface */
     private $bus;
 
-    public function __construct(ValidatorInterface $validator, CommandBus $bus)
+    public function __construct(ValidatorInterface $validator, MessageBusInterface $bus)
     {
         $this->validator = $validator;
         $this->bus = $bus;
@@ -38,7 +38,7 @@ final class RequestCartTokenNormalizer implements RequestCartTokenNormalizerInte
         }
 
         $pickupCartCommand = $pickupRequest->getCommand();
-        $this->bus->handle($pickupCartCommand);
+        $this->bus->dispatch($pickupCartCommand);
 
         $request->attributes->set('token', $pickupCartCommand->orderToken());
 

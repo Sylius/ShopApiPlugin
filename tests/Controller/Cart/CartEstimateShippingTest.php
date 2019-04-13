@@ -71,17 +71,11 @@ final class CartEstimateShippingTest extends JsonApiTestCase
         $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
     }
 
-    /**
-     * @param string $token
-     */
     private function pickupCart(string $token): void
     {
         $this->client->request('POST', '/shop-api/WEB_GB/carts/' . $token, [], [], static::CONTENT_TYPE_HEADER);
     }
 
-    /**
-     * @param string $token
-     */
     private function putItemToCart(string $token): void
     {
         $data =

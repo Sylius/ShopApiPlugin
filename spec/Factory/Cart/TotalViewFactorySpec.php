@@ -7,7 +7,7 @@ namespace spec\Sylius\ShopApiPlugin\Factory\Cart;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\Order;
 use Sylius\ShopApiPlugin\Factory\Cart\TotalViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\TotalsView;
+use Sylius\ShopApiPlugin\View\Cart\TotalsView;
 
 final class TotalViewFactorySpec extends ObjectBehavior
 {

@@ -8,7 +8,7 @@ use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Repository\AddressRepositoryInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\RemoveAddress;
+use Sylius\ShopApiPlugin\Command\AddressBook\RemoveAddress;
 
 final class RemoveAddressHandlerSpec extends ObjectBehavior
 {
@@ -30,6 +30,6 @@ final class RemoveAddressHandlerSpec extends ObjectBehavior
 
         $addressRepository->remove($address)->shouldBeCalled();
 
-        $this->handle(new RemoveAddress('ADDRESS_ID', 'user@email.com'));
+        $this(new RemoveAddress('ADDRESS_ID', 'user@email.com'));
     }
 }

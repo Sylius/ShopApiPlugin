@@ -8,7 +8,7 @@ use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Payment\Model\PaymentMethodTranslationInterface;
 use Sylius\ShopApiPlugin\Factory\Checkout\PaymentMethodViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\PaymentMethodView;
+use Sylius\ShopApiPlugin\View\Cart\PaymentMethodView;
 
 final class PaymentMethodViewFactorySpec extends ObjectBehavior
 {

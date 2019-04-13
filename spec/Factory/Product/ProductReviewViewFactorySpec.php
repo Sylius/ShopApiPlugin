@@ -8,7 +8,7 @@ use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\ProductReview;
 use Sylius\Component\Core\Model\ProductReviewerInterface;
 use Sylius\ShopApiPlugin\Factory\Product\ProductReviewViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\ProductReviewView;
+use Sylius\ShopApiPlugin\View\Product\ProductReviewView;
 
 final class ProductReviewViewFactorySpec extends ObjectBehavior
 {

@@ -1,0 +1,22 @@
+Sylius\ShopApiPlugin\View\Product\PageView:
+    exclusion_policy: ALL
+    xml_root_name: page_view
+    properties:
+        page:
+            expose: true
+            type: integer
+        limit:
+            expose: true
+            type: integer
+        pages:
+            expose: true
+            type: integer
+        total:
+            expose: true
+            type: integer
+        links:
+            expose: true
+            serialized_name: _links
+        items:
+            expose: true
+            type: array

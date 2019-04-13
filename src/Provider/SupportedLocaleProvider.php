@@ -29,8 +29,9 @@ final class SupportedLocaleProvider implements SupportedLocaleProviderInterface
     private function assertLocaleSupport(string $localeCode, Collection $supportedLocales): void
     {
         $supportedLocaleCodes = [];
+
+        /** @var LocaleInterface $locale */
         foreach ($supportedLocales as $locale) {
-            /** @var LocaleInterface */
             $supportedLocaleCodes[] = $locale->getCode();
         }
 

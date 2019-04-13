@@ -6,7 +6,7 @@ namespace Sylius\ShopApiPlugin\Handler\Customer;
 
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
-use Sylius\ShopApiPlugin\Command\UpdateCustomer;
+use Sylius\ShopApiPlugin\Command\Customer\UpdateCustomer;
 
 final class UpdateCustomerHandler
 {
@@ -19,7 +19,7 @@ final class UpdateCustomerHandler
         $this->customerRepository = $customerRepository;
     }
 
-    public function handle(UpdateCustomer $command): void
+    public function __invoke(UpdateCustomer $command): void
     {
         /** @var CustomerInterface $customer */
         $customer = $this->customerRepository->findOneBy(['email' => $command->email()]);

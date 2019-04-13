@@ -1,15 +1,19 @@
 jms_serializer:
     metadata:
         directories:
-            sylius-shop-api:
-                namespace_prefix: "Sylius\\ShopApiPlugin\\View"
-                path: "@ShopApiPlugin/Resources/config/serializer"
-tactician:
-    commandbus:
-        default:
-            middleware:
-                - tactician.middleware.doctrine
-                - tactician.middleware.command_handler
+            sylius-shop-api-taxon:
+                namespace_prefix: "Sylius\\ShopApiPlugin\\View\\Taxon"
+                path: "@ShopApiPlugin/Resources/config/serializer/Taxon"
+            sylius-shop-api-product:
+                namespace_prefix: "Sylius\\ShopApiPlugin\\View\\Product"
+                path: "@ShopApiPlugin/Resources/config/serializer/Product"
+
+framework:
+    messenger:
+        buses:
+            sylius_shop_api_plugin.command_bus:
+                middleware:
+                    - doctrine_transaction
 
 sylius_customer:
     resources:

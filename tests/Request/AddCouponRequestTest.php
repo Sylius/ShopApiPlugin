@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Tests\Sylius\ShopApiPlugin\Request;
 
 use PHPUnit\Framework\TestCase;
-use Sylius\ShopApiPlugin\Command\AddCoupon;
-use Sylius\ShopApiPlugin\Request\AddCouponRequest;
+use Sylius\ShopApiPlugin\Command\Cart\AddCoupon;
+use Sylius\ShopApiPlugin\Request\Cart\AddCouponRequest;
 use Symfony\Component\HttpFoundation\Request;
 
 final class AddCouponRequestTest extends TestCase

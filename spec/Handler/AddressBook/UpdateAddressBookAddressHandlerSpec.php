@@ -12,7 +12,7 @@ use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
-use Sylius\ShopApiPlugin\Command\UpdateAddress;
+use Sylius\ShopApiPlugin\Command\AddressBook\UpdateAddress;
 use Sylius\ShopApiPlugin\Model\Address;
 
 final class UpdateAddressBookAddressHandlerSpec extends ObjectBehavior
@@ -75,7 +75,7 @@ final class UpdateAddressBookAddressHandlerSpec extends ObjectBehavior
 
         $addressRepository->add($address)->shouldBeCalled();
 
-        $this->handle(new UpdateAddress(Address::createFromArray([
+        $this(new UpdateAddress(Address::createFromArray([
             'id' => 'ADDRESS_ID',
             'firstName' => 'Sherlock',
             'lastName' => 'Holmes',
@@ -107,7 +107,7 @@ final class UpdateAddressBookAddressHandlerSpec extends ObjectBehavior
 
         $addressRepository->add($address)->shouldNotBeCalled();
 
-        $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [new UpdateAddress(Address::createFromArray([
+        $this->shouldThrow(\InvalidArgumentException::class)->during('__invoke', [new UpdateAddress(Address::createFromArray([
             'id' => 'ADDRESS_ID',
             'firstName' => 'Sherlock',
             'lastName' => 'Holmes',
@@ -141,7 +141,7 @@ final class UpdateAddressBookAddressHandlerSpec extends ObjectBehavior
 
         $addressRepository->add($address)->shouldNotBeCalled();
 
-        $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [new UpdateAddress(Address::createFromArray([
+        $this->shouldThrow(\InvalidArgumentException::class)->during('__invoke', [new UpdateAddress(Address::createFromArray([
             'id' => 'ADDRESS_ID',
             'firstName' => 'Sherlock',
             'lastName' => 'Holmes',
@@ -193,7 +193,7 @@ final class UpdateAddressBookAddressHandlerSpec extends ObjectBehavior
         $address->setProvinceName(null)->shouldNotBeCalled();
         $addressRepository->add($address)->shouldNotBeCalled();
 
-        $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [new UpdateAddress(Address::createFromArray([
+        $this->shouldThrow(\InvalidArgumentException::class)->during('__invoke', [new UpdateAddress(Address::createFromArray([
             'id' => 'ADDRESS_ID',
             'firstName' => 'Sherlock',
             'lastName' => 'Holmes',

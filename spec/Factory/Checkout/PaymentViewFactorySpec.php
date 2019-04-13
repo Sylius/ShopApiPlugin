@@ -10,8 +10,8 @@ use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\ShopApiPlugin\Factory\Checkout\PaymentMethodViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\Checkout\PaymentViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\PriceViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\PaymentMethodView;
-use Sylius\ShopApiPlugin\View\PaymentView;
+use Sylius\ShopApiPlugin\View\Cart\PaymentMethodView;
+use Sylius\ShopApiPlugin\View\Cart\PaymentView;
 use Sylius\ShopApiPlugin\View\PriceView;
 
 final class PaymentViewFactorySpec extends ObjectBehavior

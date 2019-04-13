@@ -15,7 +15,7 @@ use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Core\OrderCheckoutTransitions;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\PaymentMethodRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\ChoosePaymentMethod;
+use Sylius\ShopApiPlugin\Command\Cart\ChoosePaymentMethod;
 
 final class ChoosePaymentMethodHandlerSpec extends ObjectBehavior
 {
@@ -46,7 +46,7 @@ final class ChoosePaymentMethodHandlerSpec extends ObjectBehavior
         $payment->setMethod($paymentMethod)->shouldBeCalled();
         $stateMachine->apply('select_payment')->shouldBeCalled();
 
-        $this->handle(new ChoosePaymentMethod('ORDERTOKEN', 0, 'CASH_ON_DELIVERY_METHOD'));
+        $this(new ChoosePaymentMethod('ORDERTOKEN', 0, 'CASH_ON_DELIVERY_METHOD'));
     }
 
     function it_throws_an_exception_if_order_with_given_token_has_not_been_found(
@@ -59,7 +59,7 @@ final class ChoosePaymentMethodHandlerSpec extends ObjectBehavior
 
         $this
             ->shouldThrow(\InvalidArgumentException::class)
-            ->during('handle', [
+            ->during('__invoke', [
                 new ChoosePaymentMethod('ORDERTOKEN', 0, 'CASH_ON_DELIVERY_METHOD'),
             ])
         ;
@@ -83,7 +83,7 @@ final class ChoosePaymentMethodHandlerSpec extends ObjectBehavior
 
         $this
             ->shouldThrow(\InvalidArgumentException::class)
-            ->during('handle', [
+            ->during('__invoke', [
                 new ChoosePaymentMethod('ORDERTOKEN', 0, 'CASH_ON_DELIVERY_METHOD'),
             ])
         ;
@@ -107,7 +107,7 @@ final class ChoosePaymentMethodHandlerSpec extends ObjectBehavior
 
         $this
             ->shouldThrow(\InvalidArgumentException::class)
-            ->during('handle', [
+            ->during('__invoke', [
                 new ChoosePaymentMethod('ORDERTOKEN', 0, 'CASH_ON_DELIVERY_METHOD'),
             ])
         ;
@@ -133,7 +133,7 @@ final class ChoosePaymentMethodHandlerSpec extends ObjectBehavior
 
         $this
             ->shouldThrow(\InvalidArgumentException::class)
-            ->during('handle', [
+            ->during('__invoke', [
                 new ChoosePaymentMethod('ORDERTOKEN', 0, 'CASH_ON_DELIVERY_METHOD'),
             ])
         ;

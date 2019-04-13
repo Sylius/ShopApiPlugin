@@ -5,18 +5,18 @@ declare(strict_types=1);
 namespace Sylius\ShopApiPlugin\EventListener;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use League\Tactician\CommandBus;
 use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\GenerateVerificationToken;
-use Sylius\ShopApiPlugin\Command\SendVerificationToken;
+use Sylius\ShopApiPlugin\Command\Customer\GenerateVerificationToken;
+use Sylius\ShopApiPlugin\Command\Customer\SendVerificationToken;
 use Sylius\ShopApiPlugin\Event\CustomerRegistered;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Webmozart\Assert\Assert;
 
 final class UserRegistrationListener
 {
-    /** @var CommandBus */
+    /** @var MessageBusInterface */
     private $bus;
 
     /** @var ChannelRepositoryInterface */
@@ -29,7 +29,7 @@ final class UserRegistrationListener
     private $userManager;
 
     public function __construct(
-        CommandBus $bus,
+        MessageBusInterface $bus,
         ChannelRepositoryInterface $channelRepository,
         UserRepositoryInterface $userRepository,
         ObjectManager $userManager
@@ -58,7 +58,7 @@ final class UserRegistrationListener
             return;
         }
 
-        $this->bus->handle(new GenerateVerificationToken($event->email()));
-        $this->bus->handle(new SendVerificationToken($event->email(), $event->channelCode()));
+        $this->bus->dispatch(new GenerateVerificationToken($event->email()));
+        $this->bus->dispatch(new SendVerificationToken($event->email(), $event->channelCode()));
     }
 }

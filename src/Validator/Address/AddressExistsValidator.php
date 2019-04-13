@@ -28,7 +28,6 @@ final class AddressExistsValidator extends ConstraintValidator
     }
 
     /**
-     * @param mixed $id
      * @param Constraint|AddressExists $constraint
      */
     public function validate($id, Constraint $constraint)

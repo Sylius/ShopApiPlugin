@@ -13,7 +13,7 @@ use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Sylius\Component\Product\Model\ProductOptionValueInterface;
-use Sylius\ShopApiPlugin\Command\PutOptionBasedConfigurableItemToCart;
+use Sylius\ShopApiPlugin\Command\Cart\PutOptionBasedConfigurableItemToCart;
 use Sylius\ShopApiPlugin\Modifier\OrderModifierInterface;
 
 final class PutOptionBasedConfigurableItemToCartHandlerSpec extends ObjectBehavior
@@ -56,14 +56,14 @@ final class PutOptionBasedConfigurableItemToCartHandlerSpec extends ObjectBehavi
 
         $orderModifier->modify($cart, $redTShirt, 5)->shouldBeCalled();
 
-        $this->handle(new PutOptionBasedConfigurableItemToCart('ORDERTOKEN', 'T_SHIRT_CODE', ['COLOR_OPTION_CODE' => 'RED_OPTION_VALUE_CODE'], 5));
+        $this(new PutOptionBasedConfigurableItemToCart('ORDERTOKEN', 'T_SHIRT_CODE', ['COLOR_OPTION_CODE' => 'RED_OPTION_VALUE_CODE'], 5));
     }
 
     function it_throws_an_exception_if_cart_has_not_been_found(OrderRepositoryInterface $orderRepository): void
     {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn(null);
 
-        $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [
+        $this->shouldThrow(\InvalidArgumentException::class)->during('__invoke', [
             new PutOptionBasedConfigurableItemToCart('ORDERTOKEN', 'T_SHIRT_CODE', ['COLOR_OPTION_CODE' => 'RED_OPTION_VALUE_CODE'], 5),
         ]);
     }
@@ -76,7 +76,7 @@ final class PutOptionBasedConfigurableItemToCartHandlerSpec extends ObjectBehavi
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($cart);
         $productRepository->findOneByCode('T_SHIRT_CODE')->willReturn(null);
 
-        $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [
+        $this->shouldThrow(\InvalidArgumentException::class)->during('__invoke', [
             new PutOptionBasedConfigurableItemToCart('ORDERTOKEN', 'T_SHIRT_CODE', ['COLOR_OPTION_CODE' => 'RED_OPTION_VALUE_CODE'], 5),
         ]);
     }
@@ -110,7 +110,7 @@ final class PutOptionBasedConfigurableItemToCartHandlerSpec extends ObjectBehavi
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($cart);
         $cartItemFactory->createForCart($cart)->shouldNotBeCalled();
 
-        $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [
+        $this->shouldThrow(\InvalidArgumentException::class)->during('__invoke', [
             new PutOptionBasedConfigurableItemToCart('ORDERTOKEN', 'T_SHIRT_CODE', ['COLOR_OPTION_CODE' => 'RED_OPTION_VALUE_CODE'], 5),
         ]);
     }

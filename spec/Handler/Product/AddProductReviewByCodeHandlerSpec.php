@@ -13,7 +13,7 @@ use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Sylius\Component\Core\Repository\ProductReviewRepositoryInterface;
 use Sylius\Component\Review\Factory\ReviewFactoryInterface;
 use Sylius\Component\Review\Model\ReviewInterface;
-use Sylius\ShopApiPlugin\Command\AddProductReviewByCode;
+use Sylius\ShopApiPlugin\Command\Product\AddProductReviewByCode;
 use Sylius\ShopApiPlugin\Handler\Product\AddProductReviewByCodeHandler;
 use Sylius\ShopApiPlugin\Provider\ProductReviewerProviderInterface;
 
@@ -59,7 +59,7 @@ final class AddProductReviewByCodeHandlerSpec extends ObjectBehavior
 
         $productReviewRepository->add($productReview)->shouldBeCalled();
 
-        $this->handle(new AddProductReviewByCode('LOGAN_MUG_CODE', 'WEB_GB', 'Perfect product', 5, 'It is so awesome :)', 'example@shop.com'));
+        $this(new AddProductReviewByCode('LOGAN_MUG_CODE', 'WEB_GB', 'Perfect product', 5, 'It is so awesome :)', 'example@shop.com'));
     }
 
     function it_throws_an_exception_if_channel_has_not_been_found(ChannelRepositoryInterface $channelRepository): void
@@ -68,7 +68,7 @@ final class AddProductReviewByCodeHandlerSpec extends ObjectBehavior
 
         $this
             ->shouldThrow(\InvalidArgumentException::class)
-            ->during('handle', [
+            ->during('__invoke', [
                 new AddProductReviewByCode('LOGAN_MUG_CODE', 'WEB_GB', 'Perfect product', 5, 'It is so awesome :)', 'example@shop.com'),
             ])
         ;
@@ -85,7 +85,7 @@ final class AddProductReviewByCodeHandlerSpec extends ObjectBehavior
 
         $this
             ->shouldThrow(\InvalidArgumentException::class)
-            ->during('handle', [
+            ->during('__invoke', [
                 new AddProductReviewByCode('LOGAN_MUG_CODE', 'WEB_GB', 'Perfect product', 5, 'It is so awesome :)', 'example@shop.com'),
             ])
         ;
@@ -104,7 +104,7 @@ final class AddProductReviewByCodeHandlerSpec extends ObjectBehavior
 
         $this
             ->shouldThrow(\InvalidArgumentException::class)
-            ->during('handle', [
+            ->during('__invoke', [
                 new AddProductReviewByCode('LOGAN_MUG_CODE', 'WEB_GB', 'Perfect product', 5, 'It is so awesome :)', 'example@shop.com'),
             ])
         ;

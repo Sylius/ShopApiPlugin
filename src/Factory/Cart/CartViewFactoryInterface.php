@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Sylius\ShopApiPlugin\Factory\Cart;
 
 use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\ShopApiPlugin\View\CartSummaryView;
+use Sylius\ShopApiPlugin\View\Cart\CartSummaryView;
 
 interface CartViewFactoryInterface
 {

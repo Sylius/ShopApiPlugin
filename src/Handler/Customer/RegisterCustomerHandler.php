@@ -9,7 +9,7 @@ use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\RegisterCustomer;
+use Sylius\ShopApiPlugin\Command\Customer\RegisterCustomer;
 use Sylius\ShopApiPlugin\Event\CustomerRegistered;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Webmozart\Assert\Assert;
@@ -45,7 +45,7 @@ final class RegisterCustomerHandler
         $this->eventDispatcher = $eventDispatcher;
     }
 
-    public function handle(RegisterCustomer $command): void
+    public function __invoke(RegisterCustomer $command): void
     {
         $this->assertEmailIsNotTaken($command->email());
         $this->assertChannelExists($command->channelCode());

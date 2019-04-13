@@ -19,7 +19,7 @@ use Sylius\ShopApiPlugin\Exception\ViewCreationException;
 use Sylius\ShopApiPlugin\Factory\PriceViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\Product\ProductVariantViewFactoryInterface;
 use Sylius\ShopApiPlugin\View\PriceView;
-use Sylius\ShopApiPlugin\View\ProductVariantView;
+use Sylius\ShopApiPlugin\View\Product\ProductVariantView;
 
 final class ProductVariantViewFactorySpec extends ObjectBehavior
 {

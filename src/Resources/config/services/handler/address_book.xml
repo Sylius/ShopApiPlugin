@@ -9,14 +9,14 @@
             <argument type="service" id="sylius.repository.province" />
             <argument type="service" id="sylius.repository.customer" />
             <argument type="service" id="sylius.factory.address" />
-            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\CreateAddress" />
+            <tag name="messenger.message_handler" />
         </service>
 
         <service id="sylius.shop_api_plugin.handler.remove_address_handler"
                  class="Sylius\ShopApiPlugin\Handler\AddressBook\RemoveAddressHandler">
             <argument type="service" id="sylius.repository.address" />
             <argument type="service" id="sylius.repository.order" />
-            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\RemoveAddress" />
+            <tag name="messenger.message_handler" />
         </service>
 
         <service id="sylius.shop_api_plugin.handler.set_default_address_handler"
@@ -24,7 +24,7 @@
             <argument type="service" id="sylius.repository.customer" />
             <argument type="service" id="sylius.repository.address" />
             <argument type="service" id="sylius.repository.shop_user" />
-            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\SetDefaultAddress" />
+            <tag name="messenger.message_handler" />
         </service>
 
         <service id="sylius.shop_api_plugin.handler.update_address_book_address"
@@ -34,7 +34,7 @@
             <argument type="service" id="sylius.repository.province" />
             <argument type="service" id="sylius.repository.shop_user" />
             <argument type="service" id="sylius.factory.address" />
-            <tag name="tactician.handler" command="Sylius\ShopApiPlugin\Command\UpdateAddress" />
+            <tag name="messenger.message_handler" />
         </service>
     </services>
 </container>

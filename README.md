@@ -28,7 +28,6 @@ The latest documentation is available [here](https://app.swaggerhub.com/apis/Syl
         {
             return array_merge(parent::registerBundles(), [
                 new \Sylius\ShopApiPlugin\ShopApiPlugin(),
-                new \League\Tactician\Bundle\TacticianBundle(),
             ]);
         }
     ```
@@ -149,9 +148,9 @@ The latest documentation is available [here](https://app.swaggerhub.com/apis/Syl
 
 ### Attributes
 
-If you would like to receive serialized attributes you need to define an array of theirs codes under `shop_api.included_attributes` key. E.g.
+If you would like to receive serialized attributes you need to define an array of theirs codes under `sylius_shop_api.included_attributes` key. E.g.
 ```yml
-shop_api:
+sylius_shop_api:
     included_attributes:
         - "MUG_MATERIAL_CODE"
 ```
@@ -169,13 +168,29 @@ From the test app.
 
 ## Testing
 
-The application can be tested with API Test Case. In order to run test suite execute the following command:
+The application can be tested with API Test Case. In order to run test suite execute the following commands:
 
 ```bash
-$ bin/phpunit
+$ cp tests/Application/.env.test.dist tests/Application/.env.test
+$ set -a && source tests/Application/.env.test && set +a
+$ (cd tests/Application && bin/console doctrine:database:create -e test)
+$ (cd tests/Application && bin/console doctrine:schema:create -e test)
+
+$ vendor/bin/phpunit
+```
+
+The application can be also tested with PHPSpec:
+
+```bash
+$ vendor/bin/phpspec run
 ```
 
 ## Security issues
 
 If you think that you have found a security issue, please do not use the issue tracker and do not post it publicly. 
 Instead, all security issues must be sent to `security@sylius.com`.
+
+## Maintenance
+
+This library is officially maintained by [Sylius](https://sylius.com) together with the following contributors outside of the organization:
+ * [Maximilian Pesch](https://github.com/mamazu)

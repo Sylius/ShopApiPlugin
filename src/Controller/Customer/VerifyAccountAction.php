@@ -6,11 +6,11 @@ namespace Sylius\ShopApiPlugin\Controller\Customer;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
-use League\Tactician\CommandBus;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
-use Sylius\ShopApiPlugin\Request\VerifyAccountRequest;
+use Sylius\ShopApiPlugin\Request\Customer\VerifyAccountRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class VerifyAccountAction
@@ -18,7 +18,7 @@ final class VerifyAccountAction
     /** @var ViewHandlerInterface */
     private $viewHandler;
 
-    /** @var CommandBus */
+    /** @var MessageBusInterface */
     private $bus;
 
     /** @var ValidatorInterface */
@@ -29,7 +29,7 @@ final class VerifyAccountAction
 
     public function __construct(
         ViewHandlerInterface $viewHandler,
-        CommandBus $bus,
+        MessageBusInterface $bus,
         ValidatorInterface $validator,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory
     ) {
@@ -49,7 +49,7 @@ final class VerifyAccountAction
             return $this->viewHandler->handle(View::create($this->validationErrorViewFactory->create($validationResults), Response::HTTP_BAD_REQUEST));
         }
 
-        $this->bus->handle($resendVerificationTokenRequest->getCommand());
+        $this->bus->dispatch($resendVerificationTokenRequest->getCommand());
 
         return $this->viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));
     }

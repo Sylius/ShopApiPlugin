@@ -7,7 +7,7 @@ namespace Sylius\ShopApiPlugin\Handler\AddressBook;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Repository\AddressRepositoryInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\RemoveAddress;
+use Sylius\ShopApiPlugin\Command\AddressBook\RemoveAddress;
 
 final class RemoveAddressHandler
 {
@@ -23,7 +23,7 @@ final class RemoveAddressHandler
         $this->orderRepository = $orderRepository;
     }
 
-    public function handle(RemoveAddress $removeAddress): void
+    public function __invoke(RemoveAddress $removeAddress): void
     {
         /** @var AddressInterface $address */
         $address = $this->addressRepository->findOneBy(['id' => $removeAddress->id()]);

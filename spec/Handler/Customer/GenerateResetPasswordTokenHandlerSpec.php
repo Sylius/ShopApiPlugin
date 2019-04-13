@@ -9,7 +9,7 @@ use Prophecy\Argument;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
 use Sylius\Component\User\Security\Generator\GeneratorInterface;
-use Sylius\ShopApiPlugin\Command\GenerateResetPasswordToken;
+use Sylius\ShopApiPlugin\Command\Customer\GenerateResetPasswordToken;
 use Sylius\ShopApiPlugin\Handler\Customer\GenerateResetPasswordTokenHandler;
 
 final class GenerateResetPasswordTokenHandlerSpec extends ObjectBehavior
@@ -36,7 +36,7 @@ final class GenerateResetPasswordTokenHandlerSpec extends ObjectBehavior
         $user->setPasswordResetToken('RANDOM_TOKEN')->shouldBeCalled();
         $user->setPasswordRequestedAt(Argument::type(\DateTime::class))->shouldBeCalled();
 
-        $this->handle(new GenerateResetPasswordToken('example@customer.com'));
+        $this(new GenerateResetPasswordToken('example@customer.com'));
     }
 
     function it_throws_an_exception_if_user_has_not_been_found(
@@ -44,6 +44,6 @@ final class GenerateResetPasswordTokenHandlerSpec extends ObjectBehavior
     ): void {
         $userRepository->findOneByEmail('example@customer.com')->willReturn(null);
 
-        $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [new GenerateResetPasswordToken('example@customer.com')]);
+        $this->shouldThrow(\InvalidArgumentException::class)->during('__invoke', [new GenerateResetPasswordToken('example@customer.com')]);
     }
 }

@@ -8,7 +8,7 @@
                  class="Sylius\ShopApiPlugin\Controller\Customer\ResendVerificationTokenAction"
         >
             <argument type="service" id="fos_rest.view_handler" />
-            <argument type="service" id="tactician.commandbus" />
+            <argument type="service" id="sylius_shop_api_plugin.command_bus" />
             <argument type="service" id="validator" />
             <argument type="service" id="sylius.shop_api_plugin.factory.validation_error_view_factory" />
         </service>
@@ -17,7 +17,7 @@
                  class="Sylius\ShopApiPlugin\Controller\Customer\VerifyAccountAction"
         >
             <argument type="service" id="fos_rest.view_handler" />
-            <argument type="service" id="tactician.commandbus" />
+            <argument type="service" id="sylius_shop_api_plugin.command_bus" />
             <argument type="service" id="validator" />
             <argument type="service" id="sylius.shop_api_plugin.factory.validation_error_view_factory" />
         </service>
@@ -26,7 +26,7 @@
                  class="Sylius\ShopApiPlugin\Controller\Customer\RegisterCustomerAction"
         >
             <argument type="service" id="fos_rest.view_handler" />
-            <argument type="service" id="tactician.commandbus" />
+            <argument type="service" id="sylius_shop_api_plugin.command_bus" />
             <argument type="service" id="validator" />
             <argument type="service" id="sylius.shop_api_plugin.factory.validation_error_view_factory" />
         </service>
@@ -35,7 +35,7 @@
                  class="Sylius\ShopApiPlugin\Controller\Customer\RequestPasswordResettingAction"
         >
             <argument type="service" id="fos_rest.view_handler" />
-            <argument type="service" id="tactician.commandbus" />
+            <argument type="service" id="sylius_shop_api_plugin.command_bus" />
         </service>
 
         <service id="sylius.shop_api_plugin.controller.customer.logged_in_customer_details_action"
@@ -50,7 +50,7 @@
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="validator" />
-            <argument type="service" id="tactician.commandbus" />
+            <argument type="service" id="sylius_shop_api_plugin.command_bus" />
             <argument type="service" id="sylius.shop_api_plugin.factory.validation_error_view_factory" />
             <argument type="service" id="sylius.shop_api_plugin.factory.customer_view_factory" />
             <argument type="service" id="security.token_storage" />

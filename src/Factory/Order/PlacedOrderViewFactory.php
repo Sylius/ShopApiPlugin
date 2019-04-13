@@ -13,8 +13,8 @@ use Sylius\ShopApiPlugin\Factory\Cart\CartItemViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\Cart\TotalViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\Checkout\PaymentViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\Checkout\ShipmentViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\AdjustmentView;
-use Sylius\ShopApiPlugin\View\PlacedOrderView;
+use Sylius\ShopApiPlugin\View\Cart\AdjustmentView;
+use Sylius\ShopApiPlugin\View\Order\PlacedOrderView;
 
 final class PlacedOrderViewFactory implements PlacedOrderViewFactoryInterface
 {

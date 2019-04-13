@@ -1,4 +1,4 @@
-sylius_shop_api_product_show_details_by_slug:
+sylius_shop_api_product_show_details_by_slug_deprecated:
     path: /products-by-slug/{slug}
     methods: [GET]
     defaults:
@@ -6,7 +6,7 @@ sylius_shop_api_product_show_details_by_slug:
     requirements:
         slug: .+
 
-sylius_shop_api_add_product_review_by_slug:
+sylius_shop_api_add_product_review_by_slug_deprecated:
     path: /product-reviews-by-slug/{slug}
     methods: [POST]
     defaults:
@@ -14,7 +14,7 @@ sylius_shop_api_add_product_review_by_slug:
     requirements:
         slug: .+
 
-sylius_shop_api_product_show_catalog_by_slug:
+sylius_shop_api_product_show_catalog_by_slug_deprecated:
     path: /taxon-products-by-slug/{taxonSlug}
     methods: [GET]
     defaults:
@@ -22,10 +22,43 @@ sylius_shop_api_product_show_catalog_by_slug:
     requirements:
         taxonSlug: .+
 
-sylius_shop_api_product_show_reviews_by_slug:
+sylius_shop_api_product_show_reviews_by_slug_deprecated:
     path: /product-reviews-by-slug/{slug}
     methods: [GET]
     defaults:
         _controller: sylius.shop_api_plugin.controller.product.show_product_reviews_by_slug_action
+    requirements:
+        slug: .+
+
+# New routes
+sylius_shop_api_product_show_details_by_slug:
+    path: /products/by-slug/{slug}
+    methods: [GET]
+    defaults:
+        _controller: sylius.shop_api_plugin.controller.product.show_product_details_by_slug_action
+    requirements:
+        slug: .+
+
+sylius_shop_api_product_show_catalog_by_slug:
+    path: /taxon-products/by-slug/{taxonSlug}
+    methods: [GET]
+    defaults:
+        _controller: sylius.shop_api_plugin.controller.product.show_product_catalog_by_taxon_slug_action
+    requirements:
+        taxonSlug: .+
+
+sylius_shop_api_product_show_reviews_by_slug:
+    path: /product/by-slug/{slug}/reviews
+    methods: [GET]
+    defaults:
+        _controller: sylius.shop_api_plugin.controller.product.show_product_reviews_by_slug_action
+    requirements:
+        slug: .+
+
+sylius_shop_api_add_product_review_by_slug:
+    path: /product/by-slug/{slug}/reviews
+    methods: [POST]
+    defaults:
+        _controller: sylius.shop_api_plugin.controller.product.add_review_by_slug_action
     requirements:
         slug: .+

@@ -8,7 +8,7 @@ use SM\Factory\FactoryInterface as StateMachineFactory;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\OrderCheckoutTransitions;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\CompleteOrder;
+use Sylius\ShopApiPlugin\Command\Cart\CompleteOrder;
 use Sylius\ShopApiPlugin\Provider\CustomerProviderInterface;
 use Webmozart\Assert\Assert;
 
@@ -33,7 +33,7 @@ final class CompleteOrderHandler
         $this->stateMachineFactory = $stateMachineFactory;
     }
 
-    public function handle(CompleteOrder $completeOrder): void
+    public function __invoke(CompleteOrder $completeOrder): void
     {
         /** @var OrderInterface $order */
         $order = $this->orderRepository->findOneBy(['tokenValue' => $completeOrder->orderToken()]);

@@ -10,8 +10,8 @@ use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\ShopApiPlugin\Factory\AddressBook\AddressViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\Checkout\PaymentViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\Checkout\ShipmentViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\AdjustmentView;
-use Sylius\ShopApiPlugin\View\CartSummaryView;
+use Sylius\ShopApiPlugin\View\Cart\AdjustmentView;
+use Sylius\ShopApiPlugin\View\Cart\CartSummaryView;
 
 final class CartViewFactory implements CartViewFactoryInterface
 {
@@ -97,6 +97,11 @@ final class CartViewFactory implements CartViewFactoryInterface
 
         if (null !== $cart->getBillingAddress()) {
             $cartView->billingAddress = $this->addressViewFactory->create($cart->getBillingAddress());
+        }
+
+        $coupon = $cart->getPromotionCoupon();
+        if ($coupon !== null) {
+            $cartView->couponCode = $coupon->getCode();
         }
 
         return $cartView;

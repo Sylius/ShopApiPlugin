@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Sylius\ShopApiPlugin\Factory\Customer;
 
 use Sylius\Component\Core\Model\CustomerInterface;
-use Sylius\ShopApiPlugin\View\CustomerView;
+use Sylius\ShopApiPlugin\View\Customer\CustomerView;
 
 final class CustomerViewFactory implements CustomerViewFactoryInterface
 {

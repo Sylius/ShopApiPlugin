@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Sylius\ShopApiPlugin\Factory\Product;
 
 use Pagerfanta\Pagerfanta;
-use Sylius\ShopApiPlugin\View\PageView;
+use Sylius\ShopApiPlugin\View\Product\PageView;
 
 interface PageViewFactoryInterface
 {

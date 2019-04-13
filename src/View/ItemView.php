@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\View;
 
+use Sylius\ShopApiPlugin\View\Product\ProductView;
+
 class ItemView
 {
     /** @var mixed */

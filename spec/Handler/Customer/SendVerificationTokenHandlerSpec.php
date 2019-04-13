@@ -8,7 +8,7 @@ use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\Mailer\Sender\SenderInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\SendVerificationToken;
+use Sylius\ShopApiPlugin\Command\Customer\SendVerificationToken;
 use Sylius\ShopApiPlugin\Handler\Customer\SendVerificationTokenHandler;
 use Sylius\ShopApiPlugin\Mailer\Emails;
 
@@ -34,7 +34,7 @@ final class SendVerificationTokenHandlerSpec extends ObjectBehavior
 
         $sender->send(Emails::EMAIL_VERIFICATION_TOKEN, ['example@customer.com'], ['user' => $user, 'channelCode' => 'WEB_GB'])->shouldBeCalled();
 
-        $this->handle(new SendVerificationToken('example@customer.com', 'WEB_GB'));
+        $this(new SendVerificationToken('example@customer.com', 'WEB_GB'));
     }
 
     function it_throws_an_exception_if_user_has_not_been_found(
@@ -44,7 +44,7 @@ final class SendVerificationTokenHandlerSpec extends ObjectBehavior
 
         $this
             ->shouldThrow(\InvalidArgumentException::class)
-            ->during('handle', [new SendVerificationToken('example@customer.com', 'WEB_GB')])
+            ->during('__invoke', [new SendVerificationToken('example@customer.com', 'WEB_GB')])
         ;
     }
 
@@ -57,7 +57,7 @@ final class SendVerificationTokenHandlerSpec extends ObjectBehavior
 
         $this
             ->shouldThrow(\InvalidArgumentException::class)
-            ->during('handle', [new SendVerificationToken('example@customer.com', 'WEB_GB')])
+            ->during('__invoke', [new SendVerificationToken('example@customer.com', 'WEB_GB')])
         ;
     }
 }

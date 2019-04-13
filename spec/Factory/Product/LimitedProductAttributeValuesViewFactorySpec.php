@@ -8,7 +8,7 @@ use PhpSpec\ObjectBehavior;
 use Sylius\Component\Product\Model\ProductAttributeValueInterface;
 use Sylius\ShopApiPlugin\Factory\Product\ProductAttributeValuesViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\Product\ProductAttributeValueViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\ProductAttributeValueView;
+use Sylius\ShopApiPlugin\View\Product\ProductAttributeValueView;
 
 final class LimitedProductAttributeValuesViewFactorySpec extends ObjectBehavior
 {

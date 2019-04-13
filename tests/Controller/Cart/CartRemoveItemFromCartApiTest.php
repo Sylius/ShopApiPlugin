@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller\Cart;
 
-use League\Tactician\CommandBus;
 use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\PickupCart;
-use Sylius\ShopApiPlugin\Command\PutSimpleItemToCart;
-use Sylius\ShopApiPlugin\Command\PutVariantBasedConfigurableItemToCart;
+use Sylius\ShopApiPlugin\Command\Cart\PickupCart;
+use Sylius\ShopApiPlugin\Command\Cart\PutSimpleItemToCart;
+use Sylius\ShopApiPlugin\Command\Cart\PutVariantBasedConfigurableItemToCart;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Tests\Sylius\ShopApiPlugin\Controller\JsonApiTestCase;
 
 final class CartRemoveItemFromCartApiTest extends JsonApiTestCase
@@ -24,10 +24,10 @@ final class CartRemoveItemFromCartApiTest extends JsonApiTestCase
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
-        /** @var CommandBus $bus */
-        $bus = $this->get('tactician.commandbus');
-        $bus->handle(new PickupCart($token, 'WEB_GB'));
-        $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 1));
+        /** @var MessageBusInterface $bus */
+        $bus = $this->get('sylius_shop_api_plugin.command_bus');
+        $bus->dispatch(new PickupCart($token, 'WEB_GB'));
+        $bus->dispatch(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 1));
 
         /** @var OrderRepositoryInterface $orderRepository */
         $orderRepository = $this->get('sylius.repository.order');
@@ -52,9 +52,9 @@ final class CartRemoveItemFromCartApiTest extends JsonApiTestCase
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
-        /** @var CommandBus $bus */
-        $bus = $this->get('tactician.commandbus');
-        $bus->handle(new PickupCart($token, 'WEB_GB'));
+        /** @var MessageBusInterface $bus */
+        $bus = $this->get('sylius_shop_api_plugin.command_bus');
+        $bus->dispatch(new PickupCart($token, 'WEB_GB'));
 
         $this->client->request('DELETE', '/shop-api/WEB_GB/carts/SDAOSLEFNWU35H3QLI5325/items/420', [], [], self::CONTENT_TYPE_HEADER);
         $response = $this->client->getResponse();
@@ -71,9 +71,9 @@ final class CartRemoveItemFromCartApiTest extends JsonApiTestCase
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
-        /** @var CommandBus $bus */
-        $bus = $this->get('tactician.commandbus');
-        $bus->handle(new PickupCart($token, 'WEB_GB'));
+        /** @var MessageBusInterface $bus */
+        $bus = $this->get('sylius_shop_api_plugin.command_bus');
+        $bus->dispatch(new PickupCart($token, 'WEB_GB'));
 
         $this->client->request('DELETE', '/shop-api/SPACE_KLINGON/carts/SDAOSLEFNWU35H3QLI5325/items/420', [], [], self::CONTENT_TYPE_HEADER);
         $response = $this->client->getResponse();
@@ -90,11 +90,11 @@ final class CartRemoveItemFromCartApiTest extends JsonApiTestCase
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
-        /** @var CommandBus $bus */
-        $bus = $this->get('tactician.commandbus');
-        $bus->handle(new PickupCart($token, 'WEB_GB'));
-        $bus->handle(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 1));
-        $bus->handle(new PutVariantBasedConfigurableItemToCart($token, 'LOGAN_HAT_CODE', 'SMALL_RED_LOGAN_HAT_CODE', 10));
+        /** @var MessageBusInterface $bus */
+        $bus = $this->get('sylius_shop_api_plugin.command_bus');
+        $bus->dispatch(new PickupCart($token, 'WEB_GB'));
+        $bus->dispatch(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 1));
+        $bus->dispatch(new PutVariantBasedConfigurableItemToCart($token, 'LOGAN_HAT_CODE', 'SMALL_RED_LOGAN_HAT_CODE', 10));
 
         /** @var OrderRepositoryInterface $orderRepository */
         $orderRepository = $this->get('sylius.repository.order');

@@ -14,7 +14,7 @@ use Sylius\Component\Order\Processor\OrderProcessorInterface;
 use Sylius\Component\Promotion\Checker\Eligibility\PromotionCouponEligibilityCheckerInterface;
 use Sylius\Component\Promotion\Checker\Eligibility\PromotionEligibilityCheckerInterface;
 use Sylius\Component\Promotion\Repository\PromotionCouponRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\AddCoupon;
+use Sylius\ShopApiPlugin\Command\Cart\AddCoupon;
 
 final class AddCouponHandlerSpec extends ObjectBehavior
 {
@@ -51,7 +51,7 @@ final class AddCouponHandlerSpec extends ObjectBehavior
         $order->setPromotionCoupon($coupon)->shouldBeCalled();
         $orderProcessor->process($order)->shouldBeCalled();
 
-        $this->handle(new AddCoupon('ORDERTOKEN', 'COUPON_CODE'));
+        $this(new AddCoupon('ORDERTOKEN', 'COUPON_CODE'));
     }
 
     function it_throws_an_exception_if_order_does_not_exist(
@@ -59,7 +59,7 @@ final class AddCouponHandlerSpec extends ObjectBehavior
     ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn(null);
 
-        $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [
+        $this->shouldThrow(\InvalidArgumentException::class)->during('__invoke', [
             new AddCoupon('ORDERTOKEN', 'COUPON_CODE'),
         ]);
     }
@@ -72,7 +72,7 @@ final class AddCouponHandlerSpec extends ObjectBehavior
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
         $couponRepository->findOneBy(['code' => 'COUPON_CODE'])->willReturn(null);
 
-        $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [
+        $this->shouldThrow(\InvalidArgumentException::class)->during('__invoke', [
             new AddCoupon('ORDERTOKEN', 'COUPON_CODE'),
         ]);
     }
@@ -89,7 +89,7 @@ final class AddCouponHandlerSpec extends ObjectBehavior
 
         $couponEligibilityChecker->isEligible($order, $coupon)->willReturn(false);
 
-        $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [
+        $this->shouldThrow(\InvalidArgumentException::class)->during('__invoke', [
             new AddCoupon('ORDERTOKEN', 'COUPON_CODE'),
         ]);
     }

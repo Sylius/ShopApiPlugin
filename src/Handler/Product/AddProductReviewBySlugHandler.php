@@ -9,7 +9,7 @@ use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Sylius\Component\Core\Repository\ProductReviewRepositoryInterface;
 use Sylius\Component\Review\Factory\ReviewFactoryInterface;
-use Sylius\ShopApiPlugin\Command\AddProductReviewBySlug;
+use Sylius\ShopApiPlugin\Command\Product\AddProductReviewBySlug;
 use Sylius\ShopApiPlugin\Provider\ProductReviewerProviderInterface;
 use Webmozart\Assert\Assert;
 
@@ -44,7 +44,7 @@ final class AddProductReviewBySlugHandler
         $this->reviewFactory = $reviewFactory;
     }
 
-    public function handle(AddProductReviewBySlug $addReview): void
+    public function __invoke(AddProductReviewBySlug $addReview): void
     {
         /** @var ChannelInterface $channel */
         $channel = $this->channelRepository->findOneByCode($addReview->channelCode());

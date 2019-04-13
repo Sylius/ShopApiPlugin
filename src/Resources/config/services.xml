@@ -25,31 +25,37 @@
     <services>
         <defaults public="true" />
 
-        <service id="sylius.shop_api_plugin.checker.promotion_coupon_eligibility_checker" class="Sylius\ShopApiPlugin\Checker\PromotionCouponEligibilityChecker">
+        <service id="sylius.shop_api_plugin.checker.promotion_coupon_eligibility_checker"
+                 class="Sylius\ShopApiPlugin\Checker\PromotionCouponEligibilityChecker">
             <argument type="service" id="sylius.promotion_eligibility_checker"/>
             <argument type="service" id="sylius.promotion_coupon_eligibility_checker"/>
         </service>
 
-        <service id="sylius.shop_api_plugin.checker.channel_existence" class="Sylius\ShopApiPlugin\Checker\ChannelExistenceChecker">
+        <service id="sylius.shop_api_plugin.checker.channel_existence"
+                 class="Sylius\ShopApiPlugin\Checker\ChannelExistenceChecker">
             <argument type="service" id="sylius.repository.channel"/>
         </service>
 
-        <service id="sylius.shop_api_plugin.event_listener.user_registration_listener" class="Sylius\ShopApiPlugin\EventListener\UserRegistrationListener">
-            <argument type="service" id="tactician.commandbus" />
+        <service id="sylius.shop_api_plugin.event_listener.user_registration_listener"
+                 class="Sylius\ShopApiPlugin\EventListener\UserRegistrationListener">
+            <argument type="service" id="sylius_shop_api_plugin.command_bus" />
             <argument type="service" id="sylius.repository.channel"/>
             <argument type="service" id="sylius.repository.shop_user"/>
             <argument type="service" id="sylius.manager.shop_user"/>
             <tag name="kernel.event_listener" event="sylius.customer.post_api_registered" method="handleUserVerification" />
         </service>
 
-        <service id="sylius.shop_api_plugin.generator.product_breadcrumb_generator" class="Sylius\ShopApiPlugin\Generator\ProductBreadcrumbGenerator" />
+        <service id="sylius.shop_api_plugin.generator.product_breadcrumb_generator"
+                 class="Sylius\ShopApiPlugin\Generator\ProductBreadcrumbGenerator" />
 
-        <service id="sylius.shop_api_plugin.event_listener.request_locale_setter" class="Sylius\ShopApiPlugin\EventListener\RequestLocaleSetter" >
+        <service id="sylius.shop_api_plugin.event_listener.request_locale_setter"
+                 class="Sylius\ShopApiPlugin\EventListener\RequestLocaleSetter" >
             <argument type="service" id="sylius.locale_provider" />
             <tag name="kernel.event_listener" event="kernel.request" priority="3" />
         </service>
 
-        <service id="sylius.shop_api_plugin.modifier.order_modifier" class="Sylius\ShopApiPlugin\Modifier\OrderModifier">
+        <service id="sylius.shop_api_plugin.modifier.order_modifier"
+                 class="Sylius\ShopApiPlugin\Modifier\OrderModifier">
             <argument type="service" id="sylius.custom_factory.order_item" />
             <argument type="service" id="sylius.order_item_quantity_modifier" />
             <argument type="service" id="sylius.order_processing.order_processor.composite" />
@@ -61,7 +67,7 @@
                 class="Sylius\ShopApiPlugin\Normalizer\RequestCartTokenNormalizer"
         >
             <argument type="service" id="validator" />
-            <argument type="service" id="tactician.commandbus" />
+            <argument type="service" id="sylius_shop_api_plugin.command_bus" />
         </service>
 
         <!-- Removing the create cart context from composite context (see: https://github.com/Sylius/Sylius/issues/10192) -->

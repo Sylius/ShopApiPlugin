@@ -10,7 +10,7 @@ use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\Core\Repository\AddressRepositoryInterface;
 use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
-use Sylius\ShopApiPlugin\Command\SetDefaultAddress;
+use Sylius\ShopApiPlugin\Command\AddressBook\SetDefaultAddress;
 use Webmozart\Assert\Assert;
 
 final class SetDefaultAddressHandler
@@ -34,7 +34,7 @@ final class SetDefaultAddressHandler
         $this->shopUserRepository = $shopUserRepository;
     }
 
-    public function handle(SetDefaultAddress $setDefaultAddress): void
+    public function __invoke(SetDefaultAddress $setDefaultAddress): void
     {
         /** @var AddressInterface $address */
         $address = $this->addressRepository->find($setDefaultAddress->id());

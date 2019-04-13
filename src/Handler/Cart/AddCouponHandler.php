@@ -10,7 +10,7 @@ use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Order\Processor\OrderProcessorInterface;
 use Sylius\Component\Promotion\Checker\Eligibility\PromotionCouponEligibilityCheckerInterface;
 use Sylius\Component\Promotion\Repository\PromotionCouponRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\AddCoupon;
+use Sylius\ShopApiPlugin\Command\Cart\AddCoupon;
 use Webmozart\Assert\Assert;
 
 final class AddCouponHandler
@@ -40,7 +40,7 @@ final class AddCouponHandler
     }
 
     /** @param AddCoupon $addCoupon */
-    public function handle(AddCoupon $addCoupon)
+    public function __invoke(AddCoupon $addCoupon): void
     {
         /** @var OrderInterface $cart */
         $cart = $this->orderRepository->findOneBy(['tokenValue' => $addCoupon->orderToken()]);

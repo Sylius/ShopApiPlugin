@@ -12,8 +12,8 @@ use Sylius\Component\Shipping\Calculator\CalculatorInterface;
 use Sylius\Component\Shipping\Model\ShippingMethodTranslationInterface;
 use Sylius\ShopApiPlugin\Factory\Checkout\ShippingMethodViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\PriceViewFactoryInterface;
+use Sylius\ShopApiPlugin\View\Cart\ShippingMethodView;
 use Sylius\ShopApiPlugin\View\PriceView;
-use Sylius\ShopApiPlugin\View\ShippingMethodView;
 
 final class ShippingMethodViewFactorySpec extends ObjectBehavior
 {

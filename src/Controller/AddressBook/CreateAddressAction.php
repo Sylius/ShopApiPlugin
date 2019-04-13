@@ -6,18 +6,18 @@ namespace Sylius\ShopApiPlugin\Controller\AddressBook;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
-use League\Tactician\CommandBus;
 use Sylius\Component\Core\Model\Customer;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\Core\Repository\AddressRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\CreateAddress;
+use Sylius\ShopApiPlugin\Command\AddressBook\CreateAddress;
 use Sylius\ShopApiPlugin\Factory\AddressBook\AddressBookViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
 use Sylius\ShopApiPlugin\Model\Address;
 use Sylius\ShopApiPlugin\Provider\LoggedInShopUserProviderInterface;
-use Sylius\ShopApiPlugin\View\AddressBookView;
+use Sylius\ShopApiPlugin\View\AddressBook\AddressBookView;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -26,7 +26,7 @@ final class CreateAddressAction
     /** @var ViewHandlerInterface */
     private $viewHandler;
 
-    /** @var CommandBus */
+    /** @var MessageBusInterface */
     private $bus;
 
     /** @var ValidatorInterface */
@@ -46,7 +46,7 @@ final class CreateAddressAction
 
     public function __construct(
         ViewHandlerInterface $viewHandler,
-        CommandBus $bus,
+        MessageBusInterface $bus,
         ValidatorInterface $validator,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         AddressBookViewFactoryInterface $addressViewFactory,
@@ -82,7 +82,7 @@ final class CreateAddressAction
         }
 
         if (($customer = $user->getCustomer()) !== null) {
-            $this->bus->handle(new CreateAddress($addressModel, $user->getEmail()));
+            $this->bus->dispatch(new CreateAddress($addressModel, $user->getEmail()));
 
             return $this->viewHandler->handle(View::create($this->getLastInsertedAddress($customer), Response::HTTP_CREATED));
         }

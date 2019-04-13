@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller\Cart;
 
-use League\Tactician\CommandBus;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\PickupCart;
+use Sylius\ShopApiPlugin\Command\Cart\PickupCart;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Tests\Sylius\ShopApiPlugin\Controller\JsonApiTestCase;
 use Tests\Sylius\ShopApiPlugin\Controller\Utils\ShopUserLoginTrait;
 
@@ -85,9 +85,9 @@ final class CartPickupApiTest extends JsonApiTestCase
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
-        /** @var CommandBus $bus */
-        $bus = $this->get('tactician.commandbus');
-        $bus->handle(new PickupCart($token, 'WEB_GB'));
+        /** @var MessageBusInterface $bus */
+        $bus = $this->get('sylius_shop_api_plugin.command_bus');
+        $bus->dispatch(new PickupCart($token, 'WEB_GB'));
 
         $this->client->request('POST', '/shop-api/WEB_GB/carts/' . $token, [], [], self::CONTENT_TYPE_HEADER);
 

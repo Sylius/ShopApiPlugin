@@ -8,7 +8,7 @@ use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
 use Sylius\Component\User\Security\Generator\GeneratorInterface;
-use Sylius\ShopApiPlugin\Command\GenerateVerificationToken;
+use Sylius\ShopApiPlugin\Command\Customer\GenerateVerificationToken;
 use Sylius\ShopApiPlugin\Handler\Customer\GenerateVerificationTokenHandler;
 
 final class GenerateVerificationTokenHandlerSpec extends ObjectBehavior
@@ -34,7 +34,7 @@ final class GenerateVerificationTokenHandlerSpec extends ObjectBehavior
 
         $user->setEmailVerificationToken('SOMERANDOMSTRINGASDAFSASFAFAFAACEAFCCEFACVAFVSF')->shouldBeCalled();
 
-        $this->handle(new GenerateVerificationToken('example@customer.com'));
+        $this(new GenerateVerificationToken('example@customer.com'));
     }
 
     function it_throws_an_exception_if_user_has_not_been_found(
@@ -42,6 +42,6 @@ final class GenerateVerificationTokenHandlerSpec extends ObjectBehavior
     ): void {
         $userRepository->findOneByEmail('example@customer.com')->willReturn(null);
 
-        $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [new GenerateVerificationToken('example@customer.com')]);
+        $this->shouldThrow(\InvalidArgumentException::class)->during('__invoke', [new GenerateVerificationToken('example@customer.com')]);
     }
 }

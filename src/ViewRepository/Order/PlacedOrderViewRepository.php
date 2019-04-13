@@ -10,7 +10,7 @@ use Sylius\Component\Core\OrderCheckoutStates;
 use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\ShopApiPlugin\Factory\Order\PlacedOrderViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\PlacedOrderView;
+use Sylius\ShopApiPlugin\View\Order\PlacedOrderView;
 use Webmozart\Assert\Assert;
 
 final class PlacedOrderViewRepository implements PlacedOrderViewRepositoryInterface

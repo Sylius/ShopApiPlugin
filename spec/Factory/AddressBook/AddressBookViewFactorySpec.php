@@ -8,7 +8,7 @@ use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\ShopApiPlugin\Factory\AddressBook\AddressBookViewFactory;
-use Sylius\ShopApiPlugin\View\AddressBookView;
+use Sylius\ShopApiPlugin\View\AddressBook\AddressBookView;
 
 final class AddressBookViewFactorySpec extends ObjectBehavior
 {

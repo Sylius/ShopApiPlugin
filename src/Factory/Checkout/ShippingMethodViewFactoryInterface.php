@@ -6,7 +6,7 @@ namespace Sylius\ShopApiPlugin\Factory\Checkout;
 
 use Sylius\Component\Core\Model\ShipmentInterface;
 use Sylius\Component\Core\Model\ShippingMethodInterface;
-use Sylius\ShopApiPlugin\View\ShippingMethodView;
+use Sylius\ShopApiPlugin\View\Cart\ShippingMethodView;
 
 interface ShippingMethodViewFactoryInterface
 {

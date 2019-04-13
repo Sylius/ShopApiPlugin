@@ -7,7 +7,7 @@ namespace Sylius\ShopApiPlugin\Handler\Customer;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
 use Sylius\Component\User\Security\Generator\GeneratorInterface;
-use Sylius\ShopApiPlugin\Command\GenerateVerificationToken;
+use Sylius\ShopApiPlugin\Command\Customer\GenerateVerificationToken;
 use Webmozart\Assert\Assert;
 
 final class GenerateVerificationTokenHandler
@@ -24,7 +24,7 @@ final class GenerateVerificationTokenHandler
         $this->tokenGenerator = $tokenGenerator;
     }
 
-    public function handle(GenerateVerificationToken $generateVerificationToken)
+    public function __invoke(GenerateVerificationToken $generateVerificationToken): void
     {
         $email = $generateVerificationToken->email();
 

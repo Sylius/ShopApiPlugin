@@ -8,7 +8,7 @@ use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\ProductVariantRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\PutVariantBasedConfigurableItemToCart;
+use Sylius\ShopApiPlugin\Command\Cart\PutVariantBasedConfigurableItemToCart;
 use Sylius\ShopApiPlugin\Modifier\OrderModifierInterface;
 use Webmozart\Assert\Assert;
 
@@ -33,7 +33,7 @@ final class PutVariantBasedConfigurableItemToCartHandler
         $this->orderModifier = $orderModifier;
     }
 
-    public function handle(PutVariantBasedConfigurableItemToCart $putConfigurableItemToCart)
+    public function __invoke(PutVariantBasedConfigurableItemToCart $putConfigurableItemToCart): void
     {
         /** @var OrderInterface $cart */
         $cart = $this->cartRepository->findOneBy(['tokenValue' => $putConfigurableItemToCart->orderToken()]);

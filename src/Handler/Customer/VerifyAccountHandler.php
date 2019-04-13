@@ -6,7 +6,7 @@ namespace Sylius\ShopApiPlugin\Handler\Customer;
 
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\VerifyAccount;
+use Sylius\ShopApiPlugin\Command\Customer\VerifyAccount;
 use Webmozart\Assert\Assert;
 
 final class VerifyAccountHandler
@@ -19,7 +19,7 @@ final class VerifyAccountHandler
         $this->userRepository = $userRepository;
     }
 
-    public function handle(VerifyAccount $resendVerificationToken)
+    public function __invoke(VerifyAccount $resendVerificationToken): void
     {
         /** @var ShopUserInterface $user */
         $user = $this->userRepository->findOneBy(['emailVerificationToken' => $resendVerificationToken->token()]);

@@ -11,7 +11,7 @@ use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\OrderCheckoutTransitions;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\CompleteOrder;
+use Sylius\ShopApiPlugin\Command\Cart\CompleteOrder;
 use Sylius\ShopApiPlugin\Provider\CustomerProviderInterface;
 
 final class CompleteOrderHandlerSpec extends ObjectBehavior
@@ -43,7 +43,7 @@ final class CompleteOrderHandlerSpec extends ObjectBehavior
         $order->setCustomer($customer)->shouldBeCalled();
         $stateMachine->apply('complete')->shouldBeCalled();
 
-        $this->handle(new CompleteOrder('ORDERTOKEN', 'example@customer.com'));
+        $this(new CompleteOrder('ORDERTOKEN', 'example@customer.com'));
     }
 
     function it_handles_order_completion_with_notes(
@@ -65,7 +65,7 @@ final class CompleteOrderHandlerSpec extends ObjectBehavior
         $order->setCustomer($customer)->shouldBeCalled();
         $stateMachine->apply('complete')->shouldBeCalled();
 
-        $this->handle(new CompleteOrder('ORDERTOKEN', 'example@customer.com', 'Some notes'));
+        $this(new CompleteOrder('ORDERTOKEN', 'example@customer.com', 'Some notes'));
     }
 
     function it_throws_an_exception_if_order_does_not_exist(
@@ -75,7 +75,7 @@ final class CompleteOrderHandlerSpec extends ObjectBehavior
 
         $this
             ->shouldThrow(\InvalidArgumentException::class)
-            ->during('handle', [new CompleteOrder('ORDERTOKEN', 'example@customer.com')])
+            ->during('__invoke', [new CompleteOrder('ORDERTOKEN', 'example@customer.com')])
         ;
     }
 
@@ -92,7 +92,7 @@ final class CompleteOrderHandlerSpec extends ObjectBehavior
 
         $this
             ->shouldThrow(\InvalidArgumentException::class)
-            ->during('handle', [new CompleteOrder('ORDERTOKEN', 'example@customer.com')])
+            ->during('__invoke', [new CompleteOrder('ORDERTOKEN', 'example@customer.com')])
         ;
     }
 }

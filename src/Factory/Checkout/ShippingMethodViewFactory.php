@@ -9,7 +9,7 @@ use Sylius\Component\Core\Model\ShippingMethodInterface;
 use Sylius\Component\Registry\ServiceRegistry;
 use Sylius\Component\Shipping\Calculator\CalculatorInterface;
 use Sylius\ShopApiPlugin\Factory\PriceViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\ShippingMethodView;
+use Sylius\ShopApiPlugin\View\Cart\ShippingMethodView;
 
 final class ShippingMethodViewFactory implements ShippingMethodViewFactoryInterface
 {

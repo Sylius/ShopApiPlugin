@@ -6,7 +6,7 @@ namespace Sylius\ShopApiPlugin\Factory\Checkout;
 
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\ShopApiPlugin\Factory\PriceViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\PaymentView;
+use Sylius\ShopApiPlugin\View\Cart\PaymentView;
 
 final class PaymentViewFactory implements PaymentViewFactoryInterface
 {

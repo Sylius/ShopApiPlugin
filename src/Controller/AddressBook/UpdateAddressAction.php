@@ -6,17 +6,17 @@ namespace Sylius\ShopApiPlugin\Controller\AddressBook;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
-use League\Tactician\CommandBus;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\Core\Repository\AddressRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\UpdateAddress;
+use Sylius\ShopApiPlugin\Command\AddressBook\UpdateAddress;
 use Sylius\ShopApiPlugin\Factory\AddressBook\AddressBookViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
 use Sylius\ShopApiPlugin\Model\Address;
 use Sylius\ShopApiPlugin\Provider\LoggedInShopUserProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -28,7 +28,7 @@ final class UpdateAddressAction
     /** @var ValidatorInterface */
     private $validator;
 
-    /** @var CommandBus */
+    /** @var MessageBusInterface */
     private $bus;
 
     /** @var ValidationErrorViewFactoryInterface */
@@ -46,7 +46,7 @@ final class UpdateAddressAction
     public function __construct(
         ViewHandlerInterface $viewHandler,
         ValidatorInterface $validator,
-        CommandBus $bus,
+        MessageBusInterface $bus,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         AddressBookViewFactoryInterface $addressViewFactory,
         AddressRepositoryInterface $addressRepository,
@@ -62,7 +62,6 @@ final class UpdateAddressAction
     }
 
     /**
-     * @param Request $request
      * @param string|int $id
      */
     public function __invoke(Request $request, $id): Response
@@ -85,7 +84,7 @@ final class UpdateAddressAction
         }
 
         if ($user->getCustomer() !== null) {
-            $this->bus->handle(new UpdateAddress($addressModel, $user->getEmail(), $id));
+            $this->bus->dispatch(new UpdateAddress($addressModel, $user->getEmail(), $id));
 
             /** @var AddressInterface $updatedAddress */
             $updatedAddress = $this->addressRepository->findOneBy(['id' => $id]);

@@ -9,8 +9,8 @@ use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\ShopApiPlugin\Factory\Taxon\TaxonDetailsViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\Taxon\TaxonViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\TaxonDetailsView;
-use Sylius\ShopApiPlugin\View\TaxonView;
+use Sylius\ShopApiPlugin\View\Taxon\TaxonDetailsView;
+use Sylius\ShopApiPlugin\View\Taxon\TaxonView;
 
 final class TaxonDetailsViewFactorySpec extends ObjectBehavior
 {

@@ -6,11 +6,10 @@ namespace Sylius\ShopApiPlugin\Controller\Cart;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
-use Sylius\ShopApiPlugin\Factory\PriceViewFactoryInterface;
+use Sylius\ShopApiPlugin\Factory\Cart\EstimatedShippingCostViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
-use Sylius\ShopApiPlugin\Request\EstimateShippingCostRequest;
+use Sylius\ShopApiPlugin\Request\Cart\EstimateShippingCostRequest;
 use Sylius\ShopApiPlugin\Shipping\ShippingCostEstimatorInterface;
-use Sylius\ShopApiPlugin\View\EstimatedShippingCostView;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -29,21 +28,21 @@ final class EstimateShippingCostAction
     /** @var ValidationErrorViewFactoryInterface */
     private $validationErrorViewFactory;
 
-    /** @var PriceViewFactoryInterface */
-    private $priceViewFactory;
+    /** @var EstimatedShippingCostViewFactoryInterface */
+    private $estimatedShippingCostViewFactory;
 
     public function __construct(
         ViewHandlerInterface $viewHandler,
         ShippingCostEstimatorInterface $shippingCostEstimator,
         ValidatorInterface $validator,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
-        PriceViewFactoryInterface $priceViewFactory
+        EstimatedShippingCostViewFactoryInterface $estimatedShippingCostViewFactory
     ) {
         $this->viewHandler = $viewHandler;
         $this->shippingCostEstimator = $shippingCostEstimator;
         $this->validator = $validator;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
-        $this->priceViewFactory = $priceViewFactory;
+        $this->estimatedShippingCostViewFactory = $estimatedShippingCostViewFactory;
     }
 
     public function __invoke(Request $request): Response
@@ -67,9 +66,8 @@ final class EstimateShippingCostAction
             $estimateShippingCostRequest->provinceCode()
         );
 
-        $estimatedShippingCostView = new EstimatedShippingCostView();
-        $estimatedShippingCostView->price = $this->priceViewFactory->create($shippingCost->price(), $shippingCost->currency());
-
-        return $this->viewHandler->handle(View::create($estimatedShippingCostView, Response::HTTP_OK));
+        return $this->viewHandler->handle(
+            View::create($this->estimatedShippingCostViewFactory->create($shippingCost), Response::HTTP_OK)
+        );
     }
 }

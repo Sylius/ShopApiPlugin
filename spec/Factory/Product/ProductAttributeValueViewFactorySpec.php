@@ -9,7 +9,7 @@ use Sylius\Component\Product\Model\ProductAttributeInterface;
 use Sylius\Component\Product\Model\ProductAttributeTranslationInterface;
 use Sylius\Component\Product\Model\ProductAttributeValueInterface;
 use Sylius\ShopApiPlugin\Factory\Product\ProductAttributeValueViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\ProductAttributeValueView;
+use Sylius\ShopApiPlugin\View\Product\ProductAttributeValueView;
 
 final class ProductAttributeValueViewFactorySpec extends ObjectBehavior
 {

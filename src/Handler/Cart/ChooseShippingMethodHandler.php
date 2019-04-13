@@ -11,7 +11,7 @@ use Sylius\Component\Core\OrderCheckoutTransitions;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\ShippingMethodRepositoryInterface;
 use Sylius\Component\Shipping\Checker\ShippingMethodEligibilityCheckerInterface;
-use Sylius\ShopApiPlugin\Command\ChooseShippingMethod;
+use Sylius\ShopApiPlugin\Command\Cart\ChooseShippingMethod;
 use Webmozart\Assert\Assert;
 
 final class ChooseShippingMethodHandler
@@ -40,8 +40,7 @@ final class ChooseShippingMethodHandler
         $this->stateMachineFactory = $stateMachineFactory;
     }
 
-    /** @param ChooseShippingMethod $chooseShippingMethod */
-    public function handle(ChooseShippingMethod $chooseShippingMethod)
+    public function __invoke(ChooseShippingMethod $chooseShippingMethod): void
     {
         /** @var OrderInterface $cart */
         $cart = $this->orderRepository->findOneBy(['tokenValue' => $chooseShippingMethod->orderToken()]);

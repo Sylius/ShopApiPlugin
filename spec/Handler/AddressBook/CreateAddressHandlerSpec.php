@@ -11,7 +11,7 @@ use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
-use Sylius\ShopApiPlugin\Command\CreateAddress;
+use Sylius\ShopApiPlugin\Command\AddressBook\CreateAddress;
 use Sylius\ShopApiPlugin\Model\Address;
 
 final class CreateAddressHandlerSpec extends ObjectBehavior
@@ -58,7 +58,7 @@ final class CreateAddressHandlerSpec extends ObjectBehavior
         $customer->addAddress($address)->shouldBeCalled();
         $addressRepository->add($address)->shouldBeCalled();
 
-        $this->handle(new CreateAddress(Address::createFromArray([
+        $this(new CreateAddress(Address::createFromArray([
             'firstName' => 'Sherlock',
             'lastName' => 'Holmes',
             'city' => 'London',
@@ -105,7 +105,7 @@ final class CreateAddressHandlerSpec extends ObjectBehavior
 
         $addressRepository->add($address)->shouldBeCalled();
 
-        $this->handle(new CreateAddress(Address::createFromArray([
+        $this(new CreateAddress(Address::createFromArray([
             'firstName' => 'Sherlock',
             'lastName' => 'Holmes',
             'city' => 'London',
@@ -126,7 +126,7 @@ final class CreateAddressHandlerSpec extends ObjectBehavior
         $customerRepository->findOneBy(['email' => 'jure@locastic.com'])->willReturn($customer);
         $countryRepository->findOneBy(['code' => 'WRONG_COUNTRY_CODE'])->willReturn(null);
 
-        $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [new CreateAddress(Address::createFromArray([
+        $this->shouldThrow(\InvalidArgumentException::class)->during('__invoke', [new CreateAddress(Address::createFromArray([
             'firstName' => 'Sherlock',
             'lastName' => 'Holmes',
             'city' => 'London',
@@ -171,7 +171,7 @@ final class CreateAddressHandlerSpec extends ObjectBehavior
 
         $addressRepository->add($address)->shouldNotBeCalled();
 
-        $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [new CreateAddress(Address::createFromArray([
+        $this->shouldThrow(\InvalidArgumentException::class)->during('__invoke', [new CreateAddress(Address::createFromArray([
             'firstName' => 'Sherlock',
             'lastName' => 'Holmes',
             'city' => 'London',

@@ -16,7 +16,7 @@ use Sylius\Component\Core\OrderCheckoutTransitions;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\ShippingMethodRepositoryInterface;
 use Sylius\Component\Shipping\Checker\ShippingMethodEligibilityCheckerInterface;
-use Sylius\ShopApiPlugin\Command\ChooseShippingMethod;
+use Sylius\ShopApiPlugin\Command\Cart\ChooseShippingMethod;
 
 final class ChooseShippingMethodHandlerSpec extends ObjectBehavior
 {
@@ -51,7 +51,7 @@ final class ChooseShippingMethodHandlerSpec extends ObjectBehavior
         $shipment->setMethod($shippingMethod)->shouldBeCalled();
         $stateMachine->apply('select_shipping')->shouldBeCalled();
 
-        $this->handle(new ChooseShippingMethod('ORDERTOKEN', 0, 'DHL_SHIPPING_METHOD'));
+        $this(new ChooseShippingMethod('ORDERTOKEN', 0, 'DHL_SHIPPING_METHOD'));
     }
 
     function it_throws_an_exception_if_shipping_method_is_not_eligible(
@@ -77,7 +77,7 @@ final class ChooseShippingMethodHandlerSpec extends ObjectBehavior
 
         $this
             ->shouldThrow(\InvalidArgumentException::class)
-            ->during('handle', [
+            ->during('__invoke', [
                 new ChooseShippingMethod('ORDERTOKEN', 0, 'DHL_SHIPPING_METHOD'),
             ])
         ;
@@ -93,7 +93,7 @@ final class ChooseShippingMethodHandlerSpec extends ObjectBehavior
 
         $this
             ->shouldThrow(\InvalidArgumentException::class)
-            ->during('handle', [
+            ->during('__invoke', [
                 new ChooseShippingMethod('ORDERTOKEN', 0, 'DHL_SHIPPING_METHOD'),
             ])
         ;
@@ -117,7 +117,7 @@ final class ChooseShippingMethodHandlerSpec extends ObjectBehavior
 
         $this
             ->shouldThrow(\InvalidArgumentException::class)
-            ->during('handle', [
+            ->during('__invoke', [
                 new ChooseShippingMethod('ORDERTOKEN', 0, 'DHL_SHIPPING_METHOD'),
             ])
         ;
@@ -141,7 +141,7 @@ final class ChooseShippingMethodHandlerSpec extends ObjectBehavior
 
         $this
             ->shouldThrow(\InvalidArgumentException::class)
-            ->during('handle', [
+            ->during('__invoke', [
                 new ChooseShippingMethod('ORDERTOKEN', 0, 'DHL_SHIPPING_METHOD'),
             ])
         ;
@@ -167,7 +167,7 @@ final class ChooseShippingMethodHandlerSpec extends ObjectBehavior
 
         $this
             ->shouldThrow(\InvalidArgumentException::class)
-            ->during('handle', [
+            ->during('__invoke', [
                 new ChooseShippingMethod('ORDERTOKEN', 0, 'DHL_SHIPPING_METHOD'),
             ])
         ;

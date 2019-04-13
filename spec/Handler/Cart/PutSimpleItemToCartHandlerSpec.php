@@ -11,7 +11,7 @@ use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\PutSimpleItemToCart;
+use Sylius\ShopApiPlugin\Command\Cart\PutSimpleItemToCart;
 use Sylius\ShopApiPlugin\Modifier\OrderModifierInterface;
 
 final class PutSimpleItemToCartHandlerSpec extends ObjectBehavior
@@ -40,14 +40,14 @@ final class PutSimpleItemToCartHandlerSpec extends ObjectBehavior
 
         $orderModifier->modify($cart, $productVariant, 5)->shouldBeCalled();
 
-        $this->handle(new PutSimpleItemToCart('ORDERTOKEN', 'T_SHIRT_CODE', 5));
+        $this(new PutSimpleItemToCart('ORDERTOKEN', 'T_SHIRT_CODE', 5));
     }
 
     function it_throws_an_exception_if_cart_has_not_been_found(OrderRepositoryInterface $cartRepository): void
     {
         $cartRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn(null);
 
-        $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [
+        $this->shouldThrow(\InvalidArgumentException::class)->during('__invoke', [
             new PutSimpleItemToCart('ORDERTOKEN', 'T_SHIRT_CODE', 5),
         ]);
     }
@@ -60,7 +60,7 @@ final class PutSimpleItemToCartHandlerSpec extends ObjectBehavior
         $cartRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($cart);
         $productRepository->findOneBy(['code' => 'T_SHIRT_CODE'])->willReturn(null);
 
-        $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [
+        $this->shouldThrow(\InvalidArgumentException::class)->during('__invoke', [
             new PutSimpleItemToCart('ORDERTOKEN', 'T_SHIRT_CODE', 5),
         ]);
     }
@@ -77,7 +77,7 @@ final class PutSimpleItemToCartHandlerSpec extends ObjectBehavior
         $product->getVariants()->willReturn(new ArrayCollection([$productVariant->getWrappedObject()]));
         $product->isSimple()->willReturn(false);
 
-        $this->shouldThrow(\InvalidArgumentException::class)->during('handle', [
+        $this->shouldThrow(\InvalidArgumentException::class)->during('__invoke', [
             new PutSimpleItemToCart('ORDERTOKEN', 'T_SHIRT_CODE', 5),
         ]);
     }

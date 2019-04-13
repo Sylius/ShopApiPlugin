@@ -6,13 +6,13 @@ namespace Sylius\ShopApiPlugin\Controller\AddressBook;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
-use League\Tactician\CommandBus;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactory;
 use Sylius\ShopApiPlugin\Provider\LoggedInShopUserProviderInterface;
-use Sylius\ShopApiPlugin\Request\RemoveAddressRequest;
+use Sylius\ShopApiPlugin\Request\AddressBook\RemoveAddressRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -27,7 +27,7 @@ final class RemoveAddressAction
     /** @var ValidationErrorViewFactory */
     private $validationErrorViewFactory;
 
-    /** @var CommandBus */
+    /** @var MessageBusInterface */
     private $bus;
 
     /** @var LoggedInShopUserProviderInterface */
@@ -37,7 +37,7 @@ final class RemoveAddressAction
         ViewHandlerInterface $viewHandler,
         ValidatorInterface $validator,
         ValidationErrorViewFactory $validationErrorViewFactory,
-        CommandBus $bus,
+        MessageBusInterface $bus,
         LoggedInShopUserProviderInterface $loggedInUserProvider
     ) {
         $this->viewHandler = $viewHandler;
@@ -67,7 +67,7 @@ final class RemoveAddressAction
         }
 
         if ($user->getCustomer() !== null) {
-            $this->bus->handle($removeAddressRequest->getCommand());
+            $this->bus->dispatch($removeAddressRequest->getCommand());
 
             return $this->viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));
         }
