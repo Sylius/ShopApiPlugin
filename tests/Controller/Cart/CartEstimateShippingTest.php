@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller\Cart;
 
+use Sylius\ShopApiPlugin\Command\Cart\PickupCart;
+use Sylius\ShopApiPlugin\Command\Cart\PutSimpleItemToCart;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Tests\Sylius\ShopApiPlugin\Controller\JsonApiTestCase;
 
 final class CartEstimateShippingTest extends JsonApiTestCase
@@ -27,11 +30,14 @@ final class CartEstimateShippingTest extends JsonApiTestCase
      */
     public function it_calculates_estimated_shipping_cost_based_on_country(): void
     {
-        $this->loadFixturesFromFiles(['shop.yml', 'cart.yml', 'country.yml', 'shipping.yml']);
+        $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml']);
 
-        $token = 'PICKEDUPCARTTOKEN';
+        $token = 'SDAOSLEFNWU35H3QLI5325';
 
-        $this->putItemToCart($token);
+        /** @var MessageBusInterface $bus */
+        $bus = $this->get('sylius_shop_api_plugin.command_bus');
+        $bus->dispatch(new PickupCart($token, 'WEB_GB'));
+        $bus->dispatch(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
 
         $this->client->request('GET', sprintf('/shop-api/WEB_GB/carts/%s/estimated-shipping-cost?countryCode=GB', $token), [], [], self::CONTENT_TYPE_HEADER);
         $response = $this->client->getResponse();
@@ -44,11 +50,14 @@ final class CartEstimateShippingTest extends JsonApiTestCase
      */
     public function it_calculates_estimated_shipping_cost_based_on_country_and_province(): void
     {
-        $this->loadFixturesFromFiles(['shop.yml', 'cart.yml', 'country.yml', 'shipping.yml']);
+        $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml']);
 
-        $token = 'PICKEDUPCARTTOKEN';
+        $token = 'SDAOSLEFNWU35H3QLI5325';
 
-        $this->putItemToCart($token);
+        /** @var MessageBusInterface $bus */
+        $bus = $this->get('sylius_shop_api_plugin.command_bus');
+        $bus->dispatch(new PickupCart($token, 'WEB_GB'));
+        $bus->dispatch(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
 
         $this->client->request('GET', sprintf('/shop-api/WEB_GB/carts/%s/estimated-shipping-cost?countryCode=GB&provinceCode=GB-SCT', $token), [], [], self::CONTENT_TYPE_HEADER);
         $response = $this->client->getResponse();
@@ -67,17 +76,5 @@ final class CartEstimateShippingTest extends JsonApiTestCase
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
-    }
-
-    private function putItemToCart(string $token): void
-    {
-        $data =
-<<<EOT
-        {
-            "productCode": "LOGAN_MUG_CODE",
-            "quantity": 5
-        }
-EOT;
-        $this->client->request('POST', sprintf('/shop-api/WEB_GB/carts/%s/items', $token), [], [], static::CONTENT_TYPE_HEADER, $data);
     }
 }

@@ -1,9 +1,0 @@
-Sylius\Component\Core\Model\Order:
-    picked_up_cart:
-        channel: "@gb_web_channel"
-        currencyCode: "GBP"
-        localeCode: "en_GB"
-        checkoutState: "cart"
-        state: "cart"
-        number: "PICKEDUPCARTNUMBER"
-        tokenValue: "PICKEDUPCARTTOKEN"
