@@ -1,0 +1,21 @@
+---------------------------------------------------------------------------
+
+by mamazu at 2019-04-17T15:56:46Z
+
+I don't think that we need this. We have the Easy Coding Standard Package (ECS) with a list of code style guidelines that will also be checked in the CI run.
+
+---------------------------------------------------------------------------
+
+by teohhanhui at 2019-04-17T19:01:24Z
+
+EditorConfig is supported by most (if not all) IDEs and text editors. It's not used to enforce coding style or standards, but it takes care of correct indentation etc.
+
+Basically, it's very frustrating for some users (like myself) when the file is missing, because it causes extra whitespace at end of line to be kept.
+
+If it'd help convince you, it's already in Sylius and Sylius-Standard.
+
+---------------------------------------------------------------------------
+
+by lchrusciel at 2019-04-18T11:50:31Z
+
+Thank you, Teoh! :tada:
