@@ -1,12 +1,15 @@
 language: php
 
-php:
-    - 7.2
-    - 7.3
-
-env:
-    - SYLIUS_VERSION=1.3.*
-    - SYLIUS_VERSION=1.4.*
+jobs:
+    include:
+        -   php: '7.2'
+            env: SYLIUS_VERSION=1.3.*
+        -   php: '7.2'
+            env: SYLIUS_VERSION=1.4.*
+        -   php: '7.3'
+            env: SYLIUS_VERSION=1.3.*
+        -   php: '7.3'
+            env: SYLIUS_VERSION=1.4.* ANALYSE=y
 
 cache:
     directories:
@@ -30,7 +33,10 @@ before_script:
 script:
     - composer validate --strict
 
-    - composer analyse
+    - >-
+        if [ "$ANALYSE" = 'y' ]; then
+            composer analyse
+        fi
 
     - vendor/bin/phpspec run --format dot -vvv --no-interaction
     - vendor/bin/phpunit
