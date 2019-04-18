@@ -32,7 +32,7 @@ final class ShowProductCatalogByTaxonCodeAction
     {
         try {
             return $this->viewHandler->handle(View::create($this->productCatalogQuery->findByTaxonCode(
-                $request->attributes->get('code'),
+                $request->attributes->get('taxonCode'),
                 $request->attributes->get('channelCode'),
                 new PaginatorDetails($request->attributes->get('_route'), $request->query->all()),
                 $request->query->get('locale')

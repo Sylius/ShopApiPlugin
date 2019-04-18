@@ -78,7 +78,7 @@ final class ProductCatalogViewRepository implements ProductCatalogViewRepository
         $taxon = $this->taxonRepository->findOneBy(['code' => $taxonCode]);
 
         Assert::notNull($taxon, sprintf('Taxon with code %s has not been found', $taxonCode));
-        $paginatorDetails->addToParameters('code', $taxonCode);
+        $paginatorDetails->addToParameters('taxonCode', $taxonCode);
         $paginatorDetails->addToParameters('channelCode', $channelCode);
 
         return $this->findByTaxon($taxon, $channel, $paginatorDetails, $localeCode);
