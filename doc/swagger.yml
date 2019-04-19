@@ -88,20 +88,6 @@ paths:
         parameters:
             -   $ref: "#/parameters/ChannelCode"
             -   $ref: "#/parameters/CartToken"
-        post:
-            deprecated: true
-            tags:
-                - "cart"
-            summary: "Pick up your cart from the store"
-            description: "This endpoint will allow you to assign a new cart to the provided token. We recommend using UUID as a token to avoid duplication. If any of previous carts or orders already have the same token value an exception will be thrown."
-            operationId: "deprecatedCartPickUp"
-            responses:
-                201:
-                    description: "Cart has been picked up and assigned to given token"
-                400:
-                    description: "Invalid input"
-                    schema:
-                        $ref: "#/definitions/GeneralError"
         get:
             tags:
                 - "cart"
@@ -487,42 +473,6 @@ paths:
                     description: "Paginated product list."
                     schema:
                         $ref: "#/definitions/ProductsPage"
-    /{channelCode}/taxon-products-by-slug/{taxonSlug}:
-        parameters:
-            -   $ref: "#/parameters/ChannelCode"
-        get:
-            deprecated: true
-            tags:
-                - "products"
-            summary: "Show product catalog."
-            description: "This endpoint will return a paginated list of products for given taxon."
-            operationId: "productCatalogBySlug_deprecated"
-            parameters:
-                -   name: "taxonSlug"
-                    in: "path"
-                    description: "Slug of taxonomy for which products should be listed."
-                    required: true
-                    type: "string"
-                -   name: "locale"
-                    in: "query"
-                    description: "Locale in which products should be shown."
-                    required: false
-                    type: "string"
-                -   name: "limit"
-                    in: "query"
-                    description: "Number of expected products per page."
-                    required: false
-                    type: "integer"
-                -   name: "page"
-                    in: "query"
-                    description: "Page number."
-                    required: false
-                    type: "integer"
-            responses:
-                200:
-                    description: "Paginated product list."
-                    schema:
-                        $ref: "#/definitions/ProductsPage"
     /{channelCode}/taxon-products/by-code/{taxonCode}:
         parameters:
             -   $ref: "#/parameters/ChannelCode"
@@ -534,42 +484,6 @@ paths:
             operationId: "productCatalog"
             parameters:
                 -   name: "taxonCode"
-                    in: "path"
-                    description: "Code of taxonomy for which products should be listed."
-                    required: true
-                    type: "string"
-                -   name: "locale"
-                    in: "query"
-                    description: "Locale in which products should be shown."
-                    required: false
-                    type: "string"
-                -   name: "limit"
-                    in: "query"
-                    description: "Number of expected products per page."
-                    required: false
-                    type: "integer"
-                -   name: "page"
-                    in: "query"
-                    description: "Page number."
-                    required: false
-                    type: "integer"
-            responses:
-                200:
-                    description: "Paginated product list."
-                    schema:
-                        $ref: "#/definitions/ProductsPage"
-    /{channelCode}/taxon-products/{code}:
-        parameters:
-            -   $ref: "#/parameters/ChannelCode"
-        get:
-            deprecated: true
-            tags:
-                - "products"
-            summary: "Show product catalog."
-            description: "This endpoint will return a paginated list of products for given taxon."
-            operationId: "productCatalog_deprecated"
-            parameters:
-                -   name: "code"
                     in: "path"
                     description: "Code of taxonomy for which products should be listed."
                     required: true
@@ -619,32 +533,6 @@ paths:
                     description: "Show a product with the given slug."
                     schema:
                         $ref: "#/definitions/ProductDetails"
-    /{channelCode}/products-by-slug/{slug}:
-        parameters:
-            -   $ref: "#/parameters/ChannelCode"
-        get:
-            deprecated: true
-            tags:
-                - "products"
-            summary: "Show a product with the given slug."
-            description: "This endpoint will return a product with the given slug."
-            operationId: "productDetailsBySlug_deprecated"
-            parameters:
-                -   name: "slug"
-                    in: "path"
-                    description: "Slug of expected product."
-                    required: true
-                    type: "string"
-                -   name: "locale"
-                    in: "query"
-                    description: "Locale in which products should be shown."
-                    required: false
-                    type: "string"
-            responses:
-                200:
-                    description: "Show a product with the given slug."
-                    schema:
-                        $ref: "#/definitions/ProductDetails"
     /{channelCode}/products/by-code/{code}:
         parameters:
             -   $ref: "#/parameters/ChannelCode"
@@ -654,32 +542,6 @@ paths:
             summary: "Show a product with the given code."
             description: "This endpoint will return a product with the given code."
             operationId: "productDetails"
-            parameters:
-                -   name: "code"
-                    in: "path"
-                    description: "Code of expected product."
-                    required: true
-                    type: "string"
-                -   name: "locale"
-                    in: "query"
-                    description: "Locale in which products should be shown."
-                    required: false
-                    type: "string"
-            responses:
-                200:
-                    description: "Show a product with the given code."
-                    schema:
-                        $ref: "#/definitions/ProductDetails"
-    /{channelCode}/products/{code}:
-        parameters:
-            -   $ref: "#/parameters/ChannelCode"
-        get:
-            deprecated: true
-            tags:
-                - "products"
-            summary: "Show a product with the given code."
-            description: "This endpoint will return a product with the given code."
-            operationId: "productDetails_deprecated"
             parameters:
                 -   name: "code"
                     in: "path"
@@ -734,46 +596,6 @@ paths:
                     description: "A paginated list of all reviews related to the product identified by slug."
                     schema:
                         $ref: "#/definitions/ProductReviewsPage"
-    /{channelCode}/product-reviews-by-slug/{slug}:
-        parameters:
-            -   $ref: "#/parameters/ChannelCode"
-            -   name: "slug"
-                in: "path"
-                description: "Slug of expected product."
-                required: true
-                type: "string"
-        post:
-            deprecated: true
-            tags:
-                - "products"
-            summary: "Add a review to the product."
-            description: "This endpoint will allow you to add a new review to the product. Remember, that it should be accepted by an administrator before it will be available in the review list."
-            operationId: "productAddReviewBySlug_deprecated"
-            parameters:
-                -   in: "body"
-                    name: "content"
-                    required: true
-                    schema:
-                        $ref: "#/definitions/AddReviewRequest"
-            responses:
-                201:
-                    description: "Review has been added to the product."
-                400:
-                    description: "Invalid input, validation failed."
-                    schema:
-                        $ref: "#/definitions/GeneralError"
-        get:
-            deprecated: true
-            tags:
-                - "products"
-            summary: "Show reviews."
-            description: "This endpoint will return a paginated list of all reviews related to the product identified by slug."
-            operationId: "productReviewsBySlug_deprecated"
-            responses:
-                200:
-                    description: "A paginated list of all reviews related to the product identified by slug."
-                    schema:
-                        $ref: "#/definitions/ProductReviewsPage"
     /{channelCode}/product/by-code/{code}/reviews:
         parameters:
             -   $ref: "#/parameters/ChannelCode"
@@ -807,46 +629,6 @@ paths:
             summary: "Show reviews."
             description: "This endpoint will return a paginated list of all reviews related to the product identified by slug."
             operationId: "productReviews"
-            responses:
-                200:
-                    description: "A paginated list of all reviews related to the product identified by slug."
-                    schema:
-                        $ref: "#/definitions/ProductReviewsPage"
-    /{channelCode}/product/{code}/reviews:
-        parameters:
-            -   $ref: "#/parameters/ChannelCode"
-            -   name: "code"
-                in: "path"
-                description: "Code of expected product."
-                required: true
-                type: "string"
-        post:
-            deprecated: true
-            tags:
-                - "products"
-            summary: "Add a review to the product."
-            description: "This endpoint will allow you to add a new review to the product. Remember, that it should be accepted by an administrator before it will be available in the review list."
-            operationId: "productAddReview_deprecated"
-            parameters:
-                -   in: "body"
-                    name: "content"
-                    required: true
-                    schema:
-                        $ref: "#/definitions/AddReviewRequest"
-            responses:
-                201:
-                    description: "Review has been added to the product."
-                400:
-                    description: "Invalid input, validation failed."
-                    schema:
-                        $ref: "#/definitions/GeneralError"
-        get:
-            deprecated: true
-            tags:
-                - "products"
-            summary: "Show reviews."
-            description: "This endpoint will return a paginated list of all reviews related to the product identified by slug."
-            operationId: "productReviews_deprecated"
             responses:
                 200:
                     description: "A paginated list of all reviews related to the product identified by slug."
