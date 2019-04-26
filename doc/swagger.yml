@@ -8,7 +8,7 @@ info:
     license:
         name: "MIT"
         url: "https://opensource.org/licenses/MIT"
-host: "demo.sylius.org"
+host: "demo.sylius.com"
 basePath: "/shop-api"
 consumes:
     - "application/json"
@@ -19,22 +19,22 @@ tags:
         description: "All actions related to cart management."
         externalDocs:
             description: "Find out more"
-            url: "http://docs.sylius.org/en/latest/book/orders/index.html"
+            url: "http://docs.sylius.com/en/latest/book/orders/index.html"
     -   name: "products"
         description: "Show product catalog and add product reviews."
         externalDocs:
             description: "Find out more"
-            url: "http://docs.sylius.org/en/latest/book/products/index.html"
+            url: "http://docs.sylius.com/en/latest/book/products/index.html"
     -   name: "taxons"
         description: "Show taxon tree"
         externalDocs:
             description: "Find out more"
-            url: "http://docs.sylius.org/en/latest/book/products/taxons.html"
+            url: "http://docs.sylius.com/en/latest/book/products/taxons.html"
     -   name: "checkout"
         description: "All actions related to checkout fulfillment. It is important, to execute them in given order (address, choose shipment, choose payment and complete)."
         externalDocs:
             description: "Find out more"
-            url: "http://docs.sylius.org/en/latest/book/orders/checkout.html"
+            url: "http://docs.sylius.com/en/latest/book/orders/checkout.html"
     -   name: "order"
         description: "Showing the order information"
         externalDocs:
@@ -44,7 +44,7 @@ tags:
         description: "All actions related to user functionality."
         externalDocs:
             description: "Find out more"
-            url: "http://docs.sylius.org/en/latest/book/customers/customer_and_shopuser.html"
+            url: "http://docs.sylius.com/en/latest/book/customers/customer_and_shopuser.html"
     -   name: "address"
         description: "All functions related to the Sylius Customer Address Book"
         externalDocs:
@@ -65,6 +65,7 @@ parameters:
         description: "Cart identifier."
         required: true
         type: "string"
+
 paths:
     /{channelCode}/carts:
         parameters:
@@ -1105,7 +1106,7 @@ definitions:
                 default: "cart"
                 externalDocs:
                     description: "Find out more about shipment states in the Sylius documentation."
-                    url: "http://docs.sylius.org/en/latest/book/orders/shipments.html#the-shipment-state-machine"
+                    url: "http://docs.sylius.com/en/latest/book/orders/shipments.html#the-shipment-state-machine"
                 enum:
                     - "cart"
                     - "ready"
@@ -1137,7 +1138,7 @@ definitions:
                 default: "cart"
                 externalDocs:
                     description: "Find out more about payment states in the Sylius documentation."
-                    url: "http://docs.sylius.org/en/latest/book/orders/payments.html#payment-state-machine"
+                    url: "http://docs.sylius.com/en/latest/book/orders/payments.html#payment-state-machine"
                 enum:
                     - "cart"
                     - "new"
@@ -1161,7 +1162,7 @@ definitions:
                 example: "WEB_GB"
                 externalDocs:
                     description: "Find out more about channels in the Sylius documentation."
-                    url: "http://docs.sylius.org/en/latest/book/configuration/channels.html"
+                    url: "http://docs.sylius.com/en/latest/book/configuration/channels.html"
             currency:
                 description: "Code of the cart currency according to ISO 4217. This value is inherited from channel"
                 type: "string"
@@ -1176,7 +1177,7 @@ definitions:
                 default: "cart"
                 externalDocs:
                     description: "Find out more about checkout states in the Sylius documentation."
-                    url: "http://docs.sylius.org/en/latest/book/orders/checkout.html#checkout-state-machine"
+                    url: "http://docs.sylius.com/en/latest/book/orders/checkout.html#checkout-state-machine"
                 enum:
                     - "cart"
                     - "addressed"
@@ -1678,7 +1679,7 @@ definitions:
                 example: "WEB_GB"
                 externalDocs:
                     description: "Find out more about channels in the Sylius documentation."
-                    url: "http://docs.sylius.org/en/latest/book/configuration/channels.html"
+                    url: "http://docs.sylius.com/en/latest/book/configuration/channels.html"
             currency:
                 description: "Code of the cart currency according to ISO 4217. This value is inherited from channel"
                 type: "string"
@@ -1693,7 +1694,7 @@ definitions:
                 default: "cart"
                 externalDocs:
                     description: "Find out more about checkout states in the Sylius documentation."
-                    url: "http://docs.sylius.org/en/latest/book/orders/checkout.html#checkout-state-machine"
+                    url: "http://docs.sylius.com/en/latest/book/orders/checkout.html#checkout-state-machine"
                 enum:
                     - "cart"
                     - "new"
