@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace spec\Sylius\ShopApiPlugin\Command\Order;
 
 use PhpSpec\ObjectBehavior;
-use TypeError;
 
 final class UpdatePaymentMethodSpec extends ObjectBehavior
 {
