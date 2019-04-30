@@ -6,7 +6,6 @@ namespace spec\Sylius\ShopApiPlugin\Command\Cart;
 
 use InvalidArgumentException;
 use PhpSpec\ObjectBehavior;
-use TypeError;
 
 final class ChangeItemQuantitySpec extends ObjectBehavior
 {
@@ -28,13 +27,6 @@ final class ChangeItemQuantitySpec extends ObjectBehavior
     function it_has_quantity(): void
     {
         $this->quantity()->shouldReturn(5);
-    }
-
-    function it_throws_an_exception_if_order_token_is_not_a_string(): void
-    {
-        $this->beConstructedWith(new \stdClass(), 'T_SHIRT_CODE', 1);
-
-        $this->shouldThrow(TypeError::class)->duringInstantiation();
     }
 
     function it_throws_an_exception_if_quantity_is_not_less_then_1(): void
