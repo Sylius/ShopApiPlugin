@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types = 1);
 
 namespace Sylius\ShopApiPlugin\ViewRepository\Cart;
 
@@ -9,6 +9,7 @@ use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\ShopApiPlugin\Factory\Cart\CartViewFactoryInterface;
 use Sylius\ShopApiPlugin\View\Cart\CartSummaryView;
 use Webmozart\Assert\Assert;
+use Sylius\Component\Core\OrderCheckoutStates;
 
 final class CartViewRepository implements CartViewRepositoryInterface
 {
@@ -29,7 +30,10 @@ final class CartViewRepository implements CartViewRepositoryInterface
     public function getOneByToken(string $orderToken): CartSummaryView
     {
         /** @var OrderInterface $cart */
-        $cart = $this->cartRepository->findOneBy(['tokenValue' => $orderToken]);
+        $cart = $this->cartRepository->findOneBy([
+            'tokenValue' => $orderToken,
+            'checkoutState' => OrderCheckoutStates::STATE_CART
+        ]);
         Assert::notNull($cart, 'Cart with given id does not exists');
 
         return $this->cartViewFactory->create($cart, $cart->getLocaleCode());

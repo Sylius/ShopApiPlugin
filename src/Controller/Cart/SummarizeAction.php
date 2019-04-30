@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types = 1);
 
 namespace Sylius\ShopApiPlugin\Controller\Cart;
 
@@ -31,7 +31,10 @@ final class SummarizeAction
     {
         try {
             return $this->viewHandler->handle(
-                View::create($this->cartQuery->getOneByToken($request->attributes->get('token')), Response::HTTP_OK)
+                View::create(
+                    $this->cartQuery->getOneByToken($request->attributes->get('token')),
+                    Response::HTTP_OK
+                )
             );
         } catch (\InvalidArgumentException $exception) {
             throw new NotFoundHttpException($exception->getMessage());

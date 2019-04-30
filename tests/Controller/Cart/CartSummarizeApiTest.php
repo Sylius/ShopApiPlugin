@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types = 1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller\Cart;
 
@@ -10,9 +10,12 @@ use Sylius\ShopApiPlugin\Command\Cart\PutSimpleItemToCart;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Tests\Sylius\ShopApiPlugin\Controller\JsonApiTestCase;
+use Tests\Sylius\ShopApiPlugin\Controller\Utils\ShopUserLoginTrait;
 
 final class CartSummarizeApiTest extends JsonApiTestCase
 {
+    use ShopUserLoginTrait;
+
     /**
      * @test
      */
@@ -40,6 +43,23 @@ final class CartSummarizeApiTest extends JsonApiTestCase
         $this->loadFixturesFromFiles(['shop.yml']);
 
         $this->client->request('GET', '/shop-api/WEB_GB/carts/SDAOSLEFNWU35H3QLI5325', [], [], self::CONTENT_TYPE_HEADER);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'cart/cart_has_not_been_found_response', Response::HTTP_NOT_FOUND);
+    }
+
+    /** 
+     * @test
+     */
+    public function it_returns_not_found_exception_if_order_is_not_in_state_cart(): void
+    {
+        $fixtures = $this->loadFixturesFromFiles(['customer.yml', 'country.yml', 'address.yml', 'shop.yml', 'payment.yml', 'shipping.yml', 'order.yml']);
+        $this->logInUser('oliver@queen.com', '123password');
+
+        /** @var OrderInterface $placedOrder */
+        $placedOrder = $fixtures['placed_order'];
+
+        $this->client->request('GET', '/shop-api/WEB_GB/carts/' . $placedOrder->getTokenValue(), [], [], self::CONTENT_TYPE_HEADER);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/cart_has_not_been_found_response', Response::HTTP_NOT_FOUND);
@@ -112,7 +132,7 @@ final class CartSummarizeApiTest extends JsonApiTestCase
         $bus->dispatch(new PickupCart($token, 'WEB_GB'));
 
         $variantWithOptions =
-<<<EOT
+            <<<EOT
         {
             "productCode": "LOGAN_HAT_CODE",
             "options": {
@@ -124,7 +144,7 @@ final class CartSummarizeApiTest extends JsonApiTestCase
 EOT;
 
         $regularVariant =
-<<<EOT
+            <<<EOT
         {
             "productCode": "LOGAN_T_SHIRT_CODE",
             "variantCode": "SMALL_LOGAN_T_SHIRT_CODE",
@@ -154,7 +174,7 @@ EOT;
         $bus->dispatch(new PickupCart($token, 'WEB_DE'));
 
         $variantWithOptions =
-<<<EOT
+            <<<EOT
         {
             "productCode": "LOGAN_HAT_CODE",
             "options": {
