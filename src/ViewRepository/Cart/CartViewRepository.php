@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare (strict_types=1);
 
 namespace Sylius\ShopApiPlugin\ViewRepository\Cart;
 
@@ -23,17 +23,19 @@ final class CartViewRepository implements CartViewRepositoryInterface
         OrderRepositoryInterface $cartRepository,
         CartViewFactoryInterface $cartViewFactory
     ) {
-        $this->cartRepository = $cartRepository;
+        $this->cartRepository  = $cartRepository;
         $this->cartViewFactory = $cartViewFactory;
     }
 
     public function getOneByToken(string $orderToken): CartSummaryView
     {
         /** @var OrderInterface $cart */
-        $cart = $this->cartRepository->findOneBy([
-            'tokenValue' => $orderToken,
-            'checkoutState' => OrderCheckoutStates::STATE_CART
-        ]);
+        $cart = $this->cartRepository->createCartQueryBuilder()
+            ->andWhere('o.tokenValue = :tokenValue')
+            ->setParameter('tokenValue', $orderToken)
+            ->getQuery()
+            ->getOneOrNullResult();
+
         Assert::notNull($cart, 'Cart with given id does not exists');
 
         return $this->cartViewFactory->create($cart, $cart->getLocaleCode());
