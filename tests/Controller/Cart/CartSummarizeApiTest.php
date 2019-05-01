@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller\Cart;
 
@@ -48,7 +48,7 @@ final class CartSummarizeApiTest extends JsonApiTestCase
         $this->assertResponse($response, 'cart/cart_has_not_been_found_response', Response::HTTP_NOT_FOUND);
     }
 
-    /** 
+    /**
      * @test
      */
     public function it_returns_not_found_exception_if_order_is_not_in_state_cart(): void
