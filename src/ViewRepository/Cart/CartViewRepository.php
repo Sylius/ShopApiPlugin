@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types=1);
+declare (strict_types = 1);
 
 namespace Sylius\ShopApiPlugin\ViewRepository\Cart;
 
@@ -31,8 +31,10 @@ final class CartViewRepository implements CartViewRepositoryInterface
     {
         /** @var OrderInterface $cart */
         $cart = $this->cartRepository->createCartQueryBuilder()
+            ->andWhere('o.checkoutState != :checkoutState')
             ->andWhere('o.tokenValue = :tokenValue')
             ->setParameter('tokenValue', $orderToken)
+            ->setParameter('checkoutState', OrderCheckoutStates::STATE_COMPLETED)
             ->getQuery()
             ->getOneOrNullResult();
 

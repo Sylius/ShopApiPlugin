@@ -42,6 +42,7 @@ final class PlacedOrderViewRepository implements PlacedOrderViewRepositoryInterf
         Assert::notNull($customer);
 
         $cartViews = [];
+
         /** @var OrderInterface $order */
         foreach ($this->orderRepository->findBy(['customer' => $customer]) as $order) {
             if ($order->getCheckoutState() === OrderCheckoutStates::STATE_COMPLETED) {
