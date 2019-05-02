@@ -41,7 +41,9 @@ final class CheckoutSummarizeApiTest extends JsonApiTestCase
                 "street": "Baker Street 221b",
                 "city": "London",
                 "postcode": "NW1",
-                "provinceName": "Greater London"
+                "provinceName": "Greater London",
+                "company": "Detective Inc",
+                "phoneNumber": "999"
             }
         }
 EOT;
@@ -78,7 +80,9 @@ EOT;
                 "street": "Baker Street 221b",
                 "city": "London",
                 "postcode": "NW1",
-                "provinceName": "Greater London"
+                "provinceName": "Greater London",
+                "company": "Detective Inc",
+                "phoneNumber": "999"
             },
             "billingAddress": {
                 "firstName": "John",
@@ -87,7 +91,9 @@ EOT;
                 "street": "Baker Street 21b",
                 "city": "London",
                 "postcode": "NW1",
-                "provinceName": "Greater London"
+                "provinceName": "Greater London",
+                "company": "Detective Corp",
+                "phoneNumber": "111"
             }
         }
 EOT;

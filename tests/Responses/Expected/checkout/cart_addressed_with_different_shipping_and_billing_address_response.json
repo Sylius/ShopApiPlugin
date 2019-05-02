@@ -72,7 +72,9 @@
         "street": "Baker Street 221b",
         "city": "London",
         "postcode": "NW1",
-        "provinceName": "Greater London"
+        "provinceName": "Greater London",
+        "company": "Detective Inc",
+        "phoneNumber": "999"
     },
     "billingAddress": {
         "firstName": "John",
@@ -81,7 +83,9 @@
         "street": "Baker Street 21b",
         "city": "London",
         "postcode": "NW1",
-        "provinceName": "Greater London"
+        "provinceName": "Greater London",
+        "company": "Detective Corp",
+        "phoneNumber": "111"
     },
     "payments": [],
     "shipments": [],

@@ -26,4 +26,10 @@ class AddressView
 
     /** @var string */
     public $provinceName;
+
+    /** @var string */
+    public $company;
+
+    /** @var string */
+    public $phoneNumber;
 }

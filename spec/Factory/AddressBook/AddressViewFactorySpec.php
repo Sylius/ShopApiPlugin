@@ -30,6 +30,8 @@ final class AddressViewFactorySpec extends ObjectBehavior
         $address->getCity()->willReturn('London');
         $address->getPostcode()->willReturn('NMW');
         $address->getProvinceName()->willReturn('Greater London');
+        $address->getCompany()->willReturn('Detective Inc');
+        $address->getPhoneNumber()->willReturn('999');
 
         $addressView = new AddressView();
         $addressView->firstName = 'Sherlock';
@@ -39,6 +41,8 @@ final class AddressViewFactorySpec extends ObjectBehavior
         $addressView->city = 'London';
         $addressView->postcode = 'NMW';
         $addressView->provinceName = 'Greater London';
+        $addressView->company = 'Detective Inc';
+        $addressView->phoneNumber = '999';
 
         $this->create($address)->shouldBeLike($addressView);
     }

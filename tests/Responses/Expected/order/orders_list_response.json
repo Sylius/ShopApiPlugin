@@ -72,7 +72,9 @@
             "countryCode": "GB",
             "street": "McGlynn Island",
             "city": "Klingside",
-            "postcode": "33553"
+            "postcode": "33553",
+            "company": "Sylius",
+            "phoneNumber": "349713"
         },
         "billingAddress": {
             "firstName": "Jeanie",
@@ -80,7 +82,9 @@
             "countryCode": "GB",
             "street": "Kupreska",
             "city": "Klingside",
-            "postcode": "33553"
+            "postcode": "33553",
+            "company": "Locastic",
+            "phoneNumber": "349713"
         },
         "payments": [
             {
