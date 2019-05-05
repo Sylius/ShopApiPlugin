@@ -132,7 +132,7 @@ final class CartSummarizeApiTest extends JsonApiTestCase
         $bus->dispatch(new PickupCart($token, 'WEB_GB'));
 
         $variantWithOptions =
-            <<<EOT
+<<<EOT
         {
             "productCode": "LOGAN_HAT_CODE",
             "options": {
@@ -144,7 +144,7 @@ final class CartSummarizeApiTest extends JsonApiTestCase
 EOT;
 
         $regularVariant =
-            <<<EOT
+<<<EOT
         {
             "productCode": "LOGAN_T_SHIRT_CODE",
             "variantCode": "SMALL_LOGAN_T_SHIRT_CODE",

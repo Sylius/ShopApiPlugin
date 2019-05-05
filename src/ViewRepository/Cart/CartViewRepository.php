@@ -27,13 +27,13 @@ final class CartViewRepository implements CartViewRepositoryInterface
         $this->cartViewFactory = $cartViewFactory;
     }
 
-    public function getOneByToken(string $orderToken): CartSummaryView
+    public function getOneByToken(string $token): CartSummaryView
     {
         /** @var OrderInterface $cart */
         $cart = $this->cartRepository->createCartQueryBuilder()
             ->andWhere('o.checkoutState != :checkoutState')
             ->andWhere('o.tokenValue = :tokenValue')
-            ->setParameter('tokenValue', $orderToken)
+            ->setParameter('tokenValue', $token)
             ->setParameter('checkoutState', OrderCheckoutStates::STATE_COMPLETED)
             ->getQuery()
             ->getOneOrNullResult();
