@@ -1,0 +1,7 @@
+Sylius\ShopApiPlugin\View\Order\PlacedOrderView:
+    xml_root_name: placed_order_view
+    properties:
+        billingAddress:
+            groups: [logged_in_user]
+        shippingAddress:
+            groups: [logged_in_user]
