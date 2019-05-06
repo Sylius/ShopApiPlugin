@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Controller\Order;
 
-use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use JMS\Serializer\Exclusion\GroupsExclusionStrategy;
@@ -45,6 +44,7 @@ final class ShowOrderDetailsAction
             $user = $this->loggedInUserProvider->provide();
             $groups[] = 'logged_in_user';
         }
+
         try {
             if (null !== $user) {
                 $order = $this
@@ -63,6 +63,7 @@ final class ShowOrderDetailsAction
 
         $view = View::create($order, Response::HTTP_OK);
         $view->getContext()->setGroups($groups);
+
         return $this->viewHandler->handle($view);
     }
 }

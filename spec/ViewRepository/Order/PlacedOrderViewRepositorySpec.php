@@ -8,6 +8,7 @@ use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\Core\OrderCheckoutStates;
 use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
@@ -75,6 +76,26 @@ final class PlacedOrderViewRepositorySpec extends ObjectBehavior
         $this->getOneCompletedByCustomerEmailAndToken('test@example.com', 'ORDERTOKEN')->shouldReturn($placedOrderView);
     }
 
+    function it_provides_placed_order_by_guest_and_token(
+        OrderRepositoryInterface $orderRepository,
+        PlacedOrderViewFactoryInterface $placedOrderViewFactory,
+        OrderInterface $order,
+        CustomerInterface $customer,
+        PlacedOrderView $placedOrderView
+    ): void {
+        $orderRepository
+            ->findOneBy(['tokenValue' => 'ORDERTOKEN', 'checkoutState' => OrderCheckoutStates::STATE_COMPLETED])
+            ->willReturn($order)
+        ;
+
+        $order->getUser()->willReturn(null);
+        $order->getLocaleCode()->willReturn('en_GB');
+
+        $placedOrderViewFactory->create($order, 'en_GB')->willReturn($placedOrderView);
+
+        $this->getOneCompletedByGuestAndToken('ORDERTOKEN')->shouldReturn($placedOrderView);
+    }
+
     function it_throws_exception_if_there_is_no_placed_order_for_given_customer_email_and_order_id(
         OrderRepositoryInterface $orderRepository,
         CustomerRepositoryInterface $customerRepository,
@@ -103,6 +124,37 @@ final class PlacedOrderViewRepositorySpec extends ObjectBehavior
         $this
             ->shouldThrow(\InvalidArgumentException::class)
             ->during('getAllCompletedByCustomerEmail', ['test@example.com'])
+        ;
+    }
+
+    function it_throws_exception_if_there_is_no_placed_order_for_guest_and_token(
+        OrderRepositoryInterface $orderRepository
+    ): void {
+        $orderRepository
+            ->findOneBy(['tokenValue' => 'ORDERTOKEN', 'checkoutState' => OrderCheckoutStates::STATE_COMPLETED])
+            ->willReturn(null)
+        ;
+
+        $this
+            ->shouldThrow(\InvalidArgumentException::class)
+            ->during('getOneCompletedByGuestAndToken', ['ORDERTOKEN'])
+        ;
+    }
+
+    function it_throws_exception_if_placed_order_for_guest_and_token_has_user(
+        OrderRepositoryInterface $orderRepository,
+        OrderInterface $order,
+        ShopUserInterface $user
+    ): void {
+        $orderRepository
+            ->findOneBy(['tokenValue' => 'ORDERTOKEN', 'checkoutState' => OrderCheckoutStates::STATE_COMPLETED])
+            ->willReturn($order)
+        ;
+        $order->getUser()->willReturn($user);
+
+        $this
+            ->shouldThrow(\InvalidArgumentException::class)
+            ->during('getOneCompletedByGuestAndToken', ['ORDERTOKEN'])
         ;
     }
 }
