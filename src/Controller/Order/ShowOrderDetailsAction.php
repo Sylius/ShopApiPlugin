@@ -12,7 +12,6 @@ use Sylius\ShopApiPlugin\ViewRepository\Order\PlacedOrderViewRepositoryInterface
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 final class ShowOrderDetailsAction
 {
@@ -38,15 +37,20 @@ final class ShowOrderDetailsAction
     public function __invoke(Request $request): Response
     {
         try {
-            /** @var ShopUserInterface $user */
-            $user = $this->loggedInUserProvider->provide();
+            if ($this->loggedInUserProvider->isUserLoggedIn()) {
+                /** @var ShopUserInterface $user */
+                $user = $this->loggedInUserProvider->provide();
 
-            $order = $this
-                ->placedOrderQuery
-                ->getOneCompletedByCustomerEmailAndToken($user->getCustomer()->getEmail(), (string) $request->attributes->get('tokenValue'))
-            ;
-        } catch (TokenNotFoundException $exception) {
-            return $this->viewHandler->handle(View::create(null, Response::HTTP_UNAUTHORIZED));
+                $order = $this
+                    ->placedOrderQuery
+                    ->getOneCompletedByCustomerEmailAndToken($user->getEmail(), (string) $request->attributes->get('tokenValue'))
+                ;
+            } else {
+                $order = $this
+                    ->placedOrderQuery
+                    ->getOneCompletedByGuestAndToken((string) $request->attributes->get('tokenValue'))
+                ;
+            }
         } catch (\InvalidArgumentException $exception) {
             throw new NotFoundHttpException($exception->getMessage());
         }

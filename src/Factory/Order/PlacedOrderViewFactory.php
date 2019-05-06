@@ -95,12 +95,15 @@ final class PlacedOrderViewFactory implements PlacedOrderViewFactoryInterface
 
         $placedOrderView->cartDiscounts = $cartDiscounts;
 
-        if (null !== $order->getShippingAddress()) {
-            $placedOrderView->shippingAddress = $this->addressViewFactory->create($order->getShippingAddress());
-        }
+        //information only available on orders with registered customers
+        if (null !== $order->getUser()) {
+            if (null !== $order->getShippingAddress()) {
+                $placedOrderView->shippingAddress = $this->addressViewFactory->create($order->getShippingAddress());
+            }
 
-        if (null !== $order->getBillingAddress()) {
-            $placedOrderView->billingAddress = $this->addressViewFactory->create($order->getBillingAddress());
+            if (null !== $order->getBillingAddress()) {
+                $placedOrderView->billingAddress = $this->addressViewFactory->create($order->getBillingAddress());
+            }
         }
 
         return $placedOrderView;
