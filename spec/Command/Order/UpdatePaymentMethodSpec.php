@@ -20,11 +20,11 @@ final class UpdatePaymentMethodSpec extends ObjectBehavior
 
     function it_has_identifier_of_payment(): void
     {
-        $this->paymentIdentifier()->shouldReturn(1);
+        $this->paymentId()->shouldReturn(1);
     }
 
     function it_has_payment_method_defined(): void
     {
-        $this->paymentMethod()->shouldReturn('CASH_ON_DELIVERY_METHOD');
+        $this->paymentMethodCode()->shouldReturn('CASH_ON_DELIVERY_METHOD');
     }
 }

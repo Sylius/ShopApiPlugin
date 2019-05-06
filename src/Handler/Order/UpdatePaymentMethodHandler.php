@@ -39,12 +39,12 @@ final class UpdatePaymentMethodHandler
         Assert::same(OrderPaymentStates::STATE_AWAITING_PAYMENT, $order->getPaymentState(), 'Only awaiting payment orders can be updated.');
 
         /** @var PaymentMethodInterface $paymentMethod */
-        $paymentMethod = $this->paymentMethodRepository->findOneBy(['code' => $choosePaymentMethod->paymentMethod()]);
+        $paymentMethod = $this->paymentMethodRepository->findOneBy(['code' => $choosePaymentMethod->paymentMethodCode()]);
 
         Assert::notNull($paymentMethod, 'Payment method has not been found');
-        Assert::true(isset($order->getPayments()[$choosePaymentMethod->paymentIdentifier()]), 'Can not find payment with given identifier.');
+        Assert::true(isset($order->getPayments()[$choosePaymentMethod->paymentId()]), 'Can not find payment with given identifier.');
 
-        $payment = $order->getPayments()[$choosePaymentMethod->paymentIdentifier()];
+        $payment = $order->getPayments()[$choosePaymentMethod->paymentId()];
         Assert::same(PaymentInterface::STATE_NEW, $payment->getState(), 'Payment should have new state');
 
         $payment->setMethod($paymentMethod);

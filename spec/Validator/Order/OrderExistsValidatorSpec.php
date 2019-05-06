@@ -50,7 +50,7 @@ class OrderExistsValidatorSpec extends ObjectBehavior
         ));
     }
 
-    function it_adds_constraint_if_order_does_not_exits_exists(
+    function it_adds_constraint_if_order_does_not_exists(
         OrderRepositoryInterface $orderRepository,
         ExecutionContextInterface $executionContext
     ): void {

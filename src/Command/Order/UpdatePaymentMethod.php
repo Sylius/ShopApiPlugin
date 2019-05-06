@@ -10,16 +10,16 @@ class UpdatePaymentMethod
     protected $orderToken;
 
     /** @var mixed */
-    protected $paymentIdentifier;
+    protected $paymentId;
 
     /** @var string */
-    protected $paymentMethod;
+    protected $paymentMethodCode;
 
-    public function __construct(string $orderToken, $paymentIdentifier, string $paymentMethod)
+    public function __construct(string $orderToken, $paymentId, string $paymentMethodCode)
     {
         $this->orderToken = $orderToken;
-        $this->paymentIdentifier = $paymentIdentifier;
-        $this->paymentMethod = $paymentMethod;
+        $this->paymentId = $paymentId;
+        $this->paymentMethodCode = $paymentMethodCode;
     }
 
     public function orderToken(): string
@@ -27,13 +27,13 @@ class UpdatePaymentMethod
         return $this->orderToken;
     }
 
-    public function paymentIdentifier()
+    public function paymentId()
     {
-        return $this->paymentIdentifier;
+        return $this->paymentId;
     }
 
-    public function paymentMethod(): string
+    public function paymentMethodCode(): string
     {
-        return $this->paymentMethod;
+        return $this->paymentMethodCode;
     }
 }
