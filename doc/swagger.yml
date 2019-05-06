@@ -1482,6 +1482,12 @@ definitions:
             provinceName:
                 type: "string"
                 example: "Greater London"
+            company:
+                type: "string"
+                example: "Holmes Investigation Service"
+            phoneNumber:
+                type: "string"
+                example: "+490000000000"
     PaymentMethod:
         type: "object"
         properties:
