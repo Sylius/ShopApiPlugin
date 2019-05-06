@@ -7,7 +7,7 @@ Sylius\Component\Core\Model\Order:
         customer: "@customer_oliver"
         checkoutState: "completed"
         checkoutCompletedAt: "<date_create('2019-02-01 03:00:00')>"
-        state: "cart"
+        state: "new"
         payments: ["@placed_order_payment"]
         shipments: ["@placed_order_shipment"]
         shippingAddress: "@customer_oliver_home_address"

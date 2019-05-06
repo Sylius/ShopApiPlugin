@@ -31,10 +31,8 @@ final class CartViewRepository implements CartViewRepositoryInterface
     {
         /** @var OrderInterface $cart */
         $cart = $this->cartRepository->createCartQueryBuilder()
-            ->andWhere('o.checkoutState != :checkoutState')
             ->andWhere('o.tokenValue = :tokenValue')
             ->setParameter('tokenValue', $token)
-            ->setParameter('checkoutState', OrderCheckoutStates::STATE_COMPLETED)
             ->getQuery()
             ->getOneOrNullResult();
 

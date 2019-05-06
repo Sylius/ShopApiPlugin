@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller\Cart;
 
+use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\ShopApiPlugin\Command\Cart\AddCoupon;
 use Sylius\ShopApiPlugin\Command\Cart\PickupCart;
 use Sylius\ShopApiPlugin\Command\Cart\PutSimpleItemToCart;
@@ -174,7 +175,7 @@ EOT;
         $bus->dispatch(new PickupCart($token, 'WEB_DE'));
 
         $variantWithOptions =
-            <<<EOT
+<<<EOT
         {
             "productCode": "LOGAN_HAT_CODE",
             "options": {
