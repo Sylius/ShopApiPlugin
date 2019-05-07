@@ -1,0 +1,29 @@
+---------------------------------------------------------------------------
+
+by mamazu at 2019-05-03T08:04:39Z
+
+Are those options now required or are they optional?
+
+---------------------------------------------------------------------------
+
+by hashnz at 2019-05-05T19:49:33Z
+
+@mamazu they should be optional, there's a test here that doesn't pass them in https://github.com/Sylius/ShopApiPlugin/blob/762ecd752154e97d1ce42a3c2dc8a3da572c6e8f/tests/Controller/Checkout/CheckoutSummarizeApiTest.php#L112
+
+---------------------------------------------------------------------------
+
+by dlobato at 2019-05-06T09:55:39Z
+
+new fields are not reflected on swagger definition
+
+---------------------------------------------------------------------------
+
+by hashnz at 2019-05-06T19:55:28Z
+
+@dlobato thanks, I've added those
+
+---------------------------------------------------------------------------
+
+by mamazu at 2019-05-07T14:37:07Z
+
+Thanks, Matt! :tada:
