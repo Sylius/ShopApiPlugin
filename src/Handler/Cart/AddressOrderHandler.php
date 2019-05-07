@@ -55,6 +55,8 @@ final class AddressOrderHandler
         $shippingAddress->setCountryCode($addressOrder->shippingAddress()->countryCode());
         $shippingAddress->setPostcode($addressOrder->shippingAddress()->postcode());
         $shippingAddress->setProvinceName($addressOrder->shippingAddress()->provinceName());
+        $shippingAddress->setCompany($addressOrder->shippingAddress()->company());
+        $shippingAddress->setPhoneNumber($addressOrder->shippingAddress()->phoneNumber());
 
         /** @var AddressInterface $billingAddress */
         $billingAddress = $order->getBillingAddress() ?? $this->addressFactory->createNew();
@@ -66,6 +68,8 @@ final class AddressOrderHandler
         $billingAddress->setCountryCode($addressOrder->billingAddress()->countryCode());
         $billingAddress->setPostcode($addressOrder->billingAddress()->postcode());
         $billingAddress->setProvinceName($addressOrder->billingAddress()->provinceName());
+        $billingAddress->setCompany($addressOrder->billingAddress()->company());
+        $billingAddress->setPhoneNumber($addressOrder->billingAddress()->phoneNumber());
 
         $order->setShippingAddress($shippingAddress);
         $order->setBillingAddress($billingAddress);

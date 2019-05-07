@@ -44,6 +44,8 @@ final class AddressOrderHandlerSpec extends ObjectBehavior
         $shippingAddress->setCountryCode('GB')->shouldBeCalled();
         $shippingAddress->setPostcode('NWB')->shouldBeCalled();
         $shippingAddress->setProvinceName('Greater London')->shouldBeCalled();
+        $shippingAddress->setCompany('Detective Inc')->shouldBeCalled();
+        $shippingAddress->setPhoneNumber('999')->shouldBeCalled();
 
         $billingAddress->setFirstName('John')->shouldBeCalled();
         $billingAddress->setLastName('Watson')->shouldBeCalled();
@@ -52,6 +54,8 @@ final class AddressOrderHandlerSpec extends ObjectBehavior
         $billingAddress->setCountryCode('GB')->shouldBeCalled();
         $billingAddress->setPostcode('NWB')->shouldBeCalled();
         $billingAddress->setProvinceName('Greater London')->shouldBeCalled();
+        $billingAddress->setCompany('Detective Corp')->shouldBeCalled();
+        $billingAddress->setPhoneNumber('111')->shouldBeCalled();
 
         $order->setShippingAddress($shippingAddress)->shouldBeCalled();
         $order->setBillingAddress($billingAddress)->shouldBeCalled();
@@ -70,6 +74,8 @@ final class AddressOrderHandlerSpec extends ObjectBehavior
                 'countryCode' => 'GB',
                 'postcode' => 'NWB',
                 'provinceName' => 'Greater London',
+                'company' => 'Detective Inc',
+                'phoneNumber' => '999',
             ]),
             Address::createFromArray([
                 'firstName' => 'John',
@@ -79,6 +85,8 @@ final class AddressOrderHandlerSpec extends ObjectBehavior
                 'countryCode' => 'GB',
                 'postcode' => 'NWB',
                 'provinceName' => 'Greater London',
+                'company' => 'Detective Corp',
+                'phoneNumber' => '111',
             ])
         ));
     }
@@ -105,6 +113,8 @@ final class AddressOrderHandlerSpec extends ObjectBehavior
         $shippingAddress->setCountryCode('GB')->shouldBeCalled();
         $shippingAddress->setPostcode('NWB')->shouldBeCalled();
         $shippingAddress->setProvinceName('Greater London')->shouldBeCalled();
+        $shippingAddress->setCompany('Detective Inc')->shouldBeCalled();
+        $shippingAddress->setPhoneNumber('999')->shouldBeCalled();
 
         $billingAddress->setFirstName('John')->shouldBeCalled();
         $billingAddress->setLastName('Watson')->shouldBeCalled();
@@ -113,6 +123,8 @@ final class AddressOrderHandlerSpec extends ObjectBehavior
         $billingAddress->setCountryCode('GB')->shouldBeCalled();
         $billingAddress->setPostcode('NWB')->shouldBeCalled();
         $billingAddress->setProvinceName('Greater London')->shouldBeCalled();
+        $billingAddress->setCompany('Detective Corp')->shouldBeCalled();
+        $billingAddress->setPhoneNumber('111')->shouldBeCalled();
 
         $order->setShippingAddress($shippingAddress)->shouldBeCalled();
         $order->setBillingAddress($billingAddress)->shouldBeCalled();
@@ -131,6 +143,8 @@ final class AddressOrderHandlerSpec extends ObjectBehavior
                 'countryCode' => 'GB',
                 'postcode' => 'NWB',
                 'provinceName' => 'Greater London',
+                'company' => 'Detective Inc',
+                'phoneNumber' => '999',
             ]),
             Address::createFromArray([
                 'firstName' => 'John',
@@ -140,6 +154,8 @@ final class AddressOrderHandlerSpec extends ObjectBehavior
                 'countryCode' => 'GB',
                 'postcode' => 'NWB',
                 'provinceName' => 'Greater London',
+                'company' => 'Detective Corp',
+                'phoneNumber' => '111',
             ])
         ));
     }
