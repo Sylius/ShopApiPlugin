@@ -1,0 +1,23 @@
+---------------------------------------------------------------------------
+
+by mamazu at 2019-05-01T16:06:08Z
+
+@lchrusciel The repository now uses the query builder which can not be tested but I think that getting a cart from the order repository should be inside the Sylius Core. What do you think?
+
+---------------------------------------------------------------------------
+
+by lchrusciel at 2019-05-08T12:57:12Z
+
+but we need to fix tests firsts
+
+---------------------------------------------------------------------------
+
+by lchrusciel at 2019-05-08T14:22:18Z
+
+I will pick it up tomorrow
+
+---------------------------------------------------------------------------
+
+by lchrusciel at 2019-05-10T13:51:43Z
+
+Thanks, @mamazu! :tada:
