@@ -4,27 +4,30 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller\Order;
 
-use Sylius\Component\Core\Model\OrderInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\Sylius\ShopApiPlugin\Controller\JsonApiTestCase;
+use Tests\Sylius\ShopApiPlugin\Controller\Utils\OrderPlacerTrait;
 use Tests\Sylius\ShopApiPlugin\Controller\Utils\ShopUserLoginTrait;
 
 final class OrderShowApiTest extends JsonApiTestCase
 {
     use ShopUserLoginTrait;
+    use OrderPlacerTrait;
 
     /**
      * @test
      */
     public function it_shows_details_of_placed_order_of_logged_in_customer(): void
     {
-        $fixtures = $this->loadFixturesFromFiles(['customer.yml', 'country.yml', 'address.yml', 'shop.yml', 'payment.yml', 'shipping.yml', 'order.yml']);
-        $this->logInUser('oliver@queen.com', '123password');
+        $this->loadFixturesFromFiles(['customer.yml', 'country.yml', 'address.yml', 'shop.yml', 'payment.yml', 'shipping.yml']);
+        $email = 'oliver@queen.com';
+        $token = 'SDAOSLEFNWU35H3QLI5325';
 
-        /** @var OrderInterface $placedOrder */
-        $placedOrder = $fixtures['placed_order'];
+        $this->logInUser($email, '123password');
 
-        $this->client->request('GET', '/shop-api/WEB_GB/orders/' . $placedOrder->getTokenValue(), [], [], self::CONTENT_TYPE_HEADER);
+        $this->placeOrderForCustomerWithEmail($email, $token);
+
+        $this->client->request('GET', '/shop-api/WEB_GB/orders/' . $token, [], [], self::CONTENT_TYPE_HEADER);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'order/order_details_response', Response::HTTP_OK);

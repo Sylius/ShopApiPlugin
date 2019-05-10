@@ -2,4 +2,6 @@
 /vendor/
 /bin/*
 !/bin/.gitkeep
+
 .phpunit.result.cache
+/phpunit.xml

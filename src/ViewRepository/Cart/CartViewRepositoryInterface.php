@@ -8,5 +8,5 @@ use Sylius\ShopApiPlugin\View\Cart\CartSummaryView;
 
 interface CartViewRepositoryInterface
 {
-    public function getOneByToken(string $orderToken): CartSummaryView;
+    public function getOneByToken(string $token): CartSummaryView;
 }

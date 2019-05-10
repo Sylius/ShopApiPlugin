@@ -26,10 +26,10 @@ final class CartViewRepository implements CartViewRepositoryInterface
         $this->cartViewFactory = $cartViewFactory;
     }
 
-    public function getOneByToken(string $orderToken): CartSummaryView
+    public function getOneByToken(string $token): CartSummaryView
     {
-        /** @var OrderInterface $cart */
-        $cart = $this->cartRepository->findOneBy(['tokenValue' => $orderToken]);
+        /** @var OrderInterface|null $cart */
+        $cart = $this->cartRepository->findOneBy(['tokenValue' => $token, 'state' => OrderInterface::STATE_CART]);
         Assert::notNull($cart, 'Cart with given id does not exists');
 
         return $this->cartViewFactory->create($cart, $cart->getLocaleCode());

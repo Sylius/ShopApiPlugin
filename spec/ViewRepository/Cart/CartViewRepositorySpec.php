@@ -29,7 +29,7 @@ final class CartViewRepositorySpec extends ObjectBehavior
         OrderInterface $cart,
         CartSummaryView $cartView
     ): void {
-        $cartRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($cart);
+        $cartRepository->findOneBy(['tokenValue' => 'ORDERTOKEN', 'state' => 'cart'])->willReturn($cart);
         $cart->getLocaleCode()->willReturn('en_GB');
 
         $cartViewFactory->create($cart, 'en_GB')->willReturn($cartView);
