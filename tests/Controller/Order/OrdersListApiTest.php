@@ -6,19 +6,26 @@ namespace Tests\Sylius\ShopApiPlugin\Controller\Order;
 
 use Symfony\Component\HttpFoundation\Response;
 use Tests\Sylius\ShopApiPlugin\Controller\JsonApiTestCase;
+use Tests\Sylius\ShopApiPlugin\Controller\Utils\OrderPlacerTrait;
 use Tests\Sylius\ShopApiPlugin\Controller\Utils\ShopUserLoginTrait;
 
 final class OrdersListApiTest extends JsonApiTestCase
 {
     use ShopUserLoginTrait;
+    use OrderPlacerTrait;
 
     /**
      * @test
      */
     public function it_lists_only_placed_orders_of_logged_in_customer(): void
     {
-        $this->loadFixturesFromFiles(['customer.yml', 'country.yml', 'address.yml', 'shop.yml', 'payment.yml', 'shipping.yml', 'order.yml']);
-        $this->logInUser('oliver@queen.com', '123password');
+        $this->loadFixturesFromFiles(['customer.yml', 'country.yml', 'address.yml', 'shop.yml', 'payment.yml', 'shipping.yml']);
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+        $email = 'oliver@queen.com';
+
+        $this->logInUser($email, '123password');
+
+        $this->placeOrderForCustomerWithEmail($email, $token);
 
         $this->client->request('GET', '/shop-api/WEB_GB/orders', [], [], self::CONTENT_TYPE_HEADER);
         $response = $this->client->getResponse();

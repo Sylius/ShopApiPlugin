@@ -4,18 +4,19 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller\Cart;
 
-use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\ShopApiPlugin\Command\Cart\AddCoupon;
 use Sylius\ShopApiPlugin\Command\Cart\PickupCart;
 use Sylius\ShopApiPlugin\Command\Cart\PutSimpleItemToCart;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Tests\Sylius\ShopApiPlugin\Controller\JsonApiTestCase;
+use Tests\Sylius\ShopApiPlugin\Controller\Utils\OrderPlacerTrait;
 use Tests\Sylius\ShopApiPlugin\Controller\Utils\ShopUserLoginTrait;
 
 final class CartSummarizeApiTest extends JsonApiTestCase
 {
     use ShopUserLoginTrait;
+    use OrderPlacerTrait;
 
     /**
      * @test
@@ -54,13 +55,15 @@ final class CartSummarizeApiTest extends JsonApiTestCase
      */
     public function it_returns_not_found_exception_if_order_is_not_in_state_cart(): void
     {
-        $fixtures = $this->loadFixturesFromFiles(['customer.yml', 'country.yml', 'address.yml', 'shop.yml', 'payment.yml', 'shipping.yml', 'order.yml']);
-        $this->logInUser('oliver@queen.com', '123password');
+        $this->loadFixturesFromFiles(['customer.yml', 'country.yml', 'address.yml', 'shop.yml', 'payment.yml', 'shipping.yml']);
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+        $email = 'oliver@queen.com';
 
-        /** @var OrderInterface $placedOrder */
-        $placedOrder = $fixtures['placed_order'];
+        $this->logInUser($email, '123password');
 
-        $this->client->request('GET', '/shop-api/WEB_GB/carts/' . $placedOrder->getTokenValue(), [], [], self::CONTENT_TYPE_HEADER);
+        $this->placeOrderForCustomerWithEmail($email, $token);
+
+        $this->client->request('GET', '/shop-api/WEB_GB/carts/' . $token, [], [], self::CONTENT_TYPE_HEADER);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/cart_has_not_been_found_response', Response::HTTP_NOT_FOUND);

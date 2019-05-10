@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Sylius\ShopApiPlugin\ViewRepository\Cart;
 
 use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\Component\Core\OrderCheckoutStates;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\ShopApiPlugin\Factory\Cart\CartViewFactoryInterface;
 use Sylius\ShopApiPlugin\View\Cart\CartSummaryView;
