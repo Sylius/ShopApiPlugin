@@ -5,6 +5,7 @@
         "locale": "en_GB",
         "checkoutState": "completed",
         "checkoutCompletedAt": "@string@.isDateTime()",
+        "paymentState": "awaiting_payment",
         "items": [
             {
                 "id": @integer@,
