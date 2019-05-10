@@ -71,7 +71,7 @@
             "method": {
                 "code": "PBC",
                 "name": "Pay by check",
-                "description": "Cum culpa rem aut rerum. Est rem dicta voluptas fuga.",
+                "description": "@string@",
                 "instructions": "Please put the money in the bag!"
             },
             "price": {
@@ -86,7 +86,7 @@
             "method": {
                 "code": "DHL",
                 "name": "DHL",
-                "description": "Sint autem inventore aut officia aut aut blanditiis. Ducimus eos odit amet et est ut eum. Molestiae quidem ut sunt et quidem.",
+                "description": "@string@",
                 "price": {
                     "current": 1500,
                     "currency": "GBP"
