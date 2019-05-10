@@ -9,6 +9,7 @@ use FOS\RestBundle\View\ViewHandlerInterface;
 use JMS\Serializer\Exclusion\GroupsExclusionStrategy;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\ShopApiPlugin\Provider\LoggedInShopUserProviderInterface;
+use Sylius\ShopApiPlugin\View\Order\PlacedOrderView;
 use Sylius\ShopApiPlugin\ViewRepository\Order\PlacedOrderViewRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -46,17 +47,10 @@ final class ShowOrderDetailsAction
         }
 
         try {
-            if (null !== $user) {
-                $order = $this
-                    ->placedOrderQuery
-                    ->getOneCompletedByCustomerEmailAndToken($user->getEmail(), (string) $request->attributes->get('tokenValue'))
-                ;
-            } else {
-                $order = $this
-                    ->placedOrderQuery
-                    ->getOneCompletedByGuestAndToken((string) $request->attributes->get('tokenValue'))
-                ;
-            }
+            $order = $this->getPlacedOrderView(
+                (string) $request->attributes->get('tokenValue'),
+                $user
+            );
         } catch (\InvalidArgumentException $exception) {
             throw new NotFoundHttpException($exception->getMessage());
         }
@@ -65,5 +59,18 @@ final class ShowOrderDetailsAction
         $view->getContext()->setGroups($groups);
 
         return $this->viewHandler->handle($view);
+    }
+
+    private function getPlacedOrderView(string $token, ShopUserInterface $user = null): PlacedOrderView
+    {
+        if (null !== $user) {
+            return $this
+                ->placedOrderQuery
+                ->getOneCompletedByCustomerEmailAndToken($user->getEmail(), $token);
+        }
+
+        return $this
+            ->placedOrderQuery
+            ->getOneCompletedByGuestAndToken($token);
     }
 }
