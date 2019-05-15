@@ -13,8 +13,18 @@ shop_api:
 
 * Decorate the factory like so:
 ```php
-class CartViewFactory implements Sylius\ShopApiPlugin\Factory\Cart\CartSummaryFactoryInterface
+<?php
+declare(strict_types=1);
+
+namespace Vendor\ShopApiPlugin\Factory\Cart;
+
+use Sylius\ShopApiPlugin\Factory\Cart\CartSummaryFactoryInterface;
+
+class CartSummaryViewFactory implements CartSummaryFactoryInterface
 {
+   /** @var CartSummaryFactoryInterface */
+   private $baseCartFactory;
+
     public function __construct(CartSummaryFactoryInterface $cartSummaryViewFactory)
     {
         $this->baseCartFactory = $cartSummaryViewFactory;
@@ -22,16 +32,17 @@ class CartViewFactory implements Sylius\ShopApiPlugin\Factory\Cart\CartSummaryFa
 
     public function create(OrderItem $cart, string $locale): CartSummaryView
     {
-        $cart = $this->baseCartFactory->create($cart, $locale);
+        /** @var \Vendor\ShopApiPlugin\View\Cart\CartSummaryView $cartView */
+        $cartView = $this->baseCartFactory->create($cart, $locale);
 
-        $cart->someProperty = $oder->getSomeProperty();
+        $cartView->someProperty = $cart->getSomePropertyView();
 
         return $cart;
     }
 }
 ```
 
-## Extending adding a request
+## Extending / adding a request
 If you want to add an argument to the route or the request then you can 
 * Extend the `Request` and add the new property and fill it in the constructor
 * Overwrite the controller to create a different request
