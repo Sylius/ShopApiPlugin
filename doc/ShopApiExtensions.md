@@ -1,7 +1,7 @@
 # Extending the API
 If you want to extend the API functionality, the methodology to use depends on the part that needs to be changed.
 
-## Extending an existing view
+## Extending the factories
 If you don't want to change the underlying logic of the ShopApi and only want to extend the view by some properties, then the following steps can be taken:
 * Create a new `View` that extends the old one (eg. `\Vendor\ShopApiPlugin\View\Cart\CartSummaryView extends Sylius\ShopApi\View\Cart\CartSummaryView`)
 * Change the `View` class in the configuration of the plugin:
@@ -42,9 +42,20 @@ class CartSummaryViewFactory implements CartSummaryFactoryInterface
 }
 ```
 
-## Extending / adding a request
-If you want to add an argument to the route or the request then you can 
-* Extend the `Request` and add the new property and fill it in the constructor
-* Overwrite the controller to create a different request
-* Create a command that extends the old one and return it in the `getCommand` of the request
-* If the logic of the handler needs to change as well, then register a different handler for the command otherwise register the ShopApi Handler for the new command to execute the old logic.
+If you have customized the entity that should be used in the factory, for example in this case the `OrderItem` then you can do something like the following:
+
+```php
+    public function create(OrderItem $cart, string $locale): CartSummaryView
+    {
+        /** @var \Vendor\ShopApiPlugin\View\Cart\CartSummaryView $cartView */
+        $cartView = $this->baseCartFactory->create($cart, $locale);
+
+        if ($cart instanceof \Vendor\Entity\OrderItem) {
+            $cartView->someProperty = $cart->getSomePropertyView();
+        }
+
+        return $cart;
+    }
+```
+
+This will make it backwards compatible with Sylius and the Typechecker will also approve on this.
