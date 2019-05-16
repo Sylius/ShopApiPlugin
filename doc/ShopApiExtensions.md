@@ -30,7 +30,7 @@ class CartSummaryViewFactory implements CartSummaryFactoryInterface
         $this->baseCartFactory = $cartSummaryViewFactory;
     }
 
-    public function create(OrderItem $cart, string $locale): CartSummaryView
+    public function create(OrderItem $orderItem, string $locale): CartSummaryView
     {
         /** @var \Vendor\ShopApiPlugin\View\Cart\CartSummaryView $cartView */
         $cartView = $this->baseCartFactory->create($cart, $locale);
@@ -45,7 +45,7 @@ class CartSummaryViewFactory implements CartSummaryFactoryInterface
 If you have customized the entity that should be used in the factory, for example in this case the `OrderItem` then you can do something like the following:
 
 ```php
-    public function create(OrderItem $cart, string $locale): CartSummaryView
+    public function create(OrderItem $orderItem, string $locale): CartSummaryView
     {
         /** @var \Vendor\ShopApiPlugin\View\Cart\CartSummaryView $cartView */
         $cartView = $this->baseCartFactory->create($cart, $locale);
