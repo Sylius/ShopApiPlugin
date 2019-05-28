@@ -607,9 +607,9 @@ Sylius\Component\Product\Model\ProductAttributeValue:
         subject: "@mug"
         attribute: "@mug_material"
         localeCode: "en_GB"
-        json: ['1']
+        value: ['1']
     de_de_mug_holiday_material_value:
         subject: "@mug"
         attribute: "@mug_material"
         localeCode: "de_DE"
-        json: ['1']
+        value: ['1']
