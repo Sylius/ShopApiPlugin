@@ -45,14 +45,12 @@ final class ProductAttributeValueViewFactory implements ProductAttributeValueVie
     {
         $configuration = $productAttributeValue->getAttribute()->getConfiguration();
 
-        if (!isset($configuration['choices'])
-            || count($configuration['choices']) === 0
-            || count($productAttributeValue->getValue()) === 0
-            || !isset($configuration['choices'][$productAttributeValue->getValue()[0]])
-        ) {
+        $choices = $configuration['choices'] ?? null;
+        $value = $productAttributeValue->getValue()[0] ?? null;
+        if($choices === null || $value === null) {
             return null;
         }
 
-        return $configuration['choices'][$productAttributeValue->getValue()[0]];
+        return $choices[$value];
     }
 }
