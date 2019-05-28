@@ -47,7 +47,7 @@ final class ProductAttributeValueViewFactory implements ProductAttributeValueVie
 
         $choices = $configuration['choices'] ?? null;
         $value = $productAttributeValue->getValue()[0] ?? null;
-        if($choices === null || $value === null) {
+        if ($choices === null || $value === null) {
             return null;
         }
 
