@@ -25,7 +25,12 @@ final class ProductAttributeValueViewFactory implements ProductAttributeValueVie
         $productAttributeValueView = new $this->productAttributeValueViewClass();
 
         $productAttributeValueView->code = $productAttributeValue->getCode();
-        $productAttributeValueView->value = $productAttributeValue->getValue();
+
+        if ($productAttributeValue->getType() === 'select') {
+            $productAttributeValueView->value = $this->resolveSelectAttribute($productAttributeValue);
+        } else {
+            $productAttributeValueView->value = $productAttributeValue->getValue();
+        }
 
         $productAttribute = $productAttributeValue->getAttribute();
 
@@ -34,5 +39,18 @@ final class ProductAttributeValueViewFactory implements ProductAttributeValueVie
         $productAttributeValueView->name = $productAttributeTranslation->getName();
 
         return $productAttributeValueView;
+    }
+
+    private function resolveSelectAttribute(ProductAttributeValueInterface $productAttributeValue)
+    {
+        $configuration = $productAttributeValue->getAttribute()->getConfiguration();
+
+        $choices = $configuration['choices'] ?? null;
+        $value = $productAttributeValue->getValue()[0] ?? null;
+        if ($choices === null || $value === null) {
+            return null;
+        }
+
+        return $choices[$value];
     }
 }

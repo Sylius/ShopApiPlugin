@@ -581,8 +581,13 @@ Sylius\Component\Product\Model\ProductAttribute:
         fallbackLocale: "en_GB"
         currentLocale: "en_GB"
         code: "MUG_MATERIAL_CODE"
-        type: "text"
-        storage_type: "text"
+        type: "select"
+        storage_type: "json"
+        configuration:
+            required: true
+            choices:
+                1: Wood
+                2: Porcelain
         translations:
             - "@mug_material_en_gb_translation"
             - "@mug_material_de_de_translation"
@@ -602,9 +607,9 @@ Sylius\Component\Product\Model\ProductAttributeValue:
         subject: "@mug"
         attribute: "@mug_material"
         localeCode: "en_GB"
-        value: "Wood"
+        value: ['1']
     de_de_mug_holiday_material_value:
         subject: "@mug"
         attribute: "@mug_material"
         localeCode: "de_DE"
-        value: "Holz"
+        value: ['1']
