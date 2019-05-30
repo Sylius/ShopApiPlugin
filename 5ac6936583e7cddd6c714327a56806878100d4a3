@@ -1,0 +1,82 @@
+---------------------------------------------------------------------------
+
+by lchrusciel at 2018-03-09T20:13:37Z
+
+@Zales0123 @GSadee can you check if we need to cover anything else or is it good2go?
+
+And of course, @gorkalaucirica thanks for contributing! :)
+
+---------------------------------------------------------------------------
+
+by gorkalaucirica at 2018-03-10T11:46:52Z
+
+@lchrusciel The test was incorrect. `$productAttributeValue->getValue()` returns an array instead of an string.
+
+In case the PR needs more changes just let me know
+
+---------------------------------------------------------------------------
+
+by lchrusciel at 2018-03-10T12:41:43Z
+
+If you could provide one integration test with PHPUnit that would be awesome, but I'm aware that it won't be trivial. I would like to have a confirmation form my colleagues, and we can merge it.
+
+---------------------------------------------------------------------------
+
+by gorkalaucirica at 2018-03-10T12:50:16Z
+
+@lchrusciel I've been checking integration tests, but I need some time to get the whole picture.
+
+If you consider merging it I can try to add coverage to this use case.
+
+---------------------------------------------------------------------------
+
+by Zales0123 at 2018-03-11T21:45:34Z
+
+It's a nice feature, so I'd be ok with merging it, but also keeping in mind (and event better on issues list) to cover it better with PHPUnit test as @lchrusciel have already suggested. Anyway, good job 👍 ;)
+
+---------------------------------------------------------------------------
+
+by lchrusciel at 2018-03-12T07:34:00Z
+
+We have two vote's for merging, so I guess we will merge it. But, as was mentioned, we should have an additional unit test. @gorkalaucirica will you give it a try?
+
+---------------------------------------------------------------------------
+
+by gorkalaucirica at 2018-03-12T18:47:58Z
+
+@lchrusciel @Zales0123 Integration tests added, it was easier than expected 💪 .
+
+Those tests are enough?
+
+I had to change German translations, select choices are not translatable.
+
+---------------------------------------------------------------------------
+
+by lchrusciel at 2018-03-26T06:29:59Z
+
+@gorkalaucirica I will iterate one more time over this PR in the nearest future. But first of all, I need to publish a stable release of this plugin
+
+---------------------------------------------------------------------------
+
+by gorkalaucirica at 2018-03-26T07:14:14Z
+
+@lchrusciel Are you releasing another beta or 1.0.0?
+
+This is a BC break in the returned values from the API, so if it's the later will have to wait until 2.0.
+
+---------------------------------------------------------------------------
+
+by mamazu at 2019-05-28T16:01:03Z
+
+Thanks for contributing to the ShopApiPlugin and welcome to the community.
+
+The base of this pull-request was changed, you need fetch and reset your local branch
+if you want to add new commits to this pull request. Reset before you pull, else commits
+may become messed-up. Unless you added new commits (to this branch) locally that you did not push yet,
+execute git fetch origin && git reset "feature/product-attribute-view-select" to update your local branch. Feel free to ask for assistance when you get stuck. +1
+
+---------------------------------------------------------------------------
+
+by lchrusciel at 2019-05-30T11:57:09Z
+
+Thanks, Gorka! :1st_place_medal:
