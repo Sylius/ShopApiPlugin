@@ -3,13 +3,13 @@ language: php
 jobs:
     include:
         -   php: '7.2'
-            env: SYLIUS_VERSION=1.3.*
+            env: SYLIUS_VERSION=1.4.*
         -   php: '7.2'
+            env: SYLIUS_VERSION=1.5.*
+        -   php: '7.3'
             env: SYLIUS_VERSION=1.4.*
         -   php: '7.3'
-            env: SYLIUS_VERSION=1.3.*
-        -   php: '7.3'
-            env: SYLIUS_VERSION=1.4.* ANALYSE=y
+            env: SYLIUS_VERSION=1.5.* ANALYSE=y
 
 cache:
     directories:
