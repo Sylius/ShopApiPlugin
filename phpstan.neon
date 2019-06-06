@@ -8,3 +8,4 @@ parameters:
 
     ignoreErrors:
         - /^Access to an undefined property Symfony\\Component\\Validator\\Constraint::\$message\.$/
+        - '/^Method Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface::dispatch\(\) invoked with 2 parameters, 1 required\.$/'
