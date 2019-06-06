@@ -11,6 +11,7 @@ use Sylius\ShopApiPlugin\Exception\WrongUserException;
 use Sylius\ShopApiPlugin\Provider\LoggedInShopUserProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 final class CompleteOrderAction
@@ -48,13 +49,17 @@ final class CompleteOrderAction
                     $request->request->get('notes')
                 )
             );
-        } catch (WrongUserException $notLoggedInException) {
-            return $this->viewHandler->handle(
-                View::create(
-                    'You need to be logged in with the same user that wants to complete the order',
-                    Response::HTTP_UNAUTHORIZED
-                )
-            );
+        } catch (HandlerFailedException $handlerFailedException) {
+            $previousException = $handlerFailedException->getPrevious();
+
+            if ($previousException instanceof WrongUserException) {
+                return $this->viewHandler->handle(
+                    View::create(
+                        'You need to be logged in with the same user that wants to complete the order',
+                        Response::HTTP_UNAUTHORIZED
+                    )
+                );
+            }
         }
 
         return $this->viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));

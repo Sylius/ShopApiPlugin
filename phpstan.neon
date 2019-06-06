@@ -2,9 +2,11 @@ includes:
     - vendor/phpstan/phpstan-webmozart-assert/extension.neon
 
 parameters:
+    reportUnmatchedIgnoredErrors: false
     excludes_analyse:
         # Makes PHPStan crash
         - src/DependencyInjection/Configuration.php
 
     ignoreErrors:
         - /^Access to an undefined property Symfony\\Component\\Validator\\Constraint::\$message\.$/
+        - /^Method Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface::dispatch.+$/
