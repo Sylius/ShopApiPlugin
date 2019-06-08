@@ -58,7 +58,7 @@ final class ProductDetailsViewRepository implements ProductDetailsViewRepository
         $product = $this->productRepository->findOneByCode($productCode);
 
         Assert::notNull($product, sprintf('Product with code %s has not been found.', $productCode));
-        Assert::true($product->hasChannel($channel), sprintf('Channel with code %s has not been found.', $channelCode));
+        Assert::true($product->hasChannel($channel), sprintf('Product with code %s has not been found for channel %s.', $productCode, $channelCode));
 
         return $this->productViewFactory->create($product, $channel, $localeCode);
     }
