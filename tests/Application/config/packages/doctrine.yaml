@@ -11,4 +11,4 @@ doctrine:
         server_version: '5.7'
         charset: UTF8
 
-        url: '%env(resolve:DATABASE_URL)%'
+        url: 'mysql://root:rootroot@127.0.0.1/sylius_shop_api_%kernel.environment%?serverVersion=5.5'

@@ -1,15 +1,3 @@
-sylius_shop_api_product_show_details_by_code:
-    path: /products/by-code/{code}
-    methods: [GET]
-    defaults:
-        _controller: sylius.shop_api_plugin.controller.product.show_product_details_by_code_action
-
-sylius_shop_api_product_show_catalog_by_code:
-    path: /taxon-products/by-code/{taxonCode}
-    methods: [GET]
-    defaults:
-        _controller: sylius.shop_api_plugin.controller.product.show_product_catalog_by_taxon_code_action
-
 sylius_shop_api_product_show_reviews_by_code:
     path: /products/by-code/{code}/reviews
     methods: [GET]
@@ -21,3 +9,15 @@ sylius_shop_api_add_product_review_by_code:
     methods: [POST]
     defaults:
         _controller: sylius.shop_api_plugin.controller.product.add_review_by_code_action
+
+sylius_shop_api_product_show_details_by_code:
+    path: /products/by-code/{code}
+    methods: [GET]
+    defaults:
+        _controller: sylius.shop_api_plugin.controller.product.show_product_details_by_code_action
+
+sylius_shop_api_product_show_catalog_by_code:
+    path: /taxon-products/by-code/{taxonCode}
+    methods: [GET]
+    defaults:
+        _controller: sylius.shop_api_plugin.controller.product.show_product_catalog_by_taxon_code_action
