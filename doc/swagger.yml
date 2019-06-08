@@ -559,7 +559,7 @@ paths:
                     description: "Show a product with the given code."
                     schema:
                         $ref: "#/definitions/ProductDetails"
-    /{channelCode}/product/by-slug/{slug}/reviews:
+    /{channelCode}/products/by-slug/{slug}/reviews:
         parameters:
             -   $ref: "#/parameters/ChannelCode"
             -   name: "slug"

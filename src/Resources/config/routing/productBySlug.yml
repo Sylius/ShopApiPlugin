@@ -15,7 +15,7 @@ sylius_shop_api_product_show_catalog_by_slug:
         taxonSlug: .+
 
 sylius_shop_api_product_show_reviews_by_slug:
-    path: /product/by-slug/{slug}/reviews
+    path: /products/by-slug/{slug}/reviews
     methods: [GET]
     defaults:
         _controller: sylius.shop_api_plugin.controller.product.show_product_reviews_by_slug_action
@@ -23,7 +23,7 @@ sylius_shop_api_product_show_reviews_by_slug:
         slug: .+
 
 sylius_shop_api_add_product_review_by_slug:
-    path: /product/by-slug/{slug}/reviews
+    path: /products/by-slug/{slug}/reviews
     methods: [POST]
     defaults:
         _controller: sylius.shop_api_plugin.controller.product.add_review_by_slug_action
