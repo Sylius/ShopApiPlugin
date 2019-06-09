@@ -13,14 +13,15 @@
 
 * The product routes have been changed:
 
-    | Old Route                            | New route                            |
-    |:-------------------------------------|:-------------------------------------|
-    | `products/{code}`                    | `products/by-code/{code}`            |
-    | `products-by-slug/{slug}`            | `products/by-slug/{slug}`            |
-    | `products/{code}/reviews`            | `products/by-code/{code}/reviews`    |
-    | `products-reviews-by-slug/{slug}`    | `products/by-slug/{slug}/reviews`    |
-    | `taxon-products/{code}`              | `taxon-products/by-code/{taxonCode}` |
-    | `taxon-products-by-slug/{taxonSlug}` | `taxon-products/by-slug/{taxonSlug}` |
+    | Old Route                             | New route                              |
+    |:--------------------------------------|:---------------------------------------|
+    | `products/{code}`                     | `products/by-code/{code}`              |
+    | `products-by-slug/{slug}`             | `products/by-slug/{slug}`              |
+    | `products/{code}/reviews`             | `products/by-code/{code}/reviews`      |
+    | `products-reviews-by-slug/{slug}`     | `products/by-slug/{slug}/reviews`      |
+    | `taxon-products/{code}`               | `taxon-products/by-code/{taxonCode}`   |
+    | `taxon-products-by-slug/{taxonSlug}`  | `taxon-products/by-slug/{taxonSlug}`   |
+    | `product/by-slug/{slug}/reviews`      | `products/by-slug/{slug}/reviews`      |
 
 # UPGRADE FROM 1.0.0-beta.17 to 1.0.0-beta.18
 
