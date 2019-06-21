@@ -88,7 +88,7 @@ EOT;
         $this->client->request('PUT', sprintf('/shop-api/WEB_GB/address-book/%s', $address->getId()), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
-        $this->assertResponseCode($response, Response::HTTP_INTERNAL_SERVER_ERROR);
+        $this->assertResponseCode($response, Response::HTTP_BAD_REQUEST);
     }
 
     /**

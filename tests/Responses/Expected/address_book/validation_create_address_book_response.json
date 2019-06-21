@@ -9,6 +9,7 @@
       "@string@"
     ],
     "countryCode": [
+      "@string@",
       "@string@"
     ],
     "street": [

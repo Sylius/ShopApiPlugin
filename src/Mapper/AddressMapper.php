@@ -49,7 +49,6 @@ final class AddressMapper implements AddressMapperInterface
         $address->setCompany($addressData->company());
         $address->setStreet($addressData->street());
         $address->setCountryCode($addressData->countryCode());
-        $address->setProvinceName($addressData->provinceName());
         $address->setCity($addressData->city());
         $address->setPostcode($addressData->postcode());
         $address->setPhoneNumber($addressData->phoneNumber());
@@ -58,6 +57,8 @@ final class AddressMapper implements AddressMapperInterface
             $province = $this->checkProvinceExists($addressData->provinceCode());
             $address->setProvinceCode($province->getCode());
             $address->setProvinceName($province->getName());
+        } else {
+            $address->setProvinceName($addressData->provinceName());
         }
         return $address;
     }

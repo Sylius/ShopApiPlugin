@@ -22,5 +22,15 @@
             </constraint>
             <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\CartExists" />
         </property>
+
+        <property name="shippingAddress">
+            <constraint name="NotNull" />
+            <constraint name="Valid" />
+        </property>
+
+        <property name="billingAddress">
+            <constraint name="NotNull" />
+            <constraint name="Valid" />
+        </property>
     </class>
 </constraint-mapping>

@@ -22,7 +22,7 @@ final class CheckoutSummarizeApiTest extends JsonApiTestCase
      */
     public function it_shows_an_order_with_same_shipping_and_billing_address_with_province(): void
     {
-        $this->loadFixturesFromFiles(['shop.yml']);
+        $this->loadFixturesFromFiles(['shop.yml', 'country.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -61,7 +61,7 @@ EOT;
      */
     public function it_shows_an_order_with_different_shipping_and_billing_address_with_province(): void
     {
-        $this->loadFixturesFromFiles(['shop.yml']);
+        $this->loadFixturesFromFiles(['shop.yml', 'country.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 

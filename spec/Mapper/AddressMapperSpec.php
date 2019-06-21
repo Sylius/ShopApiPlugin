@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Mapper;
 
-use const http\Client\Curl\Versions\ARES;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Sylius\Component\Addressing\Model\CountryInterface;
@@ -164,7 +163,7 @@ class AddressMapperSpec extends ObjectBehavior
         ])]);
     }
 
-    function it_does_not_set_province_info_if_province_code_is_empty(
+    function it_does_not_set_province_code_if_province_is_empty(
         RepositoryInterface $countryRepository,
         RepositoryInterface $provinceRepository,
         CountryInterface $country,
@@ -186,7 +185,7 @@ class AddressMapperSpec extends ObjectBehavior
 
         $provinceRepository->findOneBy(Argument::any())->shouldNotBeCalled();
         $address->setProvinceCode(Argument::any())->shouldNotBeCalled();
-        $address->setProvinceName(Argument::any())->shouldNotBeCalled();
+        $address->setProvinceName(null)->shouldBeCalled();
 
         $this->map(Address::createFromArray([
             'firstName' => 'Sherlock',
