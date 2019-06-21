@@ -77,7 +77,7 @@ final class AddressOrderHandlerSpec extends ObjectBehavior
         $stateMachine->can('address')->willReturn(true);
         $stateMachine->apply('address')->shouldBeCalled();
 
-        $this(new AddressShipmentCommand( 'ORDERTOKEN', $shippingAddressData, $billingAddressData));
+        $this(new AddressShipmentCommand('ORDERTOKEN', $shippingAddressData, $billingAddressData));
     }
 
     function it_does_not_create_new_addresses_for_already_addressed_order(
@@ -110,15 +110,15 @@ final class AddressOrderHandlerSpec extends ObjectBehavior
         $addressRepository->add($shippingAddress)->shouldNotBeCalled();
 
         $billingAddressData = Address::createFromArray([
-            'firstName'    => 'John',
-            'lastName'     => 'Watson',
-            'city'         => 'London City',
-            'street'       => 'Baker Street 21b',
-            'countryCode'  => 'GB',
-            'postcode'     => 'NWB',
+            'firstName' => 'John',
+            'lastName' => 'Watson',
+            'city' => 'London City',
+            'street' => 'Baker Street 21b',
+            'countryCode' => 'GB',
+            'postcode' => 'NWB',
             'provinceName' => 'Greater London',
-            'company'      => 'Detective Corp',
-            'phoneNumber'  => '111',
+            'company' => 'Detective Corp',
+            'phoneNumber' => '111',
         ]);
         $addressMapper->mapExisting($billingAddress, $billingAddressData)->willReturn($billingAddress);
         $addressRepository->add($billingAddress)->shouldNotBeCalled();
@@ -130,7 +130,7 @@ final class AddressOrderHandlerSpec extends ObjectBehavior
         $stateMachine->can('address')->willReturn(true);
         $stateMachine->apply('address')->shouldBeCalled();
 
-        $this(new AddressShipmentCommand('ORDERTOKEN', $shippingAddressData,$billingAddressData));
+        $this(new AddressShipmentCommand('ORDERTOKEN', $shippingAddressData, $billingAddressData));
     }
 
     function it_throws_an_exception_if_order_does_not_exist(

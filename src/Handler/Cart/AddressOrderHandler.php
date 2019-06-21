@@ -63,11 +63,13 @@ final class AddressOrderHandler
 
     public function mapAddress(?AddressInterface $original, Address $address): AddressInterface
     {
-        if($original === null) {
+        if ($original === null) {
             $address = $this->addressMapper->map($address);
             $this->addressRepository->add($address);
+
             return $address;
         }
+
         return $this->addressMapper->mapExisting($original, $address);
     }
 }

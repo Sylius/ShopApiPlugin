@@ -5,14 +5,10 @@ declare(strict_types=1);
 namespace spec\Sylius\ShopApiPlugin\Handler\AddressBook;
 
 use PhpSpec\ObjectBehavior;
-use Sylius\Component\Addressing\Model\CountryInterface;
-use Sylius\Component\Addressing\Model\ProvinceInterface;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
-use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\ShopApiPlugin\Command\AddressBook\CreateAddress;
-use Sylius\ShopApiPlugin\Mapper\AddressMapper;
 use Sylius\ShopApiPlugin\Mapper\AddressMapperInterface;
 use Sylius\ShopApiPlugin\Model\Address;
 
@@ -57,6 +53,4 @@ final class CreateAddressHandlerSpec extends ObjectBehavior
 
         $this(new CreateAddress($addressData, 'user@email.com'));
     }
-
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Mapper;
@@ -26,8 +27,8 @@ final class AddressMapper implements AddressMapperInterface
         RepositoryInterface $countryRepository,
         RepositoryInterface $provinceRepository
     ) {
-        $this->addressFactory     = $addressFactory;
-        $this->countryRepository  = $countryRepository;
+        $this->addressFactory = $addressFactory;
+        $this->countryRepository = $countryRepository;
         $this->provinceRepository = $provinceRepository;
     }
 
@@ -60,6 +61,7 @@ final class AddressMapper implements AddressMapperInterface
         } else {
             $address->setProvinceName($addressData->provinceName());
         }
+
         return $address;
     }
 

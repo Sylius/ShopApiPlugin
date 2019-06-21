@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Handler\AddressBook;
 
-use Sylius\Component\Addressing\Model\ProvinceInterface;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\ShopUserInterface;
-use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\ShopApiPlugin\Command\AddressBook\UpdateAddress;
 use Sylius\ShopApiPlugin\Mapper\AddressMapperInterface;
@@ -55,5 +53,4 @@ final class UpdateAddressBookAddressHandler
         Assert::notNull($address->getCustomer(), 'Address is not associated with any user');
         Assert::eq($address->getCustomer(), $user->getCustomer(), 'Current user is not owner of this address');
     }
-
 }

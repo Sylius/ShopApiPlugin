@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Mapper;
@@ -18,8 +19,7 @@ class AddressMapperSpec extends ObjectBehavior
         FactoryInterface $addressFactory,
         RepositoryInterface $countryRepository,
         RepositoryInterface $provinceRepository
-    ): void
-    {
+    ): void {
         $this->beConstructedWith($addressFactory, $countryRepository, $provinceRepository);
     }
 
@@ -198,5 +198,4 @@ class AddressMapperSpec extends ObjectBehavior
             'company' => 'Sherlock ltd.',
         ]));
     }
-
 }

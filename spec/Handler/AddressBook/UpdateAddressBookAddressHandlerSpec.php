@@ -6,13 +6,9 @@ namespace spec\Sylius\ShopApiPlugin\Handler\AddressBook;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use Proxies\__CG__\Sylius\Component\Core\Model\Customer;
-use Sylius\Component\Addressing\Model\CountryInterface;
-use Sylius\Component\Addressing\Model\ProvinceInterface;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\ShopUserInterface;
-use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Sylius\ShopApiPlugin\Command\AddressBook\UpdateAddress;
 use Sylius\ShopApiPlugin\Mapper\AddressMapperInterface;
@@ -50,16 +46,16 @@ final class UpdateAddressBookAddressHandlerSpec extends ObjectBehavior
         $shopUser->getId()->willReturn('USER_ID');
 
         $addressData = Address::createFromArray([
-            'id'           => 'ADDRESS_ID',
-            'firstName'    => 'Sherlock',
-            'lastName'     => 'Holmes',
-            'city'         => 'London',
-            'street'       => 'Baker Street 221b',
-            'countryCode'  => 'GB',
-            'postcode'     => 'NWB',
+            'id' => 'ADDRESS_ID',
+            'firstName' => 'Sherlock',
+            'lastName' => 'Holmes',
+            'city' => 'London',
+            'street' => 'Baker Street 221b',
+            'countryCode' => 'GB',
+            'postcode' => 'NWB',
             'provinceCode' => 'GB-GL',
-            'company'      => 'Sherlock ltd.',
-            'phoneNumber'  => '0912538092',
+            'company' => 'Sherlock ltd.',
+            'phoneNumber' => '0912538092',
         ]);
         $addressMapper->mapExisting($address, $addressData)->willReturn($address);
 
