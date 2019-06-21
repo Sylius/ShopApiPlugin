@@ -18,7 +18,7 @@ final class CheckoutAddressApiTest extends JsonApiTestCase
      */
     public function it_does_not_allow_to_address_non_existing_order(): void
     {
-        $this->loadFixturesFromFiles(['shop.yml']);
+        $this->loadFixturesFromFiles(['shop.yml', 'country.yml']);
 
         $data =
 <<<EOT
@@ -45,7 +45,7 @@ EOT;
      */
     public function it_does_not_allow_to_address_cart_in_non_existent_channel(): void
     {
-        $this->loadFixturesFromFiles(['shop.yml']);
+        $this->loadFixturesFromFiles(['shop.yml', 'country.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -80,7 +80,7 @@ EOT;
      */
     public function it_allows_to_address_order_with_the_same_shipping_and_billing_address_with_province(): void
     {
-        $this->loadFixturesFromFiles(['shop.yml']);
+        $this->loadFixturesFromFiles(['shop.yml', 'country.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -115,7 +115,7 @@ EOT;
      */
     public function it_allows_to_address_order_with_the_same_shipping_and_billing_address_without_province(): void
     {
-        $this->loadFixturesFromFiles(['shop.yml']);
+        $this->loadFixturesFromFiles(['shop.yml', 'country.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -149,7 +149,7 @@ EOT;
      */
     public function it_allows_to_address_order_with_different_shipping_and_billing_address(): void
     {
-        $this->loadFixturesFromFiles(['shop.yml']);
+        $this->loadFixturesFromFiles(['shop.yml', 'country.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
@@ -193,7 +193,7 @@ EOT;
      */
     public function changing_address_does_not_fill_up_database()
     {
-        $this->loadFixturesFromFiles(['shop.yml']);
+        $this->loadFixturesFromFiles(['shop.yml', 'country.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 

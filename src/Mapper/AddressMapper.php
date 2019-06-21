@@ -49,6 +49,7 @@ final class AddressMapper implements AddressMapperInterface
         $address->setCompany($addressData->company());
         $address->setStreet($addressData->street());
         $address->setCountryCode($addressData->countryCode());
+        $address->setProvinceName($addressData->provinceName());
         $address->setCity($addressData->city());
         $address->setPostcode($addressData->postcode());
         $address->setPhoneNumber($addressData->phoneNumber());

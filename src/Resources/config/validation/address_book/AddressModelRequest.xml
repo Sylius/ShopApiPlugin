@@ -28,6 +28,7 @@
             <constraint name="NotBlank">
                 <option name="message">sylius.address.country.not_blank</option>
             </constraint>
+            <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\CountryExists" />
         </property>
         <property name="street">
             <constraint name="NotBlank">
