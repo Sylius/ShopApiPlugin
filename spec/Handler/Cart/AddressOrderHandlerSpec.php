@@ -10,6 +10,7 @@ use SM\StateMachine\StateMachineInterface;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\OrderCheckoutTransitions;
+use Sylius\Component\Core\Repository\AddressRepositoryInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\ShopApiPlugin\Command\Cart\AddressOrder as AddressShipmentCommand;
 use Sylius\ShopApiPlugin\Mapper\AddressMapperInterface;
@@ -20,13 +21,15 @@ final class AddressOrderHandlerSpec extends ObjectBehavior
     function let(
         OrderRepositoryInterface $orderRepository,
         AddressMapperInterface $addressMapper,
+        AddressRepositoryInterface $addressRepository,
         FactoryInterface $stateMachineFactory
     ): void {
-        $this->beConstructedWith($orderRepository, $addressMapper, $stateMachineFactory);
+        $this->beConstructedWith($orderRepository, $addressMapper, $addressRepository, $stateMachineFactory);
     }
 
     function it_handles_order_shipment_addressing(
         AddressMapperInterface $addressMapper,
+        AddressRepositoryInterface $addressRepository,
         AddressInterface $shippingAddress,
         AddressInterface $billingAddress,
         FactoryInterface $stateMachineFactory,
@@ -51,6 +54,7 @@ final class AddressOrderHandlerSpec extends ObjectBehavior
             'phoneNumber' => '999',
         ]);
         $addressMapper->map($shippingAddressData)->willReturn($shippingAddress);
+        $addressRepository->add($shippingAddress);
 
         $billingAddressData = Address::createFromArray([
             'firstName' => 'John',
@@ -64,6 +68,7 @@ final class AddressOrderHandlerSpec extends ObjectBehavior
             'phoneNumber' => '111',
         ]);
         $addressMapper->map($billingAddressData)->willReturn($billingAddress);
+        $addressRepository->add($billingAddress);
 
         $order->setShippingAddress($shippingAddress)->shouldBeCalled();
         $order->setBillingAddress($billingAddress)->shouldBeCalled();
@@ -77,6 +82,7 @@ final class AddressOrderHandlerSpec extends ObjectBehavior
 
     function it_does_not_create_new_addresses_for_already_addressed_order(
         AddressMapperInterface $addressMapper,
+        AddressRepositoryInterface $addressRepository,
         AddressInterface $shippingAddress,
         AddressInterface $billingAddress,
         FactoryInterface $stateMachineFactory,
@@ -101,6 +107,7 @@ final class AddressOrderHandlerSpec extends ObjectBehavior
             'phoneNumber' => '999',
         ]);
         $addressMapper->mapExisting($shippingAddress, $shippingAddressData)->willReturn($shippingAddress);
+        $addressRepository->add($shippingAddress)->shouldNotBeCalled();
 
         $billingAddressData = Address::createFromArray([
             'firstName'    => 'John',
@@ -114,6 +121,7 @@ final class AddressOrderHandlerSpec extends ObjectBehavior
             'phoneNumber'  => '111',
         ]);
         $addressMapper->mapExisting($billingAddress, $billingAddressData)->willReturn($billingAddress);
+        $addressRepository->add($billingAddress)->shouldNotBeCalled();
 
         $order->setShippingAddress($shippingAddress)->shouldBeCalled();
         $order->setBillingAddress($billingAddress)->shouldBeCalled();

@@ -3,7 +3,7 @@
   "message": "Validation failed",
   "errors": {
     "countryCode": [
-      "Country does not exist."
+      "The country does not exist"
     ]
   }
 }
