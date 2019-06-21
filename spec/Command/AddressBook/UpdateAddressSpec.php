@@ -37,49 +37,22 @@ final class UpdateAddressSpec extends ObjectBehavior
         $this->id()->shouldReturn('ADDRESS_ID');
     }
 
-    function it_has_first_name(): void
+    function it_has_an_address(): void
     {
-        $this->firstName()->shouldReturn('Sherlock');
-    }
-
-    function it_has_last_name(): void
-    {
-        $this->lastName()->shouldReturn('Holmes');
-    }
-
-    function it_has_company(): void
-    {
-        $this->company()->shouldReturn('Sherlock ltd.');
-    }
-
-    function it_has_street(): void
-    {
-        $this->street()->shouldReturn('Baker Street 221b');
-    }
-
-    function it_has_country_code(): void
-    {
-        $this->countryCode()->shouldReturn('GB');
-    }
-
-    function it_has_province_code(): void
-    {
-        $this->provinceCode()->shouldReturn('GB-GL');
-    }
-
-    function it_has_city(): void
-    {
-        $this->city()->shouldReturn('London');
-    }
-
-    function it_has_postcode(): void
-    {
-        $this->postcode()->shouldReturn('NWB');
-    }
-
-    function it_has_phone_number(): void
-    {
-        $this->phoneNumber()->shouldReturn('0912538092');
+        $address = Address::createFromArray([
+            'id' => 'ADDRESS_ID',
+            'firstName' => 'Sherlock',
+            'lastName' => 'Holmes',
+            'city' => 'London',
+            'street' => 'Baker Street 221b',
+            'countryCode' => 'GB',
+            'postcode' => 'NWB',
+            'provinceName' => 'Greater London',
+            'provinceCode' => 'GB-GL',
+            'phoneNumber' => '0912538092',
+            'company' => 'Sherlock ltd.',
+        ]);
+        $this->address()->shouldBeLike($address);
     }
 
     function it_has_user_email(): void
