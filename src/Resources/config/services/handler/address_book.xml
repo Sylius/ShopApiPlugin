@@ -5,10 +5,8 @@
         <service id="sylius.shop_api_plugin.handler.create_address_handler"
                  class="Sylius\ShopApiPlugin\Handler\AddressBook\CreateAddressHandler">
             <argument type="service" id="sylius.repository.address" />
-            <argument type="service" id="sylius.repository.country" />
-            <argument type="service" id="sylius.repository.province" />
             <argument type="service" id="sylius.repository.customer" />
-            <argument type="service" id="sylius.factory.address" />
+            <argument type="service" id="sylius.shop_api_plugin.mapper.address_mapper" />
             <tag name="messenger.message_handler" />
         </service>
 
@@ -30,10 +28,8 @@
         <service id="sylius.shop_api_plugin.handler.update_address_book_address"
                  class="Sylius\ShopApiPlugin\Handler\AddressBook\UpdateAddressBookAddressHandler">
             <argument type="service" id="sylius.repository.address" />
-            <argument type="service" id="sylius.repository.country" />
-            <argument type="service" id="sylius.repository.province" />
             <argument type="service" id="sylius.repository.shop_user" />
-            <argument type="service" id="sylius.factory.address" />
+            <argument type="service" id="sylius.shop_api_plugin.mapper.address_mapper" />
             <tag name="messenger.message_handler" />
         </service>
     </services>

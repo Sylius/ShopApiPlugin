@@ -29,49 +29,9 @@ class UpdateAddress
         return $this->addressId;
     }
 
-    public function firstName(): string
+    public function address(): Address
     {
-        return $this->address->firstName();
-    }
-
-    public function lastName(): string
-    {
-        return $this->address->lastName();
-    }
-
-    public function company(): ?string
-    {
-        return $this->address->company();
-    }
-
-    public function street(): string
-    {
-        return $this->address->street();
-    }
-
-    public function countryCode(): string
-    {
-        return $this->address->countryCode();
-    }
-
-    public function provinceCode(): ?string
-    {
-        return $this->address->provinceCode();
-    }
-
-    public function city(): string
-    {
-        return $this->address->city();
-    }
-
-    public function postcode(): string
-    {
-        return $this->address->postcode();
-    }
-
-    public function phoneNumber(): ?string
-    {
-        return $this->address->phoneNumber();
+        return $this->address;
     }
 
     public function userEmail(): string
