@@ -26,6 +26,7 @@ final class ProductReviewViewFactory implements ProductReviewViewFactoryInterfac
         $productReviewView->author = $productReview->getAuthor()->getEmail();
         $productReviewView->comment = $productReview->getComment();
         $productReviewView->rating = $productReview->getRating();
+        $productReviewView->createdAt = $productReview->getCreatedAt();
         $productReviewView->title = $productReview->getTitle();
 
         return $productReviewView;

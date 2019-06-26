@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Factory\Product;
 
+use DateTimeInterface;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\ProductReview;
 use Sylius\Component\Core\Model\ProductReviewerInterface;
@@ -22,10 +23,14 @@ final class ProductReviewViewFactorySpec extends ObjectBehavior
         $this->shouldHaveType(ProductReviewViewFactoryInterface::class);
     }
 
-    function it_creates_product_review_view(ProductReview $productReview, ProductReviewerInterface $reviewer): void
-    {
+    function it_creates_product_review_view(
+        ProductReview $productReview,
+        ProductReviewerInterface $reviewer,
+        DateTimeInterface $createdAt
+    ): void{
         $productReview->getAuthor()->willReturn($reviewer);
         $productReview->getComment()->willReturn('Lorem ipsum');
+        $productReview->createdAt()->willReturn($createdAt);
         $productReview->getRating()->willReturn(5);
         $productReview->getTitle()->willReturn('Super review, you ...');
 
@@ -34,6 +39,7 @@ final class ProductReviewViewFactorySpec extends ObjectBehavior
         $reviewView = new ProductReviewView();
         $reviewView->title = 'Super review, you ...';
         $reviewView->comment = 'Lorem ipsum';
+        $reviewView->createdAt = $createdAt;
         $reviewView->author = 'shepard@mass.com';
         $reviewView->rating = 5;
 
