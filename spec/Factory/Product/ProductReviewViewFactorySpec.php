@@ -30,7 +30,7 @@ final class ProductReviewViewFactorySpec extends ObjectBehavior
     ): void{
         $productReview->getAuthor()->willReturn($reviewer);
         $productReview->getComment()->willReturn('Lorem ipsum');
-        $productReview->createdAt()->willReturn($createdAt);
+        $productReview->getCreatedAt()->willReturn($createdAt);
         $productReview->getRating()->willReturn(5);
         $productReview->getTitle()->willReturn('Super review, you ...');
 
