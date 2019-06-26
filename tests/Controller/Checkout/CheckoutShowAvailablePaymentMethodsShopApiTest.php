@@ -51,7 +51,7 @@ final class CheckoutShowAvailablePaymentMethodsShopApiTest extends JsonApiTestCa
      */
     public function it_does_not_provide_details_about_available_payment_method_before_choosing_shipping_method(): void
     {
-        $this->loadFixturesFromFiles(['shop.yml']);
+        $this->loadFixturesFromFiles(['shop.yml', 'country.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
 

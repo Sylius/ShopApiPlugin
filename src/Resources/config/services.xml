@@ -17,6 +17,7 @@
         <import resource="services/factories.xml"/>
         <import resource="services/handlers.xml"/>
         <import resource="services/http.xml"/>
+        <import resource="services/mapper.xml" />
         <import resource="services/validators.xml"/>
         <import resource="services/queries.xml"/>
         <import resource="services/shipping.xml" />

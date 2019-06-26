@@ -108,7 +108,7 @@ EOT;
         $this->client->request('POST', '/shop-api/WEB_GB/address-book', [], [], self::CONTENT_TYPE_HEADER, $data);
 
         $response = $this->client->getResponse();
-        $this->assertResponse($response, 'address_book/validation_create_address_book_with_wrong_country_response', Response::HTTP_INTERNAL_SERVER_ERROR);
+        $this->assertResponse($response, 'address_book/validation_create_address_book_with_wrong_country_response', Response::HTTP_BAD_REQUEST);
     }
 
     /**

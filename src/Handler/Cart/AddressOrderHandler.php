@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace Sylius\ShopApiPlugin\Handler\Cart;
 
 use SM\Factory\FactoryInterface;
-use Sylius\Component\Core\Factory\AddressFactoryInterface;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\OrderCheckoutTransitions;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\ShopApiPlugin\Command\Cart\AddressOrder;
+use Sylius\ShopApiPlugin\Mapper\AddressMapperInterface;
+use Sylius\ShopApiPlugin\Model\Address;
 use Webmozart\Assert\Assert;
 
 final class AddressOrderHandler
@@ -18,20 +19,20 @@ final class AddressOrderHandler
     /** @var OrderRepositoryInterface */
     private $orderRepository;
 
-    /** @var AddressFactoryInterface */
-    private $addressFactory;
-
     /** @var FactoryInterface */
     private $stateMachineFactory;
 
+    /** @var AddressMapperInterface */
+    private $addressMapper;
+
     public function __construct(
         OrderRepositoryInterface $orderRepository,
-        AddressFactoryInterface $addressFactory,
+        AddressMapperInterface $addressMapper,
         FactoryInterface $stateMachineFactory
     ) {
         $this->orderRepository = $orderRepository;
-        $this->addressFactory = $addressFactory;
         $this->stateMachineFactory = $stateMachineFactory;
+        $this->addressMapper = $addressMapper;
     }
 
     public function __invoke(AddressOrder $addressOrder): void
@@ -43,37 +44,23 @@ final class AddressOrderHandler
 
         $stateMachine = $this->stateMachineFactory->get($order, OrderCheckoutTransitions::GRAPH);
 
-        Assert::true($stateMachine->can(OrderCheckoutTransitions::TRANSITION_ADDRESS), sprintf('Order with %s token cannot be addressed.', $addressOrder->orderToken()));
+        Assert::true(
+            $stateMachine->can(OrderCheckoutTransitions::TRANSITION_ADDRESS),
+            sprintf('Order with %s token cannot be addressed.', $addressOrder->orderToken())
+        );
 
-        /** @var AddressInterface $shippingAddress */
-        $shippingAddress = $order->getShippingAddress() ?? $this->addressFactory->createNew();
-
-        $shippingAddress->setFirstName($addressOrder->shippingAddress()->firstName());
-        $shippingAddress->setLastName($addressOrder->shippingAddress()->lastName());
-        $shippingAddress->setCity($addressOrder->shippingAddress()->city());
-        $shippingAddress->setStreet($addressOrder->shippingAddress()->street());
-        $shippingAddress->setCountryCode($addressOrder->shippingAddress()->countryCode());
-        $shippingAddress->setPostcode($addressOrder->shippingAddress()->postcode());
-        $shippingAddress->setProvinceName($addressOrder->shippingAddress()->provinceName());
-        $shippingAddress->setCompany($addressOrder->shippingAddress()->company());
-        $shippingAddress->setPhoneNumber($addressOrder->shippingAddress()->phoneNumber());
-
-        /** @var AddressInterface $billingAddress */
-        $billingAddress = $order->getBillingAddress() ?? $this->addressFactory->createNew();
-
-        $billingAddress->setFirstName($addressOrder->billingAddress()->firstName());
-        $billingAddress->setLastName($addressOrder->billingAddress()->lastName());
-        $billingAddress->setCity($addressOrder->billingAddress()->city());
-        $billingAddress->setStreet($addressOrder->billingAddress()->street());
-        $billingAddress->setCountryCode($addressOrder->billingAddress()->countryCode());
-        $billingAddress->setPostcode($addressOrder->billingAddress()->postcode());
-        $billingAddress->setProvinceName($addressOrder->billingAddress()->provinceName());
-        $billingAddress->setCompany($addressOrder->billingAddress()->company());
-        $billingAddress->setPhoneNumber($addressOrder->billingAddress()->phoneNumber());
-
-        $order->setShippingAddress($shippingAddress);
-        $order->setBillingAddress($billingAddress);
+        $order->setShippingAddress($this->mapAddress($order->getShippingAddress(), $addressOrder->shippingAddress()));
+        $order->setBillingAddress($this->mapAddress($order->getBillingAddress(), $addressOrder->billingAddress()));
 
         $stateMachine->apply(OrderCheckoutTransitions::TRANSITION_ADDRESS);
+    }
+
+    public function mapAddress(?AddressInterface $original, Address $address): AddressInterface
+    {
+        if ($original === null) {
+            return $this->addressMapper->map($address);
+        }
+
+        return $this->addressMapper->mapExisting($original, $address);
     }
 }

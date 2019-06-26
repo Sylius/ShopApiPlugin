@@ -314,7 +314,7 @@ paths:
                 204:
                     description: "Cart has been addressed."
                 400:
-                    description: "Invalid input, validation failed."
+                    description: "Address not valid"
                     schema:
                         $ref: "#/definitions/GeneralError"
     /{channelCode}/checkout/{token}/shipping:

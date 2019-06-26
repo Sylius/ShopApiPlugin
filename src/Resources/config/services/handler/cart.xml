@@ -5,7 +5,7 @@
         <service id="sylius.shop_api_plugin.handler.address_order_handler"
                  class="Sylius\ShopApiPlugin\Handler\Cart\AddressOrderHandler">
             <argument type="service" id="sylius.repository.order"/>
-            <argument type="service" id="sylius.factory.address"/>
+            <argument type="service" id="sylius.shop_api_plugin.mapper.address_mapper" />
             <argument type="service" id="sm.factory"/>
             <tag name="messenger.message_handler" />
         </service>

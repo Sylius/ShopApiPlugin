@@ -27,16 +27,16 @@ final class Address
     /** @var string */
     private $postcode;
 
-    /** @var string */
+    /** @var ?string */
     private $provinceName;
 
-    /** @var string */
+    /** @var ?string */
     private $provinceCode;
 
-    /** @var string */
+    /** @var ?string */
     private $company;
 
-    /** @var string */
+    /** @var ?string */
     private $phoneNumber;
 
     private function __construct(
@@ -46,10 +46,10 @@ final class Address
         string $street,
         string $countryCode,
         string $postcode,
-        string $provinceName = null,
-        string $provinceCode = null,
-        string $phoneNumber = null,
-        string $company = null
+        ?string $provinceName = null,
+        ?string $provinceCode = null,
+        ?string $phoneNumber = null,
+        ?string $company = null
     ) {
         $this->firstName = $firstName;
         $this->lastName = $lastName;
@@ -102,52 +102,52 @@ final class Address
         );
     }
 
-    public function firstName()
+    public function firstName(): string
     {
         return $this->firstName;
     }
 
-    public function lastName()
+    public function lastName(): string
     {
         return $this->lastName;
     }
 
-    public function city()
+    public function city(): string
     {
         return $this->city;
     }
 
-    public function street()
+    public function street(): string
     {
         return $this->street;
     }
 
-    public function countryCode()
+    public function countryCode(): string
     {
         return $this->countryCode;
     }
 
-    public function postcode()
+    public function postcode(): string
     {
         return $this->postcode;
     }
 
-    public function provinceName()
+    public function provinceName(): ?string
     {
         return $this->provinceName;
     }
 
-    public function provinceCode()
+    public function provinceCode(): ?string
     {
         return $this->provinceCode;
     }
 
-    public function company()
+    public function company(): ?string
     {
         return $this->company;
     }
 
-    public function phoneNumber()
+    public function phoneNumber(): ?string
     {
         return $this->phoneNumber;
     }
