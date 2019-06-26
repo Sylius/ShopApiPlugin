@@ -9,25 +9,24 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
-class CartContextPass implements CompilerPassInterface
+final class CartContextPass implements CompilerPassInterface
 {
     public const CART_CONTEXT_SERVICE_TAG = 'sylius.context.cart';
-
-    private $compositeId = 'sylius.shop_api_plugin.context.cart';
-    private $tagName = self::CART_CONTEXT_SERVICE_TAG;
+    private const COMPOSITE_ID = 'sylius.shop_api_plugin.context.cart';
+    private const EXCLUDED_SERVICE = 'sylius.context.cart.new';
 
     /**
      * {@inheritdoc}
      */
     public function process(ContainerBuilder $container): void
     {
-        if (!$container->has($this->compositeId)) {
+        if (!$container->has(self::COMPOSITE_ID)) {
             return;
         }
 
-        $contextDefinition = $container->findDefinition($this->compositeId);
+        $contextDefinition = $container->findDefinition(self::COMPOSITE_ID);
 
-        $taggedServices = $container->findTaggedServiceIds($this->tagName);
+        $taggedServices = $container->findTaggedServiceIds(self::CART_CONTEXT_SERVICE_TAG);
         foreach ($taggedServices as $id => $tags) {
             $this->addMethodCalls($contextDefinition, $id, $tags);
         }
@@ -35,7 +34,7 @@ class CartContextPass implements CompilerPassInterface
 
     private function addMethodCalls(Definition $contextDefinition, string $id, array $tags): void
     {
-        if ($id === 'sylius.context.cart.new') {
+        if ($id === self::EXCLUDED_SERVICE) {
             return;
         }
 
