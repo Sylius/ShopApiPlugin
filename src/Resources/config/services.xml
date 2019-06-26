@@ -72,6 +72,8 @@
         </service>
 
         <!-- Removing the create cart context from composite context (see: https://github.com/Sylius/Sylius/issues/10192) -->
+        <service id="sylius.shop_api_plugin.context.cart" class="Sylius\Component\Order\Context\CompositeCartContext" />
+
         <service id="sylius.listener.cart_blamer" class="Sylius\Bundle\CoreBundle\EventListener\CartBlamerListener">
             <argument type="service" id="sylius.manager.order" />
             <argument type="service" id="sylius.shop_api_plugin.context.cart" />
