@@ -15,70 +15,70 @@
             "rating": @integer@,
             "comment": "@string@",
             "author": "oliver@queen.com",
-            "createdAt": @string@
+            "createdAt": "@string@.isDateTime()"
         },
         {
             "title": "Nice mug",
             "rating": @integer@,
             "comment": "@string@",
             "author": "oliver@queen.com",
-            "createdAt": @string@
+            "createdAt": "@string@.isDateTime()"
         },
         {
             "title": "Nice mug",
             "rating": @integer@,
             "comment": "@string@",
             "author": "oliver@queen.com",
-            "createdAt": @string@
+            "createdAt": "@string@.isDateTime()"
         },
         {
             "title": "Nice mug",
             "rating": @integer@,
             "comment": "@string@",
             "author": "oliver@queen.com",
-            "createdAt": @string@
+            "createdAt": "@string@.isDateTime()"
         },
         {
             "title": "Nice mug",
             "rating": @integer@,
             "comment": "@string@",
             "author": "oliver@queen.com",
-            "createdAt": @string@
+            "createdAt": "@string@.isDateTime()"
         },
         {
             "title": "Nice mug",
             "rating": @integer@,
             "comment": "@string@",
             "author": "oliver@queen.com",
-            "createdAt": @string@
+            "createdAt": "@string@.isDateTime()"
         },
         {
             "title": "Nice mug",
             "rating": @integer@,
             "comment": "@string@",
             "author": "oliver@queen.com",
-            "createdAt": @string@
+            "createdAt": "@string@.isDateTime()"
         },
         {
             "title": "Nice mug",
             "rating": @integer@,
             "comment": "@string@",
             "author": "oliver@queen.com",
-            "createdAt": @string@
+            "createdAt": "@string@.isDateTime()"
         },
         {
             "title": "Nice mug",
             "rating": @integer@,
             "comment": "@string@",
             "author": "oliver@queen.com",
-            "createdAt": @string@
+            "createdAt": "@string@.isDateTime()"
         },
         {
             "title": "Nice mug",
             "rating": @integer@,
             "comment": "@string@",
             "author": "oliver@queen.com",
-            "createdAt": @string@
+            "createdAt": "@string@.isDateTime()"
         }
     ]
 }
