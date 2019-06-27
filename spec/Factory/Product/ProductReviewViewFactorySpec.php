@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Factory\Product;
 
-use DateTimeInterface;
+use DateTime;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\ProductReview;
 use Sylius\Component\Core\Model\ProductReviewerInterface;
@@ -25,9 +25,10 @@ final class ProductReviewViewFactorySpec extends ObjectBehavior
 
     function it_creates_product_review_view(
         ProductReview $productReview,
-        ProductReviewerInterface $reviewer,
-        DateTimeInterface $createdAt
+        ProductReviewerInterface $reviewer
     ): void{
+        $createdAt = new DateTime();
+
         $productReview->getAuthor()->willReturn($reviewer);
         $productReview->getComment()->willReturn('Lorem ipsum');
         $productReview->getCreatedAt()->willReturn($createdAt);
