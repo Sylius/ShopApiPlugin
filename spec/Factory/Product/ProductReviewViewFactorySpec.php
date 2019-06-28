@@ -26,7 +26,7 @@ final class ProductReviewViewFactorySpec extends ObjectBehavior
     function it_creates_product_review_view(
         ProductReview $productReview,
         ProductReviewerInterface $reviewer
-    ): void{
+    ): void {
         $createdAt = new DateTime();
 
         $productReview->getAuthor()->willReturn($reviewer);
