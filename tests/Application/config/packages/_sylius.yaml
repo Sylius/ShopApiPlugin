@@ -15,3 +15,9 @@ parameters:
 sylius_shop:
     product_grid:
         include_all_descendants: true
+
+sylius_customer:
+    resources:
+        customer:
+            classes:
+                model: 'Tests\Sylius\ShopApiPlugin\Application\src\Entity\Customer'
