@@ -23,5 +23,10 @@
 
         <service id="sylius.shop_api_plugin.provider.supported_locale_provider"
                  class="Sylius\ShopApiPlugin\Provider\SupportedLocaleProvider"/>
+
+        <service id ="sylius.shop_api_plugin.provider.guest_user_provider"
+                 class="Sylius\ShopApiPlugin\Provider\GuestUserProvider">
+            <argument type="service" id="sylius.shop_api_plugin.encoder.guest_order_jwtencoder"/>
+        </service>
     </services>
 </container>
