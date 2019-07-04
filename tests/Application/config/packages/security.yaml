@@ -82,9 +82,9 @@ security:
             stateless: true
             anonymous: true
             guard:
-                athenticators:
+                provider: sylius_guest_user_provider
+                authenticators:
                     - sylius.shop_api_plugin.authenticator.jwtguest_order_authenticator
-            provider: sylius_guest_user_provider
 
         shop_api:
             pattern: "%shop_api.security.regex%"
