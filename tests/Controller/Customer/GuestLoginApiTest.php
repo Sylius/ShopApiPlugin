@@ -14,7 +14,7 @@ final class GuestLoginApiTest extends JsonApiTestCase
     /** @test */
     public function it_returns_jwt_on_success(): void
     {
-        $this->loadFixturesFromFiles(['order.yml', 'shop.yml', 'customer.yml', 'address.yml']);
+        $this->loadFixturesFromFiles(['shop.yml', 'order.yml', 'customer.yml', 'address.yml']);
 
         $data = <<<EOT
         {
@@ -32,7 +32,7 @@ EOT;
     /** @test */
     public function it_returns_unauthorized_on_wrong_payment_method(): void
     {
-        $this->loadFixturesFromFiles(['order.yml', 'shop.yml', 'customer.yml', 'address.yml']);
+        $this->loadFixturesFromFiles(['shop.yml', 'order.yml', 'customer.yml', 'address.yml']);
 
         $data = <<<EOT
         {
@@ -50,7 +50,7 @@ EOT;
     /** @test */
     public function it_returns_unauthorized_if_order_belongs_to_user(): void
     {
-        $this->loadFixturesFromFiles(['order.yml', 'shop.yml', 'customer.yml', 'address.yml']);
+        $this->loadFixturesFromFiles(['shop.yml', 'order.yml', 'customer.yml', 'address.yml']);
 
         $data = <<<EOT
         {

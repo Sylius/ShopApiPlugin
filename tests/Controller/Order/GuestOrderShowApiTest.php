@@ -18,7 +18,7 @@ final class GuestOrderShowApiTest extends JsonApiTestCase
     /** @test */
     public function it_returns_summary_for_guest_order(): void
     {
-        $this->loadFixturesFromFiles(['order.yml', 'shop.yml', 'customer.yml', 'address.yml']);
+        $this->loadFixturesFromFiles(['shop.yml', 'order.yml', 'customer.yml', 'address.yml']);
 
         /** @var GuestOrderJWTEncoderInterface $encoder */
         $encoder = $this->get('brille24.shop_api.encoder.guest_order_jwtencoder');
@@ -39,7 +39,7 @@ final class GuestOrderShowApiTest extends JsonApiTestCase
     /** @test */
     public function it_returns_unauthorized_if_no_jwt_provided(): void
     {
-        $this->loadFixturesFromFiles(['order.yml', 'shop.yml', 'customer.yml', 'address.yml']);
+        $this->loadFixturesFromFiles(['shop.yml', 'order.yml', 'customer.yml', 'address.yml']);
 
         $this->client->request(Request::METHOD_GET, '/shop-api/WEB_GB/guest/order');
         $response = $this->client->getResponse();
@@ -49,7 +49,7 @@ final class GuestOrderShowApiTest extends JsonApiTestCase
     /** @test */
     public function it_returns_unauthorized_if_invalid_jwt_provided(): void
     {
-        $this->loadFixturesFromFiles(['order.yml', 'shop.yml', 'customer.yml', 'address.yml']);
+        $this->loadFixturesFromFiles(['shop.yml', 'order.yml', 'customer.yml', 'address.yml']);
 
         $jwt = 'abc';
 

@@ -44,7 +44,11 @@ Sylius\Component\Core\Model\Product:
         images: ["@mug_thumbnail"]
         mainTaxon: "@mug_taxon"
         productTaxons: ["@mug_product_taxon"]
-        attributes: ["@en_gb_mug_holiday_collection_value", "@de_de_mug_holiday_collection_value", "@en_gb_mug_holiday_material_value", "@de_de_mug_holiday_material_value"]
+        attributes:
+            - "@en_gb_mug_holiday_collection_value"
+            - "@de_de_mug_holiday_collection_value"
+            - "@en_gb_mug_holiday_material_value"
+            - "@de_de_mug_holiday_material_value"
     t_shirt:
         code: "LOGAN_T_SHIRT_CODE"
         createdAt: "<date_create('2019-02-01 01:00:00')>"
