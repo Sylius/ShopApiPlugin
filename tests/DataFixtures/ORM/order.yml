@@ -1,4 +1,4 @@
-Sylius\Compontent\Core\Model\Order:
+Sylius\Component\Core\Model\Order:
   olivers_order:
     number: "00000022"
     state: "new"

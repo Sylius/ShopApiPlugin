@@ -15,7 +15,7 @@ Sylius\Component\Core\Model\ShopUser:
         username: "hater@queen.com"
         usernameCanonical: "hater@queen.com"
 
-Sylius\Component\Core\Model\Customer:
+Tests\Sylius\ShopApiPlugin\Application\src\Entity\Customer:
     customer_oliver:
         firstName: "Oliver"
         lastName: "Queen"
