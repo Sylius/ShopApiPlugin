@@ -1,0 +1,68 @@
+Sylius\Compontent\Core\Model\Order:
+  olivers_order:
+    number: "00000022"
+    state: "new"
+    customer: "@customer_oliver"
+    channel: "@gb_web_channel"
+    shippingAddress: "@customer_oliver_home_address"
+    billingAddress: "@customer_oliver_home_address"
+    currencyCode: "GBP"
+    localeCode: "en_GB"
+    checkoutState: "completed"
+    paymentState: "awaiting_payment"
+    shippingState: "ready"
+    tokenValue: "ORDER_TOKEN"
+    items: ["@olivers_order_item"]
+    __calls:
+      - addPayment: ["@olivers_payment"]
+
+  guest_order:
+    channel: "@gb_web_channel"
+    number: "00000078"
+    state: "new"
+    customer: "@guest"
+    shippingAddress: "@customer_guest_address"
+    billingAddress: "@customer_guest_address"
+    currencyCode: "GBP"
+    localeCode: "en_GB"
+    checkoutState: "completed"
+    paymentState: "awaiting_payment"
+    shippingState: "ready"
+    tokenValue: "GUEST_ORDER_TOKEN"
+    checkoutCompletedAt: "<date_create()>"
+    __calls:
+      - addPayment: ["@guest_payment"]
+
+Sylius\Component\Core\Model\OrderItem:
+  olivers_order_item:
+    order: "@olivers_order"
+    unitPrice: 1999
+    variant: "@mug_variant"
+    productName: "Logan Mug"
+    variantName: "Logan Mug"
+
+Sylius\Component\Core\Model\OrderItemUnit:
+  olivers_glasses_order_item_unit:
+    __construct: ["@olivers_order_item"]
+
+Sylius\Component\Core\Model\Payment:
+  olivers_payment:
+    order: "@olivers_order"
+    method: "@bank_payment"
+    currencyCode: "GBP"
+    amount: 1999
+    state: "new"
+  guest_payment:
+    order: "@guest_order"
+    method: "@bank_payment"
+    currencyCode: "GBP"
+    amount: 1000
+    state: "new"
+
+Sylius\Component\Core\Model\PaymentMethod:
+  bank_payment:
+    channels: ["@gb_web_channel"]
+    code: "bank_payment"
+    environment: "test"
+    currentLocale: "en_GB"
+    name: "Bank Payment"

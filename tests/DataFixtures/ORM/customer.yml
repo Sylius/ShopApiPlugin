@@ -29,3 +29,7 @@ Sylius\Component\Core\Model\Customer:
         lastName: "Wilson"
         email: "hater@queen.com"
         emailCanonical: "slade@queen.com"
+
+    guest:
+        email: "john@doe.com"
+        emailCanonical: "john@doe.com"

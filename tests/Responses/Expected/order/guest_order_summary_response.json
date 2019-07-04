@@ -1,0 +1,58 @@
+{
+    "channel": "WEB_GB",
+    "currency": "GBP",
+    "locale": "en_GB",
+    "checkoutState": "completed",
+    "checkoutCompletedAt": @string@,
+    "items": [],
+    "totals": {
+        "total": 0,
+        "items": 0,
+        "taxes": 0,
+        "shipping": 0,
+        "promotion": 0
+    },
+    "shippingAddress": {
+        "firstName": "John",
+        "lastName": "Doe",
+        "countryCode": "GB",
+        "street": "Vukovarska",
+        "city": "Split",
+        "postcode": "21000",
+        "company": "Separovic d.o.o",
+        "phoneNumber": "349713",
+        "streetNumber": "456"
+    },
+    "billingAddress": {
+        "firstName": "John",
+        "lastName": "Doe",
+        "countryCode": "GB",
+        "street": "Vukovarska",
+        "city": "Split",
+        "postcode": "21000",
+        "company": "Separovic d.o.o",
+        "phoneNumber": "349713",
+        "streetNumber": "456"
+    },
+    "payments": [
+        {
+            "state": "new",
+            "method": {
+                "code": "bank_payment",
+                "name": "Bank Payment",
+                "description": @string@,
+                "instructions": @string@
+            },
+            "price": {
+                "current": 1000,
+                "currency": "GBP"
+            },
+            "details": []
+        }
+    ],
+    "shipments": [],
+    "cartDiscounts": [],
+    "tokenValue": "GUEST_ORDER_TOKEN",
+    "number": "00000078",
+    "orderDate": @string@
+}
