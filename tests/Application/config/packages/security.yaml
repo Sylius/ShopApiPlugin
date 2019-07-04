@@ -61,7 +61,7 @@ security:
                 provider: sylius_guest_user_provider
                 login_path: sylius_shop_api_guest_login_check
                 check_path: sylius_shop_api_guest_login_check
-                success_handler: sylius.shop_api_plugin.handler.authentication_success_handler
+                success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
                 require_previous_session: false
 
