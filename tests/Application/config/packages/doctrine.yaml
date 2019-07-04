@@ -12,3 +12,13 @@ doctrine:
         charset: UTF8
 
         url: '%env(resolve:DATABASE_URL)%'
+
+    orm:
+        entity_managers:
+            default:
+                mappings:
+                    custom_mapping:
+                        type: 'xml'
+                        prefix: 'Tests\Sylius\ShopApiPlugin\Application\src\Entity'
+                        dir: '%kernel.root_dir%/src/Resources/config/doctrine'
+                        is_bundle: false
