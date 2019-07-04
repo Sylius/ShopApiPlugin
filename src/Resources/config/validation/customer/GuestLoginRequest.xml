@@ -1,0 +1,20 @@
+<constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping">
+    <class name="Sylius\ShopApiPlugin\Request\Customer\GuestLoginRequest">
+        <property name="email">
+            <constraint name="NotNull">
+                <option name="message">sylius.shop_api.email.not_null</option>
+            </constraint>
+            <constraint name="Email" />
+        </property>
+        <property name="orderNumber">
+            <constraint name="NotNull">
+                <option name="message">sylius.shop_api.order_number.not_null</option>
+            </constraint>
+        </property>
+        <property name="paymentMethodCode">
+            <constraint name="NotNull">
+                <option name="message">sylius.shop_api.order_number.not_null</option>
+            </constraint>
+        </property>
+    </class>
+</constraint-mapping>
