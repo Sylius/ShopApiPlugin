@@ -9,3 +9,9 @@ sylius_shop_api_order_details:
     methods: [GET]
     defaults:
         _controller: sylius.shop_api_plugin.controller.order.show_order_details_action
+
+sylius_shop_api_guest_order_details:
+    path: /guest/order
+    methods: [GET]
+    defaults:
+        _controller: sylius.shop_api_plugin.controller.order.show_guest_order_details_action

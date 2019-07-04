@@ -19,5 +19,12 @@
             <argument type="service" id="sylius.shop_api_plugin.provider.current_user_provider" />
             <argument type="service" id="sylius.shop_api_plugin.view_repository.placed_order_view_repository" />
         </service>
+
+        <service id="sylius.shop_api_plugin.controller.order.show_guest_order_details_action"
+                 class="Sylius\ShopApiPlugin\Controller\Order\ShowGuestOrderDetailsAction"
+        >
+            <argument type="service" id="fos_rest.view_handler" />
+            <argument type="service" id="security.token_storage" />
+        </service>
     </services>
 </container>
