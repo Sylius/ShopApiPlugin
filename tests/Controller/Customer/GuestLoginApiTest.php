@@ -24,7 +24,7 @@ final class GuestLoginApiTest extends JsonApiTestCase
         }
 EOT;
 
-        $this->client->request(Request::METHOD_POST, '/shop-api/WEB_GB/guest/login_check', [], [], self::CONTENT_TYPE_HEADER, $data);
+        $this->client->request(Request::METHOD_POST, '/shop-api/guest/login_check', [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
         $this->assertResponse($response, 'customer/guest_login_response');
     }
@@ -42,7 +42,7 @@ EOT;
         }
 EOT;
 
-        $this->client->request(Request::METHOD_POST, '/shop-api/WEB_GB/guest/login_check', [], [], self::CONTENT_TYPE_HEADER, $data);
+        $this->client->request(Request::METHOD_POST, '/shop-api/guest/login_check', [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
         $this->assertResponseCode($response, Response::HTTP_UNAUTHORIZED);
     }
@@ -60,7 +60,7 @@ EOT;
         }
 EOT;
 
-        $this->client->request(Request::METHOD_POST, '/shop-api/WEB_GB/guest/login_check', [], [], self::CONTENT_TYPE_HEADER, $data);
+        $this->client->request(Request::METHOD_POST, '/shop-api/guest/login_check', [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
         $this->assertResponseCode($response, Response::HTTP_UNAUTHORIZED);
     }
