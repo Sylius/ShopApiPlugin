@@ -19,14 +19,14 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class GuestLoginAction
 {
+    /** @var ViewHandlerInterface */
+    private $viewHandler;
+
     /** @var ValidatorInterface */
     private $validator;
 
     /** @var ValidationErrorViewFactoryInterface */
     private $validationErrorViewFactory;
-
-    /** @var ViewHandlerInterface */
-    private $viewHandler;
 
     /** @var OrderRepositoryInterface */
     private $orderRepository;
@@ -44,15 +44,15 @@ final class GuestLoginAction
      * @param GuestOrderJWTEncoderInterface $guestOrderJWTEncoder
      */
     public function __construct(
+        ViewHandlerInterface $viewHandler,
         ValidatorInterface $validator,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
-        ViewHandlerInterface $viewHandler,
         OrderRepositoryInterface $orderRepository,
         GuestOrderJWTEncoderInterface $guestOrderJWTEncoder
     ) {
+        $this->viewHandler                = $viewHandler;
         $this->validator                  = $validator;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
-        $this->viewHandler                = $viewHandler;
         $this->orderRepository            = $orderRepository;
         $this->guestOrderJWTEncoder       = $guestOrderJWTEncoder;
     }
