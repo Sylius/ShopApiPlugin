@@ -21,7 +21,7 @@ final class GuestOrderShowApiTest extends JsonApiTestCase
         $this->loadFixturesFromFiles(['shop.yml', 'order.yml', 'customer.yml', 'address.yml']);
 
         /** @var GuestOrderJWTEncoderInterface $encoder */
-        $encoder = $this->get('brille24.shop_api.encoder.guest_order_jwtencoder');
+        $encoder = $this->get('sylius.shop_api_plugin.encoder.guest_order_jwtencoder');
 
         /** @var OrderRepositoryInterface $orderRepository */
         $orderRepository = $this->get('sylius.repository.order');
