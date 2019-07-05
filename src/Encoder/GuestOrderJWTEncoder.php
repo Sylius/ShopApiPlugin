@@ -18,7 +18,7 @@ class GuestOrderJWTEncoder implements GuestOrderJWTEncoderInterface
 
     public function __construct(JWTEncoderInterface $JWTEncoder, OrderRepositoryInterface $orderRepository)
     {
-        $this->JWTEncoder      = $JWTEncoder;
+        $this->JWTEncoder = $JWTEncoder;
         $this->orderRepository = $orderRepository;
     }
 

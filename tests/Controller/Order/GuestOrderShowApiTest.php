@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller\Order;
 
-
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\ShopApiPlugin\Encoder\GuestOrderJWTEncoderInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,7 +12,7 @@ use Tests\Sylius\ShopApiPlugin\Controller\JsonApiTestCase;
 
 final class GuestOrderShowApiTest extends JsonApiTestCase
 {
-    const GUEST_TOKEN_HEADER = 'HTTP_Sylius-Guest-Token';
+    public const GUEST_TOKEN_HEADER = 'HTTP_Sylius-Guest-Token';
 
     /** @test */
     public function it_returns_summary_for_guest_order(): void
@@ -28,7 +27,7 @@ final class GuestOrderShowApiTest extends JsonApiTestCase
 
         $token = 'GUEST_ORDER_TOKEN';
         $order = $orderRepository->findOneByTokenValue($token);
-        $jwt   = $encoder->encode($order);
+        $jwt = $encoder->encode($order);
 
         $this->client->setServerParameter(self::GUEST_TOKEN_HEADER, $jwt);
         $this->client->request(Request::METHOD_GET, '/shop-api/WEB_GB/guest/order');

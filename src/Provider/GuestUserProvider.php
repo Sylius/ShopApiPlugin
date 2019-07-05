@@ -14,7 +14,7 @@ use Webmozart\Assert\Assert;
 final class GuestUserProvider implements UserProviderInterface
 {
     /** @var GuestOrderJWTEncoderInterface */
-    protected $encoder;
+    private $encoder;
 
     public function __construct(GuestOrderJWTEncoderInterface $encoder)
     {

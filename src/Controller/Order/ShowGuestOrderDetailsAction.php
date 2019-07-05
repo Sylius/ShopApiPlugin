@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Controller\Order;
 
-
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
@@ -21,10 +20,10 @@ final class ShowGuestOrderDetailsAction
     private $viewHandler;
 
     /** @var TokenStorageInterface */
-    protected $tokenStorage;
+    private $tokenStorage;
 
     /** @var PlacedOrderViewRepositoryInterface */
-    protected $placedOrderViewRepository;
+    private $placedOrderViewRepository;
 
     public function __construct(
         ViewHandlerInterface $viewHandler,

@@ -36,12 +36,6 @@ final class GuestLoginAction
 
     /**
      * GuestLoginAction constructor.
-     *
-     * @param ValidatorInterface $validator
-     * @param ValidationErrorViewFactoryInterface $validationErrorViewFactory
-     * @param ViewHandlerInterface $viewHandler
-     * @param OrderRepositoryInterface $orderRepository
-     * @param GuestOrderJWTEncoderInterface $guestOrderJWTEncoder
      */
     public function __construct(
         ViewHandlerInterface $viewHandler,
@@ -50,17 +44,17 @@ final class GuestLoginAction
         OrderRepositoryInterface $orderRepository,
         GuestOrderJWTEncoderInterface $guestOrderJWTEncoder
     ) {
-        $this->viewHandler                = $viewHandler;
-        $this->validator                  = $validator;
+        $this->viewHandler = $viewHandler;
+        $this->validator = $validator;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
-        $this->orderRepository            = $orderRepository;
-        $this->guestOrderJWTEncoder       = $guestOrderJWTEncoder;
+        $this->orderRepository = $orderRepository;
+        $this->guestOrderJWTEncoder = $guestOrderJWTEncoder;
     }
 
     public function __invoke(Request $request): Response
     {
         // This is just to validate that all necessary fields are present.
-        $loginRequest     = new GuestLoginRequest($request);
+        $loginRequest = new GuestLoginRequest($request);
         $validationErrors = $this->validator->validate($loginRequest);
         if (0 < count($validationErrors)) {
             return $this->viewHandler->handle(
@@ -80,7 +74,7 @@ final class GuestLoginAction
         // The order has to exist and must be placed
         if (null !== $order && $order->getCheckoutState() !== OrderCheckoutStates::STATE_CART) {
             /** @var CustomerInterface $customer */
-            $customer      = $order->getCustomer();
+            $customer = $order->getCustomer();
             $paymentMethod = $order->getLastPayment()->getMethod();
 
             // The order must be a guest order. Also the provided email & payment method must match.

@@ -8,25 +8,19 @@ use Symfony\Component\HttpFoundation\Request;
 
 class GuestLoginRequest
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $email;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $orderNumber;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $paymentMethodCode;
 
     public function __construct(Request $request)
     {
-        $this->email             = $request->request->get('email');
-        $this->orderNumber       = $request->request->get('orderNumber');
+        $this->email = $request->request->get('email');
+        $this->orderNumber = $request->request->get('orderNumber');
         $this->paymentMethodCode = $request->request->get('paymentMethod');
     }
 

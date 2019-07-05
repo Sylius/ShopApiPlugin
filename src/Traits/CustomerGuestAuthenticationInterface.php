@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Traits;
 
-
 use Sylius\Component\Core\Model\OrderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
