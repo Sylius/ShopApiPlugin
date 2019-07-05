@@ -78,7 +78,7 @@ security:
                 require_previous_session: false
 
         shop_api_guest:
-            pattern: "%shop_api.security.regex%/[0-9a-zA-Z]+/guest"
+            pattern: "%shop_api.security.regex%/[0-9a-zA-Z-_]+/guest"
             stateless: true
             anonymous: true
             guard:

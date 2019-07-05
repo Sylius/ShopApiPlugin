@@ -9,6 +9,7 @@ use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\ShopApiPlugin\Traits\CustomerGuestAuthenticationInterface;
+use Sylius\ShopApiPlugin\ViewRepository\Order\PlacedOrderViewRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -22,12 +23,17 @@ final class ShowGuestOrderDetailsAction
     /** @var TokenStorageInterface */
     protected $tokenStorage;
 
+    /** @var PlacedOrderViewRepositoryInterface */
+    protected $placedOrderViewRepository;
+
     public function __construct(
         ViewHandlerInterface $viewHandler,
-        TokenStorageInterface $tokenStorage
+        TokenStorageInterface $tokenStorage,
+        PlacedOrderViewRepositoryInterface $placedOrderViewRepository
     ) {
         $this->viewHandler = $viewHandler;
         $this->tokenStorage = $tokenStorage;
+        $this->placedOrderViewRepository = $placedOrderViewRepository;
     }
 
     public function __invoke(Request $request): Response
@@ -43,7 +49,7 @@ final class ShowGuestOrderDetailsAction
             Assert::isInstanceOf($customer, CustomerGuestAuthenticationInterface::class);
             Assert::null($customer->getUser());
 
-            $order = $customer->getAuthorizedOrder();
+            $order = $this->placedOrderViewRepository->getOneCompletedByCustomerEmailAndToken($customer->getEmail(), $customer->getAuthorizedOrder()->getTokenValue());
         } catch (\InvalidArgumentException $exception) {
             return $this->viewHandler->handle(View::create(null, Response::HTTP_UNAUTHORIZED));
         }
