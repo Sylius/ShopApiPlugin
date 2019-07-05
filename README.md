@@ -54,9 +54,7 @@ The latest documentation is available [here](https://app.swaggerhub.com/apis/Syl
     3. Adjust checkout configuration to not collide with Sylius shop API. For example
     (assuming, that you are using regular Sylius security definition):
     ```yml
-    # config/routes/sylius_shop.yaml
-
-    # ...
+    # config/packages/sylius_shop.yaml
 
     sylius_shop:
         checkout_resolver:
