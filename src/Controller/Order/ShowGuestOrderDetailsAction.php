@@ -45,6 +45,7 @@ final class ShowGuestOrderDetailsAction
             /** @var CustomerGuestAuthenticationInterface|CustomerInterface $customer */
             $customer = $token->getUser();
 
+            Assert::isInstanceOf($customer, CustomerInterface::class);
             Assert::isInstanceOf($customer, CustomerGuestAuthenticationInterface::class);
             Assert::null($customer->getUser());
 
