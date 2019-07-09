@@ -12,4 +12,6 @@ interface PlacedOrderViewRepositoryInterface
     public function getAllCompletedByCustomerEmail(string $customerEmail): array;
 
     public function getOneCompletedByCustomerEmailAndToken(string $customerEmail, string $tokenValue): PlacedOrderView;
+
+    public function getOneCompletedByGuestAndToken(string $tokenValue): PlacedOrderView;
 }

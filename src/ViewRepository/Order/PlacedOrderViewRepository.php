@@ -70,4 +70,18 @@ final class PlacedOrderViewRepository implements PlacedOrderViewRepositoryInterf
 
         return $this->placedOrderViewFactory->create($order, $order->getLocaleCode());
     }
+
+    public function getOneCompletedByGuestAndToken(string $tokenValue): PlacedOrderView
+    {
+        /** @var OrderInterface|null $order */
+        $order = $this
+            ->orderRepository
+            ->findOneBy(['tokenValue' => $tokenValue, 'checkoutState' => OrderCheckoutStates::STATE_COMPLETED])
+        ;
+
+        Assert::notNull($order, sprintf('There is no placed order with with token %s', $tokenValue));
+        Assert::null($order->getUser(), sprintf('Order with token %s placed by a registered user', $tokenValue));
+
+        return $this->placedOrderViewFactory->create($order, $order->getLocaleCode());
+    }
 }
