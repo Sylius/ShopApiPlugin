@@ -769,20 +769,23 @@ paths:
         post:
             tags:
                 - "users"
-            summary: "Log user in"
-            description: "This action allows to log existing user in"
+            summary: "Logs the user in and returns the token"
+            description: "This route is needed to log the user in and get an access token."
             operationId: "loginUser"
+            consumes:
+                - "application/json"
             parameters:
-                -   name: "content"
-                    in: "body"
-                    required: true
-                    schema:
-                        $ref: "#/definitions/LoginRequest"
+                - name: "content"
+                  in: "body"
+                  required: true
+                  schema:
+                      type: object
+                      $ref: "#/definitions/LoginRequest"
             responses:
-                204:
-                    description: "The user was successfully created"
-                400:
-                    description: "There were validation errors"
+                200:
+                    description: "User was logged in"
+                    example:
+                        token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9"
     /orders:
         parameters:
             -   $ref: "#/parameters/ChannelCode"
