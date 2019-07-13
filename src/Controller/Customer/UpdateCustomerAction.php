@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Webmozart\Assert\Assert;
 
 final class UpdateCustomerAction
 {
@@ -64,6 +65,8 @@ final class UpdateCustomerAction
         $this->bus->dispatch($updateCustomerRequest->getCommand());
 
         $customer = $this->loggedInUserProvider->provide()->getCustomer();
+        Assert::notNull($customer);
+
         return $this->viewHandler->handle(View::create(
             $this->customerViewFactory->create($customer),
             Response::HTTP_OK
