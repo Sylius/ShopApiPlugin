@@ -20,7 +20,7 @@ sylius_shop_api_register:
 
 sylius_shop_api_checkout:
     resource: "@ShopApiPlugin/Resources/config/routing/checkout.yml"
-    prefix: /shop-api/{channelCode}/checkout
+    prefix: /shop-api/checkout
 
 sylius_shop_api_customer:
     resource: "@ShopApiPlugin/Resources/config/routing/customer.yml"

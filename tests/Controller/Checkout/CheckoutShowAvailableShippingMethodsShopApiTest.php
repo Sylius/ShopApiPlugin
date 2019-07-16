@@ -19,10 +19,8 @@ final class CheckoutShowAvailableShippingMethodsShopApiTest extends JsonApiTestC
      */
     public function it_does_not_provide_details_about_available_shipping_method_for_non_existing_cart(): void
     {
-        $this->client->request('GET', $this->getShippingUrl('0'), [], [], self::CONTENT_TYPE_HEADER);
-
-        $response = $this->client->getResponse();
-        $this->assertResponseCode($response, Response::HTTP_NOT_FOUND);
+        $response = $this->showAvailableShippingMethods('WRONGTOKEN');
+        $this->assertResponse($response, 'cart_with_given_token_does_not_exist', Response::HTTP_NOT_FOUND);
     }
 
     /**
@@ -59,9 +57,7 @@ final class CheckoutShowAvailableShippingMethodsShopApiTest extends JsonApiTestC
             ])
         ));
 
-        $this->client->request('GET', $this->getShippingUrl($token), [], [], self::CONTENT_TYPE_HEADER);
-
-        $response = $this->client->getResponse();
+        $response = $this->showAvailableShippingMethods($token);
         $this->assertResponse($response, 'checkout/get_available_shipping_methods', Response::HTTP_OK);
     }
 
@@ -79,54 +75,20 @@ final class CheckoutShowAvailableShippingMethodsShopApiTest extends JsonApiTestC
         $bus->dispatch(new PickupCart($token, 'WEB_GB'));
         $bus->dispatch(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
 
-        $this->client->request('GET', $this->getShippingUrl($token), [], [], self::CONTENT_TYPE_HEADER);
-
-        $response = $this->client->getResponse();
+        $response = $this->showAvailableShippingMethods($token);
         $this->assertResponse($response, 'checkout/get_available_shipping_methods_failed', Response::HTTP_BAD_REQUEST);
     }
 
-    /**
-     * @test
-     */
-    public function it_does_not_provide_available_shipping_methods_in_non_existent_channel(): void
+    private function showAvailableShippingMethods(string $token): Response
     {
-        $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml']);
+        $this->client->request(
+            'GET',
+            sprintf('/shop-api/checkout/%s/shipping', $token),
+            [],
+            [],
+            self::CONTENT_TYPE_HEADER
+        );
 
-        $token = 'SDAOSLEFNWU35H3QLI5325';
-
-        /** @var MessageBusInterface $bus */
-        $bus = $this->get('sylius_shop_api_plugin.command_bus');
-        $bus->dispatch(new PickupCart($token, 'WEB_GB'));
-        $bus->dispatch(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
-        $bus->dispatch(new AddressOrder(
-            $token,
-            Address::createFromArray([
-                'firstName' => 'Sherlock',
-                'lastName' => 'Holmes',
-                'city' => 'London',
-                'street' => 'Baker Street 221b',
-                'countryCode' => 'GB',
-                'postcode' => 'NWB',
-                'provinceName' => 'Greater London',
-            ]), Address::createFromArray([
-                'firstName' => 'Sherlock',
-                'lastName' => 'Holmes',
-                'city' => 'London',
-                'street' => 'Baker Street 221b',
-                'countryCode' => 'GB',
-                'postcode' => 'NWB',
-                'provinceName' => 'Greater London',
-            ])
-        ));
-
-        $this->client->request('GET', sprintf('/shop-api/SPACE_KLINGON/checkout/%s/shipping', $token), [], [], self::CONTENT_TYPE_HEADER);
-
-        $response = $this->client->getResponse();
-        $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
-    }
-
-    private function getShippingUrl(string $token): string
-    {
-        return sprintf('/shop-api/WEB_GB/checkout/%s/shipping', $token);
+        return $this->client->getResponse();
     }
 }
