@@ -38,9 +38,7 @@ final class AddressBookCreateAddressApiTest extends JsonApiTestCase
         }
 EOT;
 
-        $this->client->request('POST', '/shop-api/WEB_GB/address-book', [], [], self::CONTENT_TYPE_HEADER, $data);
-
-        $response = $this->client->getResponse();
+        $response = $this->createAddress($data);
         $this->assertResponse($response, 'address_book/add_address_response', Response::HTTP_CREATED);
 
         /** @var CustomerRepositoryInterface $customerRepository */
@@ -79,9 +77,7 @@ EOT;
         }
 EOT;
 
-        $this->client->request('POST', '/shop-api/WEB_GB/address-book', [], [], self::CONTENT_TYPE_HEADER, $data);
-
-        $response = $this->client->getResponse();
+        $response = $this->createAddress($data);
         $this->assertResponse($response, 'address_book/validation_create_address_book_response', Response::HTTP_BAD_REQUEST);
     }
 
@@ -105,9 +101,7 @@ EOT;
         }
 EOT;
 
-        $this->client->request('POST', '/shop-api/WEB_GB/address-book', [], [], self::CONTENT_TYPE_HEADER, $data);
-
-        $response = $this->client->getResponse();
+        $response = $this->createAddress($data);
         $this->assertResponse($response, 'address_book/validation_create_address_book_with_wrong_country_response', Response::HTTP_BAD_REQUEST);
     }
 
@@ -120,7 +114,7 @@ EOT;
         $this->logInUser('oliver@queen.com', '123password');
 
         $data =
-            <<<EOT
+<<<EOT
         {
             "firstName": "Davor",
             "lastName": "Duhovic",
@@ -132,35 +126,14 @@ EOT;
         }
 EOT;
 
-        $this->client->request('POST', '/shop-api/WEB_GB/address-book', [], [], self::CONTENT_TYPE_HEADER, $data);
-
-        $response = $this->client->getResponse();
+        $response = $this->createAddress($data);
         $this->assertResponse($response, 'address_book/validation_create_address_book_with_wrong_province_response', Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 
-    /**
-     * @test
-     */
-    public function it_does_not_allow_user_to_add_new_address_to_address_book_in_non_existent_channel(): void
+    private function createAddress(string $data): Response
     {
-        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'country.yml']);
-        $this->logInUser('oliver@queen.com', '123password');
+        $this->client->request('POST', '/shop-api/address-book', [], [], self::CONTENT_TYPE_HEADER, $data);
 
-        $data =
-            <<<EOT
-        {
-            "firstName": "Davor",
-            "lastName": "Duhovic",
-            "countryCode": "WRONG_COUNTRY_NAME",
-            "street": "Marmontova 21",
-            "city": "Split",
-            "postcode": "2100"
-        }
-EOT;
-
-        $this->client->request('POST', '/shop-api/SPACE_KLINGON/address-book', [], [], self::CONTENT_TYPE_HEADER, $data);
-
-        $response = $this->client->getResponse();
-        $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
+        return $this->client->getResponse();
     }
 }
