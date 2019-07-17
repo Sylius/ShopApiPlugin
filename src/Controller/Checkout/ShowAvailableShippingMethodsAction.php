@@ -52,7 +52,7 @@ final class ShowAvailableShippingMethodsAction
 
     public function __invoke(Request $request): Response
     {
-        /** @var OrderInterface $cart */
+        /** @var OrderInterface|null $cart */
         $cart = $this->cartRepository->findOneBy(['tokenValue' => $request->attributes->get('token')]);
 
         if (null === $cart) {
