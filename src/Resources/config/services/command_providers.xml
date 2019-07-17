@@ -5,5 +5,8 @@
         <service id="Sylius\ShopApiPlugin\CommandProvider\DropCartCommandProvider">
             <argument type="service" id="validator" />
         </service>
+        <service id="Sylius\ShopApiPlugin\CommandProvider\AddCouponCommandProvider">
+            <argument type="service" id="validator" />
+        </service>
     </services>
 </container>
