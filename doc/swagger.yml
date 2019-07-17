@@ -1437,6 +1437,9 @@ definitions:
                     rating:
                         type: "integer"
                         example: 5
+                    createdAt:
+                        type: "datetime"
+                        example: "2016-01-02 21:00:10"
                     comment:
                         type: "string"
                         example: "It is a really nice mug."
