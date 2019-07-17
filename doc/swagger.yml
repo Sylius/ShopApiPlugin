@@ -832,9 +832,8 @@ paths:
                     description: "There is no currently logged in user."
             security:
                 -   bearerAuth: []
-    /{channelCode}/address-book:
-        parameters:
-            -   $ref: "#/parameters/ChannelCode"
+
+    /address-book:
         get:
             tags:
                 - "address"
@@ -875,9 +874,8 @@ paths:
                     description: "The user does not own the address"
             security:
                 -   bearerAuth: []
-    /{channelCode}/address-book/{id}:
-        parameters:
-            -   $ref: "#/parameters/ChannelCode"
+
+    /address-book/{id}:
         put:
             tags:
                 - "address"
@@ -933,9 +931,8 @@ paths:
                     description: "The user does not own the address"
             security:
                 -   bearerAuth: []
-    /{channelCode}/address-book/{id}/default:
-        parameters:
-            -   $ref: "#/parameters/ChannelCode"
+
+    /address-book/{id}/default:
         patch:
             tags:
                 - "address"

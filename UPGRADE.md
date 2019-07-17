@@ -27,6 +27,7 @@
 
     | Old Route                             | New route                              |
     |:--------------------------------------|:---------------------------------------|
+    | `{channelCode}/address-book/*`        | `address-book/*`                           |
     | `{channelCode}/checkout/*`            | `checkout/*`                           |
     | `{channelCode}/orders/*`              | `orders/*`                           |
 

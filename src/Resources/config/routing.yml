@@ -32,7 +32,7 @@ sylius_shop_api_product_list:
 
 sylius_shop_api_address_book:
     resource: "@ShopApiPlugin/Resources/config/routing/address_book.yml"
-    prefix: /shop-api/{channelCode}
+    prefix: /shop-api
 
 sylius_shop_api_order:
     resource: "@ShopApiPlugin/Resources/config/routing/order.yml"

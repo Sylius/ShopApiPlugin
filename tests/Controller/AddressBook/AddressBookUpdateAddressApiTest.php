@@ -29,7 +29,7 @@ final class AddressBookUpdateAddressApiTest extends JsonApiTestCase
         $address = $addressRepository->findOneBy(['street' => 'Kupreska']);
 
         $data =
-            <<<EOT
+<<<EOT
         {
             "firstName": "New name",
             "lastName": "New lastName",
@@ -42,9 +42,8 @@ final class AddressBookUpdateAddressApiTest extends JsonApiTestCase
             "phoneNumber": "0918972132"
         }
 EOT;
-        $this->client->request('PUT', sprintf('/shop-api/WEB_GB/address-book/%s', $address->getId()), [], [], self::CONTENT_TYPE_HEADER, $data);
-        $response = $this->client->getResponse();
 
+        $response = $this->updateAddress((string) $address->getId(), $data);
         $this->assertResponse($response, 'address_book/update_address', Response::HTTP_OK);
 
         /** @var AddressInterface $updatedAddress */
@@ -72,7 +71,7 @@ EOT;
         $address = $addressRepository->findOneBy(['street' => 'Kupreska']);
 
         $data =
-            <<<EOT
+<<<EOT
         {
             "firstName": "New name",
             "lastName": "New lastName",
@@ -85,9 +84,8 @@ EOT;
             "phoneNumber": "0918972132"
         }
 EOT;
-        $this->client->request('PUT', sprintf('/shop-api/WEB_GB/address-book/%s', $address->getId()), [], [], self::CONTENT_TYPE_HEADER, $data);
-        $response = $this->client->getResponse();
 
+        $response = $this->updateAddress((string) $address->getId(), $data);
         $this->assertResponseCode($response, Response::HTTP_BAD_REQUEST);
     }
 
@@ -105,7 +103,7 @@ EOT;
         $address = $addressRepository->findOneBy(['street' => 'Kupreska']);
 
         $data =
-            <<<EOT
+<<<EOT
         {
             "firstName": "",
             "lastName": "",
@@ -115,37 +113,22 @@ EOT;
             "postcode": "",
         }
 EOT;
-        $this->client->request('PUT', sprintf('/shop-api/WEB_GB/address-book/%s', $address->getId()), [], [], self::CONTENT_TYPE_HEADER, $data);
-        $response = $this->client->getResponse();
 
+        $response = $this->updateAddress((string) $address->getId(), $data);
         $this->assertResponseCode($response, Response::HTTP_BAD_REQUEST);
     }
 
-    /**
-     * @test
-     */
-    public function it_does_not_allow_to_update_address_in_non_existent_channel(): void
+    private function updateAddress(string $id, string $data): Response
     {
-        $this->loadFixturesFromFile('channel.yml');
+        $this->client->request(
+            'PUT',
+            sprintf('/shop-api/address-book/%s', $id),
+            [],
+            [],
+            self::CONTENT_TYPE_HEADER,
+            $data
+        );
 
-        $data =
-<<<EOT
-        {
-            "firstName": "New name",
-            "lastName": "New lastName",
-            "company": "Locastic",
-            "street": "New street",
-            "countryCode": "WRONG_CODE",
-            "provinceCode": "WRONG_CODE",
-            "city": "New city",
-            "postcode": "2000",
-            "phoneNumber": "0918972132"
-        }
-EOT;
-
-        $this->client->request('PUT', '/shop-api/SPACE_KLINGON/address-book/1', [], [], self::CONTENT_TYPE_HEADER, $data);
-        $response = $this->client->getResponse();
-
-        $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
+        return $this->client->getResponse();
     }
 }
