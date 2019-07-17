@@ -17,6 +17,7 @@ use Sylius\ShopApiPlugin\Factory\Checkout\PaymentMethodViewFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final class ShowAvailablePaymentMethodsAction
 {
@@ -51,8 +52,12 @@ final class ShowAvailablePaymentMethodsAction
 
     public function __invoke(Request $request): Response
     {
-        /** @var OrderInterface $cart */
+        /** @var OrderInterface|null $cart */
         $cart = $this->cartRepository->findOneBy(['tokenValue' => $request->attributes->get('token')]);
+
+        if (null === $cart) {
+            throw new NotFoundHttpException('Cart with given token does not exist!');
+        }
 
         if (!$this->isCheckoutTransitionPossible($cart, OrderCheckoutTransitions::TRANSITION_SELECT_PAYMENT)) {
             throw new BadRequestHttpException('The payment methods cannot be resolved in the current state of cart!');

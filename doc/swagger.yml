@@ -275,9 +275,9 @@ paths:
                     description: "Invalid input, validation failed."
                     schema:
                         $ref: "#/definitions/GeneralError"
-    /{channelCode}/checkout/{token}:
+
+    /checkout/{token}:
         parameters:
-            -   $ref: "#/parameters/ChannelCode"
             -   $ref: "#/parameters/CartToken"
         get:
             tags:
@@ -294,9 +294,9 @@ paths:
                     description: "Invalid input (E.g. token has not been found)"
                     schema:
                         $ref: "#/definitions/GeneralError"
-    /{channelCode}/checkout/{token}/address:
+
+    /checkout/{token}/address:
         parameters:
-            -   $ref: "#/parameters/ChannelCode"
             -   $ref: "#/parameters/CartToken"
         put:
             tags:
@@ -317,9 +317,9 @@ paths:
                     description: "Address not valid"
                     schema:
                         $ref: "#/definitions/GeneralError"
-    /{channelCode}/checkout/{token}/shipping:
+
+    /checkout/{token}/shipping:
         parameters:
-            -   $ref: "#/parameters/ChannelCode"
             -   $ref: "#/parameters/CartToken"
         get:
             tags:
@@ -336,9 +336,9 @@ paths:
                     description: "Invalid input, validation failed."
                     schema:
                         $ref: "#/definitions/GeneralError"
-    /{channelCode}/checkout/{token}/shipping/{id}:
+
+    /checkout/{token}/shipping/{id}:
         parameters:
-            -   $ref: "#/parameters/ChannelCode"
             -   $ref: "#/parameters/CartToken"
         put:
             tags:
@@ -364,9 +364,9 @@ paths:
                     description: "Invalid input, validation failed."
                     schema:
                         $ref: "#/definitions/GeneralError"
-    /{channelCode}/checkout/{token}/payment:
+
+    /checkout/{token}/payment:
         parameters:
-            -   $ref: "#/parameters/ChannelCode"
             -   $ref: "#/parameters/CartToken"
         get:
             tags:
@@ -383,9 +383,9 @@ paths:
                     description: "Invalid input, validation failed."
                     schema:
                         $ref: "#/definitions/GeneralError"
-    /{channelCode}/checkout/{token}/payment/{id}:
+
+    /checkout/{token}/payment/{id}:
         parameters:
-            -   $ref: "#/parameters/ChannelCode"
             -   $ref: "#/parameters/CartToken"
         put:
             tags:
@@ -411,9 +411,9 @@ paths:
                     description: "Invalid input, validation failed."
                     schema:
                         $ref: "#/definitions/GeneralError"
-    /{channelCode}/checkout/{token}/complete:
+
+    /checkout/{token}/complete:
         parameters:
-            -   $ref: "#/parameters/ChannelCode"
             -   $ref: "#/parameters/CartToken"
         put:
             tags:
@@ -439,6 +439,7 @@ paths:
             security:
                 - {}
                 -   bearerAuth: []
+
     /{channelCode}/taxon-products/by-slug/{taxonSlug}:
         parameters:
             -   $ref: "#/parameters/ChannelCode"

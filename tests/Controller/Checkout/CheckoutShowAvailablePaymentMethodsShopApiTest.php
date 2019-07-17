@@ -20,10 +20,8 @@ final class CheckoutShowAvailablePaymentMethodsShopApiTest extends JsonApiTestCa
      */
     public function it_does_not_provide_details_about_available_payment_method_for_non_existing_cart(): void
     {
-        $this->client->request('GET', sprintf('/shop-api/SPACE_KLINGON/checkout/TOKEN/payment'), [], []);
-
-        $response = $this->client->getResponse();
-        $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
+        $response = $this->showAvailablePaymentMethods('WRONGTOKEN');
+        $this->assertResponse($response, 'cart_with_given_token_does_not_exist', Response::HTTP_NOT_FOUND);
     }
 
     /**
@@ -40,9 +38,7 @@ final class CheckoutShowAvailablePaymentMethodsShopApiTest extends JsonApiTestCa
         $bus->dispatch(new PickupCart($token, 'WEB_GB'));
         $bus->dispatch(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
 
-        $this->client->request('GET', $this->getPaymentUrl($token), [], []);
-
-        $response = $this->client->getResponse();
+        $response = $this->showAvailablePaymentMethods($token);
         $this->assertResponse($response, 'checkout/get_available_payment_methods_failed', Response::HTTP_BAD_REQUEST);
     }
 
@@ -81,9 +77,7 @@ final class CheckoutShowAvailablePaymentMethodsShopApiTest extends JsonApiTestCa
             ])
         ));
 
-        $this->client->request('GET', $this->getPaymentUrl($token), [], []);
-
-        $response = $this->client->getResponse();
+        $response = $this->showAvailablePaymentMethods($token);
         $this->assertResponse($response, 'checkout/get_available_payment_methods_failed', Response::HTTP_BAD_REQUEST);
     }
 
@@ -120,65 +114,22 @@ final class CheckoutShowAvailablePaymentMethodsShopApiTest extends JsonApiTestCa
                 'provinceName' => 'Greater London',
             ])
         ));
-        $bus->dispatch(new ChooseShippingMethod(
-            $token,
-            0,
-            'DHL'
-        ));
+        $bus->dispatch(new ChooseShippingMethod($token, 0, 'DHL'));
 
-        $this->client->request('GET', $this->getPaymentUrl($token), [], [], self::CONTENT_TYPE_HEADER);
-
-        $response = $this->client->getResponse();
+        $response = $this->showAvailablePaymentMethods($token);
         $this->assertResponse($response, 'checkout/get_available_payment_methods', Response::HTTP_OK);
     }
 
-    /**
-     * @test
-     */
-    public function it_does_not_provide_available_payment_methods_in_non_existent_channel(): void
+    private function showAvailablePaymentMethods(string $token): Response
     {
-        $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml', 'payment.yml']);
+        $this->client->request(
+            'GET',
+            sprintf('/shop-api/checkout/%s/payment', $token),
+            [],
+            [],
+            self::CONTENT_TYPE_HEADER
+        );
 
-        $token = 'SDAOSLEFNWU35H3QLI5325';
-
-        /** @var MessageBusInterface $bus */
-        $bus = $this->get('sylius_shop_api_plugin.command_bus');
-        $bus->dispatch(new PickupCart($token, 'WEB_GB'));
-        $bus->dispatch(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
-        $bus->dispatch(new AddressOrder(
-            $token,
-            Address::createFromArray([
-                'firstName' => 'Sherlock',
-                'lastName' => 'Holmes',
-                'city' => 'London',
-                'street' => 'Baker Street 221b',
-                'countryCode' => 'GB',
-                'postcode' => 'NWB',
-                'provinceName' => 'Greater London',
-            ]), Address::createFromArray([
-                'firstName' => 'Sherlock',
-                'lastName' => 'Holmes',
-                'city' => 'London',
-                'street' => 'Baker Street 221b',
-                'countryCode' => 'GB',
-                'postcode' => 'NWB',
-                'provinceName' => 'Greater London',
-            ])
-        ));
-        $bus->dispatch(new ChooseShippingMethod(
-            $token,
-            0,
-            'DHL'
-        ));
-
-        $this->client->request('GET', sprintf('/shop-api/SPACE_KLINGON/checkout/%s/payment', $token), [], [], self::CONTENT_TYPE_HEADER);
-
-        $response = $this->client->getResponse();
-        $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
-    }
-
-    private function getPaymentUrl(string $token): string
-    {
-        return sprintf('/shop-api/WEB_GB/checkout/%s/payment', $token);
+        return $this->client->getResponse();
     }
 }

@@ -61,10 +61,8 @@ final class CheckoutCompleteOrderApiTest extends JsonApiTestCase
             "email": "example@cusomer.com"
         }
 EOT;
-        $this->client->request('PUT', sprintf('/shop-api/WEB_GB/checkout/%s/complete', $token), [], [],
-            self::CONTENT_TYPE_HEADER, $data);
 
-        $response = $this->client->getResponse();
+        $response = $this->complete($token, $data);
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
     }
 
@@ -111,10 +109,8 @@ EOT;
             "notes": "BRING IT AS FAST AS YOU CAN, PLEASE!"
         }
 EOT;
-        $this->client->request('PUT', sprintf('/shop-api/WEB_GB/checkout/%s/complete', $token), [], [],
-            self::CONTENT_TYPE_HEADER, $data);
 
-        $response = $this->client->getResponse();
+        $response = $this->complete($token, $data);
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
     }
 
@@ -156,58 +152,8 @@ EOT;
 
         $this->logInUser('oliver@queen.com', '123password');
 
-        $this->client->request('PUT', sprintf('/shop-api/WEB_GB/checkout/%s/complete', $token), [], [], self::CONTENT_TYPE_HEADER);
-
-        $response = $this->client->getResponse();
+        $response = $this->complete($token);
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
-    }
-
-    /**
-     * @test
-     */
-    public function it_does_not_allow_to_complete_order_in_non_existent_channel(): void
-    {
-        $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml', 'payment.yml', 'customer.yml']);
-
-        $token = 'SDAOSLEFNWU35H3QLI5325';
-
-        /** @var MessageBusInterface $bus */
-        $bus = $this->get('sylius_shop_api_plugin.command_bus');
-        $bus->dispatch(new PickupCart($token, 'WEB_GB'));
-        $bus->dispatch(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
-        $bus->dispatch(new AddressOrder(
-            $token,
-            Address::createFromArray([
-                'firstName' => 'Sherlock',
-                'lastName' => 'Holmes',
-                'city' => 'London',
-                'street' => 'Baker Street 221b',
-                'countryCode' => 'GB',
-                'postcode' => 'NWB',
-                'provinceName' => 'Greater London',
-            ]), Address::createFromArray([
-                'firstName' => 'Sherlock',
-                'lastName' => 'Holmes',
-                'city' => 'London',
-                'street' => 'Baker Street 221b',
-                'countryCode' => 'GB',
-                'postcode' => 'NWB',
-                'provinceName' => 'Greater London',
-            ])
-        ));
-        $bus->dispatch(new ChooseShippingMethod($token, 0, 'DHL'));
-        $bus->dispatch(new ChoosePaymentMethod($token, 0, 'PBC'));
-
-        $data =
-<<<EOT
-        {
-            "email": "example@cusomer.com"
-        }
-EOT;
-        $this->client->request('PUT', sprintf('/shop-api/SPACE_KLINGON/checkout/%s/complete', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
-
-        $response = $this->client->getResponse();
-        $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
     }
 
     /**
@@ -246,14 +192,15 @@ EOT;
         $bus->dispatch(new ChooseShippingMethod($token, 0, 'DHL'));
         $bus->dispatch(new ChoosePaymentMethod($token, 0, 'PBC'));
 
-        $data = <<<EOT
+        $data =
+<<<EOT
         {
             "email": "oliver@queen.com",
             "notes": "BRING IT AS FAST AS YOU CAN, PLEASE!"
         }
 EOT;
-        $this->client->request('PUT', sprintf('/shop-api/WEB_GB/checkout/%s/complete', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
-        $response = $this->client->getResponse();
+
+        $response = $this->complete($token, $data);
         $this->assertResponseCode($response, Response::HTTP_UNAUTHORIZED);
     }
 
@@ -295,13 +242,28 @@ EOT;
 
         $this->logInUser('oliver@queen.com', '123password');
 
-        $data = <<<EOT
+        $data =
+<<<EOT
         {
             "email": "example@cusomer.com"
         }
 EOT;
-        $this->client->request('PUT', sprintf('/shop-api/WEB_GB/checkout/%s/complete', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
-        $response = $this->client->getResponse();
+
+        $response = $this->complete($token, $data);
         $this->assertResponseCode($response, Response::HTTP_UNAUTHORIZED);
+    }
+
+    private function complete(string $token, ?string $data = null): Response
+    {
+        $this->client->request(
+            'PUT',
+            sprintf('/shop-api/checkout/%s/complete', $token),
+            [],
+            [],
+            self::CONTENT_TYPE_HEADER,
+            $data
+        );
+
+        return $this->client->getResponse();
     }
 }
