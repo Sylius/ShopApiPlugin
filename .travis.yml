@@ -38,5 +38,6 @@ script:
             composer analyse
         fi
 
+    - vendor/bin/phpstan analyse src
     - vendor/bin/phpspec run --format dot -vvv --no-interaction
     - vendor/bin/phpunit
