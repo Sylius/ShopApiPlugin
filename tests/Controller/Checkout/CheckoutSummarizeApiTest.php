@@ -50,7 +50,7 @@ EOT;
 
         $this->client->request('PUT', sprintf('/shop-api/checkout/%s/address', $token), [], [], static::CONTENT_TYPE_HEADER, $data);
 
-        $response = $this->summary($token);
+        $response = $this->summarize($token);
         $this->assertResponse($response, 'checkout/cart_addressed_response', Response::HTTP_OK);
     }
 
@@ -98,7 +98,7 @@ EOT;
 
         $this->client->request('PUT', sprintf('/shop-api/checkout/%s/address', $token), [], [], static::CONTENT_TYPE_HEADER, $data);
 
-        $response = $this->summary($token);
+        $response = $this->summarize($token);
         $this->assertResponse($response, 'checkout/cart_addressed_with_different_shipping_and_billing_address_response', Response::HTTP_OK);
     }
 
@@ -146,7 +146,7 @@ EOT;
 
         $this->client->request('PUT', sprintf('/shop-api/checkout/%s/shipping/0', $token), [], [], static::CONTENT_TYPE_HEADER, $data);
 
-        $response = $this->summary($token);
+        $response = $this->summarize($token);
         $this->assertResponse($response, 'checkout/cart_with_chosen_shipment_response', Response::HTTP_OK);
     }
 
@@ -194,7 +194,7 @@ EOT;
 
         $this->client->request('PUT', sprintf('/shop-api/checkout/%s/shipping/0', $token), [], [], static::CONTENT_TYPE_HEADER, $data);
 
-        $response = $this->summary($token);
+        $response = $this->summarize($token);
         $this->assertResponse($response, 'checkout/cart_with_chosen_shipment_with_per_item_rate_response', Response::HTTP_OK);
 
         /** @var OrderRepositoryInterface $orderRepository */
@@ -262,11 +262,11 @@ EOT;
 
         $this->client->request('PUT', sprintf('/shop-api/checkout/%s/payment/0', $token), [], [], static::CONTENT_TYPE_HEADER, $data);
 
-        $response = $this->summary($token);
+        $response = $this->summarize($token);
         $this->assertResponse($response, 'checkout/cart_with_chosen_payment_response', Response::HTTP_OK);
     }
 
-    private function summary(string $token): Response
+    private function summarize(string $token): Response
     {
         $this->client->request(
             'GET',
