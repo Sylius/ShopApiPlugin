@@ -27,9 +27,7 @@ final class OrderShowApiTest extends JsonApiTestCase
 
         $this->placeOrderForCustomerWithEmail($email, $token);
 
-        $this->client->request('GET', '/shop-api/WEB_GB/orders/' . $token, [], [], self::CONTENT_TYPE_HEADER);
-        $response = $this->client->getResponse();
-
+        $response = $this->showOrder($token);
         $this->assertResponse($response, 'order/order_details_response', Response::HTTP_OK);
     }
 
@@ -44,9 +42,7 @@ final class OrderShowApiTest extends JsonApiTestCase
 
         $this->placeOrderForCustomerWithEmail($email, $token);
 
-        $this->client->request('GET', '/shop-api/WEB_GB/orders/' . $token, [], [], self::CONTENT_TYPE_HEADER);
-        $response = $this->client->getResponse();
-
+        $response = $this->showOrder($token);
         $this->assertResponse($response, 'order/order_details_response_guest', Response::HTTP_OK);
     }
 
@@ -58,9 +54,7 @@ final class OrderShowApiTest extends JsonApiTestCase
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
         $this->logInUser('oliver@queen.com', '123password');
 
-        $this->client->request('GET', '/shop-api/WEB_GB/orders/NOT_EXISTING_TOKEN', [], [], self::CONTENT_TYPE_HEADER);
-        $response = $this->client->getResponse();
-
+        $response = $this->showOrder('NOT_EXISTING_TOKEN');
         $this->assertResponse($response, 'order/order_not_found_response', Response::HTTP_NOT_FOUND);
     }
 
@@ -71,9 +65,7 @@ final class OrderShowApiTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['channel.yml']);
 
-        $this->client->request('GET', '/shop-api/WEB_GB/orders/NOT_EXISTING_TOKEN', [], [], self::CONTENT_TYPE_HEADER);
-        $response = $this->client->getResponse();
-
+        $response = $this->showOrder('NOT_EXISTING_TOKEN');
         $this->assertResponse($response, 'order/order_not_found_response_guest', Response::HTTP_NOT_FOUND);
     }
 
@@ -93,22 +85,14 @@ final class OrderShowApiTest extends JsonApiTestCase
         //logout
         $this->client->setServerParameter('HTTP_Authorization', null);
 
-        $this->client->request('GET', '/shop-api/WEB_GB/orders/' . $token, [], [], self::CONTENT_TYPE_HEADER);
-        $response = $this->client->getResponse();
-
+        $response = $this->showOrder($token);
         $this->assertResponse($response, 'order/order_placed_by_registered_customer', Response::HTTP_NOT_FOUND);
     }
 
-    /**
-     * @test
-     */
-    public function it_does_not_show_order_details_in_non_existent_channel(): void
+    private function showOrder(string $token): Response
     {
-        $this->loadFixturesFromFiles(['channel.yml']);
+        $this->client->request('GET', sprintf('/shop-api/orders/%s', $token), [], [], self::CONTENT_TYPE_HEADER);
 
-        $this->client->request('GET', '/shop-api/SPACE_KLINGON/orders/ORDER_TOKEN', [], [], self::CONTENT_TYPE_HEADER);
-        $response = $this->client->getResponse();
-
-        $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
+        return $this->client->getResponse();
     }
 }

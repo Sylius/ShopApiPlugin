@@ -23,11 +23,12 @@
     | `taxon-products-by-slug/{taxonSlug}`  | `taxon-products/by-slug/{taxonSlug}`   |
     | `product/by-slug/{slug}/reviews`      | `products/by-slug/{slug}/reviews`      |
 
-* The channel code has been removed from checkout routes:
+* The channel code has been removed from routes:
 
     | Old Route                             | New route                              |
     |:--------------------------------------|:---------------------------------------|
     | `{channelCode}/checkout/*`            | `checkout/*`                           |
+    | `{channelCode}/orders/*`              | `orders/*`                           |
 
 # UPGRADE FROM 1.0.0-beta.17 to 1.0.0-beta.18
 
