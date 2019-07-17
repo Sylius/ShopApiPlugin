@@ -1,0 +1,17 @@
+---------------------------------------------------------------------------
+
+by Zales0123 at 2019-07-17T06:46:34Z
+
+I think it can conflict a little bit with https://github.com/Sylius/ShopApiPlugin/pull/462 💃
+
+---------------------------------------------------------------------------
+
+by lchrusciel at 2019-07-17T08:50:13Z
+
+@GSadee can you fix master build as well? https://travis-ci.org/Sylius/ShopApiPlugin/jobs/559855460
+
+---------------------------------------------------------------------------
+
+by lchrusciel at 2019-07-17T12:35:53Z
+
+Thanks, Grzegorz! :tada:
