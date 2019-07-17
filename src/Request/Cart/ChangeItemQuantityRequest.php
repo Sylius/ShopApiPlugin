@@ -25,8 +25,18 @@ class ChangeItemQuantityRequest
         $this->quantity = $request->request->getInt('quantity');
     }
 
-    public function getCommand(): ChangeItemQuantity
+    public function getToken(): string
     {
-        return new ChangeItemQuantity($this->token, $this->id, $this->quantity);
+        return $this->token;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getQuantity(): int
+    {
+        return $this->quantity;
     }
 }
