@@ -27,9 +27,7 @@ final class OrdersListApiTest extends JsonApiTestCase
 
         $this->placeOrderForCustomerWithEmail($email, $token);
 
-        $this->client->request('GET', '/shop-api/WEB_GB/orders', [], [], self::CONTENT_TYPE_HEADER);
-        $response = $this->client->getResponse();
-
+        $response = $this->listOrders();
         $this->assertResponse($response, 'order/orders_list_response', Response::HTTP_OK);
     }
 
@@ -40,22 +38,14 @@ final class OrdersListApiTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFile('channel.yml');
 
-        $this->client->request('GET', '/shop-api/WEB_GB/orders', [], [], self::CONTENT_TYPE_HEADER);
-        $response = $this->client->getResponse();
-
+        $response = $this->listOrders();
         $this->assertResponseCode($response, Response::HTTP_UNAUTHORIZED);
     }
 
-    /**
-     * @test
-     */
-    public function it_does_not_show_orders_list_in_non_existent_channel(): void
+    private function listOrders(): Response
     {
-        $this->loadFixturesFromFile('channel.yml');
+        $this->client->request('GET', '/shop-api/orders', [], [], self::CONTENT_TYPE_HEADER);
 
-        $this->client->request('GET', '/shop-api/SPACE_KLINGON/orders', [], [], self::CONTENT_TYPE_HEADER);
-        $response = $this->client->getResponse();
-
-        $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
+        return $this->client->getResponse();
     }
 }
