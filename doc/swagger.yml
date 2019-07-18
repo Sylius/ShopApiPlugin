@@ -750,7 +750,7 @@ paths:
                     description: "There were validation errors"
                 500:
                     description: "Channel not found"
-    /{channelCode}/orders:
+    /orders:
         parameters:
             -   $ref: "#/parameters/ChannelCode"
         get:
@@ -769,7 +769,7 @@ paths:
                     description: "User token invalid"
             security:
                 - bearerAuth: []
-    /{channelCode}/orders/{tokenValue}:
+    /orders/{tokenValue}:
         parameters:
             -   $ref: "#/parameters/ChannelCode"
             -   in: "path"
