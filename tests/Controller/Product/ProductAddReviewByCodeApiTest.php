@@ -25,7 +25,7 @@ final class ProductAddReviewByCodeApiTest extends JsonApiTestCase
             "email": "oliver@example.com"
         }
 EOT;
-        $this->client->request('POST', '/shop-api/WEB_GB/products/by-code/LOGAN_MUG_CODE/reviews', [], [], self::CONTENT_TYPE_HEADER, $data);
+        $this->client->request('POST', '/shop-api/products/by-code/LOGAN_MUG_CODE/reviews', [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_CREATED);
@@ -47,32 +47,10 @@ EOT;
             "email": "oliver@example.com"
         }
 EOT;
-        $this->client->request('POST', '/shop-api/WEB_GB/products/by-code/LOGAN_MUG_CODE/reviews', [], [], self::CONTENT_TYPE_HEADER, $data);
+        $this->client->request('POST', '/shop-api/products/by-code/LOGAN_MUG_CODE/reviews', [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponseCode($response, Response::HTTP_CREATED);
-    }
-
-    /**
-     * @test
-     */
-    public function it_does_not_allow_to_add_product_review_by_code_in_non_existent_channel(): void
-    {
-        $this->loadFixturesFromFiles(['shop.yml']);
-
-        $data =
-<<<EOT
-        {
-            "title": "Awesome product",
-            "rating": 5,
-            "comment": "If I were a mug, I would like to be like this one!",
-            "email": "oliver@example.com"
-        }
-EOT;
-        $this->client->request('POST', '/shop-api/SPACE_KLINGON/products/by-code/LOGAN_MUG_CODE/reviews', [], [], self::CONTENT_TYPE_HEADER, $data);
-        $response = $this->client->getResponse();
-
-        $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
     }
 
     /**
@@ -93,7 +71,7 @@ EOT;
         }
 EOT;
 
-        $this->client->request('POST', '/shop-api/WEB_GB/products/by-code/LOGAN_MUG_CODE/reviews', [], [], self::CONTENT_TYPE_HEADER, $data);
+        $this->client->request('POST', '/shop-api/products/by-code/LOGAN_MUG_CODE/reviews', [], [], self::CONTENT_TYPE_HEADER, $data);
 
         $response = $this->client->getResponse();
         $this->assertResponse($response, 'reviews/add_review_failed_rating', Response::HTTP_BAD_REQUEST);
@@ -117,7 +95,7 @@ EOT;
         }
 EOT;
 
-        $this->client->request('POST', '/shop-api/WEB_GB/products/by-code/LOGAN_MUG_CODE/reviews', [], [], self::CONTENT_TYPE_HEADER, $data);
+        $this->client->request('POST', '/shop-api/products/by-code/LOGAN_MUG_CODE/reviews', [], [], self::CONTENT_TYPE_HEADER, $data);
 
         $response = $this->client->getResponse();
         $this->assertResponse($response, 'reviews/add_review_failed_email', Response::HTTP_BAD_REQUEST);

@@ -4,10 +4,10 @@
     "pages": 1,
     "total": 2,
     "_links": {
-        "self": "\/shop-api\/WEB_GB\/taxon-products\/by-code\/BRAND?locale=de_DE&page=1&limit=10",
-        "first": "\/shop-api\/WEB_GB\/taxon-products\/by-code\/BRAND?locale=de_DE&page=1&limit=10",
-        "last": "\/shop-api\/WEB_GB\/taxon-products\/by-code\/BRAND?locale=de_DE&page=1&limit=10",
-        "next": "\/shop-api\/WEB_GB\/taxon-products\/by-code\/BRAND?locale=de_DE&page=1&limit=10"
+        "self": "\/shop-api\/taxon-products\/by-code\/BRAND?locale=de_DE&page=1&limit=10",
+        "first": "\/shop-api\/taxon-products\/by-code\/BRAND?locale=de_DE&page=1&limit=10",
+        "last": "\/shop-api\/taxon-products\/by-code\/BRAND?locale=de_DE&page=1&limit=10",
+        "next": "\/shop-api\/taxon-products\/by-code\/BRAND?locale=de_DE&page=1&limit=10"
     },
     "items": [
         {
@@ -57,7 +57,7 @@
             ],
             "_links": {
                 "self": {
-                    "href": "\/shop-api\/WEB_GB\/products\/by-slug\/logan-becher"
+                    "href": "\/shop-api\/products\/by-slug\/logan-becher"
                 }
             }
         },
@@ -195,7 +195,7 @@
                         ],
                         "_links": {
                             "self": {
-                                "href": "\/shop-api\/WEB_GB\/products\/by-slug\/logan-becher"
+                                "href": "\/shop-api\/products\/by-slug\/logan-becher"
                             }
                         }
                     },
@@ -265,7 +265,7 @@
                         ],
                         "_links": {
                             "self": {
-                                "href": "\/shop-api\/WEB_GB\/products\/by-slug\/logan-t-shirt"
+                                "href": "\/shop-api\/products\/by-slug\/logan-t-shirt"
                             }
                         }
                     }
@@ -274,7 +274,7 @@
             "images": [],
             "_links": {
                 "self": {
-                    "href": "\/shop-api\/WEB_GB\/products\/by-slug\/logan-hut"
+                    "href": "\/shop-api\/products\/by-slug\/logan-hut"
                 }
             }
         }

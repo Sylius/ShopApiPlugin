@@ -4,10 +4,10 @@
     "pages": 1,
     "total": 3,
     "_links": {
-        "self": "\/shop-api\/WEB_GB\/taxon-products\/by-slug\/brands?page=1&limit=10",
-        "first": "\/shop-api\/WEB_GB\/taxon-products\/by-slug\/brands?page=1&limit=10",
-        "last": "\/shop-api\/WEB_GB\/taxon-products\/by-slug\/brands?page=1&limit=10",
-        "next": "\/shop-api\/WEB_GB\/taxon-products\/by-slug\/brands?page=1&limit=10"
+        "self": "\/shop-api\/taxon-products\/by-slug\/brands?page=1&limit=10",
+        "first": "\/shop-api\/taxon-products\/by-slug\/brands?page=1&limit=10",
+        "last": "\/shop-api\/taxon-products\/by-slug\/brands?page=1&limit=10",
+        "next": "\/shop-api\/taxon-products\/by-slug\/brands?page=1&limit=10"
     },
     "items": [
         {
@@ -58,7 +58,7 @@
             ],
             "_links": {
                 "self": {
-                    "href": "\/shop-api\/WEB_GB\/products\/by-slug\/logan-mug"
+                    "href": "\/shop-api\/products\/by-slug\/logan-mug"
                 }
             }
         },
@@ -128,7 +128,7 @@
             ],
             "_links": {
                 "self": {
-                    "href": "\/shop-api\/WEB_GB\/products\/by-slug\/logan-t-shirt"
+                    "href": "\/shop-api\/products\/by-slug\/logan-t-shirt"
                 }
             }
         },
@@ -267,7 +267,7 @@
                         ],
                         "_links": {
                             "self": {
-                                "href": "\/shop-api\/WEB_GB\/products\/by-slug\/logan-mug"
+                                "href": "\/shop-api\/products\/by-slug\/logan-mug"
                             }
                         }
                     },
@@ -337,7 +337,7 @@
                         ],
                         "_links": {
                             "self": {
-                                "href": "\/shop-api\/WEB_GB\/products\/by-slug\/logan-t-shirt"
+                                "href": "\/shop-api\/products\/by-slug\/logan-t-shirt"
                             }
                         }
                     }
@@ -346,7 +346,7 @@
             "images": [],
             "_links": {
                 "self": {
-                    "href": "\/shop-api\/WEB_GB\/products\/by-slug\/logan-hat"
+                    "href": "\/shop-api\/products\/by-slug\/logan-hat"
                 }
             }
         }

@@ -64,7 +64,6 @@ final class ProductCatalogViewRepository implements ProductCatalogViewRepository
 
         Assert::notNull($taxon, sprintf('Taxon with slug %s in locale %s has not been found', $taxonSlug, $localeCode));
         $paginatorDetails->addToParameters('taxonSlug', $taxonSlug);
-        $paginatorDetails->addToParameters('channelCode', $channelCode);
 
         return $this->findByTaxon($taxon, $channel, $paginatorDetails, $localeCode);
     }
@@ -79,7 +78,6 @@ final class ProductCatalogViewRepository implements ProductCatalogViewRepository
 
         Assert::notNull($taxon, sprintf('Taxon with code %s has not been found', $taxonCode));
         $paginatorDetails->addToParameters('taxonCode', $taxonCode);
-        $paginatorDetails->addToParameters('channelCode', $channelCode);
 
         return $this->findByTaxon($taxon, $channel, $paginatorDetails, $localeCode);
     }

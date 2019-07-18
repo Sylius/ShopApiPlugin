@@ -27,9 +27,15 @@
 
     | Old Route                             | New route                              |
     |:--------------------------------------|:---------------------------------------|
-    | `{channelCode}/address-book/*`        | `address-book/*`                           |
+    | `{channelCode}/address-book/*`        | `address-book/*`                       |
     | `{channelCode}/checkout/*`            | `checkout/*`                           |
-    | `{channelCode}/orders/*`              | `orders/*`                           |
+    | `{channelCode}/orders/*`              | `orders/*`                             |
+    | `{channelCode}/products/*`            | `products/*`                           |
+    | `{channelCode}/product-latest`        | `product-latest`                       |
+    | `{channelCode}/taxon-products/*`      | `taxon-products/*`                     |
+
+* The channel code has been added as a second argument to `AddProductReviewByCodeRequest` 
+and `AddProductReviewBySlugRequest` classes.    
 
 # UPGRADE FROM 1.0.0-beta.17 to 1.0.0-beta.18
 
