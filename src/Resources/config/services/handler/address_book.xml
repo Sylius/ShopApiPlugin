@@ -2,34 +2,11 @@
     <services>
         <defaults public="true" />
 
-        <service id="sylius.shop_api_plugin.handler.create_address_handler"
-                 class="Sylius\ShopApiPlugin\Handler\AddressBook\CreateAddressHandler">
-            <argument type="service" id="sylius.repository.address" />
-            <argument type="service" id="sylius.repository.customer" />
-            <argument type="service" id="sylius.shop_api_plugin.mapper.address_mapper" />
-            <tag name="messenger.message_handler" />
-        </service>
-
-        <service id="sylius.shop_api_plugin.handler.remove_address_handler"
-                 class="Sylius\ShopApiPlugin\Handler\AddressBook\RemoveAddressHandler">
-            <argument type="service" id="sylius.repository.address" />
-            <argument type="service" id="sylius.repository.order" />
-            <tag name="messenger.message_handler" />
-        </service>
-
         <service id="sylius.shop_api_plugin.handler.set_default_address_handler"
                  class="Sylius\ShopApiPlugin\Handler\AddressBook\SetDefaultAddressHandler">
             <argument type="service" id="sylius.repository.customer" />
             <argument type="service" id="sylius.repository.address" />
             <argument type="service" id="sylius.repository.shop_user" />
-            <tag name="messenger.message_handler" />
-        </service>
-
-        <service id="sylius.shop_api_plugin.handler.update_address_book_address"
-                 class="Sylius\ShopApiPlugin\Handler\AddressBook\UpdateAddressBookAddressHandler">
-            <argument type="service" id="sylius.repository.address" />
-            <argument type="service" id="sylius.repository.shop_user" />
-            <argument type="service" id="sylius.shop_api_plugin.mapper.address_mapper" />
             <tag name="messenger.message_handler" />
         </service>
     </services>
