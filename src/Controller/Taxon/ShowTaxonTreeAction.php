@@ -42,25 +42,25 @@ final class ShowTaxonTreeAction
 
     public function __invoke(Request $request): Response
     {
-        $locale = $this->requestBasedLocaleProvider->getLocaleCode($request);
+        $localeCode = $this->requestBasedLocaleProvider->getLocaleCode($request);
 
         $taxons = $this->taxonRepository->findRootNodes();
         $taxonViews = [];
 
         /** @var TaxonInterface $taxon */
         foreach ($taxons as $taxon) {
-            $taxonViews[] = $this->buildTaxonView($taxon, $locale);
+            $taxonViews[] = $this->buildTaxonView($taxon, $localeCode);
         }
 
         return $this->viewHandler->handle(View::create($taxonViews, Response::HTTP_OK));
     }
 
-    private function buildTaxonView(TaxonInterface $taxon, $locale): TaxonView
+    private function buildTaxonView(TaxonInterface $taxon, string $localeCode): TaxonView
     {
-        $taxonView = $this->taxonViewFactory->create($taxon, $locale);
+        $taxonView = $this->taxonViewFactory->create($taxon, $localeCode);
 
         foreach ($taxon->getChildren() as $childTaxon) {
-            $taxonView->children[] = $this->buildTaxonView($childTaxon, $locale);
+            $taxonView->children[] = $this->buildTaxonView($childTaxon, $localeCode);
         }
 
         return $taxonView;

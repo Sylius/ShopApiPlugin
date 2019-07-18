@@ -10,8 +10,7 @@
         </service>
 
         <service id="sylius.shop_api_plugin.http.request_based_locale_provider" class="Sylius\ShopApiPlugin\Http\RequestBasedLocaleProvider">
-            <argument type="service" id="sylius.repository.channel" />
-            <argument type="service" id="sylius.shop_api_plugin.checker.channel_existence" />
+            <argument type="service" id="sylius.context.channel.request_based.resolver.hostname_based" />
             <argument type="service" id="sylius.shop_api_plugin.provider.supported_locale_provider" />
         </service>
     </services>

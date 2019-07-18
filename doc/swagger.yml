@@ -658,9 +658,7 @@ paths:
                         items:
                             $ref: "#/definitions/Product"
 
-    /{channelCode}/taxons:
-        parameters:
-            -   $ref: "#/parameters/ChannelCode"
+    /taxons:
         get:
             tags:
                 - "taxons"
@@ -680,9 +678,8 @@ paths:
                         type: "array"
                         items:
                             $ref: "#/definitions/Taxon"
-    /{channelCode}/taxons/{code}:
-        parameters:
-            -   $ref: "#/parameters/ChannelCode"
+
+    /taxons/{code}:
         get:
             tags:
                 - "taxons"
