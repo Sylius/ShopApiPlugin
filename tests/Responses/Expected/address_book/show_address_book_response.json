@@ -3,39 +3,36 @@
         "id": @integer@,
         "firstName": "Jeanie",
         "lastName": "Metz",
+        "phoneNumber": "349713",
+        "company": "Sylius",
         "countryCode": "GB",
+        "provinceCode": "GB-SCT",
         "street": "McGlynn Island",
         "city": "Klingside",
-        "postcode": "33553",
-        "provinceCode": "GB-SCT",
-        "company": "Sylius",
-        "phoneNumber": "349713",
-        "default": false
+        "postcode": "33553"
     },
     {
         "id": @integer@,
         "firstName": "Jeanie",
         "lastName": "Metz",
+        "phoneNumber": "349713",
+        "company": "Locastic",
         "countryCode": "GB",
+        "provinceCode": "GB-SCT",
         "street": "Kupreska",
         "city": "Klingside",
-        "postcode": "33553",
-        "provinceCode": "GB-SCT",
-        "company": "Locastic",
-        "phoneNumber": "349713",
-        "default": false
+        "postcode": "33553"
     },
     {
         "id": @integer@,
         "firstName": "Jeanie",
         "lastName": "Metz",
+        "phoneNumber": "349713",
+        "company": "Locastic",
         "countryCode": "GB",
+        "provinceCode": "GB-SCT",
         "street": "Lurline Springs",
         "city": "Klingside",
-        "postcode": "33553",
-        "provinceCode": "GB-SCT",
-        "company": "Locastic",
-        "phoneNumber": "349713",
-        "default": false
+        "postcode": "33553"
     }
 ]

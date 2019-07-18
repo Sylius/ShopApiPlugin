@@ -28,13 +28,14 @@ final class AddressBookCreateAddressApiTest extends JsonApiTestCase
         $data =
 <<<JSON
         {
-            "firstName": "Jurica",
-            "lastName": "Separovic",
-            "phoneNumber": "091892212",
-            "city": "Split",
-            "street": "Kupreska 12",
+            "firstName": "New name",
+            "lastName": "New lastName",
+            "phoneNumber": "0918972132",
             "countryCode": "GB",
-            "postcode": "2433"
+            "provinceCode": "GB-WLS",
+            "street": "New street",
+            "city": "New city",
+            "postcode": "2000"
         }
 JSON;
 
@@ -49,9 +50,9 @@ JSON;
         /** @var AddressRepositoryInterface $addressRepository */
         $addressRepository = $this->get('sylius.repository.address');
         /** @var AddressInterface $address */
-        $address = $addressRepository->findOneBy(['street' => 'Kupreska 12']);
+        $address = $addressRepository->findOneBy(['street' => 'New street']);
 
-        Assert::assertSame($address->getCustomer(), $customer);
+        Assert::assertSame($address->getCustomer()->getId(), $customer->getId());
         Assert::assertNotNull($address);
         Assert::assertTrue($customer->hasAddress($address));
     }
@@ -127,12 +128,12 @@ JSON;
 JSON;
 
         $response = $this->createAddress($data);
-        $this->assertResponse($response, 'address_book/validation_create_address_book_with_wrong_province_response', Response::HTTP_INTERNAL_SERVER_ERROR);
+        $this->assertResponse($response, 'address_book/validation_create_address_book_with_wrong_province_response', Response::HTTP_BAD_REQUEST);
     }
 
     private function createAddress(string $data): Response
     {
-        $this->client->request('POST', '/shop-api/address-book', [], [], self::CONTENT_TYPE_HEADER, $data);
+        $this->client->request('POST', '/shop-api/address-book/', [], [], self::CONTENT_TYPE_HEADER, $data);
 
         return $this->client->getResponse();
     }

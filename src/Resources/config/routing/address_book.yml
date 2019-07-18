@@ -1,11 +1,3 @@
-sylius_shop_api_address_book:
-    resource: |
-        alias: sylius.address
-        section: shop_api
-        path: address-book
-        only: ['delete', 'update']
-    type: sylius.resource_api
-
 sylius_shop_api_address_book_create:
     path: /address-book/
     controller: sylius.controller.address:createAction
@@ -24,6 +16,35 @@ sylius_shop_api_address_book_index:
     defaults:
         _sylius:
             paginate: false
+            repository:
+                method: findByCustomer
+                arguments:
+                    - "expr:notFoundOnNull(service('sylius.context.customer').getCustomer())"
+
+
+sylius_shop_api_address_book_delete:
+    path: /address-book/{id}
+    controller: sylius.controller.address:deleteAction
+    methods: [DELETE]
+    defaults:
+        _sylius:
+            repository:
+                method: findOneByCustomer
+                arguments:
+                    - $id
+                    - "expr:service('sylius.context.customer').getCustomer()"
+
+sylius_shop_api_address_book_update:
+    path: /address-book/{id}
+    controller: sylius.controller.address:updateAction
+    methods: [PUT, PATCH]
+    defaults:
+        _sylius:
+            repository:
+                method: findOneByCustomer
+                arguments:
+                    - $id
+                    - "expr:service('sylius.context.customer').getCustomer()"
 
 sylius_shop_api_set_default_address:
     path: /address-book/{id}/default

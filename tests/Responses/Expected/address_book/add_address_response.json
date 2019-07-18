@@ -1,11 +1,11 @@
 {
     "id": @integer@,
-    "firstName": "Jurica",
-    "lastName": "Separovic",
-    "phoneNumber": "091892212",
-    "city": "Split",
-    "street": "Kupreska 12",
+    "firstName": "New name",
+    "lastName": "New lastName",
+    "phoneNumber": "0918972132",
     "countryCode": "GB",
-    "postcode": "2433",
-    "default": false
+    "provinceCode": "GB-WLS",
+    "street": "New street",
+    "city": "New city",
+    "postcode": "2000"
 }
