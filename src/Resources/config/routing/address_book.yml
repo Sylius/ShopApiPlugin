@@ -1,29 +1,32 @@
-sylius_shop_api_show_address_book:
-    path: /address-book
-    methods: [GET]
-    defaults:
-        _controller: sylius.shop_api_plugin.controller.address_book.show_address_book_action
+sylius_shop_api_address_book:
+    resource: |
+        alias: sylius.address
+        section: shop_api
+        path: address-book
+        only: ['delete', 'update']
+    type: sylius.resource_api
 
-sylius_shop_api_create_address_book_entry:
-    path: /address-book
+sylius_shop_api_address_book_create:
+    path: /address-book/
+    controller: sylius.controller.address:createAction
     methods: [POST]
     defaults:
-        _controller: sylius.shop_api_plugin.controller.address_book.create_address_action
+        _sylius:
+            factory:
+                method: createForCustomer
+                arguments:
+                    - "expr:service('sylius.context.customer').getCustomer()"
 
-sylius_shop_api_remove_address_book_entry:
-    path: /address-book/{id}
-    methods: [DELETE]
+sylius_shop_api_address_book_index:
+    path: /address-book/
+    controller: sylius.controller.address:indexAction
+    methods: [GET]
     defaults:
-        _controller: sylius.shop_api_plugin.controller.address_book.remove_address_action
+        _sylius:
+            paginate: false
 
 sylius_shop_api_set_default_address:
     path: /address-book/{id}/default
     methods: [PATCH]
     defaults:
         _controller: sylius.shop_api_plugin.controller.address_book.set_default_address_action
-
-sylius_shop_api_update_address_book_entry:
-    path: /address-book/{id}
-    methods: [PUT]
-    defaults:
-        _controller: sylius.shop_api_plugin.controller.address_book.update_address_action
