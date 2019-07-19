@@ -6,6 +6,7 @@ namespace Sylius\ShopApiPlugin\Controller\Taxon;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
+use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Taxonomy\Repository\TaxonRepositoryInterface;
 use Sylius\ShopApiPlugin\Factory\Taxon\TaxonDetailsViewFactoryInterface;
 use Sylius\ShopApiPlugin\Http\RequestBasedLocaleProviderInterface;
@@ -42,14 +43,14 @@ final class ShowTaxonDetailsAction
     public function __invoke(Request $request): Response
     {
         $code = $request->attributes->get('code');
-        $locale = $this->requestBasedLocaleProvider->getLocaleCode($request);
-
+        /** @var TaxonInterface|null $taxon */
         $taxon = $this->taxonRepository->findOneBy(['code' => $code]);
-
         if (null === $taxon) {
             throw new NotFoundHttpException(sprintf('Taxon with code %s has not been found.', $code));
         }
 
-        return $this->viewHandler->handle(View::create($this->taxonViewFactory->create($taxon, $locale), Response::HTTP_OK));
+        $localeCode = $this->requestBasedLocaleProvider->getLocaleCode($request);
+
+        return $this->viewHandler->handle(View::create($this->taxonViewFactory->create($taxon, $localeCode), Response::HTTP_OK));
     }
 }

@@ -33,6 +33,7 @@
     | `{channelCode}/products/*`            | `products/*`                           |
     | `{channelCode}/product-latest`        | `product-latest`                       |
     | `{channelCode}/taxon-products/*`      | `taxon-products/*`                     |
+    | `{channelCode}/taxons/*`              | `taxons/*`                             |
 
 * The channel code has been added as a second argument to `AddProductReviewByCodeRequest` 
 and `AddProductReviewBySlugRequest` classes.    
