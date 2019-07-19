@@ -702,9 +702,8 @@ paths:
                     description: "Requested taxon with children."
                     schema:
                         $ref: "#/definitions/TaxonDetails"
-    /{channelCode}/request-password-reset:
-        parameters:
-            -   $ref: "#/parameters/ChannelCode"
+
+    /request-password-reset:
         put:
             tags:
                 - "users"
@@ -722,9 +721,9 @@ paths:
                     description: "Reset password request has been sent."
                 500:
                     description: "User with provided email has not been found."
-    /{channelCode}/password-reset/{token}:
+
+    /password-reset/{token}:
         parameters:
-            -   $ref: "#/parameters/ChannelCode"
             -   in: "path"
                 name: "token"
                 description: "Password reset token."
@@ -747,9 +746,8 @@ paths:
                     description: "Update password request success."
                 400:
                     description: "Token not found."
-    /{channelCode}/register:
-        parameters:
-            -   $ref: "#/parameters/ChannelCode"
+
+    /register:
         post:
             tags:
                 - "users"
@@ -812,9 +810,8 @@ paths:
                     description: "Order with given tokenValue not found"
             security:
                 -   bearerAuth: []
-    /{channelCode}/me:
-        parameters:
-            -   $ref: "#/parameters/ChannelCode"
+
+    /me:
         get:
             tags:
                 - "users"

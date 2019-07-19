@@ -16,7 +16,7 @@ sylius_shop_api_taxon:
 
 sylius_shop_api_register:
     resource: "@ShopApiPlugin/Resources/config/routing/register.yml"
-    prefix: /shop-api/{channelCode}
+    prefix: /shop-api
 
 sylius_shop_api_checkout:
     resource: "@ShopApiPlugin/Resources/config/routing/checkout.yml"
@@ -24,7 +24,7 @@ sylius_shop_api_checkout:
 
 sylius_shop_api_customer:
     resource: "@ShopApiPlugin/Resources/config/routing/customer.yml"
-    prefix: /shop-api/{channelCode}
+    prefix: /shop-api
 
 sylius_shop_api_product_list:
     resource: "@ShopApiPlugin/Resources/config/routing/productList.yml"

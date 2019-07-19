@@ -6,6 +6,7 @@ namespace Sylius\ShopApiPlugin\Controller\Customer;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
+use Sylius\Component\Channel\Context\ChannelContextInterface;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
 use Sylius\ShopApiPlugin\Request\Customer\RegisterCustomerRequest;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,26 +28,36 @@ final class RegisterCustomerAction
     /** @var ValidationErrorViewFactoryInterface */
     private $validationErrorViewFactory;
 
+    /** @var ChannelContextInterface */
+    private $channelContext;
+
     public function __construct(
         ViewHandlerInterface $viewHandler,
         MessageBusInterface $bus,
         ValidatorInterface $validator,
-        ValidationErrorViewFactoryInterface $validationErrorViewFactory
+        ValidationErrorViewFactoryInterface $validationErrorViewFactory,
+        ChannelContextInterface $channelContext
     ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
         $this->validator = $validator;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
+        $this->channelContext = $channelContext;
     }
 
     public function __invoke(Request $request): Response
     {
-        $registerCustomerRequest = new RegisterCustomerRequest($request);
+        $channel = $this->channelContext->getChannel();
+
+        $registerCustomerRequest = new RegisterCustomerRequest($request, $channel->getCode());
 
         $validationResults = $this->validator->validate($registerCustomerRequest);
 
         if (0 !== count($validationResults)) {
-            return $this->viewHandler->handle(View::create($this->validationErrorViewFactory->create($validationResults), Response::HTTP_BAD_REQUEST));
+            return $this->viewHandler->handle(View::create(
+                $this->validationErrorViewFactory->create($validationResults),
+                Response::HTTP_BAD_REQUEST
+            ));
         }
 
         $this->bus->dispatch($registerCustomerRequest->getCommand());

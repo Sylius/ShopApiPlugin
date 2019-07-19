@@ -24,7 +24,7 @@ final class CustomerResetPasswordApiTest extends JsonApiTestCase
 
         $data = '{"email": "oliver@queen.com"}';
 
-        $this->client->request('PUT', '/shop-api/WEB_GB/request-password-reset', [], [], self::CONTENT_TYPE_HEADER, $data);
+        $this->client->request('PUT', '/shop-api/request-password-reset', [], [], self::CONTENT_TYPE_HEADER, $data);
 
         /** @var UserRepositoryInterface $userRepository */
         $userRepository = $this->get('sylius.repository.shop_user');
@@ -42,42 +42,10 @@ final class CustomerResetPasswordApiTest extends JsonApiTestCase
         }
 EOT;
 
-        $this->client->request('PUT', '/shop-api/WEB_GB/password-reset/' . $user->getPasswordResetToken(), [], [], self::CONTENT_TYPE_HEADER, $newPasswords);
+        $this->client->request('PUT', '/shop-api/password-reset/' . $user->getPasswordResetToken(), [], [], self::CONTENT_TYPE_HEADER, $newPasswords);
 
         $response = $this->client->getResponse();
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
-    }
-
-    /**
-     * @test
-     */
-    public function it_does_not_allow_to_reset_customer_password_in_non_existent_channel(): void
-    {
-        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
-
-        $data = '{"email": "oliver@queen.com"}';
-
-        $this->client->request('PUT', '/shop-api/WEB_GB/request-password-reset', [], [], self::CONTENT_TYPE_HEADER, $data);
-
-        /** @var UserRepositoryInterface $userRepository */
-        $userRepository = $this->get('sylius.repository.shop_user');
-        /** @var ShopUserInterface $user */
-        $user = $userRepository->findOneByEmail('oliver@queen.com');
-
-        $newPasswords =
-<<<EOT
-        {
-            "password" : {
-                "first": "somepass",
-                "second": "somepass"
-            }
-        }
-EOT;
-
-        $this->client->request('PUT', '/shop-api/SPACE_KLINGON/password-reset/' . $user->getPasswordResetToken(), [], [], self::CONTENT_TYPE_HEADER, $newPasswords);
-
-        $response = $this->client->getResponse();
-        $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
     }
 
     protected function getContainer(): ContainerInterface

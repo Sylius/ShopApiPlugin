@@ -33,7 +33,7 @@ final class CustomerRegisterApiTest extends JsonApiTestCase
         }
 EOT;
 
-        $this->client->request('POST', '/shop-api/WEB_GB/register', [], [], self::CONTENT_TYPE_HEADER, $data);
+        $this->client->request('POST', '/shop-api/register', [], [], self::CONTENT_TYPE_HEADER, $data);
 
         $response = $this->client->getResponse();
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
@@ -67,7 +67,7 @@ EOT;
         }
 EOT;
 
-        $this->client->request('POST', '/shop-api/WEB_DE/register', [], [], self::CONTENT_TYPE_HEADER, $data);
+        $this->client->request('POST', 'http://web-de.com/shop-api/register', [], [], self::CONTENT_TYPE_HEADER, $data);
 
         $response = $this->client->getResponse();
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
@@ -108,7 +108,7 @@ EOT;
         }
 EOT;
 
-        $this->client->request('POST', '/shop-api/WEB_GB/register', [], [], self::CONTENT_TYPE_HEADER, $data);
+        $this->client->request('POST', '/shop-api/register', [], [], self::CONTENT_TYPE_HEADER, $data);
 
         $response = $this->client->getResponse();
 
@@ -131,34 +131,11 @@ EOT;
         }
 EOT;
 
-        $this->client->request('POST', '/shop-api/WEB_GB/register', [], [], self::CONTENT_TYPE_HEADER, $data);
+        $this->client->request('POST', '/shop-api/register', [], [], self::CONTENT_TYPE_HEADER, $data);
 
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'customer/validation_registration_data_response', Response::HTTP_BAD_REQUEST);
-    }
-
-    /**
-     * @test
-     */
-    public function it_does_not_allow_to_register_in_non_existent_channel(): void
-    {
-        $this->loadFixturesFromFiles(['channel.yml']);
-
-        $data =
-<<<EOT
-        {
-            "firstName": "Vin",
-            "lastName": "Diesel",
-            "plainPassword": "somepass"
-        }
-EOT;
-
-        $this->client->request('POST', '/shop-api/SPACE_KLINGON/register', [], [], self::CONTENT_TYPE_HEADER, $data);
-
-        $response = $this->client->getResponse();
-
-        $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
     }
 
     protected function getContainer(): ContainerInterface

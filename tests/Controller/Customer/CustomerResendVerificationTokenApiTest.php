@@ -31,11 +31,11 @@ final class CustomerResendVerificationTokenApiTest extends JsonApiTestCase
         }
 EOT;
 
-        $this->client->request('POST', '/shop-api/WEB_GB/register', [], [], self::CONTENT_TYPE_HEADER, $data);
+        $this->client->request('POST', '/shop-api/register', [], [], self::CONTENT_TYPE_HEADER, $data);
 
         $resendForEmail = '{"email": "vinny@fandf.com"}';
 
-        $this->client->request('POST', '/shop-api/WEB_GB/resend-verification-link', [], [], self::CONTENT_TYPE_HEADER, $resendForEmail);
+        $this->client->request('POST', '/shop-api/resend-verification-link', [], [], self::CONTENT_TYPE_HEADER, $resendForEmail);
 
         $response = $this->client->getResponse();
         $this->assertResponseCode($response, Response::HTTP_CREATED);
@@ -53,7 +53,7 @@ EOT;
     {
         $this->loadFixturesFromFiles(['channel.yml']);
 
-        $this->client->request('POST', '/shop-api/WEB_GB/resend-verification-link', [], [], self::CONTENT_TYPE_HEADER);
+        $this->client->request('POST', '/shop-api/resend-verification-link', [], [], self::CONTENT_TYPE_HEADER);
 
         $response = $this->client->getResponse();
         $this->assertResponse($response, 'customer/validation_email_not_defined_response', Response::HTTP_BAD_REQUEST);
@@ -68,7 +68,7 @@ EOT;
 
         $resendForEmail = '{"email": "vinnyfandf.com"}';
 
-        $this->client->request('POST', '/shop-api/WEB_GB/resend-verification-link', [], [], self::CONTENT_TYPE_HEADER, $resendForEmail);
+        $this->client->request('POST', '/shop-api/resend-verification-link', [], [], self::CONTENT_TYPE_HEADER, $resendForEmail);
 
         $response = $this->client->getResponse();
         $this->assertResponse($response, 'customer/validation_email_not_valid_response', Response::HTTP_BAD_REQUEST);
@@ -83,25 +83,10 @@ EOT;
 
         $resendForEmail = '{"email": "vinny@fandf.com"}';
 
-        $this->client->request('POST', '/shop-api/WEB_GB/resend-verification-link', [], [], self::CONTENT_TYPE_HEADER, $resendForEmail);
+        $this->client->request('POST', '/shop-api/resend-verification-link', [], [], self::CONTENT_TYPE_HEADER, $resendForEmail);
 
         $response = $this->client->getResponse();
         $this->assertResponse($response, 'customer/validation_email_not_found_response', Response::HTTP_BAD_REQUEST);
-    }
-
-    /**
-     * @test
-     */
-    public function it_does_not_allow_to_resend_verification_token_in_non_existent_channel(): void
-    {
-        $this->loadFixturesFromFiles(['channel.yml']);
-
-        $resendForEmail = '{"email": "vinny@fandf.com"}';
-
-        $this->client->request('POST', '/shop-api/SPACE_KLINGON/resend-verification-link', [], [], self::CONTENT_TYPE_HEADER, $resendForEmail);
-
-        $response = $this->client->getResponse();
-        $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
     }
 
     protected function getContainer(): ContainerInterface

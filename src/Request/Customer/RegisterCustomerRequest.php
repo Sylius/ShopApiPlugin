@@ -24,9 +24,9 @@ class RegisterCustomerRequest
     /** @var string */
     protected $channelCode;
 
-    public function __construct(Request $request)
+    public function __construct(Request $request, string $channelCode)
     {
-        $this->channelCode = $request->attributes->get('channelCode');
+        $this->channelCode = $channelCode;
 
         $this->email = $request->request->get('email');
         $this->plainPassword = $request->request->get('plainPassword');
