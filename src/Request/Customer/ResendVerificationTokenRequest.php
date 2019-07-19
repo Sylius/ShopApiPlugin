@@ -15,10 +15,10 @@ class ResendVerificationTokenRequest
     /** @var string */
     protected $channelCode;
 
-    public function __construct(Request $request)
+    public function __construct(Request $request, string $channelCode)
     {
         $this->email = $request->request->get('email');
-        $this->channelCode = $request->attributes->get('channelCode');
+        $this->channelCode = $channelCode;
     }
 
     public function getCommand(): SendVerificationToken
