@@ -51,7 +51,7 @@
                 ],
                 "_links": {
                     "self": {
-                        "href": "\/shop-api\/WEB_DE\/products\/by-slug\/logan-becher"
+                        "href": "\/shop-api\/products\/by-slug\/logan-becher"
                     }
                 }
             }

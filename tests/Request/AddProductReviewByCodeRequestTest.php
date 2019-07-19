@@ -16,15 +16,21 @@ final class AddProductReviewByCodeRequestTest extends TestCase
      */
     public function it_creates_review_with_author()
     {
-        $addReviewRequest = new AddProductReviewByCodeRequest(new Request([], [
-            'title' => 'Awesome beer',
-            'rating' => 5,
-            'comment' => 'I love this beer',
-            'email' => 'pale.ale@brewery.com',
-        ], [
-            'channelCode' => 'WEB_GB',
-            'code' => 'PALE_ALE_CODE',
-        ]));
+        $addReviewRequest = new AddProductReviewByCodeRequest(
+            new Request(
+                [],
+                [
+                    'title' => 'Awesome beer',
+                    'rating' => 5,
+                    'comment' => 'I love this beer',
+                    'email' => 'pale.ale@brewery.com',
+                ],
+                [
+                    'code' => 'PALE_ALE_CODE',
+                ]
+            ),
+            'WEB_GB'
+        );
 
         $this->assertEquals($addReviewRequest->getCommand(), new AddProductReviewByCode(
             'PALE_ALE_CODE',
