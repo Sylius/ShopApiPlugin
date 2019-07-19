@@ -10,6 +10,9 @@ jms_serializer:
             sylius-shop-api-placed-order:
                 namespace_prefix: "Sylius\\ShopApiPlugin\\View\\Order"
                 path : "@SyliusShopApiPlugin/Resources/config/serializer/Order"
+            sylius-addressing:
+                namespace_prefix: "Sylius\\Component\\Addressing"
+                path: "@ShopApiPlugin/Resources/config/serializer/Address"
 
 framework:
     messenger:
