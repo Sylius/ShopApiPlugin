@@ -21,7 +21,6 @@ sylius_shop_api_address_book_index:
                 arguments:
                     - "expr:notFoundOnNull(service('sylius.context.customer').getCustomer())"
 
-
 sylius_shop_api_address_book_delete:
     path: /address-book/{id}
     controller: sylius.controller.address:deleteAction
@@ -33,6 +32,7 @@ sylius_shop_api_address_book_delete:
                 arguments:
                     - $id
                     - "expr:service('sylius.context.customer').getCustomer()"
+            csrf_protection: false
 
 sylius_shop_api_address_book_update:
     path: /address-book/{id}

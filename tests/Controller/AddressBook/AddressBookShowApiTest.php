@@ -27,7 +27,7 @@ final class AddressBookShowApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_returns_an_empty_address_book_if_there_is_no_logged_in_user(): void
+    public function it_returns_a_not_found_exception_if_there_is_no_logged_in_user(): void
     {
         $this->loadFixturesFromFile('channel.yml');
 

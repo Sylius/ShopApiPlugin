@@ -7,5 +7,32 @@
     "provinceCode": "GB-WLS",
     "street": "New street",
     "city": "New city",
-    "postcode": "2000"
+    "postcode": "2000",
+    "customer": {
+        "id": @integer@,
+        "email": "oliver@queen.com",
+        "emailCanonical": "oliver@queen.com",
+        "firstName": "Oliver",
+        "lastName": "Queen",
+        "gender": "m",
+        "group": {
+            "id": @integer@,
+            "code": "retail",
+            "name": "Retail"
+        },
+        "user": {
+            "id": @integer@,
+            "username": "oliver@queen.com",
+            "usernameCanonical": "oliver@queen.com",
+            "roles": [
+                "ROLE_USER"
+            ],
+            "enabled": true
+        },
+        "_links": {
+            "self": {
+                "href": "@string@.contains('/api/v1/customers/')"
+            }
+        }
+    }
 }

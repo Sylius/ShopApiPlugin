@@ -12,7 +12,7 @@ jms_serializer:
                 path : "@SyliusShopApiPlugin/Resources/config/serializer/Order"
             sylius-addressing:
                 namespace_prefix: "Sylius\\Component\\Addressing"
-                path: "@ShopApiPlugin/Resources/config/serializer/Address"
+                path: "@SyliusShopApiPlugin/Resources/config/serializer/Address"
 
 framework:
     messenger:
