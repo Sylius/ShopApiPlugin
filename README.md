@@ -27,7 +27,7 @@ The latest documentation is available [here](https://app.swaggerhub.com/apis/Syl
     // config/bundles.php
     
         return [
-            Sylius\ShopApiPlugin\ShopApiPlugin::class => ['all' => true],
+            Sylius\ShopApiPlugin\SyliusShopApiPlugin::class => ['all' => true],
         ];
     ```
     2. Add `- { path: '^/shop-api', priorities: ['json'], fallback_format: json, prefer_extension: true }` to `fos_rest.format_listener.rules` 
@@ -37,8 +37,8 @@ The latest documentation is available [here](https://app.swaggerhub.com/apis/Syl
     
     imports: # <-- Add this section if it does not already exist and add the lines below
         # ...
-        - { resource: "@ShopApiPlugin/Resources/config/app/config.yml" }
-        - { resource: "@ShopApiPlugin/Resources/config/app/sylius_mailer.yml" }
+        - { resource: "@SyliusShopApiPlugin/Resources/config/app/config.yml" }
+        - { resource: "@SyliusShopApiPlugin/Resources/config/app/sylius_mailer.yml" }
 
     # ...
     
@@ -63,12 +63,12 @@ The latest documentation is available [here](https://app.swaggerhub.com/apis/Syl
             pattern: "%sylius.security.shop_regex%/checkout/.+"
     ```
 
-    4. Add new routes file to import routes from the ShopApiPlugin
+    4. Add new routes file to import routes from the SyliusShopApiPlugin
     ```yml
     # config/routes/sylius_shop_api.yaml
 
     sylius_shop_api:
-        resource: "@ShopApiPlugin/Resources/config/routing.yml"
+        resource: "@SyliusShopApiPlugin/Resources/config/routing.yml"
     ```
     5. Configure firewall
         1. Change `sylius.security.shop_regex` parameter to exclude `shop-api` prefix also
