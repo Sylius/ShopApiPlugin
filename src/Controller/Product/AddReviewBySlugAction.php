@@ -6,6 +6,7 @@ namespace Sylius\ShopApiPlugin\Controller\Product;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
+use Sylius\Component\Channel\Context\ChannelContextInterface;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
 use Sylius\ShopApiPlugin\Request\Product\AddProductReviewBySlugRequest;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,21 +28,27 @@ final class AddReviewBySlugAction
     /** @var ValidationErrorViewFactoryInterface */
     private $validationErrorViewFactory;
 
+    /** @var ChannelContextInterface */
+    private $channelContext;
+
     public function __construct(
         ViewHandlerInterface $viewHandler,
         MessageBusInterface $bus,
         ValidatorInterface $validator,
-        ValidationErrorViewFactoryInterface $validationErrorViewFactory
+        ValidationErrorViewFactoryInterface $validationErrorViewFactory,
+        ChannelContextInterface $channelContext
     ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
         $this->validator = $validator;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
+        $this->channelContext = $channelContext;
     }
 
     public function __invoke(Request $request): Response
     {
-        $addReviewRequest = new AddProductReviewBySlugRequest($request);
+        $channel = $this->channelContext->getChannel();
+        $addReviewRequest = new AddProductReviewBySlugRequest($request, $channel->getCode());
 
         $validationResults = $this->validator->validate($addReviewRequest);
 

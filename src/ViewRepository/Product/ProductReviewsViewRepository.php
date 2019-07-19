@@ -62,7 +62,6 @@ final class ProductReviewsViewRepository implements ProductReviewsViewRepository
         $reviews = $this->productReviewRepository->findAcceptedByProductSlugAndChannel($productSlug, $localeCode, $channel);
 
         $paginatorDetails->addToParameters('slug', $productSlug);
-        $paginatorDetails->addToParameters('channelCode', $channelCode);
 
         return $this->createProductReviewPage($reviews, $paginatorDetails);
     }
@@ -77,7 +76,6 @@ final class ProductReviewsViewRepository implements ProductReviewsViewRepository
         $reviews = $this->productReviewRepository->findBy(['reviewSubject' => $product->getId(), 'status' => ReviewInterface::STATUS_ACCEPTED]);
 
         $paginatorDetails->addToParameters('code', $productCode);
-        $paginatorDetails->addToParameters('channelCode', $channelCode);
 
         return $this->createProductReviewPage($reviews, $paginatorDetails);
     }

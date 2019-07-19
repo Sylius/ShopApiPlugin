@@ -47,7 +47,7 @@
                 "images": [],
                 "_links": {
                     "self": {
-                        "href": "\/shop-api\/WEB_DE\/products\/by-slug\/logan-hut"
+                        "href": "\/shop-api\/products\/by-slug\/logan-hut"
                     }
                 }
             }

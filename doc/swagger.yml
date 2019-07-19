@@ -440,9 +440,7 @@ paths:
                 - {}
                 -   bearerAuth: []
 
-    /{channelCode}/taxon-products/by-slug/{taxonSlug}:
-        parameters:
-            -   $ref: "#/parameters/ChannelCode"
+    /taxon-products/by-slug/{taxonSlug}:
         get:
             tags:
                 - "products"
@@ -475,9 +473,8 @@ paths:
                     description: "Paginated product list."
                     schema:
                         $ref: "#/definitions/ProductsPage"
-    /{channelCode}/taxon-products/by-code/{taxonCode}:
-        parameters:
-            -   $ref: "#/parameters/ChannelCode"
+
+    /taxon-products/by-code/{taxonCode}:
         get:
             tags:
                 - "products"
@@ -510,9 +507,8 @@ paths:
                     description: "Paginated product list."
                     schema:
                         $ref: "#/definitions/ProductsPage"
-    /{channelCode}/products/by-slug/{slug}:
-        parameters:
-            -   $ref: "#/parameters/ChannelCode"
+
+    /products/by-slug/{slug}:
         get:
             tags:
                 - "products"
@@ -535,9 +531,8 @@ paths:
                     description: "Show a product with the given slug."
                     schema:
                         $ref: "#/definitions/ProductDetails"
-    /{channelCode}/products/by-code/{code}:
-        parameters:
-            -   $ref: "#/parameters/ChannelCode"
+
+    /products/by-code/{code}:
         get:
             tags:
                 - "products"
@@ -560,9 +555,9 @@ paths:
                     description: "Show a product with the given code."
                     schema:
                         $ref: "#/definitions/ProductDetails"
-    /{channelCode}/products/by-slug/{slug}/reviews:
+
+    /products/by-slug/{slug}/reviews:
         parameters:
-            -   $ref: "#/parameters/ChannelCode"
             -   name: "slug"
                 in: "path"
                 description: "Slug of expected product."
@@ -598,9 +593,9 @@ paths:
                     description: "A paginated list of all reviews related to the product identified by slug."
                     schema:
                         $ref: "#/definitions/ProductReviewsPage"
-    /{channelCode}/product/by-code/{code}/reviews:
+
+    /products/by-code/{code}/reviews:
         parameters:
-            -   $ref: "#/parameters/ChannelCode"
             -   name: "code"
                 in: "path"
                 description: "Code of expected product."
@@ -636,6 +631,33 @@ paths:
                     description: "A paginated list of all reviews related to the product identified by slug."
                     schema:
                         $ref: "#/definitions/ProductReviewsPage"
+
+    /product-latest:
+        get:
+            tags:
+                - "products"
+            summary: "Show latest products."
+            description: "This endpoint will return an array of latest products."
+            operationId: "latestProducts"
+            parameters:
+                -   name: "locale"
+                    in: "query"
+                    description: "Locale in which products should be shown."
+                    required: false
+                    type: "string"
+                -   name: "limit"
+                    in: "query"
+                    description: "Number of expected products per page."
+                    required: false
+                    type: "integer"
+            responses:
+                200:
+                    description: "Array of latest products."
+                    schema:
+                        type: "array"
+                        items:
+                            $ref: "#/definitions/Product"
+
     /{channelCode}/taxons:
         parameters:
             -   $ref: "#/parameters/ChannelCode"

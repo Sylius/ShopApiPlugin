@@ -16,15 +16,21 @@ final class AddProductReviewBySlugRequestTest extends TestCase
      */
     public function it_creates_review_with_author()
     {
-        $addReviewRequest = new AddProductReviewBySlugRequest(new Request([], [
-            'title' => 'Awesome beer',
-            'rating' => 5,
-            'comment' => 'I love this beer',
-            'email' => 'pale.ale@brewery.com',
-        ], [
-            'channelCode' => 'WEB_GB',
-            'slug' => 'pale-ale',
-        ]));
+        $addReviewRequest = new AddProductReviewBySlugRequest(
+            new Request(
+                [],
+                [
+                    'title' => 'Awesome beer',
+                    'rating' => 5,
+                    'comment' => 'I love this beer',
+                    'email' => 'pale.ale@brewery.com',
+                ],
+                [
+                    'slug' => 'pale-ale',
+                ]
+            ),
+            'WEB_GB'
+        );
 
         $this->assertEquals($addReviewRequest->getCommand(), new AddProductReviewBySlug(
             'pale-ale',

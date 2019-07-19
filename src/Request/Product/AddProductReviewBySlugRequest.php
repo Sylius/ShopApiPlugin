@@ -27,19 +27,26 @@ class AddProductReviewBySlugRequest
     /** @var string */
     protected $email;
 
-    public function __construct(Request $request)
+    public function __construct(Request $request, string $channelCode)
     {
         $this->slug = $request->attributes->get('slug');
-        $this->channelCode = $request->attributes->get('channelCode');
-
         $this->title = $request->request->get('title');
         $this->rating = $request->request->get('rating');
         $this->comment = $request->request->get('comment');
         $this->email = $request->request->get('email');
+
+        $this->channelCode = $channelCode;
     }
 
     public function getCommand(): AddProductReviewBySlug
     {
-        return new AddProductReviewBySlug($this->slug, $this->channelCode, $this->title, $this->rating, $this->comment, $this->email);
+        return new AddProductReviewBySlug(
+            $this->slug,
+            $this->channelCode,
+            $this->title,
+            $this->rating,
+            $this->comment,
+            $this->email
+        );
     }
 }

@@ -6,6 +6,7 @@ namespace Sylius\ShopApiPlugin\Controller\Product;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
+use Sylius\Component\Channel\Context\ChannelContextInterface;
 use Sylius\ShopApiPlugin\Model\PaginatorDetails;
 use Sylius\ShopApiPlugin\ViewRepository\Product\ProductReviewsViewRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,19 +20,26 @@ final class ShowProductReviewsBySlugAction
     /** @var ProductReviewsViewRepositoryInterface */
     private $productReviewsViewRepository;
 
+    /** @var ChannelContextInterface */
+    private $channelContext;
+
     public function __construct(
         ViewHandlerInterface $viewHandler,
-        ProductReviewsViewRepositoryInterface $productReviewsViewRepository
+        ProductReviewsViewRepositoryInterface $productReviewsViewRepository,
+        ChannelContextInterface $channelContext
     ) {
         $this->viewHandler = $viewHandler;
         $this->productReviewsViewRepository = $productReviewsViewRepository;
+        $this->channelContext = $channelContext;
     }
 
     public function __invoke(Request $request): Response
     {
+        $channel = $this->channelContext->getChannel();
+
         $page = $this->productReviewsViewRepository->getByProductSlug(
             $request->attributes->get('slug'),
-            $request->attributes->get('channelCode'),
+            $channel->getCode(),
             new PaginatorDetails($request->attributes->get('_route'), $request->query->all()),
             $request->query->get('locale')
         );
