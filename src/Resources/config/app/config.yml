@@ -2,13 +2,13 @@ jms_serializer:
     metadata:
         directories:
             sylius-shop-api-taxon:
-                namespace_prefix: "Sylius\\SyliusShopApiPlugin\\View\\Taxon"
+                namespace_prefix: "Sylius\\ShopApiPlugin\\View\\Taxon"
                 path: "@SyliusShopApiPlugin/Resources/config/serializer/Taxon"
             sylius-shop-api-product:
-                namespace_prefix: "Sylius\\SyliusShopApiPlugin\\View\\Product"
+                namespace_prefix: "Sylius\\ShopApiPlugin\\View\\Product"
                 path: "@SyliusShopApiPlugin/Resources/config/serializer/Product"
             sylius-shop-api-placed-order:
-                namespace_prefix: "Sylius\\SyliusShopApiPlugin\\View\\Order"
+                namespace_prefix: "Sylius\\ShopApiPlugin\\View\\Order"
                 path : "@SyliusShopApiPlugin/Resources/config/serializer/Order"
 
 framework:

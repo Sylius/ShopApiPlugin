@@ -41,7 +41,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\Sylius\\SyliusShopApiPlugin\\": "tests/"
+            "Tests\\Sylius\\ShopApiPlugin\\": "tests/"
         }
     },
     "suggest": {
