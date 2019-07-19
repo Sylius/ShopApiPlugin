@@ -38,7 +38,7 @@ final class CartPutItemToCartApiTest extends JsonApiTestCase
             "quantity": 3
         }
 EOT;
-        $this->client->request('POST', sprintf('/shop-api/WEB_GB/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/add_simple_product_to_cart_response', Response::HTTP_CREATED);
@@ -64,8 +64,8 @@ EOT;
             "quantity": 1
         }
 EOT;
-        $this->client->request('POST', sprintf('/shop-api/WEB_GB/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
-        $this->client->request('POST', sprintf('/shop-api/WEB_GB/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/add_simple_product_multiple_times_to_cart_response', Response::HTTP_CREATED);
@@ -91,7 +91,7 @@ EOT;
             "quantity": 3
         }
 EOT;
-        $this->client->request('POST', sprintf('/shop-api/WEB_GB/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/validation_product_not_simple_response', Response::HTTP_BAD_REQUEST);
@@ -117,7 +117,7 @@ EOT;
             "quantity": 0
         }
 EOT;
-        $this->client->request('POST', sprintf('/shop-api/WEB_GB/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/validation_quantity_lower_than_one_response', Response::HTTP_BAD_REQUEST);
@@ -143,7 +143,7 @@ EOT;
             "quantity": "3"
         }
 EOT;
-        $this->client->request('POST', sprintf('/shop-api/WEB_GB/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/add_simple_product_to_cart_response', Response::HTTP_CREATED);
@@ -168,7 +168,7 @@ EOT;
             "quantity": 3
         }
 EOT;
-        $this->client->request('POST', sprintf('/shop-api/WEB_GB/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/validation_product_not_defined_response', Response::HTTP_BAD_REQUEST);
@@ -194,7 +194,7 @@ EOT;
             "quantity": 3
         }
 EOT;
-        $this->client->request('POST', sprintf('/shop-api/WEB_GB/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/validation_product_not_exists_response', Response::HTTP_BAD_REQUEST);
@@ -216,7 +216,7 @@ EOT;
             "quantity": 3
         }
 EOT;
-        $this->client->request('POST', sprintf('/shop-api/WEB_GB/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/validation_cart_not_exists_response', Response::HTTP_BAD_REQUEST);
@@ -270,7 +270,7 @@ EOT;
             "quantity": 3
         }
 EOT;
-        $this->client->request('POST', sprintf('/shop-api/WEB_GB/carts/%s/items', $order->getTokenValue()), [], [], self::CONTENT_TYPE_HEADER, $data);
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $order->getTokenValue()), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/validation_cart_not_exists_response', Response::HTTP_BAD_REQUEST);
@@ -297,7 +297,7 @@ EOT;
             "quantity": 3
         }
 EOT;
-        $this->client->request('POST', sprintf('/shop-api/WEB_GB/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/add_product_variant_to_cart_response', Response::HTTP_CREATED);
@@ -324,8 +324,8 @@ EOT;
             "quantity": 3
         }
 EOT;
-        $this->client->request('POST', sprintf('/shop-api/WEB_GB/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
-        $this->client->request('POST', sprintf('/shop-api/WEB_GB/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/add_product_variant_multiple_times_to_cart_response', Response::HTTP_CREATED);
@@ -352,7 +352,7 @@ EOT;
             "quantity": 0
         }
 EOT;
-        $this->client->request('POST', sprintf('/shop-api/WEB_GB/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/validation_quantity_lower_than_one_response', Response::HTTP_BAD_REQUEST);
@@ -379,7 +379,7 @@ EOT;
             "quantity": "3"
         }
 EOT;
-        $this->client->request('POST', sprintf('/shop-api/WEB_GB/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/add_product_variant_to_cart_response', Response::HTTP_CREATED);
@@ -405,7 +405,7 @@ EOT;
             "quantity": 3
         }
 EOT;
-        $this->client->request('POST', sprintf('/shop-api/WEB_GB/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/validation_product_not_defined_response', Response::HTTP_BAD_REQUEST);
@@ -432,7 +432,7 @@ EOT;
             "quantity": 3
         }
 EOT;
-        $this->client->request('POST', sprintf('/shop-api/WEB_GB/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/validation_product_not_exists_response', Response::HTTP_BAD_REQUEST);
@@ -459,7 +459,7 @@ EOT;
             "quantity": 3
         }
 EOT;
-        $this->client->request('POST', sprintf('/shop-api/WEB_GB/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/validation_product_not_configurable_response', Response::HTTP_BAD_REQUEST);
@@ -486,7 +486,7 @@ EOT;
             "quantity": 3
         }
 EOT;
-        $this->client->request('POST', sprintf('/shop-api/WEB_GB/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/validation_product_variant_not_exists_response', Response::HTTP_BAD_REQUEST);
@@ -512,7 +512,7 @@ EOT;
             "quantity": 3
         }
 EOT;
-        $this->client->request('POST', '/shop-api/WEB_GB/carts/SDAOSLEFNWU35H3QLI5325/items', [], [], self::CONTENT_TYPE_HEADER, $data);
+        $this->client->request('POST', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/items', [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/product_variant_has_not_been_found_response', Response::HTTP_NOT_FOUND);
@@ -542,7 +542,7 @@ EOT;
             "quantity": 3
         }
 EOT;
-        $this->client->request('POST', '/shop-api/WEB_GB/carts/SDAOSLEFNWU35H3QLI5325/items', [], [], self::CONTENT_TYPE_HEADER, $data);
+        $this->client->request('POST', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/items', [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/add_product_variant_based_on_options_to_cart_response', Response::HTTP_CREATED);
@@ -572,37 +572,11 @@ EOT;
             "quantity": 3
         }
 EOT;
-        $this->client->request('POST', sprintf('/shop-api/WEB_GB/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
-        $this->client->request('POST', sprintf('/shop-api/WEB_GB/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/add_product_variant_based_on_options_multiple_times_to_cart_response', Response::HTTP_CREATED);
-    }
-
-    /**
-     * @test
-     */
-    public function it_does_not_allow_to_put_item_to_cart_in_non_existent_channel(): void
-    {
-        $this->loadFixturesFromFiles(['shop.yml']);
-
-        $token = 'SDAOSLEFNWU35H3QLI5325';
-
-        /** @var MessageBusInterface $bus */
-        $bus = $this->get('sylius_shop_api_plugin.command_bus');
-        $bus->dispatch(new PickupCart($token, 'WEB_GB'));
-
-        $data =
-<<<EOT
-        {
-            "productCode": "LOGAN_MUG_CODE",
-            "quantity": 3
-        }
-EOT;
-        $this->client->request('POST', sprintf('/shop-api/SPACE_KLINGON/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
-        $response = $this->client->getResponse();
-
-        $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
     }
 
     /**
@@ -619,7 +593,7 @@ EOT;
             "quantity": 3
         }
 EOT;
-        $this->client->request('POST', '/shop-api/WEB_GB/carts/new/items', [], [], self::CONTENT_TYPE_HEADER, $data);
+        $this->client->request('POST', '/shop-api/carts/new/items', [], [], self::CONTENT_TYPE_HEADER, $data);
 
         $response = $this->client->getResponse();
 

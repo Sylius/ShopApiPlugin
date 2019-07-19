@@ -37,6 +37,7 @@
             <argument type="service" id="validator" />
             <argument type="service" id="sylius.shop_api_plugin.factory.validation_error_view_factory" />
             <argument type="service" id="sylius.shop_api_plugin.view_repository.cart_view_repository" />
+            <argument type="service" id="sylius.context.channel" />
         </service>
 
         <service id="sylius.shop_api_plugin.controller.cart.change_item_quantity_action"

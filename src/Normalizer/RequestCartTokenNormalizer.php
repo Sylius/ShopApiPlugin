@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Normalizer;
 
+use Sylius\Component\Channel\Context\ChannelContextInterface;
 use Sylius\ShopApiPlugin\Request\Cart\PickupCartRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -17,10 +18,17 @@ final class RequestCartTokenNormalizer implements RequestCartTokenNormalizerInte
     /** @var MessageBusInterface */
     private $bus;
 
-    public function __construct(ValidatorInterface $validator, MessageBusInterface $bus)
-    {
+    /** @var ChannelContextInterface */
+    private $channelContext;
+
+    public function __construct(
+        ValidatorInterface $validator,
+        MessageBusInterface $bus,
+        ChannelContextInterface $channelContext
+    ) {
         $this->validator = $validator;
         $this->bus = $bus;
+        $this->channelContext = $channelContext;
     }
 
     public function doNotAllowNullCartToken(Request $request): Request
@@ -29,7 +37,8 @@ final class RequestCartTokenNormalizer implements RequestCartTokenNormalizerInte
             return $request;
         }
 
-        $pickupRequest = new PickupCartRequest($request);
+        $channel = $this->channelContext->getChannel();
+        $pickupRequest = new PickupCartRequest($channel->getCode());
 
         $validationResults = $this->validator->validate($pickupRequest);
 

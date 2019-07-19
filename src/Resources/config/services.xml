@@ -69,6 +69,7 @@
         >
             <argument type="service" id="validator" />
             <argument type="service" id="sylius_shop_api_plugin.command_bus" />
+            <argument type="service" id="sylius.context.channel" />
         </service>
 
         <!-- Removing the create cart context from composite context (see: https://github.com/Sylius/Sylius/issues/10192) -->

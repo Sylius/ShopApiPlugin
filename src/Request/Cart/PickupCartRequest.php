@@ -6,7 +6,6 @@ namespace Sylius\ShopApiPlugin\Request\Cart;
 
 use Ramsey\Uuid\Uuid;
 use Sylius\ShopApiPlugin\Command\Cart\PickupCart;
-use Symfony\Component\HttpFoundation\Request;
 
 class PickupCartRequest
 {
@@ -14,16 +13,16 @@ class PickupCartRequest
     protected $token;
 
     /** @var string */
-    protected $channel;
+    protected $channelCode;
 
-    public function __construct(Request $request)
+    public function __construct(string $channelCode)
     {
         $this->token = Uuid::uuid4()->toString();
-        $this->channel = $request->attributes->get('channelCode');
+        $this->channelCode = $channelCode;
     }
 
     public function getCommand(): PickupCart
     {
-        return new PickupCart($this->token, $this->channel);
+        return new PickupCart($this->token, $this->channelCode);
     }
 }
