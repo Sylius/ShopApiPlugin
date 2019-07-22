@@ -41,13 +41,15 @@ final class DropCartAction
     public function __invoke(Request $request): Response
     {
         $validationResults = $this->dropCartCommandProvider->validate($request);
-
         if (0 === count($validationResults)) {
             $this->bus->dispatch($this->dropCartCommandProvider->getCommand($request));
 
             return $this->viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));
         }
 
-        return $this->viewHandler->handle(View::create($this->validationErrorViewFactory->create($validationResults), Response::HTTP_BAD_REQUEST));
+        return $this->viewHandler->handle(View::create(
+            $this->validationErrorViewFactory->create($validationResults),
+            Response::HTTP_BAD_REQUEST
+        ));
     }
 }

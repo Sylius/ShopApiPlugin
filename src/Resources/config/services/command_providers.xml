@@ -1,9 +1,7 @@
-<container xmlns="http://symfony.com/schema/dic/services">
-    <services>
-        <defaults public="true" />
+<?xml version="1.0" encoding="UTF-8"?>
 
-        <service id="Sylius\ShopApiPlugin\CommandProvider\DropCartCommandProvider">
-            <argument type="service" id="validator" />
-        </service>
-    </services>
+<container xmlns="http://symfony.com/schema/dic/services">
+    <imports>
+        <import resource="command_providers/**/*"/>
+    </imports>
 </container>
