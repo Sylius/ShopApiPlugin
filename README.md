@@ -79,18 +79,39 @@ The latest documentation is available [here](https://app.swaggerhub.com/apis/Syl
         # ...
     
         sylius.security.shop_regex: "^/(?!admin|api/.*|api$|shop-api|media/.*)[^/]++" # shop-api has been added inside the brackets
-        shop_api.security.regex: "^/shop-api"
+        sylius_shop_api.security.regex: "^/shop-api"
 
     # ... 
 
     security:
         firewalls:
             // ...
+
+            sylius_shop_api_login:
+                pattern:  "%sylius_shop_api.security.regex%/login"
+                stateless: true
+                anonymous: true
+                form_login:
+                    provider: sylius_shop_user_provider
+                    login_path: /shop-api/login_check
+                    check_path: /shop-api/login_check
+                    success_handler: lexik_jwt_authentication.handler.authentication_success
+                    failure_handler: lexik_jwt_authentication.handler.authentication_failure
+                    require_previous_session: false
     
-            shop_api:
-                pattern: "%shop_api.security.regex%"
-                stateless:  true
-                anonymous:  true
+            sylius_shop_api:
+                pattern: "%sylius_shop_api.security.regex%"
+                stateless: true
+                anonymous: true
+                guard:
+                    provider: sylius_shop_user_provider
+                    authenticators:
+                        - lexik_jwt_authentication.jwt_token_authenticator
+   
+        access_control:
+           - { path: "%sylius_shop_api.security.regex%/login", role: IS_AUTHENTICATED_ANONYMOUSLY }
+           - { path: "%sylius_shop_api.security.regex%/register", role: IS_AUTHENTICATED_ANONYMOUSLY }
+
     ```
     
     6. (optional) if you have installed `nelmio/NelmioCorsBundle` for Support of Cross-Origin Ajax Request,
@@ -142,16 +163,8 @@ sylius_shop_api:
         - "MUG_MATERIAL_CODE"
 ```
 
-### Authorization
-
-By default no authorization is provided together with this bundle. But it is tested to work along with [LexikJWTAuthenticationBundle](https://github.com/lexik/LexikJWTAuthenticationBundle)
-In order to check example configuration check 
- - [security.yml](https://github.com/Sylius/SyliusShopApiPlugin/blob/master/tests/Application/app/config/security.yml)
- - [jwt parameters](https://github.com/Sylius/SyliusShopApiPlugin/blob/master/tests/Application/app/config/config.yml#L4-L7) and [jwt config](https://github.com/Sylius/SyliusShopApiPlugin/blob/master/tests/Application/app/config/config.yml#L55-L59) in config.yml
- - [example rsa keys](https://github.com/Sylius/SyliusShopApiPlugin/tree/master/tests/Application/app/config/jwt)
- - [login request](https://github.com/Sylius/SyliusShopApiPlugin/blob/master/tests/Controller/CustomerShopApiTest.php#L52-L68)
- 
-From the test app.
+This plugin comes with an integration with [LexikJWTAuthenticationBundle](https://github.com/lexik/LexikJWTAuthenticationBundle/). 
+More information about security customizations may be found there.
 
 ## Testing
 
