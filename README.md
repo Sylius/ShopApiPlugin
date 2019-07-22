@@ -10,7 +10,7 @@
 
 <p align="center"><a href="https://sylius.com/plugins/" target="_blank"><img src="https://sylius.com/assets/badge-official-sylius-plugin.png" width="200"></a></p>
 
-<p align="center">This repository contains a plugin that extends the <a href="https://github.com/Sylius/Sylius">Sylius eCommerce Framework</a> with an API in JSON that allows performing all standard shop operations from the customer perspective.</p>
+<p align="center">This repository contains a plugin that extends the <a href="https://github.com/Sylius/Sylius">Sylius eCommerce platform</a> with an API in JSON that allows performing all standard shop operations from the customer perspective.</p>
 
 ## Documentation
 
