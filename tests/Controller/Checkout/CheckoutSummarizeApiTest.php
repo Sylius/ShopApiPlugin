@@ -211,7 +211,7 @@ EOT;
             "quantity": 2
         }
 EOT;
-        $this->client->request('PUT', sprintf('/shop-api/WEB_GB/carts/%s/items/%d', $token, $orderItem->getId()), [], [], static::CONTENT_TYPE_HEADER, $data);
+        $this->client->request('PUT', sprintf('/shop-api/carts/%s/items/%d', $token, $orderItem->getId()), [], [], static::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'checkout/modified_cart_with_chosen_shipment_with_per_item_rate_response', Response::HTTP_OK);

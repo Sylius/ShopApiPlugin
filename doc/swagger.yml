@@ -67,9 +67,7 @@ parameters:
         type: "string"
 
 paths:
-    /{channelCode}/carts:
-        parameters:
-            -   $ref: "#/parameters/ChannelCode"
+    /carts:
         post:
             tags:
                 - "cart"
@@ -85,9 +83,9 @@ paths:
                     description: "Invalid input"
                     schema:
                         $ref: "#/definitions/GeneralError"
-    /{channelCode}/carts/{token}:
+
+    /carts/{token}:
         parameters:
-            -   $ref: "#/parameters/ChannelCode"
             -   $ref: "#/parameters/CartToken"
         get:
             tags:
@@ -117,9 +115,9 @@ paths:
                     description: "Invalid input (E.g. token has not been found)"
                     schema:
                         $ref: "#/definitions/GeneralError"
-    /{channelCode}/carts/{token}/items:
+
+    /carts/{token}/items:
         parameters:
-            -   $ref: "#/parameters/ChannelCode"
             -   $ref: "#/parameters/CartToken"
         post:
             tags:
@@ -143,9 +141,9 @@ paths:
                     description: "Invalid input, validation failed."
                     schema:
                         $ref: "#/definitions/GeneralError"
-    /{channelCode}/carts/{token}/multiple-items:
+
+    /carts/{token}/multiple-items:
         parameters:
-            -   $ref: "#/parameters/ChannelCode"
             -   $ref: "#/parameters/CartToken"
         post:
             tags:
@@ -169,9 +167,9 @@ paths:
                     description: "Invalid input, validation failed."
                     schema:
                         $ref: "#/definitions/GeneralError"
-    /{channelCode}/carts/{token}/items/{identifier}:
+
+    /carts/{token}/items/{identifier}:
         parameters:
-            -   $ref: "#/parameters/ChannelCode"
             -   $ref: "#/parameters/CartToken"
             -   name: "identifier"
                 in: "path"
@@ -209,9 +207,9 @@ paths:
                     description: "Invalid input (E.g. token has not been found)"
                     schema:
                         $ref: "#/definitions/GeneralError"
-    /{channelCode}/carts/{token}/estimated-shipping-cost:
+
+    /carts/{token}/estimated-shipping-cost:
         parameters:
-            -   $ref: "#/parameters/ChannelCode"
             -   $ref: "#/parameters/CartToken"
         get:
             tags:
@@ -239,9 +237,8 @@ paths:
                     schema:
                         $ref: "#/definitions/GeneralError"
 
-    /{channelCode}/carts/{token}/coupon:
+    /carts/{token}/coupon:
         parameters:
-            -   $ref: "#/parameters/ChannelCode"
             -   $ref: "#/parameters/CartToken"
         put:
             tags:

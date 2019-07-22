@@ -20,7 +20,7 @@ final class CartPickupApiTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
-        $this->client->request('POST', '/shop-api/WEB_GB/carts', [], [], self::CONTENT_TYPE_HEADER);
+        $this->client->request('POST', '/shop-api/carts', [], [], self::CONTENT_TYPE_HEADER);
 
         $response = $this->client->getResponse();
 
@@ -41,7 +41,7 @@ final class CartPickupApiTest extends JsonApiTestCase
 
         $this->logInUser('oliver@queen.com', '123password');
 
-        $this->client->request('POST', '/shop-api/WEB_GB/carts', [], [], static::CONTENT_TYPE_HEADER);
+        $this->client->request('POST', '/shop-api/carts', [], [], static::CONTENT_TYPE_HEADER);
         $response = $this->client->getResponse();
         $this->assertResponseCode($response, Response::HTTP_CREATED);
 
@@ -50,21 +50,5 @@ final class CartPickupApiTest extends JsonApiTestCase
         $orders = $orderRepository->findAll();
 
         $this->assertCount(1, $orders, 'Only one cart should be created');
-    }
-
-    /**
-     * @test
-     */
-    public function it_does_not_allow_to_create_a_new_cart_in_non_existent_channel(): void
-    {
-        $this->loadFixturesFromFiles(['shop.yml']);
-
-        $this->client->request(
-            'POST', '/shop-api/SPACE_KLINGON/carts', [], [], self::CONTENT_TYPE_HEADER
-        );
-
-        $response = $this->client->getResponse();
-
-        $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
     }
 }

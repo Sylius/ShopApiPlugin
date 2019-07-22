@@ -28,6 +28,7 @@
     | Old Route                                | New route                           |
     |:-----------------------------------------|:------------------------------------|
     | `{channelCode}/address-book/*`           | `address-book/*`                    |
+    | `{channelCode}/carts/*`                  | `carts/*`                           |
     | `{channelCode}/checkout/*`               | `checkout/*`                        |
     | `{channelCode}/me`                       | `me`                                |
     | `{channelCode}/orders/*`                 | `orders/*`                          |
@@ -42,7 +43,9 @@
     | `{channelCode}/taxons/*`                 | `taxons/*`                          |
 
 * The channel code has been added as a second argument to `AddProductReviewByCodeRequest`, 
-`AddProductReviewBySlugRequest`, `ResendVerificationTokenRequest` and `RegisterCustomerRequest` classes.    
+`AddProductReviewBySlugRequest`, `ResendVerificationTokenRequest` and `RegisterCustomerRequest` classes.
+
+* The argument in constructor of `PickupCartRequest` class has been changed from `Request $request `to `string channelCode`.
 
 # UPGRADE FROM 1.0.0-beta.17 to 1.0.0-beta.18
 

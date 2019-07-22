@@ -19,7 +19,7 @@ final class CartEstimateShippingTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['shop.yml', 'country.yml']);
 
-        $this->client->request('GET', '/shop-api/WEB_GB/carts/SDAOSLEFNWU35H3QLI5325/estimated-shipping-cost', [], [], self::CONTENT_TYPE_HEADER);
+        $this->client->request('GET', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/estimated-shipping-cost', [], [], self::CONTENT_TYPE_HEADER);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/cart_and_country_does_not_exist_response', Response::HTTP_BAD_REQUEST);
@@ -39,7 +39,7 @@ final class CartEstimateShippingTest extends JsonApiTestCase
         $bus->dispatch(new PickupCart($token, 'WEB_GB'));
         $bus->dispatch(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
 
-        $this->client->request('GET', sprintf('/shop-api/WEB_GB/carts/%s/estimated-shipping-cost?countryCode=GB', $token), [], [], self::CONTENT_TYPE_HEADER);
+        $this->client->request('GET', sprintf('/shop-api/carts/%s/estimated-shipping-cost?countryCode=GB', $token), [], [], self::CONTENT_TYPE_HEADER);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/estimated_shipping_cost_bases_on_country_response', Response::HTTP_OK);
@@ -59,22 +59,9 @@ final class CartEstimateShippingTest extends JsonApiTestCase
         $bus->dispatch(new PickupCart($token, 'WEB_GB'));
         $bus->dispatch(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
 
-        $this->client->request('GET', sprintf('/shop-api/WEB_GB/carts/%s/estimated-shipping-cost?countryCode=GB&provinceCode=GB-SCT', $token), [], [], self::CONTENT_TYPE_HEADER);
+        $this->client->request('GET', sprintf('/shop-api/carts/%s/estimated-shipping-cost?countryCode=GB&provinceCode=GB-SCT', $token), [], [], self::CONTENT_TYPE_HEADER);
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/estimated_shipping_cost_bases_on_country_and_province_response', Response::HTTP_OK);
-    }
-
-    /**
-     * @test
-     */
-    public function it_does_not_allow_to_estimate_shipping_in_non_existent_channel(): void
-    {
-        $this->loadFixturesFromFiles(['shop.yml', 'country.yml']);
-
-        $this->client->request('GET', '/shop-api/SPACE_KLINGON/carts/SDAOSLEFNWU35H3QLI5325/estimated-shipping-cost', [], [], self::CONTENT_TYPE_HEADER);
-        $response = $this->client->getResponse();
-
-        $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
     }
 }

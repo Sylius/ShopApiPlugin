@@ -6,6 +6,7 @@ namespace Sylius\ShopApiPlugin\Controller\Cart;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
+use Sylius\Component\Channel\Context\ChannelContextInterface;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
 use Sylius\ShopApiPlugin\Request\Cart\PickupCartRequest;
 use Sylius\ShopApiPlugin\ViewRepository\Cart\CartViewRepositoryInterface;
@@ -32,23 +33,30 @@ final class PickupCartAction
     /** @var CartViewRepositoryInterface */
     private $cartQuery;
 
+    /** @var ChannelContextInterface */
+    private $channelContext;
+
     public function __construct(
         ViewHandlerInterface $viewHandler,
         MessageBusInterface $bus,
         ValidatorInterface $validator,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
-        CartViewRepositoryInterface $cartQuery
+        CartViewRepositoryInterface $cartQuery,
+        ChannelContextInterface $channelContext
     ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
         $this->validator = $validator;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->cartQuery = $cartQuery;
+        $this->channelContext = $channelContext;
     }
 
     public function __invoke(Request $request): Response
     {
-        $pickupRequest = new PickupCartRequest($request);
+        $channel = $this->channelContext->getChannel();
+
+        $pickupRequest = new PickupCartRequest($channel->getCode());
 
         $validationResults = $this->validator->validate($pickupRequest);
 
