@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller\Cart;
 
-use PHPUnit\Framework\Assert;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\ShopApiPlugin\Command\Cart\PickupCart;
@@ -63,24 +62,13 @@ final class CartPickupApiTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['shop.yml', 'customer.yml']);
 
-
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
         /** @var MessageBusInterface $bus */
         $bus = $this->get('sylius_shop_api_plugin.command_bus');
         $bus->dispatch(new PickupCart($token, 'WEB_GB'));
 
-        $data =
-<<<EOT
-        {
-            "_username": "oliver@queen.com",
-            "_password": "123password",
-            "token": "$token"
-        }
-EOT;
-
-        $this->client->request('POST', '/shop-api/login_check', [], [], ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'], $data);
-        Assert::assertSame($this->client->getResponse()->getStatusCode(), Response::HTTP_OK);
+        $this->logInUserWithCart('oliver@queen.com', '123password', $token);
 
         /** @var OrderRepositoryInterface $orderRepository */
         $orderRepository = $this->get('sylius.repository.order');

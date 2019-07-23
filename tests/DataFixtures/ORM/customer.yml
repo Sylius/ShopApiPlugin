@@ -22,6 +22,7 @@ Sylius\Component\Core\Model\Customer:
         email: "oliver@queen.com"
         emailCanonical: "oliver@queen.com"
         gender: "m"
+        group: "@retail"
         phoneNumber: "0212115512"
 
     hater:
@@ -29,3 +30,8 @@ Sylius\Component\Core\Model\Customer:
         lastName: "Wilson"
         email: "hater@queen.com"
         emailCanonical: "slade@queen.com"
+
+Sylius\Component\Customer\Model\CustomerGroup:
+    retail:
+        name: "Retail"
+        code: "retail"
