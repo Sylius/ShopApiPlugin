@@ -11,7 +11,7 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Webmozart\Assert\Assert;
 
-class DefaultCommandProvider implements CommandProviderInterface
+final class DefaultCommandProvider implements CommandProviderInterface
 {
     /** @var string */
     private $requestClass;
@@ -25,7 +25,17 @@ class DefaultCommandProvider implements CommandProviderInterface
         $this->validator = $validator;
     }
 
-    protected function transformRequest(Request $request): RequestInterface
+    public function validate(Request $request): ConstraintViolationListInterface
+    {
+        return $this->validator->validate($this->transformRequest($request));
+    }
+
+    public function getCommand(Request $request): CommandInterface
+    {
+        return $this->transformRequest($request)->getCommand();
+    }
+
+    private function transformRequest(Request $request): RequestInterface
     {
         $requestModel = call_user_func([$this->requestClass, 'fromRequest'], $request);
 
@@ -33,15 +43,5 @@ class DefaultCommandProvider implements CommandProviderInterface
 
         /** @var RequestInterface $requestModel */
         return $requestModel;
-    }
-
-    final public function validate(Request $request): ConstraintViolationListInterface
-    {
-        return $this->validator->validate($this->transformRequest($request));
-    }
-
-    final public function getCommand(Request $request): CommandInterface
-    {
-        return $this->transformRequest($request)->getCommand();
     }
 }

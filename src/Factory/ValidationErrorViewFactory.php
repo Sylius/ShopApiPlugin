@@ -29,13 +29,7 @@ final class ValidationErrorViewFactory implements ValidationErrorViewFactoryInte
         $errorMessage->message = 'Validation failed';
         /** @var ConstraintViolationInterface $result */
         foreach ($validationResults as $result) {
-            // ACL because of new providers path surrounded with `[` and `]`
-            $property = $result->getPropertyPath();
-            if (\preg_match('/\\[.+\\]/', $property) === 1) {
-                $property = substr($property, 1, -1);
-            }
-
-            $errorMessage->errors[$property][] = $result->getMessage();
+            $errorMessage->errors[$result->getPropertyPath()][] = $result->getMessage();
         }
 
         return $errorMessage;
