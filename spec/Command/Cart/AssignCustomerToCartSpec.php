@@ -6,11 +6,11 @@ namespace spec\Sylius\ShopApiPlugin\Command\Cart;
 
 use PhpSpec\ObjectBehavior;
 
-final class CompleteOrderSpec extends ObjectBehavior
+final class AssignCustomerToCartSpec extends ObjectBehavior
 {
     function let(): void
     {
-        $this->beConstructedWith('ORDERTOKEN');
+        $this->beConstructedWith('ORDERTOKEN', 'example@customer.com');
     }
 
     function it_has_order_token(): void
@@ -18,10 +18,8 @@ final class CompleteOrderSpec extends ObjectBehavior
         $this->orderToken()->shouldReturn('ORDERTOKEN');
     }
 
-    function it_can_have_a_note(): void
+    function it_has_email(): void
     {
-        $this->beConstructedWith('ORDERTOKEN', 'Some order notes');
-
-        $this->notes()->shouldReturn('Some order notes');
+        $this->email()->shouldReturn('example@customer.com');
     }
 }

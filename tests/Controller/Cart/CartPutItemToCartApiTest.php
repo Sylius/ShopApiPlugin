@@ -6,6 +6,7 @@ namespace Tests\Sylius\ShopApiPlugin\Controller\Cart;
 
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\ShopApiPlugin\Command\Cart\AddressOrder;
+use Sylius\ShopApiPlugin\Command\Cart\AssignCustomerToCart;
 use Sylius\ShopApiPlugin\Command\Cart\ChoosePaymentMethod;
 use Sylius\ShopApiPlugin\Command\Cart\ChooseShippingMethod;
 use Sylius\ShopApiPlugin\Command\Cart\CompleteOrder;
@@ -234,6 +235,7 @@ EOT;
         /** @var MessageBusInterface $bus */
         $bus = $this->get('sylius_shop_api_plugin.command_bus');
         $bus->dispatch(new PickupCart($token, 'WEB_GB'));
+        $bus->dispatch(new AssignCustomerToCart($token, 'sylius@example.com'));
         $bus->dispatch(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
         $bus->dispatch(new AddressOrder(
             $token,
@@ -261,7 +263,7 @@ EOT;
         /** @var OrderInterface $order */
         $order = $this->get('sylius.repository.order')->findOneBy(['tokenValue' => $token]);
 
-        $bus->dispatch(new CompleteOrder($token, 'sylius@example.com'));
+        $bus->dispatch(new CompleteOrder($token));
 
         $data =
 <<<EOT
