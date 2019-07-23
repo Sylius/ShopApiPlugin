@@ -18,7 +18,7 @@ The latest documentation is available [here](https://app.swaggerhub.com/apis/Syl
 
 ## Installation
 
-Before install ShopAPI you should disable or delete all ShopBundle dependecy, You can't use these package together !!!
+##### Before installing SyliusShopApiPlugin, you should disable all SyliusShopBundle's dependencies. You cannot use these packages together.
 
 1. Run `composer require sylius/shop-api-plugin` and, when asked if you want to execute the Flex recipe, answer 'Yes'.
 2. Extend config files:
