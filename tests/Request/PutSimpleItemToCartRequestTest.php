@@ -16,7 +16,7 @@ final class PutSimpleItemToCartRequestTest extends TestCase
      */
     public function it_creates_put_simple_item_to_cart_command_from_request()
     {
-        $putSimpleItemToCartRequest = PutSimpleItemToCartRequest::fromRequest(new Request([], [
+        $putSimpleItemToCartRequest = PutSimpleItemToCartRequest::fromHttpRequest(new Request([], [
             'productCode' => 'HACKTOBERFEST_TSHIRT_CODE',
             'quantity' => 4,
         ], ['token' => 'ORDERTOKEN']));

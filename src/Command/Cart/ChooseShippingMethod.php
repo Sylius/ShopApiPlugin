@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Command\Cart;
 
-class ChooseShippingMethod
+use Sylius\ShopApiPlugin\Command\CommandInterface;
+
+class ChooseShippingMethod implements CommandInterface
 {
     /** @var mixed */
     protected $shipmentIdentifier;

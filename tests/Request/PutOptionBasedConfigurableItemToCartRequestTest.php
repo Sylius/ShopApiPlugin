@@ -16,7 +16,7 @@ final class PutOptionBasedConfigurableItemToCartRequestTest extends TestCase
      */
     public function it_creates_put_simple_item_to_cart_command_from_request()
     {
-        $putConfigurableItemToCartRequest = PutOptionBasedConfigurableItemToCartRequest::fromRequest(new Request([], [
+        $putConfigurableItemToCartRequest = PutOptionBasedConfigurableItemToCartRequest::fromHttpRequest(new Request([], [
             'productCode' => 'HACKTOBERFEST_TSHIRT_CODE',
             'options' => ['LARGE__CODE'],
             'quantity' => 4,

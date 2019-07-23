@@ -16,7 +16,7 @@ final class AddCouponRequestTest extends TestCase
      */
     public function it_creates_pickup_cart_command()
     {
-        $pickupCartRequest = new AddCouponRequest(new Request([], ['coupon' => 'SUMMER_SALE'], ['token' => 'ORDERTOKEN']));
+        $pickupCartRequest = AddCouponRequest::fromHttpRequest(new Request([], ['coupon' => 'SUMMER_SALE'], ['token' => 'ORDERTOKEN']));
 
         $this->assertEquals($pickupCartRequest->getCommand(), new AddCoupon('ORDERTOKEN', 'SUMMER_SALE'));
     }

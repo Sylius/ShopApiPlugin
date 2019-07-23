@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Command\Cart;
 
-class ChoosePaymentMethod
+use Sylius\ShopApiPlugin\Command\CommandInterface;
+
+class ChoosePaymentMethod implements CommandInterface
 {
     /** @var mixed */
     protected $paymentIdentifier;

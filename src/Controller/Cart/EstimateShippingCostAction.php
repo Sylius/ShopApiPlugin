@@ -50,7 +50,6 @@ final class EstimateShippingCostAction
         $estimateShippingCostRequest = new EstimateShippingCostRequest($request);
 
         $validationResults = $this->validator->validate($estimateShippingCostRequest);
-
         if (0 !== count($validationResults)) {
             return $this->viewHandler->handle(
                 View::create(

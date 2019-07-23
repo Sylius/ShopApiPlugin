@@ -19,7 +19,7 @@ class PickupCartRequest implements ChannelBasedRequestInterface
     /** @var string */
     protected $channelCode;
 
-    public function __construct(string $channelCode)
+    private function __construct(string $channelCode)
     {
         $this->token = Uuid::uuid4()->toString();
         $this->channelCode = $channelCode;
