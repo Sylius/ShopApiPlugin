@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<container xmlns="http://symfony.com/schema/dic/services">
+    <services>
+        <defaults public="true" />
+
+        <service
+            id="sylius.shop_api_plugin.command_provider.add_product_review_by_code"
+            class="Sylius\ShopApiPlugin\CommandProvider\ChannelBasedCommandProvider"
+        >
+            <argument>%sylius.shop_api.request.add_product_review_by_code.class%</argument>
+            <argument type="service" id="validator" />
+        </service>
+
+        <service
+            id="sylius.shop_api_plugin.command_provider.add_product_review_by_slug"
+            class="Sylius\ShopApiPlugin\CommandProvider\ChannelBasedCommandProvider"
+        >
+            <argument>%sylius.shop_api.request.add_product_review_by_slug.class%</argument>
+            <argument type="service" id="validator" />
+        </service>
+    </services>
+</container>

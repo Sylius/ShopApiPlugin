@@ -57,9 +57,9 @@
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="sylius_shop_api_plugin.command_bus" />
-            <argument type="service" id="validator" />
             <argument type="service" id="sylius.shop_api_plugin.factory.validation_error_view_factory" />
             <argument type="service" id="sylius.context.channel" />
+            <argument type="service" id="sylius.shop_api_plugin.command_provider.add_product_review_by_slug" />
         </service>
 
         <service id="sylius.shop_api_plugin.controller.product.add_review_by_code_action"
@@ -67,9 +67,9 @@
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="sylius_shop_api_plugin.command_bus" />
-            <argument type="service" id="validator" />
             <argument type="service" id="sylius.shop_api_plugin.factory.validation_error_view_factory" />
             <argument type="service" id="sylius.context.channel" />
+            <argument type="service" id="sylius.shop_api_plugin.command_provider.add_product_review_by_code" />
         </service>
         <service id="sylius.shop_api_plugin.controller.product.show_latest_product_action"
                  class="Sylius\ShopApiPlugin\Controller\Product\ShowLatestProductAction"
