@@ -8,7 +8,7 @@
             id="sylius.shop_api_plugin.command_provider.drop_cart"
             class="Sylius\ShopApiPlugin\CommandProvider\DefaultCommandProvider"
         >
-            <argument>Sylius\ShopApiPlugin\Request\Cart\DropCartRequest</argument>
+            <argument>%sylius.shop_api.request.drop_cart.class%</argument>
             <argument type="service" id="validator" />
         </service>
 
@@ -16,7 +16,7 @@
             id="sylius.shop_api_plugin.command_provider.pickup_cart"
             class="Sylius\ShopApiPlugin\CommandProvider\ChannelBasedCommandProvider"
         >
-            <argument>Sylius\ShopApiPlugin\Request\Cart\PickupCartRequest</argument>
+            <argument>%sylius.shop_api.request.pickup_cart.class%</argument>
             <argument type="service" id="validator" />
         </service>
     </services>

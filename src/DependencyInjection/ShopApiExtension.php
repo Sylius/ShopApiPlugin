@@ -21,6 +21,10 @@ final class ShopApiExtension extends Extension
             $container->setParameter(sprintf('sylius.shop_api.view.%s.class', $view), $class);
         }
 
+        foreach ($config['request_classes'] as $request => $class) {
+            $container->setParameter(sprintf('sylius.shop_api.request.%s.class', $request), $class);
+        }
+
         $container->setParameter('sylius.shop_api.included_attributes', $config['included_attributes']);
 
         $loader->load('services.xml');
