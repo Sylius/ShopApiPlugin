@@ -59,25 +59,24 @@ final class PickupCartAction
         $channel = $this->channelContext->getChannel();
 
         $validationResults = $this->pickupCartCommandProvider->validate($request, $channel);
-        if (0 === count($validationResults)) {
-            /** @var PickupCart $pickupCartCommand */
-            $pickupCartCommand = $this->pickupCartCommandProvider->getCommand($request, $channel);
-
-            $this->bus->dispatch($pickupCartCommand);
-
-            try {
-                return $this->viewHandler->handle(View::create(
-                    $this->cartQuery->getOneByToken($pickupCartCommand->orderToken()),
-                    Response::HTTP_CREATED
-                ));
-            } catch (\InvalidArgumentException $exception) {
-                throw new BadRequestHttpException($exception->getMessage());
-            }
+        if (0 !== count($validationResults)) {
+            return $this->viewHandler->handle(View::create(
+                $this->validationErrorViewFactory->create($validationResults),
+                Response::HTTP_BAD_REQUEST
+            ));
         }
 
-        return $this->viewHandler->handle(View::create(
-            $this->validationErrorViewFactory->create($validationResults),
-            Response::HTTP_BAD_REQUEST
-        ));
+        /** @var PickupCart $pickupCartCommand */
+        $pickupCartCommand = $this->pickupCartCommandProvider->getCommand($request, $channel);
+        $this->bus->dispatch($pickupCartCommand);
+
+        try {
+            return $this->viewHandler->handle(View::create(
+                $this->cartQuery->getOneByToken($pickupCartCommand->orderToken()),
+                Response::HTTP_CREATED
+            ));
+        } catch (\InvalidArgumentException $exception) {
+            throw new BadRequestHttpException($exception->getMessage());
+        }
     }
 }
