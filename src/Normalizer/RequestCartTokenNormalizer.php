@@ -5,30 +5,31 @@ declare(strict_types=1);
 namespace Sylius\ShopApiPlugin\Normalizer;
 
 use Sylius\Component\Channel\Context\ChannelContextInterface;
-use Sylius\ShopApiPlugin\Request\Cart\PickupCartRequest;
+use Sylius\Component\Core\Model\ChannelInterface;
+use Sylius\ShopApiPlugin\Command\Cart\PickupCart;
+use Sylius\ShopApiPlugin\CommandProvider\ChannelBasedCommandProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class RequestCartTokenNormalizer implements RequestCartTokenNormalizerInterface
 {
-    /** @var ValidatorInterface */
-    private $validator;
-
     /** @var MessageBusInterface */
     private $bus;
 
     /** @var ChannelContextInterface */
     private $channelContext;
 
+    /** @var ChannelBasedCommandProviderInterface */
+    private $pickupCartCommandProvider;
+
     public function __construct(
-        ValidatorInterface $validator,
         MessageBusInterface $bus,
-        ChannelContextInterface $channelContext
+        ChannelContextInterface $channelContext,
+        ChannelBasedCommandProviderInterface $pickupCartCommandProvider
     ) {
-        $this->validator = $validator;
         $this->bus = $bus;
         $this->channelContext = $channelContext;
+        $this->pickupCartCommandProvider = $pickupCartCommandProvider;
     }
 
     public function doNotAllowNullCartToken(Request $request): Request
@@ -37,16 +38,17 @@ final class RequestCartTokenNormalizer implements RequestCartTokenNormalizerInte
             return $request;
         }
 
+        /** @var ChannelInterface $channel */
         $channel = $this->channelContext->getChannel();
-        $pickupRequest = new PickupCartRequest($channel->getCode());
 
-        $validationResults = $this->validator->validate($pickupRequest);
-
+        $validationResults = $this->pickupCartCommandProvider->validate($request, $channel);
         if (0 !== $validationResults->count()) {
             throw new \InvalidArgumentException('Pickup request was not valid');
         }
 
-        $pickupCartCommand = $pickupRequest->getCommand();
+        /** @var PickupCart $pickupCartCommand */
+        $pickupCartCommand = $this->pickupCartCommandProvider->getCommand($request, $channel);
+
         $this->bus->dispatch($pickupCartCommand);
 
         $request->attributes->set('token', $pickupCartCommand->orderToken());

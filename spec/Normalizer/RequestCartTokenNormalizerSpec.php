@@ -9,20 +9,22 @@ use Prophecy\Argument;
 use Sylius\Component\Channel\Context\ChannelContextInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\ShopApiPlugin\Command\Cart\PickupCart;
+use Sylius\ShopApiPlugin\CommandProvider\ChannelBasedCommandProviderInterface;
 use Sylius\ShopApiPlugin\Normalizer\RequestCartTokenNormalizerInterface;
-use Sylius\ShopApiPlugin\Request\Cart\PickupCartRequest;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class RequestCartTokenNormalizerSpec extends ObjectBehavior
 {
-    function let(ValidatorInterface $validator, MessageBusInterface $bus, ChannelContextInterface $channelContext): void
-    {
-        $this->beConstructedWith($validator, $bus, $channelContext);
+    function let(
+        MessageBusInterface $bus,
+        ChannelContextInterface $channelContext,
+        ChannelBasedCommandProviderInterface $pickupCartCommandProvider
+    ): void {
+        $this->beConstructedWith($bus, $channelContext, $pickupCartCommandProvider);
     }
 
     function it_implements_request_cart_token_normalizer_interface(): void
@@ -31,9 +33,9 @@ final class RequestCartTokenNormalizerSpec extends ObjectBehavior
     }
 
     function it_returns_passed_request_if_cart_token_was_set(
-        ValidatorInterface $validator,
         MessageBusInterface $bus,
         ChannelContextInterface $channelContext,
+        ChannelBasedCommandProviderInterface $pickupCartCommandProvider,
         ChannelInterface $channel,
         Request $request
     ): void {
@@ -42,16 +44,16 @@ final class RequestCartTokenNormalizerSpec extends ObjectBehavior
 
         $request->attributes = new ParameterBag(['token' => 'sample_cart_token']);
 
-        $validator->validate(Argument::any())->shouldNotBeCalled();
+        $pickupCartCommandProvider->validate($request, $channel)->shouldNotBeCalled();
         $bus->dispatch(Argument::any())->shouldNotBeCalled();
 
         $this->doNotAllowNullCartToken($request)->shouldReturn($request);
     }
 
     function it_picks_up_new_cart_and_sets_its_token_on_request_if_token_was_not_passed(
-        ValidatorInterface $validator,
         MessageBusInterface $bus,
         ChannelContextInterface $channelContext,
+        ChannelBasedCommandProviderInterface $pickupCartCommandProvider,
         ChannelInterface $channel,
         Request $request,
         ConstraintViolationListInterface $constraintViolationList
@@ -63,12 +65,13 @@ final class RequestCartTokenNormalizerSpec extends ObjectBehavior
 
         $constraintViolationList->count()->willReturn(0);
 
-        $validator->validate(Argument::type(PickupCartRequest::class))->willReturn($constraintViolationList);
+        $command = new PickupCart('4fe1bb6e-2f27-4bd4-b1ff-7de842498573', 'WEB_GB');
+
+        $pickupCartCommandProvider->validate($request, $channel)->willReturn($constraintViolationList);
+        $pickupCartCommandProvider->getCommand($request, $channel)->willReturn($command);
 
         $bus
-            ->dispatch(Argument::that(function (PickupCart $command): bool {
-                return !empty($command->orderToken()) && $command->channelCode() === 'WEB_GB';
-            }))
+            ->dispatch($command)
             ->willReturn(new Envelope(new \stdClass()))
             ->shouldBeCalled()
         ;

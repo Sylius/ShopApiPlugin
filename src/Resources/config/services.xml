@@ -65,12 +65,12 @@
         </service>
 
         <service
-                id="sylius.shop_api_plugin.normalizer.request_cart_token_normalizer"
-                class="Sylius\ShopApiPlugin\Normalizer\RequestCartTokenNormalizer"
+            id="sylius.shop_api_plugin.normalizer.request_cart_token_normalizer"
+            class="Sylius\ShopApiPlugin\Normalizer\RequestCartTokenNormalizer"
         >
-            <argument type="service" id="validator" />
             <argument type="service" id="sylius_shop_api_plugin.command_bus" />
             <argument type="service" id="sylius.context.channel" />
+            <argument type="service" id="sylius.shop_api_plugin.command_provider.pickup_cart" />
         </service>
 
         <!-- Removing the create cart context from composite context (see: https://github.com/Sylius/Sylius/issues/10192) -->

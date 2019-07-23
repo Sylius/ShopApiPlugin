@@ -11,5 +11,13 @@
             <argument>Sylius\ShopApiPlugin\Request\Cart\DropCartRequest</argument>
             <argument type="service" id="validator" />
         </service>
+
+        <service
+            id="sylius.shop_api_plugin.command_provider.pickup_cart"
+            class="Sylius\ShopApiPlugin\CommandProvider\ChannelBasedCommandProvider"
+        >
+            <argument>Sylius\ShopApiPlugin\Request\Cart\PickupCartRequest</argument>
+            <argument type="service" id="validator" />
+        </service>
     </services>
 </container>
