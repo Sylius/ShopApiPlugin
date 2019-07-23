@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\DependencyInjection;
 
+use Sylius\ShopApiPlugin\Request\Cart\DropCartRequest;
+use Sylius\ShopApiPlugin\Request\Cart\PickupCartRequest;
 use Sylius\ShopApiPlugin\View;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
@@ -11,7 +13,6 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 final class Configuration implements ConfigurationInterface
 {
-    /** {@inheritdoc} */
     public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder();
@@ -19,6 +20,7 @@ final class Configuration implements ConfigurationInterface
 
         $this->buildIncludedAttributesNode($rootNode);
         $this->buildViewClassesNode($rootNode);
+        $this->buildRequestClassesNode($rootNode);
 
         return $treeBuilder;
     }
@@ -69,6 +71,22 @@ final class Configuration implements ConfigurationInterface
                         ->scalarNode('validation_error')->defaultValue(View\ValidationErrorView::class)->end()
                         ->scalarNode('variant_option')->defaultValue(View\Product\VariantOptionView::class)->end()
                         ->scalarNode('variant_option_value')->defaultValue(View\Product\VariantOptionValueView::class)->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
+    }
+
+    private function buildRequestClassesNode(ArrayNodeDefinition $rootNode): void
+    {
+        $rootNode
+            ->addDefaultsIfNotSet()
+            ->children()
+                ->arrayNode('request_classes')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('drop_cart')->defaultValue(DropCartRequest::class)->end()
+                        ->scalarNode('pickup_cart')->defaultValue(PickupCartRequest::class)->end()
                     ->end()
                 ->end()
             ->end()

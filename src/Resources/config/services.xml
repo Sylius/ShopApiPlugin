@@ -13,6 +13,7 @@
 
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <imports>
+        <import resource="services/command_providers.xml"/>
         <import resource="services/controllers.xml"/>
         <import resource="services/factories.xml"/>
         <import resource="services/handlers.xml"/>
@@ -64,12 +65,12 @@
         </service>
 
         <service
-                id="sylius.shop_api_plugin.normalizer.request_cart_token_normalizer"
-                class="Sylius\ShopApiPlugin\Normalizer\RequestCartTokenNormalizer"
+            id="sylius.shop_api_plugin.normalizer.request_cart_token_normalizer"
+            class="Sylius\ShopApiPlugin\Normalizer\RequestCartTokenNormalizer"
         >
-            <argument type="service" id="validator" />
             <argument type="service" id="sylius_shop_api_plugin.command_bus" />
             <argument type="service" id="sylius.context.channel" />
+            <argument type="service" id="sylius.shop_api_plugin.command_provider.pickup_cart" />
         </service>
 
         <!-- Removing the create cart context from composite context (see: https://github.com/Sylius/Sylius/issues/10192) -->

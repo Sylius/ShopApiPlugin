@@ -5,9 +5,13 @@ declare(strict_types=1);
 namespace Sylius\ShopApiPlugin\Request\Cart;
 
 use Ramsey\Uuid\Uuid;
+use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\ShopApiPlugin\Command\Cart\PickupCart;
+use Sylius\ShopApiPlugin\Command\CommandInterface;
+use Sylius\ShopApiPlugin\Request\ChannelBasedRequestInterface;
+use Symfony\Component\HttpFoundation\Request;
 
-class PickupCartRequest
+class PickupCartRequest implements ChannelBasedRequestInterface
 {
     /** @var string */
     protected $token;
@@ -21,7 +25,12 @@ class PickupCartRequest
         $this->channelCode = $channelCode;
     }
 
-    public function getCommand(): PickupCart
+    public static function fromRequestAndChannel(Request $request, ChannelInterface $channel): ChannelBasedRequestInterface
+    {
+        return new self($channel->getCode());
+    }
+
+    public function getCommand(): CommandInterface
     {
         return new PickupCart($this->token, $this->channelCode);
     }
