@@ -783,8 +783,6 @@ paths:
                     description: "The user was successfully created"
                 400:
                     description: "There were validation errors"
-                500:
-                    description: "Channel not found"
     /orders:
         parameters:
             -   $ref: "#/parameters/ChannelCode"
