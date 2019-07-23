@@ -22,11 +22,11 @@ final class CartChangeItemQuantityApiTest extends JsonApiTestCase
         $this->loadFixturesFromFiles(['channel.yml', 'shop.yml']);
 
         $data =
-<<<EOT
+<<<JSON
         {
             "quantity": 5
         }
-EOT;
+JSON;
         $this->client->request('PUT', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/items/1', [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
@@ -48,11 +48,11 @@ EOT;
         $bus->dispatch(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 3));
 
         $data =
-<<<EOT
+<<<JSON
         {
             "quantity": 5
         }
-EOT;
+JSON;
         $this->client->request('PUT', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/items/' . $this->getFirstOrderItemId($token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
@@ -74,11 +74,11 @@ EOT;
         $bus->dispatch(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 3));
 
         $data =
-<<<EOT
+<<<JSON
         {
             "quantity": 0
         }
-EOT;
+JSON;
         $this->client->request('PUT', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/items/' . $this->getFirstOrderItemId($token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
@@ -119,11 +119,11 @@ EOT;
         $bus->dispatch(new PickupCart($token, 'WEB_GB'));
 
         $data =
-<<<EOT
+<<<JSON
         {
             "quantity": 5
         }
-EOT;
+JSON;
         $this->client->request('PUT', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/items/420', [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 

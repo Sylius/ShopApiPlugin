@@ -49,11 +49,11 @@ final class CheckoutChooseShippingMethodApiTest extends JsonApiTestCase
         ));
 
         $data =
-<<<EOT
+<<<JSON
         {
             "method": "DHL"
         }
-EOT;
+JSON;
 
         $this->client->request(
             'PUT',

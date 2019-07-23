@@ -33,14 +33,14 @@ final class CustomerResetPasswordApiTest extends JsonApiTestCase
         $user = $userRepository->findOneByEmail('oliver@queen.com');
 
         $newPasswords =
-<<<EOT
+<<<JSON
         {
             "password" : {
                 "first": "somepass",
                 "second": "somepass"
             }
         }
-EOT;
+JSON;
 
         $this->client->request('PUT', '/shop-api/password-reset/' . $user->getPasswordResetToken(), [], [], self::CONTENT_TYPE_HEADER, $newPasswords);
 

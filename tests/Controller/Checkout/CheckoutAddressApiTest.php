@@ -21,7 +21,7 @@ final class CheckoutAddressApiTest extends JsonApiTestCase
         $this->loadFixturesFromFiles(['shop.yml', 'country.yml']);
 
         $data =
-<<<EOT
+<<<JSON
         {
             "shippingAddress": {
                 "firstName": "Sherlock",
@@ -33,7 +33,7 @@ final class CheckoutAddressApiTest extends JsonApiTestCase
                 "provinceName": "Greater London"
             }
         }
-EOT;
+JSON;
 
         $response = $this->address('WRONGTOKEN', $data);
         $this->assertResponse($response, 'cart/validation_cart_not_exists_response', Response::HTTP_BAD_REQUEST);
@@ -54,7 +54,7 @@ EOT;
         $bus->dispatch(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
 
         $data =
-<<<EOT
+<<<JSON
         {
             "shippingAddress": {
                 "firstName": "Sherlock",
@@ -66,7 +66,7 @@ EOT;
                 "provinceName": "Greater London"
             }
         }
-EOT;
+JSON;
 
         $response = $this->address($token, $data);
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
@@ -87,7 +87,7 @@ EOT;
         $bus->dispatch(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
 
         $data =
-<<<EOT
+<<<JSON
         {
             "shippingAddress": {
                 "firstName": "Sherlock",
@@ -98,7 +98,7 @@ EOT;
                 "postcode": "NW1"
             }
         }
-EOT;
+JSON;
 
         $response = $this->address($token, $data);
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
@@ -119,7 +119,7 @@ EOT;
         $bus->dispatch(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
 
         $data =
-<<<EOT
+<<<JSON
         {
             "shippingAddress": {
                 "firstName": "Sherlock",
@@ -140,7 +140,7 @@ EOT;
                 "provinceName": "Greater London"
             }
         }
-EOT;
+JSON;
 
         $response = $this->address($token, $data);
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
@@ -164,7 +164,7 @@ EOT;
         $bus->dispatch(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
 
         $data =
-<<<EOT
+<<<JSON
         {
             "shippingAddress": {
                 "firstName": "Sherlock",
@@ -176,14 +176,14 @@ EOT;
                 "provinceName": "Greater London"
             }
         }
-EOT;
+JSON;
 
         $this->address($token, $data);
 
         $firstAddressCount = count($addressRepository->findAll());
 
         $data =
-<<<EOT
+<<<JSON
         {
             "shippingAddress": {
                 "firstName": "John",
@@ -195,7 +195,7 @@ EOT;
                 "provinceName": "Greater London"
             }
         }
-EOT;
+JSON;
 
         $response = $this->address($token, $data);
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);

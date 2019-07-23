@@ -27,7 +27,7 @@ final class CustomerUpdateCustomerApiTest extends JsonApiTestCase
         $customerRepository = $this->get('sylius.repository.customer');
 
         $data =
-<<<EOT
+<<<JSON
         {
             "firstName": "New name",
             "lastName": "New lastName",
@@ -37,7 +37,7 @@ final class CustomerUpdateCustomerApiTest extends JsonApiTestCase
             "phoneNumber": "0918972132",
             "subscribedToNewsletter": true
         }
-EOT;
+JSON;
         $this->client->request('PUT', '/shop-api/me', [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
         $this->assertResponse($response, 'customer/update_customer', Response::HTTP_OK);
@@ -62,7 +62,7 @@ EOT;
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
 
         $data =
-<<<EOT
+<<<JSON
         {
             "firstName": "New name",
             "lastName": "New lastName",
@@ -72,7 +72,7 @@ EOT;
             "phoneNumber": "0918972132",
             "subscribedToNewsletter": true
         }
-EOT;
+JSON;
         $this->client->request('PUT', '/shop-api/me', [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
         $this->assertResponseCode($response, Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -87,7 +87,7 @@ EOT;
         $this->logInUser('oliver@queen.com', '123password');
 
         $data =
-<<<EOT
+<<<JSON
         {
             "firstName": "",
             "lastName": "",
@@ -95,7 +95,7 @@ EOT;
             "gender": "",
             "phoneNumber": ""
         }
-EOT;
+JSON;
         $this->client->request('PUT', '/shop-api/me', [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
         $this->assertResponse($response, 'customer/validation_empty_data', Response::HTTP_BAD_REQUEST);

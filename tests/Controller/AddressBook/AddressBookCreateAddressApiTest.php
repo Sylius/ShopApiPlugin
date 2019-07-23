@@ -26,7 +26,7 @@ final class AddressBookCreateAddressApiTest extends JsonApiTestCase
         $this->logInUser('oliver@queen.com', '123password');
 
         $data =
-<<<EOT
+<<<JSON
         {
             "firstName": "Jurica",
             "lastName": "Separovic",
@@ -36,7 +36,7 @@ final class AddressBookCreateAddressApiTest extends JsonApiTestCase
             "countryCode": "GB",
             "postcode": "2433"
         }
-EOT;
+JSON;
 
         $response = $this->createAddress($data);
         $this->assertResponse($response, 'address_book/add_address_response', Response::HTTP_CREATED);
@@ -65,7 +65,7 @@ EOT;
         $this->logInUser('oliver@queen.com', '123password');
 
         $data =
-<<<EOT
+<<<JSON
         {
             "firstName": "",
             "lastName": "",
@@ -75,7 +75,7 @@ EOT;
             "countryCode": "",
             "postcode": ""
         }
-EOT;
+JSON;
 
         $response = $this->createAddress($data);
         $this->assertResponse($response, 'address_book/validation_create_address_book_response', Response::HTTP_BAD_REQUEST);
@@ -90,7 +90,7 @@ EOT;
         $this->logInUser('oliver@queen.com', '123password');
 
         $data =
-<<<EOT
+<<<JSON
         {
             "firstName": "Davor",
             "lastName": "Duhovic",
@@ -99,7 +99,7 @@ EOT;
             "city": "Split",
             "postcode": "2100"
         }
-EOT;
+JSON;
 
         $response = $this->createAddress($data);
         $this->assertResponse($response, 'address_book/validation_create_address_book_with_wrong_country_response', Response::HTTP_BAD_REQUEST);
@@ -114,7 +114,7 @@ EOT;
         $this->logInUser('oliver@queen.com', '123password');
 
         $data =
-<<<EOT
+<<<JSON
         {
             "firstName": "Davor",
             "lastName": "Duhovic",
@@ -124,7 +124,7 @@ EOT;
             "postcode": "2100",
             "provinceCode": "WRONG_PROVINCE_CODE"
         }
-EOT;
+JSON;
 
         $response = $this->createAddress($data);
         $this->assertResponse($response, 'address_book/validation_create_address_book_with_wrong_province_response', Response::HTTP_INTERNAL_SERVER_ERROR);

@@ -56,11 +56,11 @@ final class CheckoutCompleteOrderApiTest extends JsonApiTestCase
         $bus->dispatch(new ChoosePaymentMethod($token, 0, 'PBC'));
 
         $data =
-<<<EOT
+<<<JSON
         {
             "email": "example@cusomer.com"
         }
-EOT;
+JSON;
 
         $response = $this->complete($token, $data);
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
@@ -103,12 +103,12 @@ EOT;
         $bus->dispatch(new ChoosePaymentMethod($token, 0, 'PBC'));
 
         $data =
-<<<EOT
+<<<JSON
         {
             "email": "example@cusomer.com",
             "notes": "BRING IT AS FAST AS YOU CAN, PLEASE!"
         }
-EOT;
+JSON;
 
         $response = $this->complete($token, $data);
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
@@ -193,12 +193,12 @@ EOT;
         $bus->dispatch(new ChoosePaymentMethod($token, 0, 'PBC'));
 
         $data =
-<<<EOT
+<<<JSON
         {
             "email": "oliver@queen.com",
             "notes": "BRING IT AS FAST AS YOU CAN, PLEASE!"
         }
-EOT;
+JSON;
 
         $response = $this->complete($token, $data);
         $this->assertResponseCode($response, Response::HTTP_UNAUTHORIZED);
@@ -243,11 +243,11 @@ EOT;
         $this->logInUser('oliver@queen.com', '123password');
 
         $data =
-<<<EOT
+<<<JSON
         {
             "email": "example@cusomer.com"
         }
-EOT;
+JSON;
 
         $response = $this->complete($token, $data);
         $this->assertResponseCode($response, Response::HTTP_UNAUTHORIZED);
