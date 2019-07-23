@@ -765,7 +765,7 @@ paths:
                 500:
                     description: "Channel not found"
 
-    /login_check:
+    /login:
         post:
             tags:
                 - "users"
@@ -1591,10 +1591,10 @@ definitions:
     LoginRequest:
         type: "object"
         properties:
-            _username:
+            email:
                 type: "string"
                 example: "test@example.com"
-            _password:
+            password:
                 type: "string"
                 example: "test12334verysecure"
     UpdateUserRequest:

@@ -18,8 +18,8 @@ trait ShopUserLoginTrait
         $data =
 <<<JSON
         {
-            "_username": "$username",
-            "_password": "$password"
+            "email": "$username",
+            "password": "$password"
         }
 JSON;
 
@@ -29,20 +29,20 @@ JSON;
     protected function logInUserWithCart(string $username, string $password, string $token): void
     {
         $data =
-<<<EOT
+<<<JSON
         {
-            "_username": "$username",
-            "_password": "$password",
+            "email": "$username",
+            "password": "$password",
             "token": "$token"
         }
-EOT;
+JSON;
 
         $this->sendLogInRequest($data);
     }
 
     private function sendLogInRequest(string $data): void
     {
-        $this->client->request('POST', '/shop-api/login_check', [], [], ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'], $data);
+        $this->client->request('POST', '/shop-api/login', [], [], ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'], $data);
 
         Assert::assertSame($this->client->getResponse()->getStatusCode(), Response::HTTP_OK);
 

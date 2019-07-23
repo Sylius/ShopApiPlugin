@@ -89,31 +89,20 @@ The latest documentation is available [here](https://app.swaggerhub.com/apis/Syl
         firewalls:
             // ...
 
-            sylius_shop_api_login:
-                pattern:  "%sylius_shop_api.security.regex%/login"
-                stateless: true
-                anonymous: true
-                form_login:
-                    provider: sylius_shop_user_provider
-                    login_path: /shop-api/login_check
-                    check_path: /shop-api/login_check
-                    success_handler: lexik_jwt_authentication.handler.authentication_success
-                    failure_handler: lexik_jwt_authentication.handler.authentication_failure
-                    require_previous_session: false
-    
             sylius_shop_api:
                 pattern: "%sylius_shop_api.security.regex%"
                 stateless: true
                 anonymous: true
+                provider: sylius_shop_user_provider
+                json_login:
+                    check_path: /shop-api/login
+                    username_path: email
+                    password_path: password
+                    success_handler: lexik_jwt_authentication.handler.authentication_success
+                    failure_handler: lexik_jwt_authentication.handler.authentication_failure
                 guard:
-                    provider: sylius_shop_user_provider
                     authenticators:
                         - lexik_jwt_authentication.jwt_token_authenticator
-   
-        access_control:
-           - { path: "%sylius_shop_api.security.regex%/login", role: IS_AUTHENTICATED_ANONYMOUSLY }
-           - { path: "%sylius_shop_api.security.regex%/register", role: IS_AUTHENTICATED_ANONYMOUSLY }
-
     ```
     
     6. (optional) if you have installed `nelmio/NelmioCorsBundle` for Support of Cross-Origin Ajax Request,
