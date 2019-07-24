@@ -6,6 +6,7 @@ namespace Sylius\ShopApiPlugin\Controller\Checkout;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
+use Sylius\ShopApiPlugin\Command\Cart\AssignCustomerToCart;
 use Sylius\ShopApiPlugin\Command\Cart\CompleteOrder;
 use Sylius\ShopApiPlugin\Exception\WrongUserException;
 use Sylius\ShopApiPlugin\Provider\LoggedInShopUserProviderInterface;
@@ -43,9 +44,15 @@ final class CompleteOrderAction
 
         try {
             $this->bus->dispatch(
+                new AssignCustomerToCart(
+                    $request->attributes->get('token'),
+                    $request->request->get('email', $defaultEmail ?? null)
+                )
+            );
+
+            $this->bus->dispatch(
                 new CompleteOrder(
                     $request->attributes->get('token'),
-                    $request->request->get('email', $defaultEmail ?? null),
                     $request->request->get('notes')
                 )
             );

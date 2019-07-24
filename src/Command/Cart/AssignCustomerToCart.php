@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Command\Cart;
 
-class CompleteOrder
+class AssignCustomerToCart
 {
     /** @var string */
     protected $orderToken;
 
-    /** @var string|null */
-    protected $notes;
+    /** @var string */
+    protected $email;
 
-    public function __construct(string $orderToken, ?string $notes = null)
+    public function __construct(string $orderToken, string $email)
     {
         $this->orderToken = $orderToken;
-        $this->notes = $notes;
+        $this->email = $email;
     }
 
     public function orderToken(): string
@@ -23,8 +23,8 @@ class CompleteOrder
         return $this->orderToken;
     }
 
-    public function notes(): ?string
+    public function email(): string
     {
-        return $this->notes;
+        return $this->email;
     }
 }
