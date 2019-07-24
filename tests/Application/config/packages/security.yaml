@@ -2,7 +2,7 @@ parameters:
     sylius.security.admin_regex: "^/admin"
     sylius.security.api_regex: "^/api"
     sylius.security.shop_regex: "^/(?!admin|api/.*|api$|media/.*)[^/]++"
-    shop_api.security.regex: "^/shop-api"
+    sylius_shop_api.security.regex: "^/shop-api"
 
 security:
     providers:
@@ -52,7 +52,7 @@ security:
             anonymous: true
 
         sylius_shop_api_login:
-            pattern:  "%shop_api.security.regex%/login"
+            pattern:  "%sylius_shop_api.security.regex%/login"
             stateless: true
             anonymous: true
             form_login:
@@ -63,8 +63,8 @@ security:
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
                 require_previous_session: false
 
-        shop_api:
-            pattern: "%shop_api.security.regex%"
+        sylius_shop_api:
+            pattern: "%sylius_shop_api.security.regex%"
             stateless: true
             anonymous: true
             guard:
@@ -115,11 +115,11 @@ security:
         - { path: "%sylius.security.admin_regex%/login", role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: "%sylius.security.api_regex%/login", role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: "%sylius.security.shop_regex%/login", role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: "%shop_api.security.regex%/login", role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: "%sylius_shop_api.security.regex%/login", role: IS_AUTHENTICATED_ANONYMOUSLY }
 
         - { path: "%sylius.security.shop_regex%/register", role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: "%sylius.security.shop_regex%/verify", role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: "%shop_api.security.regex%/register", role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: "%sylius_shop_api.security.regex%/register", role: IS_AUTHENTICATED_ANONYMOUSLY }
 
         - { path: "%sylius.security.admin_regex%", role: ROLE_ADMINISTRATION_ACCESS }
         - { path: "%sylius.security.api_regex%/.*", role: ROLE_API_ACCESS }

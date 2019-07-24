@@ -15,9 +15,12 @@ use Sylius\ShopApiPlugin\Model\Address;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Tests\Sylius\ShopApiPlugin\Controller\JsonApiTestCase;
+use Tests\Sylius\ShopApiPlugin\Controller\Utils\ShopUserLoginTrait;
 
 final class CartPutItemToCartApiTest extends JsonApiTestCase
 {
+    use ShopUserLoginTrait;
+
     /**
      * @test
      */
@@ -42,6 +45,28 @@ JSON;
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/add_simple_product_to_cart_response', Response::HTTP_CREATED);
+    }
+
+    /**
+     * @test
+     */
+    public function it_recalculates_cart_when_customer_log_in(): void
+    {
+        $this->loadFixturesFromFiles(['shop.yml', 'customer.yml', 'promotion.yml']);
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var MessageBusInterface $bus */
+        $bus = $this->get('sylius_shop_api_plugin.command_bus');
+        $bus->dispatch(new PickupCart($token, 'WEB_GB'));
+        $bus->dispatch(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 1));
+
+        $this->logInUserWithCart('oliver@queen.com', '123password', $token);
+
+        $this->client->request('GET', '/shop-api/carts/' . $token, [], [], self::CONTENT_TYPE_HEADER);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'cart/recalculated_cart_after_log_in', Response::HTTP_OK);
     }
 
     /**

@@ -23,8 +23,29 @@ trait ShopUserLoginTrait
         }
 JSON;
 
+        $this->sendLogInRequest($data);
+    }
+
+    protected function logInUserWithCart(string $username, string $password, string $token): void
+    {
+        $data =
+<<<EOT
+        {
+            "_username": "$username",
+            "_password": "$password",
+            "token": "$token"
+        }
+EOT;
+
+        $this->sendLogInRequest($data);
+    }
+
+    private function sendLogInRequest(string $data): void
+    {
         $this->client->request('POST', '/shop-api/login_check', [], [], ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'], $data);
+
         Assert::assertSame($this->client->getResponse()->getStatusCode(), Response::HTTP_OK);
+
         $response = json_decode($this->client->getResponse()->getContent(), true);
         $this->client->setServerParameter('HTTP_Authorization', sprintf('Bearer %s', $response['token']));
     }

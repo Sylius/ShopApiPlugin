@@ -73,6 +73,24 @@
             <argument type="service" id="sylius.shop_api_plugin.command_provider.pickup_cart" />
         </service>
 
+        <service
+                id="sylius.listener.cart_blamer"
+                class="Sylius\ShopApiPlugin\EventListener\CartBlamerListener"
+        >
+            <argument type="service" id="sylius.manager.order" />
+            <argument type="service" id="sylius.context.cart" />
+            <argument type="service" id="sylius.repository.order" />
+            <argument type="service" id="request_stack" />
+            <tag name="kernel.event_listener" event="lexik_jwt_authentication.on_jwt_created" method="onJwtLogin" />
+        </service>
+
+        <service id="sylius.listener.user_cart_recalculation" class="Sylius\ShopApiPlugin\EventListener\UserCartRecalculationListener">
+            <argument type="service" id="sylius.context.cart" />
+            <argument type="service" id="sylius.order_processing.order_processor" />
+            <argument type="service" id="sylius.manager.order" />
+            <tag name="kernel.event_listener" event="lexik_jwt_authentication.on_jwt_created" method="recalculateCartWhileLogin" />
+        </service>
+
         <!-- Removing the create cart context from composite context (see: https://github.com/Sylius/Sylius/issues/10192) -->
         <service id="sylius.context.cart.new" class="Sylius\Component\Order\Context\CartContext">
             <argument type="service" id="sylius.factory.order" />

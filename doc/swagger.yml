@@ -764,6 +764,25 @@ paths:
                     description: "There were validation errors"
                 500:
                     description: "Channel not found"
+
+    /login_check:
+        post:
+            tags:
+                - "users"
+            summary: "Log user in"
+            description: "This action allows to log existing user in"
+            operationId: "loginUser"
+            parameters:
+                -   name: "content"
+                    in: "body"
+                    required: true
+                    schema:
+                        $ref: "#/definitions/LoginRequest"
+            responses:
+                204:
+                    description: "The user was successfully created"
+                400:
+                    description: "There were validation errors"
     /orders:
         parameters:
             -   $ref: "#/parameters/ChannelCode"
@@ -1569,6 +1588,15 @@ definitions:
             channel:
                 type: "string"
                 example: "WEB_GB"
+    LoginRequest:
+        type: "object"
+        properties:
+            _username:
+                type: "string"
+                example: "test@example.com"
+            _password:
+                type: "string"
+                example: "test12334verysecure"
     UpdateUserRequest:
         type: "object"
         properties:

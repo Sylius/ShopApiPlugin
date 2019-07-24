@@ -7,11 +7,11 @@
         "php": "^7.2",
 
         "sylius/sylius": "^1.4",
+        "lexik/jwt-authentication-bundle": "^2.5",
         "symfony/messenger": "~4.3.0"
     },
     "require-dev": {
         "lchrusciel/api-test-case": "^4.0",
-        "lexik/jwt-authentication-bundle": "^2.5",
         "matthiasnoback/symfony-config-test": "^4.0",
         "matthiasnoback/symfony-dependency-injection-test": "^4.0",
         "phpspec/phpspec": "^5.0",
