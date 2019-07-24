@@ -9,7 +9,7 @@ use Sylius\ShopApiPlugin\DependencyInjection\Compiler\ChannelContextPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-final class ShopApiPlugin extends Bundle
+final class SyliusShopApiPlugin extends Bundle
 {
     use SyliusPluginTrait;
 

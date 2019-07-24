@@ -6,8 +6,8 @@ imports:
 
     - { resource: "@SyliusShopBundle/Resources/config/app/config.yml" }
 
-    - { resource: "@ShopApiPlugin/Resources/config/app/config.yml" }
-    - { resource: "@ShopApiPlugin/Resources/config/app/sylius_mailer.yml" }
+    - { resource: "@SyliusShopApiPlugin/Resources/config/app/config.yml" }
+    - { resource: "@SyliusShopApiPlugin/Resources/config/app/sylius_mailer.yml" }
 
 parameters:
     sylius_core.public_dir: '%kernel.project_dir%/public'

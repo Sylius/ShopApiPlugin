@@ -4,4 +4,8 @@ sylius:
 # Put your own routes here
 
 sylius_shop_api:
-    resource: "@ShopApiPlugin/Resources/config/routing.yml"
+    resource: "@SyliusShopApiPlugin/Resources/config/routing.yml"
+
+sylius_shop_api_login_check:
+    methods: [POST]
+    path: /shop-api/login_check

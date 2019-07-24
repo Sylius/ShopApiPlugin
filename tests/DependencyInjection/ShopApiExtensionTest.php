@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Sylius\ShopApiPlugin\DependencyInjection;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
-use Sylius\ShopApiPlugin\DependencyInjection\ShopApiExtension;
+use Sylius\ShopApiPlugin\DependencyInjection\SyliusShopApiExtension;
 use Sylius\ShopApiPlugin\View;
 
 final class ShopApiExtensionTest extends AbstractExtensionTestCase
@@ -71,6 +71,6 @@ final class ShopApiExtensionTest extends AbstractExtensionTestCase
      */
     protected function getContainerExtensions(): array
     {
-        return [new ShopApiExtension()];
+        return [new SyliusShopApiExtension()];
     }
 }
