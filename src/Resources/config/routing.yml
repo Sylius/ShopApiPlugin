@@ -38,6 +38,6 @@ sylius_shop_api_order:
     resource: "@ShopApiPlugin/Resources/config/routing/order.yml"
     prefix: /shop-api
 
-sylius_shop_api_login_check:
+sylius_shop_api_login:
     methods: [POST]
-    path: /shop-api/login_check
+    path: /shop-api/login

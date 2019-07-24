@@ -19,12 +19,12 @@ final class LoggedInCustomerDetailsActionTest extends JsonApiTestCase
         $data =
 <<<JSON
         {
-            "_username": "oliver@queen.com",
-            "_password": "123password"
+            "email": "oliver@queen.com",
+            "password": "123password"
         }
 JSON;
 
-        $this->client->request('POST', '/shop-api/login_check', [], [], self::CONTENT_TYPE_HEADER, $data);
+        $this->client->request('POST', '/shop-api/login', [], [], self::CONTENT_TYPE_HEADER, $data);
 
         $response = json_decode($this->client->getResponse()->getContent(), true);
         $this->client->setServerParameter('HTTP_Authorization', sprintf('Bearer %s', $response['token']));
