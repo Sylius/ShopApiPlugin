@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 interface RequestInterface
 {
-    public static function fromRequest(Request $request): self;
+    public static function fromHttpRequest(Request $request): self;
 
     public function getCommand(): CommandInterface;
 }

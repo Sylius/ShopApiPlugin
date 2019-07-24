@@ -10,7 +10,7 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 interface CommandProviderInterface
 {
-    public function validate(Request $request): ConstraintViolationListInterface;
+    public function validate(Request $httpRequest): ConstraintViolationListInterface;
 
-    public function getCommand(Request $request): CommandInterface;
+    public function getCommand(Request $httpRequest): CommandInterface;
 }

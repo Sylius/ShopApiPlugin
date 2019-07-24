@@ -26,23 +26,24 @@ final class ChannelBasedCommandProvider implements ChannelBasedCommandProviderIn
         $this->validator = $validator;
     }
 
-    public function validate(Request $request, ChannelInterface $channel): ConstraintViolationListInterface
+    public function validate(Request $httpRequest, ChannelInterface $channel): ConstraintViolationListInterface
     {
-        return $this->validator->validate($this->transformRequest($request, $channel));
+        return $this->validator->validate($this->transformHttpRequest($httpRequest, $channel));
     }
 
-    public function getCommand(Request $request, ChannelInterface $channel): CommandInterface
+    public function getCommand(Request $httpRequest, ChannelInterface $channel): CommandInterface
     {
-        return $this->transformRequest($request, $channel)->getCommand();
+        return $this->transformHttpRequest($httpRequest, $channel)->getCommand();
     }
 
-    private function transformRequest(Request $request, ChannelInterface $channel): ChannelBasedRequestInterface
+    private function transformHttpRequest(Request $httpRequest, ChannelInterface $channel): ChannelBasedRequestInterface
     {
-        $requestModel = call_user_func([$this->requestClass, 'fromRequestAndChannel'], $request, $channel);
+        Assert::methodExists($this->requestClass, 'fromHttpRequestAndChannel');
+        Assert::implementsInterface($this->requestClass, ChannelBasedRequestInterface::class);
 
-        Assert::implementsInterface($requestModel, ChannelBasedRequestInterface::class);
+        /** @var ChannelBasedRequestInterface $request */
+        $request = $this->requestClass::fromHttpRequestAndChannel($httpRequest, $channel);
 
-        /** @var ChannelBasedRequestInterface $requestModel */
-        return $requestModel;
+        return $request;
     }
 }
