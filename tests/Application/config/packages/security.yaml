@@ -1,7 +1,7 @@
 parameters:
     sylius.security.admin_regex: "^/admin"
     sylius.security.api_regex: "^/api"
-    shop_api.security.regex: "^/shop-api"
+    sylius_shop_api.security.regex: "^/shop-api"
 
 security:
     providers:
