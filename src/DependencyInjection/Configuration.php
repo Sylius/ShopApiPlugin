@@ -8,10 +8,10 @@ use Sylius\ShopApiPlugin\Request\Cart\AddCouponRequest;
 use Sylius\ShopApiPlugin\Request\Cart\ChangeItemQuantityRequest;
 use Sylius\ShopApiPlugin\Request\Cart\DropCartRequest;
 use Sylius\ShopApiPlugin\Request\Cart\PickupCartRequest;
-use Sylius\ShopApiPlugin\Request\Product\AddProductReviewByCodeRequest;
-use Sylius\ShopApiPlugin\Request\Product\AddProductReviewBySlugRequest;
 use Sylius\ShopApiPlugin\Request\Cart\RemoveCouponRequest;
 use Sylius\ShopApiPlugin\Request\Cart\RemoveItemFromCartRequest;
+use Sylius\ShopApiPlugin\Request\Product\AddProductReviewByCodeRequest;
+use Sylius\ShopApiPlugin\Request\Product\AddProductReviewBySlugRequest;
 use Sylius\ShopApiPlugin\View;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
@@ -91,7 +91,7 @@ final class Configuration implements ConfigurationInterface
                 ->arrayNode('request_classes')
                     ->addDefaultsIfNotSet()
                     ->children()
-                       ->scalarNode('add_coupon')->defaultValue(AddCouponRequest::class)->end()
+                        ->scalarNode('add_coupon')->defaultValue(AddCouponRequest::class)->end()
                         ->scalarNode('add_product_review_by_code')->defaultValue(AddProductReviewByCodeRequest::class)->end()
                         ->scalarNode('add_product_review_by_slug')->defaultValue(AddProductReviewBySlugRequest::class)->end()
                         ->scalarNode('change_item_quantity')->defaultValue(ChangeItemQuantityRequest::class)->end()

@@ -95,10 +95,10 @@
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="sylius_shop_api_plugin.command_bus" />
-            <argument type="service" id="validator" />
             <argument type="service" id="sylius.shop_api_plugin.factory.validation_error_view_factory" />
             <argument type="service" id="sylius.shop_api_plugin.view_repository.cart_view_repository" />
             <argument type="service" id="sylius.shop_api_plugin.normalizer.request_cart_token_normalizer" />
+            <argument type="service" id="sylius.shop_api_plugin.command_provider.put_item_to_cart" />
         </service>
 
         <service

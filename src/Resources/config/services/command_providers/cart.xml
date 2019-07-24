@@ -37,6 +37,13 @@
         </service>
 
         <service
+                id="sylius.shop_api_plugin.command_provider.put_item_to_cart"
+                class="Sylius\ShopApiPlugin\CommandProvider\PutItemToCartCommandProvider"
+        >
+            <argument type="service" id="validator" />
+        </service>
+
+        <service
             id="sylius.shop_api_plugin.command_provider.remove_coupon"
             class="Sylius\ShopApiPlugin\CommandProvider\DefaultCommandProvider"
         >
