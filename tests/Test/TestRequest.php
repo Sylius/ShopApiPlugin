@@ -2,14 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Request\Cart;
+namespace Tests\Sylius\ShopApiPlugin\Test;
 
-use Sylius\ShopApiPlugin\Command\Cart\DropCart;
 use Sylius\ShopApiPlugin\Command\CommandInterface;
 use Sylius\ShopApiPlugin\Request\RequestInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-class DropCartRequest implements RequestInterface
+class TestRequest implements RequestInterface
 {
     /** @var string */
     protected $token;
@@ -26,6 +25,6 @@ class DropCartRequest implements RequestInterface
 
     public function getCommand(): CommandInterface
     {
-        return new DropCart($this->token);
+        return new TestCommand($this->token);
     }
 }

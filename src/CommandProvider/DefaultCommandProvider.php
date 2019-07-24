@@ -25,23 +25,24 @@ final class DefaultCommandProvider implements CommandProviderInterface
         $this->validator = $validator;
     }
 
-    public function validate(Request $request): ConstraintViolationListInterface
+    public function validate(Request $httpRequest): ConstraintViolationListInterface
     {
-        return $this->validator->validate($this->transformRequest($request));
+        return $this->validator->validate($this->transformHttpRequest($httpRequest));
     }
 
-    public function getCommand(Request $request): CommandInterface
+    public function getCommand(Request $httpRequest): CommandInterface
     {
-        return $this->transformRequest($request)->getCommand();
+        return $this->transformHttpRequest($httpRequest)->getCommand();
     }
 
-    private function transformRequest(Request $request): RequestInterface
+    private function transformHttpRequest(Request $httpRequest): RequestInterface
     {
-        $requestModel = call_user_func([$this->requestClass, 'fromRequest'], $request);
+        Assert::methodExists($this->requestClass, 'fromHttpRequest');
+        Assert::implementsInterface($this->requestClass, RequestInterface::class);
 
-        Assert::implementsInterface($requestModel, RequestInterface::class);
+        /** @var RequestInterface $request */
+        $request = $this->requestClass::fromHttpRequest($httpRequest);
 
-        /** @var RequestInterface $requestModel */
-        return $requestModel;
+        return $request;
     }
 }

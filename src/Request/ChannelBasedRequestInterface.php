@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 interface ChannelBasedRequestInterface
 {
-    public static function fromRequestAndChannel(Request $request, ChannelInterface $channel): self;
+    public static function fromHttpRequestAndChannel(Request $request, ChannelInterface $channel): self;
 
     public function getCommand(): CommandInterface;
 }

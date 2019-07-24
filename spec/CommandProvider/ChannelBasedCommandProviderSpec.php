@@ -5,19 +5,19 @@ declare(strict_types=1);
 namespace spec\Sylius\ShopApiPlugin\CommandProvider;
 
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\ShopApiPlugin\CommandProvider\ChannelBasedCommandProviderInterface;
-use Sylius\ShopApiPlugin\Request\Cart\PickupCartRequest;
+use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Tests\Sylius\ShopApiPlugin\Test\TestChannelBasedRequest;
 
 final class ChannelBasedCommandProviderSpec extends ObjectBehavior
 {
     function let(ValidatorInterface $validator): void
     {
-        $this->beConstructedWith(PickupCartRequest::class, $validator);
+        $this->beConstructedWith(TestChannelBasedRequest::class, $validator);
     }
 
     function it_implements_channel_command_provider_interface(): void
@@ -27,17 +27,21 @@ final class ChannelBasedCommandProviderSpec extends ObjectBehavior
 
     function it_validates_request(
         ValidatorInterface $validator,
-        Request $request,
+        Request $httpRequest,
         ConstraintViolationListInterface $constraintViolationList,
         ChannelInterface $channel
     ): void {
+        $httpRequest->attributes = new ParameterBag(['token' => 'sample_cart_token']);
         $channel->getCode()->willReturn('WEB_GB');
 
         $validator
-            ->validate(Argument::type(PickupCartRequest::class))
+            ->validate(TestChannelBasedRequest::fromHttpRequestAndChannel(
+                $httpRequest->getWrappedObject(),
+                $channel->getWrappedObject()
+            ))
             ->willReturn($constraintViolationList)
         ;
 
-        $this->validate($request, $channel)->shouldReturn($constraintViolationList);
+        $this->validate($httpRequest, $channel)->shouldReturn($constraintViolationList);
     }
 }
