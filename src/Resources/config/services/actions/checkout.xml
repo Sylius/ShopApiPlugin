@@ -52,7 +52,6 @@
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="sylius_shop_api_plugin.command_bus" />
-            <argument type="service" id="sylius.shop_api_plugin.provider.current_user_provider" />
         </service>
     </services>
 </container>
