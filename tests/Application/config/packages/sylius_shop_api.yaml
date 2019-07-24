@@ -1,7 +1,3 @@
-sylius_shop:
-    checkout_resolver:
-        pattern: "^/shop/checkout"
-
 sylius_shop_api:
     included_attributes:
         - "MUG_MATERIAL_CODE"
