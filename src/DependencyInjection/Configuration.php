@@ -5,11 +5,16 @@ declare(strict_types=1);
 namespace Sylius\ShopApiPlugin\DependencyInjection;
 
 use Sylius\ShopApiPlugin\Request\Cart\AddCouponRequest;
+use Sylius\ShopApiPlugin\Request\Cart\AssignCustomerToCartRequest;
 use Sylius\ShopApiPlugin\Request\Cart\ChangeItemQuantityRequest;
 use Sylius\ShopApiPlugin\Request\Cart\DropCartRequest;
 use Sylius\ShopApiPlugin\Request\Cart\PickupCartRequest;
 use Sylius\ShopApiPlugin\Request\Cart\RemoveCouponRequest;
 use Sylius\ShopApiPlugin\Request\Cart\RemoveItemFromCartRequest;
+use Sylius\ShopApiPlugin\Request\Checkout\AddressOrderRequest;
+use Sylius\ShopApiPlugin\Request\Checkout\ChoosePaymentMethodRequest;
+use Sylius\ShopApiPlugin\Request\Checkout\ChooseShippingMethodRequest;
+use Sylius\ShopApiPlugin\Request\Checkout\CompleteOrderRequest;
 use Sylius\ShopApiPlugin\Request\Product\AddProductReviewByCodeRequest;
 use Sylius\ShopApiPlugin\Request\Product\AddProductReviewBySlugRequest;
 use Sylius\ShopApiPlugin\View;
@@ -94,7 +99,12 @@ final class Configuration implements ConfigurationInterface
                         ->scalarNode('add_coupon')->defaultValue(AddCouponRequest::class)->end()
                         ->scalarNode('add_product_review_by_code')->defaultValue(AddProductReviewByCodeRequest::class)->end()
                         ->scalarNode('add_product_review_by_slug')->defaultValue(AddProductReviewBySlugRequest::class)->end()
+                        ->scalarNode('address_order')->defaultValue(AddressOrderRequest::class)->end()
+                        ->scalarNode('assign_customer_to_cart')->defaultValue(AssignCustomerToCartRequest::class)->end()
                         ->scalarNode('change_item_quantity')->defaultValue(ChangeItemQuantityRequest::class)->end()
+                        ->scalarNode('choose_payment_method')->defaultValue(ChoosePaymentMethodRequest::class)->end()
+                        ->scalarNode('choose_shipping_method')->defaultValue(ChooseShippingMethodRequest::class)->end()
+                        ->scalarNode('complete_order')->defaultValue(CompleteOrderRequest::class)->end()
                         ->scalarNode('drop_cart')->defaultValue(DropCartRequest::class)->end()
                         ->scalarNode('pickup_cart')->defaultValue(PickupCartRequest::class)->end()
                         ->scalarNode('remove_coupon')->defaultValue(RemoveCouponRequest::class)->end()

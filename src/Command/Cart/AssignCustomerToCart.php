@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Command\Cart;
 
-class AssignCustomerToCart
+use Sylius\ShopApiPlugin\Command\CommandInterface;
+
+class AssignCustomerToCart implements CommandInterface
 {
     /** @var string */
     protected $orderToken;

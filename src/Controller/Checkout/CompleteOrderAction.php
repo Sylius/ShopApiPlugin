@@ -8,6 +8,8 @@ use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Sylius\ShopApiPlugin\Command\Cart\AssignCustomerToCart;
 use Sylius\ShopApiPlugin\Command\Cart\CompleteOrder;
+use Sylius\ShopApiPlugin\CommandProvider\CommandProviderInterface;
+use Sylius\ShopApiPlugin\CommandProvider\ShopUserBasedCommandProviderInterface;
 use Sylius\ShopApiPlugin\Exception\WrongUserException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,10 +24,22 @@ final class CompleteOrderAction
     /** @var MessageBusInterface */
     private $bus;
 
-    public function __construct(ViewHandlerInterface $viewHandler, MessageBusInterface $bus)
-    {
+    /** @var ShopUserBasedCommandProviderInterface */
+    private $assignCustomerToCartCommandProvider;
+
+    /** @var CommandProviderInterface */
+    private $completeOrderCommandProvider;
+
+    public function __construct(
+        ViewHandlerInterface $viewHandler,
+        MessageBusInterface $bus,
+        ShopUserBasedCommandProviderInterface $assignCustomerToCartCommandProvider,
+        CommandProviderInterface $completeOrderCommandProvider
+    ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
+        $this->assignCustomerToCartCommandProvider = $assignCustomerToCartCommandProvider;
+        $this->completeOrderCommandProvider = $completeOrderCommandProvider;
     }
 
     public function __invoke(Request $request): Response
@@ -39,6 +53,10 @@ final class CompleteOrderAction
             }
 
             $this->bus->dispatch(new CompleteOrder($orderToken, $request->request->get('notes')));
+
+//        try {
+//            $this->bus->dispatch($this->assignCustomerToCartCommandProvider->getCommand($request, $user));
+//            $this->bus->dispatch($this->completeOrderCommandProvider->getCommand($request));
         } catch (HandlerFailedException $exception) {
             $previousException = $exception->getPrevious();
 
