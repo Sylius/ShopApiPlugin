@@ -74,8 +74,8 @@
         </service>
 
         <service
-                id="sylius.listener.cart_blamer"
-                class="Sylius\ShopApiPlugin\EventListener\CartBlamerListener"
+            id="sylius.listener.cart_blamer"
+            class="Sylius\ShopApiPlugin\EventListener\CartBlamerListener"
         >
             <argument type="service" id="sylius.manager.order" />
             <argument type="service" id="sylius.context.cart" />
