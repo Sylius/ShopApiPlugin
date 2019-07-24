@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Sylius\ShopApiPlugin\CommandProvider;
 
 use Sylius\ShopApiPlugin\Command\CommandInterface;
+use Sylius\ShopApiPlugin\Request\ChannelBasedRequestInterface;
 use Sylius\ShopApiPlugin\Request\RequestInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
