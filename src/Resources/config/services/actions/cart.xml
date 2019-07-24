@@ -90,16 +90,5 @@
             <argument type="service" id="sylius.shop_api_plugin.view_repository.cart_view_repository" />
             <argument type="service" id="sylius.shop_api_plugin.normalizer.request_cart_token_normalizer" />
         </service>
-
-        <service id="sylius.shop_api_plugin.controller.cart.put_items_to_cart_action"
-                 class="Sylius\ShopApiPlugin\Controller\Cart\PutItemsToCartAction"
-        >
-            <argument type="service" id="fos_rest.view_handler" />
-            <argument type="service" id="sylius_shop_api_plugin.command_bus" />
-            <argument type="service" id="validator" />
-            <argument type="service" id="sylius.shop_api_plugin.view_repository.cart_view_repository" />
-            <argument type="service" id="sylius.shop_api_plugin.normalizer.request_cart_token_normalizer" />
-            <argument type="string">%sylius.shop_api.view.validation_error.class%</argument>
-        </service>
     </services>
 </container>

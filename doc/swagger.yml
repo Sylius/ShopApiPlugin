@@ -142,32 +142,6 @@ paths:
                     schema:
                         $ref: "#/definitions/GeneralError"
 
-    /carts/{token}/multiple-items:
-        parameters:
-            -   $ref: "#/parameters/CartToken"
-        post:
-            tags:
-                - "cart"
-            summary: "Add multiple items to your cart."
-            description: "This endpoint will allow you to add a new item to your cart."
-            operationId: "cartPutItems"
-            parameters:
-                -   in: "body"
-                    name: "content"
-                    description: "Description of items. The same rules applied to each of the array values as to the previous point."
-                    required: true
-                    schema:
-                        $ref: "#/definitions/PutItemsToCartRequest"
-            responses:
-                201:
-                    description: "Item has been added to the cart"
-                    schema:
-                        $ref: "#/definitions/Cart"
-                400:
-                    description: "Invalid input, validation failed."
-                    schema:
-                        $ref: "#/definitions/GeneralError"
-
     /carts/{token}/items/{identifier}:
         parameters:
             -   $ref: "#/parameters/CartToken"

@@ -48,6 +48,17 @@
 
 * The argument in constructor of `PickupCartRequest` class has been changed from `Request $request `to `string channelCode`.
 
+* The cart routes have been removed:
+
+    - `carts/new/multiple-items`
+    - `carts/{token}/multiple-items`
+
+* The `fromArray` static method has been removed from:
+
+    - `PutOptionBasedConfigurableItemToCartRequest`
+    - `PutSimpleItemToCartRequest`
+    - `PutVariantBasedConfigurableItemToCartRequest`
+
 # UPGRADE FROM 1.0.0-beta.17 to 1.0.0-beta.18
 
 * Customer registration payload changed:
