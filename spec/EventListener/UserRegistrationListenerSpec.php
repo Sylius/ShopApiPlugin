@@ -10,6 +10,7 @@ use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
+use Sylius\ShopApiPlugin\Command\Customer\EnableCustomer;
 use Sylius\ShopApiPlugin\Command\Customer\GenerateVerificationToken;
 use Sylius\ShopApiPlugin\Command\Customer\SendVerificationToken;
 use Sylius\ShopApiPlugin\Event\CustomerRegistered;
@@ -51,9 +52,9 @@ final class UserRegistrationListenerSpec extends ObjectBehavior
     }
 
     function it_enables_user_if_channel_does_not_require_verification(
+        MessageBusInterface $bus,
         ChannelRepositoryInterface $channelRepository,
         UserRepositoryInterface $userRepository,
-        ObjectManager $userManager,
         ShopUserInterface $user,
         ChannelInterface $channel
     ): void {
@@ -62,10 +63,8 @@ final class UserRegistrationListenerSpec extends ObjectBehavior
 
         $channel->isAccountVerificationRequired()->willReturn(false);
 
-        $user->enable()->shouldBeCalled();
-
-        $userManager->persist($user)->shouldBeCalled();
-        $userManager->flush()->shouldBeCalled();
+        $command = new EnableCustomer('shop@example.com');
+        $bus->dispatch($command)->willReturn(new Envelope($command))->shouldBeCalled();
 
         $this->handleUserVerification(new CustomerRegistered(
             'shop@example.com',
