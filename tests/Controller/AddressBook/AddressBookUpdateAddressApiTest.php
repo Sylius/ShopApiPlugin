@@ -29,7 +29,7 @@ final class AddressBookUpdateAddressApiTest extends JsonApiTestCase
         $address = $addressRepository->findOneBy(['street' => 'Kupreska']);
 
         $data =
-<<<EOT
+<<<JSON
         {
             "firstName": "New name",
             "lastName": "New lastName",
@@ -41,7 +41,7 @@ final class AddressBookUpdateAddressApiTest extends JsonApiTestCase
             "postcode": "2000",
             "phoneNumber": "0918972132"
         }
-EOT;
+JSON;
 
         $response = $this->updateAddress((string) $address->getId(), $data);
         $this->assertResponse($response, 'address_book/update_address', Response::HTTP_OK);
@@ -71,7 +71,7 @@ EOT;
         $address = $addressRepository->findOneBy(['street' => 'Kupreska']);
 
         $data =
-<<<EOT
+<<<JSON
         {
             "firstName": "New name",
             "lastName": "New lastName",
@@ -83,7 +83,7 @@ EOT;
             "postcode": "2000",
             "phoneNumber": "0918972132"
         }
-EOT;
+JSON;
 
         $response = $this->updateAddress((string) $address->getId(), $data);
         $this->assertResponseCode($response, Response::HTTP_BAD_REQUEST);
@@ -103,7 +103,7 @@ EOT;
         $address = $addressRepository->findOneBy(['street' => 'Kupreska']);
 
         $data =
-<<<EOT
+<<<JSON
         {
             "firstName": "",
             "lastName": "",
@@ -112,7 +112,7 @@ EOT;
             "city": "",
             "postcode": "",
         }
-EOT;
+JSON;
 
         $response = $this->updateAddress((string) $address->getId(), $data);
         $this->assertResponseCode($response, Response::HTTP_BAD_REQUEST);

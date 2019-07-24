@@ -16,12 +16,12 @@ trait ShopUserLoginTrait
     protected function logInUser(string $username, string $password): void
     {
         $data =
-<<<EOT
+<<<JSON
         {
             "_username": "$username",
             "_password": "$password"
         }
-EOT;
+JSON;
 
         $this->client->request('POST', '/shop-api/login_check', [], [], ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'], $data);
         Assert::assertSame($this->client->getResponse()->getStatusCode(), Response::HTTP_OK);

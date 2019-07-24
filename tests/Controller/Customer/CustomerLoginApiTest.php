@@ -21,12 +21,12 @@ final class CustomerLoginApiTest extends JsonApiTestCase
         $this->loadFixturesFromFiles(['customer.yml']);
 
         $data =
-<<<EOT
+<<<JSON
         {
             "_username": "oliver@queen.com",
             "_password": "123password"
         }
-EOT;
+JSON;
 
         $this->client->request('POST', '/shop-api/login_check', [], [], self::CONTENT_TYPE_HEADER, $data);
 
@@ -40,7 +40,7 @@ EOT;
     public function it_requires_to_verify_email_address_for_newly_created_customers(): void
     {
         $data =
-<<<EOT
+<<<JSON
         {
             "firstName": "Vin",
             "lastName": "Diesel",
@@ -52,17 +52,17 @@ EOT;
                 }
             }
         }
-EOT;
+JSON;
 
         $this->client->request('POST', '/shop-api/register', [], [], self::CONTENT_TYPE_HEADER, $data);
 
         $data =
-<<<EOT
+<<<JSON
         {
             "_username": "vinny@fandf.com",
             "_password": "somepass"
         }
-EOT;
+JSON;
 
         $this->client->request('POST', '/shop-api/login_check', [], [], self::CONTENT_TYPE_HEADER, $data);
 

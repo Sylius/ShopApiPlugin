@@ -17,12 +17,12 @@ final class LoggedInCustomerDetailsActionTest extends JsonApiTestCase
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
 
         $data =
-<<<EOT
+<<<JSON
         {
             "_username": "oliver@queen.com",
             "_password": "123password"
         }
-EOT;
+JSON;
 
         $this->client->request('POST', '/shop-api/login_check', [], [], self::CONTENT_TYPE_HEADER, $data);
 

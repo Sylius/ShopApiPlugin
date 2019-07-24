@@ -32,12 +32,12 @@ final class CartPutItemToCartApiTest extends JsonApiTestCase
         $bus->dispatch(new PickupCart($token, 'WEB_GB'));
 
         $data =
-<<<EOT
+<<<JSON
         {
             "productCode": "LOGAN_MUG_CODE",
             "quantity": 3
         }
-EOT;
+JSON;
         $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
@@ -58,12 +58,12 @@ EOT;
         $bus->dispatch(new PickupCart($token, 'WEB_GB'));
 
         $data =
-<<<EOT
+<<<JSON
         {
             "productCode": "LOGAN_MUG_CODE",
             "quantity": 1
         }
-EOT;
+JSON;
         $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
@@ -85,12 +85,12 @@ EOT;
         $bus->dispatch(new PickupCart($token, 'WEB_GB'));
 
         $data =
-<<<EOT
+<<<JSON
         {
             "productCode": "LOGAN_HAT_CODE",
             "quantity": 3
         }
-EOT;
+JSON;
         $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
@@ -111,12 +111,12 @@ EOT;
         $bus->dispatch(new PickupCart($token, 'WEB_GB'));
 
         $data =
-<<<EOT
+<<<JSON
         {
             "productCode": "LOGAN_MUG_CODE",
             "quantity": 0
         }
-EOT;
+JSON;
         $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
@@ -137,12 +137,12 @@ EOT;
         $bus->dispatch(new PickupCart($token, 'WEB_GB'));
 
         $data =
-<<<EOT
+<<<JSON
         {
             "productCode": "LOGAN_MUG_CODE",
             "quantity": "3"
         }
-EOT;
+JSON;
         $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
@@ -163,11 +163,11 @@ EOT;
         $bus->dispatch(new PickupCart($token, 'WEB_GB'));
 
         $data =
-<<<EOT
+<<<JSON
         {
             "quantity": 3
         }
-EOT;
+JSON;
         $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
@@ -188,12 +188,12 @@ EOT;
         $bus->dispatch(new PickupCart($token, 'WEB_GB'));
 
         $data =
-<<<EOT
+<<<JSON
         {
             "productCode": "BARBECUE_CODE",
             "quantity": 3
         }
-EOT;
+JSON;
         $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
@@ -210,12 +210,12 @@ EOT;
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
         $data =
-<<<EOT
+<<<JSON
         {
             "productCode": "LOGAN_MUG_CODE",
             "quantity": 3
         }
-EOT;
+JSON;
         $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
@@ -264,12 +264,12 @@ EOT;
         $bus->dispatch(new CompleteOrder($token, 'sylius@example.com'));
 
         $data =
-<<<EOT
+<<<JSON
         {
             "productCode": "LOGAN_MUG_CODE",
             "quantity": 3
         }
-EOT;
+JSON;
         $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $order->getTokenValue()), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
@@ -290,13 +290,13 @@ EOT;
         $bus->dispatch(new PickupCart($token, 'WEB_GB'));
 
         $data =
-<<<EOT
+<<<JSON
         {
             "productCode": "LOGAN_T_SHIRT_CODE",
             "variantCode": "SMALL_LOGAN_T_SHIRT_CODE",
             "quantity": 3
         }
-EOT;
+JSON;
         $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
@@ -317,13 +317,13 @@ EOT;
         $bus->dispatch(new PickupCart($token, 'WEB_GB'));
 
         $data =
-<<<EOT
+<<<JSON
         {
             "productCode": "LOGAN_T_SHIRT_CODE",
             "variantCode": "SMALL_LOGAN_T_SHIRT_CODE",
             "quantity": 3
         }
-EOT;
+JSON;
         $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
@@ -345,13 +345,13 @@ EOT;
         $bus->dispatch(new PickupCart($token, 'WEB_GB'));
 
         $data =
-<<<EOT
+<<<JSON
         {
             "productCode": "LOGAN_T_SHIRT_CODE",
             "variantCode": "SMALL_LOGAN_T_SHIRT_CODE",
             "quantity": 0
         }
-EOT;
+JSON;
         $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
@@ -372,13 +372,13 @@ EOT;
         $bus->dispatch(new PickupCart($token, 'WEB_GB'));
 
         $data =
-<<<EOT
+<<<JSON
         {
             "productCode": "LOGAN_T_SHIRT_CODE",
             "variantCode": "SMALL_LOGAN_T_SHIRT_CODE",
             "quantity": "3"
         }
-EOT;
+JSON;
         $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
@@ -399,12 +399,12 @@ EOT;
         $bus->dispatch(new PickupCart($token, 'WEB_GB'));
 
         $data =
-<<<EOT
+<<<JSON
         {
             "variantCode": "SMALL_LOGAN_T_SHIRT_CODE",
             "quantity": 3
         }
-EOT;
+JSON;
         $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
@@ -425,13 +425,13 @@ EOT;
         $bus->dispatch(new PickupCart($token, 'WEB_GB'));
 
         $data =
-<<<EOT
+<<<JSON
         {
             "productCode": "BARBECUE_CODE",
             "variantCode": "SMALL_LOGAN_T_SHIRT_CODE",
             "quantity": 3
         }
-EOT;
+JSON;
         $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
@@ -452,13 +452,13 @@ EOT;
         $bus->dispatch(new PickupCart($token, 'WEB_GB'));
 
         $data =
-<<<EOT
+<<<JSON
         {
             "productCode": "LOGAN_MUG_CODE",
             "variantCode": "SMALL_LOGAN_T_SHIRT_CODE",
             "quantity": 3
         }
-EOT;
+JSON;
         $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
@@ -479,13 +479,13 @@ EOT;
         $bus->dispatch(new PickupCart($token, 'WEB_GB'));
 
         $data =
-<<<EOT
+<<<JSON
         {
             "productCode": "LOGAN_T_SHIRT_CODE",
             "variantCode": "BARBECUE_CODE",
             "quantity": 3
         }
-EOT;
+JSON;
         $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
@@ -503,7 +503,7 @@ EOT;
         $bus->dispatch(new PickupCart($token, 'WEB_GB'));
 
         $data =
-<<<EOT
+<<<JSON
         {
             "productCode": "LOGAN_HAT_CODE",
             "options": {
@@ -511,7 +511,7 @@ EOT;
             },
             "quantity": 3
         }
-EOT;
+JSON;
         $this->client->request('POST', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/items', [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
@@ -532,7 +532,7 @@ EOT;
         $bus->dispatch(new PickupCart($token, 'WEB_GB'));
 
         $data =
-<<<EOT
+<<<JSON
         {
             "productCode": "LOGAN_HAT_CODE",
             "options": {
@@ -541,7 +541,7 @@ EOT;
             },
             "quantity": 3
         }
-EOT;
+JSON;
         $this->client->request('POST', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/items', [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
@@ -562,7 +562,7 @@ EOT;
         $bus->dispatch(new PickupCart($token, 'WEB_GB'));
 
         $data =
-<<<EOT
+<<<JSON
         {
             "productCode": "LOGAN_HAT_CODE",
             "options": {
@@ -571,7 +571,7 @@ EOT;
             },
             "quantity": 3
         }
-EOT;
+JSON;
         $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
@@ -587,12 +587,12 @@ EOT;
         $this->loadFixturesFromFiles(['shop.yml']);
 
         $data =
-<<<EOT
+<<<JSON
         {
             "productCode": "LOGAN_MUG_CODE",
             "quantity": 3
         }
-EOT;
+JSON;
         $this->client->request('POST', '/shop-api/carts/new/items', [], [], self::CONTENT_TYPE_HEADER, $data);
 
         $response = $this->client->getResponse();

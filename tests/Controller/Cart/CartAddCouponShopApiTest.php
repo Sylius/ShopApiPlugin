@@ -27,11 +27,11 @@ final class CartAddCouponShopApiTest extends JsonApiTestCase
         $bus->dispatch(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
 
         $data =
-<<<EOT
+<<<JSON
         {
             "coupon": "BANANAS"
         }
-EOT;
+JSON;
 
         $this->client->request('PUT', sprintf('/shop-api/carts/%s/coupon', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
 
@@ -69,11 +69,11 @@ EOT;
         $this->loadFixturesFromFiles(['channel.yml', 'shop.yml']);
 
         $data =
-<<<EOT
+<<<JSON
         {
             "coupon": "BANANAS"
         }
-EOT;
+JSON;
 
         $this->client->request('PUT', '/shop-api/carts/WRONGTOKEN/coupon', [], [], self::CONTENT_TYPE_HEADER, $data);
 
@@ -97,11 +97,11 @@ EOT;
         $bus->dispatch(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
 
         $data =
-<<<EOT
+<<<JSON
         {
             "coupon": "BANANAS"
         }
-EOT;
+JSON;
 
         $this->client->request('PUT', sprintf('/shop-api/carts/%s/coupon', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
 
@@ -125,11 +125,11 @@ EOT;
         $bus->dispatch(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
 
         $data =
-<<<EOT
+<<<JSON
         {
             "coupon": "USED_BANANA"
         }
-EOT;
+JSON;
 
         $this->client->request('PUT', sprintf('/shop-api/carts/%s/coupon', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
 
@@ -153,11 +153,11 @@ EOT;
         $bus->dispatch(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
 
         $data =
-<<<EOT
+<<<JSON
         {
             "coupon": "PINEAPPLE"
         }
-EOT;
+JSON;
 
         $this->client->request('PUT', sprintf('/shop-api/carts/%s/coupon', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
 

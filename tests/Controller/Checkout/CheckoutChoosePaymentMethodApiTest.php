@@ -51,11 +51,11 @@ final class CheckoutChoosePaymentMethodApiTest extends JsonApiTestCase
         $bus->dispatch(new ChooseShippingMethod($token, 0, 'DHL'));
 
         $data =
-<<<EOT
+<<<JSON
         {
             "method": "PBC"
         }
-EOT;
+JSON;
 
         $this->client->request(
             'PUT',

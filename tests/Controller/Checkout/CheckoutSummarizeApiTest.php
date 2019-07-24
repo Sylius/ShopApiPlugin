@@ -32,7 +32,7 @@ final class CheckoutSummarizeApiTest extends JsonApiTestCase
         $bus->dispatch(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
 
         $data =
-<<<EOT
+<<<JSON
         {
             "shippingAddress": {
                 "firstName": "Sherlock",
@@ -46,7 +46,7 @@ final class CheckoutSummarizeApiTest extends JsonApiTestCase
                 "phoneNumber": "999"
             }
         }
-EOT;
+JSON;
 
         $this->client->request('PUT', sprintf('/shop-api/checkout/%s/address', $token), [], [], static::CONTENT_TYPE_HEADER, $data);
 
@@ -69,7 +69,7 @@ EOT;
         $bus->dispatch(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
 
         $data =
-<<<EOT
+<<<JSON
         {
             "shippingAddress": {
                 "firstName": "Sherlock",
@@ -94,7 +94,7 @@ EOT;
                 "phoneNumber": "111"
             }
         }
-EOT;
+JSON;
 
         $this->client->request('PUT', sprintf('/shop-api/checkout/%s/address', $token), [], [], static::CONTENT_TYPE_HEADER, $data);
 
@@ -138,11 +138,11 @@ EOT;
         ));
 
         $data =
-<<<EOT
+<<<JSON
         {
             "method": "DHL"
         }
-EOT;
+JSON;
 
         $this->client->request('PUT', sprintf('/shop-api/checkout/%s/shipping/0', $token), [], [], static::CONTENT_TYPE_HEADER, $data);
 
@@ -186,11 +186,11 @@ EOT;
         ));
 
         $data =
-<<<EOT
+<<<JSON
         {
             "method": "FED-EX"
         }
-EOT;
+JSON;
 
         $this->client->request('PUT', sprintf('/shop-api/checkout/%s/shipping/0', $token), [], [], static::CONTENT_TYPE_HEADER, $data);
 
@@ -206,11 +206,11 @@ EOT;
         $orderItem = $order->getItems()->first();
 
         $data =
-<<<EOT
+<<<JSON
         {
             "quantity": 2
         }
-EOT;
+JSON;
         $this->client->request('PUT', sprintf('/shop-api/carts/%s/items/%d', $token, $orderItem->getId()), [], [], static::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
@@ -254,11 +254,11 @@ EOT;
         $bus->dispatch(new ChooseShippingMethod($token, 0, 'DHL'));
 
         $data =
-<<<EOT
+<<<JSON
         {
             "method": "PBC"
         }
-EOT;
+JSON;
 
         $this->client->request('PUT', sprintf('/shop-api/checkout/%s/payment/0', $token), [], [], static::CONTENT_TYPE_HEADER, $data);
 

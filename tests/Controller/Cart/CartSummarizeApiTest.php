@@ -123,7 +123,7 @@ final class CartSummarizeApiTest extends JsonApiTestCase
         $bus->dispatch(new PickupCart($token, 'WEB_GB'));
 
         $variantWithOptions =
-<<<EOT
+<<<JSON
         {
             "productCode": "LOGAN_HAT_CODE",
             "options": {
@@ -132,16 +132,16 @@ final class CartSummarizeApiTest extends JsonApiTestCase
             },
             "quantity": 3
         }
-EOT;
+JSON;
 
         $regularVariant =
-<<<EOT
+<<<JSON
         {
             "productCode": "LOGAN_T_SHIRT_CODE",
             "variantCode": "SMALL_LOGAN_T_SHIRT_CODE",
             "quantity": 3
         }
-EOT;
+JSON;
         $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $regularVariant);
         $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $variantWithOptions);
 
@@ -165,7 +165,7 @@ EOT;
         $bus->dispatch(new PickupCart($token, 'WEB_DE'));
 
         $variantWithOptions =
-<<<EOT
+<<<JSON
         {
             "productCode": "LOGAN_HAT_CODE",
             "options": {
@@ -174,7 +174,7 @@ EOT;
             },
             "quantity": 3
         }
-EOT;
+JSON;
 
         $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $variantWithOptions);
 

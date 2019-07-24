@@ -22,14 +22,14 @@ final class CustomerResendVerificationTokenApiTest extends JsonApiTestCase
         $this->loadFixturesFromFiles(['channel.yml']);
 
         $data =
-<<<EOT
+<<<JSON
         {
             "firstName": "Vin",
             "lastName": "Diesel",
             "email": "vinny@fandf.com",
             "plainPassword": "somepass"
         }
-EOT;
+JSON;
 
         $this->client->request('POST', '/shop-api/register', [], [], self::CONTENT_TYPE_HEADER, $data);
 

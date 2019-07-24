@@ -24,14 +24,14 @@ final class CustomerRegisterApiTest extends JsonApiTestCase
         $this->loadFixturesFromFiles(['channel.yml']);
 
         $data =
-<<<EOT
+<<<JSON
         {
             "firstName": "Vin",
             "lastName": "Diesel",
             "email": "vinny@fandf.com",
             "plainPassword": "bananas1234"
         }
-EOT;
+JSON;
 
         $this->client->request('POST', '/shop-api/register', [], [], self::CONTENT_TYPE_HEADER, $data);
 
@@ -58,14 +58,14 @@ EOT;
         $this->loadFixturesFromFiles(['channel.yml']);
 
         $data =
-<<<EOT
+<<<JSON
         {
             "firstName": "Vin",
             "lastName": "Diesel",
             "email": "vinny@fandf.com",
             "plainPassword": "12345password"
         }
-EOT;
+JSON;
 
         $this->client->request('POST', 'http://web-de.com/shop-api/register', [], [], self::CONTENT_TYPE_HEADER, $data);
 
@@ -99,14 +99,14 @@ EOT;
         $this->loadFixturesFromFiles(['customer.yml', 'channel.yml']);
 
         $data =
-<<<EOT
+<<<JSON
         {
             "firstName": "Oliver",
             "lastName": "Queen",
             "email": "oliver@queen.com",
             "plainPassword": "somepass"
         }
-EOT;
+JSON;
 
         $this->client->request('POST', '/shop-api/register', [], [], self::CONTENT_TYPE_HEADER, $data);
 
@@ -123,13 +123,13 @@ EOT;
         $this->loadFixturesFromFiles(['channel.yml']);
 
         $data =
-<<<EOT
+<<<JSON
         {
             "firstName": "Vin",
             "lastName": "Diesel",
             "plainPassword": "somepass"
         }
-EOT;
+JSON;
 
         $this->client->request('POST', '/shop-api/register', [], [], self::CONTENT_TYPE_HEADER, $data);
 

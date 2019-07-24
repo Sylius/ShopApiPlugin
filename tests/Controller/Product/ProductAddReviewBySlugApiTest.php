@@ -17,14 +17,14 @@ final class ProductAddReviewBySlugApiTest extends JsonApiTestCase
         $this->loadFixturesFromFiles(['shop.yml']);
 
         $data =
-<<<EOT
+<<<JSON
         {
             "title": "Awesome product",
             "rating": 5,
             "comment": "If I were a mug, I would like to be like this one!",
             "email": "oliver@example.com"
         }
-EOT;
+JSON;
         $this->client->request('POST', '/shop-api/products/by-slug/logan-mug/reviews', [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
@@ -39,14 +39,14 @@ EOT;
         $this->loadFixturesFromFiles(['shop.yml', 'customer.yml']);
 
         $data =
-<<<EOT
+<<<JSON
         {
             "title": "Awesome product",
             "rating": 5,
             "comment": "If I were a mug, I would like to be like this one!",
             "email": "oliver@example.com"
         }
-EOT;
+JSON;
         $this->client->request('POST', '/shop-api/products/by-slug/logan-mug/reviews', [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
@@ -61,14 +61,14 @@ EOT;
         $this->loadFixturesFromFiles(['channel.yml', 'shop.yml']);
 
         $data =
-<<<EOT
+<<<JSON
         {
             "comment": "Hello",
             "rating": 100,
             "email": "test@test.com",
             "title": "Testing"
         }
-EOT;
+JSON;
 
         $this->client->request('POST', '/shop-api/products/by-slug/mug/reviews', [], [], self::CONTENT_TYPE_HEADER, $data);
 
@@ -84,14 +84,14 @@ EOT;
         $this->loadFixturesFromFiles(['channel.yml', 'shop.yml']);
 
         $data =
-<<<EOT
+<<<JSON
         {
             "comment": "Hello",
             "rating": 4,
             "email": "test.com",
             "title": "Testing"
         }
-EOT;
+JSON;
 
         $this->client->request('POST', '/shop-api/products/by-slug/mug/reviews', [], [], self::CONTENT_TYPE_HEADER, $data);
 

@@ -25,7 +25,7 @@ final class CartPutItemsToCartApiTest extends JsonApiTestCase
         $bus->dispatch(new PickupCart($token, 'WEB_GB'));
 
         $data =
-<<<EOT
+<<<JSON
         {
             "items": [
                 {
@@ -47,7 +47,7 @@ final class CartPutItemsToCartApiTest extends JsonApiTestCase
                 }
             ]
         }
-EOT;
+JSON;
         $this->client->request('POST', sprintf('/shop-api/carts/%s/multiple-items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
@@ -68,7 +68,7 @@ EOT;
         $bus->dispatch(new PickupCart($token, 'WEB_GB'));
 
         $data =
-<<<EOT
+<<<JSON
         {
             "items": [
                 {
@@ -89,7 +89,7 @@ EOT;
                 }
             ]
         }
-EOT;
+JSON;
         $this->client->request('POST', sprintf('/shop-api/carts/%s/multiple-items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $this->client->request('GET', sprintf('/shop-api/carts/%s', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
@@ -111,7 +111,7 @@ EOT;
         $bus->dispatch(new PickupCart($token, 'WEB_GB'));
 
         $data =
-<<<EOT
+<<<JSON
         {
             "items": [
                 {
@@ -131,7 +131,7 @@ EOT;
                 }
             ]
         }
-EOT;
+JSON;
         $this->client->request('POST', sprintf('/shop-api/carts/%s/multiple-items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
@@ -146,7 +146,7 @@ EOT;
         $this->loadFixturesFromFiles(['shop.yml']);
 
         $data =
-<<<EOT
+<<<JSON
         {
             "items": [
                 {
@@ -168,7 +168,7 @@ EOT;
                 }
             ]
         }
-EOT;
+JSON;
         $this->client->request('POST', '/shop-api/carts/new/multiple-items', [], [], self::CONTENT_TYPE_HEADER, $data);
 
         $response = $this->client->getResponse();
