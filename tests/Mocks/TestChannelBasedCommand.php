@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Tests\Sylius\ShopApiPlugin\Test;
+namespace Tests\Sylius\ShopApiPlugin\Mocks;
 
 use Sylius\ShopApiPlugin\Command\CommandInterface;
 
-class TestChannelBasedCommand implements CommandInterface
+final class TestChannelBasedCommand implements CommandInterface
 {
     /** @var string */
-    protected $token;
+    private $token;
 
     /** @var string */
-    protected $channelCode;
+    private $channelCode;
 
     public function __construct(string $token, string $channelCode)
     {

@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use Tests\Sylius\ShopApiPlugin\Test\TestRequest;
+use Tests\Sylius\ShopApiPlugin\Mocks\TestRequest;
 
 final class DefaultCommandProviderSpec extends ObjectBehavior
 {

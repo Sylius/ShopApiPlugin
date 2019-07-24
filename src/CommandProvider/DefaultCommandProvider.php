@@ -21,6 +21,8 @@ final class DefaultCommandProvider implements CommandProviderInterface
 
     public function __construct(string $requestClass, ValidatorInterface $validator)
     {
+        Assert::implementsInterface($requestClass, RequestInterface::class);
+
         $this->requestClass = $requestClass;
         $this->validator = $validator;
     }
@@ -37,9 +39,6 @@ final class DefaultCommandProvider implements CommandProviderInterface
 
     private function transformHttpRequest(Request $httpRequest): RequestInterface
     {
-        Assert::methodExists($this->requestClass, 'fromHttpRequest');
-        Assert::implementsInterface($this->requestClass, RequestInterface::class);
-
         /** @var RequestInterface $request */
         $request = $this->requestClass::fromHttpRequest($httpRequest);
 
