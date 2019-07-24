@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Tests\Sylius\ShopApiPlugin\Test;
+namespace Tests\Sylius\ShopApiPlugin\Mocks;
 
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\ShopApiPlugin\Command\CommandInterface;
 use Sylius\ShopApiPlugin\Request\ChannelBasedRequestInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-class TestChannelBasedRequest implements ChannelBasedRequestInterface
+final class TestChannelBasedRequest implements ChannelBasedRequestInterface
 {
     /** @var string */
-    protected $token;
+    private $token;
 
     /** @var string */
-    protected $channelCode;
+    private $channelCode;
 
     public function __construct(Request $request, string $channelCode)
     {

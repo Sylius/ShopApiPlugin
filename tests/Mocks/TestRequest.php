@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Tests\Sylius\ShopApiPlugin\Test;
+namespace Tests\Sylius\ShopApiPlugin\Mocks;
 
 use Sylius\ShopApiPlugin\Command\CommandInterface;
 use Sylius\ShopApiPlugin\Request\RequestInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-class TestRequest implements RequestInterface
+final class TestRequest implements RequestInterface
 {
     /** @var string */
-    protected $token;
+    private $token;
 
     private function __construct(Request $request)
     {

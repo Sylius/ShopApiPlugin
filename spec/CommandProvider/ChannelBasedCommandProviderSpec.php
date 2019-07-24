@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use Tests\Sylius\ShopApiPlugin\Test\TestChannelBasedRequest;
+use Tests\Sylius\ShopApiPlugin\Mocks\TestChannelBasedRequest;
 
 final class ChannelBasedCommandProviderSpec extends ObjectBehavior
 {

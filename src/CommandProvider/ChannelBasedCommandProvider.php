@@ -22,6 +22,8 @@ final class ChannelBasedCommandProvider implements ChannelBasedCommandProviderIn
 
     public function __construct(string $requestClass, ValidatorInterface $validator)
     {
+        Assert::implementsInterface($requestClass, ChannelBasedRequestInterface::class);
+
         $this->requestClass = $requestClass;
         $this->validator = $validator;
     }
@@ -38,9 +40,6 @@ final class ChannelBasedCommandProvider implements ChannelBasedCommandProviderIn
 
     private function transformHttpRequest(Request $httpRequest, ChannelInterface $channel): ChannelBasedRequestInterface
     {
-        Assert::methodExists($this->requestClass, 'fromHttpRequestAndChannel');
-        Assert::implementsInterface($this->requestClass, ChannelBasedRequestInterface::class);
-
         /** @var ChannelBasedRequestInterface $request */
         $request = $this->requestClass::fromHttpRequestAndChannel($httpRequest, $channel);
 

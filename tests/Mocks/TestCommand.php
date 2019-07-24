@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Tests\Sylius\ShopApiPlugin\Test;
+namespace Tests\Sylius\ShopApiPlugin\Mocks;
 
 use Sylius\ShopApiPlugin\Command\CommandInterface;
 
-class TestCommand implements CommandInterface
+final class TestCommand implements CommandInterface
 {
     /** @var string */
-    protected $token;
+    private $token;
 
     public function __construct(string $token)
     {
