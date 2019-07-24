@@ -53,6 +53,12 @@ final class CartPickupApiTest extends JsonApiTestCase
         $orders = $orderRepository->findAll();
 
         $this->assertCount(1, $orders, 'Only one cart should be created');
+
+        /** @var OrderInterface $order */
+        $order = $orders[0];
+        $customer = $order->getCustomer();
+        $this->assertNotNull($customer, 'Cart should have customer assigned, but it has not.');
+        $this->assertSame('oliver@queen.com', $customer->getEmail());
     }
 
     /**

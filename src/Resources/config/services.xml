@@ -83,9 +83,13 @@
             <tag name="kernel.event_listener" event="lexik_jwt_authentication.on_jwt_created" method="onJwtLogin" />
         </service>
 
-        <!-- Removing the create cart context from composite context (see: https://github.com/Sylius/Sylius/issues/10192) -->
-        <service id="sylius.context.cart.new" class="Sylius\Component\Order\Context\CartContext">
-            <argument type="service" id="sylius.factory.order" />
+        <service
+            id="sylius.shop_api_plugin.event_listener.messenger.cart_picked_up_listener"
+            class="Sylius\ShopApiPlugin\EventListener\Messenger\CartPickedUpListener"
+        >
+            <argument type="service" id="sylius.shop_api_plugin.provider.current_user_provider" />
+            <argument type="service" id="sylius_shop_api_plugin.command_bus" />
+            <tag name="messenger.message_handler" />
         </service>
     </services>
 </container>
