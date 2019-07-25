@@ -16,7 +16,7 @@ final class UpdateCustomerRequestTest extends TestCase
      */
     public function it_creates_update_customer_command()
     {
-        $updateCustomerRequest = new UpdateCustomerRequest(new Request([], [
+        $updateCustomerRequest = UpdateCustomerRequest::fromHttpRequest(new Request([], [
             'firstName' => 'ivan',
             'lastName' => 'Mts',
             'email' => 'ivan.matas@locastic.com',
@@ -24,8 +24,8 @@ final class UpdateCustomerRequestTest extends TestCase
             'gender' => 'm',
             'phoneNumber' => '125125112',
             'subscribedToNewsletter' => true,
-        ], []))
-        ;
+        ], []));
+
         $this->assertEquals($updateCustomerRequest->getCommand(), new UpdateCustomer(
             'ivan',
             'Mts',

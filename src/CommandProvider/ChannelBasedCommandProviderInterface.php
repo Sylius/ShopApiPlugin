@@ -11,7 +11,12 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 interface ChannelBasedCommandProviderInterface
 {
-    public function validate(Request $httpRequest, ChannelInterface $channel): ConstraintViolationListInterface;
+    public function validate(
+        Request $httpRequest,
+        ChannelInterface $channel,
+        array $constraints = null,
+        array $groups = null
+    ): ConstraintViolationListInterface;
 
     public function getCommand(Request $httpRequest, ChannelInterface $channel): CommandInterface;
 }

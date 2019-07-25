@@ -4,60 +4,68 @@
     <services>
         <defaults public="true" />
 
-        <service id="sylius.shop_api_plugin.controller.customer.resend_verification_token_action"
-                 class="Sylius\ShopApiPlugin\Controller\Customer\ResendVerificationTokenAction"
+        <service
+            id="sylius.shop_api_plugin.controller.customer.resend_verification_token_action"
+            class="Sylius\ShopApiPlugin\Controller\Customer\ResendVerificationTokenAction"
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="sylius_shop_api_plugin.command_bus" />
-            <argument type="service" id="validator" />
             <argument type="service" id="sylius.shop_api_plugin.factory.validation_error_view_factory" />
             <argument type="service" id="sylius.context.channel" />
+            <argument type="service" id="sylius.shop_api_plugin.command_provider.resend_verification_token" />
         </service>
 
-        <service id="sylius.shop_api_plugin.controller.customer.verify_account_action"
-                 class="Sylius\ShopApiPlugin\Controller\Customer\VerifyAccountAction"
+        <service
+            id="sylius.shop_api_plugin.controller.customer.verify_account_action"
+            class="Sylius\ShopApiPlugin\Controller\Customer\VerifyAccountAction"
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="sylius_shop_api_plugin.command_bus" />
-            <argument type="service" id="validator" />
             <argument type="service" id="sylius.shop_api_plugin.factory.validation_error_view_factory" />
+            <argument type="service" id="sylius.shop_api_plugin.command_provider.verify_account" />
         </service>
 
-        <service id="sylius.shop_api_plugin.controller.customer.register_customer_action"
-                 class="Sylius\ShopApiPlugin\Controller\Customer\RegisterCustomerAction"
+        <service
+            id="sylius.shop_api_plugin.controller.customer.register_customer_action"
+            class="Sylius\ShopApiPlugin\Controller\Customer\RegisterCustomerAction"
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="sylius_shop_api_plugin.command_bus" />
-            <argument type="service" id="validator" />
             <argument type="service" id="sylius.shop_api_plugin.factory.validation_error_view_factory" />
             <argument type="service" id="sylius.context.channel" />
+            <argument type="service" id="sylius.shop_api_plugin.command_provider.register_customer" />
         </service>
 
-        <service id="sylius.shop_api_plugin.controller.customer.request_password_resetting_action"
-                 class="Sylius\ShopApiPlugin\Controller\Customer\RequestPasswordResettingAction"
+        <service
+            id="sylius.shop_api_plugin.controller.customer.request_password_resetting_action"
+            class="Sylius\ShopApiPlugin\Controller\Customer\RequestPasswordResettingAction"
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="sylius_shop_api_plugin.command_bus" />
             <argument type="service" id="sylius.context.channel" />
+            <argument type="service" id="sylius.shop_api_plugin.command_provider.generate_reset_password_token" />
+            <argument type="service" id="sylius.shop_api_plugin.command_provider.send_reset_password_token" />
         </service>
 
-        <service id="sylius.shop_api_plugin.controller.customer.logged_in_customer_details_action"
-                 class="Sylius\ShopApiPlugin\Controller\Customer\LoggedInCustomerDetailsAction"
+        <service
+            id="sylius.shop_api_plugin.controller.customer.logged_in_customer_details_action"
+            class="Sylius\ShopApiPlugin\Controller\Customer\LoggedInCustomerDetailsAction"
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="sylius.shop_api_plugin.provider.current_user_provider" />
             <argument type="service" id="sylius.shop_api_plugin.factory.customer_view_factory" />
         </service>
 
-        <service id="sylius.shop_api_plugin.controller.customer.update_customer_action"
-                 class="Sylius\ShopApiPlugin\Controller\Customer\UpdateCustomerAction"
+        <service
+            id="sylius.shop_api_plugin.controller.customer.update_customer_action"
+            class="Sylius\ShopApiPlugin\Controller\Customer\UpdateCustomerAction"
         >
             <argument type="service" id="fos_rest.view_handler" />
-            <argument type="service" id="validator" />
             <argument type="service" id="sylius_shop_api_plugin.command_bus" />
             <argument type="service" id="sylius.shop_api_plugin.factory.validation_error_view_factory" />
             <argument type="service" id="sylius.shop_api_plugin.factory.customer_view_factory" />
             <argument type="service" id="sylius.shop_api_plugin.provider.current_user_provider" />
+            <argument type="service" id="sylius.shop_api_plugin.command_provider.update_customer" />
         </service>
     </services>
 </container>

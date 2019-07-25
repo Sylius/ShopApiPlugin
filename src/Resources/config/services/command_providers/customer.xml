@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<container xmlns="http://symfony.com/schema/dic/services">
+    <services>
+        <defaults public="true" />
+
+        <service
+                id="sylius.shop_api_plugin.command_provider.generate_reset_password_token"
+                class="Sylius\ShopApiPlugin\CommandProvider\DefaultCommandProvider"
+        >
+            <argument>%sylius.shop_api.request.generate_reset_password_token.class%</argument>
+            <argument type="service" id="validator" />
+        </service>
+
+        <service
+            id="sylius.shop_api_plugin.command_provider.register_customer"
+            class="Sylius\ShopApiPlugin\CommandProvider\ChannelBasedCommandProvider"
+        >
+            <argument>%sylius.shop_api.request.register_customer.class%</argument>
+            <argument type="service" id="validator" />
+        </service>
+
+        <service
+            id="sylius.shop_api_plugin.command_provider.resend_verification_token"
+            class="Sylius\ShopApiPlugin\CommandProvider\ChannelBasedCommandProvider"
+        >
+            <argument>%sylius.shop_api.request.resend_verification_token.class%</argument>
+            <argument type="service" id="validator" />
+        </service>
+
+        <service
+            id="sylius.shop_api_plugin.command_provider.send_reset_password_token"
+            class="Sylius\ShopApiPlugin\CommandProvider\ChannelBasedCommandProvider"
+        >
+            <argument>%sylius.shop_api.request.send_reset_password_token.class%</argument>
+            <argument type="service" id="validator" />
+        </service>
+
+        <service
+            id="sylius.shop_api_plugin.command_provider.update_customer"
+            class="Sylius\ShopApiPlugin\CommandProvider\DefaultCommandProvider"
+        >
+            <argument>%sylius.shop_api.request.update_customer.class%</argument>
+            <argument type="service" id="validator" />
+        </service>
+
+        <service
+            id="sylius.shop_api_plugin.command_provider.verify_account"
+            class="Sylius\ShopApiPlugin\CommandProvider\DefaultCommandProvider"
+        >
+            <argument>%sylius.shop_api.request.verify_account.class%</argument>
+            <argument type="service" id="validator" />
+        </service>
+    </services>
+</container>

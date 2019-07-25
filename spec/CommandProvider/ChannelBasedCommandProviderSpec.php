@@ -35,10 +35,14 @@ final class ChannelBasedCommandProviderSpec extends ObjectBehavior
         $channel->getCode()->willReturn('WEB_GB');
 
         $validator
-            ->validate(TestChannelBasedRequest::fromHttpRequestAndChannel(
-                $httpRequest->getWrappedObject(),
-                $channel->getWrappedObject()
-            ))
+            ->validate(
+                TestChannelBasedRequest::fromHttpRequestAndChannel(
+                    $httpRequest->getWrappedObject(),
+                    $channel->getWrappedObject()
+                ),
+                null,
+                null
+            )
             ->willReturn($constraintViolationList)
         ;
 

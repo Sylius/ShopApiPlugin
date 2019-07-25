@@ -15,6 +15,12 @@ use Sylius\ShopApiPlugin\Request\Checkout\AddressOrderRequest;
 use Sylius\ShopApiPlugin\Request\Checkout\ChoosePaymentMethodRequest;
 use Sylius\ShopApiPlugin\Request\Checkout\ChooseShippingMethodRequest;
 use Sylius\ShopApiPlugin\Request\Checkout\CompleteOrderRequest;
+use Sylius\ShopApiPlugin\Request\Customer\GenerateResetPasswordTokenRequest;
+use Sylius\ShopApiPlugin\Request\Customer\RegisterCustomerRequest;
+use Sylius\ShopApiPlugin\Request\Customer\ResendVerificationTokenRequest;
+use Sylius\ShopApiPlugin\Request\Customer\SendResetPasswordTokenRequest;
+use Sylius\ShopApiPlugin\Request\Customer\UpdateCustomerRequest;
+use Sylius\ShopApiPlugin\Request\Customer\VerifyAccountRequest;
 use Sylius\ShopApiPlugin\Request\Product\AddProductReviewByCodeRequest;
 use Sylius\ShopApiPlugin\Request\Product\AddProductReviewBySlugRequest;
 use Sylius\ShopApiPlugin\View;
@@ -105,9 +111,15 @@ final class Configuration implements ConfigurationInterface
                         ->scalarNode('choose_shipping_method')->defaultValue(ChooseShippingMethodRequest::class)->end()
                         ->scalarNode('complete_order')->defaultValue(CompleteOrderRequest::class)->end()
                         ->scalarNode('drop_cart')->defaultValue(DropCartRequest::class)->end()
+                        ->scalarNode('generate_reset_password_token')->defaultValue(GenerateResetPasswordTokenRequest::class)->end()
                         ->scalarNode('pickup_cart')->defaultValue(PickupCartRequest::class)->end()
+                        ->scalarNode('register_customer')->defaultValue(RegisterCustomerRequest::class)->end()
                         ->scalarNode('remove_coupon')->defaultValue(RemoveCouponRequest::class)->end()
                         ->scalarNode('remove_item_from_cart')->defaultValue(RemoveItemFromCartRequest::class)->end()
+                        ->scalarNode('resend_verification_token')->defaultValue(ResendVerificationTokenRequest::class)->end()
+                        ->scalarNode('send_reset_password_token')->defaultValue(SendResetPasswordTokenRequest::class)->end()
+                        ->scalarNode('update_customer')->defaultValue(UpdateCustomerRequest::class)->end()
+                        ->scalarNode('verify_account')->defaultValue(VerifyAccountRequest::class)->end()
                     ->end()
                 ->end()
             ->end()

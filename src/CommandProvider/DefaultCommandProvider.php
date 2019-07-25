@@ -27,9 +27,9 @@ final class DefaultCommandProvider implements CommandProviderInterface
         $this->validator = $validator;
     }
 
-    public function validate(Request $httpRequest): ConstraintViolationListInterface
+    public function validate(Request $httpRequest, array $constraints = null, array $groups = null): ConstraintViolationListInterface
     {
-        return $this->validator->validate($this->transformHttpRequest($httpRequest));
+        return $this->validator->validate($this->transformHttpRequest($httpRequest), $constraints, $groups);
     }
 
     public function getCommand(Request $httpRequest): CommandInterface
