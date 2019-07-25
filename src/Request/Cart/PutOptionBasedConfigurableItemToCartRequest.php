@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace Sylius\ShopApiPlugin\Request\Cart;
 
 use Sylius\ShopApiPlugin\Command\Cart\PutOptionBasedConfigurableItemToCart;
+use Sylius\ShopApiPlugin\Command\CommandInterface;
+use Sylius\ShopApiPlugin\Request\RequestInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-class PutOptionBasedConfigurableItemToCartRequest
+class PutOptionBasedConfigurableItemToCartRequest implements RequestInterface
 {
     /** @var string */
     protected $token;
@@ -21,7 +23,7 @@ class PutOptionBasedConfigurableItemToCartRequest
     /** @var int */
     protected $quantity;
 
-    private function __construct($token, $productCode, $options, $quantity)
+    private function __construct(?string $token, ?string $productCode, ?array $options, ?int $quantity)
     {
         $this->token = $token;
         $this->productCode = $productCode;
@@ -31,16 +33,31 @@ class PutOptionBasedConfigurableItemToCartRequest
 
     public static function fromArray(array $item): self
     {
-        return new self($item['token'] ?? null, $item['productCode'] ?? null, $item['options'] ?? null, $item['quantity'] ?? null);
+        return new self(
+            $item['token'] ?? null,
+            $item['productCode'] ?? null,
+            $item['options'] ?? null,
+            $item['quantity'] ?? null
+        );
     }
 
-    public static function fromRequest(Request $request): self
+    public static function fromHttpRequest(Request $request): RequestInterface
     {
-        return new self($request->attributes->get('token'), $request->request->get('productCode'), $request->request->get('options'), $request->request->getInt('quantity', 1));
+        return new self(
+            $request->attributes->get('token'),
+            $request->request->get('productCode'),
+            $request->request->get('options'),
+            $request->request->getInt('quantity', 1)
+        );
     }
 
-    public function getCommand(): PutOptionBasedConfigurableItemToCart
+    public function getCommand(): CommandInterface
     {
-        return new PutOptionBasedConfigurableItemToCart($this->token, $this->productCode, $this->options, $this->quantity);
+        return new PutOptionBasedConfigurableItemToCart(
+            $this->token,
+            $this->productCode,
+            $this->options,
+            $this->quantity
+        );
     }
 }

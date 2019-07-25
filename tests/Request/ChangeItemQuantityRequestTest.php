@@ -16,11 +16,15 @@ final class ChangeItemQuantityRequestTest extends TestCase
      */
     public function it_creates_pickup_cart_command()
     {
-        $changeItemQuantityRequest = new ChangeItemQuantityRequest(new Request([], ['quantity' => 5], [
-            'token' => 'ORDERTOKEN',
-            'id' => 1,
-        ]));
+        $changeItemQuantityRequest = ChangeItemQuantityRequest::fromHttpRequest(new Request(
+            [],
+            ['quantity' => 5],
+            ['token' => 'ORDERTOKEN', 'id' => 1]
+        ));
 
-        $this->assertEquals(new ChangeItemQuantity('ORDERTOKEN', 1, 5), $changeItemQuantityRequest->getCommand());
+        $this->assertEquals(
+            new ChangeItemQuantity('ORDERTOKEN', 1, 5),
+            $changeItemQuantityRequest->getCommand()
+        );
     }
 }

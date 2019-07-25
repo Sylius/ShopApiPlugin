@@ -4,15 +4,17 @@
     <services>
         <defaults public="true" />
 
-        <service id="sylius.shop_api_plugin.controller.cart.summarize_action"
-                 class="Sylius\ShopApiPlugin\Controller\Cart\SummarizeAction"
+        <service
+            id="sylius.shop_api_plugin.controller.cart.summarize_action"
+            class="Sylius\ShopApiPlugin\Controller\Cart\SummarizeAction"
         >
             <argument type="service" id="sylius.shop_api_plugin.view_repository.cart_view_repository" />
             <argument type="service" id="fos_rest.view_handler" />
         </service>
 
-        <service id="sylius.shop_api_plugin.controller.cart.drop_cart_action"
-                 class="Sylius\ShopApiPlugin\Controller\Cart\DropCartAction"
+        <service
+            id="sylius.shop_api_plugin.controller.cart.drop_cart_action"
+            class="Sylius\ShopApiPlugin\Controller\Cart\DropCartAction"
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="sylius_shop_api_plugin.command_bus" />
@@ -20,8 +22,10 @@
             <argument type="service" id="sylius.shop_api_plugin.command_provider.drop_cart" />
         </service>
 
-        <service class="Sylius\ShopApiPlugin\Controller\Cart\EstimateShippingCostAction"
-                 id="sylius.shop_api_plugin.controller.cart.estimate_shipping_cost_action">
+        <service
+            id="sylius.shop_api_plugin.controller.cart.estimate_shipping_cost_action"
+            class="Sylius\ShopApiPlugin\Controller\Cart\EstimateShippingCostAction"
+        >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="sylius.shop_api_plugin.handler.estimate_shipping_cost_estimator" />
             <argument type="service" id="validator" />
@@ -29,8 +33,9 @@
             <argument type="service" id="sylius.shop_api_plugin.factory.estimated_shipping_cost_view_factory"/>
         </service>
 
-        <service id="sylius.shop_api_plugin.controller.cart.pickup_action"
-                 class="Sylius\ShopApiPlugin\Controller\Cart\PickupCartAction"
+        <service
+            id="sylius.shop_api_plugin.controller.cart.pickup_action"
+            class="Sylius\ShopApiPlugin\Controller\Cart\PickupCartAction"
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="sylius_shop_api_plugin.command_bus" />
@@ -40,59 +45,65 @@
             <argument type="service" id="sylius.shop_api_plugin.command_provider.pickup_cart" />
         </service>
 
-        <service id="sylius.shop_api_plugin.controller.cart.change_item_quantity_action"
-                 class="Sylius\ShopApiPlugin\Controller\Cart\ChangeItemQuantityAction"
+        <service
+            id="sylius.shop_api_plugin.controller.cart.change_item_quantity_action"
+            class="Sylius\ShopApiPlugin\Controller\Cart\ChangeItemQuantityAction"
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="sylius_shop_api_plugin.command_bus" />
-            <argument type="service" id="validator" />
             <argument type="service" id="sylius.shop_api_plugin.factory.validation_error_view_factory" />
             <argument type="service" id="sylius.shop_api_plugin.view_repository.cart_view_repository" />
+            <argument type="service" id="sylius.shop_api_plugin.command_provider.change_item_quantity" />
         </service>
 
-        <service id="sylius.shop_api_plugin.controller.cart.remove_item_from_cart_action"
-                 class="Sylius\ShopApiPlugin\Controller\Cart\RemoveItemFromCartAction"
+        <service
+            id="sylius.shop_api_plugin.controller.cart.remove_item_from_cart_action"
+            class="Sylius\ShopApiPlugin\Controller\Cart\RemoveItemFromCartAction"
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="sylius_shop_api_plugin.command_bus" />
-            <argument type="service" id="validator" />
             <argument type="service" id="sylius.shop_api_plugin.factory.validation_error_view_factory" />
             <argument type="service" id="sylius.shop_api_plugin.view_repository.cart_view_repository" />
+            <argument type="service" id="sylius.shop_api_plugin.command_provider.remove_item_from_cart" />
         </service>
 
-        <service id="sylius.shop_api_plugin.controller.cart.add_coupon_action"
-                 class="Sylius\ShopApiPlugin\Controller\Cart\AddCouponAction"
+        <service
+            id="sylius.shop_api_plugin.controller.cart.add_coupon_action"
+            class="Sylius\ShopApiPlugin\Controller\Cart\AddCouponAction"
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="sylius_shop_api_plugin.command_bus" />
-            <argument type="service" id="validator" />
             <argument type="service" id="sylius.shop_api_plugin.factory.validation_error_view_factory" />
             <argument type="service" id="sylius.shop_api_plugin.view_repository.cart_view_repository" />
+            <argument type="service" id="sylius.shop_api_plugin.command_provider.add_coupon" />
         </service>
 
-        <service id="sylius.shop_api_plugin.controller.cart.remove_coupon_action"
-                 class="Sylius\ShopApiPlugin\Controller\Cart\RemoveCouponAction"
+        <service
+            id="sylius.shop_api_plugin.controller.cart.remove_coupon_action"
+            class="Sylius\ShopApiPlugin\Controller\Cart\RemoveCouponAction"
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="sylius_shop_api_plugin.command_bus" />
-            <argument type="service" id="validator" />
             <argument type="service" id="sylius.shop_api_plugin.factory.validation_error_view_factory" />
             <argument type="service" id="sylius.shop_api_plugin.view_repository.cart_view_repository" />
+            <argument type="service" id="sylius.shop_api_plugin.command_provider.remove_coupon" />
         </service>
 
-        <service id="sylius.shop_api_plugin.controller.cart.put_item_to_cart_action"
-                 class="Sylius\ShopApiPlugin\Controller\Cart\PutItemToCartAction"
+        <service
+            id="sylius.shop_api_plugin.controller.cart.put_item_to_cart_action"
+            class="Sylius\ShopApiPlugin\Controller\Cart\PutItemToCartAction"
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="sylius_shop_api_plugin.command_bus" />
-            <argument type="service" id="validator" />
             <argument type="service" id="sylius.shop_api_plugin.factory.validation_error_view_factory" />
             <argument type="service" id="sylius.shop_api_plugin.view_repository.cart_view_repository" />
             <argument type="service" id="sylius.shop_api_plugin.normalizer.request_cart_token_normalizer" />
+            <argument type="service" id="sylius.shop_api_plugin.command_provider.put_item_to_cart" />
         </service>
 
-        <service id="sylius.shop_api_plugin.controller.cart.put_items_to_cart_action"
-                 class="Sylius\ShopApiPlugin\Controller\Cart\PutItemsToCartAction"
+        <service
+            id="sylius.shop_api_plugin.controller.cart.put_items_to_cart_action"
+            class="Sylius\ShopApiPlugin\Controller\Cart\PutItemsToCartAction"
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="sylius_shop_api_plugin.command_bus" />

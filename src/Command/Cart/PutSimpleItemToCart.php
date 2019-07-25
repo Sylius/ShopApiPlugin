@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Command\Cart;
 
+use Sylius\ShopApiPlugin\Command\CommandInterface;
 use Webmozart\Assert\Assert;
 
-class PutSimpleItemToCart
+class PutSimpleItemToCart implements CommandInterface
 {
     /** @var string */
     protected $orderToken;
