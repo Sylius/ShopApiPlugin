@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<container xmlns="http://symfony.com/schema/dic/services">
+    <services>
+        <defaults public="true" />
+
+        <service
+            id="sylius.shop_api_plugin.command_provider.address_order"
+            class="Sylius\ShopApiPlugin\CommandProvider\DefaultCommandProvider"
+        >
+            <argument>%sylius.shop_api.request.address_order.class%</argument>
+            <argument type="service" id="validator" />
+        </service>
+
+        <service
+            id="sylius.shop_api_plugin.command_provider.choose_payment_method"
+            class="Sylius\ShopApiPlugin\CommandProvider\DefaultCommandProvider"
+        >
+            <argument>%sylius.shop_api.request.choose_payment_method.class%</argument>
+            <argument type="service" id="validator" />
+        </service>
+
+        <service
+            id="sylius.shop_api_plugin.command_provider.choose_shipping_method"
+            class="Sylius\ShopApiPlugin\CommandProvider\DefaultCommandProvider"
+        >
+            <argument>%sylius.shop_api.request.choose_shipping_method.class%</argument>
+            <argument type="service" id="validator" />
+        </service>
+
+        <service
+            id="sylius.shop_api_plugin.command_provider.complete_order"
+            class="Sylius\ShopApiPlugin\CommandProvider\DefaultCommandProvider"
+        >
+            <argument>%sylius.shop_api.request.complete_order.class%</argument>
+            <argument type="service" id="validator" />
+        </service>
+    </services>
+</container>
