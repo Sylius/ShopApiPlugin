@@ -15,6 +15,7 @@
             <argument type="service" id="sylius.factory.order"/>
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.repository.channel"/>
+            <argument type="service" id="sylius_shop_api_plugin.event_bus" />
             <tag name="messenger.message_handler" />
         </service>
 
@@ -101,6 +102,7 @@
         <service id="sylius.shop_api_plugin.handler.assign_customer_to_cart_handler"
                  class="Sylius\ShopApiPlugin\Handler\Cart\AssignCustomerToCartHandler">
             <argument type="service" id="sylius.repository.order"/>
+            <argument type="service" id="sylius.order_processing.order_processor" />
             <argument type="service" id="sylius.shop_api_plugin.provider.customer_provider" />
             <tag name="messenger.message_handler" />
         </service>

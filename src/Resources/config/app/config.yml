@@ -13,10 +13,13 @@ jms_serializer:
 
 framework:
     messenger:
+        default_bus: sylius_shop_api_plugin.command_bus
         buses:
             sylius_shop_api_plugin.command_bus:
                 middleware:
                     - doctrine_transaction
+            sylius_shop_api_plugin.event_bus:
+                default_middleware: allow_no_handlers
 
 sylius_customer:
     resources:

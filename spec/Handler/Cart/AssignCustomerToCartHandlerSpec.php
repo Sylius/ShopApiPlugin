@@ -8,35 +8,42 @@ use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
+use Sylius\Component\Order\Processor\OrderProcessorInterface;
 use Sylius\ShopApiPlugin\Command\Cart\AssignCustomerToCart;
 use Sylius\ShopApiPlugin\Provider\CustomerProviderInterface;
 
 final class AssignCustomerToCartHandlerSpec extends ObjectBehavior
 {
-    function let(OrderRepositoryInterface $orderRepository, CustomerProviderInterface $customerProvider): void
-    {
-        $this->beConstructedWith($orderRepository, $customerProvider);
+    function let(
+        OrderRepositoryInterface $cartRepository,
+        OrderProcessorInterface $orderProcessor,
+        CustomerProviderInterface $customerProvider
+    ): void {
+        $this->beConstructedWith($cartRepository, $orderProcessor, $customerProvider);
     }
 
     function it_handles_assigning_customer_to_cart(
-        CustomerInterface $customer,
+        OrderRepositoryInterface $cartRepository,
+        OrderProcessorInterface $orderProcessor,
         CustomerProviderInterface $customerProvider,
-        OrderInterface $order,
-        OrderRepositoryInterface $orderRepository
+        CustomerInterface $customer,
+        OrderInterface $cart
     ): void {
-        $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
+        $cartRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($cart);
 
         $customerProvider->provide('example@customer.com')->willReturn($customer);
 
-        $order->setCustomer($customer)->shouldBeCalled();
+        $cart->setCustomer($customer)->shouldBeCalled();
+
+        $orderProcessor->process($cart);
 
         $this(new AssignCustomerToCart('ORDERTOKEN', 'example@customer.com'));
     }
 
     function it_throws_an_exception_if_order_does_not_exist(
-        OrderRepositoryInterface $orderRepository
+        OrderRepositoryInterface $cartRepository
     ): void {
-        $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn(null);
+        $cartRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn(null);
 
         $this
             ->shouldThrow(\InvalidArgumentException::class)
