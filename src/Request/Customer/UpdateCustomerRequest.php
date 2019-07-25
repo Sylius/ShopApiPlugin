@@ -33,7 +33,7 @@ class UpdateCustomerRequest implements RequestInterface
     /** @var bool */
     protected $subscribedToNewsletter;
 
-    private function __construct(Request $request)
+    protected function __construct(Request $request)
     {
         $this->firstName = $request->request->get('firstName');
         $this->lastName = $request->request->get('lastName');

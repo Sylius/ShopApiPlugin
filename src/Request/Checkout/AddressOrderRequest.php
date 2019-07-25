@@ -21,7 +21,7 @@ class AddressOrderRequest implements RequestInterface
     /** @var array|null */
     protected $billingAddress;
 
-    private function __construct(Request $request)
+    protected function __construct(Request $request)
     {
         $this->token = $request->attributes->get('token');
         $this->shippingAddress = $request->request->get('shippingAddress');

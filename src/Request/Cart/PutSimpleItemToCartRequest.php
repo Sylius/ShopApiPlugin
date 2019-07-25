@@ -20,7 +20,7 @@ class PutSimpleItemToCartRequest implements RequestInterface
     /** @var int */
     protected $quantity;
 
-    private function __construct($token, $productCode, $quantity)
+    protected function __construct($token, $productCode, $quantity)
     {
         $this->token = $token;
         $this->productCode = $productCode;

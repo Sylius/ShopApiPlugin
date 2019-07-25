@@ -17,7 +17,7 @@ class AddCouponRequest implements RequestInterface
     /** @var string|null */
     protected $coupon;
 
-    private function __construct(Request $request)
+    protected function __construct(Request $request)
     {
         $this->token = $request->attributes->get('token');
         $this->coupon = $request->request->get('coupon');

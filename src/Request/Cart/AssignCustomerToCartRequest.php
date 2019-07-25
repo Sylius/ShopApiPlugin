@@ -17,7 +17,7 @@ class AssignCustomerToCartRequest implements RequestInterface
     /** @var string|null */
     protected $email;
 
-    private function __construct(Request $request)
+    protected function __construct(Request $request)
     {
         $this->token = $request->attributes->get('token');
         $this->email = $request->request->get('email');

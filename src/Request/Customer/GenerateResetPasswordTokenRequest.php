@@ -14,7 +14,7 @@ class GenerateResetPasswordTokenRequest implements RequestInterface
     /** @var string */
     protected $email;
 
-    private function __construct(Request $request)
+    protected function __construct(Request $request)
     {
         $this->email = $request->request->get('email');
     }

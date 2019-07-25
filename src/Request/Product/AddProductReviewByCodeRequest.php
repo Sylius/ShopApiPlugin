@@ -30,7 +30,7 @@ class AddProductReviewByCodeRequest implements ChannelBasedRequestInterface
     /** @var string */
     protected $email;
 
-    private function __construct(Request $request, string $channelCode)
+    protected function __construct(Request $request, string $channelCode)
     {
         $this->code = $request->attributes->get('code');
         $this->title = $request->request->get('title');

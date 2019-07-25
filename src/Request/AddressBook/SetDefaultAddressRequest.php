@@ -18,7 +18,7 @@ class SetDefaultAddressRequest implements ShopUserBasedRequestInterface
     /** @var string */
     protected $userEmail;
 
-    private function __construct(Request $request, string $userEmail)
+    protected function __construct(Request $request, string $userEmail)
     {
         $this->id = $request->attributes->get('id');
         $this->userEmail = $userEmail;

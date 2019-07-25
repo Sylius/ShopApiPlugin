@@ -18,7 +18,7 @@ class ResendVerificationTokenRequest implements ChannelBasedRequestInterface
     /** @var string */
     protected $channelCode;
 
-    private function __construct(Request $request, string $channelCode)
+    protected function __construct(Request $request, string $channelCode)
     {
         $this->email = $request->request->get('email');
         $this->channelCode = $channelCode;

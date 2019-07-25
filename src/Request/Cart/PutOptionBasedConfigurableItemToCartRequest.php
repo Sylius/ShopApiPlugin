@@ -23,7 +23,7 @@ class PutOptionBasedConfigurableItemToCartRequest implements RequestInterface
     /** @var int */
     protected $quantity;
 
-    private function __construct(?string $token, ?string $productCode, ?array $options, ?int $quantity)
+    protected function __construct(?string $token, ?string $productCode, ?array $options, ?int $quantity)
     {
         $this->token = $token;
         $this->productCode = $productCode;

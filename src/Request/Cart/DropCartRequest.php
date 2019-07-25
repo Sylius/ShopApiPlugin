@@ -14,7 +14,7 @@ class DropCartRequest implements RequestInterface
     /** @var string */
     protected $token;
 
-    private function __construct(Request $request)
+    protected function __construct(Request $request)
     {
         $this->token = $request->attributes->get('token');
     }
