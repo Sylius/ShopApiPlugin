@@ -9,7 +9,6 @@ use FOS\RestBundle\View\ViewHandlerInterface;
 use Sylius\ShopApiPlugin\Command\Cart\AssignCustomerToCart;
 use Sylius\ShopApiPlugin\Command\Cart\CompleteOrder;
 use Sylius\ShopApiPlugin\Exception\WrongUserException;
-use Sylius\ShopApiPlugin\Provider\LoggedInShopUserProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
@@ -23,39 +22,23 @@ final class CompleteOrderAction
     /** @var MessageBusInterface */
     private $bus;
 
-    /** @var LoggedInShopUserProviderInterface */
-    private $loggedInUserProvider;
-
-    public function __construct(
-        ViewHandlerInterface $viewHandler,
-        MessageBusInterface $bus,
-        LoggedInShopUserProviderInterface $loggedInUserProvider
-    ) {
+    public function __construct(ViewHandlerInterface $viewHandler, MessageBusInterface $bus)
+    {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
-        $this->loggedInUserProvider = $loggedInUserProvider;
     }
 
     public function __invoke(Request $request): Response
     {
-        if ($this->loggedInUserProvider->isUserLoggedIn()) {
-            $defaultEmail = $this->loggedInUserProvider->provide()->getEmail();
-        }
-
         try {
-            $this->bus->dispatch(
-                new AssignCustomerToCart(
-                    $request->attributes->get('token'),
-                    $request->request->get('email', $defaultEmail ?? null)
-                )
-            );
+            $orderToken = $request->attributes->get('token');
+            $email = $request->request->get('email');
 
-            $this->bus->dispatch(
-                new CompleteOrder(
-                    $request->attributes->get('token'),
-                    $request->request->get('notes')
-                )
-            );
+            if (null !== $email) {
+                $this->bus->dispatch(new AssignCustomerToCart($orderToken, $email));
+            }
+
+            $this->bus->dispatch(new CompleteOrder($orderToken, $request->request->get('notes')));
         } catch (HandlerFailedException $exception) {
             $previousException = $exception->getPrevious();
 

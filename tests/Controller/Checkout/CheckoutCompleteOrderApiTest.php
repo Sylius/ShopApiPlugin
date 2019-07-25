@@ -150,7 +150,7 @@ JSON;
         $bus->dispatch(new ChooseShippingMethod($token, 0, 'DHL'));
         $bus->dispatch(new ChoosePaymentMethod($token, 0, 'PBC'));
 
-        $this->logInUser('oliver@queen.com', '123password');
+        $this->logInUserWithCart('oliver@queen.com', '123password', $token);
 
         $response = $this->complete($token);
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
