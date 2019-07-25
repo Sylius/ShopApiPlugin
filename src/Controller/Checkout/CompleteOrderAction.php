@@ -6,10 +6,7 @@ namespace Sylius\ShopApiPlugin\Controller\Checkout;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
-use Sylius\ShopApiPlugin\Command\Cart\AssignCustomerToCart;
-use Sylius\ShopApiPlugin\Command\Cart\CompleteOrder;
 use Sylius\ShopApiPlugin\CommandProvider\CommandProviderInterface;
-use Sylius\ShopApiPlugin\CommandProvider\ShopUserBasedCommandProviderInterface;
 use Sylius\ShopApiPlugin\Exception\WrongUserException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,7 +21,7 @@ final class CompleteOrderAction
     /** @var MessageBusInterface */
     private $bus;
 
-    /** @var ShopUserBasedCommandProviderInterface */
+    /** @var CommandProviderInterface */
     private $assignCustomerToCartCommandProvider;
 
     /** @var CommandProviderInterface */
@@ -33,7 +30,7 @@ final class CompleteOrderAction
     public function __construct(
         ViewHandlerInterface $viewHandler,
         MessageBusInterface $bus,
-        ShopUserBasedCommandProviderInterface $assignCustomerToCartCommandProvider,
+        CommandProviderInterface $assignCustomerToCartCommandProvider,
         CommandProviderInterface $completeOrderCommandProvider
     ) {
         $this->viewHandler = $viewHandler;
@@ -45,18 +42,11 @@ final class CompleteOrderAction
     public function __invoke(Request $request): Response
     {
         try {
-            $orderToken = $request->attributes->get('token');
-            $email = $request->request->get('email');
-
-            if (null !== $email) {
-                $this->bus->dispatch(new AssignCustomerToCart($orderToken, $email));
+            if (null !== $request->request->get('email')) {
+                $this->bus->dispatch($this->assignCustomerToCartCommandProvider->getCommand($request));
             }
 
-            $this->bus->dispatch(new CompleteOrder($orderToken, $request->request->get('notes')));
-
-//        try {
-//            $this->bus->dispatch($this->assignCustomerToCartCommandProvider->getCommand($request, $user));
-//            $this->bus->dispatch($this->completeOrderCommandProvider->getCommand($request));
+            $this->bus->dispatch($this->completeOrderCommandProvider->getCommand($request));
         } catch (HandlerFailedException $exception) {
             $previousException = $exception->getPrevious();
 

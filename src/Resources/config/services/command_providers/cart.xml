@@ -13,8 +13,8 @@
         </service>
 
         <service
-                id="sylius.shop_api_plugin.command_provider.assign_customer_to_cart"
-                class="Sylius\ShopApiPlugin\CommandProvider\ShopUserBasedCommandProvider"
+            id="sylius.shop_api_plugin.command_provider.assign_customer_to_cart"
+            class="Sylius\ShopApiPlugin\CommandProvider\DefaultCommandProvider"
         >
             <argument>%sylius.shop_api.request.assign_customer_to_cart.class%</argument>
             <argument type="service" id="validator" />
