@@ -1,0 +1,29 @@
+---------------------------------------------------------------------------
+
+by mamazu at 2019-07-16T08:50:34Z
+
+Thanks for your pull request, the idea is great the problem I see though is that this changes the response codes and the response structure very drastically.
+
+---------------------------------------------------------------------------
+
+by mamazu at 2019-07-18T08:31:03Z
+
+Well the validation message structure is different. I'd say that this is a problem indeed. If there is a way to hook into that, this would be great other than that this would cause a very big inconsistency with the current validation views, which I wouldn't really like.
+
+---------------------------------------------------------------------------
+
+by lchrusciel at 2019-07-18T08:40:43Z
+
+We need to resolve conflicts as well
+
+---------------------------------------------------------------------------
+
+by lchrusciel at 2019-07-25T07:16:25Z
+
+Let's merge it and see what feedback from the community we will receive. In any case, we can always revert this change.
+
+---------------------------------------------------------------------------
+
+by lchrusciel at 2019-07-25T07:16:48Z
+
+Thanks, Tomasz! :1st_place_medal:
