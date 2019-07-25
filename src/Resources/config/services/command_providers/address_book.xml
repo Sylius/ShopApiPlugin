@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<container xmlns="http://symfony.com/schema/dic/services">
+    <services>
+        <defaults public="true" />
+
+        <service
+            id="sylius.shop_api_plugin.command_provider.set_default_address"
+            class="Sylius\ShopApiPlugin\CommandProvider\ShopUserBasedCommandProvider"
+        >
+            <argument>%sylius.shop_api.request.set_default_address.class%</argument>
+            <argument type="service" id="validator" />
+        </service>
+    </services>
+</container>
