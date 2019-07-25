@@ -32,7 +32,7 @@ final class DefaultCommandProviderSpec extends ObjectBehavior
         $httpRequest->attributes = new ParameterBag(['token' => 'sample_cart_token']);
 
         $validator
-            ->validate(TestRequest::fromHttpRequest($httpRequest->getWrappedObject()))
+            ->validate(TestRequest::fromHttpRequest($httpRequest->getWrappedObject()), null, null)
             ->willReturn($constraintViolationList)
         ;
 

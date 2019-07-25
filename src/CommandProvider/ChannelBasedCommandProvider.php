@@ -28,9 +28,13 @@ final class ChannelBasedCommandProvider implements ChannelBasedCommandProviderIn
         $this->validator = $validator;
     }
 
-    public function validate(Request $httpRequest, ChannelInterface $channel): ConstraintViolationListInterface
-    {
-        return $this->validator->validate($this->transformHttpRequest($httpRequest, $channel));
+    public function validate(
+        Request $httpRequest,
+        ChannelInterface $channel,
+        array $constraints = null,
+        array $groups = null
+    ): ConstraintViolationListInterface {
+        return $this->validator->validate($this->transformHttpRequest($httpRequest, $channel), $constraints, $groups);
     }
 
     public function getCommand(Request $httpRequest, ChannelInterface $channel): CommandInterface

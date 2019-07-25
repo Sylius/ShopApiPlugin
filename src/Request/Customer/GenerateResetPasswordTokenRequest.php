@@ -5,18 +5,18 @@ declare(strict_types=1);
 namespace Sylius\ShopApiPlugin\Request\Customer;
 
 use Sylius\ShopApiPlugin\Command\CommandInterface;
-use Sylius\ShopApiPlugin\Command\Customer\VerifyAccount;
+use Sylius\ShopApiPlugin\Command\Customer\GenerateResetPasswordToken;
 use Sylius\ShopApiPlugin\Request\RequestInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-class VerifyAccountRequest implements RequestInterface
+class GenerateResetPasswordTokenRequest implements RequestInterface
 {
     /** @var string */
-    protected $token;
+    protected $email;
 
     private function __construct(Request $request)
     {
-        $this->token = $request->query->get('token');
+        $this->email = $request->request->get('email');
     }
 
     public static function fromHttpRequest(Request $request): RequestInterface
@@ -26,6 +26,6 @@ class VerifyAccountRequest implements RequestInterface
 
     public function getCommand(): CommandInterface
     {
-        return new VerifyAccount($this->token);
+        return new GenerateResetPasswordToken($this->email);
     }
 }

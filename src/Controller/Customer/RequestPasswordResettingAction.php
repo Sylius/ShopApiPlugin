@@ -7,8 +7,9 @@ namespace Sylius\ShopApiPlugin\Controller\Customer;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Sylius\Component\Channel\Context\ChannelContextInterface;
-use Sylius\ShopApiPlugin\Command\Customer\GenerateResetPasswordToken;
-use Sylius\ShopApiPlugin\Command\Customer\SendResetPasswordToken;
+use Sylius\Component\Core\Model\ChannelInterface;
+use Sylius\ShopApiPlugin\CommandProvider\ChannelBasedCommandProviderInterface;
+use Sylius\ShopApiPlugin\CommandProvider\CommandProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -24,22 +25,33 @@ final class RequestPasswordResettingAction
     /** @var ChannelContextInterface */
     private $channelContext;
 
+    /** @var CommandProviderInterface */
+    private $generateResetPasswordTokenCommandProvider;
+
+    /** @var ChannelBasedCommandProviderInterface */
+    private $sendResetPasswordTokenCommandProvider;
+
     public function __construct(
         ViewHandlerInterface $viewHandler,
         MessageBusInterface $bus,
-        ChannelContextInterface $channelContext
+        ChannelContextInterface $channelContext,
+        CommandProviderInterface $generateResetPasswordTokenCommandProvider,
+        ChannelBasedCommandProviderInterface $sendResetPasswordTokenCommandProvider
     ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
         $this->channelContext = $channelContext;
+        $this->generateResetPasswordTokenCommandProvider = $generateResetPasswordTokenCommandProvider;
+        $this->sendResetPasswordTokenCommandProvider = $sendResetPasswordTokenCommandProvider;
     }
 
     public function __invoke(Request $request): Response
     {
+        /** @var ChannelInterface $channel */
         $channel = $this->channelContext->getChannel();
 
-        $this->bus->dispatch(new GenerateResetPasswordToken($request->request->get('email')));
-        $this->bus->dispatch(new SendResetPasswordToken($request->request->get('email'), $channel->getCode()));
+        $this->bus->dispatch($this->generateResetPasswordTokenCommandProvider->getCommand($request));
+        $this->bus->dispatch($this->sendResetPasswordTokenCommandProvider->getCommand($request, $channel));
 
         return $this->viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));
     }

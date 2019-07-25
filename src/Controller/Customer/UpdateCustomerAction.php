@@ -6,23 +6,20 @@ namespace Sylius\ShopApiPlugin\Controller\Customer;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
+use Sylius\Component\Core\Model\CustomerInterface;
+use Sylius\ShopApiPlugin\CommandProvider\CommandProviderInterface;
 use Sylius\ShopApiPlugin\Factory\Customer\CustomerViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
 use Sylius\ShopApiPlugin\Provider\LoggedInShopUserProvider;
-use Sylius\ShopApiPlugin\Request\Customer\UpdateCustomerRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Webmozart\Assert\Assert;
 
 final class UpdateCustomerAction
 {
     /** @var ViewHandlerInterface */
     private $viewHandler;
-
-    /** @var ValidatorInterface */
-    private $validator;
 
     /** @var MessageBusInterface */
     private $bus;
@@ -36,34 +33,38 @@ final class UpdateCustomerAction
     /** @var LoggedInShopUserProvider */
     private $loggedInUserProvider;
 
+    /** @var CommandProviderInterface */
+    private $updateCustomerCommandProvider;
+
     public function __construct(
         ViewHandlerInterface $viewHandler,
-        ValidatorInterface $validator,
         MessageBusInterface $bus,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         CustomerViewFactoryInterface $customerViewFactory,
-        LoggedInShopUserProvider $loggedInUserProvider
+        LoggedInShopUserProvider $loggedInUserProvider,
+        CommandProviderInterface $updateCustomerCommandProvider
     ) {
         $this->viewHandler = $viewHandler;
-        $this->validator = $validator;
         $this->bus = $bus;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->customerViewFactory = $customerViewFactory;
         $this->loggedInUserProvider = $loggedInUserProvider;
+        $this->updateCustomerCommandProvider = $updateCustomerCommandProvider;
     }
 
     public function __invoke(Request $request): Response
     {
-        $updateCustomerRequest = new UpdateCustomerRequest($request);
-
-        $validationResults = $this->validator->validate($updateCustomerRequest, null, 'sylius_customer_profile_update');
-
+        $validationResults = $this->updateCustomerCommandProvider->validate($request, null, ['sylius_customer_profile_update']);
         if (0 !== count($validationResults)) {
-            return $this->viewHandler->handle(View::create($this->validationErrorViewFactory->create($validationResults), Response::HTTP_BAD_REQUEST));
+            return $this->viewHandler->handle(View::create(
+                $this->validationErrorViewFactory->create($validationResults),
+                Response::HTTP_BAD_REQUEST
+            ));
         }
 
-        $this->bus->dispatch($updateCustomerRequest->getCommand());
+        $this->bus->dispatch($this->updateCustomerCommandProvider->getCommand($request));
 
+        /** @var CustomerInterface|null $customer */
         $customer = $this->loggedInUserProvider->provide()->getCustomer();
         Assert::notNull($customer);
 
