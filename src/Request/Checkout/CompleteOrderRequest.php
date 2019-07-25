@@ -17,7 +17,7 @@ class CompleteOrderRequest implements RequestInterface
     /** @var string|null */
     protected $notes;
 
-    private function __construct(Request $request)
+    protected function __construct(Request $request)
     {
         $this->token = $request->attributes->get('token');
         $this->notes = $request->request->get('notes');

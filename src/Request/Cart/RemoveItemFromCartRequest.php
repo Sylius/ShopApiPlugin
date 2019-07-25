@@ -17,7 +17,7 @@ class RemoveItemFromCartRequest implements RequestInterface
     /** @var mixed */
     protected $id;
 
-    private function __construct(Request $request)
+    protected function __construct(Request $request)
     {
         $this->token = $request->attributes->get('token');
         $this->id = $request->attributes->get('id');

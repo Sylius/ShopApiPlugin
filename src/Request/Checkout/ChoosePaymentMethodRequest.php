@@ -20,7 +20,7 @@ class ChoosePaymentMethodRequest implements RequestInterface
     /** @var string|null */
     protected $method;
 
-    private function __construct(Request $request)
+    protected function __construct(Request $request)
     {
         $this->token = $request->attributes->get('token');
         $this->paymentId = $request->attributes->get('paymentId');

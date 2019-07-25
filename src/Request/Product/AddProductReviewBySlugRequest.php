@@ -30,7 +30,7 @@ class AddProductReviewBySlugRequest implements ChannelBasedRequestInterface
     /** @var string */
     protected $email;
 
-    private function __construct(Request $request, string $channelCode)
+    protected function __construct(Request $request, string $channelCode)
     {
         $this->slug = $request->attributes->get('slug');
         $this->title = $request->request->get('title');
