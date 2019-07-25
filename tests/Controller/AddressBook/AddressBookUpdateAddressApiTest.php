@@ -44,7 +44,7 @@ final class AddressBookUpdateAddressApiTest extends JsonApiTestCase
 JSON;
 
         $response = $this->updateAddress((string) $address->getId(), $data);
-        $this->assertResponse($response, 'address_book/update_address', Response::HTTP_OK);
+        Assert::assertSame($response->getStatusCode(), Response::HTTP_NO_CONTENT);
 
         /** @var AddressInterface $updatedAddress */
         $updatedAddress = $addressRepository->findOneBy(['id' => $address->getId()]);

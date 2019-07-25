@@ -39,13 +39,13 @@ final class AddressBookRemoveAddressApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_returns_bad_request_exception_if_address_has_not_been_found(): void
+    public function it_returns_a_not_found_exception_if_address_has_not_been_found(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'country.yml', 'address.yml']);
         $this->logInUser('oliver@queen.com', '123password');
 
         $response = $this->removeAddress('-1');
-        $this->assertResponseCode($response, Response::HTTP_BAD_REQUEST);
+        $this->assertResponseCode($response, Response::HTTP_NOT_FOUND);
     }
 
     /**
@@ -62,7 +62,7 @@ final class AddressBookRemoveAddressApiTest extends JsonApiTestCase
         $address = $addressRepository->findOneBy(['street' => 'Vukovarska']);
 
         $response = $this->removeAddress((string) $address->getId());
-        $this->assertResponseCode($response, Response::HTTP_BAD_REQUEST);
+        $this->assertResponseCode($response, Response::HTTP_NOT_FOUND);
     }
 
     private function removeAddress(string $id): Response

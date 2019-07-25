@@ -48,6 +48,12 @@
 
 * The argument in constructor of `PickupCartRequest` class has been changed from `Request $request `to `string channelCode`.
 
+* The address-book create route has been changed :
+
+    | Old Route                             | New route                              |
+    |:--------------------------------------|:---------------------------------------|
+    | `address-book`                        | `address-book/`                        |
+
 # UPGRADE FROM 1.0.0-beta.17 to 1.0.0-beta.18
 
 * Customer registration payload changed:
