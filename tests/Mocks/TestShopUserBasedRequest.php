@@ -2,26 +2,25 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Request\AddressBook;
+namespace Tests\Sylius\ShopApiPlugin\Mocks;
 
 use Sylius\Component\Core\Model\ShopUserInterface;
-use Sylius\ShopApiPlugin\Command\AddressBook\SetDefaultAddress;
 use Sylius\ShopApiPlugin\Command\CommandInterface;
 use Sylius\ShopApiPlugin\Request\ShopUserBasedRequestInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-class SetDefaultAddressRequest implements ShopUserBasedRequestInterface
+final class TestShopUserBasedRequest implements ShopUserBasedRequestInterface
 {
-    /** @var mixed */
-    protected $id;
+    /** @var string */
+    private $token;
 
     /** @var string */
-    protected $userEmail;
+    private $email;
 
-    private function __construct(Request $request, string $userEmail)
+    public function __construct(Request $request, string $email)
     {
-        $this->id = $request->attributes->get('id');
-        $this->userEmail = $userEmail;
+        $this->token = $request->attributes->get('token');
+        $this->email = $email;
     }
 
     public static function fromHttpRequestAndShopUser(Request $request, ShopUserInterface $user): ShopUserBasedRequestInterface
@@ -31,6 +30,6 @@ class SetDefaultAddressRequest implements ShopUserBasedRequestInterface
 
     public function getCommand(): CommandInterface
     {
-        return new SetDefaultAddress($this->id, $this->userEmail);
+        return new TestShopUserBasedCommand($this->token, $this->email);
     }
 }

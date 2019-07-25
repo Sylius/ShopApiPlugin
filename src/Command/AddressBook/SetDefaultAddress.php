@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Command\AddressBook;
 
-class SetDefaultAddress
+use Sylius\ShopApiPlugin\Command\CommandInterface;
+
+class SetDefaultAddress implements CommandInterface
 {
     /** @var mixed */
     protected $id;

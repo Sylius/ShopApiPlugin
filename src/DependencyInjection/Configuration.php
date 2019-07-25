@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\DependencyInjection;
 
+use Sylius\ShopApiPlugin\Request\AddressBook\SetDefaultAddressRequest;
 use Sylius\ShopApiPlugin\Request\Cart\AddCouponRequest;
 use Sylius\ShopApiPlugin\Request\Cart\AssignCustomerToCartRequest;
 use Sylius\ShopApiPlugin\Request\Cart\ChangeItemQuantityRequest;
@@ -118,6 +119,7 @@ final class Configuration implements ConfigurationInterface
                         ->scalarNode('remove_item_from_cart')->defaultValue(RemoveItemFromCartRequest::class)->end()
                         ->scalarNode('resend_verification_token')->defaultValue(ResendVerificationTokenRequest::class)->end()
                         ->scalarNode('send_reset_password_token')->defaultValue(SendResetPasswordTokenRequest::class)->end()
+                        ->scalarNode('set_default_address')->defaultValue(SetDefaultAddressRequest::class)->end()
                         ->scalarNode('update_customer')->defaultValue(UpdateCustomerRequest::class)->end()
                         ->scalarNode('verify_account')->defaultValue(VerifyAccountRequest::class)->end()
                     ->end()
