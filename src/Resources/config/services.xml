@@ -95,5 +95,9 @@
         <service id="sylius.context.cart.new" class="Sylius\Component\Order\Context\CartContext">
             <argument type="service" id="sylius.factory.order" />
         </service>
+
+        <service id="sylius.shop_api_plugin.logger.console" class="Monolog\Logger" >
+            <argument>console</argument>
+        </service>
     </services>
 </container>
