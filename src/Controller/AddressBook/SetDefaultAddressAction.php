@@ -30,20 +30,20 @@ final class SetDefaultAddressAction
     private $loggedInUserProvider;
 
     /** @var ShopUserBasedCommandProviderInterface */
-    private $setDefaultCommandProvider;
+    private $setDefaultAddressCommandProvider;
 
     public function __construct(
         ViewHandlerInterface $viewHandler,
         MessageBusInterface $bus,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         LoggedInShopUserProviderInterface $loggedInUserProvider,
-        ShopUserBasedCommandProviderInterface $setDefaultCommandProvider
+        ShopUserBasedCommandProviderInterface $setDefaultAddressCommandProvider
     ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->loggedInUserProvider = $loggedInUserProvider;
-        $this->setDefaultCommandProvider = $setDefaultCommandProvider;
+        $this->setDefaultAddressCommandProvider = $setDefaultAddressCommandProvider;
     }
 
     public function __invoke(Request $request): Response
@@ -55,7 +55,7 @@ final class SetDefaultAddressAction
             return $this->viewHandler->handle(View::create(null, Response::HTTP_UNAUTHORIZED));
         }
 
-        $validationResults = $this->setDefaultCommandProvider->validate($request, $user);
+        $validationResults = $this->setDefaultAddressCommandProvider->validate($request, $user);
         if (0 !== count($validationResults)) {
             return $this->viewHandler->handle(View::create(
                 $this->validationErrorViewFactory->create($validationResults),
@@ -64,7 +64,7 @@ final class SetDefaultAddressAction
         }
 
         if ($user->getCustomer() !== null) {
-            $this->bus->dispatch($this->setDefaultCommandProvider->getCommand($request, $user));
+            $this->bus->dispatch($this->setDefaultAddressCommandProvider->getCommand($request, $user));
 
             return $this->viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));
         }
