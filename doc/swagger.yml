@@ -1334,6 +1334,9 @@ definitions:
                 type: "object"
                 additionalProperties:
                     type: "string"
+            onHand:
+                type: "integer"
+                example: 12
             price:
                 $ref: "#/definitions/Price"
             images:
