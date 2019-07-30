@@ -33,6 +33,10 @@
                             "current": 1999,
                             "currency": "GBP"
                         },
+                        "originalPrice": {
+                            "current": 2999,
+                            "currency": "GBP"
+                        },
                         "images": []
                     }
                 ],

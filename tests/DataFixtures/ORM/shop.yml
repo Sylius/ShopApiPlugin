@@ -221,6 +221,7 @@ Sylius\Component\Core\Model\ChannelPricing:
     gb_mug_web_channel_pricing:
         channelCode: "WEB_GB"
         price: 1999
+        originalPrice: 2999
     gb_small_t_shirt_web_channel_pricing:
         channelCode: "WEB_GB"
         price: 1999
