@@ -1,4 +1,4 @@
-# UPGRADE FROM 1.0.0-beta.21 to 1.0.0-beta.22
+# UPGRADE FROM 1.0.0-beta.21 to 1.0.0-rc.1
 
 * The configuration key for the shop api is now `sylius_shop_api`.
 * Plugin name has been changed from `ShopApiPlugin` to `SyliusShopApiPlugin`. As a result all resources which were loaded with this prefix: `@ShopApiPlugin` should be prefixed with `@SyliusShopApiPlugin`
