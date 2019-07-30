@@ -42,7 +42,8 @@ final class ProductVariantViewFactory implements ProductVariantViewFactoryInterf
             $channel->getBaseCurrency()->getCode()
         );
 
-        if ($originalPrice = $channelPricing->getOriginalPrice()) {
+        $originalPrice = $channelPricing->getOriginalPrice()
+        if (null !== $originalPrice) {
             $variantView->originalPrice = $this->priceViewFactory->create(
                 $originalPrice,
                 $channel->getBaseCurrency()->getCode()
