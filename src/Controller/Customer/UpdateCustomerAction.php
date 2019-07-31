@@ -54,6 +54,10 @@ final class UpdateCustomerAction
 
     public function __invoke(Request $request): Response
     {
+        if (!$this->loggedInUserProvider->isUserLoggedIn()) {
+            return $this->viewHandler->handle(View::create(null, Response::HTTP_UNAUTHORIZED));
+        }
+
         $validationResults = $this->updateCustomerCommandProvider->validate($request, null, ['sylius_customer_profile_update']);
         if (0 !== count($validationResults)) {
             return $this->viewHandler->handle(View::create(
