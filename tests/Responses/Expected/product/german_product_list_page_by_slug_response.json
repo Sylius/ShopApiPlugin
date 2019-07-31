@@ -34,6 +34,10 @@
                         "current": 1999,
                         "currency": "GBP"
                     },
+                    "originalPrice": {
+                        "current": 2999,
+                        "currency": "GBP"
+                    },
                     "images": [
                         {
                             "code": "thumbnail",
@@ -175,6 +179,10 @@
                                 "onHand": 12,
                                 "price": {
                                     "current": 1999,
+                                    "currency": "GBP"
+                                },
+                                "originalPrice": {
+                                    "current": 2999,
                                     "currency": "GBP"
                                 },
                                 "images": [

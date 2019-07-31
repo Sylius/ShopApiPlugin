@@ -1337,6 +1337,8 @@ definitions:
                 example: 12
             price:
                 $ref: "#/definitions/Price"
+            originalPrice:
+                $ref: "#/definitions/Price"
             images:
                 type: "array"
                 items:

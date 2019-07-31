@@ -27,6 +27,9 @@ class ProductVariantView
     /** @var PriceView */
     public $price;
 
+    /** @var PriceView|null */
+    public $originalPrice;
+
     /** @var ImageView[] */
     public $images = [];
 

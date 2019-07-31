@@ -20,6 +20,9 @@ Sylius\ShopApiPlugin\View\Product\ProductVariantView:
         price:
             expose: true
             type: Sylius\ShopApiPlugin\View\PriceView
+        originalPrice:
+            expose: true
+            type: Sylius\ShopApiPlugin\View\PriceView
         images:
             expose: true
             type: array
