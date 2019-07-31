@@ -35,6 +35,10 @@ final class LoggedInCustomerDetailsAction
 
     public function __invoke(Request $request): Response
     {
+        if (!$this->loggedInShopUserProvider->isUserLoggedIn()) {
+            return $this->viewHandler->handle(View::create(null, Response::HTTP_UNAUTHORIZED));
+        }
+
         $customer = $this->loggedInShopUserProvider->provide()->getCustomer();
         Assert::notNull($customer);
 
