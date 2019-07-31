@@ -841,8 +841,8 @@ paths:
                     description: "Provides currently logged in user details."
                     schema:
                         $ref: "#/definitions/LoggedInCustomerDetails"
-                500:
-                    description: "There is no currently logged in user."
+                401:
+                    description: "User token invalid"
             security:
                 -   bearerAuth: []
         put:
@@ -862,9 +862,7 @@ paths:
                     schema:
                         $ref: "#/definitions/LoggedInCustomerDetails"
                 401:
-                    description: "User token is invalid."
-                500:
-                    description: "There is no currently logged in user."
+                    description: "User token invalid"
             security:
                 -   bearerAuth: []
 
