@@ -30,6 +30,7 @@
                             "name": "Logan Mug",
                             "axis": [],
                             "nameAxis": {},
+                            "onHand": 12,
                             "price": {
                                 "current": 1999,
                                 "currency": "GBP"
