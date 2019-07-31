@@ -75,7 +75,7 @@ JSON;
 JSON;
         $this->client->request('PUT', '/shop-api/me', [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
-        $this->assertResponseCode($response, Response::HTTP_INTERNAL_SERVER_ERROR);
+        $this->assertResponseCode($response, Response::HTTP_UNAUTHORIZED);
     }
 
     /**
