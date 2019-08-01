@@ -29,6 +29,7 @@
                     "name": "Logan Becher",
                     "axis": [],
                     "nameAxis": {},
+                    "available": true,
                     "price": {
                         "current": 1999,
                         "currency": "GBP"
@@ -96,6 +97,7 @@
                         "HAT_SIZE_S": "Size S",
                         "HAT_COLOR_RED": "Farbe Rot"
                     },
+                    "available": true,
                     "price": {
                         "current": 500,
                         "currency": "GBP"
@@ -113,6 +115,7 @@
                         "HAT_SIZE_L": "Size L",
                         "HAT_COLOR_RED": "Farbe Rot"
                     },
+                    "available": true,
                     "price": {
                         "current": 999,
                         "currency": "GBP"
@@ -130,6 +133,7 @@
                         "HAT_SIZE_S": "Size S",
                         "HAT_COLOR_BLUE": "Farbe Blau"
                     },
+                    "available": true,
                     "price": {
                         "current": 1500,
                         "currency": "GBP"
@@ -147,6 +151,7 @@
                         "HAT_SIZE_L": "Size L",
                         "HAT_COLOR_BLUE": "Farbe Blau"
                     },
+                    "available": true,
                     "price": {
                         "current": 2599,
                         "currency": "GBP"
@@ -176,6 +181,7 @@
                                 "name": "Logan Becher",
                                 "axis": [],
                                 "nameAxis": {},
+                                "available": true,
                                 "price": {
                                     "current": 1999,
                                     "currency": "GBP"
@@ -237,6 +243,7 @@
                                 "name": "Small Logan T-Shirt",
                                 "axis": [],
                                 "nameAxis": {},
+                                "available": true,
                                 "price": {
                                     "current": 1999,
                                     "currency": "GBP"
@@ -254,6 +261,7 @@
                                 "name": "Large Logan T-Shirt",
                                 "axis": [],
                                 "nameAxis": {},
+                                "available": true,
                                 "price": {
                                     "current": 2999,
                                     "currency": "GBP"

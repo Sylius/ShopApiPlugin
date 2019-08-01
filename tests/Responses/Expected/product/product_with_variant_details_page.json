@@ -19,6 +19,7 @@
             "name": "Small Logan T-Shirt",
             "axis": [],
             "nameAxis": {},
+            "available": true,
             "price": {
                 "current": 1999,
                 "currency": "GBP"
@@ -36,6 +37,7 @@
             "name": "Large Logan T-Shirt",
             "axis": [],
             "nameAxis": {},
+            "available": true,
             "price": {
                 "current": 2999,
                 "currency": "GBP"

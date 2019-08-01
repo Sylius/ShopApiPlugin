@@ -26,6 +26,7 @@
                         "HAT_SIZE_S": "Size S",
                         "HAT_COLOR_RED": "Color Red"
                     },
+                    "available": true,
                     "price": {
                         "current": 500,
                         "currency": "GBP"
@@ -43,6 +44,7 @@
                         "HAT_SIZE_L": "Size L",
                         "HAT_COLOR_RED": "Color Red"
                     },
+                    "available": true,
                     "price": {
                         "current": 999,
                         "currency": "GBP"
@@ -60,6 +62,7 @@
                         "HAT_SIZE_S": "Size S",
                         "HAT_COLOR_BLUE": "Color Blue"
                     },
+                    "available": true,
                     "price": {
                         "current": 1500,
                         "currency": "GBP"
@@ -77,6 +80,7 @@
                         "HAT_SIZE_L": "Size L",
                         "HAT_COLOR_BLUE": "Color Blue"
                     },
+                    "available": true,
                     "price": {
                         "current": 2599,
                         "currency": "GBP"
@@ -107,6 +111,7 @@
                                 "name": "Logan Mug",
                                 "axis": [],
                                 "nameAxis": {},
+                                "available": true,
                                 "price": {
                                     "current": 1999,
                                     "currency": "GBP"
@@ -168,6 +173,7 @@
                                 "name": "Small Logan T-Shirt",
                                 "axis": [],
                                 "nameAxis": {},
+                                "available": true,
                                 "price": {
                                     "current": 1999,
                                     "currency": "GBP"
@@ -185,6 +191,7 @@
                                 "name": "Large Logan T-Shirt",
                                 "axis": [],
                                 "nameAxis": {},
+                                "available": true,
                                 "price": {
                                     "current": 2999,
                                     "currency": "GBP"
@@ -252,6 +259,7 @@
                     "name": "Logan Mug",
                     "axis": [],
                     "nameAxis": {},
+                    "available": true,
                     "price": {
                         "current": 1999,
                         "currency": "GBP"
@@ -328,16 +336,16 @@
                     "code": "FREE_DOWNLOAD",
                     "axis": [],
                     "nameAxis": {},
+                    "available": true,
                     "price": {
                         "current": 0,
                         "currency": "GBP"
                     },
                     "originalPrice": {
-                        "current": 0,
-                        "currency": "GBP"
+                      "current": 0,
+                      "currency": "GBP"
                     },
                     "images": []
-                }
             },
             "attributes": [],
             "associations": [],
