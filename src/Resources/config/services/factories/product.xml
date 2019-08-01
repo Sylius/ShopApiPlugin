@@ -7,6 +7,7 @@
         <service id="sylius.shop_api_plugin.factory.product_variant_view_factory"
                  class="Sylius\ShopApiPlugin\Factory\Product\ProductVariantViewFactory">
             <argument type="service" id="sylius.shop_api_plugin.factory.price_view_factory"/>
+            <argument type="service" id="sylius.availability_checker"/>
             <argument type="string">%sylius.shop_api.view.product_variant.class%</argument>
         </service>
 
