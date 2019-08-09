@@ -14,9 +14,6 @@ Sylius\ShopApiPlugin\View\Product\ProductVariantView:
         nameAxis:
             expose: true
             type: array<string, string>
-        onHand:
-            expose: true
-            type: int
         price:
             expose: true
             type: Sylius\ShopApiPlugin\View\PriceView
