@@ -67,9 +67,7 @@ parameters:
         type: "string"
 
 paths:
-    /{channelCode}/carts:
-        parameters:
-            -   $ref: "#/parameters/ChannelCode"
+    /carts:
         post:
             tags:
                 - "cart"
@@ -85,9 +83,9 @@ paths:
                     description: "Invalid input"
                     schema:
                         $ref: "#/definitions/GeneralError"
-    /{channelCode}/carts/{token}:
+
+    /carts/{token}:
         parameters:
-            -   $ref: "#/parameters/ChannelCode"
             -   $ref: "#/parameters/CartToken"
         get:
             tags:
@@ -117,9 +115,9 @@ paths:
                     description: "Invalid input (E.g. token has not been found)"
                     schema:
                         $ref: "#/definitions/GeneralError"
-    /{channelCode}/carts/{token}/items:
+
+    /carts/{token}/items:
         parameters:
-            -   $ref: "#/parameters/ChannelCode"
             -   $ref: "#/parameters/CartToken"
         post:
             tags:
@@ -143,9 +141,9 @@ paths:
                     description: "Invalid input, validation failed."
                     schema:
                         $ref: "#/definitions/GeneralError"
-    /{channelCode}/carts/{token}/multiple-items:
+
+    /carts/{token}/multiple-items:
         parameters:
-            -   $ref: "#/parameters/ChannelCode"
             -   $ref: "#/parameters/CartToken"
         post:
             tags:
@@ -169,9 +167,9 @@ paths:
                     description: "Invalid input, validation failed."
                     schema:
                         $ref: "#/definitions/GeneralError"
-    /{channelCode}/carts/{token}/items/{identifier}:
+
+    /carts/{token}/items/{identifier}:
         parameters:
-            -   $ref: "#/parameters/ChannelCode"
             -   $ref: "#/parameters/CartToken"
             -   name: "identifier"
                 in: "path"
@@ -209,9 +207,9 @@ paths:
                     description: "Invalid input (E.g. token has not been found)"
                     schema:
                         $ref: "#/definitions/GeneralError"
-    /{channelCode}/carts/{token}/estimated-shipping-cost:
+
+    /carts/{token}/estimated-shipping-cost:
         parameters:
-            -   $ref: "#/parameters/ChannelCode"
             -   $ref: "#/parameters/CartToken"
         get:
             tags:
@@ -239,9 +237,8 @@ paths:
                     schema:
                         $ref: "#/definitions/GeneralError"
 
-    /{channelCode}/carts/{token}/coupon:
+    /carts/{token}/coupon:
         parameters:
-            -   $ref: "#/parameters/ChannelCode"
             -   $ref: "#/parameters/CartToken"
         put:
             tags:
@@ -275,9 +272,9 @@ paths:
                     description: "Invalid input, validation failed."
                     schema:
                         $ref: "#/definitions/GeneralError"
-    /{channelCode}/checkout/{token}:
+
+    /checkout/{token}:
         parameters:
-            -   $ref: "#/parameters/ChannelCode"
             -   $ref: "#/parameters/CartToken"
         get:
             tags:
@@ -294,9 +291,9 @@ paths:
                     description: "Invalid input (E.g. token has not been found)"
                     schema:
                         $ref: "#/definitions/GeneralError"
-    /{channelCode}/checkout/{token}/address:
+
+    /checkout/{token}/address:
         parameters:
-            -   $ref: "#/parameters/ChannelCode"
             -   $ref: "#/parameters/CartToken"
         put:
             tags:
@@ -317,9 +314,9 @@ paths:
                     description: "Address not valid"
                     schema:
                         $ref: "#/definitions/GeneralError"
-    /{channelCode}/checkout/{token}/shipping:
+
+    /checkout/{token}/shipping:
         parameters:
-            -   $ref: "#/parameters/ChannelCode"
             -   $ref: "#/parameters/CartToken"
         get:
             tags:
@@ -336,9 +333,9 @@ paths:
                     description: "Invalid input, validation failed."
                     schema:
                         $ref: "#/definitions/GeneralError"
-    /{channelCode}/checkout/{token}/shipping/{id}:
+
+    /checkout/{token}/shipping/{id}:
         parameters:
-            -   $ref: "#/parameters/ChannelCode"
             -   $ref: "#/parameters/CartToken"
         put:
             tags:
@@ -364,9 +361,9 @@ paths:
                     description: "Invalid input, validation failed."
                     schema:
                         $ref: "#/definitions/GeneralError"
-    /{channelCode}/checkout/{token}/payment:
+
+    /checkout/{token}/payment:
         parameters:
-            -   $ref: "#/parameters/ChannelCode"
             -   $ref: "#/parameters/CartToken"
         get:
             tags:
@@ -383,9 +380,9 @@ paths:
                     description: "Invalid input, validation failed."
                     schema:
                         $ref: "#/definitions/GeneralError"
-    /{channelCode}/checkout/{token}/payment/{id}:
+
+    /checkout/{token}/payment/{id}:
         parameters:
-            -   $ref: "#/parameters/ChannelCode"
             -   $ref: "#/parameters/CartToken"
         put:
             tags:
@@ -411,9 +408,9 @@ paths:
                     description: "Invalid input, validation failed."
                     schema:
                         $ref: "#/definitions/GeneralError"
-    /{channelCode}/checkout/{token}/complete:
+
+    /checkout/{token}/complete:
         parameters:
-            -   $ref: "#/parameters/ChannelCode"
             -   $ref: "#/parameters/CartToken"
         put:
             tags:
@@ -439,9 +436,8 @@ paths:
             security:
                 - {}
                 -   bearerAuth: []
-    /{channelCode}/taxon-products/by-slug/{taxonSlug}:
-        parameters:
-            -   $ref: "#/parameters/ChannelCode"
+
+    /taxon-products/by-slug/{taxonSlug}:
         get:
             tags:
                 - "products"
@@ -474,9 +470,8 @@ paths:
                     description: "Paginated product list."
                     schema:
                         $ref: "#/definitions/ProductsPage"
-    /{channelCode}/taxon-products/by-code/{taxonCode}:
-        parameters:
-            -   $ref: "#/parameters/ChannelCode"
+
+    /taxon-products/by-code/{taxonCode}:
         get:
             tags:
                 - "products"
@@ -509,9 +504,8 @@ paths:
                     description: "Paginated product list."
                     schema:
                         $ref: "#/definitions/ProductsPage"
-    /{channelCode}/products/by-slug/{slug}:
-        parameters:
-            -   $ref: "#/parameters/ChannelCode"
+
+    /products/by-slug/{slug}:
         get:
             tags:
                 - "products"
@@ -534,9 +528,8 @@ paths:
                     description: "Show a product with the given slug."
                     schema:
                         $ref: "#/definitions/ProductDetails"
-    /{channelCode}/products/by-code/{code}:
-        parameters:
-            -   $ref: "#/parameters/ChannelCode"
+
+    /products/by-code/{code}:
         get:
             tags:
                 - "products"
@@ -559,9 +552,9 @@ paths:
                     description: "Show a product with the given code."
                     schema:
                         $ref: "#/definitions/ProductDetails"
-    /{channelCode}/products/by-slug/{slug}/reviews:
+
+    /products/by-slug/{slug}/reviews:
         parameters:
-            -   $ref: "#/parameters/ChannelCode"
             -   name: "slug"
                 in: "path"
                 description: "Slug of expected product."
@@ -597,9 +590,9 @@ paths:
                     description: "A paginated list of all reviews related to the product identified by slug."
                     schema:
                         $ref: "#/definitions/ProductReviewsPage"
-    /{channelCode}/product/by-code/{code}/reviews:
+
+    /products/by-code/{code}/reviews:
         parameters:
-            -   $ref: "#/parameters/ChannelCode"
             -   name: "code"
                 in: "path"
                 description: "Code of expected product."
@@ -635,9 +628,34 @@ paths:
                     description: "A paginated list of all reviews related to the product identified by slug."
                     schema:
                         $ref: "#/definitions/ProductReviewsPage"
-    /{channelCode}/taxons:
-        parameters:
-            -   $ref: "#/parameters/ChannelCode"
+
+    /product-latest:
+        get:
+            tags:
+                - "products"
+            summary: "Show latest products."
+            description: "This endpoint will return an array of latest products."
+            operationId: "latestProducts"
+            parameters:
+                -   name: "locale"
+                    in: "query"
+                    description: "Locale in which products should be shown."
+                    required: false
+                    type: "string"
+                -   name: "limit"
+                    in: "query"
+                    description: "Number of expected products per page."
+                    required: false
+                    type: "integer"
+            responses:
+                200:
+                    description: "Array of latest products."
+                    schema:
+                        type: "array"
+                        items:
+                            $ref: "#/definitions/Product"
+
+    /taxons:
         get:
             tags:
                 - "taxons"
@@ -657,9 +675,8 @@ paths:
                         type: "array"
                         items:
                             $ref: "#/definitions/Taxon"
-    /{channelCode}/taxons/{code}:
-        parameters:
-            -   $ref: "#/parameters/ChannelCode"
+
+    /taxons/{code}:
         get:
             tags:
                 - "taxons"
@@ -682,9 +699,8 @@ paths:
                     description: "Requested taxon with children."
                     schema:
                         $ref: "#/definitions/TaxonDetails"
-    /{channelCode}/request-password-reset:
-        parameters:
-            -   $ref: "#/parameters/ChannelCode"
+
+    /request-password-reset:
         put:
             tags:
                 - "users"
@@ -702,9 +718,9 @@ paths:
                     description: "Reset password request has been sent."
                 500:
                     description: "User with provided email has not been found."
-    /{channelCode}/password-reset/{token}:
+
+    /password-reset/{token}:
         parameters:
-            -   $ref: "#/parameters/ChannelCode"
             -   in: "path"
                 name: "token"
                 description: "Password reset token."
@@ -727,9 +743,8 @@ paths:
                     description: "Update password request success."
                 400:
                     description: "Token not found."
-    /{channelCode}/register:
-        parameters:
-            -   $ref: "#/parameters/ChannelCode"
+
+    /register:
         post:
             tags:
                 - "users"
@@ -749,7 +764,29 @@ paths:
                     description: "There were validation errors"
                 500:
                     description: "Channel not found"
-    /{channelCode}/orders:
+
+    /login:
+        post:
+            tags:
+                - "users"
+            summary: "Logs the user in and returns the token"
+            description: "This route is needed to log the user in and get an access token."
+            operationId: "loginUser"
+            consumes:
+                - "application/json"
+            parameters:
+                - name: "content"
+                  in: "body"
+                  required: true
+                  schema:
+                      type: object
+                      $ref: "#/definitions/LoginRequest"
+            responses:
+                200:
+                    description: "User was logged in"
+                    example:
+                        token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9"
+    /orders:
         parameters:
             -   $ref: "#/parameters/ChannelCode"
         get:
@@ -768,7 +805,7 @@ paths:
                     description: "User token invalid"
             security:
                 - bearerAuth: []
-    /{channelCode}/orders/{tokenValue}:
+    /orders/{tokenValue}:
         parameters:
             -   $ref: "#/parameters/ChannelCode"
             -   in: "path"
@@ -792,9 +829,8 @@ paths:
                     description: "Order with given tokenValue not found"
             security:
                 -   bearerAuth: []
-    /{channelCode}/me:
-        parameters:
-            -   $ref: "#/parameters/ChannelCode"
+
+    /me:
         get:
             tags:
                 - "users"
@@ -805,8 +841,8 @@ paths:
                     description: "Provides currently logged in user details."
                     schema:
                         $ref: "#/definitions/LoggedInCustomerDetails"
-                500:
-                    description: "There is no currently logged in user."
+                401:
+                    description: "User token invalid"
             security:
                 -   bearerAuth: []
         put:
@@ -826,14 +862,11 @@ paths:
                     schema:
                         $ref: "#/definitions/LoggedInCustomerDetails"
                 401:
-                    description: "User token is invalid."
-                500:
-                    description: "There is no currently logged in user."
+                    description: "User token invalid"
             security:
                 -   bearerAuth: []
-    /{channelCode}/address-book:
-        parameters:
-            -   $ref: "#/parameters/ChannelCode"
+
+    /address-book:
         get:
             tags:
                 - "address"
@@ -874,9 +907,8 @@ paths:
                     description: "The user does not own the address"
             security:
                 -   bearerAuth: []
-    /{channelCode}/address-book/{id}:
-        parameters:
-            -   $ref: "#/parameters/ChannelCode"
+
+    /address-book/{id}:
         put:
             tags:
                 - "address"
@@ -932,9 +964,8 @@ paths:
                     description: "The user does not own the address"
             security:
                 -   bearerAuth: []
-    /{channelCode}/address-book/{id}/default:
-        parameters:
-            -   $ref: "#/parameters/ChannelCode"
+
+    /address-book/{id}/default:
         patch:
             tags:
                 - "address"
@@ -1301,7 +1332,12 @@ definitions:
                 type: "object"
                 additionalProperties:
                     type: "string"
+            onHand:
+                type: "integer"
+                example: 12
             price:
+                $ref: "#/definitions/Price"
+            originalPrice:
                 $ref: "#/definitions/Price"
             images:
                 type: "array"
@@ -1437,6 +1473,9 @@ definitions:
                     rating:
                         type: "integer"
                         example: 5
+                    createdAt:
+                        type: "datetime"
+                        example: "2016-01-02 21:00:10"
                     comment:
                         type: "string"
                         example: "It is a really nice mug."
@@ -1555,6 +1594,15 @@ definitions:
             channel:
                 type: "string"
                 example: "WEB_GB"
+    LoginRequest:
+        type: "object"
+        properties:
+            email:
+                type: "string"
+                example: "test@example.com"
+            password:
+                type: "string"
+                example: "test12334verysecure"
     UpdateUserRequest:
         type: "object"
         properties:

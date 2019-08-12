@@ -1,39 +1,43 @@
 sylius_shop_api_cart:
-    resource: "@ShopApiPlugin/Resources/config/routing/cart.yml"
-    prefix: /shop-api/{channelCode}
+    resource: "@SyliusShopApiPlugin/Resources/config/routing/cart.yml"
+    prefix: /shop-api
 
 sylius_shop_api_product_by_slug:
-    resource: "@ShopApiPlugin/Resources/config/routing/productBySlug.yml"
-    prefix: /shop-api/{channelCode}
+    resource: "@SyliusShopApiPlugin/Resources/config/routing/productBySlug.yml"
+    prefix: /shop-api
 
 sylius_shop_api_product_by_code:
-    resource: "@ShopApiPlugin/Resources/config/routing/productByCode.yml"
-    prefix: /shop-api/{channelCode}
+    resource: "@SyliusShopApiPlugin/Resources/config/routing/productByCode.yml"
+    prefix: /shop-api
 
 sylius_shop_api_taxon:
-    resource: "@ShopApiPlugin/Resources/config/routing/taxon.yml"
-    prefix: /shop-api/{channelCode}
+    resource: "@SyliusShopApiPlugin/Resources/config/routing/taxon.yml"
+    prefix: /shop-api
 
 sylius_shop_api_register:
-    resource: "@ShopApiPlugin/Resources/config/routing/register.yml"
-    prefix: /shop-api/{channelCode}
+    resource: "@SyliusShopApiPlugin/Resources/config/routing/register.yml"
+    prefix: /shop-api
 
 sylius_shop_api_checkout:
-    resource: "@ShopApiPlugin/Resources/config/routing/checkout.yml"
-    prefix: /shop-api/{channelCode}/checkout
+    resource: "@SyliusShopApiPlugin/Resources/config/routing/checkout.yml"
+    prefix: /shop-api/checkout
 
 sylius_shop_api_customer:
-    resource: "@ShopApiPlugin/Resources/config/routing/customer.yml"
-    prefix: /shop-api/{channelCode}
+    resource: "@SyliusShopApiPlugin/Resources/config/routing/customer.yml"
+    prefix: /shop-api
 
 sylius_shop_api_product_list:
-    resource: "@ShopApiPlugin/Resources/config/routing/productList.yml"
-    prefix: /shop-api/{channelCode}
+    resource: "@SyliusShopApiPlugin/Resources/config/routing/productList.yml"
+    prefix: /shop-api
 
 sylius_shop_api_address_book:
-    resource: "@ShopApiPlugin/Resources/config/routing/address_book.yml"
-    prefix: /shop-api/{channelCode}
+    resource: "@SyliusShopApiPlugin/Resources/config/routing/address_book.yml"
+    prefix: /shop-api
 
 sylius_shop_api_order:
-    resource: "@ShopApiPlugin/Resources/config/routing/order.yml"
-    prefix: /shop-api/{channelCode}
+    resource: "@SyliusShopApiPlugin/Resources/config/routing/order.yml"
+    prefix: /shop-api
+
+sylius_shop_api_login:
+    methods: [POST]
+    path: /shop-api/login

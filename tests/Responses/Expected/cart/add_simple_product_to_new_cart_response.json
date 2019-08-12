@@ -29,8 +29,13 @@
             "name": "Logan Mug",
             "axis": [],
             "nameAxis": {},
+            "onHand": 12,
             "price": {
               "current": 1999,
+              "currency": "GBP"
+            },
+            "originalPrice": {
+              "current": 2999,
               "currency": "GBP"
             },
             "images": []
@@ -52,7 +57,7 @@
         ],
         "_links": {
           "self": {
-            "href": "\/shop-api\/WEB_GB\/products\/by-slug\/logan-mug"
+            "href": "\/shop-api\/products\/by-slug\/logan-mug"
           }
         }
       }

@@ -28,6 +28,7 @@
                         "name": "Logan Becher",
                         "axis": [],
                         "nameAxis": {},
+                        "onHand": 12,
                         "price": {
                             "current": 2099,
                             "currency": "EUR"
@@ -51,7 +52,7 @@
                 ],
                 "_links": {
                     "self": {
-                        "href": "\/shop-api\/WEB_DE\/products\/by-slug\/logan-becher"
+                        "href": "\/shop-api\/products\/by-slug\/logan-becher"
                     }
                 }
             }

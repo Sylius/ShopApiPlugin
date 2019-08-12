@@ -37,10 +37,19 @@ final class ProductVariantViewFactory implements ProductVariantViewFactoryInterf
 
         $variantView->code = $variant->getCode();
         $variantView->name = $variant->getTranslation($locale)->getName();
+        $variantView->onHand = $variant->getOnHand();
         $variantView->price = $this->priceViewFactory->create(
             $channelPricing->getPrice(),
             $channel->getBaseCurrency()->getCode()
         );
+
+        $originalPrice = $channelPricing->getOriginalPrice();
+        if (null !== $originalPrice) {
+            $variantView->originalPrice = $this->priceViewFactory->create(
+                $originalPrice,
+                $channel->getBaseCurrency()->getCode()
+            );
+        }
 
         foreach ($variant->getOptionValues() as $optionValue) {
             $variantView->axis[] = $optionValue->getCode();

@@ -22,6 +22,7 @@ Tests\Sylius\ShopApiPlugin\Application\src\Entity\Customer:
         email: "oliver@queen.com"
         emailCanonical: "oliver@queen.com"
         gender: "m"
+        group: "@retail"
         phoneNumber: "0212115512"
 
     hater:
@@ -33,3 +34,8 @@ Tests\Sylius\ShopApiPlugin\Application\src\Entity\Customer:
     guest:
         email: "john@doe.com"
         emailCanonical: "john@doe.com"
+
+Sylius\Component\Customer\Model\CustomerGroup:
+    retail:
+        name: "Retail"
+        code: "retail"

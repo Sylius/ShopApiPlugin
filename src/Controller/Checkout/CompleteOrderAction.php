@@ -6,9 +6,8 @@ namespace Sylius\ShopApiPlugin\Controller\Checkout;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
-use Sylius\ShopApiPlugin\Command\Cart\CompleteOrder;
+use Sylius\ShopApiPlugin\CommandProvider\CommandProviderInterface;
 use Sylius\ShopApiPlugin\Exception\WrongUserException;
-use Sylius\ShopApiPlugin\Provider\LoggedInShopUserProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
@@ -22,33 +21,32 @@ final class CompleteOrderAction
     /** @var MessageBusInterface */
     private $bus;
 
-    /** @var LoggedInShopUserProviderInterface */
-    private $loggedInUserProvider;
+    /** @var CommandProviderInterface */
+    private $assignCustomerToCartCommandProvider;
+
+    /** @var CommandProviderInterface */
+    private $completeOrderCommandProvider;
 
     public function __construct(
         ViewHandlerInterface $viewHandler,
         MessageBusInterface $bus,
-        LoggedInShopUserProviderInterface $loggedInUserProvider
+        CommandProviderInterface $assignCustomerToCartCommandProvider,
+        CommandProviderInterface $completeOrderCommandProvider
     ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
-        $this->loggedInUserProvider = $loggedInUserProvider;
+        $this->assignCustomerToCartCommandProvider = $assignCustomerToCartCommandProvider;
+        $this->completeOrderCommandProvider = $completeOrderCommandProvider;
     }
 
     public function __invoke(Request $request): Response
     {
-        if ($this->loggedInUserProvider->isUserLoggedIn()) {
-            $defaultEmail = $this->loggedInUserProvider->provide()->getEmail();
-        }
-
         try {
-            $this->bus->dispatch(
-                new CompleteOrder(
-                    $request->attributes->get('token'),
-                    $request->request->get('email', $defaultEmail ?? null),
-                    $request->request->get('notes')
-                )
-            );
+            if (null !== $request->request->get('email')) {
+                $this->bus->dispatch($this->assignCustomerToCartCommandProvider->getCommand($request));
+            }
+
+            $this->bus->dispatch($this->completeOrderCommandProvider->getCommand($request));
         } catch (HandlerFailedException $exception) {
             $previousException = $exception->getPrevious();
 

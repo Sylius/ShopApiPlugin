@@ -14,7 +14,7 @@ Sylius\Component\Core\Model\Channel:
     de_web_channel:
         code: "WEB_DE"
         name: "Deutch Channel"
-        hostname: "localhost"
+        hostname: "web-de.com"
         description: "Lorem ipsum"
         baseCurrency: "@euro"
         defaultLocale: "@locale_de_de"

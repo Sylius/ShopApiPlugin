@@ -6,11 +6,11 @@
 
 <h1 align="center">Sylius Shop API </h1>
 
-[![License](https://img.shields.io/packagist/l/sylius/shop-api-plugin.svg)](https://packagist.org/packages/sylius/shop-api-plugin) [![Version](https://img.shields.io/packagist/v/sylius/shop-api-plugin.svg)](https://packagist.org/packages/sylius/shop-api-plugin) [![Build Status](https://travis-ci.org/Sylius/ShopApiPlugin.svg?branch=master)](https://travis-ci.org/Sylius/ShopApiPlugin) [![Scrutinizer Quality Score](https://img.shields.io/scrutinizer/g/Sylius/SyliusShopApiPlugin.svg)](https://scrutinizer-ci.com/g/Sylius/SyliusShopApiPlugin/)
+[![License](https://img.shields.io/packagist/l/sylius/shop-api-plugin.svg)](https://packagist.org/packages/sylius/shop-api-plugin) [![Build Status](https://travis-ci.org/Sylius/ShopApiPlugin.svg?branch=master)](https://travis-ci.org/Sylius/ShopApiPlugin) [![Scrutinizer Quality Score](https://img.shields.io/scrutinizer/g/Sylius/SyliusShopApiPlugin.svg)](https://scrutinizer-ci.com/g/Sylius/SyliusShopApiPlugin/)
 
 <p align="center"><a href="https://sylius.com/plugins/" target="_blank"><img src="https://sylius.com/assets/badge-official-sylius-plugin.png" width="200"></a></p>
 
-<p align="center">This repository contains a plugin that extends the <a href="https://github.com/Sylius/Sylius">Sylius eCommerce Framework</a> with an API in JSON that allows performing all standard shop operations from the customer perspective.</p>
+<p align="center">This repository contains a plugin that extends the <a href="https://github.com/Sylius/Sylius">Sylius eCommerce platform</a> with an API in JSON that allows performing all standard shop operations from the customer perspective.</p>
 
 ## Documentation
 
@@ -18,28 +18,27 @@ The latest documentation is available [here](https://app.swaggerhub.com/apis/Syl
 
 ## Installation
 
-1. Run `composer require sylius/shop-api-plugin:^1.0@beta`.
+##### Before installing SyliusShopApiPlugin, you should disable all SyliusShopBundle's dependencies. You cannot use these packages together.
+
+1. Run `composer require sylius/shop-api-plugin` and, when asked if you want to execute the Flex recipe, answer 'Yes'.
 2. Extend config files:
-    1. Add SyliusShopApi to AppKernel.
+    1. Add SyliusShopApi to `config/bundles.php`.
     ```php
-    // app/AppKernel.php
+    // config/bundles.php
     
-        public function registerBundles(): array
-        {
-            return array_merge(parent::registerBundles(), [
-                new \Sylius\ShopApiPlugin\ShopApiPlugin(),
-            ]);
-        }
+        return [
+            Sylius\ShopApiPlugin\SyliusShopApiPlugin::class => ['all' => true],
+        ];
     ```
     2. Add `- { path: '^/shop-api', priorities: ['json'], fallback_format: json, prefer_extension: true }` to `fos_rest.format_listener.rules` 
-    section in `app/config/config.yml` file and import config from Plugin.
+    section in `config/packages/fos_rest.yaml` file and import config from Plugin.
     ```yml
     # app/config/config.yml
     
-    imports:
+    imports: # <-- Add this section if it does not already exist and add the lines below
         # ...
-        - { resource: "@ShopApiPlugin/Resources/config/app/config.yml" }
-        - { resource: "@ShopApiPlugin/Resources/config/app/sylius_mailer.yml" }
+        - { resource: "@SyliusShopApiPlugin/Resources/config/app/config.yml" }
+        - { resource: "@SyliusShopApiPlugin/Resources/config/app/sylius_mailer.yml" }
 
     # ...
     
@@ -57,71 +56,71 @@ The latest documentation is available [here](https://app.swaggerhub.com/apis/Syl
     3. Adjust checkout configuration to not collide with Sylius shop API. For example
     (assuming, that you are using regular Sylius security definition):
     ```yml
-    # app/config/config.yml
-
-    # ...
+    # config/packages/sylius_shop.yaml
 
     sylius_shop:
         checkout_resolver:
             pattern: "%sylius.security.shop_regex%/checkout/.+"
     ```
 
-    4. Add routing to `app/config/routing.yml`
+    4. Add new routes file to import routes from the SyliusShopApiPlugin
     ```yml
-    # app/config/routing.yml
-    
-    # ...
-    
+    # config/routes/sylius_shop_api.yaml
+
     sylius_shop_api:
-        resource: "@ShopApiPlugin/Resources/config/routing.yml"
+        resource: "@SyliusShopApiPlugin/Resources/config/routing.yml"
     ```
     5. Configure firewall
         1. Change `sylius.security.shop_regex` parameter to exclude `shop-api` prefix also
         2. Add ShopAPI regex parameter `shop_api.security.regex: "^/shop-api"`
         3. Add ShopAPI firewall config:
     ```yml
+    # config/packages/security.yaml
+
     parameters:
         # ...
     
-        sylius.security.shop_regex: "^/(?!admin|api/.*|api$|shop-api)[^/]++" # shop-api has been added inside the brackets
-        shop_api.security.regex: "^/shop-api"
+        sylius.security.shop_regex: "^/(?!admin|api/.*|api$|shop-api|media/.*)[^/]++" # shop-api has been added inside the brackets
+        sylius_shop_api.security.regex: "^/shop-api"
 
     # ... 
 
     security:
         firewalls:
             // ...
-    
-            shop_api:
-                pattern: "%shop_api.security.regex%"
-                stateless:  true
-                anonymous:  true
+
+            sylius_shop_api:
+                pattern: "%sylius_shop_api.security.regex%"
+                stateless: true
+                anonymous: true
+                provider: sylius_shop_user_provider
+                json_login:
+                    check_path: /shop-api/login
+                    username_path: email
+                    password_path: password
+                    success_handler: lexik_jwt_authentication.handler.authentication_success
+                    failure_handler: lexik_jwt_authentication.handler.authentication_failure
+                guard:
+                    authenticators:
+                        - lexik_jwt_authentication.jwt_token_authenticator
     ```
     
     6. (optional) if you have installed `nelmio/NelmioCorsBundle` for Support of Cross-Origin Ajax Request,
         1. Add the NelmioCorsBundle to the AppKernel
     
         ```php
-        // app/AppKernel.php
+        // config/bundles.php
         
-        /**
-         * {@inheritdoc}
-         */
-        public function registerBundles()
-        {
-            $bundles = array(
-                // ...
-                new Nelmio\CorsBundle\NelmioCorsBundle(),
-                // ...
-            );
-            // ...
-        }
+        return [
+            Nelmio\CorsBundle\NelmioCorsBundle:class => ['all' => true],
+        ];
+
         ```
     
-        2. Add the configuration to the `config.yml  
+        2. Add the new configuration file  
     
         ```yml
-        # app/config/config.yml
+        # config/packages/nelmio_cors.yml
         
         # ...
         
@@ -155,16 +154,8 @@ sylius_shop_api:
         - "MUG_MATERIAL_CODE"
 ```
 
-### Authorization
-
-By default no authorization is provided together with this bundle. But it is tested to work along with [LexikJWTAuthenticationBundle](https://github.com/lexik/LexikJWTAuthenticationBundle)
-In order to check example configuration check 
- - [security.yml](https://github.com/Sylius/SyliusShopApiPlugin/blob/master/tests/Application/app/config/security.yml)
- - [jwt parameters](https://github.com/Sylius/SyliusShopApiPlugin/blob/master/tests/Application/app/config/config.yml#L4-L7) and [jwt config](https://github.com/Sylius/SyliusShopApiPlugin/blob/master/tests/Application/app/config/config.yml#L55-L59) in config.yml
- - [example rsa keys](https://github.com/Sylius/SyliusShopApiPlugin/tree/master/tests/Application/app/config/jwt)
- - [login request](https://github.com/Sylius/SyliusShopApiPlugin/blob/master/tests/Controller/CustomerShopApiTest.php#L52-L68)
- 
-From the test app.
+This plugin comes with an integration with [LexikJWTAuthenticationBundle](https://github.com/lexik/LexikJWTAuthenticationBundle/). 
+More information about security customizations may be found there.
 
 ## Testing
 

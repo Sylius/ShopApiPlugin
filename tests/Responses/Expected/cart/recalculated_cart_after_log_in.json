@@ -1,0 +1,84 @@
+{
+    "tokenValue": "SDAOSLEFNWU35H3QLI5325",
+    "channel": "WEB_GB",
+    "currency": "GBP",
+    "locale": "en_GB",
+    "checkoutState": "cart",
+    "items": [
+        {
+            "id": @integer@,
+            "quantity": 1,
+            "total": 1599,
+            "product": {
+                "code": "LOGAN_MUG_CODE",
+                "name": "Logan Mug",
+                "slug": "logan-mug",
+                "channelCode": "WEB_GB",
+                "description": "Some description Lorem ipsum dolor sit amet.",
+                "averageRating": 0,
+                "taxons": {
+                    "main": "MUG",
+                    "others": [
+                        "MUG",
+                        "BRAND"
+                    ]
+                },
+                "variants": [
+                    {
+                        "code": "LOGAN_MUG_CODE",
+                        "name": "Logan Mug",
+                        "axis": [],
+                        "nameAxis": {},
+                        "onHand": 12,
+                        "price": {
+                            "current": 1999,
+                            "currency": "GBP"
+                        },
+                        "originalPrice": {
+                            "current": 2999,
+                            "currency": "GBP"
+                        },
+                        "images": []
+                    }
+                ],
+                "attributes": [
+                    {
+                        "code": "MUG_MATERIAL_CODE",
+                        "name": "Mug material",
+                        "value": "Wood"
+                    }
+                ],
+                "associations": [],
+                "images": [
+                    {
+                        "code": "thumbnail",
+                        "path": "\/uo\/mug.jpg"
+                    }
+                ],
+                "_links": {
+                    "self": {
+                        "href": "\/shop-api\/products\/by-slug\/logan-mug"
+                    }
+                }
+            }
+        }
+    ],
+    "totals": {
+        "total": 1599,
+        "items": 1599,
+        "taxes": 0,
+        "shipping": 0,
+        "promotion": -400
+    },
+    "payments": [],
+    "shipments": [],
+    "cartDiscounts": {
+        "CUSTOMER_PROMOTION": {
+            "name": "Holiday promotion",
+            "amount": {
+                "current": -400,
+                "currency": "GBP"
+            }
+        }
+    }
+}

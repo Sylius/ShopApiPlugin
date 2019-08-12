@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Sylius\ShopApiPlugin\Controller\Utils;
 
 use Sylius\ShopApiPlugin\Command\Cart\AddressOrder;
+use Sylius\ShopApiPlugin\Command\Cart\AssignCustomerToCart;
 use Sylius\ShopApiPlugin\Command\Cart\ChoosePaymentMethod;
 use Sylius\ShopApiPlugin\Command\Cart\ChooseShippingMethod;
 use Sylius\ShopApiPlugin\Command\Cart\CompleteOrder;
@@ -20,6 +21,7 @@ trait OrderPlacerTrait
         /** @var MessageBusInterface $bus */
         $bus = $this->get('sylius_shop_api_plugin.command_bus');
         $bus->dispatch(new PickupCart($token, 'WEB_GB'));
+        $bus->dispatch(new AssignCustomerToCart($token, $email));
         $bus->dispatch(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
         $bus->dispatch(new AddressOrder(
             $token,
@@ -43,7 +45,7 @@ trait OrderPlacerTrait
         ));
         $bus->dispatch(new ChooseShippingMethod($token, 0, 'DHL'));
         $bus->dispatch(new ChoosePaymentMethod($token, 0, 'PBC'));
-        $bus->dispatch(new CompleteOrder($token, $email));
+        $bus->dispatch(new CompleteOrder($token));
     }
 
     /** Function is not typehinted because has to be compatible with \ApiTestCase\ApiTestCase::get($id) */

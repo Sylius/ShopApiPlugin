@@ -51,5 +51,4 @@ Sylius\ShopApiPlugin\View\Product\ProductView:
             href:
                 route: sylius_shop_api_product_show_details_by_slug
                 parameters:
-                    channelCode: expr(object.channelCode)
                     slug: expr(object.slug)

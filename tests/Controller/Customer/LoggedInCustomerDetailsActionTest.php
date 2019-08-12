@@ -17,19 +17,19 @@ final class LoggedInCustomerDetailsActionTest extends JsonApiTestCase
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
 
         $data =
-<<<EOT
+            <<<JSON
         {
-            "_username": "oliver@queen.com",
-            "_password": "123password"
+            "email": "oliver@queen.com",
+            "password": "123password"
         }
-EOT;
+JSON;
 
-        $this->client->request('POST', '/shop-api/login_check', [], [], self::CONTENT_TYPE_HEADER, $data);
+        $this->client->request('POST', '/shop-api/login', [], [], self::CONTENT_TYPE_HEADER, $data);
 
         $response = json_decode($this->client->getResponse()->getContent(), true);
         $this->client->setServerParameter('HTTP_Authorization', sprintf('Bearer %s', $response['token']));
 
-        $this->client->request('GET', '/shop-api/WEB_GB/me', [], [], [
+        $this->client->request('GET', '/shop-api/me', [], [], [
             'CONTENT_TYPE' => 'application/json',
             'ACCEPT' => 'application/json',
         ]);
@@ -41,29 +41,24 @@ EOT;
     /**
      * @test
      */
-    public function it_does_not_show_currently_logged_in_customer_details_in_non_existent_channel(): void
+    public function it_does_not_allow_to_show_customer_details_without_being_logged_in(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
 
         $data =
-<<<EOT
+            <<<JSON
         {
-            "_username": "oliver@queen.com",
-            "_password": "123password"
+            "email": "oliver@queen.com",
+            "password": "123password"
         }
-EOT;
+JSON;
 
-        $this->client->request('POST', '/shop-api/login_check', [], [], self::CONTENT_TYPE_HEADER, $data);
-
-        $response = json_decode($this->client->getResponse()->getContent(), true);
-        $this->client->setServerParameter('HTTP_Authorization', sprintf('Bearer %s', $response['token']));
-
-        $this->client->request('GET', '/shop-api/SPACE_KLINGON/me', [], [], [
+        $this->client->request('GET', '/shop-api/me', [], [], [
             'CONTENT_TYPE' => 'application/json',
             'ACCEPT' => 'application/json',
         ]);
 
         $response = $this->client->getResponse();
-        $this->assertResponse($response, 'channel_has_not_been_found_response', Response::HTTP_NOT_FOUND);
+        $this->assertResponseCode($response, Response::HTTP_UNAUTHORIZED);
     }
 }

@@ -51,5 +51,11 @@
             <argument type="service" id="sylius.shop_user.token_generator.email_verification"/>
             <tag name="messenger.message_handler" />
         </service>
+
+        <service id="sylius.shop_api_plugin.handler.enable_customer_handler"
+                 class="Sylius\ShopApiPlugin\Handler\Customer\EnableCustomerHandler">
+            <argument type="service" id="sylius.repository.shop_user"/>
+            <tag name="messenger.message_handler" />
+        </service>
     </services>
 </container>

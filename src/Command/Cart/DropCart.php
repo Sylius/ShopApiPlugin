@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Command\Cart;
 
-class DropCart
+use Sylius\ShopApiPlugin\Command\CommandInterface;
+
+class DropCart implements CommandInterface
 {
     /** @var string */
     protected $orderToken;

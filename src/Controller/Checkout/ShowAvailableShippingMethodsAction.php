@@ -17,6 +17,7 @@ use Sylius\ShopApiPlugin\Factory\Checkout\ShippingMethodViewFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final class ShowAvailableShippingMethodsAction
 {
@@ -51,8 +52,12 @@ final class ShowAvailableShippingMethodsAction
 
     public function __invoke(Request $request): Response
     {
-        /** @var OrderInterface $cart */
+        /** @var OrderInterface|null $cart */
         $cart = $this->cartRepository->findOneBy(['tokenValue' => $request->attributes->get('token')]);
+
+        if (null === $cart) {
+            throw new NotFoundHttpException('Cart with given token does not exist!');
+        }
 
         if (!$this->isCheckoutTransitionPossible($cart, OrderCheckoutTransitions::TRANSITION_SELECT_SHIPPING)) {
             throw new BadRequestHttpException('The shipment methods cannot be resolved in the current state of cart!');

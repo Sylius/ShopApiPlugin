@@ -6,12 +6,24 @@ Sylius\Component\Core\Model\Promotion:
         actions: ["@10_percent_order_discount"]
         rules: ["@over_50_amount_rule"]
 
+    customer_promotion:
+        code: "CUSTOMER_PROMOTION"
+        name: "Holiday promotion"
+        channels: ["@gb_web_channel", "@de_web_channel"]
+        actions: ["@20_percent_order_discount"]
+        rules: ["@customer_group_rule"]
+
 Sylius\Component\Promotion\Model\PromotionAction:
     10_percent_order_discount:
         type: "order_percentage_discount"
         promotion: "@holiday_promotion"
         configuration:
             percentage: 0.1
+    20_percent_order_discount:
+        type: "order_percentage_discount"
+        promotion: "@customer_promotion"
+        configuration:
+            percentage: 0.2
 
 Sylius\Component\Promotion\Model\PromotionRule:
     over_50_amount_rule:
@@ -22,3 +34,8 @@ Sylius\Component\Promotion\Model\PromotionRule:
                 amount: 5000
             WEB_DE:
                 amount: 5000
+    customer_group_rule:
+        type: "customer_group"
+        promotion: "@customer_promotion"
+        configuration:
+            group_code: 'retail'

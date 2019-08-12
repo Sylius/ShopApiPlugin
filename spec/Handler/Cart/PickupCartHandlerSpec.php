@@ -13,19 +13,24 @@ use Sylius\Component\Currency\Model\CurrencyInterface;
 use Sylius\Component\Locale\Model\LocaleInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\ShopApiPlugin\Command\Cart\PickupCart;
+use Sylius\ShopApiPlugin\Event\CartPickedUp;
 use Sylius\ShopApiPlugin\Handler\Cart\PickupCartHandler;
+use Symfony\Component\Messenger\Envelope;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 final class PickupCartHandlerSpec extends ObjectBehavior
 {
     function let(
         FactoryInterface $cartFactory,
         OrderRepositoryInterface $cartRepository,
-        ChannelRepositoryInterface $channelRepository
+        ChannelRepositoryInterface $channelRepository,
+        MessageBusInterface $eventBus
     ): void {
         $this->beConstructedWith(
             $cartFactory,
             $cartRepository,
-            $channelRepository
+            $channelRepository,
+            $eventBus
         );
     }
 
@@ -41,7 +46,8 @@ final class PickupCartHandlerSpec extends ObjectBehavior
         FactoryInterface $cartFactory,
         LocaleInterface $locale,
         OrderInterface $cart,
-        OrderRepositoryInterface $cartRepository
+        OrderRepositoryInterface $cartRepository,
+        MessageBusInterface $eventBus
     ): void {
         $channelRepository->findOneByCode('CHANNEL_CODE')->willReturn($channel);
         $channel->getBaseCurrency()->willReturn($currency);
@@ -57,6 +63,10 @@ final class PickupCartHandlerSpec extends ObjectBehavior
         $cart->setLocaleCode('de_DE')->shouldBeCalled();
 
         $cartRepository->add($cart)->shouldBeCalledOnce();
+
+        $cartPickedUp = new CartPickedUp('ORDERTOKEN');
+
+        $eventBus->dispatch($cartPickedUp)->willReturn(new Envelope($cartPickedUp))->shouldBeCalled();
 
         $this(new PickupCart('ORDERTOKEN', 'CHANNEL_CODE'));
     }

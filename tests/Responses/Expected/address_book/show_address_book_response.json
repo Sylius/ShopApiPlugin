@@ -3,39 +3,117 @@
         "id": @integer@,
         "firstName": "Jeanie",
         "lastName": "Metz",
+        "phoneNumber": "349713",
+        "company": "Sylius",
         "countryCode": "GB",
+        "provinceCode": "GB-SCT",
         "street": "McGlynn Island",
         "city": "Klingside",
         "postcode": "33553",
-        "provinceCode": "GB-SCT",
-        "company": "Sylius",
-        "phoneNumber": "349713",
-        "default": false
+        "customer": {
+            "id": @integer@,
+            "email": "oliver@queen.com",
+            "emailCanonical": "oliver@queen.com",
+            "firstName": "Oliver",
+            "lastName": "Queen",
+            "gender": "m",
+            "group": {
+                "id": @integer@,
+                "code": "retail",
+                "name": "Retail"
+            },
+            "user": {
+                "id": @integer@,
+                "username": "oliver@queen.com",
+                "usernameCanonical": "oliver@queen.com",
+                "roles": [
+                    "ROLE_USER"
+                ],
+                "enabled": true
+            },
+            "_links": {
+                "self": {
+                    "href": "@string@.contains('/api/v1/customers/')"
+                }
+            }
+        }
     },
     {
         "id": @integer@,
         "firstName": "Jeanie",
         "lastName": "Metz",
+        "phoneNumber": "349713",
+        "company": "Locastic",
         "countryCode": "GB",
+        "provinceCode": "GB-SCT",
         "street": "Kupreska",
         "city": "Klingside",
         "postcode": "33553",
-        "provinceCode": "GB-SCT",
-        "company": "Locastic",
-        "phoneNumber": "349713",
-        "default": false
+        "customer": {
+            "id": @integer@,
+            "email": "oliver@queen.com",
+            "emailCanonical": "oliver@queen.com",
+            "firstName": "Oliver",
+            "lastName": "Queen",
+            "gender": "m",
+            "group": {
+                "id": @integer@,
+                "code": "retail",
+                "name": "Retail"
+            },
+            "user": {
+                "id": @integer@,
+                "username": "oliver@queen.com",
+                "usernameCanonical": "oliver@queen.com",
+                "roles": [
+                    "ROLE_USER"
+                ],
+                "enabled": true
+            },
+            "_links": {
+                "self": {
+                    "href": "@string@.contains('/api/v1/customers/')"
+                }
+            }
+        }
     },
     {
         "id": @integer@,
         "firstName": "Jeanie",
         "lastName": "Metz",
+        "phoneNumber": "349713",
+        "company": "Locastic",
         "countryCode": "GB",
+        "provinceCode": "GB-SCT",
         "street": "Lurline Springs",
         "city": "Klingside",
         "postcode": "33553",
-        "provinceCode": "GB-SCT",
-        "company": "Locastic",
-        "phoneNumber": "349713",
-        "default": false
+        "customer": {
+            "id": @integer@,
+            "email": "oliver@queen.com",
+            "emailCanonical": "oliver@queen.com",
+            "firstName": "Oliver",
+            "lastName": "Queen",
+            "gender": "m",
+            "group": {
+                "id": @integer@,
+                "code": "retail",
+                "name": "Retail"
+            },
+            "user": {
+                "id": @integer@,
+                "username": "oliver@queen.com",
+                "usernameCanonical": "oliver@queen.com",
+                "roles": [
+                    "ROLE_USER"
+                ],
+                "enabled": true
+            },
+            "_links": {
+                "self": {
+                    "href": "@string@.contains('/api/v1/customers/')"
+                }
+            }
+        }
     }
 ]

@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Command\Customer;
 
-class UpdateCustomer
+use Sylius\ShopApiPlugin\Command\CommandInterface;
+
+class UpdateCustomer implements CommandInterface
 {
     /** @var string */
     protected $firstName;

@@ -14,6 +14,7 @@
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <imports>
         <import resource="services/authenticator.xml"/>
+        <import resource="services/command_providers.xml"/>
         <import resource="services/controllers.xml"/>
         <import resource="services/encoder.xml"/>
         <import resource="services/factories.xml"/>
@@ -66,16 +67,31 @@
         </service>
 
         <service
-                id="sylius.shop_api_plugin.normalizer.request_cart_token_normalizer"
-                class="Sylius\ShopApiPlugin\Normalizer\RequestCartTokenNormalizer"
+            id="sylius.shop_api_plugin.normalizer.request_cart_token_normalizer"
+            class="Sylius\ShopApiPlugin\Normalizer\RequestCartTokenNormalizer"
         >
-            <argument type="service" id="validator" />
             <argument type="service" id="sylius_shop_api_plugin.command_bus" />
+            <argument type="service" id="sylius.context.channel" />
+            <argument type="service" id="sylius.shop_api_plugin.command_provider.pickup_cart" />
         </service>
 
-        <!-- Removing the create cart context from composite context (see: https://github.com/Sylius/Sylius/issues/10192) -->
-        <service id="sylius.context.cart.new" class="Sylius\Component\Order\Context\CartContext">
-            <argument type="service" id="sylius.factory.order" />
+        <service
+            id="sylius.listener.cart_blamer"
+            class="Sylius\ShopApiPlugin\EventListener\CartBlamerListener"
+        >
+            <argument type="service" id="sylius.repository.order" />
+            <argument type="service" id="sylius_shop_api_plugin.command_bus" />
+            <argument type="service" id="request_stack" />
+            <tag name="kernel.event_listener" event="lexik_jwt_authentication.on_jwt_created" method="onJwtLogin" />
+        </service>
+
+        <service
+            id="sylius.shop_api_plugin.event_listener.messenger.cart_picked_up_listener"
+            class="Sylius\ShopApiPlugin\EventListener\Messenger\CartPickedUpListener"
+        >
+            <argument type="service" id="sylius.shop_api_plugin.provider.current_user_provider" />
+            <argument type="service" id="sylius_shop_api_plugin.command_bus" />
+            <tag name="messenger.message_handler" />
         </service>
     </services>
 </container>

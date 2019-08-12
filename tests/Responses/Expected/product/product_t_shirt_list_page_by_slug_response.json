@@ -4,10 +4,10 @@
     "pages": 1,
     "total": 1,
     "_links": {
-        "self": "\/shop-api\/WEB_GB\/taxon-products\/by-slug\/categories\/t-shirts\/women-t-shirts?page=1&limit=10",
-        "first": "\/shop-api\/WEB_GB\/taxon-products\/by-slug\/categories\/t-shirts\/women-t-shirts?page=1&limit=10",
-        "last": "\/shop-api\/WEB_GB\/taxon-products\/by-slug\/categories\/t-shirts\/women-t-shirts?page=1&limit=10",
-        "next": "\/shop-api\/WEB_GB\/taxon-products\/by-slug\/categories\/t-shirts\/women-t-shirts?page=1&limit=10"
+        "self": "\/shop-api\/taxon-products\/by-slug\/categories\/t-shirts\/women-t-shirts?page=1&limit=10",
+        "first": "\/shop-api\/taxon-products\/by-slug\/categories\/t-shirts\/women-t-shirts?page=1&limit=10",
+        "last": "\/shop-api\/taxon-products\/by-slug\/categories\/t-shirts\/women-t-shirts?page=1&limit=10",
+        "next": "\/shop-api\/taxon-products\/by-slug\/categories\/t-shirts\/women-t-shirts?page=1&limit=10"
     },
     "items": [
         {
@@ -30,6 +30,7 @@
                     "name": "Small Logan T-Shirt",
                     "axis": [],
                     "nameAxis": {},
+                    "onHand": 0,
                     "price": {
                         "current": 1999,
                         "currency": "GBP"
@@ -46,6 +47,7 @@
                     "name": "Large Logan T-Shirt",
                     "axis": [],
                     "nameAxis": {},
+                    "onHand": 0,
                     "price": {
                         "current": 2999,
                         "currency": "GBP"
@@ -76,7 +78,7 @@
             ],
             "_links": {
                 "self": {
-                    "href": "\/shop-api\/WEB_GB\/products\/by-slug\/logan-t-shirt"
+                    "href": "\/shop-api\/products\/by-slug\/logan-t-shirt"
                 }
             }
         }

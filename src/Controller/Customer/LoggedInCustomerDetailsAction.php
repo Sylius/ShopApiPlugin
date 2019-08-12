@@ -6,10 +6,10 @@ namespace Sylius\ShopApiPlugin\Controller\Customer;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
-use Sylius\Component\Core\Model\ShopUserInterface;
+use Sylius\ShopApiPlugin\Factory\Customer\CustomerViewFactoryInterface;
+use Sylius\ShopApiPlugin\Provider\LoggedInShopUserProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Webmozart\Assert\Assert;
 
 final class LoggedInCustomerDetailsAction
@@ -17,32 +17,31 @@ final class LoggedInCustomerDetailsAction
     /** @var ViewHandlerInterface */
     private $viewHandler;
 
-    /** @var TokenStorageInterface */
-    private $tokenStorage;
+    /** @var LoggedInShopUserProviderInterface */
+    private $loggedInShopUserProvider;
 
-    public function __construct(ViewHandlerInterface $viewHandler, TokenStorageInterface $tokenStorage)
-    {
+    /** @var CustomerViewFactoryInterface */
+    private $customerViewFactory;
+
+    public function __construct(
+        ViewHandlerInterface $viewHandler,
+        LoggedInShopUserProviderInterface $loggedInShopUserProvider,
+        CustomerViewFactoryInterface $customerViewFactory
+    ) {
         $this->viewHandler = $viewHandler;
-        $this->tokenStorage = $tokenStorage;
+        $this->loggedInShopUserProvider = $loggedInShopUserProvider;
+        $this->customerViewFactory = $customerViewFactory;
     }
 
     public function __invoke(Request $request): Response
     {
-        /** @var ShopUserInterface $user */
-        $user = $this->tokenStorage->getToken()->getUser();
+        if (!$this->loggedInShopUserProvider->isUserLoggedIn()) {
+            return $this->viewHandler->handle(View::create(null, Response::HTTP_UNAUTHORIZED));
+        }
 
-        Assert::isInstanceOf($user, ShopUserInterface::class);
+        $customer = $this->loggedInShopUserProvider->provide()->getCustomer();
+        Assert::notNull($customer);
 
-        $customer = $user->getCustomer();
-
-        return $this->viewHandler->handle(View::create([
-            'firstName' => $customer->getFirstName(),
-            'lastName' => $customer->getLastName(),
-            'email' => $customer->getEmail(),
-            'gender' => $customer->getGender(),
-            'birthday' => $customer->getBirthday(),
-            'phoneNumber' => $customer->getPhoneNumber(),
-            'subscribedToNewsletter' => $customer->isSubscribedToNewsletter(),
-        ], Response::HTTP_OK));
+        return $this->viewHandler->handle(View::create($this->customerViewFactory->create($customer)));
     }
 }

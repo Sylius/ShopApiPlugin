@@ -9,8 +9,8 @@
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="sylius_shop_api_plugin.command_bus" />
-            <argument type="service" id="validator" />
             <argument type="service" id="sylius.shop_api_plugin.factory.validation_error_view_factory" />
+            <argument type="service" id="sylius.shop_api_plugin.command_provider.address_order" />
         </service>
 
         <service id="sylius.shop_api_plugin.controller.checkout.show_available_shipping_methods_action"
@@ -28,6 +28,7 @@
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="sylius_shop_api_plugin.command_bus" />
+            <argument type="service" id="sylius.shop_api_plugin.command_provider.choose_shipping_method" />
         </service>
 
         <service id="sylius.shop_api_plugin.controller.checkout.show_available_payment_methods_action"
@@ -45,14 +46,17 @@
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="sylius_shop_api_plugin.command_bus" />
+            <argument type="service" id="sylius.shop_api_plugin.command_provider.choose_payment_method" />
         </service>
 
-        <service id="sylius.shop_api_plugin.controller.checkout.complete_order_action"
-                 class="Sylius\ShopApiPlugin\Controller\Checkout\CompleteOrderAction"
+        <service
+            id="sylius.shop_api_plugin.controller.checkout.complete_order_action"
+            class="Sylius\ShopApiPlugin\Controller\Checkout\CompleteOrderAction"
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="sylius_shop_api_plugin.command_bus" />
-            <argument type="service" id="sylius.shop_api_plugin.provider.current_user_provider" />
+            <argument type="service" id="sylius.shop_api_plugin.command_provider.assign_customer_to_cart" />
+            <argument type="service" id="sylius.shop_api_plugin.command_provider.complete_order" />
         </service>
     </services>
 </container>

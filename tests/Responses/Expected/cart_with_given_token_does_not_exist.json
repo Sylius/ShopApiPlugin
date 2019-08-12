@@ -1,0 +1,4 @@
+{
+    "code": 404,
+    "message": "Cart with given token does not exist!"
+}

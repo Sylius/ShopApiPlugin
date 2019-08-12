@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<container xmlns="http://symfony.com/schema/dic/services">
+    <imports>
+        <import resource="command_providers/**/*"/>
+    </imports>
+</container>

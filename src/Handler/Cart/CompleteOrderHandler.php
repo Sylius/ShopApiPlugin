@@ -9,7 +9,6 @@ use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\OrderCheckoutTransitions;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\ShopApiPlugin\Command\Cart\CompleteOrder;
-use Sylius\ShopApiPlugin\Provider\CustomerProviderInterface;
 use Webmozart\Assert\Assert;
 
 final class CompleteOrderHandler
@@ -17,19 +16,12 @@ final class CompleteOrderHandler
     /** @var OrderRepositoryInterface */
     private $orderRepository;
 
-    /** @var CustomerProviderInterface */
-    private $customerProvider;
-
     /** @var StateMachineFactory */
     private $stateMachineFactory;
 
-    public function __construct(
-        OrderRepositoryInterface $orderRepository,
-        CustomerProviderInterface $customerProvider,
-        StateMachineFactory $stateMachineFactory
-    ) {
+    public function __construct(OrderRepositoryInterface $orderRepository, StateMachineFactory $stateMachineFactory)
+    {
         $this->orderRepository = $orderRepository;
-        $this->customerProvider = $customerProvider;
         $this->stateMachineFactory = $stateMachineFactory;
     }
 
@@ -44,9 +36,7 @@ final class CompleteOrderHandler
 
         Assert::true($stateMachine->can(OrderCheckoutTransitions::TRANSITION_COMPLETE), sprintf('Order with %s token cannot be completed.', $completeOrder->orderToken()));
 
-        $customer = $this->customerProvider->provide($completeOrder->email());
         $order->setNotes($completeOrder->notes());
-        $order->setCustomer($customer);
 
         $stateMachine->apply(OrderCheckoutTransitions::TRANSITION_COMPLETE);
     }

@@ -4,71 +4,81 @@
     "pages": 3,
     "total": 25,
     "_links": {
-        "self": "\/shop-api\/WEB_GB\/products\/by-code\/LOGAN_MUG_CODE\/reviews?page=1&limit=10",
-        "first": "\/shop-api\/WEB_GB\/products\/by-code\/LOGAN_MUG_CODE\/reviews?page=1&limit=10",
-        "last": "\/shop-api\/WEB_GB\/products\/by-code\/LOGAN_MUG_CODE\/reviews?page=3&limit=10",
-        "next": "\/shop-api\/WEB_GB\/products\/by-code\/LOGAN_MUG_CODE\/reviews?page=2&limit=10"
+        "self": "\/shop-api\/products\/by-code\/LOGAN_MUG_CODE\/reviews?page=1&limit=10",
+        "first": "\/shop-api\/products\/by-code\/LOGAN_MUG_CODE\/reviews?page=1&limit=10",
+        "last": "\/shop-api\/products\/by-code\/LOGAN_MUG_CODE\/reviews?page=3&limit=10",
+        "next": "\/shop-api\/products\/by-code\/LOGAN_MUG_CODE\/reviews?page=2&limit=10"
     },
     "items": [
         {
             "title": "Nice mug",
             "rating": @integer@,
             "comment": "@string@",
-            "author": "oliver@queen.com"
+            "author": "oliver@queen.com",
+            "createdAt": "@string@.isDateTime()"
         },
         {
             "title": "Nice mug",
             "rating": @integer@,
             "comment": "@string@",
-            "author": "oliver@queen.com"
+            "author": "oliver@queen.com",
+            "createdAt": "@string@.isDateTime()"
         },
         {
             "title": "Nice mug",
             "rating": @integer@,
             "comment": "@string@",
-            "author": "oliver@queen.com"
+            "author": "oliver@queen.com",
+            "createdAt": "@string@.isDateTime()"
         },
         {
             "title": "Nice mug",
             "rating": @integer@,
             "comment": "@string@",
-            "author": "oliver@queen.com"
+            "author": "oliver@queen.com",
+            "createdAt": "@string@.isDateTime()"
         },
         {
             "title": "Nice mug",
             "rating": @integer@,
             "comment": "@string@",
-            "author": "oliver@queen.com"
+            "author": "oliver@queen.com",
+            "createdAt": "@string@.isDateTime()"
         },
         {
             "title": "Nice mug",
             "rating": @integer@,
             "comment": "@string@",
-            "author": "oliver@queen.com"
+            "author": "oliver@queen.com",
+            "createdAt": "@string@.isDateTime()"
         },
         {
             "title": "Nice mug",
             "rating": @integer@,
             "comment": "@string@",
-            "author": "oliver@queen.com"
+            "author": "oliver@queen.com",
+            "createdAt": "@string@.isDateTime()"
         },
         {
             "title": "Nice mug",
             "rating": @integer@,
             "comment": "@string@",
-            "author": "oliver@queen.com"
+            "author": "oliver@queen.com",
+            "createdAt": "@string@.isDateTime()"
         },
         {
             "title": "Nice mug",
             "rating": @integer@,
             "comment": "@string@",
-            "author": "oliver@queen.com"
+            "author": "oliver@queen.com",
+            "createdAt": "@string@.isDateTime()"
         },
         {
             "title": "Nice mug",
             "rating": @integer@,
             "comment": "@string@",
-            "author": "oliver@queen.com"
+            "author": "oliver@queen.com",
+            "createdAt": "@string@.isDateTime()"
         }
     ]
 }

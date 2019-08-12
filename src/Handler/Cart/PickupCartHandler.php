@@ -10,6 +10,8 @@ use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\ShopApiPlugin\Command\Cart\PickupCart;
+use Sylius\ShopApiPlugin\Event\CartPickedUp;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Webmozart\Assert\Assert;
 
 final class PickupCartHandler
@@ -23,14 +25,19 @@ final class PickupCartHandler
     /** @var ChannelRepositoryInterface */
     private $channelRepository;
 
+    /** @var MessageBusInterface */
+    private $eventBus;
+
     public function __construct(
         FactoryInterface $cartFactory,
         OrderRepositoryInterface $cartRepository,
-        ChannelRepositoryInterface $channelRepository
+        ChannelRepositoryInterface $channelRepository,
+        MessageBusInterface $eventBus
     ) {
         $this->cartFactory = $cartFactory;
         $this->cartRepository = $cartRepository;
         $this->channelRepository = $channelRepository;
+        $this->eventBus = $eventBus;
     }
 
     public function __invoke(PickupCart $pickupCart): void
@@ -48,5 +55,7 @@ final class PickupCartHandler
         $cart->setTokenValue($pickupCart->orderToken());
 
         $this->cartRepository->add($cart);
+
+        $this->eventBus->dispatch(new CartPickedUp($pickupCart->orderToken()));
     }
 }
