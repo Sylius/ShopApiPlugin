@@ -30,7 +30,7 @@ final class GuestOrderShowApiTest extends JsonApiTestCase
         $jwt = $encoder->encode($order);
 
         $this->client->setServerParameter(self::GUEST_TOKEN_HEADER, $jwt);
-        $this->client->request(Request::METHOD_GET, '/shop-api/WEB_GB/guest/order');
+        $this->client->request(Request::METHOD_GET, '/shop-api/guest/order');
         $response = $this->client->getResponse();
         $this->assertResponse($response, 'order/guest_order_summary_response');
     }
@@ -40,7 +40,7 @@ final class GuestOrderShowApiTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['shop.yml', 'order.yml', 'customer.yml', 'address.yml']);
 
-        $this->client->request(Request::METHOD_GET, '/shop-api/WEB_GB/guest/order');
+        $this->client->request(Request::METHOD_GET, '/shop-api/guest/order');
         $response = $this->client->getResponse();
         $this->assertResponseCode($response, Response::HTTP_UNAUTHORIZED);
     }
@@ -53,7 +53,7 @@ final class GuestOrderShowApiTest extends JsonApiTestCase
         $jwt = 'abc';
 
         $this->client->setServerParameter(self::GUEST_TOKEN_HEADER, $jwt);
-        $this->client->request(Request::METHOD_GET, '/shop-api/WEB_GB/guest/order');
+        $this->client->request(Request::METHOD_GET, '/shop-api/guest/order');
         $response = $this->client->getResponse();
         $this->assertResponseCode($response, Response::HTTP_UNAUTHORIZED);
     }

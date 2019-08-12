@@ -57,10 +57,8 @@ security:
             stateless: true
             anonymous: true
             provider: sylius_guest_user_provider
-            json_login:
+            form_login:
                 check_path: /shop-api/login/guest
-                username_path: email
-                password_path: password
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
                 require_previous_session: false
