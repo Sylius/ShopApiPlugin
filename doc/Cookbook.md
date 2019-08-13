@@ -6,10 +6,20 @@ In the default implementation of the Sylius Solution there is already an API imp
 
 ## How does the Shop Api work
 * General Flow Diagram
+The general approach that Shop Api takes is that every request is validated by the `CommandProvider` and then converted into a Command by this class.
+
+### The Components
+**Request**: ShopApi has its own request object. This object should abstract away the HTTP Request to a more general request type. Futhermore it also acts as an object that can be validated as all validation rules are defined for the request objects only (commands are not validated)
+**Command**: The command class is an implementation agnostic class that holds the relevant data for handling the command.
+**Hanlder**: The Handler is the class that defines the logic what happens when a certain command is called. Here we have the buisness logic.
 
 ### Command - Handler Structure
+The Command handling has multiple parts to it. When dispatching a command the `MessageBus` looks for a handler that has an `__invoke` method with the parameter type that matches the type of the command that was dispatched. Before and after the handler is executed there is a way for a "Middleware" to be executed (see below). The CommandHandler itself however doesn't return anything (this is not a technical limitation that is just the convention we chose in ShopApi).
+
+> Important: The enties that you are touching (meaning loading from the EntityManager and changing) in the `CommandHandler` are flushed in the Middleware.
 
 ### Middleware
+TODO!
 
 ## Extending Shop Api
 
