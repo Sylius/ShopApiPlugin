@@ -17,7 +17,7 @@ The general approach that Shop Api takes is that every request is validated by t
 
 **ViewFactory**: The view factories are responsible for converting the entities into views.
 
-**Views**: Views are primitive object that only hold scalars or other View objects which can be easily serialzied.
+**Views**: Views are primitive objects that only hold scalars or other View objects which can be easily serialzied.
 
 **ViewRepository**: ViewRepositories are repositories that return view objects from the entities they are fetched.
 
@@ -41,7 +41,8 @@ final class AddLocalizedCouponRequest extends AddCouponRequest
     /** @var string */
     protected $locale;
 
-    protected function __construct(Request $request){
+    protected function __construct(Request $request)
+    {
         parent::__construct($request);
 
         $this->locale = $request->getLocale();
@@ -53,7 +54,12 @@ final class AddLocalizedCouponRequest extends AddCouponRequest
     }
 }
 ```
-In the same manner the command would need to be created and extending from the `AddCoupon` class. After that the only thing left to do is to is change the request class that is used in the `AddCouponAction` which can be done with configuting the correct request class in the `sylius_shop_api.yml` in the `config` directory.
+In the same manner the command would need to be created and extending from the `AddCoupon` class. To change the flow from using the Shop Api request and command object to your own structure you only need to change one parameter in the configuration under the `sylius_shop_api.yml` like so:
+```yml
+sylius_shop_api:
+    request_classes:
+        add_coupon: \AddLocalizedCouponRequest
+```
 
 ### Extending handlers
 The main way to extend a handler is to wrap it. This makes it easy to add functionality before and after the handler without the need to change anything. However, if you want to change the logic in the handler, you need to overwrite it. This can be done by registering the new handler with the same service id. **Do not just add it with a new service id** otherwise, it will execute both handlers.
@@ -61,7 +67,45 @@ The main way to extend a handler is to wrap it. This makes it easy to add functi
 ### Extending views
 When extending the views, three places need to be modified, the view class, the view factory, and the view repository (if there are any). The view class is a configuration that can be modified in the `sylius_shop_api.yml` file under the `config` folder. Which in turn gets copied over to a container parameter by the `DependencyInjection/Configuration.php` file where also the request classes are registered.
 
-The ViewFactories, as well as the ViewRepositories, can be either completely replaced or the preferred way of doing it if you only want to add features to it, decorate the classes.
+ViewFactories, as well as the ViewRepositories, can be either completely replaced or the preferred way of doing it if you only want to add features to it, decorate the classes.
+
+```php
+use Sylius\ShopApiPlugin\Factory\Cart\TotalViewFactory;
+
+class NiceTotalViewFactory implements TotalViewFactoryInterface
+{
+    private $innerTotalViewFactory;
+
+    public function __construct(TotalViewFactoryInterface $innerTotalViewFactory)
+    {
+        $this->innerTotalViewFactory = $innerTotalViewFactory;
+    }
+
+    public function create(OrderInterface $order): NiceTotalView
+    {
+        /** @var NiceTotalView $totalView */
+        $totalView = $this->innerTotalViewFactory->createNew();
+
+        $totalView->nicePersonDiscount = $orderInterface->getNiceDiscount();
+
+        return $totalView;
+    }
+}
+```
+and this is configured like this:
+```xml
+<service class="NiceTotalView"
+         id="app.factory.nice_total_view_factory"
+         decorates="sylius.shop_api_plugin.factory.total_view_factory">
+    <argument type="service" id="app.factory.nice_total_view_factory.inner" />
+</service>
+```
+and to change the view class in sylius:
+```yml
+sylius_shop_api:
+    view_classes:
+        total: \NiceTotalView
+```
 
 ### Custom Channel Handlers
 The default way that Sylius tries to resolve channels is through the hostname. However, if you want to add your own way of resolving a channel, for example from a route parameter, you need to do two things:
@@ -77,7 +121,7 @@ class RequestAttributeChannelContext implements ChannelContext
     public function __construct(ChannelRepositoryInterface $channelRepository, RequestStack $requestStack)
     {
         $this->channelRepository = $channelRepository;
-        $this->requestStack = $requestStack
+        $this->requestStack = $requestStack;
     }
 
     public function getChannel(): ChannelInterface
