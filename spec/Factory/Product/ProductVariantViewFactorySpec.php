@@ -150,7 +150,6 @@ final class ProductVariantViewFactorySpec extends ObjectBehavior
         $variantView->price = new PriceView();
         $variantView->originalPrice = new PriceView();
         $variantView->axis = ['HAT_SIZE_S', 'HAT_COLOR_RED'];
-        $variantView->onHand = 0;
         $variantView->nameAxis = [
             'HAT_SIZE_S' => 'Size S',
             'HAT_COLOR_RED' => 'Color Red',
