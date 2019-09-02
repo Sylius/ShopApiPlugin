@@ -9,3 +9,9 @@ sylius_shop_api_update_customer:
      methods: [PUT]
      defaults:
         _controller: sylius.shop_api_plugin.controller.customer.update_customer_action
+
+sylius_shop_api_change_password:
+    path: /me/change-password
+    methods: [PUT]
+    defaults:
+        _controller: sylius.controller.shop_user:changePasswordAction

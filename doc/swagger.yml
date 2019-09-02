@@ -866,6 +866,26 @@ paths:
             security:
                 -   bearerAuth: []
 
+    /me/change-password:
+        put:
+            tags:
+                - "users"
+            summary: "Updates the password of the user that is currently logged in."
+            operationId: "changePassword"
+            parameters:
+                -   name: "content"
+                    in: "body"
+                    required: true
+                    schema:
+                        $ref: "#/definitions/ChangePasswordRequest"
+            responses:
+                204:
+                    description: "Update password request success"
+                400:
+                    description: "There were validation errors"
+                401:
+                    description: "User token invalid"
+
     /address-book:
         get:
             tags:
@@ -1627,6 +1647,14 @@ definitions:
             subscribedToNewsletter:
                 type: "integer"
                 example: 0
+    ChangePasswordRequest:
+        type: "object"
+        properties:
+            currentPassword:
+                type: "string"
+                example: "current-user-password"
+            newPassword:
+                $ref: "#/definitions/PasswordReset"
     LoggedInCustomerDetails:
         type: "object"
         properties:
