@@ -16,7 +16,7 @@ final class ShowTreeApiTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
-        $this->client->request('GET', '/shop-api/taxons/', [], [], self::CONTENT_TYPE_HEADER);
+        $this->client->request('GET', '/shop-api/taxons', [], [], self::CONTENT_TYPE_HEADER);
 
         $response = $this->client->getResponse();
 
@@ -30,7 +30,7 @@ final class ShowTreeApiTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
-        $this->client->request('GET', '/shop-api/taxons/?locale=de_DE', [], [], self::CONTENT_TYPE_HEADER);
+        $this->client->request('GET', '/shop-api/taxons?locale=de_DE', [], [], self::CONTENT_TYPE_HEADER);
 
         $response = $this->client->getResponse();
 

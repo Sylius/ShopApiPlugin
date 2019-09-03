@@ -133,7 +133,7 @@ JSON;
 
     private function createAddress(string $data): Response
     {
-        $this->client->request('POST', '/shop-api/address-book/', [], [], self::CONTENT_TYPE_HEADER, $data);
+        $this->client->request('POST', '/shop-api/address-book', [], [], self::CONTENT_TYPE_HEADER, $data);
 
         return $this->client->getResponse();
     }

@@ -37,7 +37,7 @@ final class ShowApiTest extends JsonApiTestCase
 
     private function showAddressBook(): Response
     {
-        $this->client->request('GET', '/shop-api/address-book/', [], [], self::CONTENT_TYPE_HEADER);
+        $this->client->request('GET', '/shop-api/address-book', [], [], self::CONTENT_TYPE_HEADER);
 
         return $this->client->getResponse();
     }
