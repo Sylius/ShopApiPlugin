@@ -5,7 +5,7 @@ sylius_shop_api_taxon_show_details:
         _controller: sylius.shop_api_plugin.controller.taxon.show_taxon_details_action
 
 sylius_shop_api_taxon_show_tree:
-    path: /taxons/
+    path: /taxons
     methods: [GET]
     defaults:
         _controller: sylius.shop_api_plugin.controller.taxon.show_taxon_tree_action

@@ -1,5 +1,5 @@
 sylius_shop_api_product_show_latest:
-    path: /product-latest/
+    path: /product-latest
     methods: [GET]
     defaults:
         _controller: sylius.shop_api_plugin.controller.product.show_latest_product_action
