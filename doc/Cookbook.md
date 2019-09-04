@@ -119,7 +119,9 @@ The default way that Sylius tries to resolve channels is through the hostname. H
 1. Create a class that resolves the URL to a channel
 
 ```php
-class RequestAttributeChannelContext implements ChannelContext
+use Sylius\Component\Channel\Context\ChannelContextInterface;
+
+class RequestAttributeChannelContext implements ChannelContextInterface
 {
     private $channelRepository;
     private $requestStack;
@@ -151,3 +153,5 @@ class RequestAttributeChannelContext implements ChannelContext
     <tag name="sylius.context.channel" priority="100" />
 </service>
 ```
+### Handling Payments via API
+**Currently the API does not support any kind of payments.** A simple way to implement this is to define an endpoint that will take the payment data and process it in Sylius. One approach here is to make all payments in Sylius "offline payments" so that the api can handle this manually.
