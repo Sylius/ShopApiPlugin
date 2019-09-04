@@ -38,7 +38,7 @@ Sylius\Component\Core\Model\Product:
     mug:
         code: "LOGAN_MUG_CODE"
         createdAt: "<date_create('2019-02-01 03:00:00')>"
-        channels: ["@gb_web_channel"]
+        channels: ["@gb_web_channel", "@de_web_channel"]
         currentLocale: "en_GB"
         translations: ["@en_gb_mug_product_translation", "@de_de_mug_product_translation"]
         images: ["@mug_thumbnail"]
@@ -60,7 +60,7 @@ Sylius\Component\Core\Model\Product:
     hat:
         code: "LOGAN_HAT_CODE"
         createdAt: "<date_create('2019-02-01 04:00:00')>"
-        channels: ["@gb_web_channel"]
+        channels: ["@gb_web_channel", "@de_web_channel"]
         options: ["@hat_size"]
         currentLocale: "en_GB"
         translations: ["@en_gb_hat_product_translation", "@de_de_hat_product_translation"]

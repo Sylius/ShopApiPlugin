@@ -1,0 +1,4 @@
+{
+    "code": 500,
+    "message": "Product is not in same channel as cart"
+}

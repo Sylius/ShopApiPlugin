@@ -141,6 +141,8 @@ paths:
                     description: "Invalid input, validation failed."
                     schema:
                         $ref: "#/definitions/GeneralError"
+                500:
+                    description: "An error occurred - maybe the product is not in the channel of the cart"
 
     /carts/{token}/multiple-items:
         parameters:

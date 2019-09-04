@@ -15,6 +15,7 @@
     <imports>
         <import resource="services/command_providers.xml"/>
         <import resource="services/controllers.xml"/>
+        <import resource="services/checker.xml"/>
         <import resource="services/factories.xml"/>
         <import resource="services/handlers.xml"/>
         <import resource="services/http.xml"/>
@@ -26,17 +27,6 @@
     </imports>
     <services>
         <defaults public="true" />
-
-        <service id="sylius.shop_api_plugin.checker.promotion_coupon_eligibility_checker"
-                 class="Sylius\ShopApiPlugin\Checker\PromotionCouponEligibilityChecker">
-            <argument type="service" id="sylius.promotion_eligibility_checker"/>
-            <argument type="service" id="sylius.promotion_coupon_eligibility_checker"/>
-        </service>
-
-        <service id="sylius.shop_api_plugin.checker.channel_existence"
-                 class="Sylius\ShopApiPlugin\Checker\ChannelExistenceChecker">
-            <argument type="service" id="sylius.repository.channel"/>
-        </service>
 
         <service id="sylius.shop_api_plugin.event_listener.user_registration_listener"
                  class="Sylius\ShopApiPlugin\EventListener\UserRegistrationListener">

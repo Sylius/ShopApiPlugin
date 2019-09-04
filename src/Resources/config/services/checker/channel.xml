@@ -1,0 +1,11 @@
+<container xmlns="http://symfony.com/schema/dic/services">
+    <services>
+        <service id="sylius.shop_api_plugin.checker.channel_existence"
+                 class="Sylius\ShopApiPlugin\Checker\ChannelExistenceChecker">
+            <argument type="service" id="sylius.repository.channel"/>
+        </service>
+
+        <service id="sylius.shop_api_plugin.checker.product_in_cart_channel_checker"
+                 class="Sylius\ShopApiPlugin\Checker\ProductInCartChannelChecker" />
+    </services>
+</container>
