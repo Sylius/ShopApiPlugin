@@ -2,14 +2,14 @@
 The Shop Api Plugin is a plugin for the Sylius E-Commerce Platform which provides an easy integration for exposing the Sylius functionality to the end customer. One use-case would be if you want to run your shop without a frontend and maybe want to display the products and handle the cart flow in a mobile app. With this Plugin you just need to send simple Rest Requests to interact with Sylius.
 
 ## Shop Api vs. Admin Api
-In the default implementation of the Sylius Solution, there is already an AApi implemented that provides a lot of features (which is called the Admin Api). The Admin Api is more geared towards integrating other closed systems like a warehouse management system or similar. The reason behind that is that for the Api you need to have to [exchange tokens to authenticate](https://docs.sylius.com/en/latest/cookbook/api/api.html) a new client for usage (which is based on oauth). In the Shop Api everyone can log into Sylius who has an account, no token exchange necessary. The Shop Api uses the [JWT](https://github.com/lexik/LexikJWTAuthenticationBundle) to authenticate its users.
+In the default implementation of the Sylius Solution, there is already an api implemented that provides a lot of features (which is called the Admin Api). The Admin Api is more geared towards integrating other closed systems like a warehouse management system or similar. The reason behind that is that for the Admin Api you need to have to [exchange tokens to authenticate](https://docs.sylius.com/en/latest/cookbook/api/api.html) a new client for usage (which is based on oauth). On the other side in the Shop Api everyone can log into Sylius who has an account, no token exchange necessary. The Shop Api uses the [JWT](https://github.com/lexik/LexikJWTAuthenticationBundle) to authenticate its users.
 
 ## How does the Shop Api work
 <img src="Workflow.png" alt="Apis Workflow" />
-The general approach that Shop Api takes is that every request is validated by the `CommandProvider` and then converted into a command by this class. Then the command is either handled directly in the `Controller` and passed to the `ViewRepository` which returns a view or by a `MessageHandler`.
+The general approach that Shop Api takes is that every request, validates it and turns it into a command with the `CommandProvider`. Then this command is either handled directly in the `Controller` (in case of a get route for example) and passed to the `ViewRepository` which returns a view. For requests that should change the system's state the command is dispatched and taken care of by one of the `MessageHandler`s.
 
 ### The Components
-* **Request**: ShopApi has its own request object. This object should abstract away the HTTP Request to a more general request type. Furthermore, it also acts as an object that can be validated as all validation rules are defined for the request objects only (commands are not validated)
+* **Request**: The Shop Api has its own request object. This object should abstract away the HTTP Request to a more general request type. Furthermore, it also acts as an object that can be validated as all validation rules are defined for the request objects only (commands are not validated)
 * **Command**: The command class is an implementation agnostic class that holds the relevant data for handling the command.
 * **Handler**: The handler is the class that defines the logic of what happens when a certain command is called. Here we have the business logic.
 * **ViewFactory**: The view factories are responsible for converting the entities into views.
@@ -19,11 +19,11 @@ The general approach that Shop Api takes is that every request is validated by t
 > ViewRepositories are **not** repositories of views which means they don't save views and can not be used for caching.
 
 ### Command - Handler Structure
-Command handling has multiple parts to it. When dispatching a command, the `MessageBus` looks for a handler that has an `__invoke` method with the parameter type that matches the type of the command that was dispatched. Before and after the handler is executed, there is a way for a "Middleware" to be executed (see below). The CommandHandler itself, however, doesn't return anything (this is not a technical limitation that is just the convention we chose in ShopApi).
+Command handling has multiple parts to it. When dispatching a command, the `MessageBus` looks for a handler that has an `__invoke` method with the parameter type matching the type of the command that was dispatched. Before and after the handler is executed, there is a way for a "Middleware" to be executed (see below). The CommandHandler itself, however, doesn't return anything (this is not a technical limitation that is just the convention we chose in Shop Api).
 
 All Middlewares which are executed are defined under the `framework.messenger` bundle: [config.yml](https://github.com/Sylius/ShopApiPlugin/blob/fc25f36274e6add118f5b575a44db81bcc47b2e5/src/Resources/config/app/config.yml#L17)
 
-> Important: The entities that were loaded from the `EntityManager` and changed in the `CommandHandler` are flushed in the Middleware (the `doctrine_transaction`). More information about the Middleware works in from the Symfony Messenger Bundle can be found [here](https://symfony.com/doc/current/components/messenger.html#bus).
+> Important: The entities that were loaded from the `EntityManager` and changed in the `CommandHandler` are flushed in the Middleware (which configured in the `doctrine_transaction` middleware). More information about the Middleware works in from the Symfony Messenger Bundle can be found [here](https://symfony.com/doc/current/components/messenger.html#bus).
 
 ### Generated Parameters
 In the Shop Api you will come across parameters like this `%sylius.shop_api.view.customer.class%`. Those are generated by the Shop Api when the container is compiled. Originally they are configured in the `sylius_shop_api.yml` file. If this file does not override the default values which are defined in the file `src/DependencyInjection/Configuration.php`. This is also a place where new view class configurations and request configurations have to be added.
@@ -31,7 +31,7 @@ In the Shop Api you will come across parameters like this `%sylius.shop_api.view
 ### Serializer
 The Serializer is the interface between the view object that the Shop Api defines and the the response that Symfony generates. By default the Serializer is configured to deliver two kinds of formats: **json and xml**, json is the preferred way.
 
-When rendering a View with the ViewHandler, it will only serialize properties of the view object which are not null. If you want to render some properties only on a certain endpoint, then you need to define a Serialization-Group. This can be done in a yaml file in the `src/Resources/config/serializer/` folder. More information on how to configure the serializer can be found on the [serializer bundle's page](https://jmsyst.com/libs/serializer)
+When rendering a View with the ViewHandler, **it will only serialize properties of the view object which are not null**. If you want to render some properties only on a certain endpoint, then you need to define a Serialization group. This can be done in a yaml file in the `src/Resources/config/serializer/` folder. More information on how to configure the serializer can be found on the [serializer bundle's page](https://jmsyst.com/libs/serializer)
 
 ## Extending Shop Api
 
