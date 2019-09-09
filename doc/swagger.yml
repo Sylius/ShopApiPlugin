@@ -779,13 +779,12 @@ paths:
                   in: "body"
                   required: true
                   schema:
-                      type: object
                       $ref: "#/definitions/LoginRequest"
             responses:
                 200:
                     description: "User was logged in"
-                    example:
-                        token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9"
+                    schema:
+                        $ref: "#/definitions/LoginSuccess"
     /orders:
         parameters:
             -   $ref: "#/parameters/ChannelCode"
@@ -1047,7 +1046,6 @@ definitions:
         type: "array"
         description: "Body of request used to put item to the cart."
         items:
-            type: "object"
             $ref: "#/definitions/PutItemToCartRequest"
     ChangeItemQuantityRequest:
         type: "object"
@@ -1074,10 +1072,8 @@ definitions:
             - "shippingAddress"
         properties:
             shippingAddress:
-                type: "object"
                 $ref: "#/definitions/Address"
             billingAddress:
-                type: "object"
                 $ref: "#/definitions/Address"
     CheckoutChooseShippingMethodRequest:
         type: "object"
@@ -1126,7 +1122,6 @@ definitions:
                         methods:
                             type: "object"
                             additionalProperties:
-                                type: "object"
                                 $ref: "#/definitions/ShippingMethod"
     Shipment:
         type: "object"
@@ -1144,7 +1139,6 @@ definitions:
                     - "cancelled"
                     - "shipped"
             method:
-                type: "object"
                 $ref: "#/definitions/ShippingMethod"
     AvailablePaymentMethods:
         type: "object"
@@ -1179,7 +1173,6 @@ definitions:
                     - "cancelled"
                     - "refunded"
             method:
-                type: "object"
                 $ref: "#/definitions/PaymentMethod"
     Cart:
         type: "object"
@@ -1220,13 +1213,10 @@ definitions:
                 items:
                     $ref: "#/definitions/Item"
             totals:
-                type: "object"
                 $ref: "#/definitions/TotalsView"
             shippingAddress:
-                type: "object"
                 $ref: "#/definitions/Address"
             billingAddress:
-                type: "object"
                 $ref: "#/definitions/Address"
             payments:
                 type: "array"
@@ -1241,7 +1231,6 @@ definitions:
                 items:
                     type: "object"
                     additionalProperties:
-                        type: "object"
                         $ref: "#/definitions/Discount"
             couponCode:
                 description: "Code of the coupon that is associated with this cart"
@@ -1474,7 +1463,7 @@ definitions:
                         type: "integer"
                         example: 5
                     createdAt:
-                        type: "datetime"
+                        type: "string"
                         example: "2016-01-02 21:00:10"
                     comment:
                         type: "string"
@@ -1721,6 +1710,13 @@ definitions:
                 description: "Total amount of cart promotions."
                 type: "integer"
                 example: 0
+    LoginSuccess:
+        type: "object"
+        description: "User was logged in."
+        properties:
+            token:
+                type: "string"
+                example: "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9"
     PlacedOrder:
         type: "object"
         description: "Placed order with information about items, current state, totals and more."
