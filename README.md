@@ -33,14 +33,14 @@ The latest documentation is available [here](https://app.swaggerhub.com/apis/Syl
     2. Add `- { path: '^/shop-api', priorities: ['json'], fallback_format: json, prefer_extension: true }` to `fos_rest.format_listener.rules` 
     section in `config/packages/fos_rest.yaml` file and import config from Plugin.
     ```yml
-    # app/config/config.yml
+    # config/packages/_sylius_shop_api.yaml
     
     imports: # <-- Add this section if it does not already exist and add the lines below
         # ...
         - { resource: "@SyliusShopApiPlugin/Resources/config/app/config.yml" }
         - { resource: "@SyliusShopApiPlugin/Resources/config/app/sylius_mailer.yml" }
 
-    # ...
+    # config/packages/fos_rest.yaml
     
     fos_rest:
         # ...
@@ -139,7 +139,7 @@ The latest documentation is available [here](https://app.swaggerhub.com/apis/Syl
                 '^/shop-api/':
                     allow_origin: ['*']
                     allow_headers: ['Content-Type', 'authorization']
-                    allow_methods: ['POST', 'PUT', 'GET', 'DELETE', 'OPTIONS']
+                    allow_methods: ['POST', 'PUT', 'GET', 'DELETE', 'PATCH', 'OPTIONS']
                     max_age: 3600
         ```
 
