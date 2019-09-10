@@ -145,9 +145,11 @@ class RequestAttributeChannelContext implements ChannelContextInterface
 
     public function getChannel(): ChannelInterface
     {
-        $request = $this->requestStack->getCurrentRequest();
+        $request = $this->requestStack->getMasterRequest();
         try {
-            return $this->channelRepository->findOneByCode($request->attributes->get('channelCode'));
+            $channelCode = $request->attributes->get('channelCode');
+            Assert::notNull($channelCode);
+            return $this->channelRepository->findOneByCode($channelCode);
         } catch(Exception $e) {
             throw new ChannelNotFoundException();
         }
