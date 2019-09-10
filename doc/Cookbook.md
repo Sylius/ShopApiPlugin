@@ -113,6 +113,17 @@ sylius_shop_api:
         total: \NiceTotalView
 ```
 
+One other thing to keep in mind when working with the API and creating new views is that the endpoints that return multiple resources (for example a list of products) are usually paginated. Pagination in the shop api is implemented with the plugin [Pagerfanta](https://github.com/whiteoctober/Pagerfanta) which needs besides the attributes that it should serialize on the product also a key relations like the route to the individual products. The current object you are serializing is in the object "variable" and can be used with the expression syntax as shown below:
+```yml
+relations: 
+    - rel: self
+    - href:
+        route: sylius_shop_api_product_show_details_by_slug
+        parameters:
+            slug: expr(object.slug)
+```
+If you customize the product route you might also need to change those configurations.
+
 ### Custom Channel Handlers
 The default way that Sylius tries to resolve channels is through the hostname. However, if you want to add your own way of resolving a channel, for example from a route parameter, you need to do two things:
 
