@@ -27,6 +27,16 @@ class PutSimpleItemToCartRequest implements RequestInterface
         $this->quantity = $quantity;
     }
 
+    public function getProductCode(): string
+    {
+        return $this->productCode ?? '';
+    }
+
+    public function getToken(): string
+    {
+        return $this->token;
+    }
+
     public static function fromArray(array $item): self
     {
         return new self(

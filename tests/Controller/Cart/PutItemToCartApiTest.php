@@ -249,7 +249,7 @@ JSON;
         $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
-        $this->assertResponse($response, 'cart/product_not_in_cart_channel', Response::HTTP_INTERNAL_SERVER_ERROR);
+        $this->assertResponse($response, 'cart/product_not_in_cart_channel', Response::HTTP_BAD_REQUEST);
     }
 
     /**
@@ -515,7 +515,7 @@ JSON;
         $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
-        $this->assertResponse($response, 'cart/product_not_in_cart_channel', Response::HTTP_INTERNAL_SERVER_ERROR);
+        $this->assertResponse($response, 'cart/product_not_in_cart_channel', Response::HTTP_BAD_REQUEST);
     }
 
     /**
@@ -686,7 +686,7 @@ JSON;
         $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
-        $this->assertResponse($response, 'cart/product_not_in_cart_channel', Response::HTTP_INTERNAL_SERVER_ERROR);
+        $this->assertResponse($response, 'cart/product_not_in_cart_channel', Response::HTTP_BAD_REQUEST);
     }
 
     /**
