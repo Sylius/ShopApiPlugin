@@ -6,3 +6,9 @@ sylius_shop_api:
 sylius_shop_api_login_check:
     methods: [POST]
     path: /shop-api/login_check
+
+sylius_shop_api_guest_login_check:
+    methods: [POST]
+    path: /shop-api/guest/login_check
+    defaults:
+        _controller: sylius.shop_api_plugin.controller.customer.guest_login_action

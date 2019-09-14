@@ -67,5 +67,15 @@
             <argument type="service" id="sylius.shop_api_plugin.provider.current_user_provider" />
             <argument type="service" id="sylius.shop_api_plugin.command_provider.update_customer" />
         </service>
+
+        <service id="sylius.shop_api_plugin.controller.customer.guest_login_action"
+                 class="Sylius\ShopApiPlugin\Controller\Customer\GuestLoginAction"
+        >
+            <argument type="service" id="fos_rest.view_handler" />
+            <argument type="service" id="validator" />
+            <argument type="service" id="sylius.shop_api_plugin.factory.validation_error_view_factory" />
+            <argument type="service" id="sylius.repository.order" />
+            <argument type="service" id="sylius.shop_api_plugin.encoder.guest_order_jwtencoder" />
+        </service>
     </services>
 </container>

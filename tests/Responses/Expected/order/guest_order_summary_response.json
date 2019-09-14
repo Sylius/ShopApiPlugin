@@ -1,0 +1,52 @@
+{
+    "channel": "WEB_GB",
+    "currency": "GBP",
+    "locale": "en_GB",
+    "checkoutState": "completed",
+    "checkoutCompletedAt": @string@,
+    "items": [],
+    "totals": {
+        "total": 0,
+        "items": 0,
+        "taxes": 0,
+        "shipping": 0,
+        "promotion": 0
+    },
+    "shippingAddress": {
+        "firstName": "John",
+        "lastName": "Doe",
+        "countryCode": "GB",
+        "street": "Example str. 123",
+        "city": "London",
+        "postcode": "21000",
+        "phoneNumber": "349713"
+    },
+    "billingAddress": {
+        "firstName": "John",
+        "lastName": "Doe",
+        "countryCode": "GB",
+        "street": "Example str. 123",
+        "city": "London",
+        "postcode": "21000",
+        "phoneNumber": "349713"
+    },
+    "payments": [
+        {
+            "state": "new",
+            "method": {
+                "code": "bank_payment",
+                "name": "Bank Payment",
+                "description": @string@,
+                "instructions": @string@
+            },
+            "price": {
+                "current": 1000,
+                "currency": "GBP"
+            }
+        }
+    ],
+    "shipments": [],
+    "cartDiscounts": [],
+    "tokenValue": "GUEST_ORDER_TOKEN",
+    "number": "00000078"
+}

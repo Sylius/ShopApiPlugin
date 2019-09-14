@@ -1,0 +1,4 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping">
+    <entity name="Tests\Sylius\ShopApiPlugin\Application\src\Entity\Customer" table="sylius_customer">
+    </entity>
+</doctrine-mapping>

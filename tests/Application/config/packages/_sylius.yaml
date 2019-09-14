@@ -9,3 +9,9 @@ imports:
 
 parameters:
     sylius_core.public_dir: '%kernel.project_dir%/public'
+
+sylius_customer:
+    resources:
+        customer:
+            classes:
+                model: 'Tests\Sylius\ShopApiPlugin\Application\src\Entity\Customer'

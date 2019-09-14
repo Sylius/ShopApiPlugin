@@ -43,3 +43,13 @@ Sylius\Component\Core\Model\Address:
         city: "Split"
         postcode: "21000"
         customer: "@hater"
+    customer_guest_address:
+        firstName: "John"
+        lastName: "Doe"
+        phoneNumber: 0912539021
+        countryCode: "GB"
+        provinceCode: "GB-SCT"
+        street: "Example str. 123"
+        city: "London"
+        postcode: "21000"
+        customer: "@guest"

@@ -34,6 +34,15 @@ Sylius\Component\Locale\Model\Locale:
     locale_de_de:
         code: de_DE
 
+Doctrine\Common\Collections\ArrayCollection:
+    mug_attributes:
+        __construct:
+            0:
+                - "@en_gb_mug_holiday_collection_value"
+                - "@de_de_mug_holiday_collection_value"
+                - "@en_gb_mug_holiday_material_value"
+                - "@de_de_mug_holiday_material_value"
+
 Sylius\Component\Core\Model\Product:
     mug:
         code: "LOGAN_MUG_CODE"
@@ -44,11 +53,7 @@ Sylius\Component\Core\Model\Product:
         images: ["@mug_thumbnail"]
         mainTaxon: "@mug_taxon"
         productTaxons: ["@mug_product_taxon"]
-        attributes:
-            - "@en_gb_mug_holiday_collection_value"
-            - "@de_de_mug_holiday_collection_value"
-            - "@en_gb_mug_holiday_material_value"
-            - "@de_de_mug_holiday_material_value"
+        attributes: "@mug_attributes"
     t_shirt:
         code: "LOGAN_T_SHIRT_CODE"
         createdAt: "<date_create('2019-02-01 01:00:00')>"

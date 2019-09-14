@@ -9,6 +9,8 @@ security:
             id: sylius.admin_user_provider.email_or_name_based
         sylius_shop_user_provider:
             id: sylius.shop_user_provider.email_or_name_based
+        sylius_guest_user_provider:
+            id: sylius.shop_api_plugin.provider.guest_user_provider
     encoders:
         Sylius\Component\User\Model\UserInterface: sha512
     firewalls:
@@ -49,6 +51,21 @@ security:
             fos_oauth: true
             stateless: true
             anonymous: true
+                
+        shop_api_guest:
+            pattern: "%sylius_shop_api.security.regex%/[^/]+/guest"
+            stateless: true
+            anonymous: true
+            provider: sylius_guest_user_provider
+            form_login:
+                check_path: /shop-api/login/guest
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+                require_previous_session: false
+            guard:
+                provider: sylius_guest_user_provider
+                authenticators:
+                    - sylius.shop_api_plugin.authenticator.jwtguest_order_authenticator
 
         sylius_shop_api:
             pattern: "%sylius_shop_api.security.regex%"
@@ -61,6 +78,7 @@ security:
                 password_path: password
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
+                require_previous_session: false
             guard:
                 authenticators:
                     - lexik_jwt_authentication.jwt_token_authenticator
