@@ -14,7 +14,7 @@
 
 ## Documentation
 
-The latest documentation is available [here](https://app.swaggerhub.com/apis/Sylius/sylius-shop-api/1.0.0).
+The latest documentation is available [here](https://app.swaggerhub.com/apis/Sylius/sylius-shop-api/1.0.0). If you are looking for more information how the system works have a look at the [cookbook](doc/Cookbook.md)
 
 ## Installation
 
