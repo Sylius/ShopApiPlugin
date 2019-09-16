@@ -1592,6 +1592,11 @@ definitions:
             password:
                 type: "string"
                 example: "test12334verysecure"
+            token:
+                type: "string"
+                description: "The token of the current cart which should be assign to the customer"
+                example: "SDAOSLEFNWU35H3QLI5325"
+                required: false
     UpdateUserRequest:
         type: "object"
         properties:
