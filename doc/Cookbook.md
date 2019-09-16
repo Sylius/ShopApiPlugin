@@ -2,24 +2,24 @@
 The Shop Api Plugin is a plugin for the Sylius E-Commerce Platform which provides an easy integration for exposing the Sylius functionality to the end customer. One use-case would be if you want to run your shop without a frontend and maybe want to display the products and handle the cart flow in a mobile app. With this Plugin you just need to send simple Rest Requests to interact with Sylius.
 
 ## Shop Api vs. Admin Api
-In the default implementation of the Sylius Solution, there is already an api implemented that provides a lot of features (which is called the Admin Api). The Admin Api is more geared towards integrating other closed systems like a warehouse management system or similar. The reason behind that is that for the Admin Api you need to have to [exchange tokens to authenticate](https://docs.sylius.com/en/latest/cookbook/api/api.html) a new client for usage (which is based on oauth). On the other side in the Shop Api everyone can log into Sylius who has an account, no token exchange necessary. The Shop Api uses the [JWT](https://github.com/lexik/LexikJWTAuthenticationBundle) to authenticate its users.
+The default implementation provided by Sylius already implements an api containing a lot of features (called Admin Api). The Admin Api is more geared towards integrating other closed systems like a warehouse management system or similar. The reason behind that is that for the Admin Api you need to have to [exchange tokens to authenticate](https://docs.sylius.com/en/latest/cookbook/api/api.html) a new client for usage (which is based on oauth). On the other side in the Shop Api everyone can log into Sylius who has an account, no token exchange necessary. The Shop Api uses the [JWT](https://github.com/lexik/LexikJWTAuthenticationBundle) to authenticate its users.
 
 ## How does the Shop Api work
 <img src="Workflow.png" alt="Apis Workflow" />
-The general approach that Shop Api takes is that every request, validates it and turns it into a command with the `CommandProvider`. Then this command is either handled directly in the `Controller` (in case of a get route for example) and passed to the `ViewRepository` which returns a view. For requests that should change the system's state the command is dispatched and taken care of by one of the `MessageHandler`s.
+The general approach that Shop Api takes is that every request converts it into a specialized request class, validates it and turns it into a command with the `CommandProvider`. Then this command is either handled directly in the `Controller` (in case of a get route for example) and passed to the `ViewRepository` which returns a view. For requests that should change the system's state the command is dispatched and taken care of by one of the `MessageHandler`s.
 
 ### The Components
 * **Request**: The Shop Api has its own request object. This object should abstract away the HTTP Request to a more general request type. Furthermore, it also acts as an object that can be validated as all validation rules are defined for the request objects only (commands are not validated)
 * **Command**: The command class is an implementation agnostic class that holds the relevant data for handling the command.
 * **Handler**: The handler is the class that defines the logic of what happens when a certain command is called. Here we have the business logic.
 * **ViewFactory**: The view factories are responsible for converting the entities into views.
-* **Views**: Views are primitive objects that only hold scalars or other View objects which can be easily serialized.
+* **Views**: Views are primitive objects that only hold scalars or other View objects which can be easily serialized (plain old php objects).
 * **ViewRepository**: ViewRepositories are repositories that return view objects from the entities they are fetched.
 
 > ViewRepositories are **not** repositories of views which means they don't save views and can not be used for caching.
 
 ### Command - Handler Structure
-Command handling has multiple parts to it. When dispatching a command, the `MessageBus` looks for a handler that has an `__invoke` method with the parameter type matching the type of the command that was dispatched. Before and after the handler is executed, there is a way for a "Middleware" to be executed (see below). The CommandHandler itself, however, doesn't return anything (this is not a technical limitation that is just the convention we chose in Shop Api).
+Command handling has multiple parts to it. When dispatching a command, the `MessageBus` looks for a handler that has an `__invoke` method with the parameter type matching the type of the command that was dispatched. Before and after the handler is executed, there is a way for a "Middleware" to be executed (see below). The CommandHandler itself, however, does not return anything (this is not a technical limitation that is just the convention we chose in Shop Api).
 
 All Middlewares which are executed are defined under the `framework.messenger` bundle: [config.yml](https://github.com/Sylius/ShopApiPlugin/blob/fc25f36274e6add118f5b575a44db81bcc47b2e5/src/Resources/config/app/config.yml#L17)
 
