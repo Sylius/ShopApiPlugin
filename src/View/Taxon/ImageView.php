@@ -11,4 +11,7 @@ class ImageView
 
     /** @var string */
     public $path;
+
+    /** @var string[]|null */
+    public $cachedPaths;
 }
