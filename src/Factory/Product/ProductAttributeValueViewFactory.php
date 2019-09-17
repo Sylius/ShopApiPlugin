@@ -27,7 +27,7 @@ final class ProductAttributeValueViewFactory implements ProductAttributeValueVie
         $productAttributeValueView->code = $productAttributeValue->getCode();
 
         if ($productAttributeValue->getType() === 'select') {
-            $productAttributeValueView->value = $this->resolveSelectAttribute($productAttributeValue);
+            $productAttributeValueView->value = $this->resolveSelectAttribute($productAttributeValue, $locale);
         } else {
             $productAttributeValueView->value = $productAttributeValue->getValue();
         }
@@ -41,16 +41,18 @@ final class ProductAttributeValueViewFactory implements ProductAttributeValueVie
         return $productAttributeValueView;
     }
 
-    private function resolveSelectAttribute(ProductAttributeValueInterface $productAttributeValue)
+    private function resolveSelectAttribute(ProductAttributeValueInterface $productAttributeValue, $locale)
     {
+        $values = [];
         $configuration = $productAttributeValue->getAttribute()->getConfiguration();
+        $choices = $configuration['choices'];
 
-        $choices = $configuration['choices'] ?? null;
-        $value = $productAttributeValue->getValue()[0] ?? null;
-        if ($choices === null || $value === null) {
-            return null;
+        foreach ($productAttributeValue->getValue() as $value) {
+            if (array_key_exists($value, $choices) && array_key_exists($locale, $choices[$value])) {
+                $values[] = $choices[$value][$locale];
+            }
         }
 
-        return $choices[$value];
+        return $values;
     }
 }
