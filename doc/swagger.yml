@@ -1585,6 +1585,9 @@ definitions:
                 example: "WEB_GB"
     LoginRequest:
         type: "object"
+        required:
+            - email
+            - password
         properties:
             email:
                 type: "string"
@@ -1596,7 +1599,6 @@ definitions:
                 type: "string"
                 description: "The token of the current cart which should be assign to the customer"
                 example: "SDAOSLEFNWU35H3QLI5325"
-                required: false
     UpdateUserRequest:
         type: "object"
         properties:
