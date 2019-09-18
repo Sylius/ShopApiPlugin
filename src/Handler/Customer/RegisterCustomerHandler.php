@@ -7,6 +7,7 @@ namespace Sylius\ShopApiPlugin\Handler\Customer;
 use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\ShopUserInterface;
+use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
 use Sylius\ShopApiPlugin\Command\Customer\RegisterCustomer;
@@ -22,6 +23,9 @@ final class RegisterCustomerHandler
     /** @var ChannelRepositoryInterface */
     private $channelRepository;
 
+    /** @var CustomerRepositoryInterface */
+    private $customerRepository;
+
     /** @var FactoryInterface */
     private $userFactory;
 
@@ -34,12 +38,14 @@ final class RegisterCustomerHandler
     public function __construct(
         UserRepositoryInterface $userRepository,
         ChannelRepositoryInterface $channelRepository,
+        CustomerRepositoryInterface $customerRepository,
         FactoryInterface $userFactory,
         FactoryInterface $customerFactory,
         EventDispatcherInterface $eventDispatcher
     ) {
         $this->userRepository = $userRepository;
         $this->channelRepository = $channelRepository;
+        $this->customerRepository = $customerRepository;
         $this->userFactory = $userFactory;
         $this->customerFactory = $customerFactory;
         $this->eventDispatcher = $eventDispatcher;
@@ -50,8 +56,13 @@ final class RegisterCustomerHandler
         $this->assertEmailIsNotTaken($command->email());
         $this->assertChannelExists($command->channelCode());
 
-        /** @var CustomerInterface $customer */
-        $customer = $this->customerFactory->createNew();
+        /** @var CustomerInterface|null $customer */
+        $customer = $this->customerRepository->findOneBy(['email' => $command->email()]);
+        if (!$customer) {
+            /** @var CustomerInterface $customer */
+            $customer = $this->customerFactory->createNew();
+        }
+
         $customer->setFirstName($command->firstName());
         $customer->setLastName($command->lastName());
         $customer->setEmail($command->email());

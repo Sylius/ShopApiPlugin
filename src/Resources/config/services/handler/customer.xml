@@ -6,6 +6,7 @@
                  class="Sylius\ShopApiPlugin\Handler\Customer\RegisterCustomerHandler">
             <argument type="service" id="sylius.repository.shop_user"/>
             <argument type="service" id="sylius.repository.channel"/>
+            <argument type="service" id="sylius.repository.customer"/>
             <argument type="service" id="sylius.factory.shop_user"/>
             <argument type="service" id="sylius.factory.customer"/>
             <argument type="service" id="event_dispatcher"/>
