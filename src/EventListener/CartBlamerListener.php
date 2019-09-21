@@ -46,6 +46,10 @@ final class CartBlamerListener
 
         $token = $request->request->get('token');
 
+        if (!$token) {
+            return;
+        }
+
         $cart = $this->cartRepository->findOneBy(['tokenValue' => $token]);
 
         if (null === $cart) {
