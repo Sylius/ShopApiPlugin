@@ -1,0 +1,39 @@
+---------------------------------------------------------------------------
+
+by mamazu at 2019-08-11T19:07:11Z
+
+What's the problem with that?
+
+---------------------------------------------------------------------------
+
+by alexander-schranz at 2019-08-19T13:12:09Z
+
+@mamazu As mentioned in #508 we should expose only `availability` flag and not how many are onHand or onHold. As I think onHand and onHold could be also sensitive data for a shop or?
+
+---------------------------------------------------------------------------
+
+by mamazu at 2019-08-19T13:50:31Z
+
+There are two reasons why they should be reverted:
+1. the availability is based on more factors than just on hand and on hold quantity.
+2. @lchrusciel and I agreed that this might not be part of the 1.1 version as currently we are in a feature freeze phase.
+
+---------------------------------------------------------------------------
+
+by alexander-schranz at 2019-08-19T15:46:24Z
+
+@mamazu
+1. yeah thats what I wanted to say.
+2. you mean not part of 1.0?
+
+---------------------------------------------------------------------------
+
+by mamazu at 2019-08-20T10:21:51Z
+
+Yes, currently we are just trying to stabalize the current version and not introduce any new features.
+
+---------------------------------------------------------------------------
+
+by mamazu at 2019-09-21T14:18:32Z
+
+Thanks, Łukasz! :tada:
