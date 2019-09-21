@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Handler\Customer;
 
+use DateTimeImmutable;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
@@ -23,6 +24,8 @@ final class UpdateCustomerHandlerSpec extends ObjectBehavior
         RepositoryInterface $customerRepository,
         CustomerInterface $customer
     ): void {
+        $birthday = new DateTimeImmutable('2019-02-10 10:22:00');
+
         $customerRepository->findOneBy(['email' => 'sherlock@holmes.com'])->willReturn($customer);
 
         $customer->getId()->willReturn('USER_ID');
@@ -30,7 +33,7 @@ final class UpdateCustomerHandlerSpec extends ObjectBehavior
         $customer->setFirstName('Sherlock')->shouldBeCalled();
         $customer->setLastName('Holmes')->shouldBeCalled();
         $customer->setEmail('sherlock@holmes.com')->shouldBeCalled();
-        $customer->setBirthday(new \DateTimeImmutable('2017-11-01'))->shouldBeCalled();
+        $customer->setBirthday($birthday)->shouldBeCalled();
         $customer->setGender('m')->shouldBeCalled();
         $customer->setPhoneNumber('091231512512')->shouldBeCalled();
         $customer->setSubscribedToNewsletter(true)->shouldBeCalled();
@@ -42,7 +45,7 @@ final class UpdateCustomerHandlerSpec extends ObjectBehavior
                 'Sherlock',
                 'Holmes',
                 'sherlock@holmes.com',
-                '2017-11-01',
+                $birthday,
                 'm',
                 '091231512512',
                 true

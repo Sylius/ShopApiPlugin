@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Request\Customer;
 
-use DateTimeInterface;
+use DateTimeImmutable;
 use Sylius\ShopApiPlugin\Command\CommandInterface;
 use Sylius\ShopApiPlugin\Command\Customer\UpdateCustomer;
 use Sylius\ShopApiPlugin\Request\RequestInterface;
@@ -21,7 +21,7 @@ class UpdateCustomerRequest implements RequestInterface
     /** @var string|null */
     protected $email;
 
-    /** @var DateTimeInterface|null */
+    /** @var DateTimeImmutable|null */
     protected $birthday;
 
     /** @var string */
@@ -39,6 +39,9 @@ class UpdateCustomerRequest implements RequestInterface
         $this->lastName = $request->request->get('lastName');
         $this->email = $request->request->get('email');
         $this->birthday = $request->request->get('birthday');
+        if ($this->birthday !== null) {
+            $this->birthday = new DateTimeImmutable($this->birthday);
+        }
         $this->gender = $request->request->get('gender');
         $this->phoneNumber = $request->request->get('phoneNumber');
         $this->subscribedToNewsletter = $request->request->getBoolean('subscribedToNewsletter') ?? false;

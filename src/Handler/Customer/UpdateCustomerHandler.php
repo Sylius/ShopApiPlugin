@@ -28,7 +28,7 @@ final class UpdateCustomerHandler
         $customer->setLastName($command->lastName());
         $customer->setEmail($command->email());
         $customer->setGender($command->gender());
-        $customer->setBirthday(new \DateTimeImmutable($command->birthday()));
+        $customer->setBirthday($command->birthday());
         $customer->setPhoneNumber($command->phoneNumber());
         $customer->setSubscribedToNewsletter($command->subscribedToNewsletter());
 
