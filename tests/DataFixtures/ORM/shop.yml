@@ -529,7 +529,7 @@ Sylius\Component\Core\Model\ProductTaxon:
 Sylius\Component\Core\Model\TaxonImage:
     t_shirt_taxon_thumbnail:
         type: "thumbnail"
-        path: "/uo/t-shirt.jpg"
+        path: "/pants.jpeg"
 
 Sylius\Component\Product\Model\ProductAssociationType:
     cross-sell:

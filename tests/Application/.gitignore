@@ -7,7 +7,6 @@
 /public/js
 /public/media/*
 !/public/media/image/
-/public/media/image/*
 !/public/media/image/.gitignore
 
 /vendor

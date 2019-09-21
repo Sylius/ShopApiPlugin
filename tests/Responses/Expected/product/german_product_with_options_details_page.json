@@ -116,7 +116,13 @@
                         "images": [
                             {
                                 "code": "thumbnail",
-                                "path": "\/uo\/mug.jpg"
+                                            "path": "\/pants.jpeg",
+            "cachedPaths": [
+                "http:\/\/localhost\/media\/cache\/sylius_small\/pants.jpeg",
+                "http:\/\/localhost\/media\/cache\/sylius_medium\/pants.jpeg",
+                "http:\/\/localhost\/media\/cache\/sylius_large\/pants.jpeg"
+            ]
+
                             }
                         ]
                     }
@@ -132,7 +138,13 @@
                 "images": [
                     {
                         "code": "thumbnail",
-                        "path": "\/uo\/mug.jpg"
+                                    "path": "\/pants.jpeg",
+            "cachedPaths": [
+                "http:\/\/localhost\/media\/cache\/sylius_small\/pants.jpeg",
+                "http:\/\/localhost\/media\/cache\/sylius_medium\/pants.jpeg",
+                "http:\/\/localhost\/media\/cache\/sylius_large\/pants.jpeg"
+            ]
+
                     }
                 ],
                 "_links": {
@@ -168,7 +180,13 @@
                         "images": [
                             {
                                 "code": "thumbnail",
-                                "path": "\/uo\/small-tshirt.jpg"
+                                            "path": "\/pants.jpeg",
+            "cachedPaths": [
+                "http:\/\/localhost\/media\/cache\/sylius_small\/pants.jpeg",
+                "http:\/\/localhost\/media\/cache\/sylius_medium\/pants.jpeg",
+                "http:\/\/localhost\/media\/cache\/sylius_large\/pants.jpeg"
+            ]
+
                             }
                         ]
                     },
@@ -184,7 +202,13 @@
                         "images": [
                             {
                                 "code": "thumbnail",
-                                "path": "\/uo\/large-tshirt.jpg"
+                                            "path": "\/pants.jpeg",
+            "cachedPaths": [
+                "http:\/\/localhost\/media\/cache\/sylius_small\/pants.jpeg",
+                "http:\/\/localhost\/media\/cache\/sylius_medium\/pants.jpeg",
+                "http:\/\/localhost\/media\/cache\/sylius_large\/pants.jpeg"
+            ]
+
                             }
                         ]
                     }
@@ -194,15 +218,33 @@
                 "images": [
                     {
                         "code": "thumbnail",
-                        "path": "\/uo\/tshirt.jpg"
+                                    "path": "\/pants.jpeg",
+            "cachedPaths": [
+                "http:\/\/localhost\/media\/cache\/sylius_small\/pants.jpeg",
+                "http:\/\/localhost\/media\/cache\/sylius_medium\/pants.jpeg",
+                "http:\/\/localhost\/media\/cache\/sylius_large\/pants.jpeg"
+            ]
+
                     },
                     {
                         "code": "thumbnail",
-                        "path": "\/uo\/small-tshirt.jpg"
+                                    "path": "\/pants.jpeg",
+            "cachedPaths": [
+                "http:\/\/localhost\/media\/cache\/sylius_small\/pants.jpeg",
+                "http:\/\/localhost\/media\/cache\/sylius_medium\/pants.jpeg",
+                "http:\/\/localhost\/media\/cache\/sylius_large\/pants.jpeg"
+            ]
+
                     },
                     {
                         "code": "thumbnail",
-                        "path": "\/uo\/large-tshirt.jpg"
+                                    "path": "\/pants.jpeg",
+            "cachedPaths": [
+                "http:\/\/localhost\/media\/cache\/sylius_small\/pants.jpeg",
+                "http:\/\/localhost\/media\/cache\/sylius_medium\/pants.jpeg",
+                "http:\/\/localhost\/media\/cache\/sylius_large\/pants.jpeg"
+            ]
+
                     }
                 ],
                 "_links": {
