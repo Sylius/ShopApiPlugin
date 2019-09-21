@@ -1,0 +1,95 @@
+---------------------------------------------------------------------------
+
+by mamazu at 2019-08-14T13:25:46Z
+
+Adding information about Serialization
+
+---------------------------------------------------------------------------
+
+by mamazu at 2019-08-14T20:47:53Z
+
+@CSchulz Thanks for your feedback, having no knowledge about the api is the best thing, if you are reading through documentation. I have improved on your suggestions. Could you have a look at it again.
+
+---------------------------------------------------------------------------
+
+by CSchulz at 2019-08-16T09:05:40Z
+
+Yes I will look into it at the weekend.
+
+---------------------------------------------------------------------------
+
+by lchrusciel at 2019-09-09T08:08:28Z
+
+Hey Max,
+
+it is probably the best description atm, so I think it would be great to add it to main repo. Rebase should fix the issue.
+
+Also, can you add a link to docs from the main README?
+
+---------------------------------------------------------------------------
+
+by diimpp at 2019-09-10T07:31:04Z
+
+I wouldn't say, that hostname resolving is a best practice, just sensible
+default for the plugin.
+
+My point is that this example is full of errors, it would be better to
+follow one of the Core examples.
+
+On Tue, Sep 10, 2019, 14:26 mamazu <notifications@github.com> wrote:
+
+> *@mamazu* commented on this pull request.
+> ------------------------------
+>
+> In doc/Cookbook.md
+> <https://github.com/Sylius/ShopApiPlugin/pull/514#discussion_r322588834>:
+>
+> > +use Sylius\Component\Channel\Context\ChannelContextInterface;
+> +
+> +class RequestAttributeChannelContext implements ChannelContextInterface
+> +{
+> +    private $channelRepository;
+> +    private $requestStack;
+> +
+> +    public function __construct(ChannelRepositoryInterface $channelRepository, RequestStack $requestStack)
+> +    {
+> +        $this->channelRepository = $channelRepository;
+> +        $this->requestStack = $requestStack;
+> +    }
+> +
+> +    public function getChannel(): ChannelInterface
+> +    {
+> +        $request = $this->requestStack->getCurrentRequest();
+>
+> The reason why this case is documented is that in the past the routes all
+> had a channel attribute so this is more a documentation on how to maintain
+> backwards compatibiltiy rather than best practice. Best practice is to use
+> the hostname to resolve the channel.
+>
+> —
+> You are receiving this because you commented.
+> Reply to this email directly, view it on GitHub
+> <https://github.com/Sylius/ShopApiPlugin/pull/514?email_source=notifications&email_token=AAGUSW45WTO5D4MQ3VRKRLTQI5DZLA5CNFSM4ILOKZSKYY3PNVWWK3TUL52HS4DFWFIHK3DMKJSXC5LFON2FEZLWNFSXPKTDN5WW2ZLOORPWSZGOCEFUPWQ#discussion_r322588834>,
+> or mute the thread
+> <https://github.com/notifications/unsubscribe-auth/AAGUSWY3OW7V4BB2BWIDXM3QI5DZLANCNFSM4ILOKZSA>
+> .
+>
+
+---------------------------------------------------------------------------
+
+by mamazu at 2019-09-10T07:54:18Z
+
+True, Sylius Core handles it that way so this plugin should allow suit for the hostname resolution.
+I have updated the documentation, any thoughts?
+
+---------------------------------------------------------------------------
+
+by mamazu at 2019-09-16T21:48:04Z
+
+This is the last iteration of the cookbook before 1.0
+
+---------------------------------------------------------------------------
+
+by lchrusciel at 2019-09-21T13:42:12Z
+
+Thanks, @mamazu! :1st_place_medal:
