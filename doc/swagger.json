@@ -12,35 +12,35 @@
       "url" : "https://opensource.org/licenses/MIT"
     }
   },
-  "host" : "demo.sylius.org",
-  "basePath" : "/shop-api/{channelCode}",
+  "host" : "demo.sylius.com",
+  "basePath" : "/shop-api",
   "tags" : [ {
     "name" : "cart",
     "description" : "All actions related to cart management.",
     "externalDocs" : {
       "description" : "Find out more",
-      "url" : "http://docs.sylius.org/en/latest/book/orders/index.html"
+      "url" : "http://docs.sylius.com/en/latest/book/orders/index.html"
     }
   }, {
     "name" : "products",
     "description" : "Show product catalog and add product reviews.",
     "externalDocs" : {
       "description" : "Find out more",
-      "url" : "http://docs.sylius.org/en/latest/book/products/index.html"
+      "url" : "http://docs.sylius.com/en/latest/book/products/index.html"
     }
   }, {
     "name" : "taxons",
     "description" : "Show taxon tree",
     "externalDocs" : {
       "description" : "Find out more",
-      "url" : "http://docs.sylius.org/en/latest/book/products/taxons.html"
+      "url" : "http://docs.sylius.com/en/latest/book/products/taxons.html"
     }
   }, {
     "name" : "checkout",
     "description" : "All actions related to checkout fulfillment. It is important, to execute them in given order (address, choose shipment, choose payment and complete).",
     "externalDocs" : {
       "description" : "Find out more",
-      "url" : "http://docs.sylius.org/en/latest/book/orders/checkout.html"
+      "url" : "http://docs.sylius.com/en/latest/book/orders/checkout.html"
     }
   }, {
     "name" : "order",
@@ -54,7 +54,7 @@
     "description" : "All actions related to user functionality.",
     "externalDocs" : {
       "description" : "Find out more",
-      "url" : "http://docs.sylius.org/en/latest/book/customers/customer_and_shopuser.html"
+      "url" : "http://docs.sylius.com/en/latest/book/customers/customer_and_shopuser.html"
     }
   }, {
     "name" : "address",
@@ -65,6 +65,8 @@
     }
   } ],
   "schemes" : [ "https" ],
+  "consumes" : [ "application/json" ],
+  "produces" : [ "application/json" ],
   "paths" : {
     "/carts" : {
       "post" : {
@@ -72,20 +74,13 @@
         "summary" : "Pick up your cart from the store",
         "description" : "This endpoint will allow you to create a new cart.",
         "operationId" : "cartPickUp",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "in" : "body",
-          "name" : "content",
-          "description" : "Contains an information about the channel which should be associated with the newly created cart",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/definitions/PickupCartRequest"
-          }
-        } ],
+        "parameters" : [ ],
         "responses" : {
           "201" : {
-            "description" : "Cart has been picked up"
+            "description" : "Cart has been picked up",
+            "schema" : {
+              "$ref" : "#/definitions/Cart"
+            }
           },
           "400" : {
             "description" : "Invalid input",
@@ -102,8 +97,6 @@
         "summary" : "Show summarized cart.",
         "description" : "This endpoint shows you the current calculated state of cart.",
         "operationId" : "cartSummarize",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "token",
           "in" : "path",
@@ -126,48 +119,11 @@
           }
         }
       },
-      "post" : {
-        "tags" : [ "cart" ],
-        "summary" : "Pick up your cart from the store",
-        "description" : "This endpoint will allow you to assign a new cart to the provided token. We recommend using UUID as a token to avoid duplication. If any of previous carts or orders already have the same token value an exception will be thrown.",
-        "operationId" : "deprecatedCartPickUp",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "token",
-          "in" : "path",
-          "description" : "Cart identifier.",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "in" : "body",
-          "name" : "content",
-          "description" : "Contains an information about the channel which should be associated with the newly created cart",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/definitions/PickupCartRequest"
-          }
-        } ],
-        "responses" : {
-          "201" : {
-            "description" : "Cart has been picked up and assigned to given token"
-          },
-          "400" : {
-            "description" : "Invalid input",
-            "schema" : {
-              "$ref" : "#/definitions/GeneralError"
-            }
-          }
-        },
-        "deprecated" : true
-      },
       "delete" : {
         "tags" : [ "cart" ],
         "summary" : "Drop your cart.",
         "description" : "This endpoint will remove the cart and all of the related cart items.",
         "operationId" : "cartDrop",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "token",
           "in" : "path",
@@ -193,9 +149,7 @@
         "tags" : [ "cart" ],
         "summary" : "Add an item to your cart.",
         "description" : "This endpoint will allow you to add a new item to your cart.",
-        "operationId" : "cartPostItem",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
+        "operationId" : "cartAddItem",
         "parameters" : [ {
           "name" : "token",
           "in" : "path",
@@ -233,8 +187,6 @@
         "summary" : "Add multiple items to your cart.",
         "description" : "This endpoint will allow you to add a new item to your cart.",
         "operationId" : "cartPutItems",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "token",
           "in" : "path",
@@ -270,9 +222,7 @@
       "put" : {
         "tags" : [ "cart" ],
         "summary" : "Change quantity of a cart item.",
-        "operationId" : "cartPutItem",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
+        "operationId" : "cartUpdateItem",
         "parameters" : [ {
           "name" : "token",
           "in" : "path",
@@ -309,9 +259,7 @@
         "tags" : [ "cart" ],
         "summary" : "Remove cart item.",
         "description" : "This endpoint will remove one item from your cart",
-        "operationId": "cartDeleteItems",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
+        "operationId" : "cartDeleteItem",
         "parameters" : [ {
           "name" : "token",
           "in" : "path",
@@ -343,12 +291,10 @@
         "tags" : [ "cart" ],
         "summary" : "Estimates the shipping cost of the cart",
         "operationId" : "estimateShippingCost",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "token",
           "in" : "path",
-          "description" : "Cart identifier",
+          "description" : "Cart identifier.",
           "required" : true,
           "type" : "string"
         }, {
@@ -386,8 +332,6 @@
         "summary" : "Add a promotion coupon code to the cart.",
         "description" : "This endpoint will allow you to add a promotion coupon code to the cart and receive the discount.",
         "operationId" : "cartAddCoupon",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "token",
           "in" : "path",
@@ -419,8 +363,6 @@
         "summary" : "Remove a promotion coupon code from the cart.",
         "description" : "This endpoint will allow you to remove a promotion coupon code from the cart.",
         "operationId" : "cartRemoveCoupon",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "token",
           "in" : "path",
@@ -447,8 +389,6 @@
         "summary" : "Show checkout summary",
         "description" : "This endpoint will show the summarized cart during checkout. This action is an equivalent of cart summarize action.",
         "operationId" : "checkoutSummarize",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "token",
           "in" : "path",
@@ -478,8 +418,6 @@
         "summary" : "Address cart.",
         "description" : "This endpoint will allow you to add billing and shipping addresses to the cart and begin the checkout process. You can either define the same shipping and billing address or specify them separately.",
         "operationId" : "checkoutAddress",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "token",
           "in" : "path",
@@ -499,7 +437,7 @@
             "description" : "Cart has been addressed."
           },
           "400" : {
-            "description" : "Invalid input, validation failed.",
+            "description" : "Address not valid",
             "schema" : {
               "$ref" : "#/definitions/GeneralError"
             }
@@ -507,14 +445,12 @@
         }
       }
     },
-    "/checkout/{token}/shipping/" : {
+    "/checkout/{token}/shipping" : {
       "get" : {
         "tags" : [ "checkout" ],
         "summary" : "Get available shipping methods.",
         "description" : "This endpoint will show you available shipping methods for all cart shipments.",
         "operationId" : "checkoutShowAvailableShippingMethods",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "token",
           "in" : "path",
@@ -524,7 +460,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description": "Shipping methods returned",
+            "description" : "Get available shipping methods.",
             "schema" : {
               "$ref" : "#/definitions/AvailableShippingMethods"
             }
@@ -544,8 +480,6 @@
         "summary" : "Choosing a cart shipping method.",
         "description" : "This endpoint will allow you to choose a cart shipping method.",
         "operationId" : "checkoutChooseShippingMethod",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "token",
           "in" : "path",
@@ -579,14 +513,12 @@
         }
       }
     },
-    "/checkout/{token}/payment/" : {
+    "/checkout/{token}/payment" : {
       "get" : {
         "tags" : [ "checkout" ],
         "summary" : "Get available payment methods.",
         "description" : "This endpoint will show you available payment methods for all cart payments.",
         "operationId" : "checkoutShowAvailablePaymentMethods",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "token",
           "in" : "path",
@@ -596,7 +528,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description": "Payment methods returned",
+            "description" : "Get available payment methods.",
             "schema" : {
               "$ref" : "#/definitions/AvailablePaymentMethods"
             }
@@ -616,8 +548,6 @@
         "summary" : "Choosing cart payment method.",
         "description" : "This endpoint will allow you to choose cart a payment method.",
         "operationId" : "checkoutChoosePaymentMethod",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "token",
           "in" : "path",
@@ -657,8 +587,6 @@
         "summary" : "Completing checkout.",
         "description" : "This endpoint will allow you to complete the checkout.",
         "operationId" : "checkoutComplete",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "token",
           "in" : "path",
@@ -682,31 +610,29 @@
             "schema" : {
               "$ref" : "#/definitions/GeneralError"
             }
+          },
+          "403" : {
+            "description" : "Not logged in or wrong email"
           }
-        }
+        },
+        "security" : [ {
+          "bearerAuth" : [ ]
+        } ]
       }
     },
-    "/taxon-products-by-slug/{slug}" : {
+    "/taxon-products/by-slug/{taxonSlug}" : {
       "get" : {
         "tags" : [ "products" ],
         "summary" : "Show product catalog.",
         "description" : "This endpoint will return a paginated list of products for given taxon.",
-        "operationId" : "productCatalogTaxonBySlug",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
+        "operationId" : "productCatalogBySlug",
         "parameters" : [ {
-          "name" : "slug",
+          "name" : "taxonSlug",
           "in" : "path",
           "description" : "Slug of taxonomy for which products should be listed.",
           "required" : true,
           "type" : "string"
         }, {
-          "name" : "channel",
-          "in" : "query",
-          "description" : "Channel from which products should be gathered.",
-          "required" : true,
-          "type" : "string"
-        }, {
           "name" : "locale",
           "in" : "query",
           "description" : "Locale in which products should be shown.",
@@ -735,27 +661,19 @@
         }
       }
     },
-    "/taxon-products/{code}" : {
+    "/taxon-products/by-code/{taxonCode}" : {
       "get" : {
         "tags" : [ "products" ],
         "summary" : "Show product catalog.",
         "description" : "This endpoint will return a paginated list of products for given taxon.",
-        "operationId" : "productCatalogTaxonByCode",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
+        "operationId" : "productCatalog",
         "parameters" : [ {
-          "name" : "code",
+          "name" : "taxonCode",
           "in" : "path",
           "description" : "Code of taxonomy for which products should be listed.",
           "required" : true,
           "type" : "string"
         }, {
-          "name" : "channel",
-          "in" : "query",
-          "description" : "Channel code from which products should be gathered.",
-          "required" : true,
-          "type" : "string"
-        }, {
           "name" : "locale",
           "in" : "query",
           "description" : "Locale in which products should be shown.",
@@ -784,14 +702,12 @@
         }
       }
     },
-    "/products-by-slug/{slug}" : {
+    "/products/by-slug/{slug}" : {
       "get" : {
         "tags" : [ "products" ],
         "summary" : "Show a product with the given slug.",
         "description" : "This endpoint will return a product with the given slug.",
         "operationId" : "productDetailsBySlug",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "slug",
           "in" : "path",
@@ -799,12 +715,6 @@
           "required" : true,
           "type" : "string"
         }, {
-          "name" : "channel",
-          "in" : "query",
-          "description" : "Channel from which products should be gathered.",
-          "required" : true,
-          "type" : "string"
-        }, {
           "name" : "locale",
           "in" : "query",
           "description" : "Locale in which products should be shown.",
@@ -813,7 +723,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description": "Product details returned",
+            "description" : "Show a product with the given slug.",
             "schema" : {
               "$ref" : "#/definitions/ProductDetails"
             }
@@ -821,14 +731,12 @@
         }
       }
     },
-    "/products/{code}" : {
+    "/products/by-code/{code}" : {
       "get" : {
         "tags" : [ "products" ],
         "summary" : "Show a product with the given code.",
         "description" : "This endpoint will return a product with the given code.",
-        "operationId" : "productDetailsByCode",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
+        "operationId" : "productDetails",
         "parameters" : [ {
           "name" : "code",
           "in" : "path",
@@ -836,12 +744,6 @@
           "required" : true,
           "type" : "string"
         }, {
-          "name" : "channel",
-          "in" : "query",
-          "description" : "Channel from which products should be gathered.",
-          "required" : true,
-          "type" : "string"
-        }, {
           "name" : "locale",
           "in" : "query",
           "description" : "Locale in which products should be shown.",
@@ -850,7 +752,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description": "Product details returned",
+            "description" : "Show a product with the given code.",
             "schema" : {
               "$ref" : "#/definitions/ProductDetails"
             }
@@ -858,30 +760,22 @@
         }
       }
     },
-    "/product-reviews-by-slug/{slug}" : {
+    "/products/by-slug/{slug}/reviews" : {
       "get" : {
         "tags" : [ "products" ],
         "summary" : "Show reviews.",
         "description" : "This endpoint will return a paginated list of all reviews related to the product identified by slug.",
         "operationId" : "productReviewsBySlug",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "slug",
           "in" : "path",
           "description" : "Slug of expected product.",
           "required" : true,
           "type" : "string"
-        }, {
-          "name" : "channel",
-          "in" : "query",
-          "description" : "Channel from which products should be gathered.",
-          "required" : true,
-          "type" : "string"
         } ],
         "responses" : {
           "200" : {
-            "description": "Product reviews returned",
+            "description" : "A paginated list of all reviews related to the product identified by slug.",
             "schema" : {
               "$ref" : "#/definitions/ProductReviewsPage"
             }
@@ -892,9 +786,7 @@
         "tags" : [ "products" ],
         "summary" : "Add a review to the product.",
         "description" : "This endpoint will allow you to add a new review to the product. Remember, that it should be accepted by an administrator before it will be available in the review list.",
-        "operationId" : "productAddReviewByslug",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
+        "operationId" : "productAddReviewBySlug",
         "parameters" : [ {
           "name" : "slug",
           "in" : "path",
@@ -922,30 +814,22 @@
         }
       }
     },
-    "/product/{code}/reviews" : {
+    "/products/by-code/{code}/reviews" : {
       "get" : {
         "tags" : [ "products" ],
         "summary" : "Show reviews.",
         "description" : "This endpoint will return a paginated list of all reviews related to the product identified by slug.",
-        "operationId" : "productReviewsByCode",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
+        "operationId" : "productReviews",
         "parameters" : [ {
           "name" : "code",
           "in" : "path",
           "description" : "Code of expected product.",
           "required" : true,
           "type" : "string"
-        }, {
-          "name" : "channel",
-          "in" : "query",
-          "description" : "Channel from which products should be gathered.",
-          "required" : true,
-          "type" : "string"
         } ],
         "responses" : {
           "200" : {
-            "description": "Product reviews returned",
+            "description" : "A paginated list of all reviews related to the product identified by slug.",
             "schema" : {
               "$ref" : "#/definitions/ProductReviewsPage"
             }
@@ -956,9 +840,7 @@
         "tags" : [ "products" ],
         "summary" : "Add a review to the product.",
         "description" : "This endpoint will allow you to add a new review to the product. Remember, that it should be accepted by an administrator before it will be available in the review list.",
-        "operationId" : "productAddReviewByCode",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
+        "operationId" : "productAddReview",
         "parameters" : [ {
           "name" : "code",
           "in" : "path",
@@ -981,6 +863,38 @@
             "description" : "Invalid input, validation failed.",
             "schema" : {
               "$ref" : "#/definitions/GeneralError"
+            }
+          }
+        }
+      }
+    },
+    "/product-latest" : {
+      "get" : {
+        "tags" : [ "products" ],
+        "summary" : "Show latest products.",
+        "description" : "This endpoint will return an array of latest products.",
+        "operationId" : "latestProducts",
+        "parameters" : [ {
+          "name" : "locale",
+          "in" : "query",
+          "description" : "Locale in which products should be shown.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Number of expected products per page.",
+          "required" : false,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Array of latest products.",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Product"
+              }
             }
           }
         }
@@ -992,8 +906,6 @@
         "summary" : "Show taxon tree.",
         "description" : "This endpoint will return an array of all available taxon roots with all of its children.",
         "operationId" : "taxonTree",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "locale",
           "in" : "query",
@@ -1020,8 +932,6 @@
         "summary" : "Show taxon with given code.",
         "description" : "This endpoint will return a taxon with given code, children and the root node with direct path to this taxon.",
         "operationId" : "taxonDetails",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "code",
           "in" : "path",
@@ -1039,7 +949,7 @@
           "200" : {
             "description" : "Requested taxon with children.",
             "schema" : {
-              "$ref" : "#/definitions/Taxon"
+              "$ref" : "#/definitions/TaxonDetails"
             }
           }
         }
@@ -1051,11 +961,9 @@
         "summary" : "Request resetting password of user with passed email.",
         "description" : "Email with reset password path will be sent to user. Default path for password resetting is `/password-reset/{token}`. To change it, you need to override template `@SyliusShopApi\\Email\\passwordReset.html.twig`.",
         "operationId" : "requestPasswordReset",
-        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
-          "name" : "email",
-          "description" : "Email of user which want to reset password.",
+          "name" : "content",
           "required" : true,
           "schema" : {
             "$ref" : "#/definitions/RequestPasswordResetting"
@@ -1071,13 +979,42 @@
         }
       }
     },
+    "/password-reset/{token}" : {
+      "put" : {
+        "tags" : [ "users" ],
+        "summary" : "Password reset.",
+        "description" : "This endpoint resets the user password.",
+        "operationId" : "passwordReset",
+        "parameters" : [ {
+          "name" : "token",
+          "in" : "path",
+          "description" : "Password reset token.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "content",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/PasswordResetRequest"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Update password request success."
+          },
+          "400" : {
+            "description" : "Token not found."
+          }
+        }
+      }
+    },
     "/register" : {
       "post" : {
         "tags" : [ "users" ],
         "summary" : "Registering a new user",
         "description" : "This creates a new user that can log in the shop",
         "operationId" : "registerUser",
-        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "content",
@@ -1099,45 +1036,97 @@
         }
       }
     },
-    "/orders" : {
-      "get" : {
-        "tags" : [ "order" ],
-        "summary" : "Shows a list of orders of the customer",
-        "operationId" : "showsOrderId",
-        "parameters" : [ ],
+    "/login" : {
+      "post" : {
+        "tags" : [ "users" ],
+        "summary" : "Logs the user in and returns the token",
+        "description" : "This route is needed to log the user in and get an access token.",
+        "operationId" : "loginUser",
+        "consumes" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "content",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/LoginRequest"
+          }
+        } ],
         "responses" : {
           "200" : {
-            "description" : "Shows a list of placed orders of the customer"
-          },
-          "401" : {
-            "description" : "User token invalid"
+            "description" : "User was logged in",
+            "schema" : {
+              "$ref" : "#/definitions/LoginSuccess"
+            }
           }
         }
       }
     },
-    "/orders/{id}" : {
+    "/orders" : {
+      "get" : {
+        "tags" : [ "order" ],
+        "summary" : "Shows a list of orders of the customer",
+        "operationId" : "orders",
+        "parameters" : [ {
+          "name" : "channelCode",
+          "in" : "path",
+          "description" : "The request channel code",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Shows a list of placed orders of the customer",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/PlacedOrder"
+              }
+            }
+          },
+          "401" : {
+            "description" : "User token invalid"
+          }
+        },
+        "security" : [ {
+          "bearerAuth" : [ ]
+        } ]
+      }
+    },
+    "/orders/{tokenValue}" : {
       "get" : {
         "tags" : [ "order" ],
         "summary" : "Shows details of specific customer's order",
-        "operationId": "getOrderById",
+        "operationId" : "order",
         "parameters" : [ {
-          "name" : "id",
+          "name" : "channelCode",
           "in" : "path",
-          "description" : "ID of expected order.",
+          "description" : "The request channel code",
           "required" : true,
           "type" : "string"
-        }],
+        }, {
+          "name" : "tokenValue",
+          "in" : "path",
+          "description" : "Order token.",
+          "required" : true,
+          "type" : "string"
+        } ],
         "responses" : {
           "200" : {
-            "$ref" : "#/definitions/PlacedOrder"
+            "description" : "Shows details of specific customer's order with given tokenValue",
+            "schema" : {
+              "$ref" : "#/definitions/PlacedOrder"
+            }
           },
           "401" : {
             "description" : "User token invalid"
           },
           "404" : {
-            "description" : "Order with given ID not found"
+            "description" : "Order with given tokenValue not found"
           }
-        }
+        },
+        "security" : [ {
+          "bearerAuth" : [ ]
+        } ]
       }
     },
     "/me" : {
@@ -1148,13 +1137,13 @@
         "parameters" : [ ],
         "responses" : {
           "200" : {
-            "description": "Customer details returned.",
+            "description" : "Provides currently logged in user details.",
             "schema" : {
               "$ref" : "#/definitions/LoggedInCustomerDetails"
             }
           },
-          "500" : {
-            "description" : "There is no currently logged in user."
+          "401" : {
+            "description" : "User token invalid"
           }
         },
         "security" : [ {
@@ -1165,7 +1154,6 @@
         "tags" : [ "users" ],
         "summary" : "Updates currently logged in users details.",
         "operationId" : "updateUser",
-        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "content",
@@ -1182,10 +1170,7 @@
             }
           },
           "401" : {
-            "description" : "User token is invalid."
-          },
-          "500" : {
-            "description" : "There is no currently logged in user."
+            "description" : "User token invalid"
           }
         },
         "security" : [ {
@@ -1197,7 +1182,7 @@
       "get" : {
         "tags" : [ "address" ],
         "summary" : "Gets the address book of the currently logged in user",
-        "operationId" : "getAddressBook",
+        "operationId" : "addressBook",
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -1218,7 +1203,6 @@
         "tags" : [ "address" ],
         "summary" : "Creates a new address in the the address book",
         "operationId" : "createAddress",
-        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "content",
@@ -1229,7 +1213,10 @@
         } ],
         "responses" : {
           "201" : {
-            "description" : "Successfully created the address"
+            "description" : "Successfully created the address",
+            "schema" : {
+              "$ref" : "#/definitions/LoggedInCustomerAddressBookAddress"
+            }
           },
           "400" : {
             "description" : "Validation failed",
@@ -1254,7 +1241,6 @@
         "tags" : [ "address" ],
         "summary" : "Updates an address in the address book",
         "operationId" : "updateAddressBook",
-        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -1297,7 +1283,6 @@
         "tags" : [ "address" ],
         "summary" : "Deletes an address from the address book",
         "operationId" : "deleteAddress",
-        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -1332,7 +1317,6 @@
         "tags" : [ "address" ],
         "summary" : "Change the default address in the address book",
         "operationId" : "updateDefaultAddress",
-        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -1371,25 +1355,10 @@
     }
   },
   "definitions" : {
-    "PickupCartRequest" : {
-      "type" : "object",
-      "required" : [ "channel" ],
-      "properties" : {
-        "channel" : {
-          "type" : "string",
-          "example" : "WEB_GB"
-        }
-      },
-      "description" : "Body of request with a channel code."
-    },
     "AddReviewRequest" : {
       "type" : "object",
-      "required" : [ "channelCode", "comment", "email", "rating", "title" ],
+      "required" : [ "comment", "email", "rating", "title" ],
       "properties" : {
-        "channelCode" : {
-          "type" : "string",
-          "example" : "WEB_GB"
-        },
         "title" : {
           "type" : "string",
           "example" : "Awesome product"
@@ -1603,7 +1572,7 @@
         "items" : {
           "type" : "array",
           "items" : {
-            "$ref" : "#/definitions/CartItem"
+            "$ref" : "#/definitions/Item"
           }
         },
         "totals" : {
@@ -1630,13 +1599,21 @@
         "cartDiscounts" : {
           "type" : "array",
           "items" : {
-            "$ref" : "#/definitions/Cart_cartDiscounts"
+            "type" : "object",
+            "additionalProperties" : {
+              "$ref" : "#/definitions/Discount"
+            }
           }
+        },
+        "couponCode" : {
+          "type" : "string",
+          "example" : "LD11FA",
+          "description" : "Code of the coupon that is associated with this cart"
         }
       },
       "description" : "Cart with information about items, current state, totals and more."
     },
-    "CartItem" : {
+    "Item" : {
       "type" : "object",
       "properties" : {
         "id" : {
@@ -1648,15 +1625,14 @@
           "example" : 2
         },
         "total" : {
-          "type" : "object",
-          "example" : 1000,
-          "properties" : { }
+          "type" : "integer",
+          "example" : 1000
         },
         "product" : {
           "$ref" : "#/definitions/Product"
         }
       },
-      "description" : "Cart item with calculated prices, quantity and related product."
+      "description" : "Item with calculated prices, quantity and related product."
     },
     "Product" : {
       "type" : "object",
@@ -1674,7 +1650,7 @@
           "example" : "logan-mug"
         },
         "averageRating" : {
-          "type" : "integer",
+          "type" : "string",
           "example" : "4.5"
         },
         "taxons" : {
@@ -1724,7 +1700,7 @@
         },
         "path" : {
           "type" : "string",
-          "example" : "\\/uo\\/mug.jpg"
+          "example" : "/uo/mug.jpg"
         }
       }
     },
@@ -1754,7 +1730,14 @@
             "type" : "string"
           }
         },
+        "onHand" : {
+          "type" : "integer",
+          "example" : 12
+        },
         "price" : {
+          "$ref" : "#/definitions/Price"
+        },
+        "originalPrice" : {
           "$ref" : "#/definitions/Price"
         },
         "images" : {
@@ -1871,16 +1854,14 @@
           "description" : "Number of items per page."
         },
         "pages" : {
-          "type" : "object",
+          "type" : "integer",
           "example" : 3,
-          "description" : "Number of available pages for given limit.",
-          "properties" : { }
+          "description" : "Number of available pages for given limit."
         },
         "total" : {
-          "type" : "object",
+          "type" : "integer",
           "example" : 25,
-          "description" : "Amount of all paginated resources.",
-          "properties" : { }
+          "description" : "Amount of all paginated resources."
         },
         "_links" : {
           "$ref" : "#/definitions/Page__links"
@@ -1929,6 +1910,10 @@
           "rating" : {
             "type" : "integer",
             "example" : 5
+          },
+          "createdAt" : {
+            "type" : "string",
+            "example" : "2016-01-02 21:00:10"
           },
           "comment" : {
             "type" : "string",
@@ -1993,6 +1978,14 @@
         "provinceName" : {
           "type" : "string",
           "example" : "Greater London"
+        },
+        "company" : {
+          "type" : "string",
+          "example" : "Holmes Investigation Service"
+        },
+        "phoneNumber" : {
+          "type" : "string",
+          "example" : "+490000000000"
         }
       }
     },
@@ -2010,6 +2003,10 @@
         "description" : {
           "type" : "string",
           "example" : "Some strange description."
+        },
+        "instructions" : {
+          "type" : "string",
+          "example" : "Some instructions."
         }
       }
     },
@@ -2042,6 +2039,27 @@
         }
       }
     },
+    "PasswordResetRequest" : {
+      "type" : "object",
+      "properties" : {
+        "password" : {
+          "$ref" : "#/definitions/PasswordReset"
+        }
+      }
+    },
+    "PasswordReset" : {
+      "type" : "object",
+      "properties" : {
+        "first" : {
+          "type" : "string",
+          "example" : "a-new-password"
+        },
+        "second" : {
+          "type" : "string",
+          "example" : "a-new-password"
+        }
+      }
+    },
     "RegisterRequest" : {
       "type" : "object",
       "properties" : {
@@ -2064,6 +2082,19 @@
         "channel" : {
           "type" : "string",
           "example" : "WEB_GB"
+        }
+      }
+    },
+    "LoginRequest" : {
+      "type" : "object",
+      "properties" : {
+        "email" : {
+          "type" : "string",
+          "example" : "test@example.com"
+        },
+        "password" : {
+          "type" : "string",
+          "example" : "test12334verysecure"
         }
       }
     },
@@ -2114,6 +2145,22 @@
         "email" : {
           "type" : "string",
           "example" : "sherlock@holmes.com"
+        },
+        "birthday" : {
+          "type" : "string",
+          "example" : "2017-08-12"
+        },
+        "gender" : {
+          "type" : "string",
+          "example" : "m"
+        },
+        "phoneNumber" : {
+          "type" : "string",
+          "example" : "+490000000000"
+        },
+        "subscribedToNewsletter" : {
+          "type" : "boolean",
+          "example" : false
         }
       }
     },
@@ -2213,7 +2260,87 @@
         }
       }
     },
-    "PlacedOrder" : { },
+    "LoginSuccess" : {
+      "type" : "object",
+      "properties" : {
+        "token" : {
+          "type" : "string",
+          "example" : "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9"
+        }
+      },
+      "description" : "User was logged in."
+    },
+    "PlacedOrder" : {
+      "type" : "object",
+      "properties" : {
+        "tokenValue" : {
+          "type" : "string",
+          "example" : "SDAOSLEFNWU35H3QLI5325"
+        },
+        "channel" : {
+          "type" : "string",
+          "example" : "WEB_GB"
+        },
+        "currency" : {
+          "type" : "string",
+          "example" : "GBP",
+          "description" : "Code of the cart currency according to ISO 4217. This value is inherited from channel"
+        },
+        "locale" : {
+          "type" : "string",
+          "example" : "en_GB",
+          "description" : "Code of the order locale. This value is inherited from channel"
+        },
+        "checkoutState" : {
+          "type" : "string",
+          "description" : "Current state of a checkout.",
+          "enum" : [ "cart", "new", "fulfilled", "cancelled" ],
+          "default" : "cart"
+        },
+        "checkoutCompletedAt" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "Date the order was completed in ISO 8601 format."
+        },
+        "items" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Item"
+          }
+        },
+        "totals" : {
+          "$ref" : "#/definitions/TotalsView"
+        },
+        "shippingAddress" : {
+          "$ref" : "#/definitions/Address"
+        },
+        "billingAddress" : {
+          "$ref" : "#/definitions/Address"
+        },
+        "payments" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Payment"
+          }
+        },
+        "shipments" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Shipment"
+          }
+        },
+        "cartDiscounts" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "$ref" : "#/definitions/Discount"
+            }
+          }
+        }
+      },
+      "description" : "Placed order with information about items, current state, totals and more."
+    },
     "GeneralError" : {
       "type" : "object",
       "properties" : {
@@ -2241,7 +2368,10 @@
     "AvailableShippingMethods_shipments" : {
       "properties" : {
         "methods" : {
-          "$ref" : "#/definitions/ShippingMethod"
+          "type" : "object",
+          "additionalProperties" : {
+            "$ref" : "#/definitions/ShippingMethod"
+          }
         }
       }
     },
@@ -2255,36 +2385,45 @@
         }
       }
     },
-    "Cart_cartDiscounts" : {
-      "properties" : {
-        "additionalProperties" : {
-          "$ref" : "#/definitions/Discount"
-        }
-      }
-    },
     "Page__links" : {
       "properties" : {
         "self" : {
-          "type" : "integer",
-          "example" : "\\/shop-api\\/some-path?page=1&limit=10",
+          "type" : "string",
+          "example" : "/shop-api/some-path?page=1&limit=10",
           "description" : "Link to the current page."
         },
         "first" : {
           "type" : "string",
-          "example" : "\\/shop-api\\/some-path?page=1&limit=10",
+          "example" : "/shop-api/some-path?page=1&limit=10",
           "description" : "Link to the fist page."
         },
         "last" : {
           "type" : "string",
-          "example" : "\\/shop-api\\/some-path?page=1&limit=10",
+          "example" : "/shop-api/some-path?page=1&limit=10",
           "description" : "Link to the last page."
         },
         "next" : {
           "type" : "string",
-          "example" : "\\/shop-api\\/some-path?page=1&limit=10",
+          "example" : "/shop-api/some-path?page=1&limit=10",
           "description" : "Link to the next page."
         }
       }
+    }
+  },
+  "parameters" : {
+    "ChannelCode" : {
+      "name" : "channelCode",
+      "in" : "path",
+      "description" : "The request channel code",
+      "required" : true,
+      "type" : "string"
+    },
+    "CartToken" : {
+      "name" : "token",
+      "in" : "path",
+      "description" : "Cart identifier.",
+      "required" : true,
+      "type" : "string"
     }
   }
 }
