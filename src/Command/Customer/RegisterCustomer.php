@@ -35,16 +35,15 @@ class RegisterCustomer implements CommandInterface
         string $firstName,
         string $lastName,
         string $channelCode,
-        bool $subscribedToNewsletter,
-        string $phoneNumber
-    )
-    {
+        ?bool $subscribedToNewsletter,
+        ?string $phoneNumber
+    ) {
         $this->email = $email;
         $this->plainPassword = $plainPassword;
         $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->channelCode = $channelCode;
-        $this->subscribedToNewsletter = $subscribedToNewsletter;
+        $this->subscribedToNewsletter = $subscribedToNewsletter === null ? false : $subscribedToNewsletter;
         $this->phoneNumber = $phoneNumber;
     }
 
@@ -73,12 +72,12 @@ class RegisterCustomer implements CommandInterface
         return $this->channelCode;
     }
 
-    public function subscribedToNewsletter(): bool
+    public function subscribedToNewsletter(): ?bool
     {
         return $this->subscribedToNewsletter;
     }
 
-    public function phoneNumber(): string
+    public function phoneNumber(): ?string
     {
         return $this->phoneNumber;
     }
