@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Request\Customer;
 
-use spec\PhpSpec\Formatter\Presenter\Value\BooleanTypePresenterSpec;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\ShopApiPlugin\Command\CommandInterface;
 use Sylius\ShopApiPlugin\Command\Customer\RegisterCustomer;
