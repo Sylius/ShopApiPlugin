@@ -6,51 +6,50 @@ namespace Sylius\ShopApiPlugin\Controller\Cart;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
-use League\Tactician\CommandBus;
+use Sylius\ShopApiPlugin\CommandProvider\CommandProviderInterface;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
-use Sylius\ShopApiPlugin\Request\DropCartRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 final class DropCartAction
 {
     /** @var ViewHandlerInterface */
     private $viewHandler;
 
-    /** @var CommandBus */
+    /** @var MessageBusInterface */
     private $bus;
-
-    /** @var ValidatorInterface */
-    private $validator;
 
     /** @var ValidationErrorViewFactoryInterface */
     private $validationErrorViewFactory;
 
+    /** @var CommandProviderInterface */
+    private $dropCartCommandProvider;
+
     public function __construct(
         ViewHandlerInterface $viewHandler,
-        CommandBus $bus,
-        ValidatorInterface $validator,
-        ValidationErrorViewFactoryInterface $validationErrorViewFactory
+        MessageBusInterface $bus,
+        ValidationErrorViewFactoryInterface $validationErrorViewFactory,
+        CommandProviderInterface $dropCartCommandProvider
     ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
-        $this->validator = $validator;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
+        $this->dropCartCommandProvider = $dropCartCommandProvider;
     }
 
     public function __invoke(Request $request): Response
     {
-        $pickupRequest = new DropCartRequest($request);
-
-        $validationResults = $this->validator->validate($pickupRequest);
-
-        if (0 === count($validationResults)) {
-            $this->bus->handle($pickupRequest->getCommand());
-
-            return $this->viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));
+        $validationResults = $this->dropCartCommandProvider->validate($request);
+        if (0 !== count($validationResults)) {
+            return $this->viewHandler->handle(View::create(
+                $this->validationErrorViewFactory->create($validationResults),
+                Response::HTTP_BAD_REQUEST
+            ));
         }
 
-        return $this->viewHandler->handle(View::create($this->validationErrorViewFactory->create($validationResults), Response::HTTP_BAD_REQUEST));
+        $this->bus->dispatch($this->dropCartCommandProvider->getCommand($request));
+
+        return $this->viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));
     }
 }

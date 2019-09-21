@@ -6,33 +6,49 @@ namespace Sylius\ShopApiPlugin\Controller\Checkout;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
-use League\Tactician\CommandBus;
-use Sylius\ShopApiPlugin\Command\AddressOrder;
-use Sylius\ShopApiPlugin\Model\Address;
+use Sylius\ShopApiPlugin\CommandProvider\CommandProviderInterface;
+use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 final class AddressAction
 {
     /** @var ViewHandlerInterface */
     private $viewHandler;
 
-    /** @var CommandBus */
+    /** @var MessageBusInterface */
     private $bus;
 
-    public function __construct(ViewHandlerInterface $viewHandler, CommandBus $bus)
-    {
+    /** @var ValidationErrorViewFactoryInterface */
+    private $validationErrorViewFactory;
+
+    /** @var CommandProviderInterface */
+    private $addressOrderCommandProvider;
+
+    public function __construct(
+        ViewHandlerInterface $viewHandler,
+        MessageBusInterface $bus,
+        ValidationErrorViewFactoryInterface $validationErrorViewFactory,
+        CommandProviderInterface $addressOrderCommandProvider
+    ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
+        $this->validationErrorViewFactory = $validationErrorViewFactory;
+        $this->addressOrderCommandProvider = $addressOrderCommandProvider;
     }
 
     public function __invoke(Request $request): Response
     {
-        $this->bus->handle(new AddressOrder(
-            $request->attributes->get('token'),
-            Address::createFromArray($request->request->get('shippingAddress')),
-            Address::createFromArray($request->request->get('billingAddress') ?: $request->request->get('shippingAddress'))
-        ));
+        $validationResults = $this->addressOrderCommandProvider->validate($request);
+        if (0 !== count($validationResults)) {
+            return $this->viewHandler->handle(View::create(
+                $this->validationErrorViewFactory->create($validationResults),
+                Response::HTTP_BAD_REQUEST
+            ));
+        }
+
+        $this->bus->dispatch($this->addressOrderCommandProvider->getCommand($request));
 
         return $this->viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));
     }

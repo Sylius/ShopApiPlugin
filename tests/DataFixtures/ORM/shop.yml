@@ -37,6 +37,7 @@ Sylius\Component\Locale\Model\Locale:
 Sylius\Component\Core\Model\Product:
     mug:
         code: "LOGAN_MUG_CODE"
+        createdAt: "<date_create('2019-02-01 03:00:00')>"
         channels: ["@gb_web_channel"]
         currentLocale: "en_GB"
         translations: ["@en_gb_mug_product_translation", "@de_de_mug_product_translation"]
@@ -50,6 +51,7 @@ Sylius\Component\Core\Model\Product:
             - "@de_de_mug_holiday_material_value"
     t_shirt:
         code: "LOGAN_T_SHIRT_CODE"
+        createdAt: "<date_create('2019-02-01 01:00:00')>"
         channels: ["@gb_web_channel"]
         currentLocale: "en_GB"
         images: ["@t_shirt_thumbnail", "@small_t_shirt_thumbnail", "@large_t_shirt_thumbnail"]
@@ -57,6 +59,7 @@ Sylius\Component\Core\Model\Product:
         productTaxons: ["@women_t_shirt_product_taxon"]
     hat:
         code: "LOGAN_HAT_CODE"
+        createdAt: "<date_create('2019-02-01 04:00:00')>"
         channels: ["@gb_web_channel"]
         options: ["@hat_size"]
         currentLocale: "en_GB"
@@ -66,6 +69,7 @@ Sylius\Component\Core\Model\Product:
         productTaxons: ["@hat_product_taxon"]
     shoes:
         code: "LOGAN_SHOES_CODE"
+        createdAt: "<date_create('2019-02-01 02:00:00')>"
         channels: ["@gb_web_channel"]
         currentLocale: "en_GB"
         translations: ["@en_gb_shoes_product_translation"]
@@ -113,6 +117,7 @@ Sylius\Component\Core\Model\ProductVariant:
         product: "@mug"
         currentLocale: "en_GB"
         translations: ["@en_gb_mug_variant_translation", "@de_de_mug_variant_translation"]
+        onHand: 12
         channelPricings:
             WEB_GB: "@gb_mug_web_channel_pricing"
             WEB_DE: "@de_mug_web_channel_pricing"
@@ -217,6 +222,7 @@ Sylius\Component\Core\Model\ChannelPricing:
     gb_mug_web_channel_pricing:
         channelCode: "WEB_GB"
         price: 1999
+        originalPrice: 2999
     gb_small_t_shirt_web_channel_pricing:
         channelCode: "WEB_GB"
         price: 1999
@@ -453,6 +459,12 @@ Sylius\Component\Taxonomy\Model\TaxonTranslation:
         name: "Yet another taxon"
         description: "Some description Lorem ipsum dolor sit amet."
         translatable: "@yet_another_taxon"
+    en_us_yet_another_taxon_translation:
+        slug: "yet_another_taxons"
+        locale: "en_US"
+        name: "Yet another taxon"
+        description: "Some description Lorem ipsum dolor sit amet."
+        translatable: "@yet_another_taxon"
     de_de_mug_taxon_translation:
         slug: "tassen"
         locale: "de_DE"
@@ -571,8 +583,13 @@ Sylius\Component\Product\Model\ProductAttribute:
         fallbackLocale: "en_GB"
         currentLocale: "en_GB"
         code: "MUG_MATERIAL_CODE"
-        type: "text"
-        storage_type: "text"
+        type: "select"
+        storage_type: "json"
+        configuration:
+            required: true
+            choices:
+                1: Wood
+                2: Porcelain
         translations:
             - "@mug_material_en_gb_translation"
             - "@mug_material_de_de_translation"
@@ -592,9 +609,9 @@ Sylius\Component\Product\Model\ProductAttributeValue:
         subject: "@mug"
         attribute: "@mug_material"
         localeCode: "en_GB"
-        value: "Wood"
+        value: ['1']
     de_de_mug_holiday_material_value:
         subject: "@mug"
         attribute: "@mug_material"
         localeCode: "de_DE"
-        value: "Holz"
+        value: ['1']

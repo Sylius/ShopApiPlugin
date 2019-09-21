@@ -1,0 +1,9 @@
+{
+    "code": 400,
+    "message": "Validation failed",
+    "errors": {
+        "rating": [
+            "This value should be 5 or less."
+        ]
+    }
+}

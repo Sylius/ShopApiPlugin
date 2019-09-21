@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Tests\Sylius\ShopApiPlugin\Request;
 
 use PHPUnit\Framework\TestCase;
-use Sylius\ShopApiPlugin\Command\PutOptionBasedConfigurableItemToCart;
-use Sylius\ShopApiPlugin\Request\PutOptionBasedConfigurableItemToCartRequest;
+use Sylius\ShopApiPlugin\Command\Cart\PutOptionBasedConfigurableItemToCart;
+use Sylius\ShopApiPlugin\Request\Cart\PutOptionBasedConfigurableItemToCartRequest;
 use Symfony\Component\HttpFoundation\Request;
 
 final class PutOptionBasedConfigurableItemToCartRequestTest extends TestCase
@@ -16,7 +16,7 @@ final class PutOptionBasedConfigurableItemToCartRequestTest extends TestCase
      */
     public function it_creates_put_simple_item_to_cart_command_from_request()
     {
-        $putConfigurableItemToCartRequest = PutOptionBasedConfigurableItemToCartRequest::fromRequest(new Request([], [
+        $putConfigurableItemToCartRequest = PutOptionBasedConfigurableItemToCartRequest::fromHttpRequest(new Request([], [
             'productCode' => 'HACKTOBERFEST_TSHIRT_CODE',
             'options' => ['LARGE__CODE'],
             'quantity' => 4,

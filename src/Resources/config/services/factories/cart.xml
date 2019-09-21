@@ -7,14 +7,14 @@
         <defaults public="true"/>
 
         <service id="sylius.shop_api_plugin.factory.cart_item_view_factory"
-                 class="Sylius\ShopApiPlugin\Factory\CartItemViewFactory">
+                 class="Sylius\ShopApiPlugin\Factory\Cart\CartItemViewFactory">
             <argument type="service" id="sylius.shop_api_plugin.factory.product_view_factory"/>
             <argument type="service" id="sylius.shop_api_plugin.factory.product_variant_view_factory"/>
             <argument type="string">%sylius.shop_api.view.cart_item.class%</argument>
         </service>
 
         <service id="sylius.shop_api_plugin.factory.cart_view_factory"
-                 class="Sylius\ShopApiPlugin\Factory\CartViewFactory">
+                 class="Sylius\ShopApiPlugin\Factory\Cart\CartViewFactory">
             <argument type="service" id="sylius.shop_api_plugin.factory.cart_item_view_factory"/>
             <argument type="service" id="sylius.shop_api_plugin.factory.address_view_factory"/>
             <argument type="service" id="sylius.shop_api_plugin.factory.total_view_factory"/>
@@ -25,13 +25,20 @@
         </service>
 
         <service id="sylius.shop_api_plugin.factory.adjustment_view_factory"
-                 class="Sylius\ShopApiPlugin\Factory\AdjustmentViewFactory">
+                 class="Sylius\ShopApiPlugin\Factory\Cart\AdjustmentViewFactory">
             <argument type="service" id="sylius.shop_api_plugin.factory.price_view_factory"/>
             <argument type="string">%sylius.shop_api.view.adjustment.class%</argument>
         </service>
 
+        <service id="sylius.shop_api_plugin.factory.estimated_shipping_cost_view_factory"
+                 class="Sylius\ShopApiPlugin\Factory\Cart\EstimatedShippingCostViewFactory"
+        >
+            <argument type="service" id="sylius.shop_api_plugin.factory.price_view_factory"/>
+            <argument type="string">%sylius.shop_api.view.estimated_shipping_cost.class%</argument>
+        </service>
+
         <service id="sylius.shop_api_plugin.factory.total_view_factory"
-                 class="Sylius\ShopApiPlugin\Factory\TotalViewFactory">
+                 class="Sylius\ShopApiPlugin\Factory\Cart\TotalViewFactory">
             <argument type="string">%sylius.shop_api.view.totals.class%</argument>
         </service>
     </services>

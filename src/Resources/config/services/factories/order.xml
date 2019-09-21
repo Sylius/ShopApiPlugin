@@ -5,7 +5,7 @@
         <defaults public="true"/>
 
         <service id="sylius.shop_api_plugin.factory.placed_order_view_factory"
-                 class="Sylius\ShopApiPlugin\Factory\PlacedOrderViewFactory">
+                 class="Sylius\ShopApiPlugin\Factory\Order\PlacedOrderViewFactory">
             <argument type="service" id="sylius.shop_api_plugin.factory.cart_item_view_factory"/>
             <argument type="service" id="sylius.shop_api_plugin.factory.address_view_factory"/>
             <argument type="service" id="sylius.shop_api_plugin.factory.total_view_factory"/>

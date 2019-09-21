@@ -1,0 +1,10 @@
+Sylius\ShopApiPlugin\View\Taxon\ImageView:
+    exclusion_policy: ALL
+    xml_root_name: image_view
+    properties:
+        code:
+            expose: true
+            type: string
+        path:
+            expose: true
+            type: string

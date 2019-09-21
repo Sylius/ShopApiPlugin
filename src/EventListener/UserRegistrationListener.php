@@ -4,40 +4,27 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\EventListener;
 
-use Doctrine\Common\Persistence\ObjectManager;
-use League\Tactician\CommandBus;
 use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
-use Sylius\Component\User\Repository\UserRepositoryInterface;
-use Sylius\ShopApiPlugin\Command\GenerateVerificationToken;
-use Sylius\ShopApiPlugin\Command\SendVerificationToken;
+use Sylius\ShopApiPlugin\Command\Customer\EnableCustomer;
+use Sylius\ShopApiPlugin\Command\Customer\GenerateVerificationToken;
+use Sylius\ShopApiPlugin\Command\Customer\SendVerificationToken;
 use Sylius\ShopApiPlugin\Event\CustomerRegistered;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Webmozart\Assert\Assert;
 
 final class UserRegistrationListener
 {
-    /** @var CommandBus */
+    /** @var MessageBusInterface */
     private $bus;
 
     /** @var ChannelRepositoryInterface */
     private $channelRepository;
 
-    /** @var UserRepositoryInterface */
-    private $userRepository;
-
-    /** @var ObjectManager */
-    private $userManager;
-
-    public function __construct(
-        CommandBus $bus,
-        ChannelRepositoryInterface $channelRepository,
-        UserRepositoryInterface $userRepository,
-        ObjectManager $userManager
-    ) {
+    public function __construct(MessageBusInterface $bus, ChannelRepositoryInterface $channelRepository)
+    {
         $this->bus = $bus;
         $this->channelRepository = $channelRepository;
-        $this->userRepository = $userRepository;
-        $this->userManager = $userManager;
     }
 
     public function handleUserVerification(CustomerRegistered $event): void
@@ -48,17 +35,12 @@ final class UserRegistrationListener
         Assert::isInstanceOf($channel, ChannelInterface::class);
 
         if (!$channel->isAccountVerificationRequired()) {
-            $user = $this->userRepository->findOneByEmail($event->email());
-            $user->enable();
-
-            // TODO: Get rid of implementation details here
-            $this->userManager->persist($user);
-            $this->userManager->flush();
+            $this->bus->dispatch(new EnableCustomer($event->email()));
 
             return;
         }
 
-        $this->bus->handle(new GenerateVerificationToken($event->email()));
-        $this->bus->handle(new SendVerificationToken($event->email(), $event->channelCode()));
+        $this->bus->dispatch(new GenerateVerificationToken($event->email()));
+        $this->bus->dispatch(new SendVerificationToken($event->email(), $event->channelCode()));
     }
 }

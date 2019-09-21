@@ -6,25 +6,22 @@ namespace Sylius\ShopApiPlugin\Controller\Cart;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
-use League\Tactician\CommandBus;
+use Sylius\ShopApiPlugin\Command\Cart\RemoveItemFromCart;
+use Sylius\ShopApiPlugin\CommandProvider\CommandProviderInterface;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
-use Sylius\ShopApiPlugin\Request\RemoveItemFromCartRequest;
-use Sylius\ShopApiPlugin\ViewRepository\CartViewRepositoryInterface;
+use Sylius\ShopApiPlugin\ViewRepository\Cart\CartViewRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 final class RemoveItemFromCartAction
 {
     /** @var ViewHandlerInterface */
     private $viewHandler;
 
-    /** @var CommandBus */
+    /** @var MessageBusInterface */
     private $bus;
-
-    /** @var ValidatorInterface */
-    private $validator;
 
     /** @var ValidationErrorViewFactoryInterface */
     private $validationErrorViewFactory;
@@ -32,38 +29,43 @@ final class RemoveItemFromCartAction
     /** @var CartViewRepositoryInterface */
     private $cartQuery;
 
+    /** @var CommandProviderInterface */
+    private $removeItemFromCartCommandProvider;
+
     public function __construct(
         ViewHandlerInterface $viewHandler,
-        CommandBus $bus,
-        ValidatorInterface $validator,
+        MessageBusInterface $bus,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
-        CartViewRepositoryInterface $cartQuery
+        CartViewRepositoryInterface $cartQuery,
+        CommandProviderInterface $removeItemFromCartCommandProvider
     ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
-        $this->validator = $validator;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->cartQuery = $cartQuery;
+        $this->removeItemFromCartCommandProvider = $removeItemFromCartCommandProvider;
     }
 
     public function __invoke(Request $request): Response
     {
-        $removeItemFromCartRequest = new RemoveItemFromCartRequest($request);
-
-        $validationResults = $this->validator->validate($removeItemFromCartRequest);
-
+        $validationResults = $this->removeItemFromCartCommandProvider->validate($request);
         if (0 !== count($validationResults)) {
-            return $this->viewHandler->handle(View::create($this->validationErrorViewFactory->create($validationResults), Response::HTTP_BAD_REQUEST));
+            return $this->viewHandler->handle(View::create(
+                $this->validationErrorViewFactory->create($validationResults),
+                Response::HTTP_BAD_REQUEST
+            ));
         }
 
-        $removeItemFromCartCommand = $removeItemFromCartRequest->getCommand();
+        /** @var RemoveItemFromCart $removeItemFromCartCommand */
+        $removeItemFromCartCommand = $this->removeItemFromCartCommandProvider->getCommand($request);
 
-        $this->bus->handle($removeItemFromCartCommand);
+        $this->bus->dispatch($removeItemFromCartCommand);
 
         try {
-            return $this->viewHandler->handle(
-                View::create($this->cartQuery->getOneByToken($removeItemFromCartCommand->orderToken()), Response::HTTP_OK)
-            );
+            return $this->viewHandler->handle(View::create(
+                $this->cartQuery->getOneByToken($removeItemFromCartCommand->orderToken()),
+                Response::HTTP_OK
+            ));
         } catch (\InvalidArgumentException $exception) {
             throw new BadRequestHttpException($exception->getMessage());
         }

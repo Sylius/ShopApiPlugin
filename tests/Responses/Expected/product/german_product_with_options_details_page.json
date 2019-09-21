@@ -25,6 +25,7 @@
                 "HAT_SIZE_S": "Size S",
                 "HAT_COLOR_RED": "Farbe Rot"
             },
+            "onHand": 0,
             "price": {
                 "current": 500,
                 "currency": "GBP"
@@ -42,6 +43,7 @@
                 "HAT_SIZE_L": "Size L",
                 "HAT_COLOR_RED": "Farbe Rot"
             },
+            "onHand": 0,
             "price": {
                 "current": 999,
                 "currency": "GBP"
@@ -59,6 +61,7 @@
                 "HAT_SIZE_S": "Size S",
                 "HAT_COLOR_BLUE": "Farbe Blau"
             },
+            "onHand": 0,
             "price": {
                 "current": 1500,
                 "currency": "GBP"
@@ -76,6 +79,7 @@
                 "HAT_SIZE_L": "Size L",
                 "HAT_COLOR_BLUE": "Farbe Blau"
             },
+            "onHand": 0,
             "price": {
                 "current": 2599,
                 "currency": "GBP"
@@ -105,8 +109,13 @@
                         "name": "Logan Becher",
                         "axis": [],
                         "nameAxis": {},
+                        "onHand": 12,
                         "price": {
                             "current": 1999,
+                            "currency": "GBP"
+                        },
+                        "originalPrice": {
+                            "current": 2999,
                             "currency": "GBP"
                         },
                         "images": [
@@ -121,7 +130,7 @@
                     {
                         "code": "MUG_MATERIAL_CODE",
                         "name": "Becher Material",
-                        "value": "Holz"
+                        "value": "Wood"
                     }
                 ],
                 "associations": [],
@@ -133,7 +142,7 @@
                 ],
                 "_links": {
                     "self": {
-                        "href": "\/shop-api\/WEB_GB\/products-by-slug\/logan-becher"
+                        "href": "\/shop-api\/products\/by-slug\/logan-becher"
                     }
                 }
             },
@@ -157,6 +166,7 @@
                         "name": "Small Logan T-Shirt",
                         "axis": [],
                         "nameAxis": {},
+                        "onHand": 0,
                         "price": {
                             "current": 1999,
                             "currency": "GBP"
@@ -173,6 +183,7 @@
                         "name": "Large Logan T-Shirt",
                         "axis": [],
                         "nameAxis": {},
+                        "onHand": 0,
                         "price": {
                             "current": 2999,
                             "currency": "GBP"
@@ -203,7 +214,7 @@
                 ],
                 "_links": {
                     "self": {
-                        "href": "\/shop-api\/WEB_GB\/products-by-slug\/logan-t-shirt"
+                        "href": "\/shop-api\/products\/by-slug\/logan-t-shirt"
                     }
                 }
             }
@@ -212,7 +223,7 @@
     "images": [],
     "_links": {
         "self": {
-            "href": "\/shop-api\/WEB_GB\/products-by-slug\/logan-hut"
+            "href": "\/shop-api\/products\/by-slug\/logan-hut"
         }
     }
 }

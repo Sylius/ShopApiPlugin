@@ -16,15 +16,36 @@ trait ShopUserLoginTrait
     protected function logInUser(string $username, string $password): void
     {
         $data =
-<<<EOT
+<<<JSON
         {
-            "_username": "$username",
-            "_password": "$password"
+            "email": "$username",
+            "password": "$password"
         }
-EOT;
+JSON;
 
-        $this->client->request('POST', '/shop-api/login_check', [], [], ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'], $data);
+        $this->sendLogInRequest($data);
+    }
+
+    protected function logInUserWithCart(string $username, string $password, string $token): void
+    {
+        $data =
+<<<JSON
+        {
+            "email": "$username",
+            "password": "$password",
+            "token": "$token"
+        }
+JSON;
+
+        $this->sendLogInRequest($data);
+    }
+
+    private function sendLogInRequest(string $data): void
+    {
+        $this->client->request('POST', '/shop-api/login', [], [], ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'], $data);
+
         Assert::assertSame($this->client->getResponse()->getStatusCode(), Response::HTTP_OK);
+
         $response = json_decode($this->client->getResponse()->getContent(), true);
         $this->client->setServerParameter('HTTP_Authorization', sprintf('Bearer %s', $response['token']));
     }

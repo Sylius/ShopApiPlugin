@@ -1,11 +1,11 @@
-sylius_shop_orders_list:
+sylius_shop_api_orders_list:
     path: /orders
     methods: [GET]
     defaults:
         _controller: sylius.shop_api_plugin.controller.order.show_orders_list_action
 
-sylius_shop_order_details:
-    path: /orders/{id}
+sylius_shop_api_order_details:
+    path: /orders/{tokenValue}
     methods: [GET]
     defaults:
         _controller: sylius.shop_api_plugin.controller.order.show_order_details_action

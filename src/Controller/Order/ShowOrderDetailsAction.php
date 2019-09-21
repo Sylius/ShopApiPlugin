@@ -6,20 +6,21 @@ namespace Sylius\ShopApiPlugin\Controller\Order;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
+use JMS\Serializer\Exclusion\GroupsExclusionStrategy;
 use Sylius\Component\Core\Model\ShopUserInterface;
-use Sylius\ShopApiPlugin\Provider\LoggedInUserProviderInterface;
-use Sylius\ShopApiPlugin\ViewRepository\PlacedOrderViewRepositoryInterface;
+use Sylius\ShopApiPlugin\Provider\LoggedInShopUserProviderInterface;
+use Sylius\ShopApiPlugin\View\Order\PlacedOrderView;
+use Sylius\ShopApiPlugin\ViewRepository\Order\PlacedOrderViewRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 final class ShowOrderDetailsAction
 {
     /** @var ViewHandlerInterface */
     private $viewHandler;
 
-    /** @var LoggedInUserProviderInterface */
+    /** @var LoggedInShopUserProviderInterface */
     private $loggedInUserProvider;
 
     /** @var PlacedOrderViewRepositoryInterface */
@@ -27,7 +28,7 @@ final class ShowOrderDetailsAction
 
     public function __construct(
         ViewHandlerInterface $viewHandler,
-        LoggedInUserProviderInterface $loggedInUserProvider,
+        LoggedInShopUserProviderInterface $loggedInUserProvider,
         PlacedOrderViewRepositoryInterface $placedOrderQuery
     ) {
         $this->viewHandler = $viewHandler;
@@ -37,20 +38,39 @@ final class ShowOrderDetailsAction
 
     public function __invoke(Request $request): Response
     {
-        try {
+        $groups = [GroupsExclusionStrategy::DEFAULT_GROUP];
+        $user = null;
+        if ($this->loggedInUserProvider->isUserLoggedIn()) {
             /** @var ShopUserInterface $user */
             $user = $this->loggedInUserProvider->provide();
+            $groups[] = 'logged_in_user';
+        }
 
-            $order = $this
-                ->placedOrderQuery
-                ->getOneCompletedByCustomerEmailAndId($user->getCustomer()->getEmail(), (int) $request->attributes->get('id'))
-            ;
-        } catch (TokenNotFoundException $exception) {
-            return $this->viewHandler->handle(View::create(null, Response::HTTP_UNAUTHORIZED));
+        try {
+            $order = $this->getPlacedOrderView(
+                (string) $request->attributes->get('tokenValue'),
+                $user
+            );
         } catch (\InvalidArgumentException $exception) {
             throw new NotFoundHttpException($exception->getMessage());
         }
 
-        return $this->viewHandler->handle(View::create($order, Response::HTTP_OK));
+        $view = View::create($order, Response::HTTP_OK);
+        $view->getContext()->setGroups($groups);
+
+        return $this->viewHandler->handle($view);
+    }
+
+    private function getPlacedOrderView(string $token, ShopUserInterface $user = null): PlacedOrderView
+    {
+        if (null !== $user) {
+            return $this
+                ->placedOrderQuery
+                ->getOneCompletedByCustomerEmailAndToken($user->getEmail(), $token);
+        }
+
+        return $this
+            ->placedOrderQuery
+            ->getOneCompletedByGuestAndToken($token);
     }
 }

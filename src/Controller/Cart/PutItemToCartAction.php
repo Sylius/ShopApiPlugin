@@ -6,29 +6,25 @@ namespace Sylius\ShopApiPlugin\Controller\Cart;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
-use League\Tactician\CommandBus;
+use Sylius\ShopApiPlugin\Command\Cart\PutOptionBasedConfigurableItemToCart;
+use Sylius\ShopApiPlugin\Command\Cart\PutSimpleItemToCart;
+use Sylius\ShopApiPlugin\Command\Cart\PutVariantBasedConfigurableItemToCart;
+use Sylius\ShopApiPlugin\CommandProvider\CommandProviderInterface;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
 use Sylius\ShopApiPlugin\Normalizer\RequestCartTokenNormalizerInterface;
-use Sylius\ShopApiPlugin\Request\PutOptionBasedConfigurableItemToCartRequest;
-use Sylius\ShopApiPlugin\Request\PutSimpleItemToCartRequest;
-use Sylius\ShopApiPlugin\Request\PutVariantBasedConfigurableItemToCartRequest;
-use Sylius\ShopApiPlugin\ViewRepository\CartViewRepositoryInterface;
+use Sylius\ShopApiPlugin\ViewRepository\Cart\CartViewRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 final class PutItemToCartAction
 {
     /** @var ViewHandlerInterface */
     private $viewHandler;
 
-    /** @var CommandBus */
+    /** @var MessageBusInterface */
     private $bus;
-
-    /** @var ValidatorInterface */
-    private $validator;
 
     /** @var ValidationErrorViewFactoryInterface */
     private $validationErrorViewFactory;
@@ -39,20 +35,23 @@ final class PutItemToCartAction
     /** @var RequestCartTokenNormalizerInterface */
     private $requestCartTokenNormalizer;
 
+    /** @var CommandProviderInterface */
+    private $putItemToCartCommandProvider;
+
     public function __construct(
         ViewHandlerInterface $viewHandler,
-        CommandBus $bus,
-        ValidatorInterface $validator,
+        MessageBusInterface $bus,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         CartViewRepositoryInterface $cartQuery,
-        RequestCartTokenNormalizerInterface $requestCartTokenNormalizer
+        RequestCartTokenNormalizerInterface $requestCartTokenNormalizer,
+        CommandProviderInterface $putItemToCartCommandProvider
     ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
-        $this->validator = $validator;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->cartQuery = $cartQuery;
         $this->requestCartTokenNormalizer = $requestCartTokenNormalizer;
+        $this->putItemToCartCommandProvider = $putItemToCartCommandProvider;
     }
 
     public function __invoke(Request $request): Response
@@ -63,48 +62,25 @@ final class PutItemToCartAction
             throw new BadRequestHttpException($exception->getMessage());
         }
 
-        $commandRequest = $this->provideCommandRequest($request);
-
-        $validationResults = $this->validator->validate($commandRequest);
-
+        $validationResults = $this->putItemToCartCommandProvider->validate($request);
         if (0 !== count($validationResults)) {
-            return $this->viewHandler->handle(
-                View::create($this->validationErrorViewFactory->create($validationResults),
-                    Response::HTTP_BAD_REQUEST
-                )
-            );
+            return $this->viewHandler->handle(View::create(
+                $this->validationErrorViewFactory->create($validationResults),
+                Response::HTTP_BAD_REQUEST
+            ));
         }
 
-        $command = $commandRequest->getCommand();
-        $this->bus->handle($command);
+        /** @var PutOptionBasedConfigurableItemToCart|PutSimpleItemToCart|PutVariantBasedConfigurableItemToCart $command */
+        $command = $this->putItemToCartCommandProvider->getCommand($request);
+        $this->bus->dispatch($command);
 
         try {
-            return $this->viewHandler->handle(
-                View::create($this->cartQuery->getOneByToken($command->orderToken()), Response::HTTP_CREATED)
-            );
+            return $this->viewHandler->handle(View::create(
+                $this->cartQuery->getOneByToken($command->orderToken()),
+                Response::HTTP_CREATED
+            ));
         } catch (\InvalidArgumentException $exception) {
             throw new BadRequestHttpException($exception->getMessage());
         }
-    }
-
-    /** @return PutOptionBasedConfigurableItemToCartRequest|PutSimpleItemToCartRequest|PutVariantBasedConfigurableItemToCartRequest */
-    private function provideCommandRequest(Request $request)
-    {
-        $hasVariantCode = $request->request->has('variantCode');
-        $hasOptionCode = $request->request->has('options');
-
-        if (!$hasVariantCode && !$hasOptionCode) {
-            return PutSimpleItemToCartRequest::fromRequest($request);
-        }
-
-        if ($hasVariantCode && !$hasOptionCode) {
-            return PutVariantBasedConfigurableItemToCartRequest::fromRequest($request);
-        }
-
-        if (!$hasVariantCode && $hasOptionCode) {
-            return PutOptionBasedConfigurableItemToCartRequest::fromRequest($request);
-        }
-
-        throw new NotFoundHttpException('Variant not found for given configuration');
     }
 }

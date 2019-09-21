@@ -3,4 +3,5 @@
 /bin/*
 !/bin/.gitkeep
 
-/doc/generated
+.phpunit.result.cache
+/phpunit.xml

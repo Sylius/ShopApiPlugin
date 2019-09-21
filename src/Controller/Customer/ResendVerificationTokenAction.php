@@ -6,50 +6,59 @@ namespace Sylius\ShopApiPlugin\Controller\Customer;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
-use League\Tactician\CommandBus;
+use Sylius\Component\Channel\Context\ChannelContextInterface;
+use Sylius\Component\Core\Model\ChannelInterface;
+use Sylius\ShopApiPlugin\CommandProvider\ChannelBasedCommandProviderInterface;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
-use Sylius\ShopApiPlugin\Request\ResendVerificationTokenRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 final class ResendVerificationTokenAction
 {
     /** @var ViewHandlerInterface */
     private $viewHandler;
 
-    /** @var CommandBus */
+    /** @var MessageBusInterface */
     private $bus;
-
-    /** @var ValidatorInterface */
-    private $validator;
 
     /** @var ValidationErrorViewFactoryInterface */
     private $validationErrorViewFactory;
 
+    /** @var ChannelContextInterface */
+    private $channelContext;
+
+    /** @var ChannelBasedCommandProviderInterface */
+    private $resetVerificationTokenCommandProvider;
+
     public function __construct(
         ViewHandlerInterface $viewHandler,
-        CommandBus $bus,
-        ValidatorInterface $validator,
-        ValidationErrorViewFactoryInterface $validationErrorViewFactory
+        MessageBusInterface $bus,
+        ValidationErrorViewFactoryInterface $validationErrorViewFactory,
+        ChannelContextInterface $channelContext,
+        ChannelBasedCommandProviderInterface $resetVerificationTokenCommandProvider
     ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
-        $this->validator = $validator;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
+        $this->channelContext = $channelContext;
+        $this->resetVerificationTokenCommandProvider = $resetVerificationTokenCommandProvider;
     }
 
     public function __invoke(Request $request): Response
     {
-        $resendVerificationTokenRequest = new ResendVerificationTokenRequest($request);
+        /** @var ChannelInterface $channel */
+        $channel = $this->channelContext->getChannel();
 
-        $validationResults = $this->validator->validate($resendVerificationTokenRequest);
-
+        $validationResults = $this->resetVerificationTokenCommandProvider->validate($request, $channel);
         if (0 !== count($validationResults)) {
-            return $this->viewHandler->handle(View::create($this->validationErrorViewFactory->create($validationResults), Response::HTTP_BAD_REQUEST));
+            return $this->viewHandler->handle(View::create(
+                $this->validationErrorViewFactory->create($validationResults),
+                Response::HTTP_BAD_REQUEST
+            ));
         }
 
-        $this->bus->handle($resendVerificationTokenRequest->getCommand());
+        $this->bus->dispatch($this->resetVerificationTokenCommandProvider->getCommand($request, $channel));
 
         return $this->viewHandler->handle(View::create(null, Response::HTTP_CREATED));
     }

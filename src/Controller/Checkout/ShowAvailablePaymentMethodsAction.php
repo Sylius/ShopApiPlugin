@@ -6,14 +6,18 @@ namespace Sylius\ShopApiPlugin\Controller\Checkout;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
+use SM\Factory\FactoryInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
+use Sylius\Component\Core\OrderCheckoutTransitions;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Payment\Resolver\PaymentMethodsResolverInterface;
-use Sylius\ShopApiPlugin\Factory\PaymentMethodViewFactoryInterface;
+use Sylius\ShopApiPlugin\Factory\Checkout\PaymentMethodViewFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final class ShowAvailablePaymentMethodsAction
 {
@@ -29,25 +33,37 @@ final class ShowAvailablePaymentMethodsAction
     /** @var PaymentMethodViewFactoryInterface */
     private $paymentMethodViewFactory;
 
+    /** @var FactoryInterface */
+    private $stateMachineFactory;
+
     public function __construct(
         OrderRepositoryInterface $cartRepository,
         ViewHandlerInterface $viewHandler,
         PaymentMethodsResolverInterface $paymentMethodResolver,
-        PaymentMethodViewFactoryInterface $paymentMethodViewFactory
+        PaymentMethodViewFactoryInterface $paymentMethodViewFactory,
+        FactoryInterface $stateMachineFactory
     ) {
         $this->cartRepository = $cartRepository;
         $this->viewHandler = $viewHandler;
         $this->paymentMethodsResolver = $paymentMethodResolver;
         $this->paymentMethodViewFactory = $paymentMethodViewFactory;
+        $this->stateMachineFactory = $stateMachineFactory;
     }
 
     public function __invoke(Request $request): Response
     {
-        /** @var OrderInterface $cart */
+        /** @var OrderInterface|null $cart */
         $cart = $this->cartRepository->findOneBy(['tokenValue' => $request->attributes->get('token')]);
 
-        $payments = [];
+        if (null === $cart) {
+            throw new NotFoundHttpException('Cart with given token does not exist!');
+        }
 
+        if (!$this->isCheckoutTransitionPossible($cart, OrderCheckoutTransitions::TRANSITION_SELECT_PAYMENT)) {
+            throw new BadRequestHttpException('The payment methods cannot be resolved in the current state of cart!');
+        }
+
+        $payments = [];
         foreach ($cart->getPayments() as $payment) {
             $payments['payments'][] = $this->getPaymentMethods($payment, $cart->getLocaleCode());
         }
@@ -65,5 +81,10 @@ final class ShowAvailablePaymentMethodsAction
         }
 
         return $rawPaymentMethods;
+    }
+
+    private function isCheckoutTransitionPossible(OrderInterface $cart, string $transition): bool
+    {
+        return $this->stateMachineFactory->get($cart, OrderCheckoutTransitions::GRAPH)->can($transition);
     }
 }

@@ -6,25 +6,22 @@ namespace Sylius\ShopApiPlugin\Controller\Cart;
 
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
-use League\Tactician\CommandBus;
+use Sylius\ShopApiPlugin\Command\Cart\RemoveCoupon;
+use Sylius\ShopApiPlugin\CommandProvider\CommandProviderInterface;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
-use Sylius\ShopApiPlugin\Request\RemoveCouponRequest;
-use Sylius\ShopApiPlugin\ViewRepository\CartViewRepositoryInterface;
+use Sylius\ShopApiPlugin\ViewRepository\Cart\CartViewRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 final class RemoveCouponAction
 {
     /** @var ViewHandlerInterface */
     private $viewHandler;
 
-    /** @var CommandBus */
+    /** @var MessageBusInterface */
     private $bus;
-
-    /** @var ValidatorInterface */
-    private $validator;
 
     /** @var ValidationErrorViewFactoryInterface */
     private $validationErrorViewFactory;
@@ -32,40 +29,45 @@ final class RemoveCouponAction
     /** @var CartViewRepositoryInterface */
     private $cartQuery;
 
+    /** @var CommandProviderInterface */
+    private $removeCouponCommandProvider;
+
     public function __construct(
         ViewHandlerInterface $viewHandler,
-        CommandBus $bus,
-        ValidatorInterface $validator,
+        MessageBusInterface $bus,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
-        CartViewRepositoryInterface $cartQuery
+        CartViewRepositoryInterface $cartQuery,
+        CommandProviderInterface $removeCouponCommandProvider
     ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
-        $this->validator = $validator;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->cartQuery = $cartQuery;
+        $this->removeCouponCommandProvider = $removeCouponCommandProvider;
     }
 
     public function __invoke(Request $request): Response
     {
-        $removeCouponRequest = new RemoveCouponRequest($request);
-
-        $validationResults = $this->validator->validate($removeCouponRequest);
-
-        if (0 === count($validationResults)) {
-            $removeCouponCommand = $removeCouponRequest->getCommand();
-
-            $this->bus->handle($removeCouponCommand);
-
-            try {
-                return $this->viewHandler->handle(
-                    View::create($this->cartQuery->getOneByToken($removeCouponCommand->orderToken()), Response::HTTP_OK)
-                );
-            } catch (\InvalidArgumentException $exception) {
-                throw new BadRequestHttpException($exception->getMessage());
-            }
+        $validationResults = $this->removeCouponCommandProvider->validate($request);
+        if (0 !== count($validationResults)) {
+            return $this->viewHandler->handle(View::create(
+                $this->validationErrorViewFactory->create($validationResults),
+                Response::HTTP_BAD_REQUEST
+            ));
         }
 
-        return $this->viewHandler->handle(View::create($this->validationErrorViewFactory->create($validationResults), Response::HTTP_BAD_REQUEST));
+        /** @var RemoveCoupon $removeCouponCommand */
+        $removeCouponCommand = $this->removeCouponCommandProvider->getCommand($request);
+
+        $this->bus->dispatch($removeCouponCommand);
+
+        try {
+            return $this->viewHandler->handle(View::create(
+                $this->cartQuery->getOneByToken($removeCouponCommand->orderToken()),
+                Response::HTTP_OK
+            ));
+        } catch (\InvalidArgumentException $exception) {
+            throw new BadRequestHttpException($exception->getMessage());
+        }
     }
 }

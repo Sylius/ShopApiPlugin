@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<container xmlns="http://symfony.com/schema/dic/services">
+    <services>
+        <defaults public="true" />
+
+        <service
+            id="sylius.shop_api_plugin.command_provider.add_coupon"
+            class="Sylius\ShopApiPlugin\CommandProvider\DefaultCommandProvider"
+        >
+            <argument>%sylius.shop_api.request.add_coupon.class%</argument>
+            <argument type="service" id="validator" />
+        </service>
+
+        <service
+            id="sylius.shop_api_plugin.command_provider.assign_customer_to_cart"
+            class="Sylius\ShopApiPlugin\CommandProvider\DefaultCommandProvider"
+        >
+            <argument>%sylius.shop_api.request.assign_customer_to_cart.class%</argument>
+            <argument type="service" id="validator" />
+        </service>
+
+        <service
+            id="sylius.shop_api_plugin.command_provider.change_item_quantity"
+            class="Sylius\ShopApiPlugin\CommandProvider\DefaultCommandProvider"
+        >
+            <argument>%sylius.shop_api.request.change_item_quantity.class%</argument>
+            <argument type="service" id="validator" />
+        </service>
+
+        <service
+            id="sylius.shop_api_plugin.command_provider.drop_cart"
+            class="Sylius\ShopApiPlugin\CommandProvider\DefaultCommandProvider"
+        >
+            <argument>%sylius.shop_api.request.drop_cart.class%</argument>
+            <argument type="service" id="validator" />
+        </service>
+
+        <service
+            id="sylius.shop_api_plugin.command_provider.pickup_cart"
+            class="Sylius\ShopApiPlugin\CommandProvider\ChannelBasedCommandProvider"
+        >
+            <argument>%sylius.shop_api.request.pickup_cart.class%</argument>
+            <argument type="service" id="validator" />
+        </service>
+
+        <service
+                id="sylius.shop_api_plugin.command_provider.put_item_to_cart"
+                class="Sylius\ShopApiPlugin\CommandProvider\PutItemToCartCommandProvider"
+        >
+            <argument type="service" id="validator" />
+        </service>
+
+        <service
+            id="sylius.shop_api_plugin.command_provider.remove_coupon"
+            class="Sylius\ShopApiPlugin\CommandProvider\DefaultCommandProvider"
+        >
+            <argument>%sylius.shop_api.request.remove_coupon.class%</argument>
+            <argument type="service" id="validator" />
+        </service>
+
+        <service
+            id="sylius.shop_api_plugin.command_provider.remove_item_from_cart"
+            class="Sylius\ShopApiPlugin\CommandProvider\DefaultCommandProvider"
+        >
+            <argument>%sylius.shop_api.request.remove_item_from_cart.class%</argument>
+            <argument type="service" id="validator" />
+        </service>
+    </services>
+</container>

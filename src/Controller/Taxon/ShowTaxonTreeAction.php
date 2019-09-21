@@ -8,9 +8,9 @@ use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Taxonomy\Repository\TaxonRepositoryInterface;
-use Sylius\ShopApiPlugin\Factory\TaxonViewFactoryInterface;
+use Sylius\ShopApiPlugin\Factory\Taxon\TaxonViewFactoryInterface;
 use Sylius\ShopApiPlugin\Http\RequestBasedLocaleProviderInterface;
-use Sylius\ShopApiPlugin\View\TaxonView;
+use Sylius\ShopApiPlugin\View\Taxon\TaxonView;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -42,25 +42,25 @@ final class ShowTaxonTreeAction
 
     public function __invoke(Request $request): Response
     {
-        $locale = $this->requestBasedLocaleProvider->getLocaleCode($request);
+        $localeCode = $this->requestBasedLocaleProvider->getLocaleCode($request);
 
         $taxons = $this->taxonRepository->findRootNodes();
         $taxonViews = [];
 
         /** @var TaxonInterface $taxon */
         foreach ($taxons as $taxon) {
-            $taxonViews[] = $this->buildTaxonView($taxon, $locale);
+            $taxonViews[] = $this->buildTaxonView($taxon, $localeCode);
         }
 
         return $this->viewHandler->handle(View::create($taxonViews, Response::HTTP_OK));
     }
 
-    private function buildTaxonView(TaxonInterface $taxon, $locale): TaxonView
+    private function buildTaxonView(TaxonInterface $taxon, string $localeCode): TaxonView
     {
-        $taxonView = $this->taxonViewFactory->create($taxon, $locale);
+        $taxonView = $this->taxonViewFactory->create($taxon, $localeCode);
 
         foreach ($taxon->getChildren() as $childTaxon) {
-            $taxonView->children[] = $this->buildTaxonView($childTaxon, $locale);
+            $taxonView->children[] = $this->buildTaxonView($childTaxon, $localeCode);
         }
 
         return $taxonView;

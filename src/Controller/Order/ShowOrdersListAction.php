@@ -7,8 +7,8 @@ namespace Sylius\ShopApiPlugin\Controller\Order;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Sylius\Component\Core\Model\ShopUserInterface;
-use Sylius\ShopApiPlugin\Provider\LoggedInUserProviderInterface;
-use Sylius\ShopApiPlugin\ViewRepository\PlacedOrderViewRepositoryInterface;
+use Sylius\ShopApiPlugin\Provider\LoggedInShopUserProviderInterface;
+use Sylius\ShopApiPlugin\ViewRepository\Order\PlacedOrderViewRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
@@ -18,7 +18,7 @@ final class ShowOrdersListAction
     /** @var ViewHandlerInterface */
     private $viewHandler;
 
-    /** @var LoggedInUserProviderInterface */
+    /** @var LoggedInShopUserProviderInterface */
     private $loggedInUserProvider;
 
     /** @var PlacedOrderViewRepositoryInterface */
@@ -26,7 +26,7 @@ final class ShowOrdersListAction
 
     public function __construct(
         ViewHandlerInterface $viewHandler,
-        LoggedInUserProviderInterface $loggedInUserProvider,
+        LoggedInShopUserProviderInterface $loggedInUserProvider,
         PlacedOrderViewRepositoryInterface $placedOrderQuery
     ) {
         $this->viewHandler = $viewHandler;

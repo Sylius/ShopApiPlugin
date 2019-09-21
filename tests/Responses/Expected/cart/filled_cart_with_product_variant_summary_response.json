@@ -29,6 +29,7 @@
                         "name": "Small Logan T-Shirt",
                         "axis": [],
                         "nameAxis": {},
+                        "onHand": 0,
                         "price": {
                             "current": 1999,
                             "currency": "GBP"
@@ -54,7 +55,7 @@
                 ],
                 "_links": {
                     "self": {
-                        "href": "\/shop-api\/WEB_GB\/products-by-slug\/logan-t-shirt"
+                        "href": "\/shop-api\/products\/by-slug\/logan-t-shirt"
                     }
                 }
             }
@@ -89,6 +90,7 @@
                             "HAT_SIZE_S": "Size S",
                             "HAT_COLOR_RED": "Color Red"
                         },
+                        "onHand": 0,
                         "price": {
                             "current": 500,
                             "currency": "GBP"
@@ -101,7 +103,7 @@
                 "images": [],
                 "_links": {
                     "self": {
-                        "href": "\/shop-api\/WEB_GB\/products-by-slug\/logan-hat"
+                        "href": "\/shop-api\/products\/by-slug\/logan-hat"
                     }
                 }
             }

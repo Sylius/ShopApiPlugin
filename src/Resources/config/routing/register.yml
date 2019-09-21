@@ -12,7 +12,7 @@ sylius_shop_api_resend_verification_token:
 
 sylius_shop_api_user_verification:
     path: /verify-account
-    methods: [PUT]
+    methods: [GET]
     defaults:
         _controller: sylius.shop_api_plugin.controller.customer.verify_account_action
 

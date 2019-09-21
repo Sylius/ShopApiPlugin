@@ -1,4 +1,20 @@
 {
-  "code": 500,
-  "message": "Country does not exist."
+  "code": 400,
+  "message": "Validation Failed",
+  "errors": {
+    "children": {
+      "firstName": {},
+      "lastName": {},
+      "phoneNumber": {},
+      "company": {},
+      "countryCode": {
+        "errors": [
+          "This value is not valid."
+        ]
+      },
+      "street": {},
+      "city": {},
+      "postcode": {}
+    }
+  }
 }

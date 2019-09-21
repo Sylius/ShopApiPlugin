@@ -4,25 +4,26 @@
     "description": "Shop API for Sylius E-Commerce.",
     "license": "MIT",
     "require": {
-        "php": "^7.1",
+        "php": "^7.2",
 
-        "sylius/sylius": "^1.1",
-        "league/tactician-bundle": "^1.1",
-        "league/tactician-doctrine": "^1.1"
+        "sylius/sylius": "^1.4",
+        "lexik/jwt-authentication-bundle": "^2.5",
+        "symfony/messenger": "~4.3.0"
     },
     "require-dev": {
-        "lakion/api-test-case": "^3.1",
-        "lexik/jwt-authentication-bundle": "^2.5",
-        "matthiasnoback/symfony-config-test": "^3.1",
-        "matthiasnoback/symfony-dependency-injection-test": "^2.3",
+        "lchrusciel/api-test-case": "^4.0",
+        "matthiasnoback/symfony-config-test": "^4.0",
+        "matthiasnoback/symfony-dependency-injection-test": "^4.0",
         "phpspec/phpspec": "^5.0",
-        "phpstan/phpstan-shim": "^0.10.3",
-        "phpstan/phpstan-webmozart-assert": "^0.10.0",
-        "phpunit/phpunit": "^6.5",
-        "sylius-labs/coding-standard": "^2.0",
-        "symfony/debug-bundle": "^3.4|^4.1",
-        "symfony/web-profiler-bundle": "^3.4|^4.1",
-        "symfony/web-server-bundle": "^3.4|^4.1"
+        "phpstan/phpstan-shim": "^0.11",
+        "phpstan/phpstan-webmozart-assert": "^0.11",
+        "phpunit/phpunit": "^8.0",
+        "sensiolabs/security-checker": "^5.0",
+        "sylius-labs/coding-standard": "^3.0",
+        "symfony/debug-bundle": "^4.1",
+        "symfony/dotenv": "^4.1",
+        "symfony/web-profiler-bundle": "^4.1",
+        "symfony/web-server-bundle": "^4.1"
     },
     "autoload": {
         "psr-4": {
@@ -35,14 +36,13 @@
         ],
         "analyse": [
             "vendor/bin/ecs check --ansi --no-progress-bar spec src tests/Controller tests/DataFixtures tests/Request",
-            "vendor/bin/phpstan analyse -l 2 -c phpstan.neon --no-progress src"
+            "vendor/bin/phpstan analyse -c phpstan.neon --no-progress src"
         ]
     },
     "autoload-dev": {
         "psr-4": {
             "Tests\\Sylius\\ShopApiPlugin\\": "tests/"
-        },
-        "classmap": ["tests/Application/app/AppKernel.php"]
+        }
     },
     "suggest": {
         "nelmio/cors-bundle": "allows you to send Cross-Origin Ajax API Request"

@@ -1,0 +1,4 @@
+{
+    "code": 404,
+    "message": "Order with token ORDER_PLACED_BY_REGISTERED_USER placed by a registered user"
+}

@@ -9,6 +9,7 @@ use Prophecy\Argument;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\ShopApiPlugin\Validator\Constraints\CartExists;
+use Sylius\ShopApiPlugin\Validator\Constraints\CartItemExists;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 final class CartExistsValidatorSpec extends ObjectBehavior
@@ -41,5 +42,13 @@ final class CartExistsValidatorSpec extends ObjectBehavior
         $executionContext->addViolation('sylius.shop_api.cart.not_exists')->shouldBeCalled();
 
         $this->validate('ORDERTOKEN', new CartExists());
+    }
+
+    function it_throws_an_exception_if_constraint_is_not_cart_exists(): void
+    {
+        $this
+            ->shouldThrow(\InvalidArgumentException::class)
+            ->during('validate', ['ORDERTOKEN', new CartItemExists()])
+        ;
     }
 }
