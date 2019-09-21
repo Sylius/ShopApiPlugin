@@ -10,7 +10,7 @@ use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Product\Model\ProductAssociationInterface;
 use Sylius\ShopApiPlugin\Exception\ViewCreationException;
-use Sylius\ShopApiPlugin\Factory\Taxon\ImageViewFactoryInterface;
+use Sylius\ShopApiPlugin\Factory\ImageViewFactoryInterface;
 use Sylius\ShopApiPlugin\View\Product\ProductVariantView;
 use Sylius\ShopApiPlugin\View\Product\ProductView;
 

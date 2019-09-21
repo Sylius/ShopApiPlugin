@@ -117,13 +117,7 @@
                         "images": [
                             {
                                 "code": "thumbnail",
-                                            "path": "\/pants.jpeg",
-            "cachedPaths": [
-                "http:\/\/localhost\/media\/cache\/sylius_small\/pants.jpeg",
-                "http:\/\/localhost\/media\/cache\/sylius_medium\/pants.jpeg",
-                "http:\/\/localhost\/media\/cache\/sylius_large\/pants.jpeg"
-            ]
-
+                                "path": "http:\/\/localhost\/media\/cache\/sylius_large\/pants.jpeg"
                             }
                         ]
                     }
@@ -139,13 +133,7 @@
                 "images": [
                     {
                         "code": "thumbnail",
-                                    "path": "\/pants.jpeg",
-            "cachedPaths": [
-                "http:\/\/localhost\/media\/cache\/sylius_small\/pants.jpeg",
-                "http:\/\/localhost\/media\/cache\/sylius_medium\/pants.jpeg",
-                "http:\/\/localhost\/media\/cache\/sylius_large\/pants.jpeg"
-            ]
-
+                        "path": "http:\/\/localhost\/media\/cache\/sylius_large\/pants.jpeg"
                     }
                 ],
                 "_links": {
@@ -181,13 +169,7 @@
                         "images": [
                             {
                                 "code": "thumbnail",
-                                            "path": "\/pants.jpeg",
-            "cachedPaths": [
-                "http:\/\/localhost\/media\/cache\/sylius_small\/pants.jpeg",
-                "http:\/\/localhost\/media\/cache\/sylius_medium\/pants.jpeg",
-                "http:\/\/localhost\/media\/cache\/sylius_large\/pants.jpeg"
-            ]
-
+                                "path": "http:\/\/localhost\/media\/cache\/sylius_large\/pants.jpeg"
                             }
                         ]
                     },
@@ -203,13 +185,7 @@
                         "images": [
                             {
                                 "code": "thumbnail",
-                                            "path": "\/pants.jpeg",
-            "cachedPaths": [
-                "http:\/\/localhost\/media\/cache\/sylius_small\/pants.jpeg",
-                "http:\/\/localhost\/media\/cache\/sylius_medium\/pants.jpeg",
-                "http:\/\/localhost\/media\/cache\/sylius_large\/pants.jpeg"
-            ]
-
+                                "path": "http:\/\/localhost\/media\/cache\/sylius_large\/pants.jpeg"
                             }
                         ]
                     }
@@ -219,33 +195,15 @@
                 "images": [
                     {
                         "code": "thumbnail",
-                                    "path": "\/pants.jpeg",
-            "cachedPaths": [
-                "http:\/\/localhost\/media\/cache\/sylius_small\/pants.jpeg",
-                "http:\/\/localhost\/media\/cache\/sylius_medium\/pants.jpeg",
-                "http:\/\/localhost\/media\/cache\/sylius_large\/pants.jpeg"
-            ]
-
+                        "path": "http:\/\/localhost\/media\/cache\/sylius_large\/pants.jpeg"
                     },
                     {
                         "code": "thumbnail",
-                                    "path": "\/pants.jpeg",
-            "cachedPaths": [
-                "http:\/\/localhost\/media\/cache\/sylius_small\/pants.jpeg",
-                "http:\/\/localhost\/media\/cache\/sylius_medium\/pants.jpeg",
-                "http:\/\/localhost\/media\/cache\/sylius_large\/pants.jpeg"
-            ]
-
+                        "path": "http:\/\/localhost\/media\/cache\/sylius_large\/pants.jpeg"
                     },
                     {
                         "code": "thumbnail",
-                                    "path": "\/pants.jpeg",
-            "cachedPaths": [
-                "http:\/\/localhost\/media\/cache\/sylius_small\/pants.jpeg",
-                "http:\/\/localhost\/media\/cache\/sylius_medium\/pants.jpeg",
-                "http:\/\/localhost\/media\/cache\/sylius_large\/pants.jpeg"
-            ]
-
+                        "path": "http:\/\/localhost\/media\/cache\/sylius_large\/pants.jpeg"
                     }
                 ],
                 "_links": {

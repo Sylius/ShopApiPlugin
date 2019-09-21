@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\View\Taxon;
+namespace Sylius\ShopApiPlugin\View;
 
 class ImageView
 {
@@ -11,7 +11,4 @@ class ImageView
 
     /** @var string */
     public $path;
-
-    /** @var string[]|null */
-    public $cachedPaths;
 }

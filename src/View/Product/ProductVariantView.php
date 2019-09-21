@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\View\Product;
 
+use Sylius\ShopApiPlugin\View\ImageView;
 use Sylius\ShopApiPlugin\View\PriceView;
-use Sylius\ShopApiPlugin\View\Taxon\ImageView;
 
 class ProductVariantView
 {
