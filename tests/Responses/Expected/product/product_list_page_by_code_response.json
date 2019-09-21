@@ -41,7 +41,7 @@
                     "images": [
                         {
                             "code": "thumbnail",
-                            "path": "http:\/\/localhost\/media\/cache\/sylius_large\/pants.jpeg"
+                            "path": "http:\/\/localhost\/media\/cache\/sylius_shop_api\/pants.jpeg"
                         }
                     ]
                 }
@@ -57,7 +57,7 @@
             "images": [
                 {
                     "code": "thumbnail",
-                    "path": "http:\/\/localhost\/media\/cache\/sylius_large\/pants.jpeg"
+                    "path": "http:\/\/localhost\/media\/cache\/sylius_shop_api\/pants.jpeg"
                 }
             ],
             "_links": {
@@ -93,7 +93,7 @@
                     "images": [
                         {
                             "code": "thumbnail",
-                            "path": "http:\/\/localhost\/media\/cache\/sylius_large\/pants.jpeg"
+                            "path": "http:\/\/localhost\/media\/cache\/sylius_shop_api\/pants.jpeg"
                         }
                     ]
                 },
@@ -109,7 +109,7 @@
                     "images": [
                         {
                             "code": "thumbnail",
-                            "path": "http:\/\/localhost\/media\/cache\/sylius_large\/pants.jpeg"
+                            "path": "http:\/\/localhost\/media\/cache\/sylius_shop_api\/pants.jpeg"
                         }
                     ]
                 }
@@ -119,15 +119,15 @@
             "images": [
                 {
                     "code": "thumbnail",
-                    "path": "http:\/\/localhost\/media\/cache\/sylius_large\/pants.jpeg"
+                    "path": "http:\/\/localhost\/media\/cache\/sylius_shop_api\/pants.jpeg"
                 },
                 {
                     "code": "thumbnail",
-                    "path": "http:\/\/localhost\/media\/cache\/sylius_large\/pants.jpeg"
+                    "path": "http:\/\/localhost\/media\/cache\/sylius_shop_api\/pants.jpeg"
                 },
                 {
                     "code": "thumbnail",
-                    "path": "http:\/\/localhost\/media\/cache\/sylius_large\/pants.jpeg"
+                    "path": "http:\/\/localhost\/media\/cache\/sylius_shop_api\/pants.jpeg"
                 }
             ],
             "_links": {
@@ -254,7 +254,7 @@
                                 "images": [
                                     {
                                         "code": "thumbnail",
-                                        "path": "http:\/\/localhost\/media\/cache\/sylius_large\/pants.jpeg"
+                                        "path": "http:\/\/localhost\/media\/cache\/sylius_shop_api\/pants.jpeg"
                                     }
                                 ]
                             }
@@ -270,7 +270,7 @@
                         "images": [
                             {
                                 "code": "thumbnail",
-                                "path": "http:\/\/localhost\/media\/cache\/sylius_large\/pants.jpeg"
+                                "path": "http:\/\/localhost\/media\/cache\/sylius_shop_api\/pants.jpeg"
                             }
                         ],
                         "_links": {
@@ -306,7 +306,7 @@
                                 "images": [
                                     {
                                         "code": "thumbnail",
-                                        "path": "http:\/\/localhost\/media\/cache\/sylius_large\/pants.jpeg"
+                                        "path": "http:\/\/localhost\/media\/cache\/sylius_shop_api\/pants.jpeg"
                                     }
                                 ]
                             },
@@ -322,7 +322,7 @@
                                 "images": [
                                     {
                                         "code": "thumbnail",
-                                        "path": "http:\/\/localhost\/media\/cache\/sylius_large\/pants.jpeg"
+                                        "path": "http:\/\/localhost\/media\/cache\/sylius_shop_api\/pants.jpeg"
                                     }
                                 ]
                             }
@@ -332,15 +332,15 @@
                         "images": [
                             {
                                 "code": "thumbnail",
-                                "path": "http:\/\/localhost\/media\/cache\/sylius_large\/pants.jpeg"
+                                "path": "http:\/\/localhost\/media\/cache\/sylius_shop_api\/pants.jpeg"
                             },
                             {
                                 "code": "thumbnail",
-                                "path": "http:\/\/localhost\/media\/cache\/sylius_large\/pants.jpeg"
+                                "path": "http:\/\/localhost\/media\/cache\/sylius_shop_api\/pants.jpeg"
                             },
                             {
                                 "code": "thumbnail",
-                                "path": "http:\/\/localhost\/media\/cache\/sylius_large\/pants.jpeg"
+                                "path": "http:\/\/localhost\/media\/cache\/sylius_shop_api\/pants.jpeg"
                             }
                         ],
                         "_links": {

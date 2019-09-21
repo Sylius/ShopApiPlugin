@@ -23,7 +23,7 @@
                  class="Sylius\ShopApiPlugin\Factory\ImageViewFactory">
             <argument type="string">%sylius.shop_api.view.image.class%</argument>
             <argument type="service" id="liip_imagine.service.filter" />
-            <argument>sylius_large</argument>
+            <argument>sylius_shop_api</argument>
         </service>
     </services>
 </container>

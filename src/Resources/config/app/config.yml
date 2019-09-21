@@ -29,3 +29,9 @@ sylius_customer:
         customer:
             classes:
                 controller: Sylius\ShopApiPlugin\Controller\Customer\CustomerController
+
+liip_imagine:
+    filter_sets:
+        sylius_shop_api:
+            filters:
+                thumbnail: { size: [640, 480], mode: outbound }
