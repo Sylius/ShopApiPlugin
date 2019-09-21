@@ -10,6 +10,7 @@ use Sylius\Component\Registry\ServiceRegistry;
 use Sylius\Component\Shipping\Calculator\CalculatorInterface;
 use Sylius\ShopApiPlugin\Factory\PriceViewFactoryInterface;
 use Sylius\ShopApiPlugin\View\Cart\ShippingMethodView;
+use Webmozart\Assert\Assert;
 
 final class ShippingMethodViewFactory implements ShippingMethodViewFactoryInterface
 {
@@ -35,7 +36,10 @@ final class ShippingMethodViewFactory implements ShippingMethodViewFactoryInterf
     /** {@inheritdoc} */
     public function create(ShipmentInterface $shipment, string $locale, string $currency): ShippingMethodView
     {
-        return $this->createWithShippingMethod($shipment, $shipment->getMethod(), $locale, $currency);
+        $shippingMethod = $shipment->getMethod();
+        Assert::notNull($shippingMethod);
+
+        return $this->createWithShippingMethod($shipment, $shippingMethod, $locale, $currency);
     }
 
     /** {@inheritdoc} */

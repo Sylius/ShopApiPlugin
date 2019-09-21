@@ -71,6 +71,7 @@ final class ProductReviewsViewRepository implements ProductReviewsViewRepository
         $channel = $this->getChannel($channelCode);
 
         $product = $this->productRepository->findOneByCode($productCode);
+        Assert::notNull($product);
         Assert::true($product->hasChannel($channel));
 
         $reviews = $this->productReviewRepository->findBy(['reviewSubject' => $product->getId(), 'status' => ReviewInterface::STATUS_ACCEPTED]);

@@ -10,6 +10,7 @@ use Sylius\Bundle\ResourceBundle\Controller\ResourceController;
 use Sylius\ShopApiPlugin\View\ValidationErrorView;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Webmozart\Assert\Assert;
 
 final class CustomerController extends ResourceController
 {
@@ -24,8 +25,11 @@ final class CustomerController extends ResourceController
         /** @var ViewHandlerInterface $viewHandler */
         $viewHandler = $this->get('fos_rest.view_handler');
 
+        $validationResults = $response->getContent();
+        Assert::string($validationResults);
+
         return $viewHandler
-            ->handle(View::create($this->createValidationMessage($response->getContent()), Response::HTTP_BAD_REQUEST))
+            ->handle(View::create($this->createValidationMessage($validationResults), Response::HTTP_BAD_REQUEST))
         ;
     }
 

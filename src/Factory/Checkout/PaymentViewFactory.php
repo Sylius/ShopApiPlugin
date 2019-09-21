@@ -7,6 +7,7 @@ namespace Sylius\ShopApiPlugin\Factory\Checkout;
 use Sylius\Component\Core\Model\PaymentInterface;
 use Sylius\ShopApiPlugin\Factory\PriceViewFactoryInterface;
 use Sylius\ShopApiPlugin\View\Cart\PaymentView;
+use Webmozart\Assert\Assert;
 
 final class PaymentViewFactory implements PaymentViewFactoryInterface
 {
@@ -36,7 +37,10 @@ final class PaymentViewFactory implements PaymentViewFactoryInterface
         $paymentView = new $this->paymentViewClass();
 
         $paymentView->state = $payment->getState();
-        $paymentView->method = $this->paymentMethodViewFactory->create($payment->getMethod(), $locale);
+        $paymentMethod = $payment->getMethod();
+        Assert::notNull($paymentMethod);
+
+        $paymentView->method = $this->paymentMethodViewFactory->create($paymentMethod, $locale);
         $paymentView->price = $this->priceViewFactory->create($payment->getAmount(), $payment->getCurrencyCode());
 
         return $paymentView;
