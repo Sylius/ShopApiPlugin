@@ -351,18 +351,18 @@ Sylius\Component\Product\Model\ProductOptionValueTranslation:
 Sylius\Component\Core\Model\ProductImage:
     mug_thumbnail:
         type: "thumbnail"
-        path: "/uo/mug.jpg"
+        path: "/pants.jpeg"
         productVariants: ["@mug_variant"]
     t_shirt_thumbnail:
         type: "thumbnail"
-        path: "/uo/tshirt.jpg"
+        path: "/pants.jpeg"
     small_t_shirt_thumbnail:
         type: "thumbnail"
-        path: "/uo/small-tshirt.jpg"
+        path: "/pants.jpeg"
         productVariants: ["@t_shirt_small"]
     large_t_shirt_thumbnail:
         type: "thumbnail"
-        path: "/uo/large-tshirt.jpg"
+        path: "/pants.jpeg"
         productVariants: ["@t_shirt_large"]
 
 Sylius\Component\Core\Model\Taxon:
