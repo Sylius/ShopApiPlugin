@@ -52,7 +52,6 @@ final class ProductVariantViewFactorySpec extends ObjectBehavior
         $variantView = new ProductVariantView();
 
         $variant->getCode()->willReturn('SMALL_RED_LOGAN_HAT_CODE');
-        $variant->getOnHand()->willReturn(12);
         $variant->getTranslation('en_GB')->willReturn($productVariantTranslation);
         $variant->getChannelPricingForChannel($channel)->willReturn($channelPrice);
         $variant->getOptionValues()->willReturn(new ArrayCollection([
@@ -87,7 +86,6 @@ final class ProductVariantViewFactorySpec extends ObjectBehavior
         $variantView->name = 'Small red Logan hat code';
         $variantView->price = new PriceView();
         $variantView->axis = ['HAT_SIZE_S', 'HAT_COLOR_RED'];
-        $variantView->onHand = 12;
         $variantView->nameAxis = [
             'HAT_SIZE_S' => 'Size S',
             'HAT_COLOR_RED' => 'Color Red',
@@ -152,7 +150,6 @@ final class ProductVariantViewFactorySpec extends ObjectBehavior
         $variantView->price = new PriceView();
         $variantView->originalPrice = new PriceView();
         $variantView->axis = ['HAT_SIZE_S', 'HAT_COLOR_RED'];
-        $variantView->onHand = 0;
         $variantView->nameAxis = [
             'HAT_SIZE_S' => 'Size S',
             'HAT_COLOR_RED' => 'Color Red',

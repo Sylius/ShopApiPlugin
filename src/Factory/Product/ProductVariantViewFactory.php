@@ -37,7 +37,6 @@ final class ProductVariantViewFactory implements ProductVariantViewFactoryInterf
 
         $variantView->code = $variant->getCode();
         $variantView->name = $variant->getTranslation($locale)->getName();
-        $variantView->onHand = $variant->getOnHand();
         $variantView->price = $this->priceViewFactory->create(
             $channelPricing->getPrice(),
             $channel->getBaseCurrency()->getCode()

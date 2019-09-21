@@ -117,7 +117,6 @@ Sylius\Component\Core\Model\ProductVariant:
         product: "@mug"
         currentLocale: "en_GB"
         translations: ["@en_gb_mug_variant_translation", "@de_de_mug_variant_translation"]
-        onHand: 12
         channelPricings:
             WEB_GB: "@gb_mug_web_channel_pricing"
             WEB_DE: "@de_mug_web_channel_pricing"
