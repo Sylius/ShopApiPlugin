@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Command\Customer;
 
+use DateTimeImmutable;
 use PhpSpec\ObjectBehavior;
 
 final class UpdateCustomerSpec extends ObjectBehavior
@@ -43,7 +44,21 @@ final class UpdateCustomerSpec extends ObjectBehavior
 
     function it_has_birthday(): void
     {
-        $this->birthday()->shouldReturn('2017-11-01');
+        $this->birthday()->shouldHaveType(DateTimeImmutable::class);
+    }
+
+    function it_has_no_birthday_if_not_provided(): void
+    {
+        $this->beConstructedWith('Sherlock',
+            'Holmes',
+            'sherlock@holmes.com',
+            null,
+            'm',
+            '091231512512',
+            true
+        );
+
+        $this->birthday()->shouldReturn(null);
     }
 
     function it_has_phone_number(): void

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Request\Customer;
 
-use DateTimeInterface;
 use Sylius\ShopApiPlugin\Command\CommandInterface;
 use Sylius\ShopApiPlugin\Command\Customer\UpdateCustomer;
 use Sylius\ShopApiPlugin\Request\RequestInterface;
@@ -21,7 +20,7 @@ class UpdateCustomerRequest implements RequestInterface
     /** @var string|null */
     protected $email;
 
-    /** @var DateTimeInterface|null */
+    /** @var string|null */
     protected $birthday;
 
     /** @var string */

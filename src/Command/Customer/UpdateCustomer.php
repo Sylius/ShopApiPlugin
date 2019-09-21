@@ -55,9 +55,13 @@ class UpdateCustomer implements CommandInterface
         return $this->email;
     }
 
-    public function birthday(): ?string
+    public function birthday(): ?\DateTimeImmutable
     {
-        return $this->birthday;
+        if ($this->birthday === null) {
+            return null;
+        }
+
+        return new \DateTimeImmutable($this->birthday);
     }
 
     public function gender(): ?string
