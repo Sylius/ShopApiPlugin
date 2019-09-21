@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Command\Customer;
 
+use DateTimeImmutable;
 use Sylius\ShopApiPlugin\Command\CommandInterface;
 
 class UpdateCustomer implements CommandInterface
@@ -17,7 +18,7 @@ class UpdateCustomer implements CommandInterface
     /** @var string */
     protected $email;
 
-    /** @var string|null */
+    /** @var DateTimeImmutable|null */
     protected $birthday;
 
     /** @var string */
@@ -29,7 +30,7 @@ class UpdateCustomer implements CommandInterface
     /** @var bool */
     protected $subscribedToNewsletter;
 
-    public function __construct(string $firstName, string $lastName, string $email, ?string $birthday, string $gender, ?string $phoneNumber, ?bool $subscribedToNewsletter)
+    public function __construct(string $firstName, string $lastName, string $email, ?DateTimeImmutable $birthday, string $gender, ?string $phoneNumber, ?bool $subscribedToNewsletter)
     {
         $this->firstName = $firstName;
         $this->lastName = $lastName;
@@ -57,11 +58,7 @@ class UpdateCustomer implements CommandInterface
 
     public function birthday(): ?\DateTimeImmutable
     {
-        if ($this->birthday === null) {
-            return null;
-        }
-
-        return new \DateTimeImmutable($this->birthday);
+        return $this->birthday;
     }
 
     public function gender(): ?string

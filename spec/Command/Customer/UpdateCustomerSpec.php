@@ -9,13 +9,13 @@ use PhpSpec\ObjectBehavior;
 
 final class UpdateCustomerSpec extends ObjectBehavior
 {
-    function let(): void
+    function let(DateTimeImmutable $birthday): void
     {
         $this->beConstructedWith(
                 'Sherlock',
                 'Holmes',
                 'sherlock@holmes.com',
-                '2017-11-01',
+                $birthday,
                 'm',
                 '091231512512',
                 true
@@ -42,23 +42,9 @@ final class UpdateCustomerSpec extends ObjectBehavior
         $this->gender()->shouldReturn('m');
     }
 
-    function it_has_birthday(): void
+    function it_has_birthday(DateTimeImmutable $birthday): void
     {
-        $this->birthday()->shouldHaveType(DateTimeImmutable::class);
-    }
-
-    function it_has_no_birthday_if_not_provided(): void
-    {
-        $this->beConstructedWith('Sherlock',
-            'Holmes',
-            'sherlock@holmes.com',
-            null,
-            'm',
-            '091231512512',
-            true
-        );
-
-        $this->birthday()->shouldReturn(null);
+        $this->birthday()->shouldReturn($birthday);
     }
 
     function it_has_phone_number(): void

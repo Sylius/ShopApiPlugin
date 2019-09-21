@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Request;
 
+use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 use Sylius\ShopApiPlugin\Command\Customer\UpdateCustomer;
 use Sylius\ShopApiPlugin\Request\Customer\UpdateCustomerRequest;
@@ -30,7 +31,7 @@ final class UpdateCustomerRequestTest extends TestCase
             'ivan',
             'Mts',
             'ivan.matas@locastic.com',
-            '2017-11-01',
+            new DateTimeImmutable('2017-11-01'),
             'm',
             '125125112',
             true))
