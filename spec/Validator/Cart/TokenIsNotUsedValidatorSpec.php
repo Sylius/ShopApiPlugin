@@ -38,7 +38,7 @@ final class TokenIsNotUsedValidatorSpec extends ObjectBehavior
     ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
 
-        $executionContext->addViolation('sylius.shop_api.token.already_taken')->shouldBeCalled();
+        $executionContext->addViolation('sylius.shop_api.cart.token_already_taken')->shouldBeCalled();
 
         $this->validate('ORDERTOKEN', new TokenIsNotUsed());
     }
