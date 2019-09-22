@@ -32,7 +32,8 @@ final class ImageViewFactorySpec extends ObjectBehavior
 
         $imageView = new ImageView();
         $imageView->code = 'thumbnail';
-        $imageView->path = 'cache/abc/a.png';
+        $imageView->path = 'abc/a.png';
+        $imageView->cachedPath = 'cache/abc/a.png';
 
         $filterService->getUrlOfFilteredImage('abc/a.png', 'some_filter')->willReturn('cache/abc/a.png');
 

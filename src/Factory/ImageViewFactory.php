@@ -35,7 +35,9 @@ final class ImageViewFactory implements ImageViewFactoryInterface
         $imageView = new $this->imageViewClass();
 
         $imageView->code = $image->getType();
-        $imageView->path = $this->filterService->getUrlOfFilteredImage($image->getPath(), $this->filter);
+        $imageView->path = $image->getPath();
+
+        $imageView->cachedPath = $this->filterService->getUrlOfFilteredImage($image->getPath(), $this->filter);
 
         return $imageView;
     }
