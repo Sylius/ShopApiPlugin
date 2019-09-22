@@ -27,12 +27,18 @@ final class VerificationTokenExistsValidatorSpec extends ObjectBehavior
     }
 
     function it_does_not_add_constraint_if_verification_token_is_empty(
-        UserRepositoryInterface $userRepository,
         ExecutionContextInterface $executionContext
     ): void {
-        $executionContext->addViolation(Argument::cetera())->shouldNotBeCalled();
+        $executionContext->addViolation(Argument::any())->shouldNotBeCalled();
 
         $this->validate('', new VerificationTokenExists());
+    }
+
+    function it_does_not_add_constraint_if_verification_token_is_null(
+        ExecutionContextInterface $executionContext
+    ): void {
+        $executionContext->addViolation(Argument::any())->shouldNotBeCalled();
+
         $this->validate(null, new VerificationTokenExists());
     }
 

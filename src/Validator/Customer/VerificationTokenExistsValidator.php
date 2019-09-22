@@ -20,7 +20,10 @@ final class VerificationTokenExistsValidator extends ConstraintValidator
 
     public function validate($token, Constraint $constraint)
     {
-        if (null !== $token && strlen($token) > 0 && null === $this->userRepository->findOneBy(['emailVerificationToken' => $token])) {
+        if (null === $token || 0 === strlen($token)) {
+            return;
+        }
+        if (null === $this->userRepository->findOneBy(['emailVerificationToken' => $token])) {
             $this->context->addViolation($constraint->message);
         }
     }
