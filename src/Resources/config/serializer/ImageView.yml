@@ -8,3 +8,6 @@ Sylius\ShopApiPlugin\View\ImageView:
         path:
             expose: true
             type: string
+        cachedPath:
+            expose: true
+            type: string
