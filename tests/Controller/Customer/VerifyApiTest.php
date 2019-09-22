@@ -65,11 +65,10 @@ JSON;
 
     private function verifyAccount(?string $token): Response
     {
-        $token = $token !== null ? '?token=' . $token : '';
         $this->client->request(
             'GET',
-            sprintf('/shop-api/verify-account%s', $token),
-            [],
+            '/shop-api/verify-account',
+            [$token !== null ? '?token=' . $token : ''],
             [],
             self::CONTENT_TYPE_HEADER
         );
