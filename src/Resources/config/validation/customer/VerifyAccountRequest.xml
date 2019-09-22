@@ -5,7 +5,7 @@
     <class name="Sylius\ShopApiPlugin\Request\Customer\VerifyAccountRequest">
         <property name="token">
             <constraint name="NotBlank">
-                <option name="message">sylius.shop_api.token.not_blank</option>
+                <option name="message">sylius.shop_api.verification_token.not_blank</option>
             </constraint>
             <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\VerificationTokenExists" />
         </property>

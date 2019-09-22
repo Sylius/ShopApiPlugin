@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraint;
 final class VerificationTokenExists extends Constraint
 {
     /** @var string */
-    public $message = 'sylius.shop_api.token.not_exists';
+    public $message = 'sylius.shop_api.verification_token.not_exists';
 
     /** {@inheritdoc} */
     public function getTargets(): string
