@@ -4,7 +4,7 @@
     "errors": {
         "email": [
             "sylius.shop_api.email.not_valid",
-            "sylius.shop_api.email.not_found"
+            "There is no user with this email address"
         ]
     }
 }

@@ -3,7 +3,7 @@
     "message": "Validation failed",
     "errors": {
         "productCode": [
-            "sylius.shop_api.product.configurable"
+            "The product is not configurable."
         ]
     }
 }
