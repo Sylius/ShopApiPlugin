@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraint;
 final class ProductExists extends Constraint
 {
     /** @var string */
-    public $message = 'sylius.shop_api.product.exists';
+    public $message = 'sylius.shop_api.product.not_exists';
 
     /** {@inheritdoc} */
     public function getTargets()

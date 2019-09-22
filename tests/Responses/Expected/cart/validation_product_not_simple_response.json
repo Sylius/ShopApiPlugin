@@ -3,7 +3,7 @@
     "message": "Validation failed",
     "errors": {
         "productCode": [
-            "sylius.shop_api.product.simple"
+            "The product is not a simple product"
         ]
     }
 }

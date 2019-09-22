@@ -1,11 +1,18 @@
 sylius:
     shop_api:
+        channel:
+            not_exists: Channel does not exist.
         cart:
-            not_exists: Cart does not exists.
+            not_exists: Cart does not exist.
+        cart_item:
+            not_exists: Cart item does not exist.
+        token:
+            already_taken: There is already a cart with this token.
         email:
             not_blank: Please enter your email.
             invalid: This email is invalid.
             unique: This email is already used.
+            not_found: There is no user with this email address
         password:
             not_blank: Please enter your password.
         first_name:
@@ -13,8 +20,14 @@ sylius:
         last_name:
             not_blank: Please enter your last name.
         address_id:
-            not_null: Please provide address id
+            not_null: Please provide address id.
         address:
-            not_exists: Address doesn't exist
+            not_exists: Address does not exist.
         country:
-            not_exists: The country does not exist
+            not_exists: The country does not exist.
+        product:
+            not_configurable: The product is not configurable.
+            not_found: The product does not exists.
+            not_simple: The product is not a simple product
+        product_variant:
+            not_exists: The product variant does not exist.

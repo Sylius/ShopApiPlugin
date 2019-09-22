@@ -45,7 +45,7 @@ final class ProductExistsValidatorSpec extends ObjectBehavior
     ): void {
         $productRepository->findOneByCode('BARBECUE_CODE')->willReturn(null);
 
-        $executionContext->addViolation('sylius.shop_api.product.exists')->shouldBeCalled();
+        $executionContext->addViolation('sylius.shop_api.product.not_exists')->shouldBeCalled();
 
         $this->validate('BARBECUE_CODE', new ProductExists());
     }
