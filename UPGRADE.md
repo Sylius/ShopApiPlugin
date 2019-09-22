@@ -1,3 +1,14 @@
+# UPGRADE FROM 1.0.0-rc.1 to 1.0.0
+
+* The following files changed their namespaces and folders:
+ `src/Factory/Taxon/ImageViewFactory.php` -> `src/Factory/ImageViewFactory.php`
+ `src/Factory/Taxon/ImageViewFactoryInterface.php` -> `src/Factory/ImageViewFactoryInterface.php`
+ `src/View/Taxon/ImageView.php` -> `src/View/ImageView.php`
+ 
+ Because these classes are used outside of Taxon context as well.
+
+* Path of images is served as absolute instead of relative.
+ 
 # UPGRADE FROM 1.0.0-beta.21 to 1.0.0-rc.1
 
 * The configuration key for the shop api is now `sylius_shop_api`.

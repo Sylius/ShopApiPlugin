@@ -12,12 +12,12 @@ use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Model\ProductTranslationInterface;
 use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Product\Model\ProductAttributeValueInterface;
+use Sylius\ShopApiPlugin\Factory\ImageViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\Product\ProductAttributeValuesViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\Product\ProductViewFactoryInterface;
-use Sylius\ShopApiPlugin\Factory\Taxon\ImageViewFactoryInterface;
+use Sylius\ShopApiPlugin\View\ImageView;
 use Sylius\ShopApiPlugin\View\Product\ProductTaxonView;
 use Sylius\ShopApiPlugin\View\Product\ProductView;
-use Sylius\ShopApiPlugin\View\Taxon\ImageView;
 
 final class ProductViewFactorySpec extends ObjectBehavior
 {

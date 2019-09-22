@@ -9,7 +9,7 @@ use Sylius\Component\Core\Model\ProductImageInterface;
 use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Model\ProductTranslationInterface;
 use Sylius\Component\Core\Model\TaxonInterface;
-use Sylius\ShopApiPlugin\Factory\Taxon\ImageViewFactoryInterface;
+use Sylius\ShopApiPlugin\Factory\ImageViewFactoryInterface;
 use Sylius\ShopApiPlugin\View\Product\ProductTaxonView;
 use Sylius\ShopApiPlugin\View\Product\ProductView;
 

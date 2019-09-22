@@ -1,9 +1,9 @@
 jms_serializer:
     metadata:
         directories:
-            sylius-shop-api-taxon:
-                namespace_prefix: "Sylius\\ShopApiPlugin\\View\\Taxon"
-                path: "@SyliusShopApiPlugin/Resources/config/serializer/Taxon"
+            sylius-shop-api:
+                namespace_prefix: "Sylius\\ShopApiPlugin\\View"
+                path: "@SyliusShopApiPlugin/Resources/config/serializer"
             sylius-shop-api-product:
                 namespace_prefix: "Sylius\\ShopApiPlugin\\View\\Product"
                 path: "@SyliusShopApiPlugin/Resources/config/serializer/Product"
@@ -29,3 +29,9 @@ sylius_customer:
         customer:
             classes:
                 controller: Sylius\ShopApiPlugin\Controller\Customer\CustomerController
+
+liip_imagine:
+    filter_sets:
+        sylius_shop_api:
+            filters:
+                thumbnail: { size: [640, 480], mode: outbound }

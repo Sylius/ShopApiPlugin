@@ -19,5 +19,11 @@
             <argument type="string">%sylius.shop_api.view.validation_error.class%</argument>
         </service>
 
+        <service id="sylius.shop_api_plugin.factory.image_view_factory"
+                 class="Sylius\ShopApiPlugin\Factory\ImageViewFactory">
+            <argument type="string">%sylius.shop_api.view.image.class%</argument>
+            <argument type="service" id="liip_imagine.service.filter" />
+            <argument>sylius_shop_api</argument>
+        </service>
     </services>
 </container>

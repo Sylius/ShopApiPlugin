@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Sylius\ShopApiPlugin\Factory\Taxon;
+namespace Sylius\ShopApiPlugin\Factory;
 
 use Sylius\Component\Core\Model\ImageInterface;
-use Sylius\ShopApiPlugin\View\Taxon\ImageView;
+use Sylius\ShopApiPlugin\View\ImageView;
 
 interface ImageViewFactoryInterface
 {

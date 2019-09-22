@@ -1,4 +1,4 @@
-Sylius\ShopApiPlugin\View\Taxon\ImageView:
+Sylius\ShopApiPlugin\View\ImageView:
     exclusion_policy: ALL
     xml_root_name: image_view
     properties:
@@ -6,5 +6,8 @@ Sylius\ShopApiPlugin\View\Taxon\ImageView:
             expose: true
             type: string
         path:
+            expose: true
+            type: string
+        cachedPath:
             expose: true
             type: string

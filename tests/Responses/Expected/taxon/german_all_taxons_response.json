@@ -52,7 +52,8 @@
                 "images": [
                     {
                         "code": "thumbnail",
-                        "path": "\/uo\/t-shirt.jpg"
+                        "path": "/pants.jpeg",
+                        "cachedPath": "http://localhost/media/cache/sylius_shop_api/pants.jpeg"
                     }
                 ]
             }

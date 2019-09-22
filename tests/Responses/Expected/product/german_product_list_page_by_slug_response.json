@@ -40,7 +40,8 @@
                     "images": [
                         {
                             "code": "thumbnail",
-                            "path": "\/uo\/mug.jpg"
+                            "path": "/pants.jpeg",
+                            "cachedPath": "http://localhost/media/cache/sylius_shop_api/pants.jpeg"
                         }
                     ]
                 }
@@ -56,7 +57,8 @@
             "images": [
                 {
                     "code": "thumbnail",
-                    "path": "\/uo\/mug.jpg"
+                    "path": "/pants.jpeg",
+                    "cachedPath": "http://localhost/media/cache/sylius_shop_api/pants.jpeg"
                 }
             ],
             "_links": {
@@ -182,7 +184,8 @@
                                 "images": [
                                     {
                                         "code": "thumbnail",
-                                        "path": "\/uo\/mug.jpg"
+                                        "path": "/pants.jpeg",
+                                        "cachedPath": "http://localhost/media/cache/sylius_shop_api/pants.jpeg"
                                     }
                                 ]
                             }
@@ -198,7 +201,8 @@
                         "images": [
                             {
                                 "code": "thumbnail",
-                                "path": "\/uo\/mug.jpg"
+                                "path": "/pants.jpeg",
+                                "cachedPath": "http://localhost/media/cache/sylius_shop_api/pants.jpeg"
                             }
                         ],
                         "_links": {
@@ -234,7 +238,8 @@
                                 "images": [
                                     {
                                         "code": "thumbnail",
-                                        "path": "\/uo\/small-tshirt.jpg"
+                                        "path": "/pants.jpeg",
+                                        "cachedPath": "http://localhost/media/cache/sylius_shop_api/pants.jpeg"
                                     }
                                 ]
                             },
@@ -250,7 +255,8 @@
                                 "images": [
                                     {
                                         "code": "thumbnail",
-                                        "path": "\/uo\/large-tshirt.jpg"
+                                        "path": "/pants.jpeg",
+                                        "cachedPath": "http://localhost/media/cache/sylius_shop_api/pants.jpeg"
                                     }
                                 ]
                             }
@@ -260,15 +266,18 @@
                         "images": [
                             {
                                 "code": "thumbnail",
-                                "path": "\/uo\/tshirt.jpg"
+                                "path": "/pants.jpeg",
+                                "cachedPath": "http://localhost/media/cache/sylius_shop_api/pants.jpeg"
                             },
                             {
                                 "code": "thumbnail",
-                                "path": "\/uo\/small-tshirt.jpg"
+                                "path": "/pants.jpeg",
+                                "cachedPath": "http://localhost/media/cache/sylius_shop_api/pants.jpeg"
                             },
                             {
                                 "code": "thumbnail",
-                                "path": "\/uo\/large-tshirt.jpg"
+                                "path": "/pants.jpeg",
+                                "cachedPath": "http://localhost/media/cache/sylius_shop_api/pants.jpeg"
                             }
                         ],
                         "_links": {

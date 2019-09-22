@@ -7,6 +7,7 @@ namespace Sylius\ShopApiPlugin\Factory\Taxon;
 use Sylius\Component\Core\Model\ImageInterface;
 use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Taxonomy\Model\TaxonTranslationInterface;
+use Sylius\ShopApiPlugin\Factory\ImageViewFactoryInterface;
 use Sylius\ShopApiPlugin\View\Taxon\TaxonView;
 
 final class TaxonViewFactory implements TaxonViewFactoryInterface

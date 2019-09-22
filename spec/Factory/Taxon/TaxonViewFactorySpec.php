@@ -9,9 +9,9 @@ use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\ImageInterface;
 use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Taxonomy\Model\TaxonTranslationInterface;
-use Sylius\ShopApiPlugin\Factory\Taxon\ImageViewFactoryInterface;
+use Sylius\ShopApiPlugin\Factory\ImageViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\Taxon\TaxonViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\Taxon\ImageView;
+use Sylius\ShopApiPlugin\View\ImageView;
 use Sylius\ShopApiPlugin\View\Taxon\TaxonView;
 
 final class TaxonViewFactorySpec extends ObjectBehavior
