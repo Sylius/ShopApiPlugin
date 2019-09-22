@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Validator\Product;
 
+use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Sylius\ShopApiPlugin\Checker\ProductInCartChannelCheckerInterface;
@@ -40,6 +41,8 @@ final class ProductInCartChannelValidator extends ConstraintValidator
     {
         /** @var PutOptionBasedConfigurableItemToCartRequest|PutVariantBasedConfigurableItemToCartRequest|PutSimpleItemToCartRequest $value */
         $product = $this->productRepository->findOneByCode($value->getProductCode());
+
+        /** @var OrderInterface|null $cart */
         $cart = $this->cartRepository->findOneBy(['tokenValue' => $value->getToken()]);
 
         if ($product === null || $cart === null) {
