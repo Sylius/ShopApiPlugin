@@ -35,7 +35,6 @@
                             "HAT_SIZE_S": "Size S",
                             "HAT_COLOR_RED": "Color Red"
                         },
-                        "onHand": 0,
                         "price": {
                             "current": 500,
                             "currency": "GBP"

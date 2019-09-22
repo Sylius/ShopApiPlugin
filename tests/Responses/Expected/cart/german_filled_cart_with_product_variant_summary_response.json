@@ -35,7 +35,6 @@
                             "HAT_SIZE_S": "Size S",
                             "HAT_COLOR_RED": "Farbe Rot"
                         },
-                        "onHand": 0,
                         "price": {
                             "current": 590,
                             "currency": "EUR"

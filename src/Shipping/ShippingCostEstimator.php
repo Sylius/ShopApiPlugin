@@ -76,8 +76,11 @@ final class ShippingCostEstimator implements ShippingCostEstimatorInterface
 
         $shippingMethod = $shippingMethods[0];
 
+        $calculatorName = $shippingMethod->getCalculator();
+        Assert::notNull($calculatorName);
+
         /** @var CalculatorInterface $calculator */
-        $calculator = $this->calculators->get($shippingMethod->getCalculator());
+        $calculator = $this->calculators->get($calculatorName);
 
         $value = $calculator->calculate($shipment, $shippingMethod->getConfiguration());
         $currencyCode = $cart->getCurrencyCode();

@@ -779,13 +779,12 @@ paths:
                   in: "body"
                   required: true
                   schema:
-                      type: object
                       $ref: "#/definitions/LoginRequest"
             responses:
                 200:
                     description: "User was logged in"
-                    example:
-                        token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9"
+                    schema:
+                        $ref: "#/definitions/LoginSuccess"
     /orders:
         parameters:
             -   $ref: "#/parameters/ChannelCode"
@@ -1077,10 +1076,8 @@ definitions:
             - "shippingAddress"
         properties:
             shippingAddress:
-                type: "object"
                 $ref: "#/definitions/Address"
             billingAddress:
-                type: "object"
                 $ref: "#/definitions/Address"
     CheckoutChooseShippingMethodRequest:
         type: "object"
@@ -1129,7 +1126,6 @@ definitions:
                         methods:
                             type: "object"
                             additionalProperties:
-                                type: "object"
                                 $ref: "#/definitions/ShippingMethod"
     Shipment:
         type: "object"
@@ -1147,7 +1143,6 @@ definitions:
                     - "cancelled"
                     - "shipped"
             method:
-                type: "object"
                 $ref: "#/definitions/ShippingMethod"
     AvailablePaymentMethods:
         type: "object"
@@ -1182,7 +1177,6 @@ definitions:
                     - "cancelled"
                     - "refunded"
             method:
-                type: "object"
                 $ref: "#/definitions/PaymentMethod"
     Cart:
         type: "object"
@@ -1223,13 +1217,10 @@ definitions:
                 items:
                     $ref: "#/definitions/Item"
             totals:
-                type: "object"
                 $ref: "#/definitions/TotalsView"
             shippingAddress:
-                type: "object"
                 $ref: "#/definitions/Address"
             billingAddress:
-                type: "object"
                 $ref: "#/definitions/Address"
             payments:
                 type: "array"
@@ -1244,7 +1235,6 @@ definitions:
                 items:
                     type: "object"
                     additionalProperties:
-                        type: "object"
                         $ref: "#/definitions/Discount"
             couponCode:
                 description: "Code of the coupon that is associated with this cart"
@@ -1335,9 +1325,6 @@ definitions:
                 type: "object"
                 additionalProperties:
                     type: "string"
-            onHand:
-                type: "integer"
-                example: 12
             price:
                 $ref: "#/definitions/Price"
             originalPrice:
@@ -1477,7 +1464,7 @@ definitions:
                         type: "integer"
                         example: 5
                     createdAt:
-                        type: "datetime"
+                        type: "string"
                         example: "2016-01-02 21:00:10"
                     comment:
                         type: "string"
@@ -1599,6 +1586,9 @@ definitions:
                 example: "WEB_GB"
     LoginRequest:
         type: "object"
+        required:
+            - email
+            - password
         properties:
             email:
                 type: "string"
@@ -1606,6 +1596,10 @@ definitions:
             password:
                 type: "string"
                 example: "test12334verysecure"
+            token:
+                type: "string"
+                description: "The token of the current cart which should be assign to the customer"
+                example: "SDAOSLEFNWU35H3QLI5325"
     UpdateUserRequest:
         type: "object"
         properties:
@@ -1724,6 +1718,13 @@ definitions:
                 description: "Total amount of cart promotions."
                 type: "integer"
                 example: 0
+    LoginSuccess:
+        type: "object"
+        description: "User was logged in."
+        properties:
+            token:
+                type: "string"
+                example: "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9"
     PlacedOrder:
         type: "object"
         description: "Placed order with information about items, current state, totals and more."

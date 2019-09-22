@@ -41,7 +41,7 @@ final class PickupCartHandlerSpec extends ObjectBehavior
 
     function it_handles_cart_pickup_for_not_logged_in_user(
         ChannelInterface $channel,
-        CurrencyInterface  $currency,
+        CurrencyInterface $currency,
         ChannelRepositoryInterface $channelRepository,
         FactoryInterface $cartFactory,
         LocaleInterface $locale,
