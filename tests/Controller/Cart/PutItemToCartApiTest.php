@@ -229,6 +229,32 @@ JSON;
     /**
      * @test
      */
+    public function it_validates_if_simple_product_is_in_same_channel_as_cart(): void
+    {
+        $this->loadFixturesFromFiles(['shop.yml', 'channel.yml']);
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var MessageBusInterface $bus */
+        $bus = $this->get('sylius_shop_api_plugin.command_bus');
+        $bus->dispatch(new PickupCart($token, 'unused_channel'));
+
+        $data =
+            <<<JSON
+        {
+            "productCode": "LOGAN_MUG_CODE",
+            "quantity": 3
+        }
+JSON;
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'cart/product_not_in_cart_channel', Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @test
+     */
     public function it_does_not_allow_to_add_product_if_cart_does_not_exists_during_add_simple_product(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
@@ -468,6 +494,33 @@ JSON;
     /**
      * @test
      */
+    public function it_validates_if_variant_based_product_is_in_cart_channel(): void
+    {
+        $this->loadFixturesFromFiles(['shop.yml', 'channel.yml']);
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var MessageBusInterface $bus */
+        $bus = $this->get('sylius_shop_api_plugin.command_bus');
+        $bus->dispatch(new PickupCart($token, 'unused_channel'));
+
+        $data =
+            <<<JSON
+        {
+            "productCode": "LOGAN_T_SHIRT_CODE",
+            "variantCode": "SMALL_LOGAN_T_SHIRT_CODE",
+            "quantity": 3
+        }
+JSON;
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'cart/product_not_in_cart_channel', Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @test
+     */
     public function it_validates_if_product_is_configurable_during_add_variant_based_configurable_product(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
@@ -604,6 +657,36 @@ JSON;
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/add_product_variant_based_on_options_multiple_times_to_cart_response', Response::HTTP_CREATED);
+    }
+
+    /**
+     * @test
+     */
+    public function it_validates_product_channel_when_adding_a_product_variant_based_on_option_to_the_cart(): void
+    {
+        $this->loadFixturesFromFiles(['shop.yml', 'channel.yml']);
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var MessageBusInterface $bus */
+        $bus = $this->get('sylius_shop_api_plugin.command_bus');
+        $bus->dispatch(new PickupCart($token, 'unused_channel'));
+
+        $data =
+            <<<JSON
+        {
+            "productCode": "LOGAN_HAT_CODE",
+            "options": {
+                "HAT_SIZE": "HAT_SIZE_S",
+                "HAT_COLOR": "HAT_COLOR_RED"
+            },
+            "quantity": 3
+        }
+JSON;
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'cart/product_not_in_cart_channel', Response::HTTP_BAD_REQUEST);
     }
 
     /**

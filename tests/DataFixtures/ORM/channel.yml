@@ -23,6 +23,17 @@ Sylius\Component\Core\Model\Channel:
         enabled: true
         taxCalculationStrategy: "order_items_based"
         accountVerificationRequired: false
+    unused_channel:
+        code: "unused_channel"
+        name: "Channel that is not used in a product"
+        hostname: "localhost"
+        description: "Lorem ipsum"
+        baseCurrency: "@euro"
+        defaultLocale: "@locale_de_de"
+        locales: ["@locale_de_de"]
+        color: "red"
+        enabled: true
+        taxCalculationStrategy: "order_items_based"
 
 Sylius\Component\Currency\Model\Currency:
     pound:
