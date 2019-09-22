@@ -109,6 +109,7 @@ Sylius\Component\Core\Model\ProductTranslation:
         locale: "en_GB"
         name: "Logan Shoes"
         description: "Some description Lorem ipsum dolor sit amet."
+        shortDescription: "Short description Lorem ipsum dolor sit amet."
         translatable: "@shoes"
 
 Sylius\Component\Core\Model\ProductVariant:
