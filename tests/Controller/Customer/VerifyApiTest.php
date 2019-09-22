@@ -68,7 +68,7 @@ JSON;
         $this->client->request(
             'GET',
             '/shop-api/verify-account',
-            $token !== null : ['token' => $token] ? [],
+            $token !== null ? ['token' => $token] : [],
             [],
             self::CONTENT_TYPE_HEADER
         );
