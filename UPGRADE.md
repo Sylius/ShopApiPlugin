@@ -1,4 +1,4 @@
-# UPGRADE FROM 1.0.0-rc.1 to 1.0.0
+# UPGRADE FROM 1.0.0-rc.1 to 1.0.0-rc.2
 
 * The following files changed their namespaces and folders:
  `src/Factory/Taxon/ImageViewFactory.php` -> `src/Factory/ImageViewFactory.php`

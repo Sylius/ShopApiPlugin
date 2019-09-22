@@ -9,6 +9,8 @@
 #### Details
 
 ### Added
+- [#503](https://github.com/Sylius/SyliusShopApiPlugin/issues/503) Add onHand to product response ([@alexander-schranz](https://github.com/alexander-schranz))
+- [#502](https://github.com/Sylius/SyliusShopApiPlugin/issues/502) Add originalPrice to product response ([@alexander-schranz](https://github.com/alexander-schranz))
 - [#514](https://github.com/Sylius/SyliusShopApiPlugin/issues/514) Adding a Cookbook ([@mamazu](https://github.com/mamazu))
 - [#537](https://github.com/Sylius/SyliusShopApiPlugin/issues/537) ImageViewFactory generates product image cache ([@mamazu](https://github.com/mamazu), [@lchrusciel](https://github.com/lchrusciel))
 
@@ -26,6 +28,8 @@
 - [#552](https://github.com/Sylius/SyliusShopApiPlugin/issues/552) Adding more methods to the verify account ([@mamazu](https://github.com/mamazu))
 - [#526](https://github.com/Sylius/SyliusShopApiPlugin/issues/526) [CHANGELOG] Describe changes between beta.21 and rc.1 ([@lchrusciel](https://github.com/lchrusciel))
 - [#553](https://github.com/Sylius/SyliusShopApiPlugin/issues/553) Adding translations and unifying keys ([@mamazu](https://github.com/mamazu))
+- [#559](https://github.com/Sylius/SyliusShopApiPlugin/issues/559) [README] Minor improvements ([@lchrusciel](https://github.com/lchrusciel))
+- [#557](https://github.com/Sylius/SyliusShopApiPlugin/issues/557) Made tranlation keys more specific ([@mamazu](https://github.com/mamazu))
 
 ### Fixed
 - [#501](https://github.com/Sylius/SyliusShopApiPlugin/issues/501) [Login] Fix validation error message ([@lchrusciel](https://github.com/lchrusciel))
@@ -37,6 +41,8 @@
 - [#554](https://github.com/Sylius/SyliusShopApiPlugin/issues/554) Fixing the type errors ([@mamazu](https://github.com/mamazu))
 - [#546](https://github.com/Sylius/SyliusShopApiPlugin/issues/546) Handle registration for exist customer ([@alexander-schranz](https://github.com/alexander-schranz), [@lchrusciel](https://github.com/lchrusciel))
 - [#556](https://github.com/Sylius/SyliusShopApiPlugin/issues/556) [Performance] Add back cached channel context ([@lchrusciel](https://github.com/lchrusciel))
+- [#555](https://github.com/Sylius/SyliusShopApiPlugin/issues/555) add validation to verify account action and update swagger.yml ([@CSchulz](https://github.com/CSchulz))
+- [#558](https://github.com/Sylius/SyliusShopApiPlugin/issues/558) [Images] Fix git ignore in test app ([@lchrusciel](https://github.com/lchrusciel))
 
 ## v1.0.0-rc.1
 
