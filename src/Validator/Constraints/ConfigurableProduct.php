@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraint;
 final class ConfigurableProduct extends Constraint
 {
     /** @var string */
-    public $message = 'sylius.shop_api.product.configurable';
+    public $message = 'sylius.shop_api.product.not_configurable';
 
     /** {@inheritdoc} */
     public function getTargets()

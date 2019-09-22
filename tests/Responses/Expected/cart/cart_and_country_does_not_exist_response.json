@@ -3,10 +3,10 @@
     "message": "Validation failed",
     "errors": {
         "cartToken": [
-            "Cart does not exists."
+            "Cart does not exist."
         ],
         "countryCode": [
-            "The country does not exist"
+            "The country does not exist."
         ]
     }
 }

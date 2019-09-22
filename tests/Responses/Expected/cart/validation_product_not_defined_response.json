@@ -4,7 +4,7 @@
     "errors": {
         "productCode": [
             "sylius.shop_api.product.not_null",
-            "sylius.shop_api.product.exists"
+            "sylius.shop_api.product.not_exists"
         ]
     }
 }

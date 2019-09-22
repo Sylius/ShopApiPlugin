@@ -24,5 +24,13 @@
             <argument type="service" id="sylius.repository.product"/>
             <tag name="validator.constraint_validator" alias="sylius_shop_api_product_exists_validator"/>
         </service>
+
+        <service id="sylius.shop_api_plugin.validator.product_in_cart_channel_validator"
+                 class="Sylius\ShopApiPlugin\Validator\Product\ProductInCartChannelValidator">
+            <argument type="service" id="sylius.shop_api_plugin.checker.product_in_cart_channel_checker" />
+            <argument type="service" id="sylius.repository.product" />
+            <argument type="service" id="sylius.repository.order" />
+            <tag name="validator.constraint_validator" alias="sylius_shop_api_product_in_cart_channel_validator" />
+        </service>
     </services>
 </container>

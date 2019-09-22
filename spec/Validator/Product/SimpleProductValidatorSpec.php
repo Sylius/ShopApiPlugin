@@ -58,7 +58,7 @@ final class SimpleProductValidatorSpec extends ObjectBehavior
         $productRepository->findOneByCode('BARBECUE_CODE')->willReturn($product);
         $product->isSimple()->willReturn(false);
 
-        $executionContext->addViolation('sylius.shop_api.product.simple')->shouldBeCalled();
+        $executionContext->addViolation('sylius.shop_api.product.not_simple')->shouldBeCalled();
 
         $this->validate('BARBECUE_CODE', new SimpleProduct());
     }

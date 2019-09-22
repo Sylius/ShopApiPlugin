@@ -11,6 +11,7 @@ use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
+use Sylius\ShopApiPlugin\Checker\ProductInCartChannelCheckerInterface;
 use Sylius\ShopApiPlugin\Command\Cart\PutSimpleItemToCart;
 use Sylius\ShopApiPlugin\Modifier\OrderModifierInterface;
 
@@ -19,9 +20,10 @@ final class PutSimpleItemToCartHandlerSpec extends ObjectBehavior
     function let(
         OrderRepositoryInterface $cartRepository,
         ProductRepositoryInterface $productRepository,
-        OrderModifierInterface $orderModifier
+        OrderModifierInterface $orderModifier,
+        ProductInCartChannelCheckerInterface $channelChecker
     ): void {
-        $this->beConstructedWith($cartRepository, $productRepository, $orderModifier);
+        $this->beConstructedWith($cartRepository, $productRepository, $orderModifier, $channelChecker);
     }
 
     function it_handles_putting_new_item_to_cart(
@@ -30,13 +32,16 @@ final class PutSimpleItemToCartHandlerSpec extends ObjectBehavior
         ProductInterface $product,
         ProductRepositoryInterface $productRepository,
         ProductVariantInterface $productVariant,
-        OrderModifierInterface $orderModifier
+        OrderModifierInterface $orderModifier,
+        ProductInCartChannelCheckerInterface $channelChecker
     ): void {
         $productRepository->findOneBy(['code' => 'T_SHIRT_CODE'])->willReturn($product);
         $product->getVariants()->willReturn(new ArrayCollection([$productVariant->getWrappedObject()]));
         $product->isSimple()->willReturn(true);
 
         $cartRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($cart);
+
+        $channelChecker->isProductInCartChannel($product, $cart)->willReturn(true);
 
         $orderModifier->modify($cart, $productVariant, 5)->shouldBeCalled();
 
@@ -68,6 +73,28 @@ final class PutSimpleItemToCartHandlerSpec extends ObjectBehavior
     function it_throws_an_exception_if_product_is_configurable(
         OrderInterface $cart,
         OrderRepositoryInterface $cartRepository,
+        ProductInCartChannelCheckerInterface $channelChecker,
+        ProductInterface $product,
+        ProductRepositoryInterface $productRepository,
+        ProductVariantInterface $productVariant
+    ): void {
+        $cartRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($cart);
+        $productRepository->findOneBy(['code' => 'T_SHIRT_CODE'])->willReturn($product);
+        $product->getVariants()->willReturn(new ArrayCollection([$productVariant->getWrappedObject()]));
+
+        $channelChecker->isProductInCartChannel($product, $cart)->willReturn(true);
+
+        $product->isSimple()->willReturn(false);
+
+        $this->shouldThrow(\InvalidArgumentException::class)->during('__invoke', [
+            new PutSimpleItemToCart('ORDERTOKEN', 'T_SHIRT_CODE', 5),
+        ]);
+    }
+
+    function it_throws_an_exception_if_product_is_not_in_same_channel_as_cart(
+        OrderInterface $cart,
+        OrderRepositoryInterface $cartRepository,
+        ProductInCartChannelCheckerInterface $channelChecker,
         ProductInterface $product,
         ProductRepositoryInterface $productRepository,
         ProductVariantInterface $productVariant
@@ -77,8 +104,12 @@ final class PutSimpleItemToCartHandlerSpec extends ObjectBehavior
         $product->getVariants()->willReturn(new ArrayCollection([$productVariant->getWrappedObject()]));
         $product->isSimple()->willReturn(false);
 
-        $this->shouldThrow(\InvalidArgumentException::class)->during('__invoke', [
+        $channelChecker->isProductInCartChannel($product, $cart)->willReturn(false);
+
+        $this->shouldThrow(\InvalidArgumentException::class)->during(
+            '__invoke', [
             new PutSimpleItemToCart('ORDERTOKEN', 'T_SHIRT_CODE', 5),
-        ]);
+        ]
+        );
     }
 }

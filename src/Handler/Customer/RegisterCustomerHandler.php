@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Sylius\ShopApiPlugin\Handler\Customer;
 
 use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
-use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
 use Sylius\ShopApiPlugin\Command\Customer\RegisterCustomer;
 use Sylius\ShopApiPlugin\Event\CustomerRegistered;
+use Sylius\ShopApiPlugin\Provider\CustomerProviderInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Webmozart\Assert\Assert;
 
@@ -25,24 +25,24 @@ final class RegisterCustomerHandler
     /** @var FactoryInterface */
     private $userFactory;
 
-    /** @var FactoryInterface */
-    private $customerFactory;
-
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
+
+    /** @var CustomerProviderInterface */
+    private $customerProvider;
 
     public function __construct(
         UserRepositoryInterface $userRepository,
         ChannelRepositoryInterface $channelRepository,
         FactoryInterface $userFactory,
-        FactoryInterface $customerFactory,
-        EventDispatcherInterface $eventDispatcher
+        EventDispatcherInterface $eventDispatcher,
+        CustomerProviderInterface $customerProvider
     ) {
         $this->userRepository = $userRepository;
         $this->channelRepository = $channelRepository;
         $this->userFactory = $userFactory;
-        $this->customerFactory = $customerFactory;
         $this->eventDispatcher = $eventDispatcher;
+        $this->customerProvider = $customerProvider;
     }
 
     public function __invoke(RegisterCustomer $command): void
@@ -50,8 +50,8 @@ final class RegisterCustomerHandler
         $this->assertEmailIsNotTaken($command->email());
         $this->assertChannelExists($command->channelCode());
 
-        /** @var CustomerInterface $customer */
-        $customer = $this->customerFactory->createNew();
+        $customer = $this->customerProvider->provide($command->email());
+
         $customer->setFirstName($command->firstName());
         $customer->setLastName($command->lastName());
         $customer->setEmail($command->email());

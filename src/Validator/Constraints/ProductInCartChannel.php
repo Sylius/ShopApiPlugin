@@ -6,20 +6,20 @@ namespace Sylius\ShopApiPlugin\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 
-final class SimpleProduct extends Constraint
+final class ProductInCartChannel extends Constraint
 {
     /** @var string */
-    public $message = 'sylius.shop_api.product.not_simple';
+    public $message = 'sylius.shop_api.product.not_in_cart_channel';
 
     /** {@inheritdoc} */
     public function getTargets()
     {
-        return self::PROPERTY_CONSTRAINT;
+        return self::CLASS_CONSTRAINT;
     }
 
     /** {@inheritdoc} */
     public function validatedBy()
     {
-        return 'sylius_shop_api_simple_product_validator';
+        return 'sylius_shop_api_product_in_cart_channel_validator';
     }
 }

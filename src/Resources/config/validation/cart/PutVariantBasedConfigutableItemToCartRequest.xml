@@ -13,6 +13,8 @@
 
 <constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/services/constraint-mapping-1.0.xsd">
     <class name="Sylius\ShopApiPlugin\Request\Cart\PutVariantBasedConfigurableItemToCartRequest">
+        <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\ProductInCartChannel" />
+
         <property name="token">
             <constraint name="NotNull">
                 <option name="message">sylius.shop_api.token.not_null</option>

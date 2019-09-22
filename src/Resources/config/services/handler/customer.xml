@@ -7,8 +7,8 @@
             <argument type="service" id="sylius.repository.shop_user"/>
             <argument type="service" id="sylius.repository.channel"/>
             <argument type="service" id="sylius.factory.shop_user"/>
-            <argument type="service" id="sylius.factory.customer"/>
             <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="sylius.shop_api_plugin.provider.customer_provider"/>
             <tag name="messenger.message_handler" />
         </service>
 

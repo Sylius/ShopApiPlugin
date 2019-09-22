@@ -30,6 +30,7 @@
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.repository.product"/>
             <argument type="service" id="sylius.shop_api_plugin.modifier.order_modifier"/>
+            <argument type="service" id="sylius.shop_api_plugin.checker.product_in_cart_channel_checker" />
             <tag name="messenger.message_handler" />
         </service>
 
@@ -38,6 +39,7 @@
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.repository.product_variant"/>
             <argument type="service" id="sylius.shop_api_plugin.modifier.order_modifier"/>
+            <argument type="service" id="sylius.shop_api_plugin.checker.product_in_cart_channel_checker" />
             <tag name="messenger.message_handler" />
         </service>
 
@@ -46,6 +48,7 @@
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.repository.product"/>
             <argument type="service" id="sylius.shop_api_plugin.modifier.order_modifier"/>
+            <argument type="service" id="sylius.shop_api_plugin.checker.product_in_cart_channel_checker" />
             <tag name="messenger.message_handler" />
         </service>
 

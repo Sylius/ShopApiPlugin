@@ -1060,10 +1060,14 @@ definitions:
                     type: "string"
                     example: "HAT_SIZE_S"
     PutItemsToCartRequest:
-        type: "array"
+        type: "object"
         description: "Body of request used to put item to the cart."
-        items:
-            $ref: "#/definitions/PutItemToCartRequest"
+        properties:
+            items:
+                type: "array"
+                items:
+                    type: "object"
+                    $ref: "#/definitions/PutItemToCartRequest"
     ChangeItemQuantityRequest:
         type: "object"
         description: "Body of request used to change quantity of an item."

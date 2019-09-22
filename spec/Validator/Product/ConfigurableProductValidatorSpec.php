@@ -59,7 +59,7 @@ final class ConfigurableProductValidatorSpec extends ObjectBehavior
 
         $product->isConfigurable()->willReturn(false);
 
-        $executionContext->addViolation('sylius.shop_api.product.configurable')->shouldBeCalled();
+        $executionContext->addViolation('sylius.shop_api.product.not_configurable')->shouldBeCalled();
 
         $this->validate('PRODUCT_CODE', new ConfigurableProduct());
     }
