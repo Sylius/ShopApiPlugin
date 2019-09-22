@@ -52,16 +52,6 @@ The latest documentation is available [here](https://app.swaggerhub.com/apis/Syl
                 - { path: '^/', stop: true }
     
     ```
-    
-    3. Adjust checkout configuration to not collide with Sylius shop API. For example
-    (assuming, that you are using regular Sylius security definition):
-    ```yml
-    # config/packages/sylius_shop.yaml
-
-    sylius_shop:
-        checkout_resolver:
-            pattern: "%sylius.security.shop_regex%/checkout/.+"
-    ```
 
     4. Add new routes file to import routes from the SyliusShopApiPlugin
     ```yml
@@ -142,6 +132,10 @@ The latest documentation is available [here](https://app.swaggerhub.com/apis/Syl
                     allow_methods: ['POST', 'PUT', 'GET', 'DELETE', 'PATCH', 'OPTIONS']
                     max_age: 3600
         ```
+
+3. Follow https://github.com/lexik/LexikJWTAuthenticationBundle/blob/master/Resources/doc/index.md#installation
+
+Sample configuration of Shop API can be found here: https://github.com/Sylius/SyliusDemo/commit/4872350dcd6c987d54dec1f365b4bb890d7183c9
 
 ## Additional features
 
