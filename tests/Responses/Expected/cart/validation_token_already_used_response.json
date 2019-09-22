@@ -3,7 +3,7 @@
     "message": "Validation failed",
     "errors": {
         "token": [
-            "sylius.shop_api.token.already_taken"
+            "There is already a cart with this token."
         ]
     }
 }
