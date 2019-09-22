@@ -1,0 +1,17 @@
+---------------------------------------------------------------------------
+
+by lchrusciel at 2019-09-09T08:15:05Z
+
+We should fix it before 1.0. Nevertheless, I would vote for opening Request object, as this solution would be much cleaner.
+
+---------------------------------------------------------------------------
+
+by mamazu at 2019-09-09T09:13:46Z
+
+How would that work though?
+
+---------------------------------------------------------------------------
+
+by lchrusciel at 2019-09-22T08:41:09Z
+
+Thank you, @mamazu! :tada:
