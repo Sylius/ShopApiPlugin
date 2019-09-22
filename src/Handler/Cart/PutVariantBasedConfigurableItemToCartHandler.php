@@ -47,8 +47,13 @@ final class PutVariantBasedConfigurableItemToCartHandler
 
         /** @var ProductVariantInterface $productVariant */
         $productVariant = $this->productVariantRepository->findOneByCodeAndProductCode($putConfigurableItemToCart->productVariant(), $putConfigurableItemToCart->product());
+
         Assert::notNull($productVariant, 'Product variant has not been found');
-        Assert::true($this->channelChecker->isProductInCartChannel($productVariant->getProduct(), $cart), 'Product is not in same channel as cart');
+        $product = $productVariant->getProduct();
+
+        Assert::notNull($product);
+
+        Assert::true($this->channelChecker->isProductInCartChannel($product, $cart), 'Product is not in same channel as cart');
 
         $this->orderModifier->modify($cart, $productVariant, $putConfigurableItemToCart->quantity());
     }
