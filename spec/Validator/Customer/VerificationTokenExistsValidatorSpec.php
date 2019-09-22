@@ -60,7 +60,7 @@ final class VerificationTokenExistsValidatorSpec extends ObjectBehavior
     ): void {
         $userRepository->findOneBy(['emailVerificationToken' => 'token'])->willReturn(null);
 
-        $executionContext->addViolation('sylius.shop_api.token.not_exists')->shouldBeCalled();
+        $executionContext->addViolation('sylius.shop_api.verification_token.not_exists')->shouldBeCalled();
 
         $this->validate('token', new VerificationTokenExists());
     }
