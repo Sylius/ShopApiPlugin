@@ -785,6 +785,23 @@ paths:
                     description: "User was logged in"
                     schema:
                         $ref: "#/definitions/LoginSuccess"
+
+    /verify-account:
+        parameters:
+            - name: "token"
+              in: "query"
+              required: true
+              type: "string"
+        get:
+            tags:
+                - "users"
+            summary: "Verify an account by verification token"
+            description: "This route is needed to verify an user."
+            operationId: "verifyUser"
+            responses:
+                204:
+                    description: "User unlocked"
+
     /orders:
         parameters:
             -   $ref: "#/parameters/ChannelCode"

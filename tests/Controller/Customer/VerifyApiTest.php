@@ -45,6 +45,38 @@ JSON;
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
     }
 
+    /**
+     * @test
+     */
+    public function it_does_not_allow_to_verify_account_without_required_data(): void
+    {
+        $response = $this->verifyAccount(null);
+        $this->assertResponse($response, 'customer/verify_account_required_data', Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @test
+     */
+    public function it_allows_to_verify_customer_and_returns_properly_error_code(): void
+    {
+        $response = $this->verifyAccount('token');
+        $this->assertResponse($response, 'customer/verify_account_token_not_exists', Response::HTTP_BAD_REQUEST);
+    }
+
+    private function verifyAccount(?string $token): Response
+    {
+        $token = $token !== null ? '?token=' . $token : '';
+        $this->client->request(
+            'GET',
+            sprintf('/shop-api/verify-account%s', $token),
+            [],
+            [],
+            self::CONTENT_TYPE_HEADER
+        );
+
+        return $this->client->getResponse();
+    }
+
     protected function getContainer(): ContainerInterface
     {
         return static::$sharedKernel->getContainer();
