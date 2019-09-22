@@ -3,7 +3,7 @@
     "message": "Validation failed",
     "errors": {
         "productCode": [
-            "The product is not a simple product"
+            "The product is not a simple product."
         ]
     }
 }
