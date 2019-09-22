@@ -7,8 +7,11 @@ namespace Tests\Sylius\ShopApiPlugin\Controller\Customer;
 use PHPUnit\Framework\Assert;
 use Sylius\Component\Core\Test\Services\EmailCheckerInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
+use Sylius\ShopApiPlugin\Command\Cart\AssignCustomerToCart;
+use Sylius\ShopApiPlugin\Command\Cart\PickupCart;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Tests\Sylius\ShopApiPlugin\Controller\JsonApiTestCase;
 use Tests\Sylius\ShopApiPlugin\Controller\Utils\PurgeSpooledMessagesTrait;
 
@@ -22,6 +25,47 @@ final class RegisterApiTest extends JsonApiTestCase
     public function it_allows_to_register_in_shop_and_sends_a_verification_email_if_channel_requires_verification(): void
     {
         $this->loadFixturesFromFiles(['channel.yml']);
+
+        $data =
+<<<JSON
+        {
+            "firstName": "Vin",
+            "lastName": "Diesel",
+            "email": "vinny@fandf.com",
+            "plainPassword": "bananas1234"
+        }
+JSON;
+
+        $this->client->request('POST', '/shop-api/register', [], [], self::CONTENT_TYPE_HEADER, $data);
+
+        $response = $this->client->getResponse();
+        $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
+
+        /** @var UserRepositoryInterface $userRepository */
+        $userRepository = $this->get('sylius.repository.shop_user');
+        $user = $userRepository->findOneByEmail('vinny@fandf.com');
+
+        Assert::assertNotNull($user);
+        Assert::assertFalse($user->isEnabled());
+
+        /** @var EmailCheckerInterface $emailChecker */
+        $emailChecker = $this->get('sylius.behat.email_checker');
+        Assert::assertTrue($emailChecker->hasRecipient('vinny@fandf.com'));
+    }
+
+    /**
+     * @test
+     */
+    public function it_allows_to_register_a_customer_if_the_customer_did_a_guest_checkout_already(): void
+    {
+        $this->loadFixturesFromFiles(['channel.yml']);
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var MessageBusInterface $bus */
+        $bus = $this->get('sylius_shop_api_plugin.command_bus');
+        $bus->dispatch(new PickupCart($token, 'WEB_GB'));
+        $bus->dispatch(new AssignCustomerToCart($token, 'vinny@fandf.com'));
 
         $data =
 <<<JSON

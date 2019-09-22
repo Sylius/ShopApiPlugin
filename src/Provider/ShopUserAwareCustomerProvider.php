@@ -59,7 +59,7 @@ final class ShopUserAwareCustomerProvider implements CustomerProviderInterface
         }
 
         if ($customer->getUser() !== null) {
-            throw new WrongUserException('Customer already registered. Please log in to finish checkout.');
+            throw new WrongUserException('Customer already registered.');
         }
 
         return $customer;
