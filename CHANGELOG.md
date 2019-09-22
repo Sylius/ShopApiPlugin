@@ -1,5 +1,49 @@
 # CHANGELOG FOR `1.0.X`
 
+## v1.0.0-rc.2
+
+#### TL;DR
+
+- Several issues were fixed and a first iteration of documentation was added.
+
+#### Details
+
+### Added
+- [#503](https://github.com/Sylius/SyliusShopApiPlugin/issues/503) Add onHand to product response ([@alexander-schranz](https://github.com/alexander-schranz))
+- [#502](https://github.com/Sylius/SyliusShopApiPlugin/issues/502) Add originalPrice to product response ([@alexander-schranz](https://github.com/alexander-schranz))
+- [#514](https://github.com/Sylius/SyliusShopApiPlugin/issues/514) Adding a Cookbook ([@mamazu](https://github.com/mamazu))
+- [#537](https://github.com/Sylius/SyliusShopApiPlugin/issues/537) ImageViewFactory generates product image cache ([@mamazu](https://github.com/mamazu), [@lchrusciel](https://github.com/lchrusciel))
+
+### Changed
+- [#499](https://github.com/Sylius/SyliusShopApiPlugin/issues/499) [AddressBook] Fixes for set default address action ([@GSadee](https://github.com/GSadee))
+- [#500](https://github.com/Sylius/SyliusShopApiPlugin/issues/500) [Docs] Upgrade file fix ([@lchrusciel](https://github.com/lchrusciel))
+- [#505](https://github.com/Sylius/SyliusShopApiPlugin/issues/505) Returning 401 on customer details/update actions when not logged in ([@JakobTolkemit](https://github.com/JakobTolkemit))
+- [#507](https://github.com/Sylius/SyliusShopApiPlugin/issues/507) Fix product variant view factory original price test ([@alexander-schranz](https://github.com/alexander-schranz))
+- [#504](https://github.com/Sylius/SyliusShopApiPlugin/issues/504) Moving the complete phpstan analysis to composer ([@mamazu](https://github.com/mamazu))
+- [#529](https://github.com/Sylius/SyliusShopApiPlugin/issues/529) Fixing codestyle ([@mamazu](https://github.com/mamazu))
+- [#512](https://github.com/Sylius/SyliusShopApiPlugin/issues/512) Revert "Add onHand to product response" ([@lchrusciel](https://github.com/lchrusciel), [@mamazu](https://github.com/mamazu))
+- [#551](https://github.com/Sylius/SyliusShopApiPlugin/issues/551) Adding sylius 1.6 to the travis tests ([@mamazu](https://github.com/mamazu))
+- [#550](https://github.com/Sylius/SyliusShopApiPlugin/issues/550) Making phpstan level higher ([@mamazu](https://github.com/mamazu))
+- [#520](https://github.com/Sylius/SyliusShopApiPlugin/issues/520) docs(swagger): fix `/carts/{token}/multiple-items` ([@Gounlaf](https://github.com/Gounlaf), [@mamazu](https://github.com/mamazu))
+- [#552](https://github.com/Sylius/SyliusShopApiPlugin/issues/552) Adding more methods to the verify account ([@mamazu](https://github.com/mamazu))
+- [#526](https://github.com/Sylius/SyliusShopApiPlugin/issues/526) [CHANGELOG] Describe changes between beta.21 and rc.1 ([@lchrusciel](https://github.com/lchrusciel))
+- [#553](https://github.com/Sylius/SyliusShopApiPlugin/issues/553) Adding translations and unifying keys ([@mamazu](https://github.com/mamazu))
+- [#559](https://github.com/Sylius/SyliusShopApiPlugin/issues/559) [README] Minor improvements ([@lchrusciel](https://github.com/lchrusciel))
+- [#557](https://github.com/Sylius/SyliusShopApiPlugin/issues/557) Made tranlation keys more specific ([@mamazu](https://github.com/mamazu))
+
+### Fixed
+- [#501](https://github.com/Sylius/SyliusShopApiPlugin/issues/501) [Login] Fix validation error message ([@lchrusciel](https://github.com/lchrusciel))
+- [#522](https://github.com/Sylius/SyliusShopApiPlugin/issues/522) Fix errors in swagger file ([@alexander-schranz](https://github.com/alexander-schranz))
+- [#531](https://github.com/Sylius/SyliusShopApiPlugin/issues/531) Fix cors configuration and paths to config file ([@alexander-schranz](https://github.com/alexander-schranz))
+- [#536](https://github.com/Sylius/SyliusShopApiPlugin/issues/536) Fix CartBlamerListener without token ([@alexander-schranz](https://github.com/alexander-schranz), [@lchrusciel](https://github.com/lchrusciel))
+- [#548](https://github.com/Sylius/SyliusShopApiPlugin/issues/548) Fixing the customer birthday ([@mamazu](https://github.com/mamazu))
+- [#530](https://github.com/Sylius/SyliusShopApiPlugin/issues/530) Addding assertions for product in current channel ([@mamazu](https://github.com/mamazu))
+- [#554](https://github.com/Sylius/SyliusShopApiPlugin/issues/554) Fixing the type errors ([@mamazu](https://github.com/mamazu))
+- [#546](https://github.com/Sylius/SyliusShopApiPlugin/issues/546) Handle registration for exist customer ([@alexander-schranz](https://github.com/alexander-schranz), [@lchrusciel](https://github.com/lchrusciel))
+- [#556](https://github.com/Sylius/SyliusShopApiPlugin/issues/556) [Performance] Add back cached channel context ([@lchrusciel](https://github.com/lchrusciel))
+- [#555](https://github.com/Sylius/SyliusShopApiPlugin/issues/555) add validation to verify account action and update swagger.yml ([@CSchulz](https://github.com/CSchulz))
+- [#558](https://github.com/Sylius/SyliusShopApiPlugin/issues/558) [Images] Fix git ignore in test app ([@lchrusciel](https://github.com/lchrusciel))
+
 ## v1.0.0-rc.1
 
 #### TL;DR
