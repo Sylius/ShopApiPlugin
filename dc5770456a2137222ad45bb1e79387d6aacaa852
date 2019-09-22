@@ -1,0 +1,46 @@
+---------------------------------------------------------------------------
+
+by mamazu at 2019-09-18T20:04:31Z
+
+What happens if I enter an already existing email can I change the whole customer with that. This would mean I can just "register" with my friends email address and take over his account.
+
+---------------------------------------------------------------------------
+
+by alexander-schranz at 2019-09-18T20:40:32Z
+
+@mamazu like in Sylius you first need to click on the Confirmation Link in the email to enable the new created account so without access to the Email account you will not be able to login or see anything in this account.
+
+---------------------------------------------------------------------------
+
+by robmeek at 2019-09-20T08:56:05Z
+
+@alexander-schranz
+I’m doing this same thing in my app.
+But might it be better not to change any fields on the customer entity if the customer exists – so you put $customer->setFirstName etc inside the conditional.
+ – otherwise, while you might not be able to hijack an account because of the confirmation email, you could easily change one’s name.
+
+---------------------------------------------------------------------------
+
+by alexander-schranz at 2019-09-20T09:07:00Z
+
+@robmeek Thats a good point! Sadly this is what sylius currently also does when you do it over the normal sylius standard UI I think this should then also be changed there.
+
+//cc @lchrusciel
+
+---------------------------------------------------------------------------
+
+by lchrusciel at 2019-09-22T09:05:31Z
+
+Totally makes sense to add this behavior. As close as possible to Sylius I would say. It could be considered as a bug even.
+
+---------------------------------------------------------------------------
+
+by lchrusciel at 2019-09-22T10:06:26Z
+
+Fixes #533
+
+---------------------------------------------------------------------------
+
+by mamazu at 2019-09-22T10:26:18Z
+
+Thanks, Alexander! :1st_place_medal:
