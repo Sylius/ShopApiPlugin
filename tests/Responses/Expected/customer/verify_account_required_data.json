@@ -1,0 +1,9 @@
+{
+  "code": 400,
+  "message": "Validation failed",
+  "errors": {
+    "token": [
+      "Please provide a token."
+    ]
+  }
+}

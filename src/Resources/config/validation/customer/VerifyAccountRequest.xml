@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/services/constraint-mapping-1.0.xsd">
+    <class name="Sylius\ShopApiPlugin\Request\Customer\VerifyAccountRequest">
+        <property name="token">
+            <constraint name="NotBlank">
+                <option name="message">sylius.shop_api.verification_token.not_blank</option>
+            </constraint>
+            <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\VerificationTokenExists" />
+        </property>
+    </class>
+</constraint-mapping>

@@ -27,6 +27,9 @@ sylius:
         product:
             not_configurable: The product is not configurable.
             not_found: The product does not exists.
-            not_simple: The product is not a simple product
+            not_simple: The product is not a simple product.
         product_variant:
             not_exists: The product variant does not exist.
+        verification_token:
+            not_blank: Please provide a token.
+            not_exists: The token does not exist.
