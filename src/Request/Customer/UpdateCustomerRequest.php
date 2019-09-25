@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace Sylius\ShopApiPlugin\Request\Customer;
 
 use DateTimeImmutable;
+use Sylius\Component\Core\Model\CustomerInterface;
+use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\ShopApiPlugin\Command\CommandInterface;
 use Sylius\ShopApiPlugin\Command\Customer\UpdateCustomer;
-use Sylius\ShopApiPlugin\Request\RequestInterface;
+use Sylius\ShopApiPlugin\Request\ShopUserBasedRequestInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-class UpdateCustomerRequest implements RequestInterface
+class UpdateCustomerRequest implements ShopUserBasedRequestInterface
 {
     /** @var string */
     protected $firstName;
@@ -33,11 +35,15 @@ class UpdateCustomerRequest implements RequestInterface
     /** @var bool */
     protected $subscribedToNewsletter;
 
-    protected function __construct(Request $request)
+    protected function __construct(Request $request, ShopUserInterface $user)
     {
+        /** @var CustomerInterface $customer */
+        $customer = $user->getCustomer();
+
+        $this->email = $customer->getEmail();
+
         $this->firstName = $request->request->get('firstName');
         $this->lastName = $request->request->get('lastName');
-        $this->email = $request->request->get('email');
         $this->birthday = $request->request->get('birthday');
         if ($this->birthday !== null) {
             $this->birthday = new DateTimeImmutable($this->birthday);
@@ -47,9 +53,9 @@ class UpdateCustomerRequest implements RequestInterface
         $this->subscribedToNewsletter = $request->request->getBoolean('subscribedToNewsletter') ?? false;
     }
 
-    public static function fromHttpRequest(Request $request): RequestInterface
+    public static function fromHttpRequestAndShopUser(Request $request, ShopUserInterface $user): ShopUserBasedRequestInterface
     {
-        return new self($request);
+        return new self($request, $user);
     }
 
     public function getCommand(): CommandInterface

@@ -28,9 +28,13 @@ final class ShopUserBasedCommandProvider implements ShopUserBasedCommandProvider
         $this->validator = $validator;
     }
 
-    public function validate(Request $httpRequest, ShopUserInterface $user): ConstraintViolationListInterface
-    {
-        return $this->validator->validate($this->transformHttpRequest($httpRequest, $user));
+    public function validate(
+        Request $httpRequest,
+        ShopUserInterface $user,
+        array $constraints = null,
+        array $groups = null
+    ): ConstraintViolationListInterface {
+        return $this->validator->validate($this->transformHttpRequest($httpRequest, $user), $constraints, $groups);
     }
 
     public function getCommand(Request $httpRequest, ShopUserInterface $user): CommandInterface

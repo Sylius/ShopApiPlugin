@@ -38,7 +38,7 @@
 
         <service
             id="sylius.shop_api_plugin.command_provider.update_customer"
-            class="Sylius\ShopApiPlugin\CommandProvider\DefaultCommandProvider"
+            class="Sylius\ShopApiPlugin\CommandProvider\ShopUserBasedCommandProvider"
         >
             <argument>%sylius.shop_api.request.update_customer.class%</argument>
             <argument type="service" id="validator" />

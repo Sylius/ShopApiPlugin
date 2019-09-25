@@ -30,8 +30,15 @@ class UpdateCustomer implements CommandInterface
     /** @var bool */
     protected $subscribedToNewsletter;
 
-    public function __construct(string $firstName, string $lastName, string $email, ?DateTimeImmutable $birthday, string $gender, ?string $phoneNumber, ?bool $subscribedToNewsletter)
-    {
+    public function __construct(
+        string $firstName,
+        string $lastName,
+        string $email,
+        ?DateTimeImmutable $birthday,
+        string $gender,
+        ?string $phoneNumber,
+        ?bool $subscribedToNewsletter
+    ) {
         $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->email = $email;

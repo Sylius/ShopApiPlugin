@@ -10,9 +10,6 @@
     ],
     "gender": [
       "Please choose your gender."
-    ],
-    "email": [
-      "Please enter your email."
     ]
   }
 }
