@@ -32,7 +32,6 @@ final class UpdateCustomerHandlerSpec extends ObjectBehavior
 
         $customer->setFirstName('Sherlock')->shouldBeCalled();
         $customer->setLastName('Holmes')->shouldBeCalled();
-        $customer->setEmail('sherlock@holmes.com')->shouldBeCalled();
         $customer->setBirthday($birthday)->shouldBeCalled();
         $customer->setGender('m')->shouldBeCalled();
         $customer->setPhoneNumber('091231512512')->shouldBeCalled();

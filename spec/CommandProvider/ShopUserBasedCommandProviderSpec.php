@@ -38,8 +38,7 @@ final class ShopUserBasedCommandProviderSpec extends ObjectBehavior
             ->validate(TestShopUserBasedRequest::fromHttpRequestAndShopUser(
                 $httpRequest->getWrappedObject(),
                 $user->getWrappedObject()
-            ))
-            ->willReturn($constraintViolationList)
+            ), null, null)->willReturn($constraintViolationList)
         ;
 
         $this->validate($httpRequest, $user)->shouldReturn($constraintViolationList);

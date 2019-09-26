@@ -7,7 +7,8 @@ namespace Sylius\ShopApiPlugin\Controller\Customer;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
-use Sylius\ShopApiPlugin\CommandProvider\CommandProviderInterface;
+use Sylius\Component\Core\Model\ShopUserInterface;
+use Sylius\ShopApiPlugin\CommandProvider\ShopUserBasedCommandProviderInterface;
 use Sylius\ShopApiPlugin\Factory\Customer\CustomerViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
 use Sylius\ShopApiPlugin\Provider\LoggedInShopUserProvider;
@@ -33,7 +34,7 @@ final class UpdateCustomerAction
     /** @var LoggedInShopUserProvider */
     private $loggedInUserProvider;
 
-    /** @var CommandProviderInterface */
+    /** @var ShopUserBasedCommandProviderInterface */
     private $updateCustomerCommandProvider;
 
     public function __construct(
@@ -42,7 +43,7 @@ final class UpdateCustomerAction
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         CustomerViewFactoryInterface $customerViewFactory,
         LoggedInShopUserProvider $loggedInUserProvider,
-        CommandProviderInterface $updateCustomerCommandProvider
+        ShopUserBasedCommandProviderInterface $updateCustomerCommandProvider
     ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
@@ -58,7 +59,10 @@ final class UpdateCustomerAction
             return $this->viewHandler->handle(View::create(null, Response::HTTP_UNAUTHORIZED));
         }
 
-        $validationResults = $this->updateCustomerCommandProvider->validate($request, null, ['sylius_customer_profile_update']);
+        /** @var ShopUserInterface $user */
+        $user = $this->loggedInUserProvider->provide();
+
+        $validationResults = $this->updateCustomerCommandProvider->validate($request, $user, null, ['sylius_customer_profile_update']);
         if (0 !== count($validationResults)) {
             return $this->viewHandler->handle(View::create(
                 $this->validationErrorViewFactory->create($validationResults),
@@ -66,7 +70,7 @@ final class UpdateCustomerAction
             ));
         }
 
-        $this->bus->dispatch($this->updateCustomerCommandProvider->getCommand($request));
+        $this->bus->dispatch($this->updateCustomerCommandProvider->getCommand($request, $user));
 
         /** @var CustomerInterface|null $customer */
         $customer = $this->loggedInUserProvider->provide()->getCustomer();

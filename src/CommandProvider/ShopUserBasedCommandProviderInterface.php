@@ -11,7 +11,12 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 interface ShopUserBasedCommandProviderInterface
 {
-    public function validate(Request $httpRequest, ShopUserInterface $user): ConstraintViolationListInterface;
+    public function validate(
+        Request $httpRequest,
+        ShopUserInterface $user,
+        array $constraints = null,
+        array $groups = null
+    ): ConstraintViolationListInterface;
 
     public function getCommand(Request $httpRequest, ShopUserInterface $user): CommandInterface;
 }

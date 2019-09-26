@@ -12,13 +12,13 @@ final class UpdateCustomerSpec extends ObjectBehavior
     function let(DateTimeImmutable $birthday): void
     {
         $this->beConstructedWith(
-                'Sherlock',
-                'Holmes',
-                'sherlock@holmes.com',
-                $birthday,
-                'm',
-                '091231512512',
-                true
+            'Sherlock',
+            'Holmes',
+            'sherlock@holmes.com',
+            $birthday,
+            'm',
+            '091231512512',
+            true
         );
     }
 

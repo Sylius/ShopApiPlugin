@@ -38,29 +38,5 @@
                 <option name="groups">sylius_customer_profile_update</option>
             </constraint>
         </property>
-        <property name="email">
-            <constraint name="NotBlank">
-                <option name="message">sylius.customer.email.not_blank</option>
-                <option name="groups">
-                    <value>sylius</value>
-                    <value>sylius_customer_profile_update</value>
-                </option>
-            </constraint>
-            <constraint name="Length">
-                <option name="max">254</option>
-                <option name="maxMessage">sylius.customer.email.max</option>
-                <option name="groups">
-                    <value>sylius</value>
-                    <value>sylius_customer_profile_update</value>
-                </option>
-            </constraint>
-            <constraint name="Email">
-                <option name="message">sylius.customer.email.invalid</option>
-                <option name="groups">
-                    <value>sylius</value>
-                    <value>sylius_customer_profile_update</value>
-                </option>
-            </constraint>
-        </property>
     </class>
 </constraint-mapping>

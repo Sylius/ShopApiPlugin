@@ -26,7 +26,6 @@ final class UpdateCustomerHandler
 
         $customer->setFirstName($command->firstName());
         $customer->setLastName($command->lastName());
-        $customer->setEmail($command->email());
         $customer->setGender($command->gender());
         $customer->setBirthday($command->birthday());
         $customer->setPhoneNumber($command->phoneNumber());

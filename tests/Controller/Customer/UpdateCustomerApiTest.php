@@ -31,7 +31,6 @@ final class UpdateCustomerApiTest extends JsonApiTestCase
         {
             "firstName": "New name",
             "lastName": "New lastName",
-            "email": "oliver@queen.com",
             "birthday": "2017-11-01",
             "gender": "m",
             "phoneNumber": "0918972132",
@@ -66,7 +65,6 @@ JSON;
         {
             "firstName": "New name",
             "lastName": "New lastName",
-            "email": "shop@example.com",
             "birthday": "2017-11-01",
             "gender": "m",
             "phoneNumber": "0918972132",
@@ -91,7 +89,6 @@ JSON;
         {
             "firstName": "",
             "lastName": "",
-            "email": "",
             "gender": "",
             "phoneNumber": ""
         }
