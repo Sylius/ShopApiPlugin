@@ -1,5 +1,5 @@
 sylius_shop_api_address_book_create:
-    path: /address-book/
+    path: /address-book
     controller: sylius.controller.address:createAction
     methods: [POST]
     defaults:
@@ -10,7 +10,7 @@ sylius_shop_api_address_book_create:
                     - "expr:service('sylius.context.customer').getCustomer()"
 
 sylius_shop_api_address_book_index:
-    path: /address-book/
+    path: /address-book
     controller: sylius.controller.address:indexAction
     methods: [GET]
     defaults:
