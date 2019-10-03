@@ -24,6 +24,7 @@ Sylius\Component\Core\Model\Customer:
         gender: "m"
         group: "@retail"
         phoneNumber: "0212115512"
+        birthday: <dateTimeBetween("-200 days", "now")>
 
     hater:
         firstName: "Slade"

@@ -6,9 +6,12 @@ namespace Tests\Sylius\ShopApiPlugin\Controller\Customer;
 
 use Symfony\Component\HttpFoundation\Response;
 use Tests\Sylius\ShopApiPlugin\Controller\JsonApiTestCase;
+use Tests\Sylius\ShopApiPlugin\Controller\Utils\ShopUserLoginTrait;
 
 final class LoggedInCustomerDetailsActionTest extends JsonApiTestCase
 {
+    use ShopUserLoginTrait;
+
     /**
      * @test
      */
@@ -16,25 +19,9 @@ final class LoggedInCustomerDetailsActionTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
 
-        $data =
-            <<<JSON
-        {
-            "email": "oliver@queen.com",
-            "password": "123password"
-        }
-JSON;
+        $this->logInUser('oliver@queen.com', '123password');
 
-        $this->client->request('POST', '/shop-api/login', [], [], self::CONTENT_TYPE_HEADER, $data);
-
-        $response = json_decode($this->client->getResponse()->getContent(), true);
-        $this->client->setServerParameter('HTTP_Authorization', sprintf('Bearer %s', $response['token']));
-
-        $this->client->request('GET', '/shop-api/me', [], [], [
-            'CONTENT_TYPE' => 'application/json',
-            'ACCEPT' => 'application/json',
-        ]);
-
-        $response = $this->client->getResponse();
+        $response = $this->getCustomerDetails();
         $this->assertResponse($response, 'customer/logged_in_customer_details_response', Response::HTTP_OK);
     }
 
@@ -45,20 +32,14 @@ JSON;
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
 
-        $data =
-            <<<JSON
-        {
-            "email": "oliver@queen.com",
-            "password": "123password"
-        }
-JSON;
-
-        $this->client->request('GET', '/shop-api/me', [], [], [
-            'CONTENT_TYPE' => 'application/json',
-            'ACCEPT' => 'application/json',
-        ]);
-
-        $response = $this->client->getResponse();
+        $response = $this->getCustomerDetails();
         $this->assertResponseCode($response, Response::HTTP_UNAUTHORIZED);
+    }
+
+    private function getCustomerDetails(): Response
+    {
+        $this->client->request('GET', '/shop-api/me', [], [], self::CONTENT_TYPE_HEADER);
+
+        return $this->client->getResponse();
     }
 }

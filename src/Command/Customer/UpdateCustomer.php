@@ -45,7 +45,7 @@ class UpdateCustomer implements CommandInterface
         $this->birthday = $birthday;
         $this->gender = $gender;
         $this->phoneNumber = $phoneNumber;
-        $this->subscribedToNewsletter = $subscribedToNewsletter;
+        $this->subscribedToNewsletter = $subscribedToNewsletter ?? false;
     }
 
     public function firstName(): string
