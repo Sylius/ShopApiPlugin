@@ -14,16 +14,16 @@ class RegisterCustomer implements CommandInterface
     /** @var string */
     protected $plainPassword;
 
-    /** @var string */
-    protected $firstName;
+    /** @var string|null */
+    protected $firstName = '';
 
-    /** @var string */
-    protected $lastName;
+    /** @var string|null */
+    protected $lastName = '';
 
     /** @var string */
     protected $channelCode;
 
-    public function __construct(string $email, string $plainPassword, string $firstName, string $lastName, string $channelCode)
+    public function __construct(string $email, string $plainPassword,  $firstName = '',  $lastName = '', string $channelCode = 'default')
     {
         $this->email = $email;
         $this->plainPassword = $plainPassword;
@@ -44,12 +44,20 @@ class RegisterCustomer implements CommandInterface
 
     public function firstName(): string
     {
-        return $this->firstName;
+        $firstName = '';
+        if($this->firstName){
+            $firstName = $this->firstName;
+        }
+        return $firstName;
     }
 
     public function lastName(): string
     {
-        return $this->lastName;
+        $lastName = '';
+        if($this->lastName){
+            $lastName = $this->lastName;
+        }
+        return $lastName;
     }
 
     public function channelCode(): string
