@@ -46,6 +46,7 @@ final class ProductDetailsViewRepository implements ProductDetailsViewRepository
         $product = $this->productRepository->findOneByChannelAndSlug($channel, $localeCode, $productSlug);
 
         Assert::notNull($product, sprintf('Product with slug %s has not been found in %s locale.', $productSlug, $localeCode));
+        Assert::true($product->hasChannel($channel), sprintf('Product with slug %s has not been found for channel %s.', $productSlug, $channelCode));
 
         return $this->productViewFactory->create($product, $channel, $localeCode);
     }
