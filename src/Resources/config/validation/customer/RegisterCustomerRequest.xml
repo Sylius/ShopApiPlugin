@@ -27,16 +27,16 @@
                 <option name="message">sylius.shop_api.password.not_blank</option>
             </constraint>
         </property>
-        <property name="firstName">
-            <constraint name="NotBlank">
-                <option name="message">sylius.shop_api.first_name.not_blank</option>
-            </constraint>
-        </property>
-        <property name="lastName">
-            <constraint name="NotBlank">
-                <option name="message">sylius.shop_api.last_name.not_blank</option>
-            </constraint>
-        </property>
+        <!--<property name="firstName">-->
+            <!--<constraint name="NotBlank">-->
+                <!--<option name="message">sylius.shop_api.first_name.not_blank</option>-->
+            <!--</constraint>-->
+        <!--</property>-->
+        <!--<property name="lastName">-->
+            <!--<constraint name="NotBlank">-->
+                <!--<option name="message">sylius.shop_api.last_name.not_blank</option>-->
+            <!--</constraint>-->
+        <!--</property>-->
         <property name="channelCode">
             <constraint name="NotNull">
                 <option name="message">sylius.shop_api.channel.not_null</option>
