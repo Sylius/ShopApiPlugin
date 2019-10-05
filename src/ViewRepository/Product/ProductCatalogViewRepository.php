@@ -111,4 +111,12 @@ final class ProductCatalogViewRepository implements ProductCatalogViewRepository
 
         return $pageView;
     }
+
+    public function getCountByTaxon(TaxonInterface $taxon, string $localeCode): int
+    {
+        $queryBuilder = $this->productRepository->createListQueryBuilder($localeCode, $taxon->getId());
+        $result = $queryBuilder->getQuery()->getScalarResult();
+        $result = count($result);
+        return $result;
+    }
 }
