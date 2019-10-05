@@ -9,6 +9,7 @@ use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Taxonomy\Model\TaxonTranslationInterface;
 use Sylius\ShopApiPlugin\Factory\ImageViewFactoryInterface;
 use Sylius\ShopApiPlugin\View\Taxon\TaxonView;
+use Sylius\ShopApiPlugin\ViewRepository\Product\ProductCatalogViewRepository;
 
 final class TaxonViewFactory implements TaxonViewFactoryInterface
 {
@@ -18,10 +19,14 @@ final class TaxonViewFactory implements TaxonViewFactoryInterface
     /** @var string */
     private $taxonViewClass;
 
-    public function __construct(ImageViewFactoryInterface $imageViewFactory, string $taxonViewClass)
+    /** @var ProductCatalogViewRepository*/
+    private $productCatalogQuery;
+
+    public function __construct(ImageViewFactoryInterface $imageViewFactory, string $taxonViewClass, ProductCatalogViewRepository $productCatalogQuery)
     {
         $this->imageViewFactory = $imageViewFactory;
         $this->taxonViewClass = $taxonViewClass;
+        $this->productCatalogQuery = $productCatalogQuery;
     }
 
     public function create(TaxonInterface $taxon, string $locale): TaxonView
@@ -38,7 +43,7 @@ final class TaxonViewFactory implements TaxonViewFactoryInterface
         $taxonView->name = $taxonTranslation->getName();
         $taxonView->slug = $taxonTranslation->getSlug();
         $taxonView->description = $taxonTranslation->getDescription();
-
+        $taxonView->countOfProducts = $this->productCatalogQuery->getCountByTaxon($taxon, $locale);
         /** @var ImageInterface $image */
         foreach ($taxon->getImages() as $image) {
             $taxonView->images[] = $this->imageViewFactory->create($image);
