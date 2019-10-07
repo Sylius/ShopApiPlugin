@@ -48,7 +48,7 @@
         <service id="sylius.shop_api_plugin.handler.generate_reset_password_token_handler"
                  class="Sylius\ShopApiPlugin\Handler\Customer\GenerateResetPasswordTokenHandler">
             <argument type="service" id="sylius.repository.shop_user"/>
-            <argument type="service" id="sylius.shop_user.token_generator.email_verification"/>
+            <argument type="service" id="sylius.shop_user.token_generator.password_reset"/>
             <tag name="messenger.message_handler" />
         </service>
     </services>
