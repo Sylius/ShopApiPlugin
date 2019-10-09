@@ -30,6 +30,7 @@
             <argument type="service" id="sylius.shop_api_plugin.factory.image_view_factory"/>
             <argument type="service" id="sylius.shop_api_plugin.factory.product_view_factory"/>
             <argument type="service" id="sylius.shop_api_plugin.factory.product_variant_view_factory"/>
+            <argument type="service" id="security.token_storage"/>
         </service>
 
         <service id="sylius.shop_api_plugin.factory.product_attribute_value_view_factory"

@@ -15,6 +15,9 @@ class ProductView
     /** @var string */
     public $slug;
 
+    /** @var bool */
+    public $isFavorite;
+
     /** @var string */
     public $channelCode;
 
