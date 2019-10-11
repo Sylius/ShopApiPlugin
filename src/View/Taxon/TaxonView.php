@@ -18,6 +18,9 @@ class TaxonView
     /** @var int */
     public $countOfProducts;
 
+    /** @var int */
+    public $cheapestProduct;
+
     /** @var string */
     public $description;
 
