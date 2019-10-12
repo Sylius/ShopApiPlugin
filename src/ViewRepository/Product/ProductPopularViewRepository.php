@@ -11,9 +11,15 @@ use Sylius\ShopApiPlugin\Factory\Product\ProductViewFactoryInterface;
 use Sylius\ShopApiPlugin\Provider\SupportedLocaleProviderInterface;
 use Sylius\ShopApiPlugin\View\Product\ProductListView;
 use Webmozart\Assert\Assert;
+use Sylius\ShopApiPlugin\Model\PaginatorDetails;
+use Sylius\ShopApiPlugin\View\Product\PageView;
+use Pagerfanta\Pagerfanta;
+use Pagerfanta\Adapter\DoctrineORMAdapter;
+use Sylius\ShopApiPlugin\Factory\Product\PageViewFactory;
 
 final class ProductPopularViewRepository implements ProductPopularViewRepositoryInterface
 {
+
     /** @var ChannelRepositoryInterface */
     private $channelRepository;
 
@@ -26,33 +32,42 @@ final class ProductPopularViewRepository implements ProductPopularViewRepository
     /** @var SupportedLocaleProviderInterface */
     private $supportedLocaleProvider;
 
+    /** @var PageViewFactory */
+    private $pageViewFactory;
+
     public function __construct(
         ChannelRepositoryInterface $channelRepository,
         ProductRepositoryInterface $productRepository,
         ProductViewFactoryInterface $productViewFactory,
-        SupportedLocaleProviderInterface $supportedLocaleProvider
+        SupportedLocaleProviderInterface $supportedLocaleProvider,
+        PageViewFactory $pageViewFactory
     ) {
-        $this->channelRepository = $channelRepository;
-        $this->productRepository = $productRepository;
-        $this->productViewFactory = $productViewFactory;
+        $this->channelRepository       = $channelRepository;
+        $this->productRepository       = $productRepository;
+        $this->productViewFactory      = $productViewFactory;
         $this->supportedLocaleProvider = $supportedLocaleProvider;
+        $this->pageViewFactory         = $pageViewFactory;
     }
 
-    public function getPopularProducts(string $channelCode, ?string $localeCode, int $count): ProductListView
+    public function getPopularProducts(string $channelCode, ?string $localeCode, $paginatorDetails): PageView
     {
-        $channel = $this->getChannel($channelCode);
-        $localeCode = $this->supportedLocaleProvider->provide($localeCode, $channel);
-        $popularProducts = $this->productRepository->findPopularByChannel($channel, $localeCode, $count);
+        $channel         = $this->getChannel($channelCode);
+        $localeCode      = $this->supportedLocaleProvider->provide($localeCode, $channel);
+        $popularProducts = $this->productRepository->findPopularByChannel($channel, $localeCode);
+        Assert::notNull($popularProducts, sprintf('Popular Products not found in %s locale.', $localeCode));
+        $pagerfanta = new Pagerfanta(new DoctrineORMAdapter($popularProducts, true, false));
 
-        Assert::notNull($latestProducts, sprintf('Popular Products not found in %s locale.', $localeCode));
+        $pagerfanta->setMaxPerPage($paginatorDetails->limit());
+        $pagerfanta->setCurrentPage($paginatorDetails->page());
 
-        $productListView = new ProductListView();
+        $pageView =
+            $this->pageViewFactory->create($pagerfanta, $paginatorDetails->route(), $paginatorDetails->parameters());
 
-        foreach ($latestProducts as $product) {
-            $productListView->items[] = $this->productViewFactory->create($product, $channel, $localeCode);
+        foreach ($pagerfanta->getCurrentPageResults() as $currentPageResult) {
+            $pageView->items[] = $this->productViewFactory->create($currentPageResult, $channel, $localeCode);
         }
 
-        return $productListView;
+        return $pageView;
     }
 
     private function getChannel(string $channelCode): ChannelInterface
