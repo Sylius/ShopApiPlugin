@@ -11,6 +11,9 @@ Sylius\ShopApiPlugin\View\Product\ProductView:
         slug:
             expose: true
             type: string
+        isFavorite:
+            expose: true
+            type: bool
         channelCode:
             expose: true
             type: string
