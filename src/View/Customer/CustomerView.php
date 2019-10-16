@@ -29,4 +29,7 @@ class CustomerView
 
     /** @var bool */
     public $subscribedToNewsletter;
+
+    /** @var string */
+    public $avatar;
 }
