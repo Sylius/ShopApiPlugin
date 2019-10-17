@@ -7,6 +7,7 @@
         <service id="sylius.shop_api_plugin.factory.customer_view_factory"
                  class="Sylius\ShopApiPlugin\Factory\Customer\CustomerViewFactory">
             <argument type="string">%sylius.shop_api.view.customer.class%</argument>
+            <argument type="service" id="sylius.shop_api_plugin.factory.image_view_factory"/>
         </service>
     </services>
 </container>
