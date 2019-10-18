@@ -50,6 +50,7 @@
                 {
                     "code": "MUG_MATERIAL_CODE",
                     "name": "Becher Material",
+                    "type": "select",
                     "value": [
                         "Holz"
                     ]
@@ -196,6 +197,7 @@
                             {
                                 "code": "MUG_MATERIAL_CODE",
                                 "name": "Becher Material",
+                                "type": "select",
                                 "value": [
                                     "Holz"
                                 ]

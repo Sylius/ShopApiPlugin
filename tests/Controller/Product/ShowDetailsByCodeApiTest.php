@@ -101,13 +101,26 @@ final class ShowDetailsByCodeApiTest extends JsonApiTestCase
     /**
      * @test
      */
-    public function it_shows_product_with_every_attribute(): void
+    public function it_shows_product_with_attributes(): void
     {
         $this->loadFixturesFromFiles(['product_with_attributes.yml']);
 
         $this->client->request('GET', '/shop-api/products/by-code/RANDOM_JACKET_CODE?locale=en_GB', [], [], self::CONTENT_TYPE_HEADER);
         $response = $this->client->getResponse();
 
-        $this->assertResponse($response, 'product/product_with_all_attributes_details_page', Response::HTTP_OK);
+        $this->assertResponse($response, 'product/product_with_attributes_details_page', Response::HTTP_OK);
+    }
+
+    /**
+     * @test
+     */
+    public function it_shows_product_with_attributes_in_different_locale(): void
+    {
+        $this->loadFixturesFromFiles(['product_with_attributes.yml']);
+
+        $this->client->request('GET', '/shop-api/products/by-code/RANDOM_JACKET_CODE?locale=de_DE', [], [], self::CONTENT_TYPE_HEADER);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'product/german_product_with_attributes_details_page', Response::HTTP_OK);
     }
 }

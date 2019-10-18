@@ -1,10 +1,10 @@
 {
     "code": "RANDOM_JACKET_CODE",
-    "name": "Random Thermic Jacket",
-    "slug": "random-jacket",
+    "name": "Zufallige Jacke",
+    "slug": "zufallige-jacke",
     "channelCode": "WEB_GB",
-    "breadcrumb": "random-jacket",
-    "description": "WINDPROOF INSULATED JACKET.",
+    "breadcrumb": "zufallige-jacke",
+    "description": "WINDDICHTE ISOLATIONSJACKE.",
     "averageRating": 0,
     "taxons": {
         "others": []
@@ -12,10 +12,9 @@
     "variants": {
         "RANDOM_JACKET_CODE": {
             "code": "RANDOM_JACKET_CODE",
-            "name": "Random Jacket",
+            "name": "Zufallige Jacke",
             "axis": [],
             "nameAxis": {},
-            "onHand": 12,
             "price": {
                 "current": 19999,
                 "currency": "GBP"
@@ -30,31 +29,31 @@
     "attributes": [
         {
             "code": "JACKET_COLLECTION_CODE",
-            "name": "Jacket collection",
+            "name": "Jackenkollektion",
             "type": "text",
-            "value": "HOLIDAY COLLECTION"
+            "value": "FERIENKOLLEKTION"
         },
         {
             "code": "JACKET_MATERIAL_CODE",
-            "name": "Jacket material",
+            "name": "Mantelmaterial",
             "type": "select",
             "value": [
-                "POLYAMID",
-                "POLYESTER"
+                "WOLLE",
+                "BAUMWOLLE"
             ]
         },
         {
             "code": "JACKET_PFC_CODE",
-            "name": "Jacket PFC",
+            "name": "Jacke PFC",
             "type": "percent",
-            "value": 0
+            "value": 0.3
         }
     ],
     "associations": [],
     "images": [],
     "_links": {
         "self": {
-            "href": "\/shop-api\/products\/by-slug\/random-jacket"
+            "href": "\/shop-api\/products\/by-slug\/zufallige-jacke"
         }
     }
 }

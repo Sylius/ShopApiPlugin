@@ -51,6 +51,7 @@
                 {
                     "code": "MUG_MATERIAL_CODE",
                     "name": "Mug material",
+                    "type": "select",
                     "value": [
                         "Wood"
                     ]
@@ -273,6 +274,7 @@
                             {
                                 "code": "MUG_MATERIAL_CODE",
                                 "name": "Mug material",
+                                "type": "select",
                                 "value": [
                                     "Wood"
                                 ]

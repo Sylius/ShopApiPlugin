@@ -13,5 +13,8 @@ class ProductAttributeValueView
     public $name;
 
     /** @var string */
+    public $type;
+
+    /** @var mixed */
     public $value;
 }

@@ -9,5 +9,5 @@ use Sylius\ShopApiPlugin\View\Product\ProductAttributeValueView;
 
 interface ProductAttributeValueViewFactoryInterface
 {
-    public function create(ProductAttributeValueInterface $productAttributeValue, string $locale): ProductAttributeValueView;
+    public function create(ProductAttributeValueInterface $productAttributeValue, string $localeCode): ProductAttributeValueView;
 }
