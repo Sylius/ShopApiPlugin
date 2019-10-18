@@ -1,0 +1,172 @@
+Sylius\Component\Core\Model\Channel:
+    gb_web_channel:
+        code: "WEB_GB"
+        name: "Great Britain Channel"
+        hostname: "localhost"
+        description: "Lorem ipsum"
+        baseCurrency: "@pound"
+        defaultLocale: "@locale_en_gb"
+        locales: ["@locale_en_gb", "@locale_de_de"]
+        color: "black"
+        enabled: true
+        taxCalculationStrategy: "order_items_based"
+
+Sylius\Component\Currency\Model\Currency:
+    pound:
+        code: GBP
+
+Sylius\Component\Locale\Model\Locale:
+    locale_en_gb:
+        code: en_GB
+    locale_de_de:
+        code: de_DE
+
+Sylius\Component\Core\Model\Product:
+    jacket:
+        code: "RANDOM_JACKET_CODE"
+        createdAt: "<date_create('2019-02-01 03:00:00')>"
+        channels: ["@gb_web_channel"]
+        currentLocale: "en_GB"
+        translations: ["@en_gb_jacket_product_translation", "@de_de_jacket_product_translation"]
+        attributes:
+            - "@en_gb_jacket_holiday_collection_value"
+            - "@de_de_jacket_holiday_collection_value"
+            - "@en_gb_jacket_holiday_material_value"
+            - "@de_de_jacket_holiday_material_value"
+            - "@en_gb_jacket_pfc_percent_value"
+            - "@de_de_jacket_pfc_percent_value"
+
+Sylius\Component\Core\Model\ProductTranslation:
+    en_gb_jacket_product_translation:
+        slug: "random-jacket"
+        locale: "en_GB"
+        name: "Random Thermic Jacket"
+        description: "WINDPROOF INSULATED JACKET."
+        translatable: "@jacket"
+    de_de_jacket_product_translation:
+        slug: "random-jacke"
+        locale: "de_DE"
+        name: "Random Jacke"
+        description: "WINDDICHTE ISOLATIONSJACKE."
+        translatable: "@jacket"
+
+Sylius\Component\Core\Model\ProductVariant:
+    jacket_variant:
+        code: "RANDOM_JACKET_CODE"
+        product: "@jacket"
+        currentLocale: "en_GB"
+        translations: ["@en_gb_jacket_variant_translation", "@de_de_jacket_variant_translation"]
+        onHand: 12
+        channelPricings:
+            WEB_GB: "@gb_jacket_web_channel_pricing"
+
+Sylius\Component\Product\Model\ProductVariantTranslation:
+    en_gb_jacket_variant_translation:
+        locale: "en_GB"
+        name: "Random Jacket"
+        translatable: "@jacket_variant"
+    de_de_jacket_variant_translation:
+        locale: "de_DE"
+        name: "Random Jacke"
+        translatable: "@jacket_variant"
+
+Sylius\Component\Core\Model\ChannelPricing:
+    gb_jacket_web_channel_pricing:
+        channelCode: "WEB_GB"
+        price: 19999
+        originalPrice: 29999
+
+Sylius\Component\Product\Model\ProductAttributeTranslation:
+    jacket_collection_de_de_translation:
+        locale: "de_DE"
+        name: "Jacke Sammlung"
+        translatable: "@jacket_collection"
+    jacket_collection_en_gb_translation:
+        locale: "en_GB"
+        name: "Jacket collection"
+        translatable: "@jacket_collection"
+    jacket_pfc_de_de_translation:
+        locale: "de_DE"
+        name: "Jacke PFC"
+        translatable: "@jacket_pfc"
+    jacket_pfc_en_gb_translation:
+        locale: "en_GB"
+        name: "Jacket PFC"
+        translatable: "@jacket_pfc"
+    jacket_material_de_de_translation:
+        locale: "de_DE"
+        name: "Jacke Material"
+        translatable: "@jacket_material"
+    jacket_material_en_gb_translation:
+        locale: "en_GB"
+        name: "Jacket material"
+        translatable: "@jacket_material"
+
+Sylius\Component\Product\Model\ProductAttribute:
+    jacket_collection:
+        fallbackLocale: "en_GB"
+        currentLocale: "en_GB"
+        code: "JACKET_COLLECTION_CODE"
+        type: "text"
+        storage_type: "text"
+        translations:
+            - "@jacket_collection_en_gb_translation"
+            - "@jacket_collection_de_de_translation"
+    jacket_pfc:
+        fallbackLocale: "en_GB"
+        currentLocale: "en_GB"
+        code: "JACKET_PFC_CODE"
+        type: "percent"
+        storage_type: "float"
+        translations:
+            - "@jacket_pfc_en_gb_translation"
+            - "@jacket_pfc_de_de_translation"
+    jacket_material:
+        fallbackLocale: "en_GB"
+        currentLocale: "en_GB"
+        code: "JACKET_MATERIAL_CODE"
+        type: "select"
+        storage_type: "json"
+        configuration:
+            required: true
+            choices:
+                1:
+                    "en_GB": POLYAMID
+                    "de_DE": POLYAMID
+                2:
+                    "en_GB": POLYESTER
+                    "de_DE": POLYESTER
+        translations:
+            - "@jacket_material_en_gb_translation"
+            - "@jacket_material_de_de_translation"
+
+Sylius\Component\Product\Model\ProductAttributeValue:
+    en_gb_jacket_holiday_collection_value:
+        subject: "@jacket"
+        attribute: "@jacket_collection"
+        localeCode: "en_GB"
+        value: "HOLIDAY COLLECTION"
+    de_de_jacket_holiday_collection_value:
+        subject: "@jacket"
+        attribute: "@jacket_collection"
+        localeCode: "de_DE"
+    en_gb_jacket_pfc_percent_value:
+        subject: "@jacket"
+        attribute: "@jacket_pfc"
+        localeCode: "en_GB"
+        value: 0
+    de_de_jacket_pfc_percent_value:
+        subject: "@jacket"
+        attribute: "@jacket_pfc"
+        localeCode: "de_DE"
+        value: 0
+    en_gb_jacket_holiday_material_value:
+        subject: "@jacket"
+        attribute: "@jacket_material"
+        localeCode: "en_GB"
+        value: [1, 2]
+    de_de_jacket_holiday_material_value:
+        subject: "@jacket"
+        attribute: "@jacket_material"
+        localeCode: "de_DE"
+        value: [1, 2]

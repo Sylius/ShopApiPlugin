@@ -1,3 +1,6 @@
 sylius_shop_api:
     included_attributes:
         - "MUG_MATERIAL_CODE"
+        - "JACKET_COLLECTION_CODE"
+        - "JACKET_PFC_CODE"
+        - "JACKET_MATERIAL_CODE"

@@ -41,7 +41,7 @@ final class ProductAttributeValueViewFactory implements ProductAttributeValueVie
         return $productAttributeValueView;
     }
 
-    private function resolveSelectAttribute(ProductAttributeValueInterface $productAttributeValue, $locale)
+    private function resolveSelectAttribute(ProductAttributeValueInterface $productAttributeValue, $locale): array
     {
         $values = [];
         $configuration = $productAttributeValue->getAttribute()->getConfiguration();
