@@ -8,6 +8,7 @@ use Sylius\Component\Core\Model\ImageInterface;
 use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Taxonomy\Model\TaxonTranslationInterface;
 use Sylius\ShopApiPlugin\Factory\ImageViewFactoryInterface;
+use Sylius\ShopApiPlugin\Factory\Product\ProductVariantViewFactoryInterface;
 use Sylius\ShopApiPlugin\View\Taxon\TaxonView;
 use Sylius\ShopApiPlugin\ViewRepository\Product\ProductCatalogViewRepository;
 use Sylius\Component\Channel\Context\ChannelContextInterface;
@@ -32,27 +33,29 @@ final class TaxonViewFactory implements TaxonViewFactoryInterface
     /** @var ProductRepositoryInterface */
     private $productRepository;
 
+    /** @var ProductVariantViewFactoryInterface */
+    private $variantViewFactory;
+
     public function __construct(
         ImageViewFactoryInterface $imageViewFactory,
         string $taxonViewClass,
         ProductCatalogViewRepository $productCatalogQuery,
         ChannelContextInterface $channelContext,
         ProductRepositoryInterface $productRepository,
-        ListProductViewFactory $productViewFactory
+        ProductVariantViewFactoryInterface $variantViewFactory
     ) {
         $this->imageViewFactory    = $imageViewFactory;
         $this->taxonViewClass      = $taxonViewClass;
         $this->productCatalogQuery = $productCatalogQuery;
         $this->channelContext      = $channelContext;
         $this->productRepository   = $productRepository;
-        $this->productViewFactory  = $productViewFactory;
+        $this->variantViewFactory = $variantViewFactory;
     }
 
     public function create(TaxonInterface $taxon, string $locale): TaxonView
     {
         $channel          = $this->channelContext->getChannel();
-        $cheapestProducts = $this->productRepository->findCheapestByChannel($channel, $locale, $taxon)->getQuery()->getResult();
-
+        $variant50g = $this->productRepository->find50gProductByChannel($channel, $locale, $taxon)->getQuery()->getResult();
         /** @var TaxonTranslationInterface $taxonTranslation */
         $taxonTranslation = $taxon->getTranslation($locale);
 
@@ -66,8 +69,8 @@ final class TaxonViewFactory implements TaxonViewFactoryInterface
         $taxonView->slug            = $taxonTranslation->getSlug();
         $taxonView->description     = $taxonTranslation->getDescription();
         $taxonView->countOfProducts = $this->productCatalogQuery->getCountByTaxon($taxon, $locale);
-        if($cheapestProducts){
-            $taxonView->cheapestProduct = $this->productViewFactory->create($cheapestProducts[0], $channel, $locale);
+        if($variant50g){
+            $taxonView->cheapestProduct = $this->variantViewFactory->create($variant50g[0], $channel, $locale);
         }
         /** @var ImageInterface $image */
         foreach ($taxon->getImages() as $image) {
