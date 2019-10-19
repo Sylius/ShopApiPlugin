@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Sylius\ShopApiPlugin\Factory\Product;
 
 use Sylius\Component\Attribute\AttributeType\SelectAttributeType;
-use Sylius\Component\Product\Model\ProductAttributeTranslationInterface;
 use Sylius\Component\Product\Model\ProductAttributeValueInterface;
 use Sylius\ShopApiPlugin\View\Product\ProductAttributeValueView;
 
@@ -25,12 +24,10 @@ final class ProductAttributeValueViewFactory implements ProductAttributeValueVie
         $productAttributeValueView = new $this->productAttributeValueViewClass();
 
         $productAttributeValueView->code = $productAttributeValue->getCode();
+        $productAttributeValueView->type = $productAttributeValue->getType();
         $productAttributeValueView->value = $this->getAttributeValue($productAttributeValue, $localeCode);
 
         $productAttribute = $productAttributeValue->getAttribute();
-        $productAttributeValueView->type = $productAttribute->getType();
-
-        /** @var ProductAttributeTranslationInterface $productAttributeTranslation */
         $productAttributeTranslation = $productAttribute->getTranslation($localeCode);
         $productAttributeValueView->name = $productAttributeTranslation->getName();
 

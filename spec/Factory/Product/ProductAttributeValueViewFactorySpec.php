@@ -40,6 +40,7 @@ final class ProductAttributeValueViewFactorySpec extends ObjectBehavior
         $productAttributeValueView = new ProductAttributeValueView();
         $productAttributeValueView->code = 'CERTIFICATE_1';
         $productAttributeValueView->name = 'Certificate XPTO';
+        $productAttributeValueView->type = 'text';
         $productAttributeValueView->value = 'Nice, shinny certificate.';
 
         $this->create($productAttributeValue, 'en_GB')->shouldBeLike($productAttributeValueView);
@@ -69,6 +70,7 @@ final class ProductAttributeValueViewFactorySpec extends ObjectBehavior
         $productAttributeValueView = new ProductAttributeValueView();
         $productAttributeValueView->code = 'CERTIFICATE_1';
         $productAttributeValueView->name = 'Certificate XPTO';
+        $productAttributeValueView->type = 'select';
         $productAttributeValueView->value = ['Nice, shinny certificate.'];
 
         $this->create($productAttributeValue, 'en_GB')->shouldBeLike($productAttributeValueView);
@@ -101,6 +103,7 @@ final class ProductAttributeValueViewFactorySpec extends ObjectBehavior
         $productAttributeValueView = new ProductAttributeValueView();
         $productAttributeValueView->code = 'CERTIFICATES';
         $productAttributeValueView->name = 'IT Certificats';
+        $productAttributeValueView->type = 'select';
         $productAttributeValueView->value = [
             'Certified Software Developer Program.',
             'Certified Software Tester.',
