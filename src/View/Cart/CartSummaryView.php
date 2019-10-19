@@ -49,6 +49,9 @@ class CartSummaryView
     /** @var string|null */
     public $couponCode;
 
+    /** @var int */
+    public $pointsDiscount;
+
     public function __construct()
     {
         $this->totals = new TotalsView();
