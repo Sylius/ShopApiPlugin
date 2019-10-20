@@ -53,12 +53,6 @@ tags:
 schemes:
     - "https"
 parameters:
-    ChannelCode:
-        in: "path"
-        description: "The request channel code"
-        name: "channelCode"
-        required: true
-        type: "string"
     CartToken:
         in: "path"
         name: "token"
@@ -803,8 +797,6 @@ paths:
                     description: "User unlocked"
 
     /orders:
-        parameters:
-            -   $ref: "#/parameters/ChannelCode"
         get:
             tags:
                 - "order"
@@ -821,9 +813,9 @@ paths:
                     description: "User token invalid"
             security:
                 - bearerAuth: []
+                
     /orders/{tokenValue}:
         parameters:
-            -   $ref: "#/parameters/ChannelCode"
             -   in: "path"
                 name: "tokenValue"
                 description: "Order token."
