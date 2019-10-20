@@ -1,0 +1,29 @@
+---------------------------------------------------------------------------
+
+by mamazu at 2019-10-18T08:09:17Z
+
+Could you please rebase it to the current master.
+
+---------------------------------------------------------------------------
+
+by lchrusciel at 2019-10-19T13:42:10Z
+
+Can we write some tests for it, so we can avoid regression in the future?
+
+---------------------------------------------------------------------------
+
+by mamazu at 2019-10-19T15:24:13Z
+
+How would you test something like this?
+
+---------------------------------------------------------------------------
+
+by lchrusciel at 2019-10-20T09:45:10Z
+
+I'm just wondering. Maybe check in the database if the field is set?
+
+---------------------------------------------------------------------------
+
+by lchrusciel at 2019-10-20T09:49:58Z
+
+Thanks, Dmitri! :tada:
