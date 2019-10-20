@@ -6,7 +6,7 @@ namespace Sylius\ShopApiPlugin\Factory\Product\ProductAttributeValueViewResolver
 
 use Sylius\Component\Product\Model\ProductAttributeValueInterface;
 
-class DefaultProductAttributeValueViewResolver implements ProductAttributeValueViewResolverInterface
+final class DefaultProductAttributeValueViewResolver implements ProductAttributeValueViewResolverInterface
 {
     public function getValue(ProductAttributeValueInterface $productAttributeValue, string $localeCode)
     {
