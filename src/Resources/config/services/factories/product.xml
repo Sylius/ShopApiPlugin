@@ -35,6 +35,7 @@
         <service id="sylius.shop_api_plugin.factory.product_attribute_value_view_factory"
                  class="Sylius\ShopApiPlugin\Factory\Product\ProductAttributeValueViewFactory">
             <argument type="string">%sylius.shop_api.view.product_attribute_value.class%</argument>
+            <argument type="tagged_locator" tag="sylius.shop_api_plugin.attribute_value_view_resolver" index-by="attribute-type"/>
         </service>
 
         <service id="sylius.shop_api_plugin.factory.product_review_view_factory"
@@ -53,6 +54,46 @@
             <argument type="service" id="router"/>
             <argument type="string">%sylius.shop_api.view.page.class%</argument>
             <argument type="string">%sylius.shop_api.view.page_links.class%</argument>
+        </service>
+
+        <service id="sylius.shop_api_plugin.attribute_value_view_resolver.select"
+                 class="Sylius\ShopApiPlugin\Factory\Product\ProductAttributeValueViewResolver\SelectProductAttributeValueViewResolver">
+            <tag name="sylius.shop_api_plugin.attribute_value_view_resolver" attribute-type="select" />
+        </service>
+
+        <service id="sylius.shop_api_plugin.attribute_value_view_resolver.text"
+                 class="Sylius\ShopApiPlugin\Factory\Product\ProductAttributeValueViewResolver\DefaultProductAttributeValueViewResolver">
+            <tag name="sylius.shop_api_plugin.attribute_value_view_resolver" attribute-type="text" />
+        </service>
+
+        <service id="sylius.shop_api_plugin.attribute_value_view_resolver.textarea"
+                 class="Sylius\ShopApiPlugin\Factory\Product\ProductAttributeValueViewResolver\DefaultProductAttributeValueViewResolver">
+            <tag name="sylius.shop_api_plugin.attribute_value_view_resolver" attribute-type="textarea" />
+        </service>
+
+        <service id="sylius.shop_api_plugin.attribute_value_view_resolver.checkbox"
+                 class="Sylius\ShopApiPlugin\Factory\Product\ProductAttributeValueViewResolver\DefaultProductAttributeValueViewResolver">
+            <tag name="sylius.shop_api_plugin.attribute_value_view_resolver" attribute-type="checkbox" />
+        </service>
+
+        <service id="sylius.shop_api_plugin.attribute_value_view_resolver.integer"
+                 class="Sylius\ShopApiPlugin\Factory\Product\ProductAttributeValueViewResolver\DefaultProductAttributeValueViewResolver">
+            <tag name="sylius.shop_api_plugin.attribute_value_view_resolver" attribute-type="integer" />
+        </service>
+
+        <service id="sylius.shop_api_plugin.attribute_value_view_resolver.percent"
+                 class="Sylius\ShopApiPlugin\Factory\Product\ProductAttributeValueViewResolver\DefaultProductAttributeValueViewResolver">
+            <tag name="sylius.shop_api_plugin.attribute_value_view_resolver" attribute-type="percent" />
+        </service>
+
+        <service id="sylius.shop_api_plugin.attribute_value_view_resolver.datetime"
+                 class="Sylius\ShopApiPlugin\Factory\Product\ProductAttributeValueViewResolver\DefaultProductAttributeValueViewResolver">
+            <tag name="sylius.shop_api_plugin.attribute_value_view_resolver" attribute-type="datetime" />
+        </service>
+
+        <service id="sylius.shop_api_plugin.attribute_value_view_resolver.date"
+                 class="Sylius\ShopApiPlugin\Factory\Product\ProductAttributeValueViewResolver\DefaultProductAttributeValueViewResolver">
+            <tag name="sylius.shop_api_plugin.attribute_value_view_resolver" attribute-type="date" />
         </service>
     </services>
 </container>

@@ -587,8 +587,12 @@ Sylius\Component\Product\Model\ProductAttribute:
         configuration:
             required: true
             choices:
-                1: Wood
-                2: Porcelain
+                1:
+                    "en_GB": Wood
+                    "de_DE": Holz
+                2:
+                    "en_GB": Porcelain
+                    "de_DE": Porzellan
         translations:
             - "@mug_material_en_gb_translation"
             - "@mug_material_de_de_translation"

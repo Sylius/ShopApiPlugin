@@ -4,53 +4,42 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Factory\Product;
 
-use Sylius\Component\Product\Model\ProductAttributeTranslationInterface;
 use Sylius\Component\Product\Model\ProductAttributeValueInterface;
+use Sylius\ShopApiPlugin\Factory\Product\ProductAttributeValueViewResolver\ProductAttributeValueViewResolverInterface;
 use Sylius\ShopApiPlugin\View\Product\ProductAttributeValueView;
+use Symfony\Component\DependencyInjection\ServiceLocator;
 
 final class ProductAttributeValueViewFactory implements ProductAttributeValueViewFactoryInterface
 {
     /** @var string */
     private $productAttributeValueViewClass;
 
-    public function __construct(string $productAttributeValueViewClass)
-    {
+    /** @var ServiceLocator */
+    private $productAttributeValueViewResolversLocator;
+
+    public function __construct(
+        string $productAttributeValueViewClass,
+        ServiceLocator $productAttributeValueViewResolversLocator
+    ) {
         $this->productAttributeValueViewClass = $productAttributeValueViewClass;
+        $this->productAttributeValueViewResolversLocator = $productAttributeValueViewResolversLocator;
     }
 
-    /** {@inheritdoc} */
-    public function create(ProductAttributeValueInterface $productAttributeValue, string $locale): ProductAttributeValueView
+    public function create(ProductAttributeValueInterface $productAttributeValue, string $localeCode): ProductAttributeValueView
     {
         /** @var ProductAttributeValueView $productAttributeValueView */
         $productAttributeValueView = new $this->productAttributeValueViewClass();
-
         $productAttributeValueView->code = $productAttributeValue->getCode();
+        $productAttributeValueView->type = $productAttributeValue->getType();
 
-        if ($productAttributeValue->getType() === 'select') {
-            $productAttributeValueView->value = $this->resolveSelectAttribute($productAttributeValue);
-        } else {
-            $productAttributeValueView->value = $productAttributeValue->getValue();
-        }
+        /** @var ProductAttributeValueViewResolverInterface $valueResolver */
+        $valueResolver = $this->productAttributeValueViewResolversLocator->get($productAttributeValue->getType());
+        $productAttributeValueView->value = $valueResolver->getValue($productAttributeValue, $localeCode);
 
         $productAttribute = $productAttributeValue->getAttribute();
-
-        /** @var ProductAttributeTranslationInterface $productAttributeTranslation */
-        $productAttributeTranslation = $productAttribute->getTranslation($locale);
+        $productAttributeTranslation = $productAttribute->getTranslation($localeCode);
         $productAttributeValueView->name = $productAttributeTranslation->getName();
 
         return $productAttributeValueView;
-    }
-
-    private function resolveSelectAttribute(ProductAttributeValueInterface $productAttributeValue)
-    {
-        $configuration = $productAttributeValue->getAttribute()->getConfiguration();
-
-        $choices = $configuration['choices'] ?? null;
-        $value = $productAttributeValue->getValue()[0] ?? null;
-        if ($choices === null || $value === null) {
-            return null;
-        }
-
-        return $choices[$value];
     }
 }

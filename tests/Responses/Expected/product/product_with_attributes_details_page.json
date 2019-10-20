@@ -1,0 +1,59 @@
+{
+    "code": "RANDOM_JACKET_CODE",
+    "name": "Random Jacket",
+    "slug": "random-jacket",
+    "channelCode": "WEB_GB",
+    "breadcrumb": "random-jacket",
+    "description": "WINDPROOF INSULATED JACKET.",
+    "averageRating": 0,
+    "taxons": {
+        "others": []
+    },
+    "variants": {
+        "RANDOM_JACKET_CODE": {
+            "code": "RANDOM_JACKET_CODE",
+            "name": "Random Jacket",
+            "axis": [],
+            "nameAxis": {},
+            "price": {
+                "current": 19999,
+                "currency": "GBP"
+            },
+            "originalPrice": {
+                "current": 29999,
+                "currency": "GBP"
+            },
+            "images": []
+        }
+    },
+    "attributes": [
+        {
+            "code": "JACKET_COLLECTION_CODE",
+            "name": "Jacket collection",
+            "type": "text",
+            "value": "HOLIDAY COLLECTION"
+        },
+        {
+            "code": "JACKET_MATERIAL_CODE",
+            "name": "Jacket material",
+            "type": "select",
+            "value": [
+                "WOOL",
+                "COTTON"
+            ]
+        },
+        {
+            "code": "JACKET_PFC_CODE",
+            "name": "Jacket PFC",
+            "type": "percent",
+            "value": 0.3
+        }
+    ],
+    "associations": [],
+    "images": [],
+    "_links": {
+        "self": {
+            "href": "\/shop-api\/products\/by-slug\/random-jacket"
+        }
+    }
+}

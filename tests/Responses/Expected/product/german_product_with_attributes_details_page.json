@@ -1,0 +1,59 @@
+{
+    "code": "RANDOM_JACKET_CODE",
+    "name": "Zufallige Jacke",
+    "slug": "zufallige-jacke",
+    "channelCode": "WEB_GB",
+    "breadcrumb": "zufallige-jacke",
+    "description": "WINDDICHTE ISOLATIONSJACKE.",
+    "averageRating": 0,
+    "taxons": {
+        "others": []
+    },
+    "variants": {
+        "RANDOM_JACKET_CODE": {
+            "code": "RANDOM_JACKET_CODE",
+            "name": "Zufallige Jacke",
+            "axis": [],
+            "nameAxis": {},
+            "price": {
+                "current": 19999,
+                "currency": "GBP"
+            },
+            "originalPrice": {
+                "current": 29999,
+                "currency": "GBP"
+            },
+            "images": []
+        }
+    },
+    "attributes": [
+        {
+            "code": "JACKET_COLLECTION_CODE",
+            "name": "Jackenkollektion",
+            "type": "text",
+            "value": "FERIENKOLLEKTION"
+        },
+        {
+            "code": "JACKET_MATERIAL_CODE",
+            "name": "Mantelmaterial",
+            "type": "select",
+            "value": [
+                "WOLLE",
+                "BAUMWOLLE"
+            ]
+        },
+        {
+            "code": "JACKET_PFC_CODE",
+            "name": "Jacke PFC",
+            "type": "percent",
+            "value": 0.3
+        }
+    ],
+    "associations": [],
+    "images": [],
+    "_links": {
+        "self": {
+            "href": "\/shop-api\/products\/by-slug\/zufallige-jacke"
+        }
+    }
+}

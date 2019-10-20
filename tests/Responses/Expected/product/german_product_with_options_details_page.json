@@ -126,7 +126,10 @@
                     {
                         "code": "MUG_MATERIAL_CODE",
                         "name": "Becher Material",
-                        "value": "Wood"
+                        "type": "select",
+                        "value": [
+                            "Holz"
+                        ]
                     }
                 ],
                 "associations": [],
