@@ -60,7 +60,6 @@ final class ProductAttributeValueViewFactorySpec extends ObjectBehavior
         ProductAttributeValueViewResolverInterface $valueResolver
     ) {
         $productAttributeValue->getCode()->willReturn('CERTIFICATES');
-        $productAttributeValue->getValue()->willReturn(['1', '2']);
         $productAttributeValue->getType()->willReturn('select');
         $productAttributeValue->getAttribute()->willReturn($productAttribute);
 
