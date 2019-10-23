@@ -102,7 +102,11 @@ final class PlacedOrderViewFactory implements PlacedOrderViewFactoryInterface
         if (null !== $order->getBillingAddress()) {
             $placedOrderView->billingAddress = $this->addressViewFactory->create($order->getBillingAddress());
         }
-
+        $amount = 0;
+        foreach ($order->getAdjustments('points_discount') as $adjustment){
+            $amount += $adjustment->getAmount();
+        }
+        $placedOrderView->pointsDiscount = $amount;
         return $placedOrderView;
     }
 }

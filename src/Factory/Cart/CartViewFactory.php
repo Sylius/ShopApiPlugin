@@ -15,6 +15,7 @@ use Sylius\ShopApiPlugin\View\Cart\CartSummaryView;
 
 final class CartViewFactory implements CartViewFactoryInterface
 {
+
     /** @var CartItemViewFactoryInterface */
     private $cartItemFactory;
 
@@ -45,26 +46,26 @@ final class CartViewFactory implements CartViewFactoryInterface
         AdjustmentViewFactoryInterface $adjustmentViewFactory,
         string $cartSummaryViewClass
     ) {
-        $this->cartItemFactory = $cartItemFactory;
-        $this->addressViewFactory = $addressViewFactory;
-        $this->totalViewFactory = $totalViewFactory;
-        $this->shipmentViewFactory = $shipmentViewFactory;
-        $this->paymentViewFactory = $paymentViewFactory;
+        $this->cartItemFactory       = $cartItemFactory;
+        $this->addressViewFactory    = $addressViewFactory;
+        $this->totalViewFactory      = $totalViewFactory;
+        $this->shipmentViewFactory   = $shipmentViewFactory;
+        $this->paymentViewFactory    = $paymentViewFactory;
         $this->adjustmentViewFactory = $adjustmentViewFactory;
-        $this->cartSummaryViewClass = $cartSummaryViewClass;
+        $this->cartSummaryViewClass  = $cartSummaryViewClass;
     }
 
     /** {@inheritdoc} */
     public function create(OrderInterface $cart, string $localeCode): CartSummaryView
     {
         /** @var CartSummaryView $cartView */
-        $cartView = new $this->cartSummaryViewClass();
-        $cartView->channel = $cart->getChannel()->getCode();
-        $cartView->currency = $cart->getCurrencyCode();
-        $cartView->locale = $localeCode;
+        $cartView                = new $this->cartSummaryViewClass();
+        $cartView->channel       = $cart->getChannel()->getCode();
+        $cartView->currency      = $cart->getCurrencyCode();
+        $cartView->locale        = $localeCode;
         $cartView->checkoutState = $cart->getCheckoutState();
-        $cartView->tokenValue = $cart->getTokenValue();
-        $cartView->totals = $this->totalViewFactory->create($cart);
+        $cartView->tokenValue    = $cart->getTokenValue();
+        $cartView->totals        = $this->totalViewFactory->create($cart);
 
         /** @var OrderItemInterface $item */
         foreach ($cart->getItems() as $item) {
@@ -83,10 +84,11 @@ final class CartViewFactory implements CartViewFactoryInterface
         $cartDiscounts = [];
         /** @var AdjustmentInterface $adjustment */
         foreach ($cart->getAdjustmentsRecursively(AdjustmentInterface::ORDER_PROMOTION_ADJUSTMENT) as $adjustment) {
-            $originCode = $adjustment->getOriginCode();
+            $originCode       = $adjustment->getOriginCode();
             $additionalAmount = isset($cartDiscounts[$originCode]) ? $cartDiscounts[$originCode]->amount->current : 0;
 
-            $cartDiscounts[$originCode] = $this->adjustmentViewFactory->create($adjustment, $additionalAmount, $cart->getCurrencyCode());
+            $cartDiscounts[$originCode] =
+                $this->adjustmentViewFactory->create($adjustment, $additionalAmount, $cart->getCurrencyCode());
         }
 
         $cartView->cartDiscounts = $cartDiscounts;
@@ -102,6 +104,15 @@ final class CartViewFactory implements CartViewFactoryInterface
         $coupon = $cart->getPromotionCoupon();
         if ($coupon !== null) {
             $cartView->couponCode = $coupon->getCode();
+        }
+        if ($cart->getAdjustments('points_discount')->count()) {
+            $amount = 0;
+            foreach ($cart->getAdjustments('points_discount') as $adjustment) {
+                if ($adjustment->getAmount() && is_int($adjustment->getAmount())) {
+                    $amount += $adjustment->getAmount();
+                }
+            }
+            $cartView->pointsDiscount = $amount;
         }
 
         return $cartView;

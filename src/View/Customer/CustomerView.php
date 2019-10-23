@@ -32,4 +32,7 @@ class CustomerView
 
     /** @var string */
     public $avatar;
+
+    /** @var int */
+    public $points;
 }

@@ -44,7 +44,9 @@ final class CustomerViewFactory implements CustomerViewFactoryInterface
 
             $customerView->avatar = $this->imageViewFactory->create($image);
         }
-
+        if($customer->getCustomerPoint()->getPoints()){
+            $customerView->points               = $customer->getCustomerPoint()->getPoints();
+        }
         return $customerView;
     }
 }
