@@ -38,7 +38,7 @@ final class CustomerViewFactory implements CustomerViewFactoryInterface
         $customerView->gender                 = $customer->getGender();
         $customerView->phoneNumber            = $customer->getPhoneNumber();
         $customerView->subscribedToNewsletter = $customer->isSubscribedToNewsletter();
-        if ($customer->getUser()) {
+        if ($customer->getUser() && $customer->getUser()->getAvatar()) {
             /** @var ImageInterface $image */
             $image = $customer->getUser()->getAvatar();
 
