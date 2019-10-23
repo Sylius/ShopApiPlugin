@@ -55,5 +55,9 @@
             <argument type="string">%sylius.shop_api.view.page.class%</argument>
             <argument type="string">%sylius.shop_api.view.page_links.class%</argument>
         </service>
+
+        <service id="sylius.shop_api_plugin.factory.product_attribute_view_factory"
+                 class="Sylius\ShopApiPlugin\Factory\Product\ProductAttributeViewFactory">
+        </service>
     </services>
 </container>
