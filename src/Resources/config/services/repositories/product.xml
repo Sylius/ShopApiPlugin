@@ -87,5 +87,13 @@
             <argument type="service" id="sylius.shop_api_plugin.factory.product_variant_view_factory"/>
             <argument type="service" id="App\Domain\Article\Factory\ArticleViewFactory"/>
         </service>
+
+        <service id="sylius.shop_api_plugin.view_repository.attribute_view_repository"
+                 class="Sylius\ShopApiPlugin\ViewRepository\Product\ProductAttributeViewRepository">
+            <argument type="service" id="sylius.repository.product" />
+            <argument type="service" id="sylius.repository.channel" />
+            <argument type="service" id="sylius.shop_api_plugin.provider.supported_locale_provider"/>
+            <argument type="service" id="sylius.shop_api_plugin.factory.product_attribute_view_factory"/>
+        </service>
     </services>
 </container>
