@@ -53,6 +53,40 @@ JSON;
         Assert::assertEquals($customer->isSubscribedToNewsletter(), true);
     }
 
+    public function it_updates_customer_when_newsletter_is_not_set(): void
+    {
+        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
+        $this->logInUser('oliver@queen.com', '123password');
+
+        /** @var CustomerRepositoryInterface $customerRepository */
+        $customerRepository = $this->get('sylius.repository.customer');
+
+        $data =
+<<<JSON
+        {
+            "firstName": "New name",
+            "lastName": "New lastName",
+            "birthday": "2017-11-01",
+            "gender": "m",
+            "phoneNumber": "0918972132",
+        }
+JSON;
+        $this->client->request('PUT', '/shop-api/me', [], [], self::CONTENT_TYPE_HEADER, $data);
+        $response = $this->client->getResponse();
+        $this->assertResponse($response, 'customer/update_customer', Response::HTTP_OK);
+
+        /** @var CustomerInterface $customer */
+        $customer = $customerRepository->findOneByEmail('oliver@queen.com');
+
+        Assert::assertEquals($customer->getFirstName(), 'New name');
+        Assert::assertEquals($customer->getLastName(), 'New lastName');
+        Assert::assertEquals($customer->getEmail(), 'oliver@queen.com');
+        Assert::assertEquals($customer->getBirthday(), new \DateTimeImmutable('2017-11-01'));
+        Assert::assertEquals($customer->getGender(), 'm');
+        Assert::assertEquals($customer->getPhoneNumber(), '0918972132');
+        Assert::assertEquals($customer->isSubscribedToNewsletter(), false);
+    }
+
     /**
      * @test
      */
