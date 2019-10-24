@@ -18,6 +18,12 @@ class ProductView
     /** @var bool */
     public $isFavorite;
 
+    /** @var DateTimeInterface */
+    public $createdAt;
+
+    /** @var DateTimeInterface */
+    public $updatedAt;
+
     /** @var string */
     public $channelCode;
 

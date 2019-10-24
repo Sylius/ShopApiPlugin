@@ -52,6 +52,8 @@ final class ListProductViewFactory implements ProductViewFactoryInterface
         if ($user instanceof ShopUser && $user->isFavorite($product)) {
             $productView->isFavorite = true;
         }
+        $productView->createdAt = $product->getCreatedAt();
+        $productView->updatedAt = $product->getUpdatedAt();
         foreach ($product->getAssociations() as $association) {
             $productView->associations[$association->getType()->getCode()] =
                 $this->createAssociations($association, $channel, $locale);

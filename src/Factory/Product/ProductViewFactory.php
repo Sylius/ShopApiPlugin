@@ -62,6 +62,8 @@ final class ProductViewFactory implements ProductViewFactoryInterface
         $productView->metaDescription = $translation->getMetaDescription();
         $productView->channelCode = $channel->getCode();
 
+        $productView->createdAt = $product->getCreatedAt();
+        $productView->updatedAt = $product->getUpdatedAt();
         /** @var ProductImageInterface $image */
         foreach ($product->getImages() as $image) {
             $imageView = $this->imageViewFactory->create($image);
@@ -85,7 +87,6 @@ final class ProductViewFactory implements ProductViewFactoryInterface
             $product->getAttributesByLocale($locale, $this->fallbackLocale)->toArray(),
             $locale
         );
-
         return $productView;
     }
 }

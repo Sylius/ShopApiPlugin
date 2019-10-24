@@ -8,6 +8,7 @@ use DateTimeInterface;
 
 class ProductReviewView
 {
+
     /** @var string */
     public $title;
 
@@ -18,7 +19,13 @@ class ProductReviewView
     public $comment;
 
     /** @var string */
-    public $author;
+    public $authorEmail;
+
+    /** @var string */
+    public $authorFirstName;
+
+    /** @var string */
+    public $authorLastName;
 
     /** @var DateTimeInterface */
     public $createdAt;
