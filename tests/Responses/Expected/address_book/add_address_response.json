@@ -15,6 +15,7 @@
         "firstName": "Oliver",
         "lastName": "Queen",
         "gender": "m",
+        "birthday": "@string@.isDateTime()",
         "group": {
             "id": @integer@,
             "code": "retail",

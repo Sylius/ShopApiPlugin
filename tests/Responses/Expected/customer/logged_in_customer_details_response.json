@@ -4,6 +4,7 @@
     "lastName": "Queen",
     "email": "oliver@queen.com",
     "gender": "m",
+    "birthday": "@string@.isDateTime()",
     "phoneNumber": "0212115512",
     "subscribedToNewsletter": false
 }

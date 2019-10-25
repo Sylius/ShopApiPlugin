@@ -1,9 +1,9 @@
 {
-    "id": @integer@,
+    "id": "@integer@",
     "firstName": "New name",
     "lastName": "New lastName",
     "email": "oliver@queen.com",
-    "birthday": "@string@",
+    "birthday": "@string@.isDateTime()",
     "gender": "m",
     "phoneNumber": "0918972132",
     "subscribedToNewsletter": true
