@@ -8,11 +8,12 @@ use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Sylius\ShopApiPlugin\CommandProvider\CommandProviderInterface;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-final class VerifyAccountAction
+final class VerifyAccountAction extends AbstractController
 {
     /** @var ViewHandlerInterface */
     private $viewHandler;
@@ -50,6 +51,6 @@ final class VerifyAccountAction
 
         $this->bus->dispatch($this->verifyAccountCommandProvider->getCommand($request));
 
-        return $this->viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));
+        return $this->redirect(getenv('FRONT_URL'). '/activation?token=' . $request->query->get('token'));
     }
 }
