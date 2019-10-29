@@ -17,7 +17,7 @@ use Pagerfanta\Pagerfanta;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Sylius\ShopApiPlugin\Factory\Product\PageViewFactory;
 
-final class ProductPopularViewRepository implements ProductPopularViewRepositoryInterface
+final class ProductPopularViewRepository
 {
 
     /** @var ChannelRepositoryInterface */

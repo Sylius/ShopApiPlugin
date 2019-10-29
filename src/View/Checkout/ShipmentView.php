@@ -14,6 +14,12 @@ class ShipmentView
     /** @var ShippingMethodView */
     public $method;
 
+    /** @var string */
+    public $track;
+
+    /** @var \DateTimeInterface|null */
+    public $updatedAt;
+
     public function __construct()
     {
         $this->method = new ShippingMethodView();

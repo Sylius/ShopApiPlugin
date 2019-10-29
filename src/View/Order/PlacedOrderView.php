@@ -57,6 +57,7 @@ class PlacedOrderView
 
     /** @var int */
     public $pointsDiscount;
+
     public function __construct()
     {
         $this->totals = new TotalsView();

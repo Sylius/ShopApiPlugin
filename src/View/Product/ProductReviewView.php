@@ -27,6 +27,9 @@ class ProductReviewView
     /** @var string */
     public $authorLastName;
 
+    /** @var array */
+    public $authorAvatar;
+
     /** @var DateTimeInterface */
     public $createdAt;
 }
