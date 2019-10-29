@@ -18,6 +18,7 @@ use Sylius\ShopApiPlugin\View\Order\PlacedOrderView;
 
 final class PlacedOrderViewFactory implements PlacedOrderViewFactoryInterface
 {
+
     /** @var CartItemViewFactoryInterface */
     private $orderItemFactory;
 
@@ -48,33 +49,27 @@ final class PlacedOrderViewFactory implements PlacedOrderViewFactoryInterface
         AdjustmentViewFactoryInterface $adjustmentViewFactory,
         string $placedOrderViewClass
     ) {
-        $this->orderItemFactory = $orderItemFactory;
-        $this->addressViewFactory = $addressViewFactory;
-        $this->totalViewFactory = $totalViewFactory;
-        $this->shipmentViewFactory = $shipmentViewFactory;
-        $this->paymentViewFactory = $paymentViewFactory;
+        $this->orderItemFactory      = $orderItemFactory;
+        $this->addressViewFactory    = $addressViewFactory;
+        $this->totalViewFactory      = $totalViewFactory;
+        $this->shipmentViewFactory   = $shipmentViewFactory;
+        $this->paymentViewFactory    = $paymentViewFactory;
         $this->adjustmentViewFactory = $adjustmentViewFactory;
-        $this->placedOrderViewClass = $placedOrderViewClass;
+        $this->placedOrderViewClass  = $placedOrderViewClass;
     }
 
     public function create(OrderInterface $order, string $localeCode): PlacedOrderView
     {
         /** @var PlacedOrderView $placedOrderView */
-        $placedOrderView = new $this->placedOrderViewClass();
-        $placedOrderView->channel = $order->getChannel()->getCode();
-        $placedOrderView->currency = $order->getCurrencyCode();
-        $placedOrderView->locale = $localeCode;
-        $placedOrderView->checkoutState = $order->getCheckoutState();
+        $placedOrderView                      = new $this->placedOrderViewClass();
+        $placedOrderView->channel             = $order->getChannel()->getCode();
+        $placedOrderView->currency            = $order->getCurrencyCode();
+        $placedOrderView->locale              = $localeCode;
+        $placedOrderView->checkoutState       = $order->getCheckoutState();
         $placedOrderView->checkoutCompletedAt = $order->getCheckoutCompletedAt()->format('c');
-        $placedOrderView->totals = $this->totalViewFactory->create($order);
-        $placedOrderView->tokenValue = $order->getTokenValue();
-        $placedOrderView->number = $order->getNumber();
-
-        foreach ($order->getShipments() as $shipment){
-            if($shipment->getTracking()){
-                $placedOrderView->trackingCodes[] = $shipment->getTracking();
-            }
-        }
+        $placedOrderView->totals              = $this->totalViewFactory->create($order);
+        $placedOrderView->tokenValue          = $order->getTokenValue();
+        $placedOrderView->number              = $order->getNumber();
 
         /** @var OrderItemInterface $item */
         foreach ($order->getItems() as $item) {
@@ -93,10 +88,11 @@ final class PlacedOrderViewFactory implements PlacedOrderViewFactoryInterface
         $cartDiscounts = [];
         /** @var AdjustmentInterface $adjustment */
         foreach ($order->getAdjustmentsRecursively(AdjustmentInterface::ORDER_PROMOTION_ADJUSTMENT) as $adjustment) {
-            $originCode = $adjustment->getOriginCode();
+            $originCode       = $adjustment->getOriginCode();
             $additionalAmount = isset($cartDiscounts[$originCode]) ? $cartDiscounts[$originCode]->amount->current : 0;
 
-            $cartDiscounts[$originCode] = $this->adjustmentViewFactory->create($adjustment, $additionalAmount, $order->getCurrencyCode());
+            $cartDiscounts[$originCode] =
+                $this->adjustmentViewFactory->create($adjustment, $additionalAmount, $order->getCurrencyCode());
         }
 
         $placedOrderView->cartDiscounts = $cartDiscounts;
@@ -109,10 +105,11 @@ final class PlacedOrderViewFactory implements PlacedOrderViewFactoryInterface
             $placedOrderView->billingAddress = $this->addressViewFactory->create($order->getBillingAddress());
         }
         $amount = 0;
-        foreach ($order->getAdjustments('points_discount') as $adjustment){
+        foreach ($order->getAdjustments('points_discount') as $adjustment) {
             $amount += $adjustment->getAmount();
         }
         $placedOrderView->pointsDiscount = $amount;
+
         return $placedOrderView;
     }
 }

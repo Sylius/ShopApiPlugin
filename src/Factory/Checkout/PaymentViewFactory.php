@@ -43,7 +43,6 @@ final class PaymentViewFactory implements PaymentViewFactoryInterface
 
         $paymentView->method    = $this->paymentMethodViewFactory->create($paymentMethod, $locale);
         $paymentView->price     = $this->priceViewFactory->create($payment->getAmount(), $payment->getCurrencyCode());
-        $paymentView->createdAt = $payment->getCreatedAt();
         $paymentView->updatedAt = $payment->getUpdatedAt();
 
         return $paymentView;

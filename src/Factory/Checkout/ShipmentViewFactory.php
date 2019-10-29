@@ -34,10 +34,10 @@ final class ShipmentViewFactory implements ShipmentViewFactoryInterface
         /** @var ShipmentView $shipmentView */
         $shipmentView = new $this->shipmentViewClass();
 
-        $shipmentView->state = $shipment->getState();
-        $shipmentView->method = $this->shippingMethodViewFactory->create($shipment, $locale, $order->getCurrencyCode());
-
-        $shipmentView->createdAt = $shipment->getCreatedAt();
+        $shipmentView->state     = $shipment->getState();
+        $shipmentView->method    =
+            $this->shippingMethodViewFactory->create($shipment, $locale, $order->getCurrencyCode());
+        $shipmentView->track     = $shipment->getTracking();
         $shipmentView->updatedAt = $shipment->getUpdatedAt();
 
         return $shipmentView;

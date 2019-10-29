@@ -58,9 +58,6 @@ class PlacedOrderView
     /** @var int */
     public $pointsDiscount;
 
-    /** @var array */
-    public $trackingCodes = [];
-
     public function __construct()
     {
         $this->totals = new TotalsView();

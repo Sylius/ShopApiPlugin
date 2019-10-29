@@ -14,8 +14,8 @@ class ShipmentView
     /** @var ShippingMethodView */
     public $method;
 
-    /** @var \DateTimeInterface|null */
-    public $createdAt;
+    /** @var string */
+    public $track;
 
     /** @var \DateTimeInterface|null */
     public $updatedAt;

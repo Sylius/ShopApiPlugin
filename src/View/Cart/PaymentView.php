@@ -18,9 +18,6 @@ class PaymentView
     public $price;
 
     /** @var \DateTimeInterface|null */
-    public $createdAt;
-
-    /** @var \DateTimeInterface|null */
     public $updatedAt;
 
     public function __construct()
