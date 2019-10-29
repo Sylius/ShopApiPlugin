@@ -70,6 +70,12 @@ final class PlacedOrderViewFactory implements PlacedOrderViewFactoryInterface
         $placedOrderView->tokenValue = $order->getTokenValue();
         $placedOrderView->number = $order->getNumber();
 
+        foreach ($order->getShipments() as $shipment){
+            if($shipment->getTracking()){
+                $placedOrderView->trackingCodes[] = $shipment->getTracking();
+            }
+        }
+
         /** @var OrderItemInterface $item */
         foreach ($order->getItems() as $item) {
             $placedOrderView->items[] = $this->orderItemFactory->create($item, $order->getChannel(), $localeCode);
