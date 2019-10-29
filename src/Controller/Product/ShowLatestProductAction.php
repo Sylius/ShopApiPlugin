@@ -8,6 +8,7 @@ use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Sylius\Component\Channel\Context\ChannelContextInterface;
 use Sylius\Component\Channel\Context\ChannelNotFoundException;
+use Sylius\ShopApiPlugin\Model\PaginatorDetails;
 use Sylius\ShopApiPlugin\ViewRepository\Product\ProductLatestViewRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -42,7 +43,7 @@ final class ShowLatestProductAction
             return $this->viewHandler->handle(View::create($this->productLatestQuery->getLatestProducts(
                 $channel->getCode(),
                 $request->query->get('locale'),
-                $request->query->getInt('limit', 4)
+                new PaginatorDetails($request->attributes->get('_route'), $request->query->all())
             ), Response::HTTP_OK));
         } catch (ChannelNotFoundException $exception) {
             throw new NotFoundHttpException('Channel has not been found.');

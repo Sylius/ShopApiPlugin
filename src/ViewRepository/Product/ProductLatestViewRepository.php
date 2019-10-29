@@ -11,6 +11,11 @@ use Sylius\ShopApiPlugin\Factory\Product\ProductViewFactoryInterface;
 use Sylius\ShopApiPlugin\Provider\SupportedLocaleProviderInterface;
 use Sylius\ShopApiPlugin\View\Product\ProductListView;
 use Webmozart\Assert\Assert;
+use Sylius\ShopApiPlugin\Model\PaginatorDetails;
+use Sylius\ShopApiPlugin\View\Product\PageView;
+use Pagerfanta\Pagerfanta;
+use Pagerfanta\Adapter\DoctrineORMAdapter;
+use Sylius\ShopApiPlugin\Factory\Product\PageViewFactory;
 
 final class ProductLatestViewRepository implements ProductLatestViewRepositoryInterface
 {
@@ -26,33 +31,44 @@ final class ProductLatestViewRepository implements ProductLatestViewRepositoryIn
     /** @var SupportedLocaleProviderInterface */
     private $supportedLocaleProvider;
 
+    /** @var PageViewFactory */
+    private $pageViewFactory;
+
     public function __construct(
         ChannelRepositoryInterface $channelRepository,
         ProductRepositoryInterface $productRepository,
         ProductViewFactoryInterface $productViewFactory,
-        SupportedLocaleProviderInterface $supportedLocaleProvider
+        SupportedLocaleProviderInterface $supportedLocaleProvider,
+        PageViewFactory $pageViewFactory
     ) {
         $this->channelRepository = $channelRepository;
         $this->productRepository = $productRepository;
         $this->productViewFactory = $productViewFactory;
         $this->supportedLocaleProvider = $supportedLocaleProvider;
+        $this->pageViewFactory         = $pageViewFactory;
     }
 
-    public function getLatestProducts(string $channelCode, ?string $localeCode, int $count): ProductListView
+    public function getLatestProducts(string $channelCode, ?string $localeCode, $paginatorDetails): PageView
     {
         $channel = $this->getChannel($channelCode);
         $localeCode = $this->supportedLocaleProvider->provide($localeCode, $channel);
-        $latestProducts = $this->productRepository->findLatestByChannel($channel, $localeCode, $count);
+        $latestProducts = $this->productRepository->findLatestByChannelQuery($channel, $localeCode);
 
         Assert::notNull($latestProducts, sprintf('Latest Products not found in %s locale.', $localeCode));
 
-        $productListView = new ProductListView();
+        $pagerfanta = new Pagerfanta(new DoctrineORMAdapter($latestProducts, true, false));
 
-        foreach ($latestProducts as $product) {
-            $productListView->items[] = $this->productViewFactory->create($product, $channel, $localeCode);
+        $pagerfanta->setMaxPerPage($paginatorDetails->limit());
+        $pagerfanta->setCurrentPage($paginatorDetails->page());
+
+        $pageView =
+            $this->pageViewFactory->create($pagerfanta, $paginatorDetails->route(), $paginatorDetails->parameters());
+
+        foreach ($pagerfanta->getCurrentPageResults() as $currentPageResult) {
+            $pageView->items[] = $this->productViewFactory->create($currentPageResult, $channel, $localeCode);
         }
 
-        return $productListView;
+        return $pageView;
     }
 
     private function getChannel(string $channelCode): ChannelInterface

@@ -36,6 +36,7 @@
             <argument type="service" id="sylius.repository.product" />
             <argument type="service" id="sylius.shop_api_plugin.factory.list_product_view_factory" />
             <argument type="service" id="sylius.shop_api_plugin.provider.supported_locale_provider"/>
+            <argument type="service" id="sylius.shop_api_plugin.factory.page_view_factory"/>
         </service>
 
         <service id="sylius.shop_api_plugin.view_repository.product_popular_view_repository"
