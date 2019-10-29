@@ -7,6 +7,7 @@ namespace Sylius\ShopApiPlugin\Controller\Order;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Sylius\Component\Core\Model\ShopUserInterface;
+use Sylius\ShopApiPlugin\Model\PaginatorDetails;
 use Sylius\ShopApiPlugin\Provider\LoggedInShopUserProviderInterface;
 use Sylius\ShopApiPlugin\ViewRepository\Order\PlacedOrderViewRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -44,7 +45,7 @@ final class ShowOrdersListAction
         }
 
         return $this->viewHandler->handle(
-            View::create($this->placedOrderQuery->getAllCompletedByCustomerEmail($user->getCustomer()->getEmail()), Response::HTTP_OK)
+            View::create($this->placedOrderQuery->getAllCompletedByCustomerEmail($user->getCustomer()->getEmail(), new PaginatorDetails($request->attributes->get('_route'), $request->query->all())), Response::HTTP_OK)
         );
     }
 }
