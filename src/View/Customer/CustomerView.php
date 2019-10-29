@@ -27,6 +27,9 @@ class CustomerView
     /** @var string|null */
     public $phoneNumber;
 
+    /** @var string|null */
+    public $group;
+
     /** @var bool */
     public $subscribedToNewsletter;
 
