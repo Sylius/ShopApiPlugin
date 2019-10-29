@@ -71,22 +71,15 @@ final class SearchViewRepository
         $localeCode    = $this->supportedLocaleProvider->provide($localeCode, $channel);
         $foundProducts =
             $this->productRepository->findProductsByString($channel, $localeCode, $string)->getQuery()->getResult();
-        $foundVariants = $this->productRepository->findProductVariantsByString($channel, $localeCode, $string)
-                                                 ->getQuery()
-                                                 ->getResult();
         $foundArticles =
             $this->articleRepository->findArticlesByString($channel, $localeCode, $string)->getQuery()->getResult();
 
-//        dd($foundProducts, $foundVariants, $foundArticles);
         Assert::notNull($foundProducts,
             sprintf('Products bu given string not found in %s locale.', $localeCode)
         );
         $foundArray = [];
         foreach ($foundProducts as $product) {
             $foundArray['products'][] = $this->productViewFactory->create($product, $channel, $localeCode);
-        }
-        foreach ($foundVariants as $variant) {
-            $foundArray['variants'][] = $this->variantViewFactory->create($variant, $channel, $localeCode);
         }
 
         foreach ($foundArticles as $article) {
