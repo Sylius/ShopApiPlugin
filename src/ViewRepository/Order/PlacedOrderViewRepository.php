@@ -4,13 +4,17 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\ViewRepository\Order;
 
+use Pagerfanta\Adapter\DoctrineORMAdapter;
+use Pagerfanta\Pagerfanta;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\OrderCheckoutStates;
 use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\ShopApiPlugin\Factory\Order\PlacedOrderViewFactoryInterface;
+use Sylius\ShopApiPlugin\Factory\Product\PageViewFactory;
 use Sylius\ShopApiPlugin\View\Order\PlacedOrderView;
+use Sylius\ShopApiPlugin\View\Product\PageView;
 use Webmozart\Assert\Assert;
 
 final class PlacedOrderViewRepository implements PlacedOrderViewRepositoryInterface
@@ -24,33 +28,43 @@ final class PlacedOrderViewRepository implements PlacedOrderViewRepositoryInterf
     /** @var PlacedOrderViewFactoryInterface */
     private $placedOrderViewFactory;
 
+    /** @var PageViewFactory */
+    private $pageViewFactory;
+
     public function __construct(
         OrderRepositoryInterface $orderRepository,
         CustomerRepositoryInterface $customerRepository,
-        PlacedOrderViewFactoryInterface $placedOrderViewFactory
+        PlacedOrderViewFactoryInterface $placedOrderViewFactory,
+        PageViewFactory $pageViewFactory
     ) {
         $this->orderRepository = $orderRepository;
         $this->customerRepository = $customerRepository;
         $this->placedOrderViewFactory = $placedOrderViewFactory;
+        $this->pageViewFactory         = $pageViewFactory;
     }
 
-    public function getAllCompletedByCustomerEmail(string $customerEmail): array
+    public function getAllCompletedByCustomerEmail(string $customerEmail, $paginatorDetails): PageView
     {
         /** @var CustomerInterface|null $customer */
         $customer = $this->customerRepository->findOneBy(['email' => $customerEmail]);
 
         Assert::notNull($customer);
 
-        $cartViews = [];
+        $orders = $this->orderRepository->findByCustomerQuery($customer);
 
-        /** @var OrderInterface $order */
-        foreach ($this->orderRepository->findBy(['customer' => $customer]) as $order) {
-            if ($order->getCheckoutState() === OrderCheckoutStates::STATE_COMPLETED) {
-                $cartViews[] = $this->placedOrderViewFactory->create($order, $order->getLocaleCode());
-            }
+        $pagerfanta = new Pagerfanta(new DoctrineORMAdapter($orders));
+
+        $pagerfanta->setMaxPerPage($paginatorDetails->limit());
+        $pagerfanta->setCurrentPage($paginatorDetails->page());
+
+        $pageView =
+            $this->pageViewFactory->create($pagerfanta, $paginatorDetails->route(), $paginatorDetails->parameters());
+
+        foreach ($pagerfanta->getCurrentPageResults() as $currentPageResult) {
+            $pageView->items[] = $this->placedOrderViewFactory->create($currentPageResult, $currentPageResult->getLocaleCode());
         }
 
-        return $cartViews;
+        return $pageView;
     }
 
     public function getOneCompletedByCustomerEmailAndToken(string $customerEmail, string $tokenValue): PlacedOrderView
