@@ -10,16 +10,19 @@ use Sylius\ShopApiPlugin\View\Checkout\ShipmentView;
 
 final class ShipmentViewFactory implements ShipmentViewFactoryInterface
 {
+
     /** @var ShippingMethodViewFactoryInterface */
     private $shippingMethodViewFactory;
 
     /** @var string */
     private $shipmentViewClass;
 
-    public function __construct(ShippingMethodViewFactoryInterface $shippingMethodViewFactory, string $shipmentViewClass)
-    {
+    public function __construct(
+        ShippingMethodViewFactoryInterface $shippingMethodViewFactory,
+        string $shipmentViewClass
+    ) {
         $this->shippingMethodViewFactory = $shippingMethodViewFactory;
-        $this->shipmentViewClass = $shipmentViewClass;
+        $this->shipmentViewClass         = $shipmentViewClass;
     }
 
     /** {@inheritdoc} */
@@ -33,6 +36,9 @@ final class ShipmentViewFactory implements ShipmentViewFactoryInterface
 
         $shipmentView->state = $shipment->getState();
         $shipmentView->method = $this->shippingMethodViewFactory->create($shipment, $locale, $order->getCurrencyCode());
+
+        $shipmentView->createdAt = $shipment->getCreatedAt();
+        $shipmentView->updatedAt = $shipment->getUpdatedAt();
 
         return $shipmentView;
     }

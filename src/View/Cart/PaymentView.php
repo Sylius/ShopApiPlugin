@@ -17,6 +17,12 @@ class PaymentView
     /** @var PriceView */
     public $price;
 
+    /** @var \DateTimeInterface|null */
+    public $createdAt;
+
+    /** @var \DateTimeInterface|null */
+    public $updatedAt;
+
     public function __construct()
     {
         $this->method = new PaymentMethodView();

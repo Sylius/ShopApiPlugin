@@ -11,6 +11,7 @@ use Webmozart\Assert\Assert;
 
 final class PaymentViewFactory implements PaymentViewFactoryInterface
 {
+
     /** @var PaymentMethodViewFactoryInterface */
     private $paymentMethodViewFactory;
 
@@ -26,8 +27,8 @@ final class PaymentViewFactory implements PaymentViewFactoryInterface
         string $paymentViewClass
     ) {
         $this->paymentMethodViewFactory = $paymentMethodViewFactory;
-        $this->priceViewFactory = $priceViewFactory;
-        $this->paymentViewClass = $paymentViewClass;
+        $this->priceViewFactory         = $priceViewFactory;
+        $this->paymentViewClass         = $paymentViewClass;
     }
 
     /** {@inheritdoc} */
@@ -37,11 +38,13 @@ final class PaymentViewFactory implements PaymentViewFactoryInterface
         $paymentView = new $this->paymentViewClass();
 
         $paymentView->state = $payment->getState();
-        $paymentMethod = $payment->getMethod();
+        $paymentMethod      = $payment->getMethod();
         Assert::notNull($paymentMethod);
 
-        $paymentView->method = $this->paymentMethodViewFactory->create($paymentMethod, $locale);
-        $paymentView->price = $this->priceViewFactory->create($payment->getAmount(), $payment->getCurrencyCode());
+        $paymentView->method    = $this->paymentMethodViewFactory->create($paymentMethod, $locale);
+        $paymentView->price     = $this->priceViewFactory->create($payment->getAmount(), $payment->getCurrencyCode());
+        $paymentView->createdAt = $payment->getCreatedAt();
+        $paymentView->updatedAt = $payment->getUpdatedAt();
 
         return $paymentView;
     }
