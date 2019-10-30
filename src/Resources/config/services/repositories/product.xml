@@ -46,6 +46,7 @@
             <argument type="service" id="sylius.shop_api_plugin.factory.list_product_view_factory" />
             <argument type="service" id="sylius.shop_api_plugin.provider.supported_locale_provider"/>
             <argument type="service" id="sylius.shop_api_plugin.factory.page_view_factory"/>
+            <argument type="service" id="sylius.repository.taxon"/>
         </service>
 
         <service id="sylius.shop_api_plugin.view_repository.product_cheapest_view_repository"
