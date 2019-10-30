@@ -17,6 +17,7 @@ use Sylius\ShopApiPlugin\Event\CartPickedUp;
 use Sylius\ShopApiPlugin\Handler\Cart\PickupCartHandler;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\Messenger\Stamp\DispatchAfterCurrentBusStamp;
 
 final class PickupCartHandlerSpec extends ObjectBehavior
 {
@@ -66,7 +67,7 @@ final class PickupCartHandlerSpec extends ObjectBehavior
 
         $cartPickedUp = new CartPickedUp('ORDERTOKEN');
 
-        $eventBus->dispatch($cartPickedUp)->willReturn(new Envelope($cartPickedUp))->shouldBeCalled();
+        $eventBus->dispatch($cartPickedUp, [new DispatchAfterCurrentBusStamp()])->willReturn(new Envelope($cartPickedUp))->shouldBeCalled();
 
         $this(new PickupCart('ORDERTOKEN', 'CHANNEL_CODE'));
     }
