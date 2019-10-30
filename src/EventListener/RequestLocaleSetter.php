@@ -17,13 +17,16 @@ final class RequestLocaleSetter
         $this->localeProvider = $localeProvider;
     }
 
-    public function onKernelRequest(GetResponseEvent $event)
+    public function onKernelRequest(GetResponseEvent $event): void
     {
         $request = $event->getRequest();
 
         $request->setDefaultLocale($this->localeProvider->getDefaultLocaleCode());
 
         $localeCode = $request->get('locale');
+        if (null === $localeCode && $request->headers->has('Accept-Language')) {
+            $localeCode = $request->headers->get('Accept-Language');
+        }
         if (null === $localeCode) {
             return;
         }
