@@ -9,3 +9,6 @@ sylius_mailer:
         api_reset_password_token:
             subject: sylius.emails.user.reset_password_token.subject
             template: "SyliusShopApiPlugin:Email:passwordReset.html.twig"
+        api_order_confirmation:
+            subject: sylius.emails.order_confirmation.subject
+            template: "SyliusShopApiPlugin:Email:orderConfirmation.html.twig"
