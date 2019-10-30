@@ -9,53 +9,53 @@
             <argument type="service" id="sylius.factory.shop_user"/>
             <argument type="service" id="event_dispatcher"/>
             <argument type="service" id="sylius.shop_api_plugin.provider.customer_provider"/>
-            <tag name="messenger.message_handler" />
+            <tag name="messenger.message_handler"  bus="sylius_shop_api_plugin.command_bus"/>
         </service>
 
         <service id="sylius.shop_api_plugin.handler.update_customer"
                      class="Sylius\ShopApiPlugin\Handler\Customer\UpdateCustomerHandler">
             <argument type="service" id="sylius.repository.customer"/>
-            <tag name="messenger.message_handler" />
+            <tag name="messenger.message_handler"  bus="sylius_shop_api_plugin.command_bus"/>
         </service>
 
         <service id="sylius.shop_api_plugin.handler.send_verification_token_handler"
                  class="Sylius\ShopApiPlugin\Handler\Customer\SendVerificationTokenHandler">
             <argument type="service" id="sylius.repository.shop_user"/>
             <argument type="service" id="sylius.email_sender"/>
-            <tag name="messenger.message_handler" />
+            <tag name="messenger.message_handler"  bus="sylius_shop_api_plugin.command_bus"/>
         </service>
 
         <service id="sylius.shop_api_plugin.handler.verify_account_handler"
                  class="Sylius\ShopApiPlugin\Handler\Customer\VerifyAccountHandler">
             <argument type="service" id="sylius.repository.shop_user"/>
-            <tag name="messenger.message_handler" />
+            <tag name="messenger.message_handler"  bus="sylius_shop_api_plugin.command_bus"/>
         </service>
 
         <service id="sylius.shop_api_plugin.handler.generate_verification_token_handler"
                  class="Sylius\ShopApiPlugin\Handler\Customer\GenerateVerificationTokenHandler">
             <argument type="service" id="sylius.repository.shop_user"/>
             <argument type="service" id="sylius.shop_user.token_generator.email_verification"/>
-            <tag name="messenger.message_handler" />
+            <tag name="messenger.message_handler"  bus="sylius_shop_api_plugin.command_bus"/>
         </service>
 
         <service id="sylius.shop_api_plugin.handler.send_reset_password_token_handler"
                  class="Sylius\ShopApiPlugin\Handler\Customer\SendResetPasswordTokenHandler">
             <argument type="service" id="sylius.repository.shop_user"/>
             <argument type="service" id="sylius.email_sender"/>
-            <tag name="messenger.message_handler" />
+            <tag name="messenger.message_handler"  bus="sylius_shop_api_plugin.command_bus"/>
         </service>
 
         <service id="sylius.shop_api_plugin.handler.generate_reset_password_token_handler"
                  class="Sylius\ShopApiPlugin\Handler\Customer\GenerateResetPasswordTokenHandler">
             <argument type="service" id="sylius.repository.shop_user"/>
             <argument type="service" id="sylius.shop_user.token_generator.password_reset"/>
-            <tag name="messenger.message_handler" />
+            <tag name="messenger.message_handler"  bus="sylius_shop_api_plugin.command_bus"/>
         </service>
 
         <service id="sylius.shop_api_plugin.handler.enable_customer_handler"
                  class="Sylius\ShopApiPlugin\Handler\Customer\EnableCustomerHandler">
             <argument type="service" id="sylius.repository.shop_user"/>
-            <tag name="messenger.message_handler" />
+            <tag name="messenger.message_handler"  bus="sylius_shop_api_plugin.command_bus"/>
         </service>
     </services>
 </container>
