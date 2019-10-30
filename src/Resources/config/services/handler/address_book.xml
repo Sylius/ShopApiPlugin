@@ -7,7 +7,7 @@
             <argument type="service" id="sylius.repository.customer" />
             <argument type="service" id="sylius.repository.address" />
             <argument type="service" id="sylius.repository.shop_user" />
-            <tag name="messenger.message_handler" />
+            <tag name="messenger.message_handler"  bus="sylius_shop_api_plugin.command_bus"/>
         </service>
     </services>
 </container>

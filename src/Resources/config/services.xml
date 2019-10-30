@@ -79,7 +79,7 @@
         >
             <argument type="service" id="sylius.shop_api_plugin.provider.current_user_provider" />
             <argument type="service" id="sylius_shop_api_plugin.command_bus" />
-            <tag name="messenger.message_handler" />
+            <tag name="messenger.message_handler"  bus="sylius_shop_api_plugin.event_bus"/>
         </service>
     </services>
 </container>
