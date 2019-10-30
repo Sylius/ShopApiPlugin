@@ -16,6 +16,7 @@ use Sylius\ShopApiPlugin\View\Product\PageView;
 use Pagerfanta\Pagerfanta;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Sylius\ShopApiPlugin\Factory\Product\PageViewFactory;
+use Sylius\Bundle\TaxonomyBundle\Doctrine\ORM\TaxonRepository;
 
 final class ProductPopularViewRepository
 {
@@ -35,25 +36,36 @@ final class ProductPopularViewRepository
     /** @var PageViewFactory */
     private $pageViewFactory;
 
+    /** @var TaxonRepository */
+    private $taxonRepository;
+
     public function __construct(
         ChannelRepositoryInterface $channelRepository,
         ProductRepositoryInterface $productRepository,
         ProductViewFactoryInterface $productViewFactory,
         SupportedLocaleProviderInterface $supportedLocaleProvider,
-        PageViewFactory $pageViewFactory
+        PageViewFactory $pageViewFactory,
+        TaxonRepository $taxonRepository
     ) {
         $this->channelRepository       = $channelRepository;
         $this->productRepository       = $productRepository;
         $this->productViewFactory      = $productViewFactory;
         $this->supportedLocaleProvider = $supportedLocaleProvider;
         $this->pageViewFactory         = $pageViewFactory;
+        $this->taxonRepository         = $taxonRepository;
     }
 
-    public function getPopularProducts(string $channelCode, ?string $localeCode, $paginatorDetails): PageView
+    public function getPopularProducts(string $channelCode, ?string $localeCode, $paginatorDetails,
+        string $taxonCode = null): PageView
     {
         $channel         = $this->getChannel($channelCode);
         $localeCode      = $this->supportedLocaleProvider->provide($localeCode, $channel);
-        $popularProducts = $this->productRepository->findPopularByChannel($channel, $localeCode);
+        $taxon      = null;
+        if ($taxonCode) {
+            /** @var TaxonInterface $taxon */
+            $taxon = $this->taxonRepository->findOneBy(['code' => $taxonCode]);
+        }
+        $popularProducts = $this->productRepository->findPopularByChannel($channel, $localeCode, $taxon);
         Assert::notNull($popularProducts, sprintf('Popular Products not found in %s locale.', $localeCode));
         $pagerfanta = new Pagerfanta(new DoctrineORMAdapter($popularProducts, true, false));
 
