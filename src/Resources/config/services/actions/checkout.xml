@@ -57,6 +57,7 @@
             <argument type="service" id="sylius_shop_api_plugin.command_bus" />
             <argument type="service" id="sylius.shop_api_plugin.command_provider.assign_customer_to_cart" />
             <argument type="service" id="sylius.shop_api_plugin.command_provider.complete_order" />
+            <argument type="service" id="sylius.shop_api_plugin.command_provider.complete_order_with_customer" />
         </service>
     </services>
 </container>

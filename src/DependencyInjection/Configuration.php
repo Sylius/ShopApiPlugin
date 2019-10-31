@@ -16,6 +16,7 @@ use Sylius\ShopApiPlugin\Request\Checkout\AddressOrderRequest;
 use Sylius\ShopApiPlugin\Request\Checkout\ChoosePaymentMethodRequest;
 use Sylius\ShopApiPlugin\Request\Checkout\ChooseShippingMethodRequest;
 use Sylius\ShopApiPlugin\Request\Checkout\CompleteOrderRequest;
+use Sylius\ShopApiPlugin\Request\Checkout\CompleteOrderWithCustomerRequest;
 use Sylius\ShopApiPlugin\Request\Customer\GenerateResetPasswordTokenRequest;
 use Sylius\ShopApiPlugin\Request\Customer\RegisterCustomerRequest;
 use Sylius\ShopApiPlugin\Request\Customer\ResendVerificationTokenRequest;
@@ -111,6 +112,7 @@ final class Configuration implements ConfigurationInterface
                         ->scalarNode('choose_payment_method')->defaultValue(ChoosePaymentMethodRequest::class)->end()
                         ->scalarNode('choose_shipping_method')->defaultValue(ChooseShippingMethodRequest::class)->end()
                         ->scalarNode('complete_order')->defaultValue(CompleteOrderRequest::class)->end()
+                        ->scalarNode('complete_order_with_customer')->defaultValue(CompleteOrderWithCustomerRequest::class)->end()
                         ->scalarNode('drop_cart')->defaultValue(DropCartRequest::class)->end()
                         ->scalarNode('generate_reset_password_token')->defaultValue(GenerateResetPasswordTokenRequest::class)->end()
                         ->scalarNode('pickup_cart')->defaultValue(PickupCartRequest::class)->end()

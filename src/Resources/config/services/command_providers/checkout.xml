@@ -35,5 +35,13 @@
             <argument>%sylius.shop_api.request.complete_order.class%</argument>
             <argument type="service" id="validator" />
         </service>
+
+        <service
+            id="sylius.shop_api_plugin.command_provider.complete_order_with_customer"
+            class="Sylius\ShopApiPlugin\CommandProvider\DefaultCommandProvider"
+        >
+            <argument>%sylius.shop_api.request.complete_order_with_customer.class%</argument>
+            <argument type="service" id="validator" />
+        </service>
     </services>
 </container>
