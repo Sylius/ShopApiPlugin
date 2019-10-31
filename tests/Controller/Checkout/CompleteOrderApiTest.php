@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller\Checkout;
 
+use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\ShopApiPlugin\Command\Cart\AddressOrder;
 use Sylius\ShopApiPlugin\Command\Cart\ChoosePaymentMethod;
 use Sylius\ShopApiPlugin\Command\Cart\ChooseShippingMethod;
@@ -251,6 +252,60 @@ JSON;
 
         $response = $this->complete($token, $data);
         $this->assertResponseCode($response, Response::HTTP_UNAUTHORIZED);
+    }
+
+    /**
+     * @test
+     */
+    public function it_does_not_allow_to_complete_checkout_if_order_total_has_changed(): void
+    {
+        $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml', 'payment.yml', 'customer.yml']);
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var MessageBusInterface $bus */
+        $bus = $this->get('sylius_shop_api_plugin.command_bus');
+        $bus->dispatch(new PickupCart($token, 'WEB_GB'));
+        $bus->dispatch(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
+        $bus->dispatch(new AddressOrder(
+            $token,
+            Address::createFromArray([
+                'firstName' => 'Sherlock',
+                'lastName' => 'Holmes',
+                'city' => 'London',
+                'street' => 'Baker Street 221b',
+                'countryCode' => 'GB',
+                'postcode' => 'NWB',
+                'provinceName' => 'Greater London',
+            ]), Address::createFromArray([
+                'firstName' => 'Sherlock',
+                'lastName' => 'Holmes',
+                'city' => 'London',
+                'street' => 'Baker Street 221b',
+                'countryCode' => 'GB',
+                'postcode' => 'NWB',
+                'provinceName' => 'Greater London',
+            ])
+        ));
+        $bus->dispatch(new ChooseShippingMethod($token, 0, 'DHL'));
+        $bus->dispatch(new ChoosePaymentMethod($token, 0, 'PBC'));
+
+        $this->logInUser('oliver@queen.com', '123password');
+
+        $data =
+<<<JSON
+        {
+            "email": "oliver@queen.com"
+        }
+JSON;
+
+        /** @var ProductVariantInterface $productVariant */
+        $productVariant = $this->get('sylius.repository.product_variant')->findOneBy(['code' => 'LOGAN_MUG_CODE']);
+        $productVariant->getChannelPricings()->first()->setPrice(4000);
+        $this->get('sylius.manager.product_variant')->flush();
+
+        $response = $this->complete($token, $data);
+        $this->assertResponse($response, 'cart/total_integrity_error', Response::HTTP_BAD_REQUEST);
     }
 
     private function complete(string $token, ?string $data = null): Response
