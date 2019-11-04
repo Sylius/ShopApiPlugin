@@ -47,4 +47,27 @@ final class ShowDetailsApiTest extends JsonApiTestCase
 
         $this->assertResponse($response, 'taxon/german_one_of_taxons_response', Response::HTTP_OK);
     }
+
+    /**
+     * @test
+     */
+    public function it_shows_summary_of_a_chosen_taxon_in_different_language_based_on_header(): void
+    {
+        $this->loadFixturesFromFiles(['shop.yml']);
+
+        $this->client->request(
+            'GET',
+            '/shop-api/taxons/T_SHIRTS',
+            [],
+            [],
+            array_merge(
+                self::CONTENT_TYPE_HEADER,
+                ['HTTP_ACCEPT-LANGUAGE' => 'de_DE']
+            )
+        );
+
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'taxon/german_one_of_taxons_response', Response::HTTP_OK);
+    }
 }

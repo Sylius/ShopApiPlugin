@@ -6,7 +6,7 @@ namespace spec\Sylius\ShopApiPlugin\EventListener;
 
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Locale\Provider\LocaleProviderInterface;
-use Sylius\ShopApiPlugin\EventListener\RequestLocaleSetter;
+use Sylius\ShopApiPlugin\Http\RequestBasedLocaleContext;
 use Symfony\Component\HttpFoundation\HeaderBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -20,7 +20,7 @@ final class RequestLocaleSetterSpec extends ObjectBehavior
 
     function it_is_initializable(): void
     {
-        $this->shouldHaveType(RequestLocaleSetter::class);
+        $this->shouldHaveType(RequestBasedLocaleContext::class);
     }
 
     function it_sets_default_locale_on_request_if_locale_is_not_set(
