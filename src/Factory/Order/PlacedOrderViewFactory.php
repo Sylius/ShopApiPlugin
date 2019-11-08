@@ -110,6 +110,12 @@ final class PlacedOrderViewFactory implements PlacedOrderViewFactoryInterface
         }
         $placedOrderView->pointsDiscount = $amount;
 
+        foreach ($order->getCustomerPointLogs() as $item) {
+            if ($item->getType() === 'addPoints') {
+                $placedOrderView->pointsAdd = $item->getPoints();
+            }
+        };
+
         return $placedOrderView;
     }
 }
