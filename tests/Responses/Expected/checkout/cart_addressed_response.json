@@ -81,7 +81,7 @@
         "city": "London",
         "postcode": "NW1",
         "provinceName": "Greater London",,
-        "provinceCode": "GB-ENG",
+        "provinceCode": "GB-LND",
         "company": "Detective Inc",
         "phoneNumber": "999"
     },
@@ -93,7 +93,7 @@
         "city": "London",
         "postcode": "NW1",
         "provinceName": "Greater London",,
-        "provinceCode": "GB-ENG",
+        "provinceCode": "GB-LND",
         "company": "Detective Inc",
         "phoneNumber": "999"
     },

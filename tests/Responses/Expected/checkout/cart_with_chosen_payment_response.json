@@ -81,7 +81,7 @@
         "city": "London",
         "postcode": "NW1",
         "provinceName": "Greater London",
-        "provinceCode": "GB-ENG"
+        "provinceCode": "GB-LND"
     },
     "billingAddress": {
         "firstName": "Sherlock",
@@ -91,7 +91,7 @@
         "city": "London",
         "postcode": "NW1",
         "provinceName": "Greater London",
-        "provinceCode": "GB-ENG"
+        "provinceCode": "GB-LND"
     },
     "payments": [
         {
