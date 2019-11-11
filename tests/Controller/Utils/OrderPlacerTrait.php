@@ -33,7 +33,7 @@ trait OrderPlacerTrait
                 'countryCode' => 'GB',
                 'postcode' => 'NWB',
                 'provinceName' => 'Greater London',
-                'provinceCode' => 'GB-LND',
+                'provinceCode' => 'GB-ENG',
             ]), Address::createFromArray([
             'firstName' => 'Sherlock',
             'lastName' => 'Holmes',
@@ -42,7 +42,7 @@ trait OrderPlacerTrait
             'countryCode' => 'GB',
             'postcode' => 'NWB',
             'provinceName' => 'Greater London',
-            'provinceCode' => 'GB-LND',
+            'provinceCode' => 'GB-ENG',
         ])
         ));
         $bus->dispatch(new ChooseShippingMethod($token, 0, 'DHL'));
