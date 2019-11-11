@@ -80,8 +80,7 @@
         "street": "Baker Street 221b",
         "city": "London",
         "postcode": "NW1",
-        "provinceName": "Greater London",,
-        "provinceCode": "GB-LND",
+        "provinceName": "Greater London",
         "company": "Detective Inc",
         "phoneNumber": "999"
     },
@@ -92,8 +91,7 @@
         "street": "Baker Street 221b",
         "city": "London",
         "postcode": "NW1",
-        "provinceName": "Greater London",,
-        "provinceCode": "GB-LND",
+        "provinceName": "Greater London",
         "company": "Detective Inc",
         "phoneNumber": "999"
     },
