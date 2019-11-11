@@ -25,6 +25,9 @@ class AddressView
     public $postcode;
 
     /** @var string */
+    public $provinceCode;
+
+    /** @var string */
     public $provinceName;
 
     /** @var string */
