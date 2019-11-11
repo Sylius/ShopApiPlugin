@@ -29,6 +29,7 @@ final class AddressViewFactorySpec extends ObjectBehavior
         $address->getCountryCode()->willReturn('GB');
         $address->getCity()->willReturn('London');
         $address->getPostcode()->willReturn('NMW');
+        $address->getProvinceCode()->willReturn('GB-NWP');
         $address->getProvinceName()->willReturn('Greater London');
         $address->getCompany()->willReturn('Detective Inc');
         $address->getPhoneNumber()->willReturn('999');
@@ -40,6 +41,7 @@ final class AddressViewFactorySpec extends ObjectBehavior
         $addressView->countryCode = 'GB';
         $addressView->city = 'London';
         $addressView->postcode = 'NMW';
+        $addressView->provinceCode = 'GB-NWP';
         $addressView->provinceName = 'Greater London';
         $addressView->company = 'Detective Inc';
         $addressView->phoneNumber = '999';
