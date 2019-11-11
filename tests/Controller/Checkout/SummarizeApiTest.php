@@ -57,6 +57,54 @@ JSON;
     /**
      * @test
      */
+    public function it_shows_an_order_addressed_with_province_codes(): void
+    {
+        $this->loadFixturesFromFiles(['shop.yml', 'country.yml']);
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var MessageBusInterface $bus */
+        $bus = $this->get('sylius_shop_api_plugin.command_bus');
+        $bus->dispatch(new PickupCart($token, 'WEB_GB'));
+        $bus->dispatch(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
+
+        $data =
+            <<<JSON
+        {
+            "shippingAddress": {
+                "firstName": "Sherlock",
+                "lastName": "Holmes",
+                "countryCode": "GB",
+                "street": "Baker Street 221b",
+                "city": "London",
+                "postcode": "NW1",
+                "provinceCode": "GB-ENG",
+                "company": "Detective Inc",
+                "phoneNumber": "999"
+            },
+            "billingAddress": {
+                "firstName": "Sherlock",
+                "lastName": "Holmes",
+                "countryCode": "GB",
+                "street": "Baker Street 221b",
+                "city": "London",
+                "postcode": "NW1",
+                "provinceCode": "GB-WLS",
+                "company": "Detective Inc",
+                "phoneNumber": "999"
+            }
+        }
+JSON;
+
+        $this->client->request('PUT', sprintf('/shop-api/checkout/%s/address', $token), [], [], static::CONTENT_TYPE_HEADER, $data);
+
+        $response = $this->summarize($token);
+        $this->assertResponse($response, 'checkout/cart_addressed_with_province_codes_response', Response::HTTP_OK);
+    }
+
+    /**
+     * @test
+     */
     public function it_shows_an_order_with_different_shipping_and_billing_address_with_province(): void
     {
         $this->loadFixturesFromFiles(['shop.yml', 'country.yml']);
