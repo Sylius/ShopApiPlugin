@@ -81,7 +81,8 @@
             "street": "Baker Street 221b",
             "city": "London",
             "postcode": "NWB",
-            "provinceName": "Greater London"
+            "provinceName": "Greater London",
+            "provinceCode": "GB-LND"
         },
         "billingAddress": {
             "firstName": "Sherlock",
@@ -90,7 +91,8 @@
             "street": "Baker Street 221b",
             "city": "London",
             "postcode": "NWB",
-            "provinceName": "Greater London"
+            "provinceName": "Greater London",
+            "provinceCode": "GB-LND"
         },
         "payments": [
             {
