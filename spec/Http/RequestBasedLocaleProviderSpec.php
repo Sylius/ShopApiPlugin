@@ -10,7 +10,6 @@ use Sylius\Component\Channel\Context\ChannelNotFoundException;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\ShopApiPlugin\Http\RequestBasedLocaleProviderInterface;
 use Sylius\ShopApiPlugin\Provider\SupportedLocaleProviderInterface;
-use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 
 final class RequestBasedLocaleProviderSpec extends ObjectBehavior

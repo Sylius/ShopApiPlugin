@@ -8,7 +8,6 @@ use Sylius\Component\Locale\Context\LocaleContextInterface;
 use Sylius\Component\Locale\Context\LocaleNotFoundException;
 use Sylius\Component\Locale\Provider\LocaleProviderInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Webmozart\Assert\Assert;
 
 final class RequestBasedLocaleContext implements LocaleContextInterface
 {
@@ -27,7 +26,7 @@ final class RequestBasedLocaleContext implements LocaleContextInterface
     public function getLocaleCode(): string
     {
         $request = $this->requestStack->getCurrentRequest();
-        if($request === null) {
+        if ($request === null) {
             throw new LocaleNotFoundException('The current context has no request.');
         }
 

@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-class RequestBasedLocaleContextSpec extends ObjectBehavior 
+class RequestBasedLocaleContextSpec extends ObjectBehavior
 {
     public function let(RequestStack $requestStack, LocaleProviderInterface $localeProvider): void
     {
@@ -22,6 +22,14 @@ class RequestBasedLocaleContextSpec extends ObjectBehavior
     public function it_implements_the_locale_context_interface(): void
     {
         $this->shouldImplement(LocaleContextInterface::class);
+    }
+
+    public function it_throws_an_error_if_the_request_does_not_exists(
+        RequestStack $requestStack
+    ): void {
+        $requestStack->getCurrentRequest()->willReturn(null);
+
+        $this->shouldThrow(LocaleNotFoundException::class)->during('getLocaleCode');
     }
 
     public function it_throws_an_error_if_the_locale_is_not_set_on_request(
