@@ -27,9 +27,11 @@ final class RequestBasedLocaleContext implements LocaleContextInterface
     public function getLocaleCode(): string
     {
         $request = $this->requestStack->getCurrentRequest();
-        Assert::notNull($request, 'The request stack does not contain any requests');
+        if($request === null) {
+            throw new LocaleNotFoundException('The current context has no request.');
+        }
 
-        $localeCode = $request->get('locale', null) ?? $request->headers->get('accept-Language', null);
+        $localeCode = $request->get('locale') ?? $request->headers->get('accept-Language');
         if (null === $localeCode) {
             throw new LocaleNotFoundException('No locale header set on the current request.');
         }
