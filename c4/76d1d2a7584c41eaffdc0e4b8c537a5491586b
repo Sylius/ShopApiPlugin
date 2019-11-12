@@ -1,0 +1,15 @@
+---------------------------------------------------------------------------
+
+by mamazu at 2019-10-30T16:15:55Z
+
+Why don't we trigger the Sylius internal mail for order creation?
+
+---------------------------------------------------------------------------
+
+by lchrusciel at 2019-11-04T11:48:43Z
+
+Hey Max,
+
+Recently I came across this issue, and I've tried to solve it the best way. As order confirmation email is placed in ShopBundle, it is better not to use it in ShopAPI plugin, as these two are not compatible atm. Triggering the event is the best way to solve it. I don't want to block anything anymore, so I don't want to refactor everything, but IMHO it makes sense to introduce this concept here and migrate to others if needed.
+
+I've updated my PR with some documentation.
