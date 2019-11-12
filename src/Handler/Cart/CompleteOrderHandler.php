@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Handler\Cart;
 
-use SM\Factory\FactoryInterface as StateMachineFactory;
+use SM\Factory\FactoryInterface as StateMachineFactoryInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\OrderCheckoutTransitions;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\ShopApiPlugin\Command\Cart\CompleteOrder;
+use Sylius\ShopApiPlugin\Event\OrderCompleted;
+use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\Messenger\Stamp\DispatchAfterCurrentBusStamp;
 use Webmozart\Assert\Assert;
 
 final class CompleteOrderHandler
@@ -16,13 +19,20 @@ final class CompleteOrderHandler
     /** @var OrderRepositoryInterface */
     private $orderRepository;
 
-    /** @var StateMachineFactory */
+    /** @var StateMachineFactoryInterface */
     private $stateMachineFactory;
 
-    public function __construct(OrderRepositoryInterface $orderRepository, StateMachineFactory $stateMachineFactory)
-    {
+    /** @var MessageBusInterface */
+    private $messageBus;
+
+    public function __construct(
+        OrderRepositoryInterface $orderRepository,
+        StateMachineFactoryInterface $stateMachineFactory,
+        MessageBusInterface $messageBus
+    ) {
         $this->orderRepository = $orderRepository;
         $this->stateMachineFactory = $stateMachineFactory;
+        $this->messageBus = $messageBus;
     }
 
     public function __invoke(CompleteOrder $completeOrder): void
@@ -39,5 +49,7 @@ final class CompleteOrderHandler
         $order->setNotes($completeOrder->notes());
 
         $stateMachine->apply(OrderCheckoutTransitions::TRANSITION_COMPLETE);
+
+        $this->messageBus->dispatch(new OrderCompleted($order->getTokenValue()), [new DispatchAfterCurrentBusStamp()]);
     }
 }

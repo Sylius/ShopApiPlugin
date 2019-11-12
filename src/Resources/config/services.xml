@@ -81,5 +81,13 @@
             <argument type="service" id="sylius_shop_api_plugin.command_bus" />
             <tag name="messenger.message_handler"  bus="sylius_shop_api_plugin.event_bus"/>
         </service>
+
+        <service
+            id="sylius.shop_api_plugin.event_listener.messenger.order_completed_listener"
+            class="Sylius\ShopApiPlugin\EventListener\Messenger\OrderCompletedListener"
+        >
+            <argument type="service" id="sylius_shop_api_plugin.command_bus" />
+            <tag name="messenger.message_handler"  bus="sylius_shop_api_plugin.event_bus"/>
+        </service>
     </services>
 </container>

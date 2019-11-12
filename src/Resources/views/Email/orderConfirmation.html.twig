@@ -1,0 +1,11 @@
+{% block subject %}
+    Order confirmation
+{% endblock %}
+
+{% block body %}
+    {% autoescape %}
+        Your order no. {{ order.number }} has been successfully placed.
+        <br/><br/>
+        Thank you for shopping at our store!
+    {% endautoescape %}
+{% endblock %}

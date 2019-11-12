@@ -62,8 +62,13 @@ final class CompleteOrderApiTest extends JsonApiTestCase
         }
 JSON;
 
+        $this->client->enableProfiler();
+
         $response = $this->complete($token, $data);
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
+
+        $mailCollector = $this->client->getProfile()->getCollector('swiftmailer');
+        $this->assertSame(1, $mailCollector->getMessageCount());
     }
 
     /**
