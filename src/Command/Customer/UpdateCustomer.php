@@ -9,6 +9,7 @@ use Sylius\ShopApiPlugin\Command\CommandInterface;
 
 class UpdateCustomer implements CommandInterface
 {
+
     /** @var string */
     protected $firstName;
 
@@ -30,6 +31,9 @@ class UpdateCustomer implements CommandInterface
     /** @var bool */
     protected $subscribedToNewsletter;
 
+    /** @var string|null */
+    protected $messenger;
+
     public function __construct(
         string $firstName,
         string $lastName,
@@ -37,15 +41,17 @@ class UpdateCustomer implements CommandInterface
         ?DateTimeImmutable $birthday,
         string $gender,
         ?string $phoneNumber,
-        ?bool $subscribedToNewsletter
+        ?bool $subscribedToNewsletter,
+        ?string $messenger
     ) {
-        $this->firstName = $firstName;
-        $this->lastName = $lastName;
-        $this->email = $email;
-        $this->birthday = $birthday;
-        $this->gender = $gender;
-        $this->phoneNumber = $phoneNumber;
+        $this->firstName              = $firstName;
+        $this->lastName               = $lastName;
+        $this->email                  = $email;
+        $this->birthday               = $birthday;
+        $this->gender                 = $gender;
+        $this->phoneNumber            = $phoneNumber;
         $this->subscribedToNewsletter = $subscribedToNewsletter;
+        $this->messenger              = $messenger;
     }
 
     public function firstName(): string
@@ -81,5 +87,10 @@ class UpdateCustomer implements CommandInterface
     public function subscribedToNewsletter(): bool
     {
         return $this->subscribedToNewsletter;
+    }
+
+    public function messenger(): ?string
+    {
+        return $this->messenger;
     }
 }

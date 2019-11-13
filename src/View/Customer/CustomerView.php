@@ -38,4 +38,7 @@ class CustomerView
 
     /** @var int */
     public $points;
+
+    /** @var string|null */
+    public $messenger;
 }
