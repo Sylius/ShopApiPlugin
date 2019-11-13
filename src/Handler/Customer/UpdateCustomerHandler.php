@@ -30,6 +30,7 @@ final class UpdateCustomerHandler
         $customer->setBirthday($command->birthday());
         $customer->setPhoneNumber($command->phoneNumber());
         $customer->setSubscribedToNewsletter($command->subscribedToNewsletter());
+        $customer->setMessenger($command->messenger());
 
         $this->customerRepository->add($customer);
     }
