@@ -36,9 +36,12 @@ final class ImageViewFactory implements ImageViewFactoryInterface
 
         $imageView->code = $image->getType();
         $imageView->path = $image->getPath();
+        // $imageView->cachedPath = $this->filterService->getUrlOfFilteredImage($image->getPath(), $this->filter);
 
-        $imageView->cachedPath = $this->filterService->getUrlOfFilteredImage($image->getPath(), $this->filter);
-
+        // это сделано для того, что бы убрать ненужные походы в s3!
+        $awsCdn                = getenv('AWS_S3_CDN');
+        $imageView->cachedPath = $awsCdn . 'media/cache/' . $this->filter . '/' . $image->getPath();
+        
         return $imageView;
     }
 }

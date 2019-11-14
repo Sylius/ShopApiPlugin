@@ -10,6 +10,12 @@
             <argument type="string">%sylius.shop_api.view.product_variant.class%</argument>
         </service>
 
+        <service id="sylius.shop_api_plugin.factory.slim_product_variant_view_factory"
+                 class="Sylius\ShopApiPlugin\Factory\Product\Slim\SlimProductVariantViewFactory">
+            <argument type="service" id="sylius.shop_api_plugin.factory.price_view_factory"/>
+            <argument type="string">%sylius.shop_api.view.product_variant.class%</argument>
+        </service>
+
         <service id="sylius.shop_api_plugin.factory.product_view_factory"
                  class="Sylius\ShopApiPlugin\Factory\Product\ProductViewFactory">
             <argument type="service" id="sylius.shop_api_plugin.factory.image_view_factory"/>
@@ -17,6 +23,16 @@
             <argument type="string">%sylius.shop_api.view.product.class%</argument>
             <argument type="string">%sylius.shop_api.view.product_taxon.class%</argument>
             <argument>%locale%</argument>
+        </service>
+
+        <service id="sylius.shop_api_plugin.factory.slim_product_view_factory"
+                 class="Sylius\ShopApiPlugin\Factory\Product\Slim\SlimProductViewFactory">
+            <argument type="service" id="sylius.shop_api_plugin.factory.image_view_factory"/>
+            <argument type="service" id="sylius.shop_api_plugin.factory.limited_product_attribute_values_view_factory"/>
+            <argument type="string">%sylius.shop_api.view.product.class%</argument>
+            <argument type="string">%sylius.shop_api.view.product_taxon.class%</argument>
+            <argument>%locale%</argument>
+            <argument type="service" id="sylius.shop_api_plugin.factory.slim_product_variant_view_factory"/>
         </service>
 
         <service id="sylius.shop_api_plugin.factory.detailed_product_view_factory"
