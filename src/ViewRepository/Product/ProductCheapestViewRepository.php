@@ -6,6 +6,7 @@ namespace Sylius\ShopApiPlugin\ViewRepository\Product;
 
 use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
+use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Sylius\ShopApiPlugin\Factory\Product\ProductViewFactoryInterface;
 use Sylius\ShopApiPlugin\Provider\SupportedLocaleProviderInterface;
@@ -71,8 +72,6 @@ final class ProductCheapestViewRepository
         $cheapestProducts = $this->productRepository->findCheapestByChannel($channel, $localeCode, $taxon);
 
         Assert::notNull($cheapestProducts, sprintf('Cheapest Products not found in %s locale.', $localeCode));
-
-        $productListView = new ProductListView();
 
         $pagerfanta = new Pagerfanta(new DoctrineORMAdapter($cheapestProducts));
 
