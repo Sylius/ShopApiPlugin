@@ -9,6 +9,7 @@ use Sylius\Component\Core\Model\TaxonInterface;
 use Sylius\Component\Taxonomy\Model\TaxonTranslationInterface;
 use Sylius\ShopApiPlugin\Factory\ImageViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\Product\ProductVariantViewFactoryInterface;
+use Sylius\ShopApiPlugin\Transformer\Transformer;
 use Sylius\ShopApiPlugin\View\Taxon\TaxonView;
 use Sylius\ShopApiPlugin\ViewRepository\Product\ProductCatalogViewRepository;
 use Sylius\Component\Channel\Context\ChannelContextInterface;
@@ -17,6 +18,8 @@ use Sylius\ShopApiPlugin\Factory\Product\ListProductViewFactory;
 
 final class TaxonViewFactory implements TaxonViewFactoryInterface
 {
+
+    use Transformer;
 
     /** @var ImageViewFactoryInterface */
     private $imageViewFactory;
@@ -35,6 +38,8 @@ final class TaxonViewFactory implements TaxonViewFactoryInterface
 
     /** @var ProductVariantViewFactoryInterface */
     private $variantViewFactory;
+    private $locale;
+    private $channel;
 
     public function __construct(
         ImageViewFactoryInterface $imageViewFactory,
@@ -46,32 +51,98 @@ final class TaxonViewFactory implements TaxonViewFactoryInterface
     ) {
         $this->imageViewFactory    = $imageViewFactory;
         $this->taxonViewClass      = $taxonViewClass;
+        $this->viewClass           = $taxonViewClass;
         $this->productCatalogQuery = $productCatalogQuery;
         $this->channelContext      = $channelContext;
         $this->productRepository   = $productRepository;
-        $this->variantViewFactory = $variantViewFactory;
+        $this->variantViewFactory  = $variantViewFactory;
     }
+
+    public $defaultIncludes = [
+        'code',
+        'position',
+        'name',
+        'slug',
+        'description',
+//        'countOfProducts',
+//        'cheapestProduct',
+        'images',
+    ];
 
     public function create(TaxonInterface $taxon, string $locale): TaxonView
     {
-        $channel          = $this->channelContext->getChannel();
-        $variant50g = $this->productRepository->find50gProductByChannel($channel, $locale, $taxon)->getQuery()->getResult();
-        /** @var TaxonTranslationInterface $taxonTranslation */
-        $taxonTranslation = $taxon->getTranslation($locale);
+        $this->locale  = $locale;
+        $this->channel = $this->channelContext->getChannel();
 
         /** @var TaxonView $taxonView */
-        $taxonView = new $this->taxonViewClass();
+        $taxonView = $this->generate($taxon);
 
-        $taxonView->code     = $taxon->getCode();
+        return $taxonView;
+    }
+
+    protected function getCode(TaxonInterface $taxon, TaxonView $taxonView)
+    {
+        $taxonView->code = $taxon->getCode();
+
+        return $taxonView;
+    }
+
+    protected function getPosition(TaxonInterface $taxon, TaxonView $taxonView)
+    {
         $taxonView->position = $taxon->getPosition();
 
-        $taxonView->name            = $taxonTranslation->getName();
-        $taxonView->slug            = $taxonTranslation->getSlug();
-        $taxonView->description     = $taxonTranslation->getDescription();
-        $taxonView->countOfProducts = $this->productCatalogQuery->getCountByTaxon($taxon, $locale);
-        if($variant50g){
-            $taxonView->cheapestProduct = $this->variantViewFactory->create($variant50g[0], $channel, $locale);
+        return $taxonView;
+    }
+
+    protected function getName(TaxonInterface $taxon, TaxonView $taxonView)
+    {
+        /** @var TaxonTranslationInterface $taxonTranslation */
+        $taxonTranslation = $taxon->getTranslation($this->locale);
+        $taxonView->name  = $taxonTranslation->getName();
+
+        return $taxonView;
+    }
+
+    protected function getSlug(TaxonInterface $taxon, TaxonView $taxonView)
+    {
+        /** @var TaxonTranslationInterface $taxonTranslation */
+        $taxonTranslation = $taxon->getTranslation($this->locale);
+        $taxonView->slug  = $taxonTranslation->getSlug();
+
+        return $taxonView;
+    }
+
+    protected function getDescription(TaxonInterface $taxon, TaxonView $taxonView)
+    {
+        $taxonTranslation       = $taxon->getTranslation($this->locale);
+        $taxonView->description = $taxonTranslation->getDescription();
+
+        return $taxonView;
+    }
+
+    protected function getCountOfProducts(TaxonInterface $taxon, TaxonView $taxonView)
+    {
+        $taxonView->countOfProducts = $this->productCatalogQuery->getCountByTaxon($taxon, $this->locale);
+
+        return $taxonView;
+    }
+
+    protected function getCheapestProduct(TaxonInterface $taxon, TaxonView $taxonView)
+    {
+        $variant50g = $this->productRepository->find50gProductByChannel($this->channel, $this->locale, $taxon)
+                                              ->getQuery()
+                                              ->getResult();
+
+        if ($variant50g) {
+            $taxonView->cheapestProduct =
+                $this->variantViewFactory->create($variant50g[0], $this->channel, $this->locale);
         }
+
+        return $taxonView;
+    }
+
+    protected function getImages(TaxonInterface $taxon, TaxonView $taxonView)
+    {
         /** @var ImageInterface $image */
         foreach ($taxon->getImages() as $image) {
             $taxonView->images[] = $this->imageViewFactory->create($image);
