@@ -10,6 +10,7 @@ use Sylius\ShopApiPlugin\View\Taxon\TaxonView;
 
 final class TaxonDetailsViewFactory implements TaxonDetailsViewFactoryInterface
 {
+
     /** @var TaxonViewFactoryInterface */
     private $taxonViewFactory;
 
@@ -18,7 +19,7 @@ final class TaxonDetailsViewFactory implements TaxonDetailsViewFactoryInterface
 
     public function __construct(TaxonViewFactoryInterface $taxonViewFactory, string $taxonDetailsViewClass)
     {
-        $this->taxonViewFactory = $taxonViewFactory;
+        $this->taxonViewFactory      = $taxonViewFactory;
         $this->taxonDetailsViewClass = $taxonDetailsViewClass;
     }
 
@@ -27,7 +28,7 @@ final class TaxonDetailsViewFactory implements TaxonDetailsViewFactoryInterface
         /** @var TaxonDetailsView $detailTaxonView */
         $detailTaxonView = new $this->taxonDetailsViewClass();
 
-        $detailTaxonView->self = $this->buildTaxonView($taxon, $localeCode);
+        $detailTaxonView->self       = $this->buildTaxonView($taxon, $localeCode);
         $detailTaxonView->parentTree = $this->getTaxonWithAncestors($taxon, $localeCode);
 
         return $detailTaxonView;
@@ -35,14 +36,15 @@ final class TaxonDetailsViewFactory implements TaxonDetailsViewFactoryInterface
 
     private function getTaxonWithAncestors(TaxonInterface $taxon, string $localeCode): TaxonView
     {
+        $this->taxonViewFactory->setDefaultIncludes(['code', 'name']);
         $currentTaxonView = $this->taxonViewFactory->create($taxon, $localeCode);
 
         while (null !== $taxon->getParent()) {
             $taxon = $taxon->getParent();
 
-            $taxonView = $this->taxonViewFactory->create($taxon, $localeCode);
+            $taxonView             = $this->taxonViewFactory->create($taxon, $localeCode);
             $taxonView->children[] = $currentTaxonView;
-            $currentTaxonView = $taxonView;
+            $currentTaxonView      = $taxonView;
         }
 
         return $currentTaxonView;
@@ -50,6 +52,7 @@ final class TaxonDetailsViewFactory implements TaxonDetailsViewFactoryInterface
 
     private function buildTaxonView(TaxonInterface $taxon, $locale): TaxonView
     {
+        $this->taxonViewFactory->setDefaultIncludes(['code', 'name'/*, 'images'*/]);
         $taxonView = $this->taxonViewFactory->create($taxon, $locale);
 
         foreach ($taxon->getChildren() as $childTaxon) {
