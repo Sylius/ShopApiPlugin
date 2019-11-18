@@ -13,6 +13,13 @@
             <argument type="string">%sylius.shop_api.view.cart_item.class%</argument>
         </service>
 
+        <service id="sylius.shop_api_plugin.factory.slim_cart_item_view_factory"
+                 class="Sylius\ShopApiPlugin\Factory\Cart\Slim\SlimCartItemViewFactory">
+            <argument type="service" id="sylius.shop_api_plugin.factory.slim_product_view_factory"/>
+            <argument type="service" id="sylius.shop_api_plugin.factory.slim_product_variant_view_factory"/>
+            <argument type="string">%sylius.shop_api.view.cart_item.class%</argument>
+        </service>
+
         <service id="sylius.shop_api_plugin.factory.cart_view_factory"
                  class="Sylius\ShopApiPlugin\Factory\Cart\CartViewFactory">
             <argument type="service" id="sylius.shop_api_plugin.factory.cart_item_view_factory"/>

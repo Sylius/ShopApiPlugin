@@ -11,6 +11,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
 final class SyliusShopApiExtension extends Extension
 {
+
     /** {@inheritdoc} */
     public function load(array $config, ContainerBuilder $container): void
     {
@@ -26,6 +27,9 @@ final class SyliusShopApiExtension extends Extension
         }
 
         $container->setParameter('sylius.shop_api.included_attributes', $config['included_attributes']);
+
+        $container->setParameter('sylius.shop_api.disable_liip_image', $config['parameters']['disable_liip_image']);
+        $container->setParameter('sylius.shop_api.cloud_url', $config['parameters']['cloud_url']);
 
         $loader->load('services.xml');
     }

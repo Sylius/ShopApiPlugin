@@ -78,13 +78,17 @@ final class SearchViewRepository
             sprintf('Products bu given string not found in %s locale.', $localeCode)
         );
         $foundArray = [];
+
+        $this->productViewFactory->setDefaultIncludes(['code', 'slug', 'name', 'images']);
         foreach ($foundProducts as $product) {
             $foundArray['products'][] = $this->productViewFactory->create($product, $channel, $localeCode);
         }
 
+        $this->articleViewFactory->setDefaultIncludes(['code', 'title', 'images']);
         foreach ($foundArticles as $article) {
             $foundArray['articles'][] = $this->articleViewFactory->create($article, $channel, $localeCode);
         }
+
         return $foundArray;
     }
 

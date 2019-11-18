@@ -6,7 +6,7 @@
                  class="Sylius\ShopApiPlugin\ViewRepository\Order\PlacedOrderViewRepository">
             <argument type="service" id="sylius.repository.order" />
             <argument type="service" id="sylius.repository.customer" />
-            <argument type="service" id="sylius.shop_api_plugin.factory.placed_order_view_factory" />
+            <argument type="service" id="sylius.shop_api_plugin.factory.slim_placed_order_view_factory" />
             <argument type="service" id="sylius.shop_api_plugin.factory.page_view_factory"/>
         </service>
     </services>

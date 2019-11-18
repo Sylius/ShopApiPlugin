@@ -9,56 +9,112 @@ use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\ShopApiPlugin\Exception\ViewCreationException;
 use Sylius\ShopApiPlugin\Factory\PriceViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\Product\ProductVariantViewFactoryInterface;
+use Sylius\ShopApiPlugin\Transformer\Transformer;
 use Sylius\ShopApiPlugin\View\Product\ProductVariantView;
 
 final class SlimProductVariantViewFactory implements ProductVariantViewFactoryInterface
 {
+
+    use Transformer;
+
+    public $defaultIncludes = [
+        'code',
+        'position',
+        'price',
+        'originalPrice',
+        'axis',
+        'nameAxis'
+    ];
+
     /** @var PriceViewFactoryInterface */
     private $priceViewFactory;
 
     /** @var string */
-    private $productVariantViewClass;
+    private $locale;
+    private $channel;
 
     public function __construct(PriceViewFactoryInterface $priceViewFactory, string $productVariantViewClass)
     {
         $this->priceViewFactory = $priceViewFactory;
-        $this->productVariantViewClass = $productVariantViewClass;
+        $this->viewClass        = $productVariantViewClass;
     }
 
     /** {@inheritdoc} */
-    public function create(ProductVariantInterface $variant, ChannelInterface $channel, string $locale): ProductVariantView
-    {
-        /** @var ProductVariantView $variantView */
-        $variantView = new $this->productVariantViewClass();
+    public function create(
+        ProductVariantInterface $variant,
+        ChannelInterface $channel,
+        string $locale
+    ): ProductVariantView {
+        $this->locale  = $locale;
+        $this->channel = $channel;
 
-        $channelPricing = $variant->getChannelPricingForChannel($channel);
+        /** @var ProductVariantView $variantView */
+        $variantView = $this->generate($variant);
+
+        return $variantView;
+    }
+
+    public function getCode(ProductVariantInterface $variant, $view)
+    {
+        $view->code = $variant->getCode();
+
+        return $view;
+    }
+
+    public function getPosition(ProductVariantInterface $variant, $view)
+    {
+        $view->position = $variant->getPosition();
+
+        return $view;
+    }
+
+    public function getPrice(ProductVariantInterface $variant, $view)
+    {
+        $channelPricing = $variant->getChannelPricingForChannel($this->channel);
         if (null === $channelPricing) {
             throw new ViewCreationException('Variant does not have pricing.');
         }
-
-        $variantView->code = $variant->getCode();
-        $variantView->price = $this->priceViewFactory->create(
-            $channelPricing->getPrice(),
-            $channel->getBaseCurrency()->getCode()
+        $view->price = $this->priceViewFactory->create($channelPricing->getPrice(),
+            $this->channel->getBaseCurrency()->getCode()
         );
 
+        return $view;
+    }
+
+    public function getOriginalPrice(ProductVariantInterface $variant, $view)
+    {
+        $channelPricing = $variant->getChannelPricingForChannel($this->channel);
+        if (null === $channelPricing) {
+            throw new ViewCreationException('Variant does not have pricing.');
+        }
         $originalPrice = $channelPricing->getOriginalPrice();
         if (null !== $originalPrice) {
-            $variantView->originalPrice = $this->priceViewFactory->create(
-                $originalPrice,
-                $channel->getBaseCurrency()->getCode()
+            $view->originalPrice = $this->priceViewFactory->create($originalPrice,
+                $this->channel->getBaseCurrency()->getCode()
             );
         }
 
+        return $view;
+    }
+
+    public function getAxis(ProductVariantInterface $variant, $view)
+    {
         foreach ($variant->getOptionValues() as $optionValue) {
-            $variantView->axis[] = $optionValue->getCode();
-            $variantView->nameAxis[$optionValue->getCode()] = sprintf(
-                '%s %s',
-                $optionValue->getOption()->getTranslation($locale)->getName(),
-                $optionValue->getTranslation($locale)->getValue()
+            $view->axis[] = $optionValue->getCode();
+        }
+
+        return $view;
+    }
+
+    public function getNameAxis(ProductVariantInterface $variant, $view)
+    {
+        foreach ($variant->getOptionValues() as $optionValue) {
+            $view->nameAxis[$optionValue->getCode()] = sprintf('%s %s',
+                $optionValue->getOption()->getTranslation($this->locale)->getName(),
+                $optionValue->getTranslation($this->locale)->getValue()
             );
         }
 
-        return $variantView;
+        return $view;
     }
 }

@@ -39,6 +39,7 @@ final class Configuration implements ConfigurationInterface
         $this->buildIncludedAttributesNode($rootNode);
         $this->buildViewClassesNode($rootNode);
         $this->buildRequestClassesNode($rootNode);
+        $this->buildParametersNode($rootNode);
 
         return $treeBuilder;
     }
@@ -122,6 +123,22 @@ final class Configuration implements ConfigurationInterface
                         ->scalarNode('set_default_address')->defaultValue(SetDefaultAddressRequest::class)->end()
                         ->scalarNode('update_customer')->defaultValue(UpdateCustomerRequest::class)->end()
                         ->scalarNode('verify_account')->defaultValue(VerifyAccountRequest::class)->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
+    }
+
+    private function buildParametersNode(ArrayNodeDefinition $rootNode): void
+    {
+        $rootNode
+            ->addDefaultsIfNotSet()
+            ->children()
+                ->arrayNode('parameters')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->booleanNode('disable_liip_image')->defaultValue(false)->end()
+                        ->scalarNode('cloud_url')->defaultValue(null)->end()
                     ->end()
                 ->end()
             ->end()

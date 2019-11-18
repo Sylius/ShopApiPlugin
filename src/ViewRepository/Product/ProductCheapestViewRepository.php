@@ -16,8 +16,10 @@ use Sylius\ShopApiPlugin\Model\PaginatorDetails;
 use Sylius\ShopApiPlugin\View\Product\PageView;
 use Pagerfanta\Pagerfanta;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
+use Pagerfanta\Adapter\ArrayAdapter;
 use Sylius\ShopApiPlugin\Factory\Product\PageViewFactory;
 use Sylius\Bundle\TaxonomyBundle\Doctrine\ORM\TaxonRepository;
+use Doctrine\ORM\PersistentCollection;
 
 final class ProductCheapestViewRepository
 {
@@ -65,20 +67,19 @@ final class ProductCheapestViewRepository
         $channel    = $this->getChannel($channelCode);
         $localeCode = $this->supportedLocaleProvider->provide($localeCode, $channel);
         $taxon      = null;
+
         if ($taxonCode) {
             /** @var TaxonInterface $taxon */
             $taxon = $this->taxonRepository->findOneBy(['code' => $taxonCode]);
         }
-        $cheapestProducts = $this->productRepository->findCheapestByChannel($channel, $localeCode, $taxon);
+        $cheapestProducts       = $this->productRepository->getSortedByPriceProducts($channel, $localeCode, $taxon, 'ASC');
 
         Assert::notNull($cheapestProducts, sprintf('Cheapest Products not found in %s locale.', $localeCode));
-
-        $pagerfanta = new Pagerfanta(new DoctrineORMAdapter($cheapestProducts));
-
+        $pagerfanta = new Pagerfanta(new ArrayAdapter($cheapestProducts->getQuery()->getResult()));
         $pagerfanta->setMaxPerPage($paginatorDetails->limit());
         $pagerfanta->setCurrentPage($paginatorDetails->page());
 
-        $pageView =
+        $pageView    =
             $this->pageViewFactory->create($pagerfanta, $paginatorDetails->route(), $paginatorDetails->parameters());
 
         foreach ($pagerfanta->getCurrentPageResults() as $currentPageResult) {
