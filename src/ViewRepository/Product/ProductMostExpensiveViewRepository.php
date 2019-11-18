@@ -17,6 +17,7 @@ use Pagerfanta\Pagerfanta;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Sylius\ShopApiPlugin\Factory\Product\PageViewFactory;
 use Sylius\Bundle\TaxonomyBundle\Doctrine\ORM\TaxonRepository;
+use Pagerfanta\Adapter\ArrayAdapter;
 
 final class ProductMostExpensiveViewRepository
 {
@@ -64,18 +65,16 @@ final class ProductMostExpensiveViewRepository
         $channel    = $this->getChannel($channelCode);
         $localeCode = $this->supportedLocaleProvider->provide($localeCode, $channel);
         $taxon      = null;
+
         if ($taxonCode) {
             /** @var TaxonInterface $taxon */
             $taxon = $this->taxonRepository->findOneBy(['code' => $taxonCode]);
         }
-        $mostExpensiveProducts = $this->productRepository->findMostExpensiveByChannel($channel, $localeCode, $taxon);
+        $mostExpensiveProducts = $this->productRepository->getSortedByPriceProducts($channel, $localeCode, $taxon, 'DESC');
 
         Assert::notNull($mostExpensiveProducts, sprintf('Cheapest Products not found in %s locale.', $localeCode));
 
-        $productListView = new ProductListView();
-
-        $pagerfanta = new Pagerfanta(new DoctrineORMAdapter($mostExpensiveProducts));
-
+        $pagerfanta = new Pagerfanta(new ArrayAdapter($mostExpensiveProducts->getQuery()->getResult()));
         $pagerfanta->setMaxPerPage($paginatorDetails->limit());
         $pagerfanta->setCurrentPage($paginatorDetails->page());
 

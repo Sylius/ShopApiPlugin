@@ -24,6 +24,8 @@
             <argument type="string">%sylius.shop_api.view.image.class%</argument>
             <argument type="service" id="liip_imagine.service.filter" />
             <argument>sylius_shop_api</argument>
+            <argument type="string">%sylius.shop_api.cloud_url%</argument>
+            <argument type="string">%sylius.shop_api.disable_liip_image%</argument>
         </service>
     </services>
 </container>

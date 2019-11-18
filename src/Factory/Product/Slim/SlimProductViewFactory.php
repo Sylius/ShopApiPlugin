@@ -15,20 +15,32 @@ use Sylius\ShopApiPlugin\Factory\ImageViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\Product\ProductAttributeValuesViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\Product\ProductVariantViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\Product\ProductViewFactoryInterface;
-use Sylius\ShopApiPlugin\View\Product\ProductTaxonView;
+use Sylius\ShopApiPlugin\Transformer\Transformer;
 use Sylius\ShopApiPlugin\View\Product\ProductView;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 final class SlimProductViewFactory implements ProductViewFactoryInterface
 {
+
+    use Transformer;
+
+    public $defaultIncludes = [
+        'code',
+        'isFavorite',
+        'name',
+        'slug',
+        'createdAt',
+        'updatedAt',
+        'images',
+        'attributes',
+        'sortedVariants',
+    ];
 
     /** @var ImageViewFactoryInterface */
     private $imageViewFactory;
 
     /** @var ProductAttributeValuesViewFactoryInterface */
     private $attributeValuesViewFactory;
-
-    /** @var string */
-    private $productViewClass;
 
     /** @var string */
     private $productTaxonViewClass;
@@ -38,6 +50,9 @@ final class SlimProductViewFactory implements ProductViewFactoryInterface
 
     /** @var ProductVariantViewFactoryInterface */
     private $variantViewFactory;
+    private $tokenStorage;
+    private $locale;
+    private $channel;
 
     public function __construct(
         ImageViewFactoryInterface $imageViewFactory,
@@ -45,48 +60,110 @@ final class SlimProductViewFactory implements ProductViewFactoryInterface
         string $productViewClass,
         string $productTaxonViewClass,
         string $fallbackLocale,
-        ProductVariantViewFactoryInterface $variantViewFactory
+        ProductVariantViewFactoryInterface $variantViewFactory,
+        TokenStorageInterface $tokenStorage
     ) {
         $this->imageViewFactory           = $imageViewFactory;
         $this->attributeValuesViewFactory = $attributeValuesViewFactory;
-        $this->productViewClass           = $productViewClass;
+        $this->viewClass                  = $productViewClass;
         $this->productTaxonViewClass      = $productTaxonViewClass;
         $this->fallbackLocale             = $fallbackLocale;
         $this->variantViewFactory         = $variantViewFactory;
+        $this->tokenStorage               = $tokenStorage;
     }
 
     /** {@inheritdoc} */
     public function create(ProductInterface $product, ChannelInterface $channel, string $locale): ProductView
     {
+        $this->locale  = $locale;
+        $this->channel = $channel;
         /** @var ProductView $productView */
-        $productView       = new $this->productViewClass();
+        $productView = $this->generate($product);
+
+        return $productView;
+    }
+
+    public function getCode(ProductInterface $product, $productView)
+    {
         $productView->code = $product->getCode();
 
-        /** @var ProductTranslationInterface $translation */
-        $translation       = $product->getTranslation($locale);
-        $productView->name = $translation->getName();
-        $productView->slug = $translation->getSlug();
+        return $productView;
+    }
 
+    public function getCreatedAt(ProductInterface $product, $productView)
+    {
         $productView->createdAt = $product->getCreatedAt();
+
+        return $productView;
+    }
+
+    public function getUpdatedAt(ProductInterface $product, $productView)
+    {
         $productView->updatedAt = $product->getUpdatedAt();
 
+        return $productView;
+    }
+
+    public function getName(ProductInterface $product, $productView)
+    {
+        /** @var ProductTranslationInterface $translation */
+        $translation       = $product->getTranslation($this->locale);
+        $productView->name = $translation->getName();
+
+        return $productView;
+    }
+
+    public function getSlug(ProductInterface $product, $productView)
+    {
+        /** @var ProductTranslationInterface $translation */
+        $translation       = $product->getTranslation($this->locale);
+        $productView->slug = $translation->getSlug();
+
+        return $productView;
+    }
+
+    public function getIsFavorite(ProductInterface $product, $productView)
+    {
+        $user = $this->tokenStorage->getToken()->getUser();
+        if ($user instanceof ShopUser && $user->isFavorite($product)) {
+            $productView->isFavorite = true;
+        }
+
+        return $productView;
+    }
+
+    public function getImages(ProductInterface $product, $productView)
+    {
         /** @var ProductImageInterface $image */
         foreach ($product->getImages() as $image) {
             $imageView             = $this->imageViewFactory->create($image);
             $productView->images[] = $imageView;
         }
 
+        return $productView;
+    }
+
+    public function getAttributes(ProductInterface $product, $productView)
+    {
         $productView->attributes =
-            $this->attributeValuesViewFactory->create($product->getAttributesByLocale($locale, $this->fallbackLocale)
-                                                              ->toArray(),
-                $locale
+            $this->attributeValuesViewFactory->create($product->getAttributesByLocale($this->locale,
+                $this->fallbackLocale
+            )->toArray(),
+                $this->locale
             );
 
+        return $productView;
+    }
+
+    public function getSortedVariants(ProductInterface $product, $productView)
+    {
+        $this->variantViewFactory->setDefaultIncludes($this->defaultIncludes['sortedVariants'] ?? null);
+
         /** @var ProductVariantInterface $variant */
-        foreach ($product->getVariants() as $variant) {
+        foreach ($product->getSortedVariants() as $variant) {
             try {
                 $productView->variants[$variant->getCode()] =
-                    $this->variantViewFactory->create($variant, $channel, $locale);
+                    $this->variantViewFactory->create($variant, $this->channel, $this->locale);
             } catch (ViewCreationException $exception) {
                 continue;
             }
@@ -94,4 +171,5 @@ final class SlimProductViewFactory implements ProductViewFactoryInterface
 
         return $productView;
     }
+
 }
