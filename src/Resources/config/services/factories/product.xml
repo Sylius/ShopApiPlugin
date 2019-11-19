@@ -38,7 +38,7 @@
 
         <service id="sylius.shop_api_plugin.factory.detailed_product_view_factory"
                  class="Sylius\ShopApiPlugin\Factory\Product\DetailedProductViewFactory">
-            <argument type="service" id="sylius.shop_api_plugin.factory.slim_product_view_factory"/>
+            <argument type="service" id="sylius.shop_api_plugin.factory.list_product_view_factory"/>
             <argument type="service" id="sylius.shop_api_plugin.generator.product_breadcrumb_generator"/>
         </service>
 
