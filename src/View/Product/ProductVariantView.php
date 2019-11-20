@@ -27,6 +27,12 @@ class ProductVariantView
     /** @var integer */
     public $position;
 
+    /** @var integer */
+    public $tracked = 0;
+
+    /** @var integer */
+    public $onHand;
+
     /** @var PriceView|null */
     public $originalPrice;
 

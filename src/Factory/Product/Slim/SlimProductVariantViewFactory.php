@@ -23,6 +23,8 @@ final class SlimProductVariantViewFactory implements ProductVariantViewFactoryIn
         'price',
         'originalPrice',
         'axis',
+        'tracked',
+        'onHand',
         'nameAxis'
     ];
 
@@ -64,6 +66,20 @@ final class SlimProductVariantViewFactory implements ProductVariantViewFactoryIn
     public function getPosition(ProductVariantInterface $variant, $view)
     {
         $view->position = $variant->getPosition();
+
+        return $view;
+    }
+
+    public function getTracked(ProductVariantInterface $variant, $view)
+    {
+        $view->tracked = (int) $variant->getTracked();
+
+        return $view;
+    }
+
+    public function getOnHand(ProductVariantInterface $variant, $view)
+    {
+        $view->onHand = $variant->getOnHand();
 
         return $view;
     }

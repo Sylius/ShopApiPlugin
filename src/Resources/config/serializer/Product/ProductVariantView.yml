@@ -23,3 +23,12 @@ Sylius\ShopApiPlugin\View\Product\ProductVariantView:
         images:
             expose: true
             type: array
+        position:
+            expose: true
+            type: integer
+        tracked:
+            expose: true
+            type: integer
+        onHand:
+            expose: true
+            type: integer
