@@ -1,3 +1,15 @@
+# UPGRADE FROM 1.0.0-rc.2 or 1.0.0-rc.3 to 1.0.0 
+
+* Add proper constraint to composer.json
+```json
+{
+    "require": {
+        "sylius/shop-api-plugin": "^1.0"
+    }
+}
+```
+* Run `composer update`
+ 
 # UPGRADE FROM 1.0.0-rc.1 to 1.0.0-rc.2
 
 * The following files changed their namespaces and folders:

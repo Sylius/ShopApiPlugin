@@ -10,6 +10,7 @@
 
 ### Added
 - [#593](https://github.com/Sylius/SyliusShopApiPlugin/issues/593) [Checkout] Send confirmation email after checkout is completed ([@lchrusciel](https://github.com/lchrusciel))
+- [#599](https://github.com/Sylius/SyliusShopApiPlugin/issues/599) Validate complete order request ([@kayue](https://github.com/kayue), [@mamazu](https://github.com/mamazu))
 
 ### Changed
 - [#590](https://github.com/Sylius/SyliusShopApiPlugin/issues/590) [Maintenance] Register handler only in proper bus ([@lchrusciel](https://github.com/lchrusciel))
