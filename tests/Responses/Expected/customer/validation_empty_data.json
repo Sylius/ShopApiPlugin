@@ -3,10 +3,12 @@
   "message": "Validation failed",
   "errors": {
     "firstName": [
-      "Please enter your first name."
+      "Please enter your first name.",
+      "First name must be at least 2 characters long."
     ],
     "lastName": [
-      "Please enter your last name."
+      "Please enter your last name.",
+      "Last name must be at least 2 characters long."
     ],
     "gender": [
       "Please choose your gender."
