@@ -98,7 +98,7 @@
                 "method": {
                     "code": "PBC",
                     "name": "Pay by check",
-                    "description": "Eveniet exercitationem aut porro. Magni cupiditate sit vitae voluptas. Non voluptates ut optio quos qui illo error nihil.",
+                    "description": "@string@",
                     "instructions": "Please put the money in the bag!"
                 },
                 "price": {
@@ -113,7 +113,7 @@
                 "method": {
                     "code": "DHL",
                     "name": "DHL",
-                    "description": "Sed natus debitis voluptas aut laudantium sit. Esse perspiciatis dignissimos error et itaque quibusdam tempora velit.",
+                    "description": "@string@",
                     "price": {
                         "current": 1500,
                         "currency": "GBP"
