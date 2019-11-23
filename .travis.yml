@@ -40,7 +40,6 @@ before_script:
     - (cd tests/Application && bin/console doctrine:schema:create --env=test -vvv)
 
 script:
-    - composer clear-cache
     - composer validate --strict
 
     - >-
