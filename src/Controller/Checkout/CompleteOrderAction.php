@@ -8,6 +8,7 @@ use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Sylius\ShopApiPlugin\Command\CommandInterface;
 use Sylius\ShopApiPlugin\CommandProvider\CommandProviderInterface;
+use Sylius\ShopApiPlugin\Exception\OrderTotalIntegrityException;
 use Sylius\ShopApiPlugin\Exception\WrongUserException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -57,6 +58,15 @@ final class CompleteOrderAction
                     View::create(
                         'You need to be logged in with the same user that wants to complete the order',
                         Response::HTTP_UNAUTHORIZED
+                    )
+                );
+            }
+
+            if ($previousException instanceof OrderTotalIntegrityException) {
+                return $this->viewHandler->handle(
+                    View::create(
+                        ['code' => Response::HTTP_BAD_REQUEST, 'message' => $exception->getMessage()],
+                        Response::HTTP_BAD_REQUEST
                     )
                 );
             }

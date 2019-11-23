@@ -298,11 +298,7 @@ JSON;
             "email": "oliver@queen.com"
         }
 JSON;
-
-        /** @var ProductVariantInterface $productVariant */
-        $productVariant = $this->get('sylius.repository.product_variant')->findOneBy(['code' => 'LOGAN_MUG_CODE']);
-        $productVariant->getChannelPricings()->first()->setPrice(4000);
-        $this->get('sylius.manager.product_variant')->flush();
+        $this->modifyVariantPrice();
 
         $response = $this->complete($token, $data);
         $this->assertResponse($response, 'cart/total_integrity_error', Response::HTTP_BAD_REQUEST);
@@ -320,5 +316,15 @@ JSON;
         );
 
         return $this->client->getResponse();
+    }
+
+    private function modifyVariantPrice(): void
+    {
+        /** @var ProductVariantInterface $productVariant */
+        $productVariant = $this->get('sylius.repository.product_variant')->findOneBy(['code' => 'LOGAN_MUG_CODE']);
+        foreach ($productVariant->getChannelPricings() as $channelPricing) {
+            $channelPricing->setPrice(4000);
+        }
+        $this->get('sylius.manager.product_variant')->flush();
     }
 }

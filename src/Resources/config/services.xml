@@ -81,5 +81,13 @@
             <argument type="service" id="sylius_shop_api_plugin.command_bus" />
             <tag name="messenger.message_handler" />
         </service>
+
+        <service
+            id="sylius.shop_api_plugin.processor.safe_order_processor"
+            class="Sylius\ShopApiPlugin\Processor\SafeOrderProcessor"
+        >
+            <argument type="service" id="sylius.order_processing.order_processor" />
+            <argument type="service" id="sylius.manager.order" />
+        </service>
     </services>
 </container>

@@ -36,6 +36,7 @@ final class CompleteOrderWithCustomerHandlerSpec extends ObjectBehavior
         CustomerProviderInterface $customerProvider,
         CustomerInterface $customer,
         OrderRepositoryInterface $orderRepository,
+        OrderProcessorInterface $orderProcessor,
         StateMachineFactoryInterface $stateMachineFactory,
         StateMachineInterface $stateMachine
     ): void {
@@ -43,6 +44,7 @@ final class CompleteOrderWithCustomerHandlerSpec extends ObjectBehavior
         $customerProvider->provide('john@doe.com')->willReturn($customer);
 
         $order->setCustomer($customer)->shouldBeCalled();
+        $orderProcessor->process($order)->shouldBeCalled();
 
         $stateMachineFactory->get($order, OrderCheckoutTransitions::GRAPH)->willReturn($stateMachine);
         $stateMachine->can('complete')->willReturn(true);
@@ -58,6 +60,7 @@ final class CompleteOrderWithCustomerHandlerSpec extends ObjectBehavior
         CustomerProviderInterface $customerProvider,
         CustomerInterface $customer,
         OrderRepositoryInterface $orderRepository,
+        OrderProcessorInterface $orderProcessor,
         StateMachineFactoryInterface $stateMachineFactory,
         StateMachineInterface $stateMachine
     ): void {
@@ -65,6 +68,7 @@ final class CompleteOrderWithCustomerHandlerSpec extends ObjectBehavior
         $customerProvider->provide('john@doe.com')->willReturn($customer);
 
         $order->setCustomer($customer)->shouldBeCalled();
+        $orderProcessor->process($order)->shouldBeCalled();
 
         $stateMachineFactory->get($order, OrderCheckoutTransitions::GRAPH)->willReturn($stateMachine);
         $stateMachine->can('complete')->willReturn(true);
@@ -92,12 +96,14 @@ final class CompleteOrderWithCustomerHandlerSpec extends ObjectBehavior
         CustomerInterface $customer,
         OrderInterface $order,
         OrderRepositoryInterface $orderRepository,
+        OrderProcessorInterface $orderProcessor,
         StateMachineInterface $stateMachine
     ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
         $customerProvider->provide('john@doe.com')->willReturn($customer);
 
         $order->setCustomer($customer)->shouldBeCalled();
+        $orderProcessor->process($order)->shouldBeCalled();
 
         $stateMachineFactory->get($order, OrderCheckoutTransitions::GRAPH)->willReturn($stateMachine);
         $stateMachine->can(OrderCheckoutTransitions::TRANSITION_COMPLETE)->willReturn(false);
