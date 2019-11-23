@@ -55,6 +55,7 @@
         >
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="sylius_shop_api_plugin.command_bus" />
+            <argument type="service" id="sylius.shop_api_plugin.factory.validation_error_view_factory" />
             <argument type="service" id="sylius.shop_api_plugin.command_provider.assign_customer_to_cart" />
             <argument type="service" id="sylius.shop_api_plugin.command_provider.complete_order" />
         </service>
