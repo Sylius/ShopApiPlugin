@@ -1,0 +1,23 @@
+---------------------------------------------------------------------------
+
+by mamazu at 2019-10-30T15:54:15Z
+
+We should definitely add documentation on how this works or maybe a link to the Symfony docs on this.
+
+---------------------------------------------------------------------------
+
+by lchrusciel at 2019-10-30T17:07:11Z
+
+Absolutely. I will improve these PR's(this + #593) tomorrow.
+
+---------------------------------------------------------------------------
+
+by lchrusciel at 2019-11-23T14:15:33Z
+
+Documented at: https://github.com/Sylius/ShopApiPlugin/pull/593/files#diff-5b6b3fb8d473fb4d84726dbc0e4f1188R40
+
+---------------------------------------------------------------------------
+
+by Zales0123 at 2019-11-23T14:18:23Z
+
+Thank you, Łukasz! :1st_place_medal:
