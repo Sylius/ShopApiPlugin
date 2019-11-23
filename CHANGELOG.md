@@ -1,5 +1,44 @@
 # CHANGELOG FOR `1.0.X`
 
+## v1.0.0
+
+#### TL;DR
+
+- Order confirmation email was added to the project.
+
+#### Details
+
+### Added
+- [#593](https://github.com/Sylius/SyliusShopApiPlugin/issues/593) [Checkout] Send confirmation email after checkout is completed ([@lchrusciel](https://github.com/lchrusciel))
+
+### Changed
+- [#590](https://github.com/Sylius/SyliusShopApiPlugin/issues/590) [Maintenance] Register handler only in proper bus ([@lchrusciel](https://github.com/lchrusciel))
+- [#602](https://github.com/Sylius/SyliusShopApiPlugin/issues/602) Loosen dep constraint for Symfony messenger component ([@TiMESPLiNTER](https://github.com/TiMESPLiNTER))
+- [#604](https://github.com/Sylius/SyliusShopApiPlugin/issues/604) Add missing branch alias ([@Zales0123](https://github.com/Zales0123))
+- [#591](https://github.com/Sylius/SyliusShopApiPlugin/issues/591) [Cart] Dispatch CartPickedUp after doctrine transaction ([@lchrusciel](https://github.com/lchrusciel))
+
+### Fixed
+- [#573](https://github.com/Sylius/SyliusShopApiPlugin/issues/573) Extending customer details tests ([@mamazu](https://github.com/mamazu))
+- [#605](https://github.com/Sylius/SyliusShopApiPlugin/issues/605) Update test mockups and fix the build ([@bitbager](https://github.com/bitbager))
+
+## v1.0.0-rc.3
+
+#### TL;DR
+
+- Fixing several issues
+
+#### Details
+
+### Changed
+- [#587](https://github.com/Sylius/SyliusShopApiPlugin/issues/587) [Minor] Code cleanup ([@lchrusciel](https://github.com/lchrusciel))
+
+### Fixed
+- [#568](https://github.com/Sylius/SyliusShopApiPlugin/issues/568) [Customer] Fix customer update action ([@lchrusciel](https://github.com/lchrusciel))
+- [#579](https://github.com/Sylius/SyliusShopApiPlugin/issues/579) Fixing dependencies ([@mamazu](https://github.com/mamazu))
+- [#578](https://github.com/Sylius/SyliusShopApiPlugin/issues/578) Fix token generator service for customer's password reset handler ([@diimpp](https://github.com/diimpp))
+- [#570](https://github.com/Sylius/SyliusShopApiPlugin/issues/570) Cleanup swagger.yml from remains ChannelCode parameters ([@diimpp](https://github.com/diimpp))
+- [#586](https://github.com/Sylius/SyliusShopApiPlugin/issues/586) [Product] Introduce product attribute value view resolvers ([@denis019](https://github.com/denis019), [@lchrusciel](https://github.com/lchrusciel), [@GSadee](https://github.com/GSadee))
+
 ## v1.0.0-rc.2
 
 #### TL;DR
