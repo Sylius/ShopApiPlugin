@@ -1,0 +1,71 @@
+---------------------------------------------------------------------------
+
+by mamazu at 2019-11-11T16:54:29Z
+
+Thanks for your contribution to ShopAPI. I have a question about your pull request: What does it validate at the moment, if you haven't have any validation specified.
+
+---------------------------------------------------------------------------
+
+by kayue at 2019-11-12T01:59:45Z
+
+@mamazu Ideally it should re-validate inventory availability, which can be implemented later.
+
+Nevertheless, Sylius is meant to be extendable, even the ShopAPI doesn't have any validation specified, it should still perform validation to allower developer to add custom validator.
+
+---------------------------------------------------------------------------
+
+by kayue at 2019-11-12T06:57:36Z
+
+Also due to inconsistent implementation in action class, error is being return in multiple different formats.
+
+For example, invalid cart token, it returns proper error 400 in `PutItemToCartAction`:
+
+```
+{
+  "code": 400,
+  "message": "Validation failed",
+  "errors": {
+    "token": [
+      "Cart does not exist."
+    ]
+  }
+}
+```
+
+However, in `CompleteOrderAction` it returns error 500 due to lack of validation, which needs to be fixed.
+
+```
+{
+  "code": 500,
+  "message": "Order with ca5ac343-f09d-4cf0-8d34-374d77cd2ca91 token has not been found."
+}
+```
+
+In `SummarizeAction` it returns error 404
+
+```
+{
+  "code": 404,
+  "message": "Cart with given id does not exists"
+}
+```
+
+---------------------------------------------------------------------------
+
+by mamazu at 2019-11-12T12:07:16Z
+
+Currently as you found the order complete doesn't validate anything and therefore only asserts that the cart is there (which then will cause an error => 500) We should definitely add the same validators as the other endpoints have as well. Like CartExists and so on.
+
+---------------------------------------------------------------------------
+
+by lchrusciel at 2019-11-23T12:10:54Z
+
+Hey @kayue,
+
+are you willing to add test for this case?
+
+---------------------------------------------------------------------------
+
+by lchrusciel at 2019-11-23T15:05:55Z
+
+Thanks, Ka! :1st_place_medal:
