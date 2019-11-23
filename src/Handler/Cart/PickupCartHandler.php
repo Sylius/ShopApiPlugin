@@ -12,6 +12,7 @@ use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\ShopApiPlugin\Command\Cart\PickupCart;
 use Sylius\ShopApiPlugin\Event\CartPickedUp;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\Messenger\Stamp\DispatchAfterCurrentBusStamp;
 use Webmozart\Assert\Assert;
 
 final class PickupCartHandler
@@ -56,6 +57,6 @@ final class PickupCartHandler
 
         $this->cartRepository->add($cart);
 
-        $this->eventBus->dispatch(new CartPickedUp($pickupCart->orderToken()));
+        $this->eventBus->dispatch(new CartPickedUp($pickupCart->orderToken()), [new DispatchAfterCurrentBusStamp()]);
     }
 }
