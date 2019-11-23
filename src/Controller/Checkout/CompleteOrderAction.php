@@ -48,16 +48,16 @@ final class CompleteOrderAction
     public function __invoke(Request $request): Response
     {
         try {
-            if (null !== $request->request->get('email')) {
-                $this->bus->dispatch($this->assignCustomerToCartCommandProvider->getCommand($request));
-            }
-
             $validationResults = $this->completeOrderCommandProvider->validate($request);
             if (0 !== count($validationResults)) {
                 return $this->viewHandler->handle(View::create(
                     $this->validationErrorViewFactory->create($validationResults),
                     Response::HTTP_BAD_REQUEST
                 ));
+            }
+
+            if (null !== $request->request->get('email')) {
+                $this->bus->dispatch($this->assignCustomerToCartCommandProvider->getCommand($request));
             }
 
             $this->bus->dispatch($this->completeOrderCommandProvider->getCommand($request));

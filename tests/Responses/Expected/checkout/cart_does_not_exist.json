@@ -1,0 +1,9 @@
+{
+    "code": 400,
+    "message": "Validation failed",
+    "errors": {
+        "token": [
+            "Cart does not exist."
+        ]
+    }
+}

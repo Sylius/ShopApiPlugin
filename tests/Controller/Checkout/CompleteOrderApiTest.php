@@ -258,6 +258,53 @@ JSON;
         $this->assertResponseCode($response, Response::HTTP_UNAUTHORIZED);
     }
 
+    /**
+     * @test
+     */
+    public function it_disallows_to_complete_checkout_with_invalid_cart_token(): void
+    {
+        $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml', 'payment.yml']);
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        $data =
+            <<<JSON
+        {
+            "email": "example@cusomer.com",
+            "notes": "BRING IT AS FAST AS YOU CAN, PLEASE!"
+        }
+JSON;
+
+        $response = $this->complete($token, $data);
+        $this->assertResponse($response, 'checkout/cart_does_not_exist', Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @test
+     */
+    public function it_disallows_to_complete_checkout_with_invalid_state(): void
+    {
+        $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml', 'payment.yml', 'customer.yml']);
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var MessageBusInterface $bus */
+        $bus = $this->get('sylius_shop_api_plugin.command_bus');
+        $bus->dispatch(new PickupCart($token, 'WEB_GB'));
+        $bus->dispatch(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
+
+        $data =
+            <<<JSON
+        {
+            "email": "example@cusomer.com",
+            "notes": "BRING IT AS FAST AS YOU CAN, PLEASE!"
+        }
+JSON;
+
+        $response = $this->complete($token, $data);
+        $this->assertResponse($response, 'checkout/cart_not_ready_for_checkout', Response::HTTP_BAD_REQUEST);
+    }
+
     private function complete(string $token, ?string $data = null): Response
     {
         $this->client->request(
