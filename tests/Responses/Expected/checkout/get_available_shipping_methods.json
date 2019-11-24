@@ -19,6 +19,15 @@
                         "current": 2500,
                         "currency": "GBP"
                     }
+                },
+                "FREE": {
+                    "code": "FREE",
+                    "name": "Free Shipping",
+                    "description": "@string@",
+                    "price": {
+                      "current": 0,
+                      "currency": "GBP"
+                    }
                 }
             }
         }
