@@ -6,7 +6,6 @@ namespace Tests\Sylius\ShopApiPlugin\Controller\Checkout;
 
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\ProductInterface;
-use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\ShopApiPlugin\Command\Cart\AddressOrder;
 use Sylius\ShopApiPlugin\Command\Cart\ChoosePaymentMethod;
 use Sylius\ShopApiPlugin\Command\Cart\ChooseShippingMethod;

@@ -294,97 +294,57 @@
             }
         },
         {
-            "code": "LOGAN_SHOES_CODE",
-            "name": "Logan Shoes",
-            "slug": "logan-shoes",
+          "code": "LOGAN_SHOES_CODE",
+          "name": "Logan Shoes",
+          "slug": "logan-shoes",
+          "channelCode": "WEB_GB",
+          "description": "Some description Lorem ipsum dolor sit amet.",
+          "averageRating": 0,
+          "taxons": {
+            "others": []
+          },
+          "variants": [],
+          "attributes": [],
+          "associations": [],
+          "images": [],
+          "_links": {
+            "self": {
+              "href": "\/shop-api\/products\/by-slug\/logan-shoes"
+            }
+          }
+        },
+        {
+            "code": "FREE_DOWNLOAD",
+            "name": "Free download",
+            "slug": "free-download",
             "channelCode": "WEB_GB",
             "description": "Some description Lorem ipsum dolor sit amet.",
             "averageRating": 0,
             "taxons": {
                 "others": []
             },
-            "variants": [],
+            "variants": {
+                "FREE_DOWNLOAD": {
+                    "code": "FREE_DOWNLOAD",
+                    "axis": [],
+                    "nameAxis": {},
+                    "price": {
+                        "current": 0,
+                        "currency": "GBP"
+                    },
+                    "originalPrice": {
+                        "current": 0,
+                        "currency": "GBP"
+                    },
+                    "images": []
+                }
+            },
             "attributes": [],
             "associations": [],
             "images": [],
             "_links": {
                 "self": {
-                    "href": "\/shop-api\/products\/by-slug\/logan-shoes"
-                }
-            }
-        },
-        {
-            "code": "LOGAN_T_SHIRT_CODE",
-            "name": "Logan T-Shirt",
-            "slug": "logan-t-shirt",
-            "channelCode": "WEB_GB",
-            "description": "Some description Lorem ipsum dolor sit amet.",
-            "averageRating": 0,
-            "taxons": {
-                "main": "T_SHIRTS",
-                "others": [
-                    "WOMEN_T_SHIRTS",
-                    "BRAND"
-                ]
-            },
-            "variants": {
-                "SMALL_LOGAN_T_SHIRT_CODE": {
-                    "code": "SMALL_LOGAN_T_SHIRT_CODE",
-                    "name": "Small Logan T-Shirt",
-                    "axis": [],
-                    "nameAxis": {},
-                    "price": {
-                        "current": 1999,
-                        "currency": "GBP"
-                    },
-                    "images": [
-                        {
-                            "code": "thumbnail",
-                            "path": "/pants.jpeg",
-                            "cachedPath": "http://localhost/media/cache/sylius_shop_api/pants.jpeg"
-                        }
-                    ]
-                },
-                "LARGE_LOGAN_T_SHIRT_CODE": {
-                    "code": "LARGE_LOGAN_T_SHIRT_CODE",
-                    "name": "Large Logan T-Shirt",
-                    "axis": [],
-                    "nameAxis": {},
-                    "price": {
-                        "current": 2999,
-                        "currency": "GBP"
-                    },
-                    "images": [
-                        {
-                            "code": "thumbnail",
-                            "path": "/pants.jpeg",
-                            "cachedPath": "http://localhost/media/cache/sylius_shop_api/pants.jpeg"
-                        }
-                    ]
-                }
-            },
-            "attributes": [],
-            "associations": [],
-            "images": [
-                {
-                    "code": "thumbnail",
-                    "path": "/pants.jpeg",
-                    "cachedPath": "http://localhost/media/cache/sylius_shop_api/pants.jpeg"
-                },
-                {
-                    "code": "thumbnail",
-                    "path": "/pants.jpeg",
-                    "cachedPath": "http://localhost/media/cache/sylius_shop_api/pants.jpeg"
-                },
-                {
-                    "code": "thumbnail",
-                    "path": "/pants.jpeg",
-                    "cachedPath": "http://localhost/media/cache/sylius_shop_api/pants.jpeg"
-                }
-            ],
-            "_links": {
-                "self": {
-                    "href": "\/shop-api\/products\/by-slug\/logan-t-shirt"
+                    "href": "\/shop-api\/products\/by-slug\/free-download"
                 }
             }
         }
