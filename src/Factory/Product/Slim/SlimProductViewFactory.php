@@ -18,6 +18,7 @@ use Sylius\ShopApiPlugin\Factory\Product\ProductViewFactoryInterface;
 use Sylius\ShopApiPlugin\Transformer\Transformer;
 use Sylius\ShopApiPlugin\View\Product\ProductView;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use App\Entity\User\ShopUser;
 
 final class SlimProductViewFactory implements ProductViewFactoryInterface
 {
@@ -125,6 +126,8 @@ final class SlimProductViewFactory implements ProductViewFactoryInterface
     public function getIsFavorite(ProductInterface $product, $productView)
     {
         $user = $this->tokenStorage->getToken()->getUser();
+        $productView->isFavorite = false;
+
         if ($user instanceof ShopUser && $user->isFavorite($product)) {
             $productView->isFavorite = true;
         }
