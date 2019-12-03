@@ -46,17 +46,21 @@ final class ProductCatalogViewRepository implements ProductCatalogViewRepository
         PageViewFactoryInterface $pageViewFactory,
         SupportedLocaleProviderInterface $supportedLocaleProvider
     ) {
-        $this->channelRepository = $channelRepository;
-        $this->productRepository = $productRepository;
-        $this->productViewFactory = $productViewFactory;
-        $this->taxonRepository = $taxonRepository;
-        $this->pageViewFactory = $pageViewFactory;
+        $this->channelRepository       = $channelRepository;
+        $this->productRepository       = $productRepository;
+        $this->productViewFactory      = $productViewFactory;
+        $this->taxonRepository         = $taxonRepository;
+        $this->pageViewFactory         = $pageViewFactory;
         $this->supportedLocaleProvider = $supportedLocaleProvider;
     }
 
-    public function findByTaxonSlug(string $taxonSlug, string $channelCode, PaginatorDetails $paginatorDetails, ?string $localeCode): PageView
-    {
-        $channel = $this->getChannel($channelCode);
+    public function findByTaxonSlug(
+        string $taxonSlug,
+        string $channelCode,
+        PaginatorDetails $paginatorDetails,
+        ?string $localeCode
+    ): PageView {
+        $channel    = $this->getChannel($channelCode);
         $localeCode = $this->supportedLocaleProvider->provide($localeCode, $channel);
 
         /** @var TaxonInterface $taxon */
@@ -68,9 +72,13 @@ final class ProductCatalogViewRepository implements ProductCatalogViewRepository
         return $this->findByTaxon($taxon, $channel, $paginatorDetails, $localeCode);
     }
 
-    public function findByTaxonCode(string $taxonCode, string $channelCode, PaginatorDetails $paginatorDetails, ?string $localeCode): PageView
-    {
-        $channel = $this->getChannel($channelCode);
+    public function findByTaxonCode(
+        string $taxonCode,
+        string $channelCode,
+        PaginatorDetails $paginatorDetails,
+        ?string $localeCode
+    ): PageView {
+        $channel    = $this->getChannel($channelCode);
         $localeCode = $this->supportedLocaleProvider->provide($localeCode, $channel);
 
         /** @var TaxonInterface $taxon */
@@ -92,8 +100,12 @@ final class ProductCatalogViewRepository implements ProductCatalogViewRepository
         return $channel;
     }
 
-    private function findByTaxon(TaxonInterface $taxon, ChannelInterface $channel, PaginatorDetails $paginatorDetails, string $localeCode): PageView
-    {
+    private function findByTaxon(
+        TaxonInterface $taxon,
+        ChannelInterface $channel,
+        PaginatorDetails $paginatorDetails,
+        string $localeCode
+    ): PageView {
         $queryBuilder = $this->productRepository->createShopListQueryBuilder($channel, $taxon, $localeCode);
         $queryBuilder->addSelect('productTaxon');
         $queryBuilder->addOrderBy('productTaxon.position');
@@ -103,7 +115,8 @@ final class ProductCatalogViewRepository implements ProductCatalogViewRepository
         $pagerfanta->setMaxPerPage($paginatorDetails->limit());
         $pagerfanta->setCurrentPage($paginatorDetails->page());
 
-        $pageView = $this->pageViewFactory->create($pagerfanta, $paginatorDetails->route(), $paginatorDetails->parameters());
+        $pageView =
+            $this->pageViewFactory->create($pagerfanta, $paginatorDetails->route(), $paginatorDetails->parameters());
 
         foreach ($pagerfanta->getCurrentPageResults() as $currentPageResult) {
             $pageView->items[] = $this->productViewFactory->create($currentPageResult, $channel, $localeCode);
@@ -114,9 +127,14 @@ final class ProductCatalogViewRepository implements ProductCatalogViewRepository
 
     public function getCountByTaxon(TaxonInterface $taxon, string $localeCode): int
     {
-        $queryBuilder = $this->productRepository->createListQueryBuilder($localeCode, $taxon->getId());
-        $result = $queryBuilder->getQuery()->getScalarResult();
-        $result = count($result);
+        $queryBuilder = $this->productRepository->createListQueryBuilder($localeCode, $taxon->getId())
+                                                ->select('count(o.id) as count');
+        try {
+            $result = (int) $queryBuilder->getQuery()->getSingleScalarResult();
+        } catch (\Exception $e) {
+            $result = 0;
+        }
+
         return $result;
     }
 }
