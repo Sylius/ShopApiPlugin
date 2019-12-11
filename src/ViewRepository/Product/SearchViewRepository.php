@@ -70,7 +70,7 @@ final class SearchViewRepository
         $channel       = $this->getChannel($channelCode);
         $localeCode    = $this->supportedLocaleProvider->provide($localeCode, $channel);
         $foundProducts =
-            $this->productRepository->findProductsByString($channel, $localeCode, $string)->getQuery()->getResult();
+            $this->productRepository->findProductsByString($channel, $localeCode, $string);
         $foundArticles =
             $this->articleRepository->findArticlesByString($channel, $localeCode, $string)->getQuery()->getResult();
 
