@@ -1758,7 +1758,7 @@ definitions:
             checkoutState:
                 description: "Current state of a checkout."
                 type: "string"
-                default: "checkout"
+                default: "completed"
                 externalDocs:
                     description: "Find out more about checkout states in the Sylius documentation."
                     url: "http://docs.sylius.com/en/latest/book/orders/checkout.html#checkout-state-machine"
