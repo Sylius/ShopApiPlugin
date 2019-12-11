@@ -16,6 +16,7 @@ use Pagerfanta\Pagerfanta;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Sylius\ShopApiPlugin\Factory\Product\PageViewFactory;
 use Sylius\Bundle\TaxonomyBundle\Doctrine\ORM\TaxonRepository;
+use Pagerfanta\Adapter\ArrayAdapter;
 
 class ProductDiscountedVIewRepository
 {
@@ -72,7 +73,7 @@ class ProductDiscountedVIewRepository
 
         $productListView = new ProductListView();
 
-        $pagerfanta = new Pagerfanta(new DoctrineORMAdapter($discountedProducts));
+        $pagerfanta = new Pagerfanta(new ArrayAdapter($discountedProducts));
 
         $pagerfanta->setMaxPerPage($paginatorDetails->limit());
         $pagerfanta->setCurrentPage($paginatorDetails->page());

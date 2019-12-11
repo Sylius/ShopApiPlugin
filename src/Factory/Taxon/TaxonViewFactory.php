@@ -129,9 +129,7 @@ final class TaxonViewFactory implements TaxonViewFactoryInterface
 
     protected function getCheapestProduct(TaxonInterface $taxon, TaxonView $taxonView)
     {
-        $variant50g = $this->productRepository->find50gProductByChannel($this->channel, $this->locale, $taxon)
-                                              ->getQuery()
-                                              ->getResult();
+        $variant50g = $this->productRepository->find50gProductByChannel($this->channel, $this->locale, $taxon);
 
         if ($variant50g) {
             $taxonView->cheapestProduct =

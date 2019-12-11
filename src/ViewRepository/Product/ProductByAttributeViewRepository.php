@@ -17,6 +17,7 @@ use Pagerfanta\Pagerfanta;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Sylius\ShopApiPlugin\Factory\Product\PageViewFactory;
 use Sylius\Bundle\TaxonomyBundle\Doctrine\ORM\TaxonRepository;
+use Pagerfanta\Adapter\ArrayAdapter;
 
 final class ProductByAttributeViewRepository
 {
@@ -63,7 +64,7 @@ final class ProductByAttributeViewRepository
 
         Assert::notNull($productsByAttribute, sprintf('Products bu given attribute not found in %s locale.', $localeCode));
 
-        $pagerfanta = new Pagerfanta(new DoctrineORMAdapter($productsByAttribute));
+        $pagerfanta = new Pagerfanta(new ArrayAdapter($productsByAttribute));
 
         $pagerfanta->setMaxPerPage($paginatorDetails->limit());
         $pagerfanta->setCurrentPage($paginatorDetails->page());
