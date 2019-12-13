@@ -32,4 +32,7 @@ class AddressView
 
     /** @var string */
     public $phoneNumber;
+
+    /** @var text */
+    public $postamate;
 }
