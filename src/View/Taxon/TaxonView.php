@@ -32,4 +32,10 @@ class TaxonView
 
     /** @var array */
     public $images = [];
+
+    /** @var string */
+    public $metaTitle;
+
+    /** @var string */
+    public $metaDescription;
 }

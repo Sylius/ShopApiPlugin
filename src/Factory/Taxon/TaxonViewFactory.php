@@ -76,7 +76,8 @@ final class TaxonViewFactory implements TaxonViewFactoryInterface
 
         /** @var TaxonView $taxonView */
         $taxonView = $this->generate($taxon);
-
+        $taxonView->metaTitle = $taxon->getTranslation()->getMetaTitle();
+        $taxonView->metaDescription = $taxon->getTranslation()->getMetaDescription();
         return $taxonView;
     }
 
