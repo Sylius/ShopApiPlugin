@@ -66,6 +66,8 @@ final class TaxonViewFactory implements TaxonViewFactoryInterface
         'description',
 //        'countOfProducts',
 //        'cheapestProduct',
+        'metaTitle',
+        'metaDescription',
         'images',
     ];
 
@@ -76,8 +78,7 @@ final class TaxonViewFactory implements TaxonViewFactoryInterface
 
         /** @var TaxonView $taxonView */
         $taxonView = $this->generate($taxon);
-        $taxonView->metaTitle = $taxon->getTranslation()->getMetaTitle();
-        $taxonView->metaDescription = $taxon->getTranslation()->getMetaDescription();
+
         return $taxonView;
     }
 
@@ -149,4 +150,20 @@ final class TaxonViewFactory implements TaxonViewFactoryInterface
 
         return $taxonView;
     }
+
+    protected function getMetaTitle(TaxonInterface $taxon, TaxonView $taxonView)
+    {
+
+        $taxonView->metaTitle = $taxon->getTranslation()->getMetaTitle();
+
+        return $taxonView;
+    }
+
+    protected function getMetaDescription(TaxonInterface $taxon, TaxonView $taxonView)
+    {
+        $taxonView->metaDescription = $taxon->getTranslation()->getMetaDescription();
+
+        return $taxonView;
+    }
+
 }
