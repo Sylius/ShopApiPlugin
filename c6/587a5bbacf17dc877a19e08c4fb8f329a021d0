@@ -1,0 +1,35 @@
+---------------------------------------------------------------------------
+
+by mamazu at 2019-11-11T17:20:56Z
+
+First of all, thanks for your pull request. This is definitely an improvement. Currently we have two ways of handleing the address, one part is the view factory that you changed which affects how the addresses are rendered in the cart. The other part is the CRUD bundle, that renders the addresses with it's own logic (controlled by the serializer).
+
+It would be nice if you could fix the tests and maybe also add one that checks that the cart now shows the correct address fields.
+
+---------------------------------------------------------------------------
+
+by AndreasA at 2019-11-11T19:14:29Z
+
+Sorry for not fixing the tests first but I had to exit my train. I will probably fix them tomorrow morning and add another test.
+
+In regards to CRUD etc. from what I can tell everywhere else the provinceCode seems to work fine (when using my JS code with it). The only issue was the AddressView.
+
+One thing though that is a bit `annoying` when saving an address (address book) you can only send either provinceCode (if the country has provinces assigned to it) or provinceName if the country does not have provinces assigned to it. Means unnecessary data changes when creating generalized code but that isn't that big an issue.
+
+---------------------------------------------------------------------------
+
+by AndreasA at 2019-11-11T20:28:47Z
+
+@mamazu Fixed the tests and added a test for address with province codes instead of province names.
+
+---------------------------------------------------------------------------
+
+by mamazu at 2019-11-12T11:55:34Z
+
+Thanks, this pull request looks great. :+1:
+
+---------------------------------------------------------------------------
+
+by mamazu at 2019-12-19T09:03:01Z
+
+Thank you, Andreas! :1st_place_medal:
