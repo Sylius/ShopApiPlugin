@@ -73,6 +73,12 @@ Sylius\Component\Core\Model\Product:
         channels: ["@gb_web_channel"]
         currentLocale: "en_GB"
         translations: ["@en_gb_shoes_product_translation"]
+    free_download:
+        code: "FREE_DOWNLOAD"
+        createdAt: "<date_create('2019-02-01 02:00:00')>"
+        channels: ["@gb_web_channel"]
+        currentLocale: "en_GB"
+        translations: ["@en_gb_free_download_translation"]
 
 Sylius\Component\Core\Model\ProductTranslation:
     en_gb_mug_product_translation:
@@ -110,6 +116,12 @@ Sylius\Component\Core\Model\ProductTranslation:
         name: "Logan Shoes"
         description: "Some description Lorem ipsum dolor sit amet."
         translatable: "@shoes"
+    en_gb_free_download_translation:
+        slug: "free-download"
+        locale: "en_GB"
+        name: "Free download"
+        description: "Some description Lorem ipsum dolor sit amet."
+        translatable: "@free_download"
 
 Sylius\Component\Core\Model\ProductVariant:
     mug_variant:
@@ -170,6 +182,13 @@ Sylius\Component\Core\Model\ProductVariant:
         channelPricings:
             WEB_GB: "@gb_large_blue_hat_web_channel_pricing"
             WEB_DE: "@de_large_blue_hat_web_channel_pricing"
+    free_download_0:
+        code: "FREE_DOWNLOAD"
+        product: "@free_download"
+        currentLocale: "en_GB"
+        channelPricings:
+            WEB_GB: "@gb_free_web_channel_pricing"
+            WEB_DE: "@de_free_web_channel_pricing"
 
 Sylius\Component\Product\Model\ProductVariantTranslation:
     en_gb_mug_variant_translation:
@@ -240,6 +259,10 @@ Sylius\Component\Core\Model\ChannelPricing:
     gb_large_blue_hat_web_channel_pricing:
         channelCode: "WEB_GB"
         price: 2599
+    gb_free_web_channel_pricing:
+        channelCode: "WEB_GB"
+        price: 0
+        originalPrice: 0
     de_mug_web_channel_pricing:
         channelCode: "WEB_DE"
         price: 2099
@@ -261,6 +284,10 @@ Sylius\Component\Core\Model\ChannelPricing:
     de_large_blue_hat_web_channel_pricing:
         channelCode: "WEB_DE"
         price: 2699
+    de_free_web_channel_pricing:
+        channelCode: "WEB_DE"
+        price: 0
+        originalPrice: 0
 
 Sylius\Component\Product\Model\ProductOption:
     hat_size:
