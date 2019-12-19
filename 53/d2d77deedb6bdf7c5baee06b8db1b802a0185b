@@ -1,0 +1,21 @@
+---------------------------------------------------------------------------
+
+by lchrusciel at 2019-09-09T07:41:38Z
+
+Hey @nnatter,
+
+thanks a lot for the contribution!
+
+@mamazu as we don't add any new code here, maybe we should add it before 1.0? On the one hand, the risk is rather low, as the feature existed already and it is tested. On the other hand, we have feature freeze before the stable release.
+
+---------------------------------------------------------------------------
+
+by mamazu at 2019-09-09T09:19:19Z
+
+Yeah, quite a basic feature but as you said feature freeze. I would wait for 1.1.
+
+---------------------------------------------------------------------------
+
+by mamazu at 2019-12-19T09:09:54Z
+
+Thanks, @nnatter! :1st_place_medal:
