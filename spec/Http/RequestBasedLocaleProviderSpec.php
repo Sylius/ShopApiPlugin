@@ -10,7 +10,6 @@ use Sylius\Component\Channel\Context\ChannelNotFoundException;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\ShopApiPlugin\Http\RequestBasedLocaleProviderInterface;
 use Sylius\ShopApiPlugin\Provider\SupportedLocaleProviderInterface;
-use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 
 final class RequestBasedLocaleProviderSpec extends ObjectBehavior
@@ -33,7 +32,7 @@ final class RequestBasedLocaleProviderSpec extends ObjectBehavior
         ChannelInterface $channel,
         Request $request
     ): void {
-        $request->query = new ParameterBag(['locale' => 'fr_FR']);
+        $request->getLocale()->willReturn('fr_FR');
 
         $channelContext->getChannel()->willReturn($channel);
         $supportedLocaleProvider->provide('fr_FR', $channel)->willReturn('fr_FR');
@@ -47,7 +46,7 @@ final class RequestBasedLocaleProviderSpec extends ObjectBehavior
         ChannelInterface $channel,
         Request $request
     ): void {
-        $request->query = new ParameterBag([]);
+        $request->getLocale()->willReturn(null);
 
         $channelContext->getChannel()->willReturn($channel);
         $supportedLocaleProvider->provide(null, $channel)->willReturn('en_US');

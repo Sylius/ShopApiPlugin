@@ -13,5 +13,13 @@
             <argument type="service" id="sylius.context.channel" />
             <argument type="service" id="sylius.shop_api_plugin.provider.supported_locale_provider" />
         </service>
+
+        <service id="sylius.shop_api_plugin.event_listener.request_locale_setter"
+                 class="Sylius\ShopApiPlugin\Http\RequestBasedLocaleContext" >
+            <argument type="service" id="request_stack" />
+            <argument type="service" id="sylius.locale_provider" />
+
+            <tag name="sylius.context.locale" priority="63" />
+        </service>
     </services>
 </container>

@@ -40,12 +40,6 @@
         <service id="sylius.shop_api_plugin.generator.product_breadcrumb_generator"
                  class="Sylius\ShopApiPlugin\Generator\ProductBreadcrumbGenerator" />
 
-        <service id="sylius.shop_api_plugin.event_listener.request_locale_setter"
-                 class="Sylius\ShopApiPlugin\EventListener\RequestLocaleSetter" >
-            <argument type="service" id="sylius.locale_provider" />
-            <tag name="kernel.event_listener" event="kernel.request" priority="3" />
-        </service>
-
         <service id="sylius.shop_api_plugin.modifier.order_modifier"
                  class="Sylius\ShopApiPlugin\Modifier\OrderModifier">
             <argument type="service" id="sylius.custom_factory.order_item" />

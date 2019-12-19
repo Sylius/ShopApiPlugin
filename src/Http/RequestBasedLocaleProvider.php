@@ -32,6 +32,6 @@ final class RequestBasedLocaleProvider implements RequestBasedLocaleProviderInte
         /** @var ChannelInterface $channel */
         $channel = $this->channelContext->getChannel();
 
-        return $this->supportedLocaleProvider->provide($request->query->get('locale'), $channel);
+        return $this->supportedLocaleProvider->provide($request->getLocale(), $channel);
     }
 }
