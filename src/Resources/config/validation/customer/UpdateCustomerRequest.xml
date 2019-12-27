@@ -37,6 +37,16 @@
                 <option name="groups">sylius</option>
                 <option name="groups">sylius_customer_profile_update</option>
             </constraint>
+            <constraint name="Choice">
+                <option name="choices">
+                    <value>u</value>
+                    <value>m</value>
+                    <value>f</value>
+                </option>
+                <option name="message">sylius.customer.gender.valid_gender</option>
+                <option name="groups">sylius</option>
+                <option name="groups">sylius_customer_profile_update</option>
+            </constraint>
         </property>
     </class>
 </constraint-mapping>
