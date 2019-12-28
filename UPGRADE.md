@@ -93,3 +93,4 @@
     +  "channel": "CHANNEL_CODE"
     }
     ```
+* Add Firewall Protection on Address-Book and me Routes in security.yaml
