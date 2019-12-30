@@ -1,3 +1,13 @@
+# UPGRADE FROM 1.0.0 to 1.1.0
+* Add firewall protection to the `/addess-book` and `/me` routes in the `security.yaml`
+
+```yml
+access_control:
+    - { path: "%sylius_shop_api.security.regex%/address-book", role: ROLE_USER}
+    - { path: "%sylius_shop_api.security.regex%/me", role: ROLE_USER}
+
+```
+
 # UPGRADE FROM 1.0.0-rc.2 or 1.0.0-rc.3 to 1.0.0 
 
 * Add proper constraint to composer.json
@@ -93,4 +103,3 @@
     +  "channel": "CHANNEL_CODE"
     }
     ```
-* Add Firewall Protection on Address-Book and me Routes in security.yaml
