@@ -11,7 +11,8 @@
       "Last name must be at least 2 characters long."
     ],
     "gender": [
-      "Please choose your gender."
+      "Please choose your gender.",
+      "Please enter a valid gender"
     ]
   }
 }
