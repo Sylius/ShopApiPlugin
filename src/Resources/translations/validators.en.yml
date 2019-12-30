@@ -34,3 +34,5 @@ sylius:
         verification_token:
             not_blank: Please provide a token.
             not_exists: The token does not exist.
+        gender:
+            not_valid: Please enter a valid gender

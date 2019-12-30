@@ -43,7 +43,7 @@
                     <value>m</value>
                     <value>f</value>
                 </option>
-                <option name="message">sylius.customer.gender.valid_gender</option>
+                <option name="message">sylius.shop_api.gender.not_valid</option>
                 <option name="groups">sylius</option>
                 <option name="groups">sylius_customer_profile_update</option>
             </constraint>
