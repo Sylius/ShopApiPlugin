@@ -1,0 +1,17 @@
+---------------------------------------------------------------------------
+
+by mamazu at 2019-12-28T11:51:16Z
+
+Looks good, so far. If you could fix the tests it would be great. And maybe add a test that tests the validation (so that when the user enters an invalid gender it returns a 400).
+
+---------------------------------------------------------------------------
+
+by Amr3zzat at 2019-12-30T21:00:37Z
+
+@mamazu I have fixed the old test , add new test for this case
+
+---------------------------------------------------------------------------
+
+by mamazu at 2020-01-01T12:07:16Z
+
+Thank you, Amr! :tada:
