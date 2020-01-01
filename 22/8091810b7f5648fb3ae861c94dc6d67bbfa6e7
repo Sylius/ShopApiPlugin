@@ -1,0 +1,41 @@
+---------------------------------------------------------------------------
+
+by mamazu at 2019-12-28T11:48:23Z
+
+Thank you for your pull request. One thing I was woundering when looking through the documentation is: In the docs it says that the endpoint returns a 500 if the user does not own the address. If this behaviour has also changed then could you please update the documentation and add a note in the `UPGRADE.md` that this changed.
+
+---------------------------------------------------------------------------
+
+by Amr3zzat at 2019-12-28T14:02:55Z
+
+@mamazu Thanks for review , I have updated the docs and the upgrade.
+
+---------------------------------------------------------------------------
+
+by mamazu at 2019-12-28T23:12:28Z
+
+Could you please rebase your pull request to the current master and also add the authorization documentation to the new "change password route"?
+
+---------------------------------------------------------------------------
+
+by Amr3zzat at 2019-12-29T08:53:42Z
+
+@mamazu Sure I will do that
+
+---------------------------------------------------------------------------
+
+by Amr3zzat at 2019-12-29T21:02:08Z
+
+@mamazu  I have rebased the master , I checked the change password route in docs , the new protection will match with new route docs , It will return 401
+
+---------------------------------------------------------------------------
+
+by mamazu at 2019-12-30T08:57:08Z
+
+I don't really get why the address book routes return a 404 when the customer does not have access to those routes instead of a 403 but as this seems to be Sylius default I am okay with it.
+
+---------------------------------------------------------------------------
+
+by mamazu at 2020-01-01T12:06:17Z
+
+Thanks, Amr! :tada:
