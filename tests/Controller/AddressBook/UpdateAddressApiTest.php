@@ -60,6 +60,38 @@ JSON;
     /**
      * @test
      */
+    public function it_does_not_update_the_address_if_it_does_not_belong_to_customer(): void
+    {
+        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'country.yml', 'address.yml']);
+        $this->logInUser('hater@queen.com', '123password');
+
+        /** @var AddressRepositoryInterface $addressRepository */
+        $addressRepository = $this->get('sylius.repository.address');
+        /** @var AddressInterface $address */
+        $address = $addressRepository->findOneBy(['street' => 'Kupreska']);
+
+        $data =
+<<<JSON
+        {
+            "firstName": "New name",
+            "lastName": "New lastName",
+            "company": "Locastic",
+            "street": "New street",
+            "countryCode": "GB",
+            "provinceCode": "GB-WLS",
+            "city": "New city",
+            "postcode": "2000",
+            "phoneNumber": "0918972132"
+        }
+JSON;
+
+        $response = $this->updateAddress((string) $address->getId(), $data);
+        Assert::assertSame($response->getStatusCode(), Response::HTTP_NOT_FOUND);
+    }
+
+    /**
+     * @test
+     */
     public function it_does_not_allow_to_update_address_if_country_or_province_code_are_not_valid(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'country.yml', 'address.yml']);

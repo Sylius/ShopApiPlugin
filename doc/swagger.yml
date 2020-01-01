@@ -905,7 +905,7 @@ paths:
                     description: "Successfully fetched Address Book"
                     schema:
                         $ref: "#/definitions/LoggedInCustomerAddressBook"
-                500:
+                401:
                     description: "User not logged in"
             security:
                 -   bearerAuth: []
@@ -931,8 +931,6 @@ paths:
                         $ref: "#/definitions/GeneralError"
                 401:
                     description: "No user is logged in"
-                500:
-                    description: "The user does not own the address"
             security:
                 -   bearerAuth: []
 
@@ -964,8 +962,8 @@ paths:
                         $ref: "#/definitions/GeneralError"
                 401:
                     description: "No user is logged in"
-                500:
-                    description: "The user does not own the address"
+                404:
+                    description: "The address  not found in the user addresses"
             security:
                 -   bearerAuth: []
         delete:
@@ -988,8 +986,8 @@ paths:
                         $ref: "#/definitions/GeneralError"
                 401:
                     description: "No user is logged in"
-                500:
-                    description: "The user does not own the address"
+                404:
+                    description: "The address  not found in the user addresses"
             security:
                 -   bearerAuth: []
 
@@ -1014,8 +1012,8 @@ paths:
                         $ref: "#/definitions/GeneralError"
                 401:
                     description: "No user is logged in"
-                500:
-                    description: "The user does not own the address"
+                404:
+                    description: "The address  not found in the user addresses"
             security:
                 -   bearerAuth: []
 

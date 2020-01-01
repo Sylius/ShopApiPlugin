@@ -93,6 +93,10 @@ The latest documentation is available [here](https://app.swaggerhub.com/apis/Syl
                 guard:
                     authenticators:
                         - lexik_jwt_authentication.jwt_token_authenticator
+       access_control:
+       - { path: "%sylius_shop_api.security.regex%/address-book", role: ROLE_USER}
+       - { path: "%sylius_shop_api.security.regex%/me", role: ROLE_USER}
+
     ```
     
     6. (optional) if you have installed `nelmio/NelmioCorsBundle` for Support of Cross-Origin Ajax Request,
