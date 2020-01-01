@@ -131,4 +131,28 @@ JSON;
         $response = $this->client->getResponse();
         $this->assertResponse($response, 'customer/validation_empty_data', Response::HTTP_BAD_REQUEST);
     }
+
+    /**
+     * @test
+     */
+    public function it_does_not_allow_to_update_customer_without_entering_valid_gender(): void
+    {
+        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
+        $this->logInUser('oliver@queen.com', '123password');
+
+        $data =
+            <<<JSON
+        {
+            "firstName": "New name",
+            "lastName": "New lastName",
+            "birthday": "2017-11-01",
+            "gender": "mmm",
+            "phoneNumber": "0918972132",
+            "subscribedToNewsletter": true
+        }
+JSON;
+        $this->client->request('PUT', '/shop-api/me', [], [], self::CONTENT_TYPE_HEADER, $data);
+        $response = $this->client->getResponse();
+        $this->assertResponse($response, 'customer/validation_gender_not_valid_response', Response::HTTP_BAD_REQUEST);
+    }
 }

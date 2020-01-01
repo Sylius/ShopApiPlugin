@@ -1,0 +1,9 @@
+{
+  "code": 400,
+  "message": "Validation failed",
+  "errors": {
+    "gender": [
+      "Please enter a valid gender"
+    ]
+  }
+}
