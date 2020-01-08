@@ -2,3 +2,13 @@ suites:
     default:
         namespace: Sylius\ShopApiPlugin
         psr4_prefix: Sylius\ShopApiPlugin
+extensions:
+  FriendsOfPhpSpec\PhpSpec\CodeCoverage\CodeCoverageExtension:
+    format:
+      - text
+    whitelist:
+      - 'src'
+    blacklist:
+      - 'src/Controller'
+      - 'src/Request'
+      - 'src/Validator/Constraints'

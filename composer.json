@@ -23,7 +23,8 @@
         "symfony/debug-bundle": "^4.1",
         "symfony/dotenv": "^4.1",
         "symfony/web-profiler-bundle": "^4.1",
-        "symfony/web-server-bundle": "^4.1"
+        "symfony/web-server-bundle": "^4.1",
+        "friends-of-phpspec/phpspec-code-coverage": "^4.3"
     },
     "autoload": {
         "psr-4": {
