@@ -31,14 +31,14 @@ final class SendResetPasswordTokenHandler
 
         /** @var ShopUserInterface $user */
         $user = $this->userRepository->findOneByEmail($email);
+        if (null !== $user) {
+            Assert::notNull($user->getPasswordResetToken(), sprintf('User with %s email has not verification token defined.', $email));
+            $this->sender->send(
+                Emails::EMAIL_RESET_PASSWORD_TOKEN,
+                [$email],
+                ['user' => $user, 'channelCode' => $resendResetPasswordToken->channelCode()]
+            );
+        }
 
-        Assert::notNull($user, sprintf('User with %s email has not been found.', $email));
-        Assert::notNull($user->getPasswordResetToken(), sprintf('User with %s email has not verification token defined.', $email));
-
-        $this->sender->send(
-            Emails::EMAIL_RESET_PASSWORD_TOKEN,
-            [$email],
-            ['user' => $user, 'channelCode' => $resendResetPasswordToken->channelCode()]
-        );
     }
 }
