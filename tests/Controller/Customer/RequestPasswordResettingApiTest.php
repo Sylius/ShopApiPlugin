@@ -67,6 +67,21 @@ final class RequestPasswordResettingApiTest extends JsonApiTestCase
         $this->assertResponse($response, 'customer/request_reset_password_empty_email', Response::HTTP_BAD_REQUEST);
     }
 
+    /**
+     * @test
+     */
+    public function it_allow_to_reset_user_password_without_sending_mail_user_not_exist(): void
+    {
+        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
+
+        $data = '{"email": "Amr@amr.com"}';
+
+        $this->client->request('PUT', '/shop-api/request-password-reset', [], [], self::CONTENT_TYPE_HEADER, $data);
+
+        $response = $this->client->getResponse();
+        $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
+    }
+
     protected function getContainer(): ContainerInterface
     {
         return static::$sharedKernel->getContainer();
