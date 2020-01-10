@@ -709,9 +709,9 @@ paths:
                         $ref: "#/definitions/RequestPasswordResetting"
             responses:
                 204:
-                    description: "Reset password request has been sent."
-                500:
-                    description: "User with provided email has not been found."
+                    description: "Reset password request has been sent If the email exists in our system,."
+                400:
+                    description: "Email not valid"
 
     /password-reset/{token}:
         parameters:
