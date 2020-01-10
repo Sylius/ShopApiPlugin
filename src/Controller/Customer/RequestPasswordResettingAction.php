@@ -46,6 +46,7 @@ final class RequestPasswordResettingAction
     {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
+        $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->channelContext = $channelContext;
         $this->generateResetPasswordTokenCommandProvider = $generateResetPasswordTokenCommandProvider;
         $this->sendResetPasswordTokenCommandProvider = $sendResetPasswordTokenCommandProvider;
