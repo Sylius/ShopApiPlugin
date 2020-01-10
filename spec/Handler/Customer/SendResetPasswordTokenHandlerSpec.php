@@ -36,14 +36,7 @@ final class SendResetPasswordTokenHandlerSpec extends ObjectBehavior
 
         $this(new SendResetPasswordToken('example@customer.com', 'WEB_GB'));
     }
-
-    function it_throws_an_exception_if_user_has_not_been_found(
-        UserRepositoryInterface $userRepository
-    ): void {
-        $userRepository->findOneByEmail('example@customer.com')->willReturn(null);
-
-        $this->shouldThrow(\InvalidArgumentException::class)->during('__invoke', [new SendResetPasswordToken('example@customer.com', 'WEB_GB')]);
-    }
+    
 
     function it_throws_an_exception_if_user_has_not_verification_token(
         UserRepositoryInterface $userRepository,
