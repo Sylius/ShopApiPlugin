@@ -10,6 +10,7 @@ use Sylius\Component\Channel\Context\ChannelContextInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\ShopApiPlugin\CommandProvider\ChannelBasedCommandProviderInterface;
 use Sylius\ShopApiPlugin\CommandProvider\CommandProviderInterface;
+use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -21,6 +22,9 @@ final class RequestPasswordResettingAction
 
     /** @var MessageBusInterface */
     private $bus;
+
+    /** @var ValidationErrorViewFactoryInterface */
+    private $validationErrorViewFactory;
 
     /** @var ChannelContextInterface */
     private $channelContext;
@@ -34,10 +38,12 @@ final class RequestPasswordResettingAction
     public function __construct(
         ViewHandlerInterface $viewHandler,
         MessageBusInterface $bus,
+        ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         ChannelContextInterface $channelContext,
         CommandProviderInterface $generateResetPasswordTokenCommandProvider,
         ChannelBasedCommandProviderInterface $sendResetPasswordTokenCommandProvider
-    ) {
+    )
+    {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
         $this->channelContext = $channelContext;
@@ -49,7 +55,13 @@ final class RequestPasswordResettingAction
     {
         /** @var ChannelInterface $channel */
         $channel = $this->channelContext->getChannel();
-
+        $validationResults = $this->generateResetPasswordTokenCommandProvider->validate($request);
+        if (0 !== count($validationResults)) {
+            return $this->viewHandler->handle(View::create(
+                $this->validationErrorViewFactory->create($validationResults),
+                Response::HTTP_BAD_REQUEST
+            ));
+        }
         $this->bus->dispatch($this->generateResetPasswordTokenCommandProvider->getCommand($request));
         $this->bus->dispatch($this->sendResetPasswordTokenCommandProvider->getCommand($request, $channel));
 
