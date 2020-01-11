@@ -17,8 +17,6 @@ final class RequestPasswordResettingApiTest extends JsonApiTestCase
     /**
      * @test
      */
-
-
     public function it_allows_to_reset_user_password(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
@@ -35,7 +33,6 @@ final class RequestPasswordResettingApiTest extends JsonApiTestCase
 
         $this->assertTrue($emailChecker->hasRecipient('oliver@queen.com'));
     }
-
 
     /**
      * @test

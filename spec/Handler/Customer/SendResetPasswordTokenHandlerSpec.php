@@ -36,7 +36,6 @@ final class SendResetPasswordTokenHandlerSpec extends ObjectBehavior
 
         $this(new SendResetPasswordToken('example@customer.com', 'WEB_GB'));
     }
-    
 
     function it_throws_an_exception_if_user_has_not_verification_token(
         UserRepositoryInterface $userRepository,

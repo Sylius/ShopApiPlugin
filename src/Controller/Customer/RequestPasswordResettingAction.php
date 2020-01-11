@@ -42,8 +42,7 @@ final class RequestPasswordResettingAction
         ChannelContextInterface $channelContext,
         CommandProviderInterface $generateResetPasswordTokenCommandProvider,
         ChannelBasedCommandProviderInterface $sendResetPasswordTokenCommandProvider
-    )
-    {
+    ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
         $this->validationErrorViewFactory = $validationErrorViewFactory;

@@ -38,5 +38,4 @@ final class GenerateResetPasswordTokenHandlerSpec extends ObjectBehavior
 
         $this(new GenerateResetPasswordToken('example@customer.com'));
     }
-
 }
