@@ -46,4 +46,13 @@ final class SendResetPasswordTokenHandlerSpec extends ObjectBehavior
 
         $this->shouldThrow(\InvalidArgumentException::class)->during('__invoke', [new SendResetPasswordToken('example@customer.com', 'WEB_GB')]);
     }
+
+    function it_continues_if_user_not_found(
+        UserRepositoryInterface $userRepository,
+        SenderInterface $sender,
+        ShopUserInterface $user
+    ): void {
+        $userRepository->findOneByEmail('amr@amr.com')->willReturn(null);
+        $sender->send(Emails::EMAIL_RESET_PASSWORD_TOKEN, ['example@customer.com'], ['user' => $user, 'channelCode' => 'WEB_GB'])->shouldNotBeCalled();
+    }
 }

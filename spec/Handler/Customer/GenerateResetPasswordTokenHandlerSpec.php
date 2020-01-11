@@ -38,4 +38,15 @@ final class GenerateResetPasswordTokenHandlerSpec extends ObjectBehavior
 
         $this(new GenerateResetPasswordToken('example@customer.com'));
     }
+
+    function it_continues_if_user_not_found(
+        UserRepositoryInterface $userRepository,
+        GeneratorInterface $tokenGenerator,
+        ShopUserInterface $user
+    ): void {
+        $userRepository->findOneByEmail('amr@amr.com')->willReturn(null);
+        $tokenGenerator->generate()->shouldNotBeCalled();
+        $user->setPasswordResetToken('RANDOM_TOKEN')->shouldNotBeCalled();
+        $user->setPasswordRequestedAt(Argument::type(\DateTime::class))->shouldNotBeCalled();
+    }
 }
