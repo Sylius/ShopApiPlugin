@@ -29,9 +29,11 @@ final class GenerateResetPasswordTokenHandler
 
         /** @var ShopUserInterface $user */
         $user = $this->userRepository->findOneByEmail($email);
-        if (null !== $user) {
-            $user->setPasswordResetToken($this->tokenGenerator->generate());
-            $user->setPasswordRequestedAt(new \DateTime());
+        if (null === $user) {
+            return;
         }
+        $user->setPasswordResetToken($this->tokenGenerator->generate());
+        $user->setPasswordRequestedAt(new \DateTime());
+
     }
 }
