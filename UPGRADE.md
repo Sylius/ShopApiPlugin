@@ -7,7 +7,7 @@ access_control:
     - { path: "%sylius_shop_api.security.regex%/me", role: ROLE_USER}
 
 ```
-* The forgot passwort function now doesn't return an error if the user with this email is not found. It might give a potential attacker information about which users are registered in the shop.
+* The forgot password function now doesn't return an error if the user with this email is not found. It might give a potential attacker information about which users are registered in the shop.
 
 # UPGRADE FROM 1.0.0-rc.2 or 1.0.0-rc.3 to 1.0.0 
 
