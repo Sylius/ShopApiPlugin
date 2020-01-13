@@ -12,9 +12,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
 
 final class CompleteOrderAction
 {
+
     /** @var ViewHandlerInterface */
     private $viewHandler;
 
@@ -26,21 +28,32 @@ final class CompleteOrderAction
 
     /** @var CommandProviderInterface */
     private $completeOrderCommandProvider;
+    private $validationErrorViewFactory;
 
     public function __construct(
         ViewHandlerInterface $viewHandler,
         MessageBusInterface $bus,
         CommandProviderInterface $assignCustomerToCartCommandProvider,
-        CommandProviderInterface $completeOrderCommandProvider
+        CommandProviderInterface $completeOrderCommandProvider,
+        ValidationErrorViewFactoryInterface $validationErrorViewFactory
     ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
         $this->assignCustomerToCartCommandProvider = $assignCustomerToCartCommandProvider;
         $this->completeOrderCommandProvider = $completeOrderCommandProvider;
+        $this->validationErrorViewFactory = $validationErrorViewFactory;
     }
 
     public function __invoke(Request $request): Response
     {
+        $validationResults = $this->completeOrderCommandProvider->validate($request);
+        if (0 !== count($validationResults)) {
+            return $this->viewHandler->handle(
+                View::create($this->validationErrorViewFactory->create($validationResults),
+                Response::HTTP_UNPROCESSABLE_ENTITY
+            ));
+        }
+
         try {
             if (null !== $request->request->get('email')) {
                 $this->bus->dispatch($this->assignCustomerToCartCommandProvider->getCommand($request));

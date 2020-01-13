@@ -13,11 +13,14 @@ class CompleteOrder implements CommandInterface
 
     /** @var string|null */
     protected $notes;
+    /** @var int|null */
+    private $points;
 
-    public function __construct(string $orderToken, ?string $notes = null)
+    public function __construct(string $orderToken, ?string $notes = null, ?int $points = null)
     {
         $this->orderToken = $orderToken;
-        $this->notes = $notes;
+        $this->notes      = $notes;
+        $this->points     = $points;
     }
 
     public function orderToken(): string
@@ -28,5 +31,10 @@ class CompleteOrder implements CommandInterface
     public function notes(): ?string
     {
         return $this->notes;
+    }
+
+    public function points(): ?int
+    {
+        return $this->points;
     }
 }

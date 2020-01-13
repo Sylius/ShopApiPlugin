@@ -16,11 +16,13 @@ class CompleteOrderRequest implements RequestInterface
 
     /** @var string|null */
     protected $notes;
+    protected $points;
 
     protected function __construct(Request $request)
     {
         $this->token = $request->attributes->get('token');
         $this->notes = $request->request->get('notes');
+        $this->points = $request->request->get('points');
     }
 
     public static function fromHttpRequest(Request $request): RequestInterface
@@ -30,6 +32,19 @@ class CompleteOrderRequest implements RequestInterface
 
     public function getCommand(): CommandInterface
     {
-        return new CompleteOrder($this->token, $this->notes);
+        return new CompleteOrder($this->token, $this->notes, $this->points);
+    }
+
+    public function getToken(): string
+    {
+        return $this->token;
+    }
+    public function getNotes(): string
+    {
+        return $this->notes;
+    }
+    public function getPoints()
+    {
+        return $this->points;
     }
 }
