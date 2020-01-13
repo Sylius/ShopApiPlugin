@@ -62,6 +62,9 @@ class PlacedOrderView
     public $pointsAdd;
 
     /** @var string */
+    public $additionalState;
+
+    /** @var string */
     public $notes;
 
     public function __construct()

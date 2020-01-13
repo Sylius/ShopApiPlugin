@@ -9,17 +9,17 @@ use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\ShopApiPlugin\Factory\AddressBook\AddressViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\Cart\AdjustmentViewFactoryInterface;
-use Sylius\ShopApiPlugin\Factory\Cart\CartItemViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\Cart\TotalViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\Checkout\PaymentViewFactoryInterface;
 use Sylius\ShopApiPlugin\Factory\Checkout\ShipmentViewFactoryInterface;
+use Sylius\ShopApiPlugin\Factory\Cart\Slim\SlimCartItemViewFactory;
 use Sylius\ShopApiPlugin\View\Cart\AdjustmentView;
 use Sylius\ShopApiPlugin\View\Order\PlacedOrderView;
 use Sylius\ShopApiPlugin\Factory\Order\PlacedOrderViewFactoryInterface;
 
 final class SlimPlacedOrderViewFactory implements PlacedOrderViewFactoryInterface
 {
-    /** @var CartItemViewFactoryInterface */
+    /** @var SlimCartItemViewFactory */
     private $orderItemFactory;
 
     /** @var AddressViewFactoryInterface */
@@ -41,7 +41,7 @@ final class SlimPlacedOrderViewFactory implements PlacedOrderViewFactoryInterfac
     private $placedOrderViewClass;
 
     public function __construct(
-        CartItemViewFactoryInterface $orderItemFactory,
+        SlimCartItemViewFactory $orderItemFactory,
         AddressViewFactoryInterface $addressViewFactory,
         TotalViewFactoryInterface $totalViewFactory,
         ShipmentViewFactoryInterface $shipmentViewFactory,
@@ -70,7 +70,9 @@ final class SlimPlacedOrderViewFactory implements PlacedOrderViewFactoryInterfac
         $placedOrderView->totals              = $this->totalViewFactory->create($order);
         $placedOrderView->tokenValue          = $order->getTokenValue();
         $placedOrderView->number              = $order->getNumber();
-
+        if($order->getAdditionalState() == $order::ADDITIONAL_STATE_PROCESSING || $order->getAdditionalState() == $order::ADDITIONAL_STATE_ASSEMBLY){
+            $placedOrderView->additionalState     = $order->getAdditionalState();
+        }
         if($order->getNotes()){
             $placedOrderView->notes               = $order->getNotes();
         }
