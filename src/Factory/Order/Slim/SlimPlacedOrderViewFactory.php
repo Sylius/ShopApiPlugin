@@ -71,6 +71,9 @@ final class SlimPlacedOrderViewFactory implements PlacedOrderViewFactoryInterfac
         $placedOrderView->tokenValue          = $order->getTokenValue();
         $placedOrderView->number              = $order->getNumber();
 
+        if($order->getNotes()){
+            $placedOrderView->notes               = $order->getNotes();
+        }
         /** @var OrderItemInterface $item */
         foreach ($order->getItems() as $item) {
             $placedOrderView->items[] = $this->orderItemFactory->create($item, $order->getChannel(), $localeCode);
