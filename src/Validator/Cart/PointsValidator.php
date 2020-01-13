@@ -37,7 +37,7 @@ final class PointsValidator extends ConstraintValidator
         $amount = $request->getPoints();
 
         if ($customer === null && $amount) {
-            $this->context->addViolation('Login required');
+            $this->buildViolation($constraint, 'Login required');
         }
 
         if ($customer && $amount) {
@@ -50,7 +50,7 @@ final class PointsValidator extends ConstraintValidator
             $customer = $this->tokenStorage->getToken()->getUser()->getCustomer();
 
             if ($cart->getPromotionCoupon()) {
-                $this->context->addViolation('Unable to use coupons and points');
+                $this->buildViolation($constraint, 'Unable to use coupons and points');
 
                 return;
             }
@@ -63,13 +63,13 @@ final class PointsValidator extends ConstraintValidator
             $maxPoints      = (int) round(array_sum($itemsTotals) * $this->percentage);
 
             if ( ! $customerPoints || ! $customerPoints->getPoints()) {
-                $this->context->addViolation('Customer does not have enough points');
+                $this->buildViolation($constraint, 'Customer does not have enough points');
 
                 return;
             }
 
             if ( ! ($amount <= $customerPoints->getPoints())) {
-                $this->context->addViolation('Not enough customer bonuses');
+                $this->buildViolation($constraint, 'Not enough customer bonuses');
 
                 return;
             }
@@ -77,17 +77,24 @@ final class PointsValidator extends ConstraintValidator
             if ( ! ($amount <= $maxPoints)) {
                 $maxPoints /= 100;
                 $amount    /= 100;
-                $this->context->addViolation("It is possible to use {$amount}р bonuses for this order, max {$maxPoints}р"
-                );
-
+                $this->buildViolation($constraint, "It is possible to use {$amount}р bonuses for this order, max {$maxPoints}р");
                 return;
             }
 
             if ($customerPoints && $amount && $amount <= $customerPoints->getPoints() && $amount <= $maxPoints) {
                 return;
             }
-            $this->context->addViolation("undefined error");
+            $this->buildViolation($constraint, "undefined error");
         }
     }
 
+    /** @param Constraint $constraint */
+    private function buildViolation(Constraint $constraint, $message)
+    {
+        $this->context
+            ->buildViolation($message)
+            ->atPath('points')
+            ->addViolation()
+        ;
+    }
 }
