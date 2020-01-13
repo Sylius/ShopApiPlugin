@@ -35,7 +35,7 @@ final class PointsValidator extends ConstraintValidator
             }
         }
         $amount = $request->getPoints();
-        dd($customer, $amount);
+
         if ($customer === null && $amount) {
             $this->context->addViolation('Login required');
         }
