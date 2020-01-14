@@ -38,7 +38,7 @@ final class SlimCartItemViewFactory implements CartItemViewFactoryInterface
     public function create(OrderItemInterface $item, ChannelInterface $channel, string $locale): ItemView
     {
         /** @var ItemView $itemView */
-        $itemView = new ItemView();
+        $itemView = new $this->cartItemViewClass();
 
         $itemView->id       = $item->getId();
         $itemView->quantity = $item->getQuantity();
