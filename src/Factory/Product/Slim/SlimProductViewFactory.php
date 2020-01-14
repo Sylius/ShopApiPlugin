@@ -20,7 +20,7 @@ use Sylius\ShopApiPlugin\View\Product\ProductView;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use App\Entity\User\ShopUser;
 
-final class SlimProductViewFactory implements ProductViewFactoryInterface
+class SlimProductViewFactory implements ProductViewFactoryInterface
 {
 
     use Transformer;
@@ -164,12 +164,15 @@ final class SlimProductViewFactory implements ProductViewFactoryInterface
 
         /** @var ProductVariantInterface $variant */
         foreach ($product->getSortedVariants() as $variant) {
-            try {
-                $productView->variants[$variant->getCode()] =
-                    $this->variantViewFactory->create($variant, $this->channel, $this->locale);
-            } catch (ViewCreationException $exception) {
-                continue;
+            if($variant->isEnabled()){
+                try {
+                    $productView->variants[$variant->getCode()] =
+                        $this->variantViewFactory->create($variant, $this->channel, $this->locale);
+                } catch (ViewCreationException $exception) {
+                    continue;
+                }
             }
+
         }
 
         return $productView;
