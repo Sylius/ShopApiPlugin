@@ -11,10 +11,11 @@ use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\OrderCheckoutStates;
 use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Sylius\ShopApiPlugin\Factory\Order\PlacedOrderViewFactoryInterface;
+use Sylius\ShopApiPlugin\Factory\Order\Slim\SlimPlacedOrderViewFactory;
 use Sylius\ShopApiPlugin\Factory\Product\PageViewFactory;
 use Sylius\ShopApiPlugin\View\Order\PlacedOrderView;
 use Sylius\ShopApiPlugin\View\Product\PageView;
+use Sylius\ShopApiPlugin\ViewRepository\Order\PlacedOrderViewRepositoryInterface;
 use Webmozart\Assert\Assert;
 
 final class PlacedOrderViewRepository implements PlacedOrderViewRepositoryInterface
@@ -25,7 +26,7 @@ final class PlacedOrderViewRepository implements PlacedOrderViewRepositoryInterf
     /** @var CustomerRepositoryInterface */
     private $customerRepository;
 
-    /** @var PlacedOrderViewFactoryInterface */
+    /** @var SlimPlacedOrderViewFactory */
     private $placedOrderViewFactory;
 
     /** @var PageViewFactory */
@@ -34,7 +35,7 @@ final class PlacedOrderViewRepository implements PlacedOrderViewRepositoryInterf
     public function __construct(
         OrderRepositoryInterface $orderRepository,
         CustomerRepositoryInterface $customerRepository,
-        PlacedOrderViewFactoryInterface $placedOrderViewFactory,
+        SlimPlacedOrderViewFactory $placedOrderViewFactory,
         PageViewFactory $pageViewFactory
     ) {
         $this->orderRepository = $orderRepository;

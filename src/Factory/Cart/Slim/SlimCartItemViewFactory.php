@@ -6,8 +6,8 @@ namespace Sylius\ShopApiPlugin\Factory\Cart\Slim;
 
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
-use Sylius\ShopApiPlugin\Factory\Product\ProductVariantViewFactoryInterface;
-use Sylius\ShopApiPlugin\Factory\Product\ProductViewFactoryInterface;
+use Sylius\ShopApiPlugin\Factory\Product\Slim\SlimProductVariantViewFactory;
+use Sylius\ShopApiPlugin\Factory\Product\Slim\SlimProductViewFactory;
 use Sylius\ShopApiPlugin\View\ItemView;
 
 use Sylius\ShopApiPlugin\Factory\Cart\CartItemViewFactoryInterface;
@@ -15,18 +15,18 @@ use Sylius\ShopApiPlugin\Factory\Cart\CartItemViewFactoryInterface;
 final class SlimCartItemViewFactory implements CartItemViewFactoryInterface
 {
 
-    /** @var ProductViewFactoryInterface */
+    /** @var SlimProductViewFactory */
     private $productViewFactory;
 
-    /** @var ProductVariantViewFactoryInterface */
+    /** @var SlimProductVariantViewFactory */
     private $productVariantViewFactory;
 
     /** @var string */
     private $cartItemViewClass;
 
     public function __construct(
-        ProductViewFactoryInterface $productViewFactory,
-        ProductVariantViewFactoryInterface $productVariantViewFactory,
+        SlimProductViewFactory $productViewFactory,
+        SlimProductVariantViewFactory $productVariantViewFactory,
         string $cartItemViewClass
     ) {
         $this->productViewFactory        = $productViewFactory;
