@@ -22,7 +22,7 @@ final class CartExistsValidator extends ConstraintValidator
     }
 
     /** {@inheritdoc} */
-    public function validate($token, Constraint $constraint)
+    public function validate($token, Constraint $constraint): void
     {
         Assert::isInstanceOf($constraint, CartExists::class);
 

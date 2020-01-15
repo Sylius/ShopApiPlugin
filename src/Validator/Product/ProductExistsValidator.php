@@ -19,7 +19,7 @@ final class ProductExistsValidator extends ConstraintValidator
     }
 
     /** {@inheritdoc} */
-    public function validate($productCode, Constraint $constraint)
+    public function validate($productCode, Constraint $constraint): void
     {
         if (null === $productCode || null === $this->productRepository->findOneByCode($productCode)) {
             $this->context->addViolation($constraint->message);

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Sylius\ShopApiPlugin\Controller\AddressBook;
 
 use PHPUnit\Framework\Assert;
-use Sylius\Component\Core\Model\ShopUser;
+use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\Core\Repository\AddressRepositoryInterface;
 use Sylius\Component\Resource\Model\ResourceInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
@@ -36,7 +36,7 @@ final class SetDefaultAddressApiTest extends JsonApiTestCase
 
         /** @var UserRepositoryInterface $userRepository */
         $userRepository = $this->get('sylius.repository.shop_user');
-        /** @var ShopUser $address */
+        /** @var ShopUserInterface $shopUser */
         $shopUser = $userRepository->findOneBy(['username' => 'oliver@queen.com']);
 
         Assert::assertEquals(

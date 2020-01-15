@@ -3,6 +3,9 @@ includes:
 
 parameters:
     level: 6
+    checkGenericClassInNonGenericObjectType: false
+    checkMissingIterableValueType: false
+
     excludes_analyse:
         # Makes PHPStan crash
         - src/DependencyInjection/Configuration.php
@@ -11,3 +14,11 @@ parameters:
         - /^Access to an undefined property Symfony\\Component\\Validator\\Constraint::\$message\.$/
         - '/Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface::dispatch\(\)/'
         - '/Sylius\\Component\\Core\\Model\\(\w+), Sylius\\Component\\\w+\\Model\\\1 given\./'
+        - '/Method Sylius\\ShopApiPlugin\\Model\\PaginatorDetails::addToParameters\(\) has parameter \$value with no typehint specified./'
+        - '/Method Sylius\\ShopApiPlugin\\Command\\\w+\\\w+::__construct\(\) has parameter \$\w+ with no typehint specified./'
+        - '/Method Sylius\\ShopApiPlugin\\Command\\\w+\\\w+::\w+\(\) has no return typehint specified./'
+        - '/Method Sylius\\ShopApiPlugin\\Factory\\Customer\\CustomerViewFactoryInterface::create\(\) has no return typehint specified./'
+        - '/Method Sylius\\ShopApiPlugin\\Validator\\Address\\AddressExistsValidator::validate\(\) has parameter \$id with no typehint specified./'
+        - '/Method Sylius\\ShopApiPlugin\\Validator\\Address\\\w+::validate\(\) has no return typehint specified./'
+        - '/Method Sylius\\ShopApiPlugin\\Factory\\Product\\ProductAttributeValueViewResolver\\\w+::getValue\(\) has no return typehint specified./'
+        - '/Call to static method Webmozart\\Assert\\Assert::implementsInterface\(\) with string/'

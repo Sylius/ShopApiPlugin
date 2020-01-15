@@ -44,7 +44,6 @@ final class AddressMapper implements AddressMapperInterface
     {
         $this->assertCountryExists($addressData->countryCode());
 
-        /** @var AddressInterface $address */
         $address->setFirstName($addressData->firstName());
         $address->setLastName($addressData->lastName());
         $address->setCompany($addressData->company());

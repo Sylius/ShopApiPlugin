@@ -36,7 +36,7 @@ final class ValidPromotionCouponCodeValidator extends ConstraintValidator
     }
 
     /** {@inheritdoc} */
-    public function validate($request, Constraint $constraint)
+    public function validate($request, Constraint $constraint): void
     {
         /** @var AddCouponRequest $request */
         Assert::isInstanceOf($request, AddCouponRequest::class);
@@ -59,7 +59,7 @@ final class ValidPromotionCouponCodeValidator extends ConstraintValidator
     }
 
     /** @param Constraint $constraint */
-    private function buildViolation(Constraint $constraint)
+    private function buildViolation(Constraint $constraint): void
     {
         $this->context
             ->buildViolation($constraint->message)

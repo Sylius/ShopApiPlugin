@@ -48,7 +48,7 @@ final class TaxonDetailsViewFactory implements TaxonDetailsViewFactoryInterface
         return $currentTaxonView;
     }
 
-    private function buildTaxonView(TaxonInterface $taxon, $locale): TaxonView
+    private function buildTaxonView(TaxonInterface $taxon, string $locale): TaxonView
     {
         $taxonView = $this->taxonViewFactory->create($taxon, $locale);
 
