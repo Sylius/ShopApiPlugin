@@ -37,12 +37,16 @@ final class AddressExistsValidator extends ConstraintValidator
 
         if (!$address instanceof AddressInterface) {
             $this->context->addViolation($constraint->message);
+
+            return;
         }
 
         $user = $this->loggedInUserProvider->provide();
 
         if ($address->getCustomer()->getEmail() !== $user->getEmail()) {
             $this->context->addViolation($constraint->message);
+
+            return;
         }
     }
 }
