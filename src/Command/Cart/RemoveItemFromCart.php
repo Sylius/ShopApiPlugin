@@ -11,9 +11,12 @@ class RemoveItemFromCart implements CommandInterface
     /** @var string */
     protected $orderToken;
 
-    /** @var mixed */
+    /** @var int|string */
     protected $itemIdentifier;
 
+    /**
+     * @param string|int $itemIdentifier
+     */
     public function __construct(string $orderToken, $itemIdentifier)
     {
         $this->orderToken = $orderToken;
@@ -25,6 +28,9 @@ class RemoveItemFromCart implements CommandInterface
         return $this->orderToken;
     }
 
+    /**
+     * @return string|int
+     */
     public function itemIdentifier()
     {
         return $this->itemIdentifier;

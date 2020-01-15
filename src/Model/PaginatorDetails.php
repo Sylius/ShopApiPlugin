@@ -48,6 +48,9 @@ final class PaginatorDetails
         return $this->parameters;
     }
 
+    /**
+     * @param mixed $value
+     */
     public function addToParameters(string $key, $value): void
     {
         Assert::keyNotExists($this->parameters, $key);

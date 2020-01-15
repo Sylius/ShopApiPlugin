@@ -28,20 +28,21 @@ final class AddressExistsValidator extends ConstraintValidator
     }
 
     /**
+     * @param string|int               $id
      * @param Constraint|AddressExists $constraint
      */
-    public function validate($id, Constraint $constraint)
+    public function validate($id, Constraint $constraint): void
     {
         $address = $this->addressRepository->findOneBy(['id' => $id]);
 
         if (!$address instanceof AddressInterface) {
-            return $this->context->addViolation($constraint->message);
+            $this->context->addViolation($constraint->message);
         }
 
         $user = $this->loggedInUserProvider->provide();
 
         if ($address->getCustomer()->getEmail() !== $user->getEmail()) {
-            return $this->context->addViolation($constraint->message);
+            $this->context->addViolation($constraint->message);
         }
     }
 }

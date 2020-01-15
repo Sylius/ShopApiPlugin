@@ -8,7 +8,7 @@ use Sylius\ShopApiPlugin\Command\CommandInterface;
 
 class ChooseShippingMethod implements CommandInterface
 {
-    /** @var mixed */
+    /** @var string|int */
     protected $shipmentIdentifier;
 
     /** @var string */
@@ -17,6 +17,9 @@ class ChooseShippingMethod implements CommandInterface
     /** @var string */
     protected $orderToken;
 
+    /**
+     * @param string|int $shipmentIdentifier
+     */
     public function __construct(string $orderToken, $shipmentIdentifier, string $shippingMethod)
     {
         $this->orderToken = $orderToken;
@@ -29,6 +32,9 @@ class ChooseShippingMethod implements CommandInterface
         return $this->orderToken;
     }
 
+    /**
+     * @return string|int
+     */
     public function shipmentIdentifier()
     {
         return $this->shipmentIdentifier;
