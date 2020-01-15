@@ -25,7 +25,6 @@ services:
     - mysql
 
 before_install:
-    - phpenv config-rm xdebug.ini || true
     - echo "memory_limit=4096M" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 
     - cp tests/Application/.env.test.dist tests/Application/.env.test
