@@ -67,7 +67,7 @@ final class CustomerController extends ResourceController
         return $errorMessage;
     }
 
-    private function addErrorFromField(ValidationErrorView $errorMessage, $errors, $field): void
+    private function addErrorFromField(ValidationErrorView $errorMessage, array $errors, string $field): void
     {
         if (isset($errors[$field]['errors'])) {
             $errorMessage->errors[$field] = $errors[$field]['errors'];

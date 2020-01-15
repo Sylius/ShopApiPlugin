@@ -50,7 +50,7 @@ final class SetDefaultAddressHandler
         $this->customerRepository->add($customer);
     }
 
-    private function assertCurrentUserIsOwner(AddressInterface $address, ShopUserInterface $user)
+    private function assertCurrentUserIsOwner(AddressInterface $address, ShopUserInterface $user): void
     {
         Assert::notNull($address->getCustomer(), 'Address is not associated with any user.');
         Assert::eq($address->getCustomer()->getId(), $user->getCustomer()->getId(), 'Current user is not owner of this address.');
