@@ -1758,7 +1758,7 @@ definitions:
             checkoutState:
                 description: "Current state of a checkout."
                 type: "string"
-                default: "completed"
+                default: "cart"
                 externalDocs:
                     description: "Find out more about checkout states in the Sylius documentation."
                     url: "http://docs.sylius.com/en/latest/book/orders/checkout.html#checkout-state-machine"
@@ -1813,4 +1813,3 @@ definitions:
                     items:
                         type: "string"
                         example: "sylius.shop_api.additionalProp.not_null"
-
