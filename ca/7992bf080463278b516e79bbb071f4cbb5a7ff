@@ -1,0 +1,17 @@
+---------------------------------------------------------------------------
+
+by EmilMassey at 2019-12-11T13:55:39Z
+
+I think displaying order's state would be useful for some, though. Do you think we should add it to the view? I could work on implementation in other PR.
+
+---------------------------------------------------------------------------
+
+by mamazu at 2019-12-11T19:29:48Z
+
+The default state is probably `cart` for carts and only `completed` for orders.
+
+---------------------------------------------------------------------------
+
+by mamazu at 2020-01-16T11:20:06Z
+
+Thanks, Emil! :1st_place_medal:
