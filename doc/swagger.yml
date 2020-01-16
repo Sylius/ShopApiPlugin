@@ -1790,9 +1790,10 @@ definitions:
                     url: "http://docs.sylius.com/en/latest/book/orders/checkout.html#checkout-state-machine"
                 enum:
                     - "cart"
-                    - "new"
-                    - "fulfilled"
-                    - "cancelled"
+                    - "addressed"
+                    - "shipping_selected"
+                    - "payment_selected"
+                    - "completed"
             checkoutCompletedAt:
                 description: "Date the order was completed in ISO 8601 format."
                 type: "string"
@@ -1838,4 +1839,3 @@ definitions:
                     items:
                         type: "string"
                         example: "sylius.shop_api.additionalProp.not_null"
-
