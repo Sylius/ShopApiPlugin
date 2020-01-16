@@ -15,6 +15,7 @@
             "name": "Random Jacket",
             "axis": [],
             "nameAxis": {},
+            "available": true,
             "price": {
                 "current": 19999,
                 "currency": "GBP"

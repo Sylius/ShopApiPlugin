@@ -302,24 +302,24 @@
             }
         },
         {
-          "code": "LOGAN_SHOES_CODE",
-          "name": "Logan Shoes",
-          "slug": "logan-shoes",
-          "channelCode": "WEB_GB",
-          "description": "Some description Lorem ipsum dolor sit amet.",
-          "averageRating": 0,
-          "taxons": {
-            "others": []
-          },
-          "variants": [],
-          "attributes": [],
-          "associations": [],
-          "images": [],
-          "_links": {
-            "self": {
-              "href": "\/shop-api\/products\/by-slug\/logan-shoes"
+            "code": "LOGAN_SHOES_CODE",
+            "name": "Logan Shoes",
+            "slug": "logan-shoes",
+            "channelCode": "WEB_GB",
+            "description": "Some description Lorem ipsum dolor sit amet.",
+            "averageRating": 0,
+            "taxons": {
+              "others": []
+            },
+            "variants": [],
+            "attributes": [],
+            "associations": [],
+            "images": [],
+            "_links": {
+                "self": {
+                  "href": "\/shop-api\/products\/by-slug\/logan-shoes"
+                }
             }
-          }
         },
         {
             "code": "FREE_DOWNLOAD",
@@ -342,10 +342,11 @@
                         "currency": "GBP"
                     },
                     "originalPrice": {
-                      "current": 0,
-                      "currency": "GBP"
+                        "current": 0,
+                        "currency": "GBP"
                     },
                     "images": []
+                }
             },
             "attributes": [],
             "associations": [],
