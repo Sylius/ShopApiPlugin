@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace spec\Sylius\ShopApiPlugin\Handler\Customer;
 
 use PhpSpec\ObjectBehavior;
+use Prophecy\Argument;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\Mailer\Sender\SenderInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
@@ -53,6 +54,6 @@ final class SendResetPasswordTokenHandlerSpec extends ObjectBehavior
         ShopUserInterface $user
     ): void {
         $userRepository->findOneByEmail('amr@amr.com')->willReturn(null);
-        $sender->send(Emails::EMAIL_RESET_PASSWORD_TOKEN, ['example@customer.com'], ['user' => $user, 'channelCode' => 'WEB_GB'])->shouldNotBeCalled();
+        $sender->send(Argument::any())->shouldNotBeCalled();
     }
 }
