@@ -34,6 +34,5 @@ final class GenerateResetPasswordTokenHandler
         }
         $user->setPasswordResetToken($this->tokenGenerator->generate());
         $user->setPasswordRequestedAt(new \DateTime());
-
     }
 }

@@ -41,5 +41,4 @@ final class SendResetPasswordTokenHandler
             ['user' => $user, 'channelCode' => $resendResetPasswordToken->channelCode()]
         );
     }
-
 }
