@@ -11,6 +11,7 @@ use Sylius\Component\User\Repository\UserRepositoryInterface;
 use Sylius\Component\User\Security\Generator\GeneratorInterface;
 use Sylius\ShopApiPlugin\Command\Customer\GenerateResetPasswordToken;
 use Sylius\ShopApiPlugin\Handler\Customer\GenerateResetPasswordTokenHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final class GenerateResetPasswordTokenHandlerSpec extends ObjectBehavior
 {
@@ -39,14 +40,10 @@ final class GenerateResetPasswordTokenHandlerSpec extends ObjectBehavior
         $this(new GenerateResetPasswordToken('example@customer.com'));
     }
 
-    function it_continues_if_user_not_found(
-        UserRepositoryInterface $userRepository,
-        GeneratorInterface $tokenGenerator,
-        ShopUserInterface $user
+    function it_throws_an_exception_if_user_has_not_been_found(
+        UserRepositoryInterface $userRepository
     ): void {
-        $userRepository->findOneByEmail('amr@amr.com')->willReturn(null);
-        $tokenGenerator->generate()->shouldNotBeCalled();
-        $user->setPasswordResetToken('RANDOM_TOKEN')->shouldNotBeCalled();
-        $user->setPasswordRequestedAt(Argument::type(\DateTime::class))->shouldNotBeCalled();
+        $userRepository->findOneByEmail('example@customer.com')->willReturn(null);
+        $this->shouldThrow(NotFoundHttpException::class)->during('__invoke', [new GenerateResetPasswordToken('example@customer.com')]);
     }
 }
