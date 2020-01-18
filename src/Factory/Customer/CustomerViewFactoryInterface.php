@@ -9,5 +9,10 @@ use Sylius\ShopApiPlugin\View\Customer\CustomerView;
 
 interface CustomerViewFactoryInterface
 {
-    public function create(CustomerInterface $customer): CustomerView;
+    /**
+     * @return CustomerView
+     *
+     * @deprecated Returning something else than a CustomerView will cause errors in ShopApi version 2
+     */
+    public function create(CustomerInterface $customer);
 }
