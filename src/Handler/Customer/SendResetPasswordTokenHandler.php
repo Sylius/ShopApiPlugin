@@ -10,7 +10,6 @@ use Sylius\Component\User\Repository\UserRepositoryInterface;
 use Sylius\ShopApiPlugin\Command\Customer\SendResetPasswordToken;
 use Sylius\ShopApiPlugin\Mailer\Emails;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Webmozart\Assert\Assert;
 
 final class SendResetPasswordTokenHandler
 {
