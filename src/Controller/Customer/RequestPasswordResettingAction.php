@@ -13,6 +13,8 @@ use Sylius\ShopApiPlugin\CommandProvider\CommandProviderInterface;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 final class RequestPasswordResettingAction
@@ -66,8 +68,12 @@ final class RequestPasswordResettingAction
                 Response::HTTP_BAD_REQUEST
             ));
         }
-        $this->bus->dispatch($this->generateResetPasswordTokenCommandProvider->getCommand($request));
-        $this->bus->dispatch($this->sendResetPasswordTokenCommandProvider->getCommand($request, $channel));
+
+        try {
+            $this->bus->dispatch($this->generateResetPasswordTokenCommandProvider->getCommand($request));
+            $this->bus->dispatch($this->sendResetPasswordTokenCommandProvider->getCommand($request, $channel));
+        } catch (HandlerFailedException $notFoundHttpException) {
+        }
 
         return $this->viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));
     }

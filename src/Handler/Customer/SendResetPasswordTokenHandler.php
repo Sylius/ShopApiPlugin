@@ -9,6 +9,7 @@ use Sylius\Component\Mailer\Sender\SenderInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
 use Sylius\ShopApiPlugin\Command\Customer\SendResetPasswordToken;
 use Sylius\ShopApiPlugin\Mailer\Emails;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Webmozart\Assert\Assert;
 
 final class SendResetPasswordTokenHandler
@@ -32,9 +33,11 @@ final class SendResetPasswordTokenHandler
         /** @var ShopUserInterface $user */
         $user = $this->userRepository->findOneByEmail($email);
         if (null === $user) {
-            return;
+            throw new NotFoundHttpException('User with given email does not exist!');
         }
-        Assert::notNull($user->getPasswordResetToken(), sprintf('User with %s email has not verification token defined.', $email));
+        if (null === $user->getPasswordResetToken()) {
+            throw new NotFoundHttpException(sprintf('User with %s email has not verification token defined.', $email));
+        }
         $this->sender->send(
             Emails::EMAIL_RESET_PASSWORD_TOKEN,
             [$email],

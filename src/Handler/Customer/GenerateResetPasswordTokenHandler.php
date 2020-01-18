@@ -8,6 +8,7 @@ use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
 use Sylius\Component\User\Security\Generator\GeneratorInterface;
 use Sylius\ShopApiPlugin\Command\Customer\GenerateResetPasswordToken;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final class GenerateResetPasswordTokenHandler
 {
@@ -30,7 +31,7 @@ final class GenerateResetPasswordTokenHandler
         /** @var ShopUserInterface $user */
         $user = $this->userRepository->findOneByEmail($email);
         if (null === $user) {
-            return;
+            throw new NotFoundHttpException('User with given email does not exist!');
         }
         $user->setPasswordResetToken($this->tokenGenerator->generate());
         $user->setPasswordRequestedAt(new \DateTime());
