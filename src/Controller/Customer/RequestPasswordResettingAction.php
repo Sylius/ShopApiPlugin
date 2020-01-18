@@ -38,17 +38,21 @@ final class RequestPasswordResettingAction
     public function __construct(
         ViewHandlerInterface $viewHandler,
         MessageBusInterface $bus,
-        ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         ChannelContextInterface $channelContext,
         CommandProviderInterface $generateResetPasswordTokenCommandProvider,
-        ChannelBasedCommandProviderInterface $sendResetPasswordTokenCommandProvider
+        ChannelBasedCommandProviderInterface $sendResetPasswordTokenCommandProvider,
+        ?ValidationErrorViewFactoryInterface $validationErrorViewFactory
     ) {
+        if (null !== $validationErrorViewFactory) {
+            @trigger_error('Passing ValidationErrorViewFactory as the fourth argument is deprecated', \E_USER_DEPRECATED);
+        }
+
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
-        $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->channelContext = $channelContext;
         $this->generateResetPasswordTokenCommandProvider = $generateResetPasswordTokenCommandProvider;
         $this->sendResetPasswordTokenCommandProvider = $sendResetPasswordTokenCommandProvider;
+        $this->validationErrorViewFactory = $validationErrorViewFactory;
     }
 
     public function __invoke(Request $request): Response
