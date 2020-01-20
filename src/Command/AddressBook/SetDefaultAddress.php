@@ -8,18 +8,24 @@ use Sylius\ShopApiPlugin\Command\CommandInterface;
 
 class SetDefaultAddress implements CommandInterface
 {
-    /** @var mixed */
+    /** @var int|string */
     protected $id;
 
     /** @var string */
     protected $userEmail;
 
+    /**
+     * @param int|string $id
+     */
     public function __construct($id, string $userEmail)
     {
         $this->id = $id;
         $this->userEmail = $userEmail;
     }
 
+    /**
+     * @return int|string $id
+     */
     public function id()
     {
         return $this->id;

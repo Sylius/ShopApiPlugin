@@ -12,12 +12,15 @@ class ChangeItemQuantity implements CommandInterface
     /** @var string */
     protected $orderToken;
 
-    /** @var mixed */
+    /** @var int|string */
     protected $itemIdentifier;
 
     /** @var int */
     protected $quantity;
 
+    /**
+     * @param int|string $itemIdentifier
+     */
     public function __construct(string $orderToken, $itemIdentifier, int $quantity)
     {
         Assert::greaterThan($quantity, 0, 'Quantity should be greater than 0');
@@ -32,6 +35,9 @@ class ChangeItemQuantity implements CommandInterface
         return $this->orderToken;
     }
 
+    /**
+     * @return int|string
+     */
     public function itemIdentifier()
     {
         return $this->itemIdentifier;

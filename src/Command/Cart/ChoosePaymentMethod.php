@@ -8,7 +8,7 @@ use Sylius\ShopApiPlugin\Command\CommandInterface;
 
 class ChoosePaymentMethod implements CommandInterface
 {
-    /** @var mixed */
+    /** @var int|string */
     protected $paymentIdentifier;
 
     /** @var string */
@@ -17,6 +17,9 @@ class ChoosePaymentMethod implements CommandInterface
     /** @var string */
     protected $orderToken;
 
+    /**
+     * @param int|string $paymentIdentifier
+     */
     public function __construct(string $orderToken, $paymentIdentifier, string $paymentMethod)
     {
         $this->orderToken = $orderToken;
@@ -29,6 +32,9 @@ class ChoosePaymentMethod implements CommandInterface
         return $this->orderToken;
     }
 
+    /**
+     * @return int|string
+     */
     public function paymentIdentifier()
     {
         return $this->paymentIdentifier;

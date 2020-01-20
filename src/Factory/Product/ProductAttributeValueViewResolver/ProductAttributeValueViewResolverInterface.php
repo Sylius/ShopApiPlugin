@@ -8,5 +8,8 @@ use Sylius\Component\Product\Model\ProductAttributeValueInterface;
 
 interface ProductAttributeValueViewResolverInterface
 {
+    /**
+     * @return mixed
+     */
     public function getValue(ProductAttributeValueInterface $productAttributeValue, string $localeCode);
 }
