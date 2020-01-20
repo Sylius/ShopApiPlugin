@@ -11,6 +11,7 @@ use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\ShopApiPlugin\Command\Cart\CompleteOrder;
 use Webmozart\Assert\Assert;
 use Sylius\Component\Resource\Factory\FactoryInterface;
+use Sylius\Component\Order\Processor\OrderProcessorInterface;
 
 
 final class CompleteOrderHandler
@@ -25,15 +26,20 @@ final class CompleteOrderHandler
      * @var FactoryInterface
      */
     private $adjustmentFactory;
+    /**
+     * @var OrderProcessorInterface
+     */private $orderProcessor;
 
     public function __construct(
         OrderRepositoryInterface $orderRepository,
         StateMachineFactory $stateMachineFactory,
-        FactoryInterface $adjustmentFactory
+        FactoryInterface $adjustmentFactory,
+        OrderProcessorInterface $orderProcessor
     ) {
         $this->orderRepository     = $orderRepository;
         $this->stateMachineFactory = $stateMachineFactory;
         $this->adjustmentFactory   = $adjustmentFactory;
+        $this->orderProcessor   = $orderProcessor;
     }
 
     public function __invoke(CompleteOrder $completeOrder): void
@@ -43,15 +49,16 @@ final class CompleteOrderHandler
 
         Assert::notNull($order, sprintf('Order with %s token has not been found.', $completeOrder->orderToken()));
 
-        $stateMachine = $this->stateMachineFactory->get($order, OrderCheckoutTransitions::GRAPH);
-
-        Assert::true($stateMachine->can(OrderCheckoutTransitions::TRANSITION_COMPLETE), sprintf('Order with %s token cannot be completed.', $completeOrder->orderToken()));
-
         $order->setNotes($completeOrder->notes());
         if($completeOrder->points()){
             $points = $this->createAdjustment($completeOrder->points()*100);
             $order->addAdjustment($points);
         }
+        $this->orderProcessor->process($order);
+
+        $stateMachine = $this->stateMachineFactory->get($order, OrderCheckoutTransitions::GRAPH);
+
+        Assert::true($stateMachine->can(OrderCheckoutTransitions::TRANSITION_COMPLETE), sprintf('Order with %s token cannot be completed.', $completeOrder->orderToken()));
 
         $stateMachine->apply(OrderCheckoutTransitions::TRANSITION_COMPLETE);
     }
