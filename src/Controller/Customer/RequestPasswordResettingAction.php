@@ -10,6 +10,7 @@ use Sylius\Component\Channel\Context\ChannelContextInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\ShopApiPlugin\CommandProvider\ChannelBasedCommandProviderInterface;
 use Sylius\ShopApiPlugin\CommandProvider\CommandProviderInterface;
+use Sylius\ShopApiPlugin\Exception\UserNotFoundException;
 use Sylius\ShopApiPlugin\Factory\ValidationErrorViewFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -43,7 +44,8 @@ final class RequestPasswordResettingAction
         CommandProviderInterface $generateResetPasswordTokenCommandProvider,
         ChannelBasedCommandProviderInterface $sendResetPasswordTokenCommandProvider,
         ?ValidationErrorViewFactoryInterface $validationErrorViewFactory
-    ) {
+    )
+    {
         if (null !== $validationErrorViewFactory) {
             @trigger_error('Passing ValidationErrorViewFactory as the fourth argument is deprecated', \E_USER_DEPRECATED);
         }
@@ -71,7 +73,12 @@ final class RequestPasswordResettingAction
         try {
             $this->bus->dispatch($this->generateResetPasswordTokenCommandProvider->getCommand($request));
             $this->bus->dispatch($this->sendResetPasswordTokenCommandProvider->getCommand($request, $channel));
-        } catch (HandlerFailedException $notFoundHttpException) {
+        } catch (HandlerFailedException $exception) {
+            $previousException = $exception->getPrevious();
+            if ($previousException instanceof UserNotFoundException) {
+                return $this->viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));
+            }
+            throw $exception;
         }
 
         return $this->viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));
