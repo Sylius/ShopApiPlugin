@@ -40,7 +40,7 @@ final class PointsValidator extends ConstraintValidator
                 $customer = $this->tokenStorage->getToken()->getUser()->getCustomer();
             }
         }
-        $amount = $request->getPoints();
+        $amount = $request->getPoints()*100;
 
         if ($customer === null && $amount) {
             $this->buildViolation($constraint, $this->translator->trans('sylius.shop_api.points.login_required'));
@@ -70,18 +70,6 @@ final class PointsValidator extends ConstraintValidator
             $customerPoints = $customer->getCustomerPoint();
             $maxPoints      = (int) round(array_sum($itemsTotals) * $this->percentage);
 
-            if ( ! $customerPoints || ! $customerPoints->getPoints()) {
-                $this->buildViolation($constraint, $this->translator->trans('sylius.shop_api.points.not_have'));
-
-                return;
-            }
-
-            if ( ! ($amount <= $customerPoints->getPoints())) {
-                $this->buildViolation($constraint, $this->translator->trans('sylius.shop_api.points.not_enough'));
-
-                return;
-            }
-
             if ( ! ($amount <= $maxPoints)) {
                 $maxPoints /= 100;
                 $amount    /= 100;
@@ -91,6 +79,16 @@ final class PointsValidator extends ConstraintValidator
                     )
                 );
 
+                return;
+            }
+
+            if ( ! $customerPoints || ! $customerPoints->getPoints()) {
+                $this->buildViolation($constraint, $this->translator->trans('sylius.shop_api.points.not_have'));
+                return;
+            }
+
+            if ( ! ($amount <= $customerPoints->getPoints())) {
+                $this->buildViolation($constraint, $this->translator->trans('sylius.shop_api.points.not_enough'));
                 return;
             }
 
