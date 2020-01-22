@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Sylius\ShopApiPlugin\Exception;
 
 
-class UserNotFoundException extends \InvalidArgumentException
+final class UserNotFoundException extends \InvalidArgumentException
 {
     public static function occur(): self
     {
