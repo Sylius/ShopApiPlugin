@@ -41,7 +41,7 @@ final class PlacedOrderViewRepositorySpec extends ObjectBehavior
     ): void {
         $customerRepository->findOneBy(['email' => 'test@example.com'])->willReturn($customer);
 
-        $orderRepository->findBy(['customer' => $customer, 'checkoutState' => OrderCheckoutStates::STATE_COMPLETED])->willReturn([$order]);
+        $orderRepository->findByCustomer($customer)->willReturn([$order]);
 
         $order->getLocaleCode()->willReturn('en_GB');
 
