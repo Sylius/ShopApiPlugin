@@ -16,9 +16,7 @@
 
 The latest documentation is available [here](https://app.swaggerhub.com/apis/Sylius/sylius-shop-api/1.0.0). If you are looking for more information how the system works have a look at the [cookbook](doc/Cookbook.md)
 
-## Installation
-
-##### Before installing SyliusShopApiPlugin, you should disable all SyliusShopBundle's dependencies. You cannot use these packages together.
+## Installation.
 
 1. Run `composer require sylius/shop-api-plugin` and, when asked if you want to execute the Flex recipe, answer 'Yes'.
 2. Extend config files:
