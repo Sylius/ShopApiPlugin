@@ -77,6 +77,7 @@ final class RequestPasswordResettingAction
             if ($previousException instanceof UserNotFoundException) {
                 return $this->viewHandler->handle(View::create(null, Response::HTTP_NO_CONTENT));
             }
+
             throw $exception;
         }
 

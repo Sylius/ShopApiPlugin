@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Handler\Customer;
 
+use InvalidArgumentException;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\Mailer\Sender\SenderInterface;
@@ -12,7 +13,6 @@ use Sylius\ShopApiPlugin\Command\Customer\SendResetPasswordToken;
 use Sylius\ShopApiPlugin\Exception\UserNotFoundException;
 use Sylius\ShopApiPlugin\Handler\Customer\SendResetPasswordTokenHandler;
 use Sylius\ShopApiPlugin\Mailer\Emails;
-use InvalidArgumentException;
 
 final class SendResetPasswordTokenHandlerSpec extends ObjectBehavior
 {

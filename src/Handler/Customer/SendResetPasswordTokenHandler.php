@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Handler\Customer;
 
+use InvalidArgumentException;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\Mailer\Sender\SenderInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
 use Sylius\ShopApiPlugin\Command\Customer\SendResetPasswordToken;
 use Sylius\ShopApiPlugin\Exception\UserNotFoundException;
 use Sylius\ShopApiPlugin\Mailer\Emails;
-use InvalidArgumentException;
 
 final class SendResetPasswordTokenHandler
 {
