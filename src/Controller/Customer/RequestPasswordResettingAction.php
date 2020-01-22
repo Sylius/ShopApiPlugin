@@ -45,7 +45,6 @@ final class RequestPasswordResettingAction
         ChannelBasedCommandProviderInterface $sendResetPasswordTokenCommandProvider,
         ?ValidationErrorViewFactoryInterface $validationErrorViewFactory
     ) {
-    {
         if (null !== $validationErrorViewFactory) {
             @trigger_error('Passing ValidationErrorViewFactory as the fourth argument is deprecated', \E_USER_DEPRECATED);
         }
