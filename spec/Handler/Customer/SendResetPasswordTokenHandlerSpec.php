@@ -9,9 +9,10 @@ use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\Mailer\Sender\SenderInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
 use Sylius\ShopApiPlugin\Command\Customer\SendResetPasswordToken;
+use Sylius\ShopApiPlugin\Exception\UserNotFoundException;
 use Sylius\ShopApiPlugin\Handler\Customer\SendResetPasswordTokenHandler;
 use Sylius\ShopApiPlugin\Mailer\Emails;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use InvalidArgumentException;
 
 final class SendResetPasswordTokenHandlerSpec extends ObjectBehavior
 {
@@ -45,13 +46,13 @@ final class SendResetPasswordTokenHandlerSpec extends ObjectBehavior
         $userRepository->findOneByEmail('example@customer.com')->willReturn($user);
         $user->getPasswordResetToken()->willReturn(null);
 
-        $this->shouldThrow(NotFoundHttpException::class)->during('__invoke', [new SendResetPasswordToken('example@customer.com', 'WEB_GB')]);
+        $this->shouldThrow(InvalidArgumentException::class)->during('__invoke', [new SendResetPasswordToken('example@customer.com', 'WEB_GB')]);
     }
 
     function it_throws_an_exception_if_user_has_not_been_found(
         UserRepositoryInterface $userRepository
     ): void {
         $userRepository->findOneByEmail('example@customer.com')->willReturn(null);
-        $this->shouldThrow(NotFoundHttpException::class)->during('__invoke', [new SendResetPasswordToken('example@customer.com', 'WEB_GB')]);
+        $this->shouldThrow(UserNotFoundException::class)->during('__invoke', [new SendResetPasswordToken('example@customer.com', 'WEB_GB')]);
     }
 }
