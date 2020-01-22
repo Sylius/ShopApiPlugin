@@ -16,5 +16,4 @@ final class UserNotFoundException extends \InvalidArgumentException
     {
         return new self(sprintf('User with email %s has not been found.', $email));
     }
-
 }
