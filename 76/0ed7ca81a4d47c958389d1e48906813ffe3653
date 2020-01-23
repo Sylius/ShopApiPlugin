@@ -1,0 +1,16 @@
+---------------------------------------------------------------------------
+
+by mamazu at 2020-01-22T13:55:04Z
+
+I have rebased the branch to the current master and refactored the method in the order repository. Now it should be ready to be merged.
+
+> The base of this pull-request was changed, you need fetch and reset your local branch
+if you want to add new commits to this pull request. Reset before you pull, else commits
+may become messed-up. Unless you added new commits (to this branch) locally that you did not push yet,
+execute `git fetch origin && git reset "repository-refactor"` to update your local branch. Feel free to ask for assistance when you get stuck. :+1:
+
+---------------------------------------------------------------------------
+
+by lchrusciel at 2020-01-23T12:33:43Z
+
+Thank you, Emil! :1st_place_medal:
