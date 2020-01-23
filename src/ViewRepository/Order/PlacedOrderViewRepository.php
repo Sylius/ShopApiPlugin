@@ -43,11 +43,9 @@ final class PlacedOrderViewRepository implements PlacedOrderViewRepositoryInterf
 
         $cartViews = [];
 
-        /** @var OrderInterface $order */
-        foreach ($this->orderRepository->findBy(['customer' => $customer]) as $order) {
-            if ($order->getCheckoutState() === OrderCheckoutStates::STATE_COMPLETED) {
-                $cartViews[] = $this->placedOrderViewFactory->create($order, $order->getLocaleCode());
-            }
+        foreach ($this->orderRepository->findByCustomer($customer) as $order) {
+            /** @var OrderInterface $order */
+            $cartViews[] = $this->placedOrderViewFactory->create($order, $order->getLocaleCode());
         }
 
         return $cartViews;

@@ -35,21 +35,17 @@ final class PlacedOrderViewRepositorySpec extends ObjectBehavior
         OrderRepositoryInterface $orderRepository,
         CustomerRepositoryInterface $customerRepository,
         PlacedOrderViewFactoryInterface $placedOrderViewFactory,
-        OrderInterface $firstOrder,
-        OrderInterface $secondOrder,
+        OrderInterface $order,
         CustomerInterface $customer,
         PlacedOrderView $placedOrderView
     ): void {
         $customerRepository->findOneBy(['email' => 'test@example.com'])->willReturn($customer);
 
-        $orderRepository->findBy(['customer' => $customer])->willReturn([$firstOrder, $secondOrder]);
+        $orderRepository->findByCustomer($customer)->willReturn([$order]);
 
-        $firstOrder->getLocaleCode()->willReturn('en_GB');
-        $firstOrder->getCheckoutState()->willReturn(OrderCheckoutStates::STATE_COMPLETED);
-        $secondOrder->getLocaleCode()->willReturn('en_GB');
-        $secondOrder->getCheckoutState()->willReturn(OrderCheckoutStates::STATE_ADDRESSED);
+        $order->getLocaleCode()->willReturn('en_GB');
 
-        $placedOrderViewFactory->create($firstOrder, 'en_GB')->willReturn($placedOrderView);
+        $placedOrderViewFactory->create($order, 'en_GB')->willReturn($placedOrderView);
 
         $this->getAllCompletedByCustomerEmail('test@example.com')->shouldReturn([$placedOrderView]);
     }
