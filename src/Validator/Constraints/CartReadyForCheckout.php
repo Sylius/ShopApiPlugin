@@ -9,7 +9,16 @@ use Symfony\Component\Validator\Constraint;
 class CartReadyForCheckout extends Constraint
 {
     /** @var string */
-    public $message = 'sylius.shop_api.cart.not_ready_for_checkout';
+    public $message = 'sylius.shop_api.checkout.not_ready_for_checkout';
+
+    /** @var string */
+    public $messageOnNoAddress = 'sylius.shop_api.checkout.address_required';
+
+    /** @var string */
+    public $messageOnNoShippingCart = 'sylius.shop_api.checkout.shipping_required';
+
+    /** @var string */
+    public $messageOnNoPaymentCart = 'sylius.shop_api.checkout.payment_required';
 
     /** {@inheritdoc} */
     public function getTargets(): array

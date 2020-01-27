@@ -35,6 +35,44 @@ class CartReadyForCheckoutValidatorSpec extends ObjectBehavior
         $this->validate('CART_TOKEN', new CartReadyForCheckout());
     }
 
+    function it_adds_a_violation_if_cart_has_no_shipping_or_billig_address(
+        RepositoryInterface $repository,
+        OrderInterface $order,
+        FactoryInterface $stateMachineFactory,
+        StateMachineInterface $stateMachine,
+        ExecutionContextInterface $context
+    ): void {
+        $repository->findOneBy(['tokenValue' => 'CART_TOKEN'])->willReturn($order);
+
+        $stateMachineFactory->get($order, 'sylius_order_checkout')->willReturn($stateMachine);
+        $stateMachine->can('complete')->willReturn(false);
+
+        $order->getState()->willReturn('cart');
+
+        $context->addViolation('sylius.shop_api.checkout.address_required')->shouldBeCalled();
+
+        $this->validate('CART_TOKEN', new CartReadyForCheckout());
+    }
+
+    function it_adds_a_violation_if_cart_has_no_shipping_method(
+        RepositoryInterface $repository,
+        OrderInterface $order,
+        FactoryInterface $stateMachineFactory,
+        StateMachineInterface $stateMachine,
+        ExecutionContextInterface $context
+    ): void {
+        $repository->findOneBy(['tokenValue' => 'CART_TOKEN'])->willReturn($order);
+
+        $stateMachineFactory->get($order, 'sylius_order_checkout')->willReturn($stateMachine);
+        $stateMachine->can('complete')->willReturn(false);
+
+        $order->getState()->willReturn('addressed');
+
+        $context->addViolation('sylius.shop_api.checkout.shipping_required')->shouldBeCalled();
+
+        $this->validate('CART_TOKEN', new CartReadyForCheckout());
+    }
+
     function it_adds_a_violation_if_cart_can_not_checkout(
         RepositoryInterface $repository,
         OrderInterface $order,
@@ -47,7 +85,9 @@ class CartReadyForCheckoutValidatorSpec extends ObjectBehavior
         $stateMachineFactory->get($order, 'sylius_order_checkout')->willReturn($stateMachine);
         $stateMachine->can('complete')->willReturn(false);
 
-        $context->addViolation('sylius.shop_api.cart.not_ready_for_checkout')->shouldBeCalled();
+        $order->getState()->willReturn('payment_selected');
+
+        $context->addViolation('sylius.shop_api.checkout.not_ready_for_checkout')->shouldBeCalled();
 
         $this->validate('CART_TOKEN', new CartReadyForCheckout());
     }

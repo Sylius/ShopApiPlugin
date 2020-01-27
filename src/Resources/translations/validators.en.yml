@@ -6,6 +6,10 @@ sylius:
             not_exists: Cart does not exist.
             token_already_taken: There is already a cart with this token.
             not_ready_for_checkout: The cart is not ready for checkout
+        checkout:
+            address_required: Please provide the cart with a shipping and billing address
+            shipping_required: Please select a shipping method
+            payment_required: Please select a payment method
         cart_item:
             not_exists: Cart item does not exist.
         email:
