@@ -30,7 +30,7 @@ final class SendResetPasswordTokenHandler
     {
         $email = $resendResetPasswordToken->email();
 
-        /** @var ShopUserInterface $user */
+        /** @var ShopUserInterface|null $user */
         $user = $this->userRepository->findOneByEmail($email);
         if (null === $user) {
             throw UserNotFoundException::withEmail($email);

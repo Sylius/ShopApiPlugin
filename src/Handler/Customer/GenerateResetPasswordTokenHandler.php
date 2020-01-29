@@ -28,7 +28,7 @@ final class GenerateResetPasswordTokenHandler
     {
         $email = $generateResetPasswordToken->email();
 
-        /** @var ShopUserInterface $user */
+        /** @var ShopUserInterface|null $user */
         $user = $this->userRepository->findOneByEmail($email);
         if (null === $user) {
             throw UserNotFoundException::withEmail($email);
