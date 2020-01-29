@@ -74,7 +74,7 @@ final class ProductReviewsViewRepository implements ProductReviewsViewRepository
         Assert::notNull($product);
         Assert::true($product->hasChannel($channel));
 
-        $reviews = $this->productReviewRepository->findBy(['reviewSubject' => $product->getId(), 'status' => ReviewInterface::STATUS_ACCEPTED]);
+        $reviews = $this->productReviewRepository->findBy(['reviewSubject' => $product->getId(), 'status' => ReviewInterface::STATUS_ACCEPTED], ['createdAt' => 'DESC']);
 
         $paginatorDetails->addToParameters('code', $productCode);
 
