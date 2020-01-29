@@ -4,19 +4,18 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\ViewRepository\Product;
 
-use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
+use Sylius\Component\Channel\Context\ChannelContextInterface;
+use Sylius\Component\Channel\Context\ChannelNotFoundException;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Sylius\ShopApiPlugin\Factory\Product\ProductViewFactoryInterface;
 use Sylius\ShopApiPlugin\Provider\SupportedLocaleProviderInterface;
 use Sylius\ShopApiPlugin\View\Product\ProductListView;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Webmozart\Assert\Assert;
 
 final class ProductLatestViewRepository implements ProductLatestViewRepositoryInterface
 {
-    /** @var ChannelRepositoryInterface */
-    private $channelRepository;
-
     /** @var ProductRepositoryInterface */
     private $productRepository;
 
@@ -26,21 +25,31 @@ final class ProductLatestViewRepository implements ProductLatestViewRepositoryIn
     /** @var SupportedLocaleProviderInterface */
     private $supportedLocaleProvider;
 
+    /** @var ChannelContextInterface */
+    private $channelContext;
+
     public function __construct(
-        ChannelRepositoryInterface $channelRepository,
         ProductRepositoryInterface $productRepository,
         ProductViewFactoryInterface $productViewFactory,
-        SupportedLocaleProviderInterface $supportedLocaleProvider
-    ) {
-        $this->channelRepository = $channelRepository;
+        SupportedLocaleProviderInterface $supportedLocaleProvider,
+        ChannelContextInterface $channelContext
+    )
+    {
         $this->productRepository = $productRepository;
         $this->productViewFactory = $productViewFactory;
         $this->supportedLocaleProvider = $supportedLocaleProvider;
+        $this->channelContext = $channelContext;
     }
 
-    public function getLatestProducts(string $channelCode, ?string $localeCode, int $count): ProductListView
+    public function getLatestProducts(?string $localeCode, int $count): ProductListView
     {
-        $channel = $this->getChannel($channelCode);
+        try {
+            /** @var ChannelInterface $channel */
+            $channel = $this->channelContext->getChannel();
+
+        } catch (ChannelNotFoundException $exception) {
+            throw new NotFoundHttpException('Channel has not been found.');
+        }
         $localeCode = $this->supportedLocaleProvider->provide($localeCode, $channel);
         $latestProducts = $this->productRepository->findLatestByChannel($channel, $localeCode, $count);
 
@@ -55,13 +64,4 @@ final class ProductLatestViewRepository implements ProductLatestViewRepositoryIn
         return $productListView;
     }
 
-    private function getChannel(string $channelCode): ChannelInterface
-    {
-        /** @var ChannelInterface $channel */
-        $channel = $this->channelRepository->findOneByCode($channelCode);
-
-        Assert::notNull($channel, sprintf('Channel with code %s has not been found.', $channelCode));
-
-        return $channel;
-    }
 }
