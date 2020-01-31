@@ -1767,6 +1767,10 @@ definitions:
             tokenValue:
                 type: "string"
                 example: "SDAOSLEFNWU35H3QLI5325"
+            number:
+                description: "Order number."
+                type: "string"
+                example: "000000036"
             channel:
                 type: "string"
                 example: "WEB_GB"
