@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\ViewRepository\Product;
 
+use InvalidArgumentException;
 use Sylius\Component\Channel\Context\ChannelContextInterface;
 use Sylius\Component\Channel\Context\ChannelNotFoundException;
 use Sylius\Component\Core\Model\ChannelInterface;
@@ -11,7 +12,6 @@ use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Sylius\ShopApiPlugin\Factory\Product\ProductViewFactoryInterface;
 use Sylius\ShopApiPlugin\Provider\SupportedLocaleProviderInterface;
 use Sylius\ShopApiPlugin\View\Product\ProductListView;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Webmozart\Assert\Assert;
 
 final class ProductLatestViewRepository implements ProductLatestViewRepositoryInterface
@@ -33,8 +33,7 @@ final class ProductLatestViewRepository implements ProductLatestViewRepositoryIn
         ProductViewFactoryInterface $productViewFactory,
         SupportedLocaleProviderInterface $supportedLocaleProvider,
         ChannelContextInterface $channelContext
-    )
-    {
+    ) {
         $this->productRepository = $productRepository;
         $this->productViewFactory = $productViewFactory;
         $this->supportedLocaleProvider = $supportedLocaleProvider;
@@ -46,9 +45,8 @@ final class ProductLatestViewRepository implements ProductLatestViewRepositoryIn
         try {
             /** @var ChannelInterface $channel */
             $channel = $this->channelContext->getChannel();
-
         } catch (ChannelNotFoundException $exception) {
-            throw new NotFoundHttpException('Channel has not been found.');
+            throw new InvalidArgumentException('Channel has not been found.');
         }
         $localeCode = $this->supportedLocaleProvider->provide($localeCode, $channel);
         $latestProducts = $this->productRepository->findLatestByChannel($channel, $localeCode, $count);
@@ -63,5 +61,4 @@ final class ProductLatestViewRepository implements ProductLatestViewRepositoryIn
 
         return $productListView;
     }
-
 }

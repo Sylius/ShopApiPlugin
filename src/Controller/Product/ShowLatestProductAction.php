@@ -22,8 +22,7 @@ final class ShowLatestProductAction
     public function __construct(
         ViewHandlerInterface $viewHandler,
         ProductLatestViewRepositoryInterface $productLatestQuery
-    )
-    {
+    ) {
         $this->viewHandler = $viewHandler;
         $this->productLatestQuery = $productLatestQuery;
     }
@@ -31,7 +30,6 @@ final class ShowLatestProductAction
     public function __invoke(Request $request): Response
     {
         try {
-
             return $this->viewHandler->handle(View::create($this->productLatestQuery->getLatestProducts(
                 $request->query->get('locale'),
                 $request->query->getInt('limit', 4)
