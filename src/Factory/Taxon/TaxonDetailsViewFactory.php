@@ -36,7 +36,10 @@ final class TaxonDetailsViewFactory implements TaxonDetailsViewFactoryInterface
 
     private function getTaxonWithAncestors(TaxonInterface $taxon, string $localeCode): TaxonView
     {
-        $this->taxonViewFactory->setDefaultIncludes(['code', 'name']);
+        $this->taxonViewFactory->setDefaultIncludes([
+            'code',
+            'name'
+        ]);
         $currentTaxonView = $this->taxonViewFactory->create($taxon, $localeCode);
 
         while (null !== $taxon->getParent()) {
@@ -52,7 +55,13 @@ final class TaxonDetailsViewFactory implements TaxonDetailsViewFactoryInterface
 
     private function buildTaxonView(TaxonInterface $taxon, $locale): TaxonView
     {
-        $this->taxonViewFactory->setDefaultIncludes(['code', 'name'/*, 'images'*/]);
+        $this->taxonViewFactory->setDefaultIncludes([
+            'code',
+            'name',
+            'metaTitle',
+            'metaDescription',
+            /*, 'images'*/
+        ]);
         $taxonView = $this->taxonViewFactory->create($taxon, $locale);
 
         foreach ($taxon->getChildren() as $childTaxon) {
