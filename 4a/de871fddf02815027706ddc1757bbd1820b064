@@ -1,0 +1,40 @@
+---------------------------------------------------------------------------
+
+by mamazu at 2020-01-11T12:12:59Z
+
+I have fixed the codestyle in your branch and added the information about the change in behavior in the change logs and rebased it onto the master so the pipeline should be green now.
+
+> The base of this pull-request was changed, you need fetch and reset your local branch
+if you want to add new commits to this pull request. Reset before you pull, else commits
+may become messed-up. Unless you added new commits (to this branch) locally that you did not push yet,
+execute `git fetch origin && git reset "Add-Reset-password-validation"` to update your local branch. Feel free to ask for assistance when you get stuck. :+1:
+
+---------------------------------------------------------------------------
+
+by Amr3zzat at 2020-01-11T13:44:49Z
+
+@mamazu Thanks for your review I will check them, I have updated my local branch, I got stuck for some time, but It worked thanks
+
+---------------------------------------------------------------------------
+
+by Amr3zzat at 2020-01-22T21:39:23Z
+
+@mamazu  @lchrusciel  Thanks for your review, it was so helpful, I have fixed the specs.
+
+---------------------------------------------------------------------------
+
+by mamazu at 2020-01-26T11:42:32Z
+
+If you can fix the tests then it should be good to go.
+
+---------------------------------------------------------------------------
+
+by Amr3zzat at 2020-01-29T22:27:08Z
+
+@mamazu Many Thanks for your help, I fixed them
+
+---------------------------------------------------------------------------
+
+by mamazu at 2020-02-03T08:20:08Z
+
+Thanks, Amr! :1st_place_medal:
