@@ -1,0 +1,51 @@
+---------------------------------------------------------------------------
+
+by alexander-schranz at 2019-08-09T11:02:26Z
+
+Anything missing from my side?
+
+---------------------------------------------------------------------------
+
+by lchrusciel at 2019-08-09T14:27:44Z
+
+No, but both features were added after RC. I'm a little bit worried about adding too much of new functionalities before going to be stable. In default Sylius implementation, we are not presenting the available amount of products atm.
+
+Also, `onHand` is just a part of the story, because we should take `onHold` into account as well.
+
+To sum up, I would say, that #503 should be reverted and added after stable release. Probably just by adding `available` flag to products.
+
+I have same problem with #502
+
+---------------------------------------------------------------------------
+
+by AndreasA at 2019-11-28T05:47:02Z
+
+From what I can see at a quick glance this is still too simple because the availability checker has a second method to check for sufficient quantity. This has to be done when adding a product variant to the cart and when changing its quantity. There exists a constraint `\Sylius\Bundle\CoreBundle\Validator\Constraints\CartItemAvailability` but that one is only useful for `\Sylius\Bundle\OrderBundle\Controller\AddToCartCommandInterface'  but it might be a good reference (as this is an add to cart the check has to take into account the existing quantity as that one gets added to it).
+
+And `\Sylius\Bundle\InventoryBundle\Validator\Constraints\InStock` can be used for the quantity check in general which is already added to the `Sylius\Component\Order\Model\OrderItem` with the validation groups `sylius` and `sylius_checkout_complete`. Just not sure, if there is already a validation for this in the Shop API (would have to check).
+
+---------------------------------------------------------------------------
+
+by AndreasA at 2019-11-28T06:38:40Z
+
+One more suggestion: Instead of a boolean create a state, as users might want to differentiate between `not in stock`, `low on stock` and `available`.
+In theory you could even add this information already by providing a low on stock parameter, then:
+`isStockAvailable` with `false` would be `not in stock`, `isStockAvailable` with `true` and `isSufficientQuantity` called `parameter value and returns `false` would be `low on stock` and if both are `true` it would be `available`.
+
+---------------------------------------------------------------------------
+
+by mamazu at 2020-01-16T15:26:50Z
+
+I have rebased the merge request to the master. This means that the `onHand` property was removed and replaced with the `available` property. For anyone watching please make sure to check the merge request for any references for the old property. (It was a big rebase with a lot of conflicts so I might have missed one or two instances)
+
+@alexander-schranz
+> The base of this pull-request was changed, you need fetch and reset your local branch
+if you want to add new commits to this pull request. Reset before you pull, else commits
+may become messed-up. Unless you added new commits (to this branch) locally that you did not push yet,
+execute `git fetch origin && git reset "feature/product-availability-check"` to update your local branch. Feel free to ask for assistance when you get stuck. +1
+
+---------------------------------------------------------------------------
+
+by mamazu at 2020-02-03T08:22:29Z
+
+Thank you, Alexander! :tada:
