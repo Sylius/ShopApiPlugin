@@ -23,13 +23,28 @@ class RegisterCustomer implements CommandInterface
     /** @var string */
     protected $channelCode;
 
-    public function __construct(string $email, string $plainPassword, string $firstName, string $lastName, string $channelCode)
-    {
+    /** @var bool */
+    protected $subscribedToNewsletter;
+
+    /** @var string */
+    protected $phoneNumber;
+
+    public function __construct(
+        string $email,
+        string $plainPassword,
+        string $firstName,
+        string $lastName,
+        string $channelCode,
+        ?bool $subscribedToNewsletter,
+        ?string $phoneNumber
+    ) {
         $this->email = $email;
         $this->plainPassword = $plainPassword;
         $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->channelCode = $channelCode;
+        $this->subscribedToNewsletter = $subscribedToNewsletter === null ? false : $subscribedToNewsletter;
+        $this->phoneNumber = $phoneNumber;
     }
 
     public function email(): string
@@ -55,5 +70,15 @@ class RegisterCustomer implements CommandInterface
     public function channelCode(): string
     {
         return $this->channelCode;
+    }
+
+    public function subscribedToNewsletter(): ?bool
+    {
+        return $this->subscribedToNewsletter;
+    }
+
+    public function phoneNumber(): ?string
+    {
+        return $this->phoneNumber;
     }
 }

@@ -1611,6 +1611,12 @@ definitions:
             channel:
                 type: "string"
                 example: "WEB_GB"
+            subscribedToNewsletter:
+                type: "boolean"
+                example: true
+            phoneNumber:
+                type: "string"
+                example: "+1 234 56789"
     LoginRequest:
         type: "object"
         required:

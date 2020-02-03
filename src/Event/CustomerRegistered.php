@@ -20,12 +20,26 @@ final class CustomerRegistered extends Event
     /** @var string */
     private $channelCode;
 
-    public function __construct(string $email, string $firstName, string $lastName, string $channelCode)
-    {
+    /** @var bool */
+    protected $subscribedToNewsletter;
+
+    /** @var string */
+    protected $phoneNumber;
+
+    public function __construct(
+        string $email,
+        string $firstName,
+        string $lastName,
+        string $channelCode,
+        ?bool $subscribedToNewsletter = false,
+        ?string $phoneNumber = ''
+    ) {
         $this->email = $email;
         $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->channelCode = $channelCode;
+        $this->subscribedToNewsletter = $subscribedToNewsletter;
+        $this->phoneNumber = $phoneNumber;
     }
 
     public function email(): string
@@ -46,5 +60,15 @@ final class CustomerRegistered extends Event
     public function channelCode(): string
     {
         return $this->channelCode;
+    }
+
+    public function subscribedToNewsletter(): ?bool
+    {
+        return $this->subscribedToNewsletter;
+    }
+
+    public function phoneNumber(): ?string
+    {
+        return $this->phoneNumber;
     }
 }

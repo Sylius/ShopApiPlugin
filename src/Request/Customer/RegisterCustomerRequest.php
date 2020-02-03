@@ -27,6 +27,12 @@ class RegisterCustomerRequest implements ChannelBasedRequestInterface
     /** @var string */
     protected $channelCode;
 
+    /** @var bool */
+    protected $subscribedToNewsletter;
+
+    /** @var string */
+    protected $phoneNumber;
+
     protected function __construct(Request $request, string $channelCode)
     {
         $this->channelCode = $channelCode;
@@ -35,6 +41,8 @@ class RegisterCustomerRequest implements ChannelBasedRequestInterface
         $this->plainPassword = $request->request->get('plainPassword');
         $this->firstName = $request->request->get('firstName');
         $this->lastName = $request->request->get('lastName');
+        $this->subscribedToNewsletter = $request->request->get('subscribedToNewsletter');
+        $this->phoneNumber = $request->request->get('phoneNumber');
     }
 
     public static function fromHttpRequestAndChannel(Request $request, ChannelInterface $channel): ChannelBasedRequestInterface
@@ -49,7 +57,9 @@ class RegisterCustomerRequest implements ChannelBasedRequestInterface
             $this->plainPassword,
             $this->firstName,
             $this->lastName,
-            $this->channelCode
+            $this->channelCode,
+            $this->subscribedToNewsletter,
+            $this->phoneNumber
         );
     }
 }

@@ -55,6 +55,8 @@ final class RegisterCustomerHandler
         $customer->setFirstName($command->firstName());
         $customer->setLastName($command->lastName());
         $customer->setEmail($command->email());
+        $customer->setSubscribedToNewsletter($command->subscribedToNewsletter());
+        $customer->setPhoneNumber($command->phoneNumber());
 
         /** @var ShopUserInterface $user */
         $user = $this->userFactory->createNew();
@@ -68,7 +70,9 @@ final class RegisterCustomerHandler
             $command->email(),
             $command->firstName(),
             $command->lastName(),
-            $command->channelCode()
+            $command->channelCode(),
+            $command->subscribedToNewsletter(),
+            $command->phoneNumber()
         ));
     }
 
