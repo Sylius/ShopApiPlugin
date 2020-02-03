@@ -29,6 +29,7 @@
                         "name": "Logan Mug",
                         "axis": [],
                         "nameAxis": {},
+                        "available": true,
                         "price": {
                             "current": 1999,
                             "currency": "GBP"
@@ -89,6 +90,7 @@
                         "name": "Small Logan T-Shirt",
                         "axis": [],
                         "nameAxis": {},
+                        "available": true,
                         "price": {
                             "current": 1999,
                             "currency": "GBP"
@@ -152,6 +154,7 @@
                             "HAT_SIZE_S": "Size S",
                             "HAT_COLOR_RED": "Color Red"
                         },
+                        "available": true,
                         "price": {
                             "current": 500,
                             "currency": "GBP"

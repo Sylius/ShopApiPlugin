@@ -10,6 +10,7 @@ use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\ChannelPricingInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Currency\Model\CurrencyInterface;
+use Sylius\Component\Inventory\Checker\AvailabilityCheckerInterface;
 use Sylius\Component\Product\Model\ProductOptionInterface;
 use Sylius\Component\Product\Model\ProductOptionTranslationInterface;
 use Sylius\Component\Product\Model\ProductOptionValueInterface;
@@ -23,9 +24,9 @@ use Sylius\ShopApiPlugin\View\Product\ProductVariantView;
 
 final class ProductVariantViewFactorySpec extends ObjectBehavior
 {
-    function let(PriceViewFactoryInterface $priceViewFactory): void
+    function let(PriceViewFactoryInterface $priceViewFactory, AvailabilityCheckerInterface $availabilityChecker): void
     {
-        $this->beConstructedWith($priceViewFactory, ProductVariantView::class);
+        $this->beConstructedWith($priceViewFactory, $availabilityChecker, ProductVariantView::class);
     }
 
     function it_is_price_view_factory(): void
@@ -35,6 +36,7 @@ final class ProductVariantViewFactorySpec extends ObjectBehavior
 
     function it_builds_product_variant_view(
         PriceViewFactoryInterface $priceViewFactory,
+        AvailabilityCheckerInterface $availabilityChecker,
         ChannelInterface $channel,
         CurrencyInterface $currency,
         ChannelPricingInterface $channelPrice,
@@ -60,6 +62,7 @@ final class ProductVariantViewFactorySpec extends ObjectBehavior
         ]));
 
         $priceViewFactory->create(500, 'PLN')->willReturn(new PriceView());
+        $availabilityChecker->isStockAvailable($variant)->willReturn(true);
 
         $firstOptionValue->getCode()->willReturn('HAT_SIZE_S');
         $firstOptionValue->getTranslation('en_GB')->willReturn($firstOptionValueTranslation);
@@ -86,6 +89,7 @@ final class ProductVariantViewFactorySpec extends ObjectBehavior
         $variantView->name = 'Small red Logan hat code';
         $variantView->price = new PriceView();
         $variantView->axis = ['HAT_SIZE_S', 'HAT_COLOR_RED'];
+        $variantView->available = true;
         $variantView->nameAxis = [
             'HAT_SIZE_S' => 'Size S',
             'HAT_COLOR_RED' => 'Color Red',
@@ -96,6 +100,7 @@ final class ProductVariantViewFactorySpec extends ObjectBehavior
 
     function it_builds_product_variant_view_with_original_price(
         PriceViewFactoryInterface $priceViewFactory,
+        AvailabilityCheckerInterface $availabilityChecker,
         ChannelInterface $channel,
         CurrencyInterface $currency,
         ChannelPricingInterface $channelPrice,
@@ -111,6 +116,8 @@ final class ProductVariantViewFactorySpec extends ObjectBehavior
         ProductVariantTranslationInterface $productVariantTranslation
     ): void {
         $variantView = new ProductVariantView();
+
+        $availabilityChecker->isStockAvailable($variant)->willReturn(false);
 
         $variant->getCode()->willReturn('SMALL_RED_LOGAN_HAT_CODE');
         $variant->getOnHand()->willReturn(0);
@@ -150,6 +157,7 @@ final class ProductVariantViewFactorySpec extends ObjectBehavior
         $variantView->price = new PriceView();
         $variantView->originalPrice = new PriceView();
         $variantView->axis = ['HAT_SIZE_S', 'HAT_COLOR_RED'];
+        $variantView->available = false;
         $variantView->nameAxis = [
             'HAT_SIZE_S' => 'Size S',
             'HAT_COLOR_RED' => 'Color Red',

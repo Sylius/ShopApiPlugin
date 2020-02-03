@@ -6,6 +6,7 @@ namespace Sylius\ShopApiPlugin\Factory\Product;
 
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
+use Sylius\Component\Inventory\Checker\AvailabilityCheckerInterface;
 use Sylius\ShopApiPlugin\Exception\ViewCreationException;
 use Sylius\ShopApiPlugin\Factory\PriceViewFactoryInterface;
 use Sylius\ShopApiPlugin\View\Product\ProductVariantView;
@@ -15,12 +16,16 @@ final class ProductVariantViewFactory implements ProductVariantViewFactoryInterf
     /** @var PriceViewFactoryInterface */
     private $priceViewFactory;
 
+    /** @var AvailabilityCheckerInterface */
+    private $availabilityChecker;
+
     /** @var string */
     private $productVariantViewClass;
 
-    public function __construct(PriceViewFactoryInterface $priceViewFactory, string $productVariantViewClass)
+    public function __construct(PriceViewFactoryInterface $priceViewFactory, AvailabilityCheckerInterface $availabilityChecker, string $productVariantViewClass)
     {
         $this->priceViewFactory = $priceViewFactory;
+        $this->availabilityChecker = $availabilityChecker;
         $this->productVariantViewClass = $productVariantViewClass;
     }
 
@@ -35,8 +40,11 @@ final class ProductVariantViewFactory implements ProductVariantViewFactoryInterf
             throw new ViewCreationException('Variant does not have pricing.');
         }
 
+        $this->availabilityChecker->isStockAvailable($variant);
+
         $variantView->code = $variant->getCode();
         $variantView->name = $variant->getTranslation($locale)->getName();
+        $variantView->available = $this->availabilityChecker->isStockAvailable($variant);
         $variantView->price = $this->priceViewFactory->create(
             $channelPricing->getPrice(),
             $channel->getBaseCurrency()->getCode()

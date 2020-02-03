@@ -28,6 +28,7 @@
                         "code": "LOGAN_MUG_CODE",
                         "name": "Logan Mug",
                         "axis": [],
+                        "available": true,
                         "nameAxis": {},
                         "price": {
                             "current": 1999,

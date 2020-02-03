@@ -21,6 +21,9 @@ class ProductVariantView
     /** @var array */
     public $nameAxis = [];
 
+    /** @var bool */
+    public $available;
+
     /** @var PriceView */
     public $price;
 

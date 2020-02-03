@@ -29,6 +29,7 @@
                         "name": "Small Logan T-Shirt",
                         "axis": [],
                         "nameAxis": {},
+                        "available": true,
                         "price": {
                             "current": 1999,
                             "currency": "GBP"

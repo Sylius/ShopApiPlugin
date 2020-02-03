@@ -28,6 +28,7 @@
                         "name": "Logan Becher",
                         "axis": [],
                         "nameAxis": {},
+                        "available": true,
                         "price": {
                             "current": 2099,
                             "currency": "EUR"
