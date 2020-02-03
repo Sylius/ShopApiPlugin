@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Handler\Customer;
 
+use InvalidArgumentException;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\Mailer\Sender\SenderInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
 use Sylius\ShopApiPlugin\Command\Customer\SendResetPasswordToken;
+use Sylius\ShopApiPlugin\Exception\UserNotFoundException;
 use Sylius\ShopApiPlugin\Mailer\Emails;
-use Webmozart\Assert\Assert;
 
 final class SendResetPasswordTokenHandler
 {
@@ -29,12 +30,14 @@ final class SendResetPasswordTokenHandler
     {
         $email = $resendResetPasswordToken->email();
 
-        /** @var ShopUserInterface $user */
+        /** @var ShopUserInterface|null $user */
         $user = $this->userRepository->findOneByEmail($email);
-
-        Assert::notNull($user, sprintf('User with %s email has not been found.', $email));
-        Assert::notNull($user->getPasswordResetToken(), sprintf('User with %s email has not verification token defined.', $email));
-
+        if (null === $user) {
+            throw UserNotFoundException::withEmail($email);
+        }
+        if (null === $user->getPasswordResetToken()) {
+            throw new InvalidArgumentException(sprintf('User with %s email has not verification token defined.', $email));
+        }
         $this->sender->send(
             Emails::EMAIL_RESET_PASSWORD_TOKEN,
             [$email],

@@ -10,6 +10,7 @@ use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
 use Sylius\Component\User\Security\Generator\GeneratorInterface;
 use Sylius\ShopApiPlugin\Command\Customer\GenerateResetPasswordToken;
+use Sylius\ShopApiPlugin\Exception\UserNotFoundException;
 use Sylius\ShopApiPlugin\Handler\Customer\GenerateResetPasswordTokenHandler;
 
 final class GenerateResetPasswordTokenHandlerSpec extends ObjectBehavior
@@ -43,7 +44,6 @@ final class GenerateResetPasswordTokenHandlerSpec extends ObjectBehavior
         UserRepositoryInterface $userRepository
     ): void {
         $userRepository->findOneByEmail('example@customer.com')->willReturn(null);
-
-        $this->shouldThrow(\InvalidArgumentException::class)->during('__invoke', [new GenerateResetPasswordToken('example@customer.com')]);
+        $this->shouldThrow(UserNotFoundException::class)->during('__invoke', [new GenerateResetPasswordToken('example@customer.com')]);
     }
 }

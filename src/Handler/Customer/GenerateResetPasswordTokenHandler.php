@@ -8,7 +8,7 @@ use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
 use Sylius\Component\User\Security\Generator\GeneratorInterface;
 use Sylius\ShopApiPlugin\Command\Customer\GenerateResetPasswordToken;
-use Webmozart\Assert\Assert;
+use Sylius\ShopApiPlugin\Exception\UserNotFoundException;
 
 final class GenerateResetPasswordTokenHandler
 {
@@ -28,11 +28,11 @@ final class GenerateResetPasswordTokenHandler
     {
         $email = $generateResetPasswordToken->email();
 
-        /** @var ShopUserInterface $user */
+        /** @var ShopUserInterface|null $user */
         $user = $this->userRepository->findOneByEmail($email);
-
-        Assert::notNull($user, sprintf('User with %s email has not been found.', $email));
-
+        if (null === $user) {
+            throw UserNotFoundException::withEmail($email);
+        }
         $user->setPasswordResetToken($this->tokenGenerator->generate());
         $user->setPasswordRequestedAt(new \DateTime());
     }

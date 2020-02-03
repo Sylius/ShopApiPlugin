@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Handler\Customer;
 
+use InvalidArgumentException;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\Mailer\Sender\SenderInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
 use Sylius\ShopApiPlugin\Command\Customer\SendResetPasswordToken;
+use Sylius\ShopApiPlugin\Exception\UserNotFoundException;
 use Sylius\ShopApiPlugin\Handler\Customer\SendResetPasswordTokenHandler;
 use Sylius\ShopApiPlugin\Mailer\Emails;
 
@@ -37,14 +39,6 @@ final class SendResetPasswordTokenHandlerSpec extends ObjectBehavior
         $this(new SendResetPasswordToken('example@customer.com', 'WEB_GB'));
     }
 
-    function it_throws_an_exception_if_user_has_not_been_found(
-        UserRepositoryInterface $userRepository
-    ): void {
-        $userRepository->findOneByEmail('example@customer.com')->willReturn(null);
-
-        $this->shouldThrow(\InvalidArgumentException::class)->during('__invoke', [new SendResetPasswordToken('example@customer.com', 'WEB_GB')]);
-    }
-
     function it_throws_an_exception_if_user_has_not_verification_token(
         UserRepositoryInterface $userRepository,
         ShopUserInterface $user
@@ -52,6 +46,13 @@ final class SendResetPasswordTokenHandlerSpec extends ObjectBehavior
         $userRepository->findOneByEmail('example@customer.com')->willReturn($user);
         $user->getPasswordResetToken()->willReturn(null);
 
-        $this->shouldThrow(\InvalidArgumentException::class)->during('__invoke', [new SendResetPasswordToken('example@customer.com', 'WEB_GB')]);
+        $this->shouldThrow(InvalidArgumentException::class)->during('__invoke', [new SendResetPasswordToken('example@customer.com', 'WEB_GB')]);
+    }
+
+    function it_throws_an_exception_if_user_has_not_been_found(
+        UserRepositoryInterface $userRepository
+    ): void {
+        $userRepository->findOneByEmail('example@customer.com')->willReturn(null);
+        $this->shouldThrow(UserNotFoundException::class)->during('__invoke', [new SendResetPasswordToken('example@customer.com', 'WEB_GB')]);
     }
 }
