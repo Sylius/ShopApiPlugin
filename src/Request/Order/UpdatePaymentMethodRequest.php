@@ -29,4 +29,14 @@ class UpdatePaymentMethodRequest
     {
         return new UpdatePaymentMethod($this->token, $this->paymentIdentifier, $this->paymentMethod);
     }
+
+    public function getOrderToken() : string
+    {
+        return $this->token;
+    }
+
+    public function getPaymentId()
+    {
+        return $this->paymentIdentifier;
+    }
 }

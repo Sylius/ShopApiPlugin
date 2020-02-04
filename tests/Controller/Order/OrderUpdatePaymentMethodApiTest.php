@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller\Order;
 
+use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\Component\Core\Model\PaymentInterface;
+use Sylius\Component\Core\OrderPaymentStates;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\Sylius\ShopApiPlugin\Controller\JsonApiTestCase;
 use Tests\Sylius\ShopApiPlugin\Controller\Utils\OrderPlacerTrait;
@@ -52,6 +55,7 @@ EOT;
         $this->logInUser($email, '123password');
 
         $this->placeOrderForCustomerWithEmail($email, $token);
+        $this->markOrderAsPayed($token);
 
         $data =
 <<<EOT
@@ -66,8 +70,19 @@ EOT;
         $this->assertResponseCode($response, Response::HTTP_BAD_REQUEST);
     }
 
+    private function markOrderAsPayed() {
+        /** @var OrderInterface $order */
+        $order = $this->get('sylius.repository.order')->findAll()[0];
+        foreach($order->getPayments() as $payment) {
+            $payment->setState(PaymentInterface::STATE_COMPLETED);
+        }
+        $order->setPaymentState(OrderPaymentStates::STATE_PAID);
+
+        $this->get('sylius.manager.order')->flush();
+    }
+
     private function getPaymentUrl(string $token): string
     {
-        return sprintf('/shop-api/WEB_GB/orders/%s/payment', $token);
+        return sprintf('/shop-api/orders/%s/payment', $token);
     }
 }

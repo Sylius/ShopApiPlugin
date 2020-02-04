@@ -21,5 +21,7 @@
                 <option name="state">new</option>
             </constraint>
         </property>
+    
+        <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\PaymentNotPaid" />
     </class>
 </constraint-mapping>
