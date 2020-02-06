@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Validator\Order;
 
-use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentInterface;
+use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
@@ -24,7 +24,7 @@ final class PaymentNotPaidValidator extends ConstraintValidator
     {
         /** @var OrderInterface|null $order */
         $order = $this->orderRepository->findOneBy(['tokenValue' => $updatePayment->getOrderToken()]);
-        if($order === null) {
+        if ($order === null) {
             return;
         }
 
@@ -33,9 +33,7 @@ final class PaymentNotPaidValidator extends ConstraintValidator
             return;
         }
 
-
-        if (!in_array($payment->getState(), [PaymentInterface::STATE_NEW, PaymentInterface::STATE_CANCELLED]))
-        {
+        if (!in_array($payment->getState(), [PaymentInterface::STATE_NEW, PaymentInterface::STATE_CANCELLED])) {
             $this->context->addViolation($constraint->message);
         }
     }

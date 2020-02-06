@@ -30,7 +30,7 @@ class UpdatePaymentMethodRequest
         return new UpdatePaymentMethod($this->token, $this->paymentIdentifier, $this->paymentMethod);
     }
 
-    public function getOrderToken() : string
+    public function getOrderToken(): string
     {
         return $this->token;
     }

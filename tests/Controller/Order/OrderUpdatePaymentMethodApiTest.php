@@ -70,10 +70,11 @@ EOT;
         $this->assertResponseCode($response, Response::HTTP_BAD_REQUEST);
     }
 
-    private function markOrderAsPayed() {
+    private function markOrderAsPayed()
+    {
         /** @var OrderInterface $order */
         $order = $this->get('sylius.repository.order')->findAll()[0];
-        foreach($order->getPayments() as $payment) {
+        foreach ($order->getPayments() as $payment) {
             $payment->setState(PaymentInterface::STATE_COMPLETED);
         }
         $order->setPaymentState(OrderPaymentStates::STATE_PAID);
