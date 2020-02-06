@@ -28,6 +28,7 @@ class UpdatePaymentMethod
         return $this->orderToken;
     }
 
+    /** @return string|int */
     public function paymentId()
     {
         return $this->paymentId;
