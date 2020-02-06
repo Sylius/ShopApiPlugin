@@ -15,6 +15,7 @@ class UpdatePaymentMethod
     /** @var string */
     protected $paymentMethodCode;
 
+    /** @param int|string $paymentId */
     public function __construct(string $orderToken, $paymentId, string $paymentMethodCode)
     {
         $this->orderToken = $orderToken;
