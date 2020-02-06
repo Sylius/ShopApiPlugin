@@ -35,6 +35,7 @@ class UpdatePaymentMethodRequest
         return $this->token;
     }
 
+    /** @return int|string */
     public function getPaymentId()
     {
         return $this->paymentIdentifier;
