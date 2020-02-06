@@ -20,8 +20,8 @@ final class OrderExistsValidator extends ConstraintValidator
 
     public function validate($token, Constraint $constraint): void
     {
+        /** @var Sylius\ShopApiPlugin\Validator\Constraints\OrderExists $constraint */
         if (null === $this->orderRepository->findOneBy(['tokenValue' => $token, 'state' => $constraint->state])) {
-            /** @var Sylius\ShopApiPlugin\Validator\Constraints\OrderExists $constraint */
             $this->context->addViolation($constraint->message);
         }
     }
