@@ -1,0 +1,131 @@
+---------------------------------------------------------------------------
+
+by dlobato at 2019-04-16T11:55:43Z
+
+@GSadee @mamazu I'm struggling here with the tests... Can't figure out what's wrong. If I run the tests alone on local they work fine, but when running them one after the other there's an unrelated error. Seems to me some sort of race condition while loading the fixtures for the second time. Is something obvious that I'm not seeing here?
+
+---------------------------------------------------------------------------
+
+by dlobato at 2019-04-29T12:55:47Z
+
+I fixed the tests by changing the item used on the order. Sadly, I couldn't figure out what was the problem but it is related to mug item having product attributes. Since the items on the order are irrelevant for the test purposes I've just used another one and updated the expected responses accordingly.
+
+@mamazu @GSadee is there anything else to code review?
+
+---------------------------------------------------------------------------
+
+by mamazu at 2019-04-29T13:56:01Z
+
+Ill have a look at it this evening.
+
+---------------------------------------------------------------------------
+
+by mamazu at 2019-04-29T19:51:34Z
+
+There are still some open conversations if you could resolve that, this would be great.
+
+---------------------------------------------------------------------------
+
+by lchrusciel at 2019-05-10T14:13:32Z
+
+Hello David,
+
+Sorry for such a long response time. I found some time to dig into ShopAPI and recently fix the way, how we handle placed orders in the test environment (https://github.com/Sylius/ShopApiPlugin/pull/439/commits/0e445e4b876e96139e45a53a5e98c8c87fa745f5)
+
+This made this PR conflicted. Would you like to fix it?
+
+---------------------------------------------------------------------------
+
+by dlobato at 2019-05-10T17:28:54Z
+
+@lchrusciel I've updated the tests. But now I can't set the payment state to something different from awaiting_payment to test it_does_not_allow_to_update_payment_method_on_paid_order, any suggestion?
+I'd say that I need to trigger pay, but not sure how...
+
+---------------------------------------------------------------------------
+
+by mamazu at 2019-05-15T18:28:27Z
+
+You can not set the payment method once the payment is completed.
+
+---------------------------------------------------------------------------
+
+by mamazu at 2019-05-15T18:36:10Z
+
+Ah, I see your problem. Currently there is no way for the API to mark an order as payed. What you can do is try to generate a fixture with a payed order. Other than that I don't know see #310
+
+---------------------------------------------------------------------------
+
+by jdeveloper at 2019-09-11T12:03:35Z
+
+What's the status of this issue?
+
+Is there any hope to get merged? It would be great. So if I choose a payment method, paypal for example, complete the order but then I cancel in paypal, I could change the payment method.
+
+---------------------------------------------------------------------------
+
+by mamazu at 2020-02-04T23:36:12Z
+
+I have rebased the issue but I can not push it. @dlobato Please allow edits from maintainers to your branch.
+
+---------------------------------------------------------------------------
+
+by dlobato at 2020-02-05T16:19:09Z
+
+@mamazu I don't know how to enable that. I was trying this: https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/allowing-changes-to-a-pull-request-branch-created-from-a-fork But I don't see said checkbox anywhere...
+
+---------------------------------------------------------------------------
+
+by mamazu at 2020-02-05T21:26:02Z
+
+Hm, very strange. I can push to other merge request. Anyhow I have pushed my version of the branch to my repository [mamazu/handle_order_payment](https://github.com/mamazu/ShopApiPlugin/tree/handle_order_payment). You can run the following commands to get this merge request up to speed:
+```bash
+# Add me as a remote
+git remote add mamazu git@github.com:mamazu/ShopApiPlugin.git
+
+# Fetch all the branches
+git fetch mamazu
+
+# If you are not on your local branch change to it. Otherwise just run
+git reset --hard mamazu/handle_order_payment
+
+# Push the new changes to git (you might need to explicitly add `origin handle_order_payment`)
+git push --force-with-lease
+```
+
+If you have any questions, don't hesitate to ask.
+
+---------------------------------------------------------------------------
+
+by dlobato at 2020-02-05T22:37:05Z
+
+Your changes are already on my branch...
+
+---------------------------------------------------------------------------
+
+by mamazu at 2020-02-06T09:11:27Z
+
+This can't be I have fixed the tests (eg. removed the channelcode from the route).
+
+---------------------------------------------------------------------------
+
+by dlobato at 2020-02-06T09:28:28Z
+
+Check it out now
+
+---------------------------------------------------------------------------
+
+by mamazu at 2020-02-06T09:38:42Z
+
+Looks good. Can you run `composer fix` and then commit the changes. Then the merge request ready for merge.
+
+---------------------------------------------------------------------------
+
+by mamazu at 2020-02-06T18:29:20Z
+
+Can you please checkout the code and put the right doc comment in there.
+
+---------------------------------------------------------------------------
+
+by mamazu at 2020-02-07T17:03:53Z
+
+Thank you, David! :1st_place_medal:
