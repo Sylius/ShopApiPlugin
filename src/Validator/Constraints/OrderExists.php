@@ -13,7 +13,7 @@ final class OrderExists extends Constraint
     /** @var string */
     public $message = 'sylius.shop_api.order.not_exists';
 
-    /** @var string|array<string> */
+    /** @var array|string[] */
     public $state = [OrderInterface::STATE_NEW, OrderInterface::STATE_FULFILLED, OrderInterface::STATE_CANCELLED];
 
     public function validatedBy(): string
