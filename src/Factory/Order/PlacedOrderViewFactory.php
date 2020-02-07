@@ -66,6 +66,7 @@ final class PlacedOrderViewFactory implements PlacedOrderViewFactoryInterface
         $placedOrderView->locale = $localeCode;
         $placedOrderView->checkoutState = $order->getCheckoutState();
         $placedOrderView->checkoutCompletedAt = $order->getCheckoutCompletedAt()->format('c');
+        $placedOrderView->paymentState = $order->getPaymentState();
         $placedOrderView->totals = $this->totalViewFactory->create($order);
         $placedOrderView->tokenValue = $order->getTokenValue();
         $placedOrderView->number = $order->getNumber();

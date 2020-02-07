@@ -394,7 +394,7 @@ paths:
                     name: "content"
                     required: true
                     schema:
-                        $ref: "#/definitions/CheckoutChoosePaymentMethodRequest"
+                        $ref: "#/definitions/ChoosePaymentMethodRequest"
             responses:
                 204:
                     description: "Payment method has been chosen."
@@ -838,6 +838,51 @@ paths:
             security:
                 -   bearerAuth: []
 
+    /orders/{token}/payment:
+        parameters:
+            -   $ref: "#/parameters/CartToken"
+        get:
+            tags:
+                - "order"
+            summary: "Get available payment methods."
+            description: "This endpoint will show you available payment methods for an order."
+            operationId: "showAvailablePaymentMethods"
+            responses:
+                200:
+                    description: "Get available payment methods."
+                    schema:
+                        $ref: "#/definitions/AvailablePaymentMethods"
+                400:
+                    description: "Invalid input, validation failed."
+                    schema:
+                        $ref: "#/definitions/GeneralError"
+    /orders/{token}/payment/{id}:
+        parameters:
+            -   $ref: "#/parameters/CartToken"
+        put:
+            tags:
+                - "order"
+            summary: "Choosing cart payment method."
+            description: "This endpoint will allow you to update an order payment method."
+            operationId: "updatePaymentMethod"
+            parameters:
+                -   name: "id"
+                    in: "path"
+                    description: "Order number of payment for which payment method should be specified."
+                    required: true
+                    type: "string"
+                -   in: "body"
+                    name: "content"
+                    required: true
+                    schema:
+                        $ref: "#/definitions/ChoosePaymentMethodRequest"
+            responses:
+                204:
+                    description: "Payment method has been chosen."
+                400:
+                    description: "Invalid input, validation failed."
+                    schema:
+                        $ref: "#/definitions/GeneralError"
     /me:
         get:
             tags:
@@ -1116,7 +1161,7 @@ definitions:
                 type: "string"
                 description: "Code of chosen shipping method."
                 example: "DHL"
-    CheckoutChoosePaymentMethodRequest:
+    ChoosePaymentMethodRequest:
         type: "object"
         description: "Body of request used to choose payment method."
         required:
@@ -1808,6 +1853,20 @@ definitions:
                 description: "Date the order was completed in ISO 8601 format."
                 type: "string"
                 format: "date-time"
+            paymentState:
+                description: "Current payment state of an order."
+                type: "string"
+                example: "awaiting_payment"
+                enum:
+                    - "cart"
+                    - "awaiting_payment"
+                    - "partially_authorized"
+                    - "authorized"
+                    - "partially_paid"
+                    - "cancelled"
+                    - "paid"
+                    - "partially_refunded"
+                    - "refunded"
             items:
                 type: "array"
                 items:
