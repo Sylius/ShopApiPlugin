@@ -128,7 +128,9 @@ final class ProductCatalogViewRepository implements ProductCatalogViewRepository
     public function getCountByTaxon(TaxonInterface $taxon, string $localeCode): int
     {
         $queryBuilder = $this->productRepository->createListQueryBuilder($localeCode, $taxon->getId())
-                                                ->select('count(o.id) as count');
+                                                ->select('count(o.id) as count')
+                                                ->andWhere('o.enabled = true')
+        ;
         try {
             $result = (int) $queryBuilder->getQuery()->getSingleScalarResult();
         } catch (\Exception $e) {
