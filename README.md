@@ -106,7 +106,7 @@ The latest documentation is available [here](https://app.swaggerhub.com/apis/Syl
         // config/bundles.php
         
         return [
-            Nelmio\CorsBundle\NelmioCorsBundle:class => ['all' => true],
+            Nelmio\CorsBundle\NelmioCorsBundle::class => ['all' => true],
         ];
 
         ```
