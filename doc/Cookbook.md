@@ -136,10 +136,10 @@ sylius_shop_api:
 
 You have to extend the base view class in order to match view factory type hint.
 ```php
-final class NiceTotalView extends TotalView
+class NiceTotalView extends TotalView
 {
     /** @var float */
-    protected $nicePersonDiscount;
+    public $nicePersonDiscount;
 }
 ```
 
