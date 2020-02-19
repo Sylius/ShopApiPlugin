@@ -134,6 +134,15 @@ sylius_shop_api:
         total: \NiceTotalView
 ```
 
+You have to extend the base view class in order to match view factory type hint.
+```php
+class NiceTotalView extends TotalView
+{
+    /** @var float */
+    public $nicePersonDiscount;
+}
+```
+
 One other thing to keep in mind when working with the API and creating new views is that the endpoints that return multiple resources (for example a list of products) are usually paginated. Pagination in the shop api is implemented with the plugin [Pagerfanta](https://github.com/whiteoctober/Pagerfanta) which needs besides the attributes that it should serialize on the product also a key relations like the route to the individual products. The current object you are serializing is in the object "variable" and can be used with the expression syntax as shown below:
 ```yml
 relations: 
