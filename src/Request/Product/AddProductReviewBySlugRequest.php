@@ -34,7 +34,7 @@ class AddProductReviewBySlugRequest implements ChannelBasedRequestInterface
     {
         $this->slug = $request->attributes->get('slug');
         $this->title = $request->request->get('title');
-        $this->rating = $request->request->get('rating');
+        $this->rating = $request->request->getInt('rating');
         $this->comment = $request->request->get('comment');
         $this->email = $request->request->get('email');
 
