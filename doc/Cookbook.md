@@ -61,6 +61,8 @@ The easiest way to extend the existing request classes and add new properties is
 
 ```php
 use Sylius\ShopApiPlugin\Request\Cart\AddCouponRequest;
+use Symfony\Component\HttpFoundation\Request;
+use Sylius\ShopApiPlugin\Command\CommandInterface;
 
 final class AddLocalizedCouponRequest extends AddCouponRequest
 {
@@ -97,6 +99,7 @@ When extending the views, three places need to be modified, the view class, the 
 ViewFactories, as well as the ViewRepositories, can be either completely replaced or the preferred way of doing it if you only want to add features to it, decorate the classes.
 
 ```php
+use Sylius\Component\Order\Model\OrderInterface;
 use Sylius\ShopApiPlugin\Factory\Cart\TotalViewFactory;
 
 class NiceTotalViewFactory implements TotalViewFactoryInterface
@@ -161,6 +164,11 @@ The default way that Sylius tries to resolve channels is through the hostname. H
 
 ```php
 use Sylius\Component\Channel\Context\ChannelContextInterface;
+use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
+use Sylius\Component\Channel\Model\ChannelInterface;
+use Sylius\ShopApiPlugin\Exception\ChannelNotFoundException;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Webmozart\Assert\Assert;
 
 class RequestAttributeChannelContext implements ChannelContextInterface
 {
@@ -180,7 +188,7 @@ class RequestAttributeChannelContext implements ChannelContextInterface
             $channelCode = $request->attributes->get('channelCode');
             Assert::notNull($channelCode);
             return $this->channelRepository->findOneByCode($channelCode);
-        } catch(Exception $e) {
+        } catch(\Exception $e) {
             throw new ChannelNotFoundException();
         }
     }

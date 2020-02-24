@@ -49,3 +49,4 @@ script:
 
     - vendor/bin/phpspec run --format dot -vvv --no-interaction
     - vendor/bin/phpunit
+    - vendor/bin/doc-parser.php doc/Cookbook.md
