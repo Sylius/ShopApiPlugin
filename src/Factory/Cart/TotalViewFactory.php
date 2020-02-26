@@ -25,10 +25,21 @@ final class TotalViewFactory implements TotalViewFactoryInterface
 
         $totalsView->promotion = $cart->getOrderPromotionTotal();
         $totalsView->total = $cart->getTotal();
-        $totalsView->items = $cart->getItemsTotal();
+        $totalsView->items = $this->getSubtotal($cart);
         $totalsView->shipping = $cart->getShippingTotal();
         $totalsView->taxes = $cart->getTaxTotal();
 
         return $totalsView;
+    }
+
+    private function getSubtotal(OrderInterface $order): int
+    {
+        return array_reduce(
+            $order->getItems()->toArray(),
+            static function (int $subtotal, OrderItemInterface $item) {
+                return $subtotal + $item->getSubtotal();
+            },
+            0
+        );
     }
 }
