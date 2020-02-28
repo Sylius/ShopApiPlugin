@@ -88,7 +88,7 @@ final class PointsValidator extends ConstraintValidator
             }
 
             if ( ! ($amount <= $customerPoints->getPoints())) {
-                $this->buildViolation($constraint, $this->translator->trans('sylius.shop_api.points.not_enough'));
+                $this->buildViolation($constraint, $this->translator->trans('sylius.shop_api.points.not_enough', ['customerPoints' => $customerPoints->getPoints()]));
                 return;
             }
 
