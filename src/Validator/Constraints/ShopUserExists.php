@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraint;
 final class ShopUserExists extends Constraint
 {
     /** @var string */
-    public $message = 'sylius.shop_api.email.not_found';
+    public $message = 'sylius.shop_api.user.not_found';
 
     /** {@inheritdoc} */
     public function getTargets(): string

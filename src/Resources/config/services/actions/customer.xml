@@ -45,6 +45,8 @@
             <argument type="service" id="sylius.context.channel" />
             <argument type="service" id="sylius.shop_api_plugin.command_provider.generate_reset_password_token" />
             <argument type="service" id="sylius.shop_api_plugin.command_provider.send_reset_password_token" />
+            <argument type="service" id="validator" />
+            <argument type="service" id="sylius.shop_api_plugin.factory.validation_error_view_factory" />
         </service>
 
         <service
