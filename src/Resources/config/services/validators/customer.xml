@@ -6,6 +6,7 @@
         <service id="sylius.shop_api_plugin.validator.shop_user_exists_validator"
                  class="Sylius\ShopApiPlugin\Validator\Customer\ShopUserExistsValidator">
             <argument type="service" id="sylius.repository.shop_user"/>
+            <argument type="service" id="translator" />
             <tag name="validator.constraint_validator" alias="sylius_shop_api_shop_user_exists_validator"/>
         </service>
 
