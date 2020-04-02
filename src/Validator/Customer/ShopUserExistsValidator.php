@@ -10,6 +10,7 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 final class ShopUserExistsValidator extends ConstraintValidator
 {
+
     /** @var UserRepositoryInterface */
     private $userRepository;
 
@@ -20,10 +21,8 @@ final class ShopUserExistsValidator extends ConstraintValidator
 
     public function validate($string, Constraint $constraint)
     {
-        if (filter_var($string, FILTER_VALIDATE_EMAIL)) {
-            if (null === $string || null === $this->userRepository->findOneByEmail($string)) {
-                $this->context->addViolation($constraint->message);
-            }
+        if (null === $string || null === $this->userRepository->findOneByEmail($string)) {
+            $this->context->addViolation($constraint->message);
         }
     }
 }
