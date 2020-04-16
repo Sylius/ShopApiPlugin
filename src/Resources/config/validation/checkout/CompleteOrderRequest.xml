@@ -17,6 +17,7 @@
 >
     <class name="Sylius\ShopApiPlugin\Request\Checkout\CompleteOrderRequest">
         <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\PointsConstraint" />
+        <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\CartItemOnHand" />
         <property name="token">
             <constraint name="NotNull">
                 <option name="message">sylius.shop_api.token.not_null</option>
