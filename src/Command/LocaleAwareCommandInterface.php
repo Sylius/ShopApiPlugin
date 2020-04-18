@@ -6,7 +6,7 @@ namespace Sylius\ShopApiPlugin\Command;
 
 interface LocaleAwareCommandInterface
 {
-    public function setLocaleCode(string $localeCode);
+    public function setLocaleCode(string $localeCode): void;
 
     public function getLocaleCode(): ?string;
 }

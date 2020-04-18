@@ -34,7 +34,7 @@ class PickupCart implements CommandInterface, LocaleAwareCommandInterface
         return $this->channelCode;
     }
 
-    public function setLocaleCode(string $localeCode)
+    public function setLocaleCode(string $localeCode): void
     {
         $this->localeCode = $localeCode;
     }
