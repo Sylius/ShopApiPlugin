@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Sylius\ShopApiPlugin\CommandProvider;
 
 use Sylius\Component\Core\Model\ChannelInterface;
+use Sylius\Component\Locale\Context\LocaleContextInterface;
 use Sylius\ShopApiPlugin\Command\CommandInterface;
+use Sylius\ShopApiPlugin\Command\LocaleAwareCommandInterface;
 use Sylius\ShopApiPlugin\Request\ChannelBasedRequestInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
@@ -20,12 +22,16 @@ final class ChannelBasedCommandProvider implements ChannelBasedCommandProviderIn
     /** @var ValidatorInterface */
     private $validator;
 
-    public function __construct(string $requestClass, ValidatorInterface $validator)
+    /** @var LocaleContextInterface|null */
+    private $localeContext;
+
+    public function __construct(string $requestClass, ValidatorInterface $validator, ?LocaleContextInterface $localeContext = null)
     {
         Assert::implementsInterface($requestClass, ChannelBasedRequestInterface::class);
 
         $this->requestClass = $requestClass;
         $this->validator = $validator;
+        $this->localeContext = $localeContext;
     }
 
     public function validate(
@@ -39,7 +45,12 @@ final class ChannelBasedCommandProvider implements ChannelBasedCommandProviderIn
 
     public function getCommand(Request $httpRequest, ChannelInterface $channel): CommandInterface
     {
-        return $this->transformHttpRequest($httpRequest, $channel)->getCommand();
+        $command = $this->transformHttpRequest($httpRequest, $channel)->getCommand();
+        if ($command instanceof LocaleAwareCommandInterface && $this->localeContext !== null) {
+            $command->setLocaleCode($this->localeContext->getLocaleCode());
+        }
+
+        return $command;
     }
 
     private function transformHttpRequest(Request $httpRequest, ChannelInterface $channel): ChannelBasedRequestInterface

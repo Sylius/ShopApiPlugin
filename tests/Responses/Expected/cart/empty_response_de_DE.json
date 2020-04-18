@@ -1,0 +1,18 @@
+{
+    "tokenValue": "@string@",
+    "channel": "WEB_GB",
+    "currency": "GBP",
+    "locale": "de_DE",
+    "checkoutState": "cart",
+    "items": [],
+    "totals": {
+        "total": 0,
+        "items": 0,
+        "taxes": 0,
+        "shipping": 0,
+        "promotion": 0
+    },
+    "payments": [],
+    "shipments": [],
+    "cartDiscounts": []
+}

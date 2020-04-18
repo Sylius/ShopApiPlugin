@@ -52,7 +52,7 @@ final class PickupCartHandler
         $cart = $this->cartFactory->createNew();
         $cart->setChannel($channel);
         $cart->setCurrencyCode($channel->getBaseCurrency()->getCode());
-        $cart->setLocaleCode($channel->getDefaultLocale()->getCode());
+        $cart->setLocaleCode($pickupCart->getLocaleCode() ?? $channel->getDefaultLocale()->getCode());
         $cart->setTokenValue($pickupCart->orderToken());
 
         $this->cartRepository->add($cart);
