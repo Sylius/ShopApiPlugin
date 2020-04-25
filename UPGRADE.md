@@ -1,5 +1,5 @@
 # UPGRADE FROM 1.0.0 to 1.1.0
-* Add firewall protection to the `/addess-book` and `/me` routes in the `security.yaml`
+* Add firewall protection to the `/address-book` and `/me` routes in the `security.yaml`
 
 ```yml
 access_control:
