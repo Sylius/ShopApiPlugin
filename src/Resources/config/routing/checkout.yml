@@ -3,6 +3,11 @@ sylius_shop_api_address_checkout:
     methods: [PUT]
     defaults:
         _controller: sylius.shop_api_plugin.controller.checkout.address_action
+        _sylius:
+            event: address
+            state_machine:
+                graph: sylius_order_checkout
+                transition: address
 
 sylius_shop_api_summarize_checkout:
     path: /{token}
@@ -21,6 +26,11 @@ sylius_shop_api_choose_shipping_method:
     methods: [PUT]
     defaults:
         _controller: sylius.shop_api_plugin.controller.checkout.choose_shipping_method_action
+        _sylius:
+            event: select_shipping
+            state_machine:
+                graph: sylius_order_checkout
+                transition: select_shipping
 
 sylius_shop_api_available_payment_methods_checkout:
     path: /{token}/payment
@@ -33,9 +43,19 @@ sylius_shop_api_choose_payment_method_checkout:
     methods: [PUT]
     defaults:
         _controller: sylius.shop_api_plugin.controller.checkout.choose_payment_method_action
+        _sylius:
+            event: payment
+            state_machine:
+                graph: sylius_order_checkout
+                transition: select_payment
 
 sylius_shop_api_complete_checkout:
     path: /{token}/complete
     methods: [PUT]
     defaults:
         _controller: sylius.shop_api_plugin.controller.checkout.complete_order_action
+        _sylius:
+            event: complete
+            state_machine:
+                graph: sylius_order_checkout
+                transition: complete
