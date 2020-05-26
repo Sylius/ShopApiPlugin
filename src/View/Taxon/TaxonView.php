@@ -38,4 +38,7 @@ class TaxonView
 
     /** @var string */
     public $metaDescription;
+
+    /** @var string */
+    public $canonicalUrl;
 }
