@@ -8,6 +8,7 @@ use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\ProductVariantRepositoryInterface;
+use Sylius\Component\Inventory\Checker\AvailabilityCheckerInterface;
 use Sylius\ShopApiPlugin\Checker\ProductInCartChannelCheckerInterface;
 use Sylius\ShopApiPlugin\Command\Cart\PutVariantBasedConfigurableItemToCart;
 use Sylius\ShopApiPlugin\Modifier\OrderModifierInterface;
@@ -27,16 +28,21 @@ final class PutVariantBasedConfigurableItemToCartHandler
     /** @var ProductInCartChannelCheckerInterface */
     private $channelChecker;
 
+    /** @var AvailabilityCheckerInterface */
+    private $availabilityChecker;
+
     public function __construct(
         OrderRepositoryInterface $cartRepository,
         ProductVariantRepositoryInterface $productVariantRepository,
         OrderModifierInterface $orderModifier,
-        ProductInCartChannelCheckerInterface $channelChecker
+        ProductInCartChannelCheckerInterface $channelChecker,
+        AvailabilityCheckerInterface $availabilityChecker
     ) {
         $this->cartRepository = $cartRepository;
         $this->productVariantRepository = $productVariantRepository;
         $this->orderModifier = $orderModifier;
         $this->channelChecker = $channelChecker;
+        $this->availabilityChecker = $availabilityChecker;
     }
 
     public function __invoke(PutVariantBasedConfigurableItemToCart $putConfigurableItemToCart): void
@@ -55,6 +61,9 @@ final class PutVariantBasedConfigurableItemToCartHandler
 
         Assert::true($this->channelChecker->isProductInCartChannel($product, $cart), 'Product is not in same channel as cart');
 
-        $this->orderModifier->modify($cart, $productVariant, $putConfigurableItemToCart->quantity());
+        $quantity = $putConfigurableItemToCart->quantity();
+        Assert::true($this->availabilityChecker->isStockSufficient($productVariant, $quantity), 'Product variant is not available in stock');
+
+        $this->orderModifier->modify($cart, $productVariant, $quantity);
     }
 }

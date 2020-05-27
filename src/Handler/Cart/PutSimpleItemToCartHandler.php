@@ -8,6 +8,7 @@ use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
+use Sylius\Component\Inventory\Checker\AvailabilityCheckerInterface;
 use Sylius\ShopApiPlugin\Checker\ProductInCartChannelCheckerInterface;
 use Sylius\ShopApiPlugin\Command\Cart\PutSimpleItemToCart;
 use Sylius\ShopApiPlugin\Modifier\OrderModifierInterface;
@@ -27,16 +28,21 @@ final class PutSimpleItemToCartHandler
     /** @var ProductInCartChannelCheckerInterface */
     private $channelChecker;
 
+    /** @var AvailabilityCheckerInterface */
+    private $availabilityChecker;
+
     public function __construct(
         OrderRepositoryInterface $cartRepository,
         ProductRepositoryInterface $productRepository,
         OrderModifierInterface $orderModifier,
-        ProductInCartChannelCheckerInterface $channelChecker
+        ProductInCartChannelCheckerInterface $channelChecker,
+        AvailabilityCheckerInterface $availabilityChecker
     ) {
         $this->cartRepository = $cartRepository;
         $this->productRepository = $productRepository;
         $this->orderModifier = $orderModifier;
         $this->channelChecker = $channelChecker;
+        $this->availabilityChecker = $availabilityChecker;
     }
 
     public function __invoke(PutSimpleItemToCart $putSimpleItemToCart): void
@@ -54,6 +60,9 @@ final class PutSimpleItemToCartHandler
 
         $productVariant = $product->getVariants()[0];
 
-        $this->orderModifier->modify($cart, $productVariant, $putSimpleItemToCart->quantity());
+        $quantity = $putSimpleItemToCart->quantity();
+        Assert::true($this->availabilityChecker->isStockSufficient($productVariant, $quantity), 'Product variant is not available in stock');
+
+        $this->orderModifier->modify($cart, $productVariant, $quantity);
     }
 }
