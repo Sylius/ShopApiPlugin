@@ -197,7 +197,6 @@ final class TaxonViewFactory implements TaxonViewFactoryInterface
         } else {
             $taxonView->canonicalUrl = $this->getCanonicalUrlForTaxonFunc($taxon);
         }
-        dd($taxonView);
 
         return $taxonView;
     }
