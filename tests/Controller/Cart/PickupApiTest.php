@@ -38,6 +38,25 @@ final class PickupApiTest extends JsonApiTestCase
     /**
      * @test
      */
+    public function it_creates_a_new_cart_with_locale(): void
+    {
+        $this->loadFixturesFromFiles(['shop.yml']);
+
+        $this->client->request('POST', '/shop-api/carts?locale=de_DE', [], [], self::CONTENT_TYPE_HEADER);
+
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'cart/empty_response_de_DE', Response::HTTP_CREATED);
+
+        $orderRepository = $this->get('sylius.repository.order');
+        $count = $orderRepository->count([]);
+
+        $this->assertSame(1, $count, 'Only one cart should be created');
+    }
+
+    /**
+     * @test
+     */
     public function it_only_creates_one_cart_if_user_is_logged_in(): void
     {
         $this->loadFixturesFromFiles(['shop.yml', 'customer.yml']);

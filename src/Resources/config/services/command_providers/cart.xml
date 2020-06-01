@@ -42,6 +42,7 @@
         >
             <argument>%sylius.shop_api.request.pickup_cart.class%</argument>
             <argument type="service" id="validator" />
+            <argument type="service" id="sylius.context.locale" />
         </service>
 
         <service
