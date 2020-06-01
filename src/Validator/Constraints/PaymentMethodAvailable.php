@@ -6,10 +6,10 @@ namespace Sylius\ShopApiPlugin\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 
-final class CorrectPaymentMethod extends Constraint
+final class PaymentMethodAvailable extends Constraint
 {
     /** @var string */
-    public $message = 'sylius.shop_api.cart.payment_method.valid';
+    public $message = 'sylius.shop_api.checkout.payment_method_not_available';
 
     /** {@inheritdoc} */
     public function getTargets(): string

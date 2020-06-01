@@ -47,6 +47,7 @@
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="sylius_shop_api_plugin.command_bus" />
             <argument type="service" id="sylius.shop_api_plugin.command_provider.choose_payment_method" />
+            <argument type="service" id="sylius.shop_api_plugin.factory.validation_error_view_factory" />
         </service>
 
         <service

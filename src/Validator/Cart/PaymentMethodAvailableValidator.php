@@ -6,14 +6,15 @@ namespace Sylius\ShopApiPlugin\Validator\Cart;
 
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
+use Sylius\Component\Core\OrderCheckoutStates;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Payment\Resolver\PaymentMethodsResolverInterface;
 use Sylius\ShopApiPlugin\Request\Checkout\ChoosePaymentMethodRequest;
-use Sylius\ShopApiPlugin\Validator\Constraints\CorrectPaymentMethod;
+use Sylius\ShopApiPlugin\Validator\Constraints\PaymentMethodAvailable;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
-final class CorrectPaymentMethodValidator extends ConstraintValidator
+final class PaymentMethodAvailableValidator extends ConstraintValidator
 {
     /** @var OrderRepositoryInterface */
     private $orderRepository;
@@ -34,7 +35,9 @@ final class CorrectPaymentMethodValidator extends ConstraintValidator
         /** @var ChoosePaymentMethodRequest $value */
 
         /** @var OrderInterface|null $order */
-        $order = $this->orderRepository->findOneByTokenValue($value->getOrderToken());
+        $order = $this->orderRepository->findOneBy(
+            ['tokenValue' => $value->getOrderToken(), 'state' => OrderCheckoutStates::STATE_CART]
+        );
         if ($order === null) {
             return;
         }
@@ -48,9 +51,12 @@ final class CorrectPaymentMethodValidator extends ConstraintValidator
                 $this->paymentMethodsResolver->getSupportedMethods($payment)
             );
 
-        if (!in_array($value->getMethod(), $paymentMethodCodes)) {
-            /** @var CorrectPaymentMethod $constraint */
-            $this->context->addViolation($constraint->message);
+        if (!in_array($value->getMethod(), $paymentMethodCodes, true)) {
+            /** @var PaymentMethodAvailable $constraint */
+            $this->context
+                ->buildViolation($constraint->message)
+                ->atPath('method')
+                ->addViolation();
         }
     }
 }
