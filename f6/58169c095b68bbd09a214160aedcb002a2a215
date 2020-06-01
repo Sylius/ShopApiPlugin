@@ -1,0 +1,79 @@
+---------------------------------------------------------------------------
+
+by dnna at 2020-04-16T09:17:01Z
+
+@lchrusciel I'm happy to make the change, but note there are multiple instances where `$request->query->get('locale')` is already used in the shop API.
+
+Indicatively check the following:
+- https://github.com/Sylius/ShopApiPlugin/blob/master/src/Controller/Product/ShowProductDetailsBySlugAction.php#L45
+- https://github.com/Sylius/ShopApiPlugin/blob/master/src/Controller/Product/ShowProductDetailsByCodeAction.php#L45
+- https://github.com/Sylius/ShopApiPlugin/blob/master/src/Controller/Product/ShowLatestProductAction.php#L44
+- https://github.com/Sylius/ShopApiPlugin/blob/master/src/Controller/Product/ShowProductReviewsBySlugAction.php#L44
+- https://github.com/Sylius/ShopApiPlugin/blob/master/src/Controller/Product/ShowProductCatalogByTaxonSlugAction.php#L47
+- https://github.com/Sylius/ShopApiPlugin/blob/master/src/Controller/Product/ShowProductCatalogByTaxonCodeAction.php#L47
+
+---------------------------------------------------------------------------
+
+by dnna at 2020-04-16T10:43:47Z
+
+I have made the requested changes so that `LocaleContext` is used instead of request `query`. To make this work, I had to create a new `ChannelAndLocaleBasedRequestInterface` and a `ChannelAndLocaleBasedCommandProvider`.
+
+For `ChannelAndLocaleBasedRequestInterface` I extended the original `ChannelBasedRequestInterface` instead of having a completely separate interface in order to minimize BC breaks.
+
+---------------------------------------------------------------------------
+
+by mamazu at 2020-04-17T13:02:02Z
+
+Yeah localization is indeed still a problem in the ShopApi. But this looks good. I would prefer to move it in to the main provider and then add an interface that only specifies the `setLocale` function. And then in the provider if the interface is implemented call the function.
+
+```php
+class PickUpCartCommand implements LocaleNeededInterface {
+    private $localeCode;
+
+    // Normal code
+    public function setLocale(string $localeCode): void
+    {
+        $this->localeCode = $localeCode;
+    }
+}
+```
+and then
+```php
+public function getCommand(Request $httpRequest): CommandInterface
+{
+    $command = $this->transformHttpRequest($httpRequest)->getCommand();
+    if ($command instanceof LocaleNeededInterface) {
+        // Get locale somehow
+        $command->setLocale($locale);
+    }
+    return $command;
+}
+```
+
+Maybe even the `LocaleAwareInterface` from the Symfony translator. What do you think?
+
+---------------------------------------------------------------------------
+
+by dnna at 2020-04-18T18:45:03Z
+
+That approach makes a lot of sense. I'll try to implement it that way and get back.
+
+---------------------------------------------------------------------------
+
+by dnna at 2020-04-18T19:14:31Z
+
+@mamazu I have reimplemented it the way you mentioned. I didn't use Symfony's `LocaleAwareInterface` because I was afraid it might be somehow integrated with Symfony and get unexpectedly triggered by the container or request listeners, so I created a new `LocaleAwareCommandInterface`.
+
+I implemented it in a way that allows localeContext to be nullable to avoid BC breaks if someone has decorated the provider or extended the command. I can't see a way that it might break but if you do please let me know.
+
+---------------------------------------------------------------------------
+
+by mamazu at 2020-04-19T15:31:27Z
+
+Looks good. This could be then extended to all other commands.
+
+---------------------------------------------------------------------------
+
+by mamazu at 2020-06-01T20:09:57Z
+
+Thank you, Dimosthenis! :tada:
