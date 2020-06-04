@@ -32,5 +32,16 @@
             <constraint name="NotNull" />
             <constraint name="Valid" />
         </property>
+
+        <property name="shippingAddress">
+            <constraint name="Collection">
+                <option name="fields">
+                    <value key="phoneNumber">
+                        <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\PhoneConstraint" />
+                    </value>
+                </option>
+                <option name="allowExtraFields">true</option>
+            </constraint>
+        </property>
     </class>
 </constraint-mapping>
