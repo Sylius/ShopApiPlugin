@@ -32,18 +32,18 @@ final class ShopUserAwareCustomerProvider implements CustomerProviderInterface
 
     public function provide(string $emailAddress): CustomerInterface
     {
-        if ($this->loggedInShopUserProvider->isUserLoggedIn()) {
-            $loggedInUser = $this->loggedInShopUserProvider->provide();
-
-            /** @var CustomerInterface $customer */
-            $customer = $loggedInUser->getCustomer();
-
-            if ($customer->getEmail() !== $emailAddress) {
-                throw new WrongUserException('Cannot finish checkout for other user, if customer is logged in.');
-            }
-
-            return $customer;
-        }
+//        if ($this->loggedInShopUserProvider->isUserLoggedIn()) {
+//            $loggedInUser = $this->loggedInShopUserProvider->provide();
+//
+//            /** @var CustomerInterface $customer */
+//            $customer = $loggedInUser->getCustomer();
+//
+//            if ($customer->getEmail() !== $emailAddress) {
+//                throw new WrongUserException('Cannot finish checkout for other user, if customer is logged in.');
+//            }
+//
+//            return $customer;
+//        }
 
         /** @var CustomerInterface|null $customer */
         $customer = $this->customerRepository->findOneBy(['email' => $emailAddress]);
@@ -58,9 +58,9 @@ final class ShopUserAwareCustomerProvider implements CustomerProviderInterface
             return $customer;
         }
 
-        if ($customer->getUser() !== null) {
-            throw new WrongUserException('Customer already registered.');
-        }
+//        if ($customer->getUser() !== null) {
+//            throw new WrongUserException('Customer already registered.');
+//        }     
 
         return $customer;
     }
