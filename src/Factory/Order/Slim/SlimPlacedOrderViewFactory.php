@@ -70,9 +70,7 @@ final class SlimPlacedOrderViewFactory implements PlacedOrderViewFactoryInterfac
         $placedOrderView->totals              = $this->totalViewFactory->create($order);
         $placedOrderView->tokenValue          = $order->getTokenValue();
         $placedOrderView->number              = $order->getNumber();
-        if($order->getAdditionalState() == $order::ADDITIONAL_STATE_PROCESSING || $order->getAdditionalState() == $order::ADDITIONAL_STATE_ASSEMBLY){
-            $placedOrderView->additionalState     = $order->getAdditionalState();
-        }
+        $placedOrderView->additionalState     = $order->getAdditionalState();
         if($order->getNotes()){
             $placedOrderView->notes               = $order->getNotes();
         }
