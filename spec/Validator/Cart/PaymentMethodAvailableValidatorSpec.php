@@ -64,8 +64,7 @@ final class PaymentMethodAvailableValidatorSpec extends ObjectBehavior
 
         $context->buildViolation('sylius.shop_api.checkout.payment_method_not_available')->willReturn(
             $violationBuilder
-        )
-        ;
+        );
         $violationBuilder->atPath('method')->willReturn($violationBuilder);
         $violationBuilder->addViolation()->shouldBeCalled();
 
