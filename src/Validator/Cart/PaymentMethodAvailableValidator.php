@@ -13,6 +13,7 @@ use Sylius\ShopApiPlugin\Request\Checkout\ChoosePaymentMethodRequest;
 use Sylius\ShopApiPlugin\Validator\Constraints\PaymentMethodAvailable;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
+use Webmozart\Assert\Assert;
 
 final class PaymentMethodAvailableValidator extends ConstraintValidator
 {
@@ -32,6 +33,7 @@ final class PaymentMethodAvailableValidator extends ConstraintValidator
 
     public function validate($value, Constraint $constraint): void
     {
+        Assert::isInstanceOf($value, ChoosePaymentMethodRequest::class);
         /** @var ChoosePaymentMethodRequest $value */
 
         /** @var OrderInterface|null $order */
