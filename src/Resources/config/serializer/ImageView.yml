@@ -5,6 +5,12 @@ Sylius\ShopApiPlugin\View\ImageView:
         code:
             expose: true
             type: string
+        alt:
+            expose: true
+            type: string
+        title:
+            expose: true
+            type: string
         path:
             expose: true
             type: string
