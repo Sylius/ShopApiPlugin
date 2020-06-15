@@ -50,7 +50,9 @@ final class ImageViewFactory implements ImageViewFactoryInterface
 
         $imageView->code = $image->getType();
         $imageView->path = $image->getPath();
-        
+        $imageView->alt   = $image->getAlt();
+        $imageView->title = $image->getTitle();
+
         if ($this->disableLiipImage) {
             if($this->cloudUrl){
                 $imageView->cachedPath = $this->cloudUrl . $this->filter . '/' . $image->getPath();
