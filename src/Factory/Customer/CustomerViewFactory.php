@@ -44,7 +44,7 @@ final class CustomerViewFactory implements CustomerViewFactoryInterface
         if ($customer->getUser() && $customer->getUser()->getAvatar()) {
             /** @var ImageInterface $image */
             $image = $customer->getUser()->getAvatar();
-
+            $this->imageViewFactory->setDefaultIncludes(['code', 'path', 'cachedPath',]);
             $customerView->avatar = $this->imageViewFactory->create($image);
         }
         if($customer->getCustomerPoint()){
