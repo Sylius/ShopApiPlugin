@@ -81,14 +81,17 @@ final class ImageViewFactory implements ImageViewFactoryInterface
 
     public function getAlt(ImageInterface $image, $imageView)
     {
-        $imageView->alt   = $image->getAlt();
-
+        if(method_exists($image, 'getAlt')){
+            $imageView->alt   = $image->getAlt();
+        }
         return $imageView;
     }
 
     public function getTitle(ImageInterface $image, $imageView)
     {
-        $imageView->title = $image->getTitle();
+        if(method_exists($image, 'getTitle')){
+            $imageView->title = $image->getTitle();
+        }
 
         return $imageView;
     }
