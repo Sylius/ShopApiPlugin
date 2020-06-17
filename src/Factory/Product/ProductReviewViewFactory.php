@@ -38,6 +38,7 @@ final class ProductReviewViewFactory implements ProductReviewViewFactoryInterfac
         if ($productReview->getAuthor()->getUser() && $productReview->getAuthor()->getUser()->getAvatar()) {
             $image = $productReview->getAuthor()->getUser()->getAvatar();
 
+            $this->imageViewFactory->setDefaultIncludes(['code', 'path', 'cachedPath',]);
             $productReviewView->authorAvatar = $this->imageViewFactory->create($image);
         }
         $productReviewView->comment   = $productReview->getComment();
