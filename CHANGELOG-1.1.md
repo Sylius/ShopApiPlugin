@@ -11,6 +11,7 @@
 #### Details
 
 ### Added
+- [#651](https://github.com/Sylius/SyliusShopApiPlugin/issues/651) Adding validator for payment methods ([@mamazu](https://github.com/mamazu))
 - [#600](https://github.com/Sylius/ShopApiPlugin/issues/600) [ENHANCEMENT] Added province code to AddressView
 - [#592](https://github.com/Sylius/ShopApiPlugin/issues/592) Adding accept language to locale listener ([@mamazu](https://github.com/mamazu))
 - [#525](https://github.com/Sylius/ShopApiPlugin/issues/525) Add route for changing password of current user ([@nnatter](https://github.com/nnatter))
