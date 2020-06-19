@@ -193,10 +193,10 @@ Next major releases are not planned yet. Minor and patch releases will be publis
 We provide bug fixes only for the most recent minor release.
 We provide security fixes for one year since the release of subsequent minor release.
 
-#### Example (with arbitrary dates):
+#### Supported versions
 
- - `v1.0.0` is released on _23.11.2019_
- - `v1.0.1` with a bugfix is provided on _03.02.2020_
- - `v1.1.0` is released on _15.02.2020_:
-   - `1.0` branch will not get bugfixes anymore
-   - `1.0` security support will end on _15.02.2021_
+| Version | Release date      | End of support     |
+|---------|-------------------|--------------------|
+| 1.0     | 23rd Nov 2019     | 19th June 2021     |
+| 1.1     | 19th June 2020    | Under development  |
+
