@@ -11,6 +11,12 @@ Sylius\Component\Core\Model\PaymentMethod:
         gatewayConfig: '@offline'
         currentLocale: "en_GB"
         channels: ["@gb_web_channel"]
+    not_available:
+        code: "NOT_AVAILABLE"
+        enabled: true
+        gatewayConfig: '@offline'
+        currentLocale: "en_GB"
+        channels: []
 
 Sylius\Bundle\PayumBundle\Model\GatewayConfig:
     offline:
@@ -31,3 +37,9 @@ Sylius\Component\Payment\Model\PaymentMethodTranslation:
         description: <paragraph(2)>
         instructions: "Please put the money in the bag!"
         translatable: "@pay_by_check"
+    not_available_translation:
+        name: 'Not available'
+        locale: 'en_GB'
+        description: <paragraph(2)>
+        instructions: "Please put the money in the bag!"
+        translatable: "@not_available"

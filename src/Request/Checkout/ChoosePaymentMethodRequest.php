@@ -27,6 +27,21 @@ class ChoosePaymentMethodRequest implements RequestInterface
         $this->method = $request->request->get('method');
     }
 
+    public function getOrderToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function getPaymentId(): ?string
+    {
+        return $this->paymentId;
+    }
+
+    public function getMethod(): ?string
+    {
+        return $this->method;
+    }
+
     public static function fromHttpRequest(Request $request): RequestInterface
     {
         return new self($request);

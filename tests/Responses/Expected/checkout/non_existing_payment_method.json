@@ -1,0 +1,10 @@
+{
+    "code": 400,
+    "message": "Validation failed",
+    "errors": {
+        "method": [
+            "The selected payment method is not available for this cart.",
+            "The selected payment method does not exist."
+        ]
+    }
+}

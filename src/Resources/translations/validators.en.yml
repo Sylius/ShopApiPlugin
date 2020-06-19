@@ -10,6 +10,8 @@ sylius:
             address_required: Please provide the cart with a shipping and billing address
             shipping_required: Please select a shipping method
             payment_required: Please select a payment method
+            payment_method_does_not_exist: The selected payment method does not exist.
+            payment_method_not_available: The selected payment method is not available for this cart.
         cart_item:
             not_exists: Cart item does not exist.
         email:
