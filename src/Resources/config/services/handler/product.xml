@@ -19,6 +19,7 @@
             <argument type="service" id="sylius.repository.product"/>
             <argument type="service" id="sylius.shop_api_plugin.provider.product_reviewer_provider"/>
             <argument type="service" id="sylius.factory.product_review"/>
+            <argument type="service" id="event_dispatcher"/>
             <tag name="messenger.message_handler" />
         </service>
     </services>

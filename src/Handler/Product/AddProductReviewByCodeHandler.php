@@ -10,8 +10,11 @@ use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Sylius\Component\Core\Repository\ProductReviewRepositoryInterface;
 use Sylius\Component\Review\Factory\ReviewFactoryInterface;
 use Sylius\ShopApiPlugin\Command\Product\AddProductReviewByCode;
+use App\Event\ProductReviewCreated;
 use Sylius\ShopApiPlugin\Provider\ProductReviewerProviderInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Webmozart\Assert\Assert;
+
 
 final class AddProductReviewByCodeHandler
 {
@@ -30,18 +33,23 @@ final class AddProductReviewByCodeHandler
     /** @var ReviewFactoryInterface */
     private $reviewFactory;
 
+    /** @var EventDispatcherInterface */
+    private $eventDispatcher;
+
     public function __construct(
         ProductReviewRepositoryInterface $productReviewRepository,
         ChannelRepositoryInterface $channelRepository,
         ProductRepositoryInterface $productRepository,
         ProductReviewerProviderInterface $productReviewerProvider,
-        ReviewFactoryInterface $reviewFactory
+        ReviewFactoryInterface $reviewFactory,
+        EventDispatcherInterface $eventDispatcher
     ) {
         $this->productReviewRepository = $productReviewRepository;
         $this->channelRepository = $channelRepository;
         $this->productRepository = $productRepository;
         $this->productReviewerProvider = $productReviewerProvider;
         $this->reviewFactory = $reviewFactory;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     public function __invoke(AddProductReviewByCode $addReview): void
@@ -65,5 +73,11 @@ final class AddProductReviewByCodeHandler
         $productReview->setTitle($addReview->title());
 
         $this->productReviewRepository->add($productReview);
+
+        $this->eventDispatcher->dispatch('sylius.product_review.post_create', new ProductReviewCreated(
+            $productReview->getReviewSubject()->getName()
+        ));
+
+
     }
 }
