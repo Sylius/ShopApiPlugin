@@ -10,7 +10,6 @@ use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\ShopApiPlugin\Command\Cart\AssignCustomerToCart;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Webmozart\Assert\Assert;
 
 final class CartBlamerListener
 {
@@ -35,11 +34,13 @@ final class CartBlamerListener
 
     public function onJwtLogin(JWTCreatedEvent $interactiveLoginEvent): void
     {
-        $user = $interactiveLoginEvent->getUser();
         $request = $this->requestStack->getCurrentRequest();
+        // If there is no request then it was a console login, where there is no user to be assigned a cart
+        if ($request === null) {
+            return;
+        }
 
-        Assert::notNull($request);
-
+        $user = $interactiveLoginEvent->getUser();
         if (!$user instanceof ShopUserInterface) {
             return;
         }
