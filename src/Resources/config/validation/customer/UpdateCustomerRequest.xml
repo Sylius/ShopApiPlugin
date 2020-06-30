@@ -38,5 +38,10 @@
                 <option name="groups">sylius_customer_profile_update</option>
             </constraint>
         </property>
+        <getter property="phoneNumber">
+            <constraint name="IsTrue">
+                <option name="message">sylius.shop_api.phone.not_valid</option>
+            </constraint>
+        </getter>
     </class>
 </constraint-mapping>
