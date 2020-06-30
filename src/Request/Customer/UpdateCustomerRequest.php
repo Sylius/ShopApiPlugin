@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Sylius\ShopApiPlugin\Request\Customer;
 
 use DateTimeImmutable;
+use libphonenumber\PhoneNumberType;
+use libphonenumber\PhoneNumberUtil;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\ShopApiPlugin\Command\CommandInterface;
@@ -76,5 +78,20 @@ class UpdateCustomerRequest implements ShopUserBasedRequestInterface
             $this->subscribedToNewsletter,
             $this->messenger
         );
+    }
+
+    public function getPhoneNumber(): bool {
+
+        try {
+            $phoneUtil        = PhoneNumberUtil::getInstance();
+            $swissNumberProto = $phoneUtil->parse($this->phoneNumber, "RU");
+            $valid            = $phoneUtil->isValidNumber($swissNumberProto);
+        } catch (\Exception $e) {
+            return false;
+        }
+        if (!($valid && $phoneUtil->getNumberType($swissNumberProto) == PhoneNumberType::MOBILE)) {
+            return false;
+        }
+        return $valid;
     }
 }

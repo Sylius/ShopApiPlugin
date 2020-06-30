@@ -13,8 +13,9 @@
         </service>
 
         <service id="sylius.shop_api_plugin.handler.update_customer"
-                     class="Sylius\ShopApiPlugin\Handler\Customer\UpdateCustomerHandler">
+                 class="Sylius\ShopApiPlugin\Handler\Customer\UpdateCustomerHandler">
             <argument type="service" id="sylius.repository.customer"/>
+            <argument type="service" id="sylius.repository.shop_user"/>
             <tag name="messenger.message_handler" />
         </service>
 
