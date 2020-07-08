@@ -69,7 +69,8 @@ class UpdateCustomerRequest implements ShopUserBasedRequestInterface
 
     public function getCommand(): CommandInterface
     {
-        return new UpdateCustomer($this->firstName,
+        return new UpdateCustomer(
+            $this->firstName,
             $this->lastName,
             $this->email,
             $this->birthday,

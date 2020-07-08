@@ -14,7 +14,7 @@ final class PhoneConstraint extends Constraint
     /** {@inheritdoc} */
     public function getTargets()
     {
-        return self::CLASS_CONSTRAINT;
+        return self::PROPERTY_CONSTRAINT;
     }
 
     /** {@inheritdoc} */
