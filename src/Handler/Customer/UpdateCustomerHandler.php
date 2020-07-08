@@ -30,16 +30,17 @@ final class UpdateCustomerHandler
     {
         /** @var CustomerInterface $customer */
         $customer = $this->customerRepository->findOneBy(['email' => $command->email()]);
+        $phoneNumber = str_replace([' ', '-', '(', ')'], '', $command->phoneNumber());
 
         $customer->setFirstName($command->firstName());
         $customer->setLastName($command->lastName());
         $customer->setGender($command->gender());
         $customer->setBirthday($command->birthday());
-        $customer->setPhoneNumber($command->phoneNumber());
+        $customer->setPhoneNumber($phoneNumber);
         if ($customer->getUser() instanceof ShopUser){
             /** @var \App\Entity\User\ShopUser $user */
             $user = $customer->getUser();
-            $user->setPhoneNumber($command->phoneNumber());
+            $user->setPhoneNumber($phoneNumber);
             $this->shopUserRepository->add($user);
 
         }
