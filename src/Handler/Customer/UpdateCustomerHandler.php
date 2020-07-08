@@ -12,6 +12,7 @@ use Sylius\ShopApiPlugin\Command\Customer\UpdateCustomer;
 
 final class UpdateCustomerHandler
 {
+
     /** @var RepositoryInterface */
     private $customerRepository;
 
@@ -29,20 +30,22 @@ final class UpdateCustomerHandler
     public function __invoke(UpdateCustomer $command): void
     {
         /** @var CustomerInterface $customer */
-        $customer = $this->customerRepository->findOneBy(['email' => $command->email()]);
-        $phoneNumber = str_replace([' ', '-', '(', ')'], '', $command->phoneNumber());
+        $customer    = $this->customerRepository->findOneBy(['email' => $command->email()]);
+        $phoneNumber = preg_replace('/[^0-9+]/',
+            '',
+            $command->phoneNumber()
+        );
 
         $customer->setFirstName($command->firstName());
         $customer->setLastName($command->lastName());
         $customer->setGender($command->gender());
         $customer->setBirthday($command->birthday());
         $customer->setPhoneNumber($phoneNumber);
-        if ($customer->getUser() instanceof ShopUser){
+        if ($customer->getUser() instanceof ShopUser) {
             /** @var \App\Entity\User\ShopUser $user */
             $user = $customer->getUser();
             $user->setPhoneNumber($phoneNumber);
             $this->shopUserRepository->add($user);
-
         }
         $customer->setSubscribedToNewsletter($command->subscribedToNewsletter());
         $customer->setMessenger($command->messenger());
