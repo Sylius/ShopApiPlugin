@@ -35,7 +35,9 @@ final class UpdateCustomerHandler
             '',
             $command->phoneNumber()
         );
-
+        if (strripos($phoneNumber, '+') === false) {
+            $phoneNumber = '+'.$phoneNumber;
+        }
         $customer->setFirstName($command->firstName());
         $customer->setLastName($command->lastName());
         $customer->setGender($command->gender());
