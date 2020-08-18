@@ -134,7 +134,7 @@ and to change the view class in sylius:
 ```yml
 sylius_shop_api:
     view_classes:
-        total: \NiceTotalView
+        totals: \NiceTotalView
 ```
 
 You have to extend the base view class in order to match view factory type hint.
