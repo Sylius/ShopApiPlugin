@@ -84,6 +84,8 @@ final class AddLocalizedCouponRequest extends AddCouponRequest
 ```
 In the same manner the command would need to be created and extending from the `AddCoupon` class. To change the flow from using the Shop Api request and command object to your own structure you only need to change one parameter in the configuration under the `sylius_shop_api.yml` like so:
 ```yml
+# config/packages/sylius_shop_api.yml
+
 sylius_shop_api:
     request_classes:
         add_coupon: \AddLocalizedCouponRequest
@@ -132,6 +134,8 @@ and this is configured like this (xml is used for reference yaml works as well):
 ```
 and to change the view class in sylius:
 ```yml
+# config/packages/sylius_shop_api.yml
+
 sylius_shop_api:
     view_classes:
         totals: \NiceTotalView
@@ -148,7 +152,7 @@ class NiceTotalView extends TotalView
 
 One other thing to keep in mind when working with the API and creating new views is that the endpoints that return multiple resources (for example a list of products) are usually paginated. Pagination in the shop api is implemented with the plugin [Pagerfanta](https://github.com/whiteoctober/Pagerfanta) which needs besides the attributes that it should serialize on the product also a key relations like the route to the individual products. The current object you are serializing is in the object "variable" and can be used with the expression syntax as shown below:
 ```yml
-relations: 
+relations:
     - rel: self
     - href:
         route: sylius_shop_api_product_show_details_by_slug
