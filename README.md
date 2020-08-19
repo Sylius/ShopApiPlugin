@@ -147,6 +147,7 @@ Sample configuration of Shop API can be found here: https://github.com/Sylius/Sy
 
 If you would like to receive serialized attributes you need to define an array of theirs codes under `sylius_shop_api.included_attributes` key. E.g.
 ```yml
+# config/packages/sylius_shop_api.yml
 sylius_shop_api:
     included_attributes:
         - "MUG_MATERIAL_CODE"
