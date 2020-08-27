@@ -32,4 +32,17 @@ class AddressView
 
     /** @var string */
     public $phoneNumber;
+
+    /** @var string|null */
+    public $location;
+
+    /** @var string|null */
+    public $time;
+
+    /** @var string|null */
+    public $postamat;
+
+    /** @var string|null */
+    public $apartment;
+
 }
