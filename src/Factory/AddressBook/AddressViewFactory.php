@@ -32,6 +32,10 @@ final class AddressViewFactory implements AddressViewFactoryInterface
         $addressView->provinceName = $address->getProvinceName();
         $addressView->company = $address->getCompany();
         $addressView->phoneNumber = $address->getPhoneNumber();
+        $addressView->location = $address->getLocation();
+        $addressView->time = $address->getTime();
+        $addressView->postamat = $address->getPostamat();
+        $addressView->apartment = $address->getApartments();
 
         return $addressView;
     }
