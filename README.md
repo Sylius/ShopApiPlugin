@@ -62,7 +62,7 @@ The latest documentation is available [here](https://app.swaggerhub.com/apis/Syl
     ```
     5. Configure firewall
         1. Change `sylius.security.shop_regex` parameter to exclude `shop-api` prefix also
-        2. Add ShopAPI regex parameter `shop_api.security.regex: "^/shop-api"`
+        2. Add ShopAPI regex parameter `sylius_shop_api.security.regex: "^/shop-api"`
         3. Add ShopAPI firewall config:
     ```yml
     # config/packages/security.yaml
