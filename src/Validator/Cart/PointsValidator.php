@@ -48,10 +48,10 @@ final class PointsValidator extends ConstraintValidator
 
         if ($customer && $amount) {
             /** @var OrderInterface|null $cart */
-            $cart = $this->orderRepository->findOneBy(
+            $cart     = $this->orderRepository->findOneBy(
                 [
                     'tokenValue' => $request->getToken(),
-                    'state'      => OrderInterface::STATE_CART
+                    'state'      => OrderInterface::STATE_CART,
                 ]
             );
             $customer = $this->tokenStorage->getToken()->getUser()->getCustomer();
@@ -72,7 +72,7 @@ final class PointsValidator extends ConstraintValidator
             $customerPoints = $customer->getCustomerPoint();
             $maxPoints      = (int)round(array_sum($itemsTotals) * $this->percentage);
 
-            if (! ($amount <= $maxPoints)) {
+            if (!($amount <= $maxPoints)) {
                 $maxPoints /= 100;
                 $amount    /= 100;
                 $this->buildViolation(
@@ -86,18 +86,18 @@ final class PointsValidator extends ConstraintValidator
                 return;
             }
 
-            if (! $customerPoints || ! $customerPoints->getPoints()) {
+            if (!$customerPoints || !$customerPoints->getPoints()) {
                 $this->buildViolation($constraint, $this->translator->trans('sylius.shop_api.points.not_have'));
 
                 return;
             }
 
-            if (! ($amount <= $customerPoints->getPoints())) {
+            if (!($amount <= $customerPoints->getPoints())) {
                 $this->buildViolation(
                     $constraint,
                     $this->translator->trans(
                         'sylius.shop_api.points.not_enough',
-                        ['customerPoints' => round($customerPoints->getPoints()/100, 0)]
+                        ['customerPoints' => intval($customerPoints->getPoints() / 100)]
                     )
                 );
 
@@ -111,7 +111,7 @@ final class PointsValidator extends ConstraintValidator
         }
     }
 
-    /** @param Constraint $constraint */
+    /** @param  Constraint  $constraint */
     private function buildViolation(Constraint $constraint, $message)
     {
         $this->context->buildViolation($message)->atPath('points')->addViolation();
