@@ -43,6 +43,9 @@ class ProductView
     public $metaDescription;
 
     /** @var string */
+    public $wildberriesLink;
+
+    /** @var string */
     public $averageRating;
 
     /** @var ProductTaxonView */

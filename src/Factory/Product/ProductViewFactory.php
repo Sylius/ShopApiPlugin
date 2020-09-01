@@ -61,7 +61,7 @@ final class ProductViewFactory implements ProductViewFactoryInterface
         $productView->metaKeywords = $translation->getMetaKeywords();
         $productView->metaDescription = $translation->getMetaDescription();
         $productView->channelCode = $channel->getCode();
-
+        $productView->wildberriesLink = $product->getWildberriesLink();
         $productView->createdAt = $product->getCreatedAt();
         $productView->updatedAt = $product->getUpdatedAt();
         /** @var ProductImageInterface $image */

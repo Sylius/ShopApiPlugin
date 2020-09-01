@@ -55,6 +55,9 @@ Sylius\ShopApiPlugin\View\Product\ProductView:
         associations:
             expose: true
             type: array
+        wildberriesLink:
+            expose: true
+            type: string
     relations:
         -   rel: self
             href:

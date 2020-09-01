@@ -35,6 +35,7 @@ class SlimProductViewFactory implements ProductViewFactoryInterface
         'images',
         'attributes',
         'sortedVariants',
+        'wildberriesLink',
     ];
 
     /** @var ImageViewFactoryInterface */
@@ -119,6 +120,13 @@ class SlimProductViewFactory implements ProductViewFactoryInterface
         /** @var ProductTranslationInterface $translation */
         $translation       = $product->getTranslation($this->locale);
         $productView->slug = $translation->getSlug();
+
+        return $productView;
+    }
+
+    public function getWildberriesLink(ProductInterface $product, $productView)
+    {
+        $productView->wildberriesLink = $product->getWildberriesLink();
 
         return $productView;
     }
