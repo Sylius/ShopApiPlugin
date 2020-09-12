@@ -30,7 +30,7 @@ final class PhoneValidator extends ConstraintValidator
         } catch (\Exception $e) {
             return $this->context->addViolation($constraint->message);
         }
-        if (!($valid && $phoneUtil->getNumberType($swissNumberProto) == PhoneNumberType::MOBILE)) {
+        if (!($valid && ($phoneUtil->getNumberType($swissNumberProto) == PhoneNumberType::MOBILE || $phoneUtil->getNumberType($swissNumberProto) == PhoneNumberType::FIXED_LINE_OR_MOBILE))) {
             return $this->context->addViolation($constraint->message);
         }
     }
