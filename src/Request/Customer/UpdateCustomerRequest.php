@@ -82,7 +82,6 @@ class UpdateCustomerRequest implements ShopUserBasedRequestInterface
     }
 
     public function getPhoneNumber(): bool {
-
         try {
             $phoneUtil        = PhoneNumberUtil::getInstance();
             $swissNumberProto = $phoneUtil->parse($this->phoneNumber, "RU");
@@ -90,7 +89,7 @@ class UpdateCustomerRequest implements ShopUserBasedRequestInterface
         } catch (\Exception $e) {
             return false;
         }
-        if (!($valid && $phoneUtil->getNumberType($swissNumberProto) == PhoneNumberType::MOBILE)) {
+        if (!($valid && ($phoneUtil->getNumberType($swissNumberProto) == PhoneNumberType::MOBILE || $phoneUtil->getNumberType($swissNumberProto) == PhoneNumberType::FIXED_LINE_OR_MOBILE))) {
             return false;
         }
         return $valid;
