@@ -45,4 +45,6 @@ class AddressView
     /** @var string|null */
     public $apartment;
 
+    /** @var string|null */
+    public $email;
 }
