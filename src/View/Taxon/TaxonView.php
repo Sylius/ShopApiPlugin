@@ -34,6 +34,12 @@ class TaxonView
     public $images = [];
 
     /** @var string */
+    public $informBlockTitle;
+
+    /** @var string */
+    public $informBlockText;
+
+    /** @var string */
     public $metaTitle;
 
     /** @var string */

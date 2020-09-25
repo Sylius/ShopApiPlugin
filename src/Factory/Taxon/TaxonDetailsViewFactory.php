@@ -60,6 +60,8 @@ final class TaxonDetailsViewFactory implements TaxonDetailsViewFactoryInterface
             'name',
             'metaTitle',
             'metaDescription',
+            'informBlockTitle',
+            'informBlockText',
             /*, 'images'*/
         ]);
         $taxonView = $this->taxonViewFactory->create($taxon, $locale);
