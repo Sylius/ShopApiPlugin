@@ -85,6 +85,8 @@ final class TaxonViewFactory implements TaxonViewFactoryInterface
             'description',
 //        'countOfProducts',
 //        'cheapestProduct',
+            'informBlockTitle',
+            'informBlockText',
             'metaTitle',
             'metaDescription',
             'images',
@@ -137,6 +139,22 @@ final class TaxonViewFactory implements TaxonViewFactoryInterface
     {
         $taxonTranslation       = $taxon->getTranslation($this->locale);
         $taxonView->description = $taxonTranslation->getDescription();
+
+        return $taxonView;
+    }
+
+    protected function getInformBlockTitle(TaxonInterface $taxon, TaxonView $taxonView)
+    {
+        $taxonTranslation            = $taxon->getTranslation($this->locale);
+        $taxonView->informBlockTitle = $taxonTranslation->getInformBlockTitle();
+
+        return $taxonView;
+    }
+
+    protected function getInformBlockText(TaxonInterface $taxon, TaxonView $taxonView)
+    {
+        $taxonTranslation           = $taxon->getTranslation($this->locale);
+        $taxonView->informBlockText = $taxonTranslation->getInformBlockText();
 
         return $taxonView;
     }
