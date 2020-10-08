@@ -44,7 +44,7 @@ class CartReadyForCheckoutValidator extends ConstraintValidator
 
         /** @var CartReadyForCheckout $constraint */
         $validationMessage = $constraint->message;
-        switch ($cart->getState()) {
+        switch ($cart->getCheckoutState()) {
             case OrderCheckoutStates::STATE_CART:
                 $validationMessage = $constraint->messageOnNoAddress;
 
