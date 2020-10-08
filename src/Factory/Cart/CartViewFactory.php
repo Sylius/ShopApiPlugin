@@ -115,6 +115,9 @@ final class CartViewFactory implements CartViewFactoryInterface
             $cartView->pointsDiscount = $amount;
         }
 
+        if ($cart->getPoints()){
+            $cartView->points = $cart->getPoints();
+        }
         return $cartView;
     }
 }
