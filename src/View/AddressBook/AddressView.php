@@ -43,6 +43,9 @@ class AddressView
     public $postamat;
 
     /** @var string|null */
+    public $pvz;
+
+    /** @var string|null */
     public $apartment;
 
     /** @var string|null */
