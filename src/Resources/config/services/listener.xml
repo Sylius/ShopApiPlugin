@@ -1,0 +1,12 @@
+<container>
+    <services>
+        <service class="Sylius\ShopApiPlugin\EventListener\UserCartRecalculationListener"
+                 id="sylius.shop_api_plugin.event_listener.user_cart_recalculation_listener"
+                 decorates="sylius.listener.user_cart_recalculation"
+        >
+            <argument type="service" id="sylius.shop_api_plugin.event_listener.user_cart_recalculation_listener.inner" />
+            <tag name="kernel.event_listener" event="sylius.user.security.implicit_login" method="recalculateCartWhileLogin" />
+            <tag name="kernel.event_listener" event="lexik_jwt_authentication.on_jwt_created" method="onJwtLogin" />
+        </service>
+    </services>
+</container>
