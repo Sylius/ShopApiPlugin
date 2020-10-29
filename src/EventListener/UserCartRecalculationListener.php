@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Sylius\ShopApiPlugin\EventListener;
 
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent;
-use Sylius\Bundle\UserBundle\Event\UserEvent;
 use Sylius\Bundle\CoreBundle\EventListener\UserCartRecalculationListener as CoreListener;
+use Sylius\Bundle\UserBundle\Event\UserEvent;
 use Symfony\Component\EventDispatcher\Event;
 
 class UserCartRecalculationListener
@@ -19,7 +19,8 @@ class UserCartRecalculationListener
         $this->recalculationListener = $recalculationListener;
     }
 
-    public function recalculateCartWhileLogin(Event $event): void {
+    public function recalculateCartWhileLogin(Event $event): void
+    {
         $this->recalculationListener->recalculateCartWhileLogin($event);
     }
 
