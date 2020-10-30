@@ -7,11 +7,12 @@ namespace Sylius\ShopApiPlugin\EventListener;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent;
 use Sylius\Bundle\CoreBundle\EventListener\UserCartRecalculationListener as CoreListener;
 use Sylius\Bundle\UserBundle\Event\UserEvent;
-use Symfony\Component\EventDispatcher\Event;
+use Sylius\Component\User\Model\UserInterface;
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 class UserCartRecalculationListener
 {
-    /** @var \Sylius\Bundle\CoreBundle\EventListener\UserCartRecalculationListener */
+    /** @var CoreListener */
     private $recalculationListener;
 
     public function __construct(CoreListener $recalculationListener)
@@ -19,13 +20,15 @@ class UserCartRecalculationListener
         $this->recalculationListener = $recalculationListener;
     }
 
-    public function recalculateCartWhileLogin(Event $event): void
+    public function recalculateCartWhileLogin(InteractiveLoginEvent $event): void
     {
         $this->recalculationListener->recalculateCartWhileLogin($event);
     }
 
     public function onJwtLogin(JWTCreatedEvent $event): void
     {
-        $this->recalculationListener->recalculateCartWhileLogin(new UserEvent($event->getUser()));
+        /** @var UserInterface $user */
+        $user = $event->getUser();
+        $this->recalculationListener->recalculateCartWhileLogin(new UserEvent($user));
     }
 }
