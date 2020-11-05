@@ -4,31 +4,37 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\EventListener;
 
-use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent;
-use Sylius\Bundle\CoreBundle\EventListener\UserCartRecalculationListener as CoreListener;
-use Sylius\Bundle\UserBundle\Event\UserEvent;
-use Sylius\Component\User\Model\UserInterface;
-use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
+use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\Component\Order\Context\CartContextInterface;
+use Sylius\Component\Order\Context\CartNotFoundException;
+use Sylius\Component\Order\Processor\OrderProcessorInterface;
+use Symfony\Contracts\EventDispatcher\Event;
+use Webmozart\Assert\Assert;
 
-class UserCartRecalculationListener
+final class UserCartRecalculationListener
 {
-    /** @var CoreListener */
-    private $recalculationListener;
+    /** @var CartContextInterface */
+    private $cartContext;
 
-    public function __construct(CoreListener $recalculationListener)
+    /** @var OrderProcessorInterface */
+    private $orderProcessor;
+
+    public function __construct(CartContextInterface $cartContext, OrderProcessorInterface $orderProcessor)
     {
-        $this->recalculationListener = $recalculationListener;
+        $this->cartContext = $cartContext;
+        $this->orderProcessor = $orderProcessor;
     }
 
-    public function recalculateCartWhileLogin(InteractiveLoginEvent $event): void
+    public function recalculateCartWhileLogin(Event $event): void
     {
-        $this->recalculationListener->recalculateCartWhileLogin($event);
-    }
+        try {
+            $cart = $this->cartContext->getCart();
+        } catch (CartNotFoundException $exception) {
+            return;
+        }
 
-    public function onJwtLogin(JWTCreatedEvent $event): void
-    {
-        /** @var UserInterface $user */
-        $user = $event->getUser();
-        $this->recalculationListener->recalculateCartWhileLogin(new UserEvent($user));
+        Assert::isInstanceOf($cart, OrderInterface::class);
+
+        $this->orderProcessor->process($cart);
     }
 }

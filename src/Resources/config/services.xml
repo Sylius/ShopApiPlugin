@@ -24,18 +24,10 @@
         <import resource="services/queries.xml"/>
         <import resource="services/shipping.xml" />
         <import resource="services/providers.xml" />
+        <import resource="services/event_listener.xml" />
     </imports>
     <services>
         <defaults public="true" />
-
-        <service id="sylius.shop_api_plugin.event_listener.user_registration_listener"
-                 class="Sylius\ShopApiPlugin\EventListener\UserRegistrationListener">
-            <argument type="service" id="sylius_shop_api_plugin.command_bus" />
-            <argument type="service" id="sylius.repository.channel"/>
-            <argument type="service" id="sylius.repository.shop_user"/>
-            <argument type="service" id="sylius.manager.shop_user"/>
-            <tag name="kernel.event_listener" event="sylius.customer.post_api_registered" method="handleUserVerification" />
-        </service>
 
         <service id="sylius.shop_api_plugin.generator.product_breadcrumb_generator"
                  class="Sylius\ShopApiPlugin\Generator\ProductBreadcrumbGenerator" />
@@ -55,16 +47,6 @@
             <argument type="service" id="sylius_shop_api_plugin.command_bus" />
             <argument type="service" id="sylius.context.channel" />
             <argument type="service" id="sylius.shop_api_plugin.command_provider.pickup_cart" />
-        </service>
-
-        <service
-            id="sylius.listener.cart_blamer"
-            class="Sylius\ShopApiPlugin\EventListener\CartBlamerListener"
-        >
-            <argument type="service" id="sylius.repository.order" />
-            <argument type="service" id="sylius_shop_api_plugin.command_bus" />
-            <argument type="service" id="request_stack" />
-            <tag name="kernel.event_listener" event="lexik_jwt_authentication.on_jwt_created" method="onJwtLogin" />
         </service>
 
         <service
