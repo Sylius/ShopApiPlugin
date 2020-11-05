@@ -24,7 +24,7 @@
         <import resource="services/queries.xml"/>
         <import resource="services/shipping.xml" />
         <import resource="services/providers.xml" />
-        <import resource="services/event_listener.xml" />
+        <import resource="services/listeners.xml" />
     </imports>
     <services>
         <defaults public="true" />
@@ -47,23 +47,6 @@
             <argument type="service" id="sylius_shop_api_plugin.command_bus" />
             <argument type="service" id="sylius.context.channel" />
             <argument type="service" id="sylius.shop_api_plugin.command_provider.pickup_cart" />
-        </service>
-
-        <service
-            id="sylius.shop_api_plugin.event_listener.messenger.cart_picked_up_listener"
-            class="Sylius\ShopApiPlugin\EventListener\Messenger\CartPickedUpListener"
-        >
-            <argument type="service" id="sylius.shop_api_plugin.provider.current_user_provider" />
-            <argument type="service" id="sylius_shop_api_plugin.command_bus" />
-            <tag name="messenger.message_handler"  bus="sylius_shop_api_plugin.event_bus"/>
-        </service>
-
-        <service
-            id="sylius.shop_api_plugin.event_listener.messenger.order_completed_listener"
-            class="Sylius\ShopApiPlugin\EventListener\Messenger\OrderCompletedListener"
-        >
-            <argument type="service" id="sylius_shop_api_plugin.command_bus" />
-            <tag name="messenger.message_handler"  bus="sylius_shop_api_plugin.event_bus"/>
         </service>
     </services>
 </container>
