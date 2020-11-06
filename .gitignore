@@ -5,3 +5,5 @@
 
 .phpunit.result.cache
 /phpunit.xml
+
+/.idea/

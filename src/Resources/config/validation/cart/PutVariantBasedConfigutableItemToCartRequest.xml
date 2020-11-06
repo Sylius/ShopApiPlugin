@@ -42,6 +42,7 @@
             </constraint>
             <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\ProductExists" />
             <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\ConfigurableProduct" />
+            <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\ProductEligibility" />
         </property>
         <property name="variantCode">
             <constraint name="NotNull">
