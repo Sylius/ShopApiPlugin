@@ -49,6 +49,7 @@
                 <option name="message">sylius.shop_api.product.not_null</option>
             </constraint>
             <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\ProductVariantExists" />
+            <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\ProductVariantEligibility" />
         </property>
     </class>
 </constraint-mapping>

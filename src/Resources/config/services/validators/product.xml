@@ -38,5 +38,11 @@
             <argument type="service" id="sylius.repository.product"/>
             <tag name="validator.constraint_validator" alias="sylius_shop_api_product_eligibility_validator"/>
         </service>
+
+        <service id="sylius.shop_api_plugin.validator.product_variant_eligibility_validator"
+                 class="Sylius\ShopApiPlugin\Validator\Product\ProductVariantEligibilityValidator">
+            <argument type="service" id="sylius.repository.product_variant"/>
+            <tag name="validator.constraint_validator" alias="sylius_shop_api_product_variant_eligibility_validator"/>
+        </service>
     </services>
 </container>
