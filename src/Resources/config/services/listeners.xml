@@ -1,0 +1,49 @@
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <defaults public="true" />
+
+        <service id="sylius.shop_api_plugin.event_listener.user_registration_listener"
+                 class="Sylius\ShopApiPlugin\EventListener\UserRegistrationListener">
+            <argument type="service" id="sylius_shop_api_plugin.command_bus" />
+            <argument type="service" id="sylius.repository.channel"/>
+            <argument type="service" id="sylius.repository.shop_user"/>
+            <argument type="service" id="sylius.manager.shop_user"/>
+            <tag name="kernel.event_listener" event="sylius.customer.post_api_registered" method="handleUserVerification" />
+        </service>
+
+        <service
+            id="sylius.listener.cart_blamer"
+            class="Sylius\ShopApiPlugin\EventListener\CartBlamerListener"
+        >
+            <argument type="service" id="sylius.repository.order" />
+            <argument type="service" id="sylius_shop_api_plugin.command_bus" />
+            <argument type="service" id="request_stack" />
+            <tag name="kernel.event_listener" event="lexik_jwt_authentication.on_jwt_created" method="onJwtLogin" />
+        </service>
+
+        <service
+            id="sylius.shop_api_plugin.event_listener.messenger.cart_picked_up_listener"
+            class="Sylius\ShopApiPlugin\EventListener\Messenger\CartPickedUpListener"
+        >
+            <argument type="service" id="sylius.shop_api_plugin.provider.current_user_provider" />
+            <argument type="service" id="sylius_shop_api_plugin.command_bus" />
+            <tag name="messenger.message_handler"  bus="sylius_shop_api_plugin.event_bus"/>
+        </service>
+
+        <service
+            id="sylius.shop_api_plugin.event_listener.messenger.order_completed_listener"
+            class="Sylius\ShopApiPlugin\EventListener\Messenger\OrderCompletedListener"
+        >
+            <argument type="service" id="sylius_shop_api_plugin.command_bus" />
+            <tag name="messenger.message_handler"  bus="sylius_shop_api_plugin.event_bus"/>
+        </service>
+
+        <service id="sylius.shop_api_plugin.event_listener.user_cart_recalculation_listener"
+                 class="Sylius\ShopApiPlugin\EventListener\UserCartRecalculationListener"
+        >
+            <argument type="service" id="sylius.context.cart" />
+            <argument type="service" id="sylius.order_processing.order_processor" />
+            <tag name="kernel.event_listener" event="lexik_jwt_authentication.on_jwt_created" method="recalculateCartWhileLogin" />
+        </service>
+    </services>
+</container>
