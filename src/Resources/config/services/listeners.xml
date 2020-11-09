@@ -38,8 +38,7 @@
             <tag name="messenger.message_handler"  bus="sylius_shop_api_plugin.event_bus"/>
         </service>
 
-        <!-- Overrides the Sylius\Bundle\CoreBundle\EventListener\UserCartRecalculationListener -->
-        <service id="sylius.listener.user_cart_recalculation"
+        <service id="sylius.shop_api_plugin.event_listener.user_cart_recalculation_listener"
                  class="Sylius\ShopApiPlugin\EventListener\UserCartRecalculationListener"
         >
             <argument type="service" id="sylius.context.cart" />
