@@ -1,0 +1,15 @@
+---------------------------------------------------------------------------
+
+by diimpp at 2020-11-04T17:02:44Z
+
+This doesn't solve #667, which prime reason are concurrent frontend calls, not internal over-use of order processing.
+
+As for #681, personally I consider it undesirable side effect and that stateless shop-api shouldn't offer this functionality at all, moreover if a proper stateless cart context would be implemented, then this feature will never be called.
+
+Though for the sake of a bit less broken shop-api plugin it can be done this way for 1.*
+
+---------------------------------------------------------------------------
+
+by mamazu at 2020-11-09T09:15:55Z
+
+Thanks, Jakob! :1st_place_medal:
