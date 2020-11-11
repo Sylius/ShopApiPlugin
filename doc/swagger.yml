@@ -1326,25 +1326,21 @@ definitions:
                 type: "integer"
                 example: 1000
             product:
-                $ref: "#/definitions/Product"
+                type: "object"
+                allOf:
+                  - $ref: "#/definitions/ProductMinimal"
+                properties:
+                  variants:
+                    type: "array"
+                    description: "This array only contains the variant the user has put into the cart"
+                    items:
+                      $ref: "#/definitions/Variant"
     Product:
         type: "object"
         description: "Product with its basic information, variants, attributes, association and images."
+        allOf:
+            - $ref: "#/definitions/ProductMinimal"
         properties:
-            code:
-                type: "string"
-                example: "LOGAN_MUG_CODE"
-            name:
-                type: "string"
-                example: "Logan Mug"
-            slug:
-                type: "string"
-                example: "logan-mug"
-            averageRating:
-                type: "string"
-                example: "4.5"
-            taxons:
-                $ref: "#/definitions/ProductTaxon"
             variants:
                 description: "Keys reference to code of a variant."
                 type: "object"
@@ -1352,10 +1348,6 @@ definitions:
                     type: "array"
                     items:
                         $ref: "#/definitions/Variant"
-            attributes:
-                type: "array"
-                items:
-                    $ref: "#/definitions/Attribute"
             associations:
                 description: "Keys reference to code of an association."
                 type: "object"
@@ -1363,10 +1355,44 @@ definitions:
                     type: "array"
                     items:
                         $ref: "#/definitions/Product"
+    ProductMinimal:
+        type: "object"
+        description: "A miminal view of the product. Used for example for the cart."
+        properties:
+            code:
+                type: "string"
+                example: "LOGAN_MUG_CODE"
+            averageRating:
+                type: "string"
+                example: "1.8"
+            name:
+                type: "string"
+                example: "Logan Mug"
+            slug:
+                type: "string"
+                example: "logan-mug"
+            description: 
+                type: "string"
+                example: "A very nice mug that you can drink from or use to store beverages in."
+            shortDescription:
+                type: "string"
+                example: "A mug."
+            metaKeywords:
+                type: "string"
+                example: "mug drink logan"
+            metaDescription:
+                type: "string"
+                example: "Some meta description"
             images:
                 type: "array"
                 items:
                     $ref: "#/definitions/Image"
+            taxons:
+                $ref: "#/definitions/ProductTaxon"
+            attributes:
+                type: "array"
+                items:
+                    $ref: "#/definitions/Attribute"
     Image:
         type: "object"
         properties:
