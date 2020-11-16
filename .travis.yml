@@ -29,6 +29,14 @@ before_install:
 
 install:
     - composer require sylius/sylius:${SYLIUS_VERSION} --no-interaction --no-update
+
+    - >-
+        if [ "$SYLIUS_VERSION" = '1.7.*' ]; then
+            cp etc/travis/sylius17/bundles.php tests/Application/config/
+            cp etc/travis/sylius17/doctrine_migrations.yaml tests/Application/config/packages/
+            cp etc/travis/sylius17/security.yaml tests/Application/config/packages/
+        fi
+
     - composer update --no-interaction --prefer-dist
 
 before_script:

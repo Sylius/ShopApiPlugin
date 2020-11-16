@@ -18,7 +18,6 @@
         "phpstan/phpstan": "^0.12",
         "phpstan/phpstan-webmozart-assert": "^0.12",
         "phpunit/phpunit": "^8.0",
-        "sensiolabs/security-checker": "^5.0",
         "sylius-labs/coding-standard": "^3.0",
         "symfony/debug-bundle": "^4.1",
         "symfony/dotenv": "^4.1",
