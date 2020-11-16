@@ -4,11 +4,11 @@
     "description": "Shop API for Sylius E-Commerce.",
     "license": "MIT",
     "require": {
-        "php": "^7.2",
+        "php": "^7.3",
 
-        "sylius/sylius": "^1.4",
+        "sylius/sylius": "^1.7",
         "lexik/jwt-authentication-bundle": "^2.5",
-        "symfony/messenger": "^4.3"
+        "symfony/messenger": "^4.4"
     },
     "require-dev": {
         "lchrusciel/api-test-case": "^4.0",
