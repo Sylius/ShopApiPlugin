@@ -8,10 +8,9 @@ php:
     - '7.4'
     - '7.3'
 
-jobs:
-    include:
-        -   env: SYLIUS_VERSION=1.7.*
-        -   env: SYLIUS_VERSION=1.8.* ANALYSE=y
+env:
+    - SYLIUS_VERSION=1.7.*
+    - SYLIUS_VERSION=1.8.* ANALYSE=y
 
 cache:
     directories:
