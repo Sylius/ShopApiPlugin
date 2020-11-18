@@ -30,7 +30,7 @@ final class ProductVariantEligibilityValidatorSpec extends ObjectBehavior
         $productVariantRepository->findOneBy(['code' => 'VARIANT_CODE'])->willReturn($productVariant);
         $productVariant->isEnabled()->willReturn(true);
 
-        $executionContext->addViolation('sylius.shop_api.product_variant.eligibility')->shouldNotBeCalled();
+        $executionContext->addViolation('sylius.shop_api.product_variant.non_eligible')->shouldNotBeCalled();
 
         $this->validate('VARIANT_CODE', new ProductVariantEligibility());
     }
@@ -43,7 +43,7 @@ final class ProductVariantEligibilityValidatorSpec extends ObjectBehavior
         $productVariantRepository->findOneBy(['code' => 'VARIANT_CODE'])->willReturn($productVariant);
         $productVariant->isEnabled()->willReturn(false);
 
-        $executionContext->addViolation('sylius.shop_api.product_variant.eligibility')->shouldBeCalled();
+        $executionContext->addViolation('sylius.shop_api.product_variant.non_eligible')->shouldBeCalled();
 
         $this->validate('VARIANT_CODE', new ProductVariantEligibility());
     }

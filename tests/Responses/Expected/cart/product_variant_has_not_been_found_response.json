@@ -1,4 +1,4 @@
 {
-    "code": 404,
-    "message": "Variant not found for given configuration"
+    "code": 500,
+    "message": "Variant could not be resolved"
 }

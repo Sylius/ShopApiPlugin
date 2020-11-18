@@ -4,6 +4,8 @@ imports:
     - { resource: "@SyliusAdminBundle/Resources/config/app/config.yml" }
     - { resource: "@SyliusAdminApiBundle/Resources/config/app/config.yml" }
 
+    - { resource: "@SyliusApiBundle/Resources/config/app/config.yaml" }
+
     - { resource: "@SyliusShopApiPlugin/Resources/config/app/config.yml" }
     - { resource: "@SyliusShopApiPlugin/Resources/config/app/sylius_mailer.yml" }
 

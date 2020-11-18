@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Sylius\ShopApiPlugin\Validator\Product;
 
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
+use Sylius\Component\Product\Model\Product;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
+use Webmozart\Assert\Assert;
 
 final class ProductEligibilityValidator extends ConstraintValidator
 {
@@ -25,12 +27,11 @@ final class ProductEligibilityValidator extends ConstraintValidator
             return;
         }
 
+        /** @var Product|null $product */
         $product = $this->productRepository->findOneByCode($productCode);
 
-        if (null === $product || $product->isEnabled()) {
-            return;
+        if ($product && !$product->isEnabled()) {
+            $this->context->addViolation($constraint->message);
         }
-
-        $this->context->addViolation($constraint->message);
     }
 }

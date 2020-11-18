@@ -78,7 +78,7 @@ Sylius\Component\Core\Model\Product:
         createdAt: "<date_create('2019-02-01 02:00:00')>"
         channels: ["@gb_web_channel"]
         currentLocale: "en_GB"
-        translations: ["@en_gb_free_download_translation"]
+        translations: ["@en_gb_free_download_translation"] 
 
 Sylius\Component\Core\Model\ProductTranslation:
     en_gb_mug_product_translation:
@@ -188,7 +188,7 @@ Sylius\Component\Core\Model\ProductVariant:
         currentLocale: "en_GB"
         channelPricings:
             WEB_GB: "@gb_free_web_channel_pricing"
-            WEB_DE: "@de_free_web_channel_pricing"
+            WEB_DE: "@de_free_web_channel_pricing" 
 
 Sylius\Component\Product\Model\ProductVariantTranslation:
     en_gb_mug_variant_translation:
@@ -234,7 +234,7 @@ Sylius\Component\Product\Model\ProductVariantTranslation:
     large_blue_de_de_hat_translation:
         locale: "de_DE"
         name: "Großes Blau Logan Hut"
-        translatable: "@hat_blue_large"
+        translatable: "@hat_blue_large"    
 
 Sylius\Component\Core\Model\ChannelPricing:
     gb_mug_web_channel_pricing:
@@ -390,7 +390,7 @@ Sylius\Component\Core\Model\ProductImage:
     large_t_shirt_thumbnail:
         type: "thumbnail"
         path: "/pants.jpeg"
-        productVariants: ["@t_shirt_large"]
+        productVariants: ["@t_shirt_large"] 
 
 Sylius\Component\Core\Model\Taxon:
     category_taxon:

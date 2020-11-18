@@ -6,7 +6,7 @@
     "require": {
         "php": "^7.2",
 
-        "sylius/sylius": "^1.4",
+        "sylius/sylius": "^1.8",
         "lexik/jwt-authentication-bundle": "^2.5",
         "symfony/messenger": "^4.3"
     },

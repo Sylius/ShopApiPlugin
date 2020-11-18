@@ -34,7 +34,7 @@ final class ProductEligibilityValidatorSpec
         $productRepository->findOneByCode('BARBECUE_CODE')->willReturn($product);
         $product->isEnabled()->willReturn(true);
 
-        $executionContext->addViolation('sylius.shop_api.product.eligibility')->shouldNotBeCalled();
+        $executionContext->addViolation('sylius.shop_api.product.non_eligible')->shouldNotBeCalled();
 
         $this->validate('BARBECUE_CODE', new ProductEligibility());
     }
@@ -47,7 +47,7 @@ final class ProductEligibilityValidatorSpec
         $productRepository->findOneByCode('BARBECUE_CODE')->willReturn($product);
         $product->isEnabled()->willReturn(false);
 
-        $executionContext->addViolation('sylius.shop_api.product.eligibility')->shouldBeCalled();
+        $executionContext->addViolation('sylius.shop_api.product.non_eligible')->shouldBeCalled();
 
         $this->validate('BARBECUE_CODE', new ProductEligibility());
     }

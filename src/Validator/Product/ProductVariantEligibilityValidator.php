@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Sylius\ShopApiPlugin\Validator\Product;
 
 use Sylius\Component\Core\Repository\ProductVariantRepositoryInterface;
+use Sylius\Component\Product\Model\ProductVariant;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
@@ -25,12 +26,11 @@ final class ProductVariantEligibilityValidator extends ConstraintValidator
             return;
         }
 
-        $product = $this->productVariantRepository->findOneBy(['code' => $productVariantCode]);
+        /** @var ProductVariant|null $productVariant */
+        $productVariant = $this->productVariantRepository->findOneBy(['code' => $productVariantCode]);
 
-        if (null === $product || $product->isEnabled()) {
-            return;
+        if ($productVariant && !$productVariant->isEnabled()) {
+            $this->context->addViolation($constraint->message);
         }
-
-        $this->context->addViolation($constraint->message);
     }
 }
