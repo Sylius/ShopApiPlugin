@@ -6,13 +6,13 @@ namespace Sylius\ShopApiPlugin\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 
-final class CartCheckoutItemEligibility extends Constraint
+final class CartEligibility extends Constraint
 {
     /** @var string */
-    public $messageOnNonEligibleCartItem = 'sylius.shop_api.checkout.cart_item.non_eligible';
+    public $nonEligibleCartItemMessage = 'sylius.shop_api.checkout.cart_item.non_eligible';
 
     /** @var string */
-    public $messageOnNonEligibleCartItemVariant = 'sylius.shop_api.checkout.cart_item_variant.non_eligible';
+    public $nonEligibleCartItemVariantMessage = 'sylius.shop_api.checkout.cart_item_variant.non_eligible';
 
     /** {@inheritdoc} */
     public function getTargets()
@@ -23,6 +23,6 @@ final class CartCheckoutItemEligibility extends Constraint
     /** {@inheritdoc} */
     public function validatedBy(): string
     {
-        return 'sylius_shop_api_cart_checkout_item_eligibility_validator';
+        return 'sylius_shop_api_cart_eligibility_validator';
     }
 }

@@ -9,10 +9,10 @@ use Symfony\Component\Validator\Constraint;
 final class CartItemEligibility extends Constraint
 {
     /** @var string */
-    public $messageOnNonEligible = 'sylius.shop_api.cart_item.product.non_eligible';
+    public $nonEligibleProductMessage = 'sylius.shop_api.cart_item.product.non_eligible';
 
     /** @var string */
-    public $messageOnNonEligibleVariant = 'sylius.shop_api.cart_item.product_variant.non_eligible';
+    public $nonEligibleProductVariantMessage = 'sylius.shop_api.cart_item.product_variant.non_eligible';
 
     /** {@inheritdoc} */
     public function getTargets()

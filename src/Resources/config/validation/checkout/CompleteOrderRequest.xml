@@ -20,7 +20,7 @@
             </constraint>
             <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\CartExists" />
             <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\CartReadyForCheckout" />
-            <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\CartCheckoutItemEligibility" />
+            <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\CartEligibility" />
         </property>
     </class>
 </constraint-mapping>
