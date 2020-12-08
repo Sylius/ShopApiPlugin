@@ -142,10 +142,6 @@ jobs:
                 run: vendor/bin/phpstan analyse -c phpstan.neon -l max src/
 
             -
-                name: Run Psalm
-                run: vendor/bin/psalm
-
-            -
                 name: Run PHPSpec
                 run: vendor/bin/phpspec run --ansi -f progress --no-interaction
 
