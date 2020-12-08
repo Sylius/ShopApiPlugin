@@ -21,6 +21,7 @@
                 <option name="message">sylius.shop_api.token.not_null</option>
             </constraint>
             <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\CartExists"/>
+            <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\CartEmpty"/>
         </property>
 
         <property name="countryCode">

@@ -4,7 +4,7 @@
     "description": "Shop API for Sylius E-Commerce.",
     "license": "MIT",
     "require": {
-        "php": "^7.2",
+        "php": "^7.3",
 
         "sylius/sylius": "^1.8",
         "lexik/jwt-authentication-bundle": "^2.5",

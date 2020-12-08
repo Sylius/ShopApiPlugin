@@ -8,15 +8,18 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Sylius\Bundle\CoreBundle\Doctrine\ORM\ProductRepository;
 use Sylius\Bundle\CoreBundle\Doctrine\ORM\ProductVariantRepository;
 use Sylius\Component\Core\Model\ChannelInterface;
+use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Core\Model\Product;
 use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Model\ProductVariant;
+use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\ShopApiPlugin\Command\Cart\AddressOrder;
 use Sylius\ShopApiPlugin\Command\Cart\ChoosePaymentMethod;
 use Sylius\ShopApiPlugin\Command\Cart\ChooseShippingMethod;
 use Sylius\ShopApiPlugin\Command\Cart\PickupCart;
 use Sylius\ShopApiPlugin\Command\Cart\PutSimpleItemToCart;
 use Sylius\ShopApiPlugin\Command\Cart\PutVariantBasedConfigurableItemToCart;
+use Sylius\ShopApiPlugin\Command\Cart\RemoveItemFromCart;
 use Sylius\ShopApiPlugin\Model\Address;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -539,6 +542,62 @@ JSON;
         $this->assertResponse($response, 'checkout/cart_failed_checkout_product_variant_not_eligible_response', Response::HTTP_BAD_REQUEST);
     }
 
+    /**
+     * @test
+     */
+    public function it_disallows_to_complete_checkout_if_chart_is_empty(): void
+    {
+        $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml', 'payment.yml']);
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var MessageBusInterface $bus */
+        $bus = $this->get('sylius_shop_api_plugin.command_bus');
+        $bus->dispatch(new PickupCart($token, 'WEB_GB'));
+        $bus->dispatch(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 1));
+        $bus->dispatch(new AddressOrder(
+            $token,
+            Address::createFromArray([
+                'firstName' => 'Sherlock',
+                'lastName' => 'Holmes',
+                'city' => 'London',
+                'street' => 'Baker Street 221b',
+                'countryCode' => 'GB',
+                'postcode' => 'NWB',
+                'provinceName' => 'Greater London',
+            ]), Address::createFromArray([
+            'firstName' => 'Sherlock',
+            'lastName' => 'Holmes',
+            'city' => 'London',
+            'street' => 'Baker Street 221b',
+            'countryCode' => 'GB',
+            'postcode' => 'NWB',
+            'provinceName' => 'Greater London',
+        ])
+        ));
+        $bus->dispatch(new ChooseShippingMethod($token, 0, 'DHL'));
+        $bus->dispatch(new ChoosePaymentMethod($token, 0, 'PBC'));
+
+        /** @var OrderRepositoryInterface $orderRepository */
+        $orderRepository = $this->get('sylius.repository.order');
+
+        $order = $orderRepository->findOneBy(['tokenValue' => $token]);
+
+        /** @var OrderItemInterface $orderItem */
+        $orderItem = $order->getItems()->first();
+
+        $bus->dispatch(new RemoveItemFromCart($token, $orderItem->getId()));
+
+        $data =
+<<<JSON
+        {
+            "email": "example@cusomer.com"
+        }
+JSON;
+
+        $response = $this->complete($token, $data);
+        $this->assertResponse($response, 'checkout/cart_empty_response', Response::HTTP_BAD_REQUEST);
+    }
 
 
     private function complete(string $token, ?string $data = null): Response

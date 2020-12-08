@@ -64,4 +64,23 @@ final class EstimateShippingTest extends JsonApiTestCase
 
         $this->assertResponse($response, 'cart/estimated_shipping_cost_bases_on_country_and_province_response', Response::HTTP_OK);
     }
+
+    /**
+     * @test
+     */
+    public function it_does_not_calculate_estimated_shipping_if_cart_is_empty(): void
+    {
+        $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml']);
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var MessageBusInterface $bus */
+        $bus = $this->get('sylius_shop_api_plugin.command_bus');
+        $bus->dispatch(new PickupCart($token, 'WEB_GB'));
+
+        $this->client->request('GET', sprintf('/shop-api/carts/%s/estimated-shipping-cost?countryCode=GB&provinceCode=GB-SCT', $token), [], [], self::CONTENT_TYPE_HEADER);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'cart/validation_cart_empty_response', Response::HTTP_BAD_REQUEST);
+    }
 }

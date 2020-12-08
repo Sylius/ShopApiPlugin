@@ -165,4 +165,30 @@ JSON;
 
         $this->assertResponse($response, 'cart/validation_coupon_not_valid_response', Response::HTTP_BAD_REQUEST);
     }
+
+    /**
+     * @test
+     */
+    public function it_does_not_allow_to_add_promotion_code_if_cart_is_empty(): void
+    {
+        $this->loadFixturesFromFiles(['channel.yml', 'shop.yml', 'coupon_based_promotion.yml']);
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var MessageBusInterface $bus */
+        $bus = $this->get('sylius_shop_api_plugin.command_bus');
+        $bus->dispatch(new PickupCart($token, 'WEB_GB'));
+
+        $data =
+<<<JSON
+        {
+            "coupon": "BANANAS"
+        }
+JSON;
+
+        $this->client->request('PUT', sprintf('/shop-api/carts/%s/coupon', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
+
+        $response = $this->client->getResponse();
+        $this->assertResponse($response, 'checkout/cart_empty_response', Response::HTTP_BAD_REQUEST);
+    }
 }
