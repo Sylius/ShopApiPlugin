@@ -196,8 +196,8 @@ We provide security fixes for one year since the release of subsequent minor rel
 
 #### Supported versions
 
-| Version | Release date      | End of support     |
-|---------|-------------------|--------------------|
-| 1.0     | 23rd Nov 2019     | 19th June 2021     |
-| 1.1     | 19th June 2020    | Under development  |
-
+| Version | Release date       | End of support     |
+|---------|--------------------|--------------------|
+| 1.0     | 23rd Nov 2019      | 19th June 2021     |
+| 1.1     | 19th June 2020     | 08th December 2020 |
+| 1.2     | 08th December 2020 | Under development  |
