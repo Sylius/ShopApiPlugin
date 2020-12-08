@@ -1,5 +1,10 @@
 # CHANGELOG FOR `1.1.X`
 
+## v1.1.1 (2020-12-08)
+
+### Changed
+- [#680](https://github.com/Sylius/ShopApiPlugin/issues/680) Fixing typo in configuration filename ([@mamazu](https://github.com/mamazu))
+
 ## v1.1.0 (2020-06-19)
 
 #### TL;DR
