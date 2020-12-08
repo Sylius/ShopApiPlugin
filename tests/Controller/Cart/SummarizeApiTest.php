@@ -199,7 +199,7 @@ JSON;
         $bus->dispatch(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
         $bus->dispatch(new AddCoupon($token, 'BANANAS'));
 
-        $this->client->request('GET', '/shop-api/checkout/' . $token, [], [], self::CONTENT_TYPE_HEADER);
+        $this->client->request('GET', '/shop-api/carts/' . $token, [], [], self::CONTENT_TYPE_HEADER);
 
         $response = $this->client->getResponse();
         $this->assertResponse($response, 'cart/cart_with_coupon_based_promotion_applied_response', Response::HTTP_OK);
