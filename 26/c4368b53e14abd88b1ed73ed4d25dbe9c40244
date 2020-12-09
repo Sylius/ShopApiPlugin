@@ -1,0 +1,30 @@
+---------------------------------------------------------------------------
+
+by mamazu at 2020-10-21T16:01:06Z
+
+I could add one but I don't know how someone can manage to get the cart into such a state.
+
+---------------------------------------------------------------------------
+
+by lchrusciel at 2020-10-23T09:41:55Z
+
+We should try to complete cart, which is not addresses/shipment is not selected/payment is not selected
+
+---------------------------------------------------------------------------
+
+by mamazu at 2020-10-23T10:42:13Z
+
+Valid point I will add that.
+
+---------------------------------------------------------------------------
+
+by mamazu at 2020-10-29T18:18:57Z
+
+We already have a test for this:
+https://github.com/Sylius/ShopApiPlugin/blob/master/tests/Controller/Checkout/CompleteOrderApiTest.php#L391
+
+---------------------------------------------------------------------------
+
+by lchrusciel at 2020-12-09T10:40:11Z
+
+Thanks, @mamazu! :tada:
