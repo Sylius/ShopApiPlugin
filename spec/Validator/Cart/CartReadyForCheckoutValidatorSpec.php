@@ -47,7 +47,7 @@ class CartReadyForCheckoutValidatorSpec extends ObjectBehavior
         $stateMachineFactory->get($order, 'sylius_order_checkout')->willReturn($stateMachine);
         $stateMachine->can('complete')->willReturn(false);
 
-        $order->getState()->willReturn('cart');
+        $order->getCheckoutState()->willReturn('cart');
 
         $context->addViolation('sylius.shop_api.checkout.address_required')->shouldBeCalled();
 
@@ -66,7 +66,7 @@ class CartReadyForCheckoutValidatorSpec extends ObjectBehavior
         $stateMachineFactory->get($order, 'sylius_order_checkout')->willReturn($stateMachine);
         $stateMachine->can('complete')->willReturn(false);
 
-        $order->getState()->willReturn('addressed');
+        $order->getCheckoutState()->willReturn('addressed');
 
         $context->addViolation('sylius.shop_api.checkout.shipping_required')->shouldBeCalled();
 
@@ -85,7 +85,7 @@ class CartReadyForCheckoutValidatorSpec extends ObjectBehavior
         $stateMachineFactory->get($order, 'sylius_order_checkout')->willReturn($stateMachine);
         $stateMachine->can('complete')->willReturn(false);
 
-        $order->getState()->willReturn('payment_selected');
+        $order->getCheckoutState()->willReturn('payment_selected');
 
         $context->addViolation('sylius.shop_api.checkout.not_ready_for_checkout')->shouldBeCalled();
 
