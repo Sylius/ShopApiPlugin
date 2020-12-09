@@ -15,15 +15,11 @@ use Webmozart\Assert\Assert;
 
 final class CartItemEligibilityValidator extends ConstraintValidator
 {
-    /**
-     * @var OrderItemRepositoryInterface
-     */
+    /** @var OrderItemRepositoryInterface */
     private $_orderItemRepository;
 
     /**
      * CartItemEligibilityValidator constructor.
-     *
-     * @param OrderItemRepositoryInterface $orderItemRepository
      */
     public function __construct(OrderItemRepositoryInterface $orderItemRepository)
     {
@@ -32,9 +28,6 @@ final class CartItemEligibilityValidator extends ConstraintValidator
 
     /**
      * @param mixed      $id
-     * @param Constraint $constraint
-     *
-     * @return void
      */
     public function validate($id, Constraint $constraint): void
     {

@@ -19,7 +19,7 @@
                 <option name="message">sylius.shop_api.token.not_null</option>
             </constraint>
             <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\CartExists" />
-            <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\CartEmpty" />
+            <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\CartNotEmpty" />
             <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\CartReadyForCheckout" />
             <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\CartEligibility" />
         </property>

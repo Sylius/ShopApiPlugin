@@ -6,9 +6,9 @@ namespace spec\Sylius\ShopApiPlugin\Validator\Cart;
 
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\OrderItemInterface;
+use Sylius\Component\Core\Model\Product;
 use Sylius\Component\Core\Model\ProductVariant;
 use Sylius\Component\Order\Repository\OrderItemRepositoryInterface;
-use Sylius\Component\Core\Model\Product;
 use Sylius\ShopApiPlugin\Validator\Constraints\CartItemEligibility;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 

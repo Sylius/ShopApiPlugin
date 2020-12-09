@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Validator\Product;
 
-use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Sylius\ShopApiPlugin\Validator\Constraints\ProductEligibility;

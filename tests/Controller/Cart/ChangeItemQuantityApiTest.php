@@ -14,7 +14,6 @@ use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\ShopApiPlugin\Command\Cart\PickupCart;
 use Sylius\ShopApiPlugin\Command\Cart\PutSimpleItemToCart;
 use Sylius\ShopApiPlugin\Command\Cart\PutVariantBasedConfigurableItemToCart;
-use Sylius\ShopApiPlugin\Command\Cart\RemoveItemFromCart;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Tests\Sylius\ShopApiPlugin\Controller\JsonApiTestCase;
@@ -214,7 +213,6 @@ JSON;
 
         $this->assertResponse($response, 'cart/validation_cart_item_variant_not_eligible_response', Response::HTTP_BAD_REQUEST);
     }
-
 
     private function getFirstOrderItemId(string $orderToken): string
     {

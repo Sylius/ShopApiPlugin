@@ -8,10 +8,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Sylius\ShopApiPlugin\Validator\Constraints\CartEmpty;
+use Sylius\ShopApiPlugin\Validator\Constraints\CartNotEmpty;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
-final class CartEmptyValidatorSpec extends ObjectBehavior
+final class CartNotEmptyValidatorSpec extends ObjectBehavior
 {
     function let(
         OrderRepositoryInterface $repository,
@@ -34,7 +34,7 @@ final class CartEmptyValidatorSpec extends ObjectBehavior
 
         $context->addViolation('sylius.shop_api.checkout.cart.empty')->shouldNotBeCalled();
 
-        $this->validate('CART_TOKEN', new CartEmpty());
+        $this->validate('CART_TOKEN', new CartNotEmpty());
     }
 
     function it_add_violation_if_cart_is_empty(
@@ -50,6 +50,6 @@ final class CartEmptyValidatorSpec extends ObjectBehavior
 
         $context->addViolation('sylius.shop_api.checkout.cart.empty')->shouldBeCalled();
 
-        $this->validate('CART_TOKEN', new CartEmpty());
+        $this->validate('CART_TOKEN', new CartNotEmpty());
     }
 }

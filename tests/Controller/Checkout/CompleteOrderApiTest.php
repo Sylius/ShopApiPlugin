@@ -456,7 +456,6 @@ JSON;
         $bus->dispatch(new ChooseShippingMethod($token, 0, 'DHL'));
         $bus->dispatch(new ChoosePaymentMethod($token, 0, 'PBC'));
 
-
         /** @var ProductRepository $productRepository */
         $productRepository = $this->get('sylius.repository.product');
 
@@ -469,7 +468,6 @@ JSON;
 
         $productManager->persist($product);
         $productManager->flush();
-
 
         $data =
 <<<JSON
@@ -598,7 +596,6 @@ JSON;
         $response = $this->complete($token, $data);
         $this->assertResponse($response, 'checkout/cart_empty_response', Response::HTTP_BAD_REQUEST);
     }
-
 
     private function complete(string $token, ?string $data = null): Response
     {

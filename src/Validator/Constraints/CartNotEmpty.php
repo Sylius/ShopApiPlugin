@@ -6,7 +6,7 @@ namespace Sylius\ShopApiPlugin\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 
-final class CartEmpty extends Constraint
+final class CartNotEmpty extends Constraint
 {
     /** @var string */
     public $emptyCartMessage = 'sylius.shop_api.checkout.cart.empty';
@@ -20,6 +20,6 @@ final class CartEmpty extends Constraint
     /** {@inheritdoc} */
     public function validatedBy(): string
     {
-        return 'sylius_shop_api_cart_empty_validator';
+        return 'sylius_shop_api_cart_not_empty_validator';
     }
 }

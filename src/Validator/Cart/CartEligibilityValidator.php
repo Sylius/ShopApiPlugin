@@ -16,15 +16,11 @@ use Webmozart\Assert\Assert;
 
 final class CartEligibilityValidator extends ConstraintValidator
 {
-    /**
-     * @var OrderRepositoryInterface
-     */
+    /** @var OrderRepositoryInterface */
     private $_cartRepository;
 
     /**
      * CartEligibilityValidator constructor.
-     *
-     * @param OrderRepositoryInterface $cartRepository
      */
     public function __construct(OrderRepositoryInterface $cartRepository)
     {
@@ -33,9 +29,6 @@ final class CartEligibilityValidator extends ConstraintValidator
 
     /**
      * @param mixed      $token
-     * @param Constraint $constraint
-     *
-     * @return void
      */
     public function validate($token, Constraint $constraint): void
     {
@@ -44,7 +37,7 @@ final class CartEligibilityValidator extends ConstraintValidator
         $cart = $this->_cartRepository->findOneBy(
             [
                 'tokenValue' => $token,
-                'state' => OrderInterface::STATE_CART
+                'state' => OrderInterface::STATE_CART,
             ]
         );
 

@@ -6,22 +6,18 @@ namespace Sylius\ShopApiPlugin\Validator\Cart;
 
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Sylius\ShopApiPlugin\Validator\Constraints\CartEmpty;
+use Sylius\ShopApiPlugin\Validator\Constraints\CartNotEmpty;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Webmozart\Assert\Assert;
 
-final class CartEmptyValidator extends ConstraintValidator
+final class CartNotEmptyValidator extends ConstraintValidator
 {
-    /**
-     * @var OrderRepositoryInterface
-     */
+    /** @var OrderRepositoryInterface */
     private $_cartRepository;
 
     /**
-     * CartEmptyValidator constructor.
-     *
-     * @param OrderRepositoryInterface $cartRepository
+     * CartNotEmptyValidator constructor.
      */
     public function __construct(OrderRepositoryInterface $cartRepository)
     {
@@ -30,18 +26,15 @@ final class CartEmptyValidator extends ConstraintValidator
 
     /**
      * @param mixed      $token
-     * @param Constraint $constraint
-     *
-     * @return void
      */
     public function validate($token, Constraint $constraint): void
     {
-        Assert::isInstanceOf($constraint, CartEmpty::class);
+        Assert::isInstanceOf($constraint, CartNotEmpty::class);
 
         $cart = $this->_cartRepository->findOneBy(
             [
                 'tokenValue' => $token,
-                'state' => OrderInterface::STATE_CART
+                'state' => OrderInterface::STATE_CART,
             ]
         );
 
