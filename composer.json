@@ -5,20 +5,18 @@
     "license": "MIT",
     "require": {
         "php": "^7.3",
-
         "sylius/sylius": "^1.8",
         "lexik/jwt-authentication-bundle": "^2.5",
-        "symfony/messenger": "^4.3"
+        "symfony/messenger": "^4.4"
     },
     "require-dev": {
         "lchrusciel/api-test-case": "^4.0",
         "matthiasnoback/symfony-config-test": "^4.0",
         "matthiasnoback/symfony-dependency-injection-test": "^4.0",
-        "phpspec/phpspec": "^5.0",
+        "phpspec/phpspec": "^6.1",
         "phpstan/phpstan": "^0.12",
         "phpstan/phpstan-webmozart-assert": "^0.12",
         "phpunit/phpunit": "^8.0",
-        "sensiolabs/security-checker": "^5.0",
         "sylius-labs/coding-standard": "^3.0",
         "symfony/debug-bundle": "^4.1",
         "symfony/dotenv": "^4.1",

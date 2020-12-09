@@ -1,5 +1,5 @@
 parameters:
-    sylius.security.admin_regex: "^/%sylius_admin.path_name%"
+    sylius.security.admin_regex: "^/admin"
     sylius.security.api_regex: "^/api"
     sylius_shop_api.security.regex: "^/shop-api"
 
@@ -9,9 +9,8 @@ security:
             id: sylius.admin_user_provider.email_or_name_based
         sylius_shop_user_provider:
             id: sylius.shop_user_provider.email_or_name_based
-
     encoders:
-        Sylius\Component\User\Model\UserInterface: argon2i
+        Sylius\Component\User\Model\UserInterface: sha512
     firewalls:
         admin:
             switch_user: true
