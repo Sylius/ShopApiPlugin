@@ -11,7 +11,7 @@ on:
 
 jobs:
     tests:
-        runs-on: ubuntu-20.04
+        runs-on: ubuntu-latest
 
         name: "PHP ${{ matrix.php }}, MySQL ${{ matrix.mysql }}"
 
@@ -40,7 +40,7 @@ jobs:
                 uses: shivammathur/setup-php@v2
                 with:
                     php-version: "${{ matrix.php }}"
-                    extensions: intl
+                    extensions: intl, gd
                     tools: symfony
                     coverage: none
 
