@@ -9,6 +9,7 @@ use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
+use Sylius\ShopApiPlugin\Request\Checkout\CompleteOrderRequest;
 use Sylius\ShopApiPlugin\Validator\Constraints\CartEligibility;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -28,15 +29,16 @@ final class CartEligibilityValidator extends ConstraintValidator
     }
 
     /**
-     * @param mixed      $token
+     * @param mixed      $request
      */
-    public function validate($token, Constraint $constraint): void
+    public function validate($request, Constraint $constraint): void
     {
+        Assert::isInstanceOf($request, CompleteOrderRequest::class);
         Assert::isInstanceOf($constraint, CartEligibility::class);
 
         $cart = $this->_cartRepository->findOneBy(
             [
-                'tokenValue' => $token,
+                'tokenValue' => $request->getToken(),
                 'state' => OrderInterface::STATE_CART,
             ]
         );
@@ -48,16 +50,16 @@ final class CartEligibilityValidator extends ConstraintValidator
         Assert::isInstanceOf($cart, OrderInterface::class);
 
         $cartItems = $cart->getItems();
-        foreach ($cartItems as $item) {
+        foreach ($cartItems as $key => $item) {
             Assert::isInstanceOf($item, OrderItemInterface::class);
 
             $variant = $item->getVariant();
 
             Assert::isInstanceOf($variant, ProductVariantInterface::class);
             if (!$variant->isEnabled()) {
-                $this->context->addViolation(
-                    $constraint->nonEligibleCartItemVariantMessage
-                );
+                $this->context->buildViolation($constraint->nonEligibleCartItemVariantMessage)
+                    ->atPath('items[' . $key . '].product.variants[0].code')
+                    ->addViolation();
 
                 break;
             }
@@ -66,9 +68,9 @@ final class CartEligibilityValidator extends ConstraintValidator
 
             Assert::isInstanceOf($product, ProductInterface::class);
             if (!$product->isEnabled()) {
-                $this->context->addViolation(
-                    $constraint->nonEligibleCartItemMessage
-                );
+                $this->context->buildViolation($constraint->nonEligibleCartItemMessage)
+                    ->atPath('items[' . $key . '].product.code')
+                    ->addViolation();
 
                 break;
             }

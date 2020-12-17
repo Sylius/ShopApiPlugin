@@ -32,4 +32,9 @@ class CompleteOrderRequest implements RequestInterface
     {
         return new CompleteOrder($this->token, $this->notes);
     }
+
+    public function getToken(): string
+    {
+        return $this->token;
+    }
 }

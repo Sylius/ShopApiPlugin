@@ -2,7 +2,7 @@
   "code":400,
   "message":"Validation failed",
   "errors":{
-    "token":[
+    "items[0].product.code":[
       "sylius.shop_api.checkout.cart_item.non_eligible"
     ]
   }

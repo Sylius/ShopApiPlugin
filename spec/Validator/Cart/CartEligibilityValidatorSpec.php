@@ -13,8 +13,10 @@ use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
+use Sylius\ShopApiPlugin\Request\Checkout\CompleteOrderRequest;
 use Sylius\ShopApiPlugin\Validator\Constraints\CartEligibility;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
 
 final class CartEligibilityValidatorSpec extends ObjectBehavior
 {
@@ -34,8 +36,11 @@ final class CartEligibilityValidatorSpec extends ObjectBehavior
         ProductInterface $product,
         ArrayCollection $collection,
         ArrayIterator $arrayIterator,
-        ExecutionContextInterface $context
+        ExecutionContextInterface $context,
+        CompleteOrderRequest $completeOrderRequest
     ): void {
+        $completeOrderRequest->getToken()->willReturn('CART_TOKEN');
+
         $repository->findOneBy(['tokenValue' => 'CART_TOKEN', 'state' => OrderInterface::STATE_CART])->willReturn($order);
 
         $arrayIterator->valid()->will(new ReturnPromise(array_merge(array_fill(0, count([$orderItem]), true), [false])));
@@ -43,6 +48,7 @@ final class CartEligibilityValidatorSpec extends ObjectBehavior
         $arrayIterator->count()->willReturn(count([$orderItem]));
         $arrayIterator->next()->willReturn();
         $arrayIterator->rewind()->willReturn();
+        $arrayIterator->key()->willReturn(0);
 
         $order->getItems()->willReturn($collection);
         $collection->getIterator()->willReturn($arrayIterator);
@@ -53,10 +59,11 @@ final class CartEligibilityValidatorSpec extends ObjectBehavior
         $productVariant->isEnabled()->willReturn(true);
         $product->isEnabled()->willReturn(true);
 
-        $context->addViolation('sylius.shop_api.checkout.cart_item.non_eligible')->shouldNotBeCalled();
-        $context->addViolation('sylius.shop_api.checkout.cart_item_variant.non_eligible')->shouldNotBeCalled();
+        $context->buildViolation('sylius.shop_api.checkout.cart_item.non_eligible')->shouldNotBeCalled();
 
-        $this->validate('CART_TOKEN', new CartEligibility());
+        $context->buildViolation('sylius.shop_api.checkout.cart_item_variant.non_eligible')->shouldNotBeCalled();
+
+        $this->validate($completeOrderRequest, new CartEligibility());
     }
 
     function it_add_violation_if_cart_has_non_eligible_item_variant(
@@ -66,8 +73,12 @@ final class CartEligibilityValidatorSpec extends ObjectBehavior
         ProductVariantInterface $productVariant,
         ArrayCollection $collection,
         ArrayIterator $arrayIterator,
-        ExecutionContextInterface $context
+        ExecutionContextInterface $context,
+        ConstraintViolationBuilderInterface $builder,
+        CompleteOrderRequest $completeOrderRequest
     ): void {
+        $completeOrderRequest->getToken()->willReturn('CART_TOKEN');
+
         $repository->findOneBy(['tokenValue' => 'CART_TOKEN', 'state' => OrderInterface::STATE_CART])->willReturn($order);
 
         $arrayIterator->valid()->will(new ReturnPromise(array_merge(array_fill(0, count([$orderItem]), true), [false])));
@@ -75,6 +86,7 @@ final class CartEligibilityValidatorSpec extends ObjectBehavior
         $arrayIterator->count()->willReturn(count([$orderItem]));
         $arrayIterator->next()->willReturn();
         $arrayIterator->rewind()->willReturn();
+        $arrayIterator->key()->willReturn(0);
 
         $order->getItems()->willReturn($collection);
         $collection->getIterator()->willReturn($arrayIterator);
@@ -83,9 +95,11 @@ final class CartEligibilityValidatorSpec extends ObjectBehavior
 
         $productVariant->isEnabled()->willReturn(false);
 
-        $context->addViolation('sylius.shop_api.checkout.cart_item_variant.non_eligible')->shouldBeCalled();
+        $context->buildViolation('sylius.shop_api.checkout.cart_item_variant.non_eligible')->willReturn($builder);
+        $builder->atPath('items[0].product.variants[0].code')->willReturn($builder);
+        $builder->addViolation()->shouldBeCalled();
 
-        $this->validate('CART_TOKEN', new CartEligibility());
+        $this->validate($completeOrderRequest, new CartEligibility());
     }
 
     function it_add_violation_if_cart_has_non_eligible_item(
@@ -96,8 +110,12 @@ final class CartEligibilityValidatorSpec extends ObjectBehavior
         ProductInterface $product,
         ArrayCollection $collection,
         ArrayIterator $arrayIterator,
-        ExecutionContextInterface $context
+        ExecutionContextInterface $context,
+        ConstraintViolationBuilderInterface $builder,
+        CompleteOrderRequest $completeOrderRequest
     ): void {
+        $completeOrderRequest->getToken()->willReturn('CART_TOKEN');
+
         $repository->findOneBy(['tokenValue' => 'CART_TOKEN', 'state' => OrderInterface::STATE_CART])->willReturn($order);
 
         $arrayIterator->valid()->will(new ReturnPromise(array_merge(array_fill(0, count([$orderItem]), true), [false])));
@@ -105,6 +123,7 @@ final class CartEligibilityValidatorSpec extends ObjectBehavior
         $arrayIterator->count()->willReturn(count([$orderItem]));
         $arrayIterator->next()->willReturn();
         $arrayIterator->rewind()->willReturn();
+        $arrayIterator->key()->willReturn(0);
 
         $order->getItems()->willReturn($collection);
         $collection->getIterator()->willReturn($arrayIterator);
@@ -115,8 +134,10 @@ final class CartEligibilityValidatorSpec extends ObjectBehavior
         $productVariant->isEnabled()->willReturn(true);
         $product->isEnabled()->willReturn(false);
 
-        $context->addViolation('sylius.shop_api.checkout.cart_item.non_eligible')->shouldBeCalled();
+        $context->buildViolation('sylius.shop_api.checkout.cart_item.non_eligible')->willReturn($builder);
+        $builder->atPath('items[0].product.code')->willReturn($builder);
+        $builder->addViolation()->shouldBeCalled();
 
-        $this->validate('CART_TOKEN', new CartEligibility());
+        $this->validate($completeOrderRequest, new CartEligibility());
     }
 }
