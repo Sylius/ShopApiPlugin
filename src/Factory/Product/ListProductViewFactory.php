@@ -54,7 +54,9 @@ final class ListProductViewFactory implements ProductViewFactoryInterface
         /** @var ProductVariantInterface $variant */
         foreach ($product->getVariants() as $variant) {
             try {
-                $productView->variants[$variant->getCode()] = $this->variantViewFactory->create($variant, $channel, $locale);
+                if ($variant->isEnabled()) {
+                    $productView->variants[$variant->getCode()] = $this->variantViewFactory->create($variant, $channel, $locale);
+                }
             } catch (ViewCreationException $exception) {
                 continue;
             }
@@ -65,10 +67,12 @@ final class ListProductViewFactory implements ProductViewFactoryInterface
             $imageView = $this->imageViewFactory->create($image);
 
             foreach ($image->getProductVariants() as $productVariant) {
-                /** @var ProductVariantView $variantView */
-                $variantView = $productView->variants[$productVariant->getCode()];
+                if ($productVariant->isEnabled()) {
+                    /** @var ProductVariantView $variantView */
+                    $variantView = $productView->variants[$productVariant->getCode()];
 
-                $variantView->images[] = $imageView;
+                    $variantView->images[] = $imageView;
+                }
             }
         }
 
@@ -80,7 +84,9 @@ final class ListProductViewFactory implements ProductViewFactoryInterface
         $associatedProducts = [];
 
         foreach ($association->getAssociatedProducts() as $associatedProduct) {
-            $associatedProducts[] = $this->createWithVariants($associatedProduct, $channel, $locale);
+            if ($associatedProduct->isEnabled()) {
+                $associatedProducts[] = $this->createWithVariants($associatedProduct, $channel, $locale);
+            }
         }
 
         return $associatedProducts;
