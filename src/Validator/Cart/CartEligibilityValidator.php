@@ -18,25 +18,19 @@ use Webmozart\Assert\Assert;
 final class CartEligibilityValidator extends ConstraintValidator
 {
     /** @var OrderRepositoryInterface */
-    private $_cartRepository;
+    private $cartRepository;
 
-    /**
-     * CartEligibilityValidator constructor.
-     */
     public function __construct(OrderRepositoryInterface $cartRepository)
     {
-        $this->_cartRepository = $cartRepository;
+        $this->cartRepository = $cartRepository;
     }
 
-    /**
-     * @param mixed      $request
-     */
     public function validate($request, Constraint $constraint): void
     {
         Assert::isInstanceOf($request, CompleteOrderRequest::class);
         Assert::isInstanceOf($constraint, CartEligibility::class);
 
-        $cart = $this->_cartRepository->findOneBy(
+        $cart = $this->cartRepository->findOneBy(
             [
                 'tokenValue' => $request->getToken(),
                 'state' => OrderInterface::STATE_CART,
