@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraint;
 final class CartNotEmpty extends Constraint
 {
     /** @var string */
-    public $emptyCartMessage = 'sylius.shop_api.checkout.cart.empty';
+    public $message = 'sylius.shop_api.checkout.cart.empty';
 
     /** {@inheritdoc} */
     public function getTargets()

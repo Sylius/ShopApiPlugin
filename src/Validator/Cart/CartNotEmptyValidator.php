@@ -14,14 +14,14 @@ use Webmozart\Assert\Assert;
 final class CartNotEmptyValidator extends ConstraintValidator
 {
     /** @var OrderRepositoryInterface */
-    private $_cartRepository;
+    private $cartRepository;
 
     /**
      * CartNotEmptyValidator constructor.
      */
     public function __construct(OrderRepositoryInterface $cartRepository)
     {
-        $this->_cartRepository = $cartRepository;
+        $this->cartRepository = $cartRepository;
     }
 
     /**
@@ -31,7 +31,7 @@ final class CartNotEmptyValidator extends ConstraintValidator
     {
         Assert::isInstanceOf($constraint, CartNotEmpty::class);
 
-        $cart = $this->_cartRepository->findOneBy(
+        $cart = $this->cartRepository->findOneBy(
             [
                 'tokenValue' => $token,
                 'state' => OrderInterface::STATE_CART,
@@ -46,7 +46,7 @@ final class CartNotEmptyValidator extends ConstraintValidator
 
         if ($cart->getItems()->isEmpty()) {
             $this->context->addViolation(
-                $constraint->emptyCartMessage
+                $constraint->message
             );
         }
     }
