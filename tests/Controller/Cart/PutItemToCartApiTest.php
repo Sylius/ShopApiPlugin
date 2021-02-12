@@ -659,7 +659,7 @@ JSON;
         if (method_exists($productVariant, 'setEnabled')) {
             $this->assertResponse($response, 'cart/validation_product_variant_non_eligible_response', Response::HTTP_BAD_REQUEST);
         } else {
-            $this->assertResponse($response, 'cart/add_product_variant_to_cart_response', Response::HTTP_CREATED);
+            $this->assertResponse($response, 'cart/add_product_variant_to_cart_response_1_7', Response::HTTP_CREATED);
         }
     }
 

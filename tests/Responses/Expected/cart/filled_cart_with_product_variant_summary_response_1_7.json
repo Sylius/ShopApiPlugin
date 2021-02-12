@@ -1,0 +1,77 @@
+{
+    "tokenValue": "SDAOSLEFNWU35H3QLI5325",
+    "channel": "WEB_GB",
+    "currency": "GBP",
+    "locale": "en_GB",
+    "checkoutState": "cart",
+    "items": [
+        {
+            "id": @integer@,
+            "quantity": 5,
+            "total": 14995,
+            "product": {
+                "code": "LOGAN_T_SHIRT_CODE",
+                "name": "Logan T-Shirt",
+                "slug": "logan-t-shirt",
+                "channelCode": "WEB_GB",
+                "description": "Some description Lorem ipsum dolor sit amet.",
+                "averageRating": 0,
+                "taxons": {
+                    "main": "T_SHIRTS",
+                    "others": [
+                        "WOMEN_T_SHIRTS",
+                        "BRAND"
+                    ]
+                },
+                "variants": [
+                    {
+                        "code": "LARGE_LOGAN_T_SHIRT_CODE",
+                        "name": "Large Logan T-Shirt",
+                        "axis": [],
+                        "nameAxis": {},
+                        "available": true,
+                        "price": {
+                            "current": 2999,
+                            "currency": "GBP"
+                        },
+                        "images": []
+                    }
+                ],
+                "attributes": [],
+                "associations": [],
+                "images": [
+                    {
+                        "code": "thumbnail",
+                        "path": "/pants.jpeg",
+                        "cachedPath": "http://localhost/media/cache/sylius_shop_api/pants.jpeg"
+                    },
+                    {
+                        "code": "thumbnail",
+                        "path": "/pants.jpeg",
+                        "cachedPath": "http://localhost/media/cache/sylius_shop_api/pants.jpeg"
+                    },
+                    {
+                        "code": "thumbnail",
+                        "path": "/pants.jpeg",
+                        "cachedPath": "http://localhost/media/cache/sylius_shop_api/pants.jpeg"
+                    }
+                ],
+                "_links": {
+                    "self": {
+                        "href": "\/shop-api\/products\/by-slug\/logan-t-shirt"
+                    }
+                }
+            }
+        }
+    ],
+    "totals": {
+        "total": 14995,
+        "items": 14995,
+        "taxes": 0,
+        "shipping": 0,
+        "promotion": 0
+    },
+    "payments": [],
+    "shipments": [],
+    "cartDiscounts": []
+}
