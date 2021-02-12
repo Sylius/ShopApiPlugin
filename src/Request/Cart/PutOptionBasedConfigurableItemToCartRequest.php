@@ -41,6 +41,11 @@ class PutOptionBasedConfigurableItemToCartRequest implements RequestInterface
         return $this->token;
     }
 
+    public function getOptions(): ?array
+    {
+        return $this->options;
+    }
+
     public static function fromArray(array $item): self
     {
         return new self(

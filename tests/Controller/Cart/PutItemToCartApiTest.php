@@ -659,35 +659,6 @@ JSON;
     /**
      * @test
      */
-    public function it_throws_an_exception_if_product_variant_has_not_been_found(): void
-    {
-        $this->loadFixturesFromFiles(['shop.yml']);
-
-        $token = 'SDAOSLEFNWU35H3QLI5325';
-
-        /** @var MessageBusInterface $bus */
-        $bus = $this->get('sylius_shop_api_plugin.command_bus');
-        $bus->dispatch(new PickupCart($token, 'WEB_GB'));
-
-        $data =
-<<<JSON
-        {
-            "productCode": "LOGAN_HAT_CODE",
-            "options": {
-                "HAT_SIZE": "HAT_SIZE_S"
-            },
-            "quantity": 3
-        }
-JSON;
-        $this->client->request('POST', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/items', [], [], self::CONTENT_TYPE_HEADER, $data);
-        $response = $this->client->getResponse();
-
-        $this->assertResponse($response, 'cart/product_variant_has_not_been_found_response', Response::HTTP_INTERNAL_SERVER_ERROR);
-    }
-
-    /**
-     * @test
-     */
     public function it_adds_a_product_variant_based_on_options_to_the_cart(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
@@ -774,6 +745,35 @@ JSON;
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/product_not_in_cart_channel', Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @test
+     */
+    public function it_validates_if_product_variant_exists(): void
+    {
+        $this->loadFixturesFromFiles(['shop.yml']);
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var MessageBusInterface $bus */
+        $bus = $this->get('sylius_shop_api_plugin.command_bus');
+        $bus->dispatch(new PickupCart($token, 'WEB_GB'));
+
+        $data =
+<<<JSON
+        {
+            "productCode": "LOGAN_HAT_CODE",
+            "options": {
+                "HAT_SIZE": "HAT_SIZE_S"
+            },
+            "quantity": 3
+        }
+JSON;
+        $this->client->request('POST', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/items', [], [], self::CONTENT_TYPE_HEADER, $data);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'cart/product_option_exists_response', Response::HTTP_BAD_REQUEST);
     }
 
     /**
