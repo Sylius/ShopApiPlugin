@@ -85,14 +85,21 @@ final class ShowLatestApiTest extends JsonApiTestCase
         /** @var ProductVariantInterface $productVariant */
         $productVariant = $productVariantRepository->findOneBy(['code' => 'SMALL_RED_LOGAN_HAT_CODE']);
 
-        $productVariant->disable();
-        $productVariantManager->persist($productVariant);
-        $productVariantManager->flush();
+        if (method_exists($productVariant, 'disable')) {
+            $productVariant->disable();
+
+            $productVariantManager->persist($productVariant);
+            $productVariantManager->flush();
+        }
 
         $this->client->request('GET', '/shop-api/product-latest/', [], [], self::CONTENT_TYPE_HEADER);
 
         $response = $this->client->getResponse();
 
-        $this->assertResponse($response, 'product/product_list_latest_without_disabled_variant_response', Response::HTTP_OK);
+        if (method_exists($productVariant, 'disable')) {
+            $this->assertResponse($response, 'product/product_list_latest_without_disabled_variant_response', Response::HTTP_OK);
+        } else {
+            $this->assertResponse($response, 'product/product_list_latest_4_response', Response::HTTP_OK);
+        }
     }
 }

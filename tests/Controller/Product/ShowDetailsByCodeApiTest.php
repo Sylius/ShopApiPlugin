@@ -90,14 +90,21 @@ final class ShowDetailsByCodeApiTest extends JsonApiTestCase
         /** @var ProductVariantInterface $productVariant */
         $productVariant = $productVariantRepository->findOneBy(['code' => 'SMALL_LOGAN_T_SHIRT_CODE']);
 
-        $productVariant->disable();
-        $productVariantManager->persist($productVariant);
-        $productVariantManager->flush();
+        if (method_exists($productVariant, 'disable')) {
+            $productVariant->disable();
+
+            $productVariantManager->persist($productVariant);
+            $productVariantManager->flush();
+        }
 
         $this->client->request('GET', '/shop-api/products/by-code/LOGAN_T_SHIRT_CODE', [], [], self::CONTENT_TYPE_HEADER);
         $response = $this->client->getResponse();
 
-        $this->assertResponse($response, 'product/product_with_variant_details_without_disabled_product_variant_page', Response::HTTP_OK);
+        if (method_exists($productVariant, 'disable')) {
+            $this->assertResponse($response, 'product/product_with_variant_details_without_disabled_product_variant_page', Response::HTTP_OK);
+        } else {
+            $this->assertResponse($response, 'product/product_with_variant_details_page', Response::HTTP_OK);
+        }
     }
 
     /**

@@ -197,10 +197,13 @@ JSON;
 
         /** @var ProductVariant $productVariant */
         $productVariant = $productVariantRepository->findOneBy(['code' => 'LARGE_LOGAN_T_SHIRT_CODE']);
-        $productVariant->setEnabled(false);
 
-        $productVariantManager->persist($productVariant);
-        $productVariantManager->flush();
+        if (method_exists($productVariant, 'setEnabled')) {
+            $productVariant->setEnabled(false);
+
+            $productVariantManager->persist($productVariant);
+            $productVariantManager->flush();
+        }
 
         $data =
 <<<JSON
@@ -211,7 +214,11 @@ JSON;
         $this->client->request('PUT', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/items/' . $this->getFirstOrderItemId($token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
-        $this->assertResponse($response, 'cart/validation_cart_item_variant_not_eligible_response', Response::HTTP_BAD_REQUEST);
+        if (method_exists($productVariant, 'setEnabled')) {
+            $this->assertResponse($response, 'cart/validation_cart_item_variant_not_eligible_response', Response::HTTP_BAD_REQUEST);
+        } else {
+            $this->assertResponse($response, 'cart/filled_cart_with_product_variant_summary_response', Response::HTTP_OK);
+        }
     }
 
     private function getFirstOrderItemId(string $orderToken): string
