@@ -58,12 +58,10 @@ final class ListProductViewFactorySpec extends ObjectBehavior
 
         if (method_exists($firstProductVariant->getWrappedObject(), 'isEnabled')) {
             $firstProductVariant->isEnabled()->willReturn(true);
-            $variantViewFactory->create($firstProductVariant, $channel, 'en_GB')->willReturn(new ProductVariantView());
         }
 
         if (method_exists($secondProductVariant->getWrappedObject(), 'isEnabled')) {
             $secondProductVariant->isEnabled()->willReturn(true);
-            $variantViewFactory->create($secondProductVariant, $channel, 'en_GB')->willReturn(new ProductVariantView());
         }
 
         $associatedProduct->isEnabled()->willReturn(true);
@@ -76,13 +74,16 @@ final class ListProductViewFactorySpec extends ObjectBehavior
 
         if (method_exists($associatedProductVariant->getWrappedObject(), 'isEnabled')) {
             $associatedProductVariant->isEnabled()->willReturn(true);
-            $variantViewFactory->create($associatedProductVariant, $channel, 'en_GB')->willReturn(new ProductVariantView());
         }
 
         $associationType->getCode()->willReturn('ASSOCIATION_TYPE');
 
         $productViewFactory->create($product, $channel, 'en_GB')->willReturn(new ProductView());
         $productViewFactory->create($associatedProduct, $channel, 'en_GB')->willReturn(new ProductView());
+
+        $variantViewFactory->create($firstProductVariant, $channel, 'en_GB')->willReturn(new ProductVariantView());
+        $variantViewFactory->create($secondProductVariant, $channel, 'en_GB')->willReturn(new ProductVariantView());
+        $variantViewFactory->create($associatedProductVariant, $channel, 'en_GB')->willReturn(new ProductVariantView());
 
         $associatedProductView = new ProductView();
         $associatedProductView->variants = [
@@ -200,8 +201,6 @@ final class ListProductViewFactorySpec extends ObjectBehavior
 
         if (method_exists($firstProductVariant->getWrappedObject(), 'isEnabled')) {
             $firstProductVariant->isEnabled()->willReturn(false);
-        } else {
-            $variantViewFactory->create($firstProductVariant, $channel, 'en_GB')->willReturn(new ProductVariantView());
         }
 
         $secondProductVariant->getCode()->willReturn('L_HAT_CODE');

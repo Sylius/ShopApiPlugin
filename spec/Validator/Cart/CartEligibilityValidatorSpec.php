@@ -73,6 +73,7 @@ final class CartEligibilityValidatorSpec extends ObjectBehavior
         OrderInterface $order,
         OrderItemInterface $orderItem,
         ProductVariantInterface $productVariant,
+        ProductInterface $product,
         ArrayCollection $collection,
         ArrayIterator $arrayIterator,
         ExecutionContextInterface $context,
@@ -102,6 +103,8 @@ final class CartEligibilityValidatorSpec extends ObjectBehavior
             $builder->atPath('items[0].product.variants[0].code')->willReturn($builder);
             $builder->addViolation()->shouldBeCalled();
         } else {
+            $productVariant->getProduct()->willReturn($product);
+            $product->isEnabled()->willReturn(true);
             $context->buildViolation('sylius.shop_api.checkout.cart_item_variant.non_eligible')->shouldNotBeCalled();
         }
 
