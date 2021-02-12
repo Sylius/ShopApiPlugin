@@ -56,8 +56,15 @@ final class ListProductViewFactorySpec extends ObjectBehavior
         $secondProductVariant->getCode()->willReturn('L_HAT_CODE');
         $associatedProductVariant->getCode()->willReturn('SMALL_MUG_CODE');
 
-        $firstProductVariant->isEnabled()->willReturn(true);
-        $secondProductVariant->isEnabled()->willReturn(true);
+        if (method_exists($firstProductVariant->getWrappedObject(), 'isEnabled')) {
+            $firstProductVariant->isEnabled()->willReturn(true);
+            $variantViewFactory->create($firstProductVariant, $channel, 'en_GB')->willReturn(new ProductVariantView());
+        }
+
+        if (method_exists($secondProductVariant->getWrappedObject(), 'isEnabled')) {
+            $secondProductVariant->isEnabled()->willReturn(true);
+            $variantViewFactory->create($secondProductVariant, $channel, 'en_GB')->willReturn(new ProductVariantView());
+        }
 
         $associatedProduct->isEnabled()->willReturn(true);
 
@@ -65,18 +72,17 @@ final class ListProductViewFactorySpec extends ObjectBehavior
         $productAssociation->getAssociatedProducts()->willReturn(new ArrayCollection([$associatedProduct->getWrappedObject()]));
         $associatedProduct->getVariants()->willReturn(new ArrayCollection([$associatedProductVariant->getWrappedObject()]));
 
-        $associatedProductVariant->isEnabled()->willReturn(true);
-
         $associatedProduct->getImages()->willReturn(new ArrayCollection([]));
+
+        if (method_exists($associatedProductVariant->getWrappedObject(), 'isEnabled')) {
+            $associatedProductVariant->isEnabled()->willReturn(true);
+            $variantViewFactory->create($associatedProductVariant, $channel, 'en_GB')->willReturn(new ProductVariantView());
+        }
 
         $associationType->getCode()->willReturn('ASSOCIATION_TYPE');
 
         $productViewFactory->create($product, $channel, 'en_GB')->willReturn(new ProductView());
         $productViewFactory->create($associatedProduct, $channel, 'en_GB')->willReturn(new ProductView());
-
-        $variantViewFactory->create($firstProductVariant, $channel, 'en_GB')->willReturn(new ProductVariantView());
-        $variantViewFactory->create($secondProductVariant, $channel, 'en_GB')->willReturn(new ProductVariantView());
-        $variantViewFactory->create($associatedProductVariant, $channel, 'en_GB')->willReturn(new ProductVariantView());
 
         $associatedProductView = new ProductView();
         $associatedProductView->variants = [
@@ -122,9 +128,17 @@ final class ListProductViewFactorySpec extends ObjectBehavior
         $thirdProductVariant->getCode()->willReturn('XL_HAT_CODE');
         $associatedProductVariant->getCode()->willReturn('SMALL_MUG_CODE');
 
-        $firstProductVariant->isEnabled()->willReturn(true);
-        $secondProductVariant->isEnabled()->willReturn(true);
-        $thirdProductVariant->isEnabled()->willReturn(true);
+        if (method_exists($firstProductVariant->getWrappedObject(), 'isEnabled')) {
+            $firstProductVariant->isEnabled()->willReturn(true);
+        }
+
+        if (method_exists($secondProductVariant->getWrappedObject(), 'isEnabled')) {
+            $secondProductVariant->isEnabled()->willReturn(true);
+        }
+
+        if (method_exists($thirdProductVariant->getWrappedObject(), 'isEnabled')) {
+            $thirdProductVariant->isEnabled()->willReturn(true);
+        }
 
         $associatedProduct->isEnabled()->willReturn(true);
 
@@ -132,7 +146,9 @@ final class ListProductViewFactorySpec extends ObjectBehavior
         $productAssociation->getAssociatedProducts()->willReturn(new ArrayCollection([$associatedProduct->getWrappedObject()]));
         $associatedProduct->getVariants()->willReturn(new ArrayCollection([$associatedProductVariant->getWrappedObject()]));
 
-        $associatedProductVariant->isEnabled()->willReturn(true);
+        if (method_exists($associatedProductVariant->getWrappedObject(), 'isEnabled')) {
+            $associatedProductVariant->isEnabled()->willReturn(true);
+        }
 
         $associatedProduct->getImages()->willReturn(new ArrayCollection([]));
 
@@ -182,9 +198,17 @@ final class ListProductViewFactorySpec extends ObjectBehavior
             $secondProductVariant->getWrappedObject(),
         ]));
 
-        $firstProductVariant->isEnabled()->willReturn(false);
-        $secondProductVariant->isEnabled()->willReturn(true);
+        if (method_exists($firstProductVariant->getWrappedObject(), 'isEnabled')) {
+            $firstProductVariant->isEnabled()->willReturn(false);
+        } else {
+            $variantViewFactory->create($firstProductVariant, $channel, 'en_GB')->willReturn(new ProductVariantView());
+        }
+
         $secondProductVariant->getCode()->willReturn('L_HAT_CODE');
+
+        if (method_exists($secondProductVariant->getWrappedObject(), 'isEnabled')) {
+            $secondProductVariant->isEnabled()->willReturn(true);
+        }
 
         $product->getImages()->willReturn(new ArrayCollection([]));
         $product->getAssociations()->willReturn(new ArrayCollection([$productAssociation->getWrappedObject()]));
@@ -195,7 +219,10 @@ final class ListProductViewFactorySpec extends ObjectBehavior
         $associatedProduct->isEnabled()->willReturn(true);
 
         $associatedProductVariant->getCode()->willReturn('SMALL_MUG_CODE');
-        $associatedProductVariant->isEnabled()->willReturn(true);
+
+        if (method_exists($associatedProductVariant->getWrappedObject(), 'isEnabled')) {
+            $associatedProductVariant->isEnabled()->willReturn(true);
+        }
 
         $productAssociation->getType()->willReturn($associationType);
         $productAssociation->getAssociatedProducts()->willReturn(new ArrayCollection([$associatedProduct->getWrappedObject()]));
@@ -244,8 +271,13 @@ final class ListProductViewFactorySpec extends ObjectBehavior
         $firstProductVariant->getCode()->willReturn('S_HAT_CODE');
         $secondProductVariant->getCode()->willReturn('L_HAT_CODE');
 
-        $firstProductVariant->isEnabled()->willReturn(true);
-        $secondProductVariant->isEnabled()->willReturn(true);
+        if (method_exists($firstProductVariant->getWrappedObject(), 'isEnabled')) {
+            $firstProductVariant->isEnabled()->willReturn(true);
+        }
+
+        if (method_exists($secondProductVariant->getWrappedObject(), 'isEnabled')) {
+            $secondProductVariant->isEnabled()->willReturn(true);
+        }
 
         $product->getImages()->willReturn(new ArrayCollection([]));
         $product->getAssociations()->willReturn(new ArrayCollection([$productAssociation->getWrappedObject()]));

@@ -26,10 +26,10 @@ final class ProductVariantEligibilityValidator extends ConstraintValidator
             return;
         }
 
-        /** @var ProductVariant|null $productVariant */
+        /** @var ProductVariant $productVariant */
         $productVariant = $this->productVariantRepository->findOneBy(['code' => $productVariantCode]);
 
-        if ($productVariant && !$productVariant->isEnabled()) {
+        if (method_exists($productVariant, 'isEnabled') && !$productVariant->isEnabled()) {
             $this->context->addViolation($constraint->message);
         }
     }

@@ -56,12 +56,14 @@ final class CartEligibilityValidatorSpec extends ObjectBehavior
         $orderItem->getVariant()->willReturn($productVariant);
         $productVariant->getProduct()->willReturn($product);
 
-        $productVariant->isEnabled()->willReturn(true);
+        if (method_exists($productVariant->getWrappedObject(), 'isEnabled')) {
+            $productVariant->isEnabled()->willReturn(true);
+            $context->buildViolation('sylius.shop_api.checkout.cart_item_variant.non_eligible')->shouldNotBeCalled();
+        }
+
         $product->isEnabled()->willReturn(true);
 
         $context->buildViolation('sylius.shop_api.checkout.cart_item.non_eligible')->shouldNotBeCalled();
-
-        $context->buildViolation('sylius.shop_api.checkout.cart_item_variant.non_eligible')->shouldNotBeCalled();
 
         $this->validate($completeOrderRequest, new CartEligibility());
     }
@@ -93,11 +95,15 @@ final class CartEligibilityValidatorSpec extends ObjectBehavior
 
         $orderItem->getVariant()->willReturn($productVariant);
 
-        $productVariant->isEnabled()->willReturn(false);
+        if (method_exists($productVariant->getWrappedObject(), 'isEnabled')) {
+            $productVariant->isEnabled()->willReturn(false);
 
-        $context->buildViolation('sylius.shop_api.checkout.cart_item_variant.non_eligible')->willReturn($builder);
-        $builder->atPath('items[0].product.variants[0].code')->willReturn($builder);
-        $builder->addViolation()->shouldBeCalled();
+            $context->buildViolation('sylius.shop_api.checkout.cart_item_variant.non_eligible')->willReturn($builder);
+            $builder->atPath('items[0].product.variants[0].code')->willReturn($builder);
+            $builder->addViolation()->shouldBeCalled();
+        } else {
+            $context->buildViolation('sylius.shop_api.checkout.cart_item_variant.non_eligible')->shouldNotBeCalled();
+        }
 
         $this->validate($completeOrderRequest, new CartEligibility());
     }
@@ -131,7 +137,11 @@ final class CartEligibilityValidatorSpec extends ObjectBehavior
         $orderItem->getVariant()->willReturn($productVariant);
         $productVariant->getProduct()->willReturn($product);
 
-        $productVariant->isEnabled()->willReturn(true);
+        if (method_exists($productVariant->getWrappedObject(), 'isEnabled')) {
+            $productVariant->isEnabled()->willReturn(true);
+            $context->buildViolation('sylius.shop_api.checkout.cart_item_variant.non_eligible')->shouldNotBeCalled();
+        }
+
         $product->isEnabled()->willReturn(false);
 
         $context->buildViolation('sylius.shop_api.checkout.cart_item.non_eligible')->willReturn($builder);

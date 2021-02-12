@@ -37,7 +37,7 @@ final class CartItemEligibilityValidator extends ConstraintValidator
         $variant = $orderItem->getVariant();
 
         Assert::isInstanceOf($variant, ProductVariantInterface::class);
-        if (!$variant->isEnabled()) {
+        if (method_exists($variant, 'isEnabled') && !$variant->isEnabled()) {
             $this->context->addViolation(
                 $constraint->nonEligibleProductVariantMessage
             );
