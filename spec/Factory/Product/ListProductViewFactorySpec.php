@@ -201,6 +201,9 @@ final class ListProductViewFactorySpec extends ObjectBehavior
 
         if (method_exists($firstProductVariant->getWrappedObject(), 'isEnabled')) {
             $firstProductVariant->isEnabled()->willReturn(false);
+        } else {
+            $firstProductVariant->getCode()->willReturn('S_HAT_CODE');
+            $variantViewFactory->create($firstProductVariant, $channel, 'en_GB')->willReturn(new ProductVariantView());
         }
 
         $secondProductVariant->getCode()->willReturn('L_HAT_CODE');
@@ -239,9 +242,13 @@ final class ListProductViewFactorySpec extends ObjectBehavior
         ];
 
         $productView = new ProductView();
-        $productView->variants = [
-            'L_HAT_CODE' => new ProductVariantView(),
-        ];
+        $productView->variants = [];
+
+        if (!method_exists($firstProductVariant->getWrappedObject(), 'isEnabled')) {
+            $productView->variants['S_HAT_CODE'] = new ProductVariantView();
+        }
+        $productView->variants['L_HAT_CODE'] = new ProductVariantView();
+
         $productView->associations = [
             'ASSOCIATION_TYPE' => [
                 $associatedProductView,
