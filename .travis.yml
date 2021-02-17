@@ -8,10 +8,6 @@ php:
     - '7.4'
     - '7.3'
 
-env:
-    - SYLIUS_VERSION=1.7.*
-    - SYLIUS_VERSION=1.8.* ANALYSE=y
-
 cache:
     directories:
         - ~/.composer/cache/files
@@ -27,15 +23,6 @@ before_install:
     - set -a && source tests/Application/.env.test && set +a
 
 install:
-    - composer require sylius/sylius:${SYLIUS_VERSION} --no-interaction --no-update
-
-    - >-
-        if [ "$SYLIUS_VERSION" = '1.7.*' ]; then
-            cp etc/travis/sylius17/bundles.php tests/Application/config/
-            cp etc/travis/sylius17/doctrine_migrations.yaml tests/Application/config/packages/
-            cp etc/travis/sylius17/security.yaml tests/Application/config/packages/
-        fi
-
     - composer update --no-interaction --prefer-dist
 
 before_script:
@@ -45,10 +32,7 @@ before_script:
 script:
     - composer validate --strict
 
-    - >-
-        if [ "$ANALYSE" = 'y' ]; then
-            composer analyse
-        fi
+    - composer analyse
 
     - vendor/bin/phpspec run --format dot -vvv --no-interaction
     - vendor/bin/phpunit
