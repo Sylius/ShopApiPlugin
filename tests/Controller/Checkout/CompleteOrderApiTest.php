@@ -546,9 +546,6 @@ JSON;
         } else {
             $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
         }
-
-
-
     }
 
     /**

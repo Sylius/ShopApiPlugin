@@ -97,6 +97,7 @@ final class ListProductViewFactory implements ProductViewFactoryInterface
         if (method_exists($variant, 'isEnabled') && !$variant->isEnabled()) {
             $variant = null;
         }
+
         return $variant;
     }
 }
