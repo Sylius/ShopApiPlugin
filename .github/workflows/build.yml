@@ -66,18 +66,6 @@ jobs:
                 run: php -v | head -n 1 | awk '{ print $2 }' > .php-version
 
             -
-                name: Install certificates
-                run: symfony server:ca:install
-
-            -
-                name: Run Chrome Headless
-                run: google-chrome-stable --enable-automation --disable-background-networking --no-default-browser-check --no-first-run --disable-popup-blocking --disable-default-apps --allow-insecure-localhost --disable-translate --disable-extensions --no-sandbox --enable-features=Metal --headless --remote-debugging-port=9222 --window-size=2880,1800 --proxy-server='direct://' --proxy-bypass-list='*' http://127.0.0.1 > /dev/null 2>&1 &
-
-            -
-                name: Run webserver
-                run: (cd tests/Application && symfony server:start --port=8080 --dir=public --daemon)
-
-            -
                 name: Get Composer cache directory
                 id: composer-cache
                 run: echo "::set-output name=dir::$(composer config cache-files-dir)"
@@ -95,51 +83,18 @@ jobs:
                 run: composer install --no-interaction
 
             -
-                name: Get Yarn cache directory
-                id: yarn-cache
-                run: echo "::set-output name=dir::$(yarn cache dir)"
-
-            -
-                name: Cache Yarn
-                uses: actions/cache@v2
-                with:
-                    path: ${{ steps.yarn-cache.outputs.dir }}
-                    key: ${{ runner.os }}-node-${{ matrix.node }}-yarn-${{ hashFiles('**/package.json **/yarn.lock') }}
-                    restore-keys: |
-                        ${{ runner.os }}-node-${{ matrix.node }}-yarn-
-            -
-                name: Install JS dependencies
-                run: (cd tests/Application && yarn install)
-
-            -
                 name: Prepare test application database
                 run: |
                     (cd tests/Application && bin/console doctrine:database:create -vvv)
                     (cd tests/Application && bin/console doctrine:schema:create -vvv)
-            -
-                name: Prepare test application assets
-                run: |
-                    (cd tests/Application && bin/console assets:install public -vvv)
-                    (cd tests/Application && yarn build)
-            -
-                name: Prepare test application cache
-                run: (cd tests/Application && bin/console cache:warmup -vvv)
-
-            -
-                name: Load fixtures in test application
-                run: (cd tests/Application && bin/console sylius:fixtures:load -n)
 
             -
                 name: Validate composer.json
                 run: composer validate --ansi --strict
 
             -
-                name: Validate database schema
-                run: (cd tests/Application && bin/console doctrine:schema:validate)
-
-            -
                 name: Run PHPStan
-                run: vendor/bin/phpstan analyse -c phpstan.neon -l max src/
+                run: vendor/bin/phpstan analyse -c phpstan.neon --no-progress src
 
             -
                 name: Run PHPSpec
@@ -150,14 +105,5 @@ jobs:
                 run: vendor/bin/phpunit --colors=always
 
             -
-                name: Run Behat
-                run: vendor/bin/behat --colors --strict -vvv --no-interaction || vendor/bin/behat --colors --strict -vvv --no-interaction --rerun
-
-            -
-                name: Upload Behat logs
-                uses: actions/upload-artifact@v2
-                if: failure()
-                with:
-                    name: Behat logs
-                    path: etc/build/
-                    if-no-files-found: ignore
+                name: Run Doc Parser
+                run: vendor/bin/doc-parser doc/Cookbook.md
