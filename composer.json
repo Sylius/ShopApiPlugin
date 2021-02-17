@@ -5,7 +5,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.3",
-        "sylius/sylius": "^1.7",
+        "sylius/sylius": "^1.8",
         "lexik/jwt-authentication-bundle": "^2.5",
         "symfony/messenger": "^4.4"
     },
@@ -34,7 +34,6 @@
             "vendor/bin/ecs check --ansi --no-progress-bar spec src tests/Controller tests/DataFixtures tests/Request --fix"
         ],
         "analyse": [
-            "vendor/bin/ecs check --ansi --no-progress-bar spec src tests/Controller tests/DataFixtures tests/Request",
             "vendor/bin/phpstan analyse -c phpstan.neon --no-progress src"
         ]
     },
