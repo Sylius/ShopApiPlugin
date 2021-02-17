@@ -29,6 +29,7 @@ jobs:
 
         env:
             APP_ENV: test
+            APP_SECRET: "Dead men tell no tales"
             DATABASE_URL: "mysql://root:root@127.0.0.1/sylius?serverVersion=${{ matrix.mysql }}"
 
         steps:
