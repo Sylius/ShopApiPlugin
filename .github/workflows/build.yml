@@ -41,7 +41,7 @@ jobs:
                 uses: shivammathur/setup-php@v2
                 with:
                     php-version: "${{ matrix.php }}"
-                    extensions: intl, gd
+                    extensions: intl, gd, opcache, mysql, pdo_mysql
                     tools: symfony
                     coverage: none
 
