@@ -54,7 +54,7 @@ final class ListProductViewFactory implements ProductViewFactoryInterface
         /** @var ProductVariantInterface $variant */
         foreach ($product->getVariants() as $variant) {
             try {
-                if ($this->toggleVariant($variant)) {
+                if ($variant->isEnabled()) {
                     $productView->variants[$variant->getCode()] = $this->variantViewFactory->create($variant, $channel, $locale);
                 }
             } catch (ViewCreationException $exception) {
@@ -67,7 +67,7 @@ final class ListProductViewFactory implements ProductViewFactoryInterface
             $imageView = $this->imageViewFactory->create($image);
 
             foreach ($image->getProductVariants() as $productVariant) {
-                if ($this->toggleVariant($productVariant)) {
+                if ($productVariant->isEnabled()) {
                     /** @var ProductVariantView $variantView */
                     $variantView = $productView->variants[$productVariant->getCode()];
 
@@ -90,14 +90,5 @@ final class ListProductViewFactory implements ProductViewFactoryInterface
         }
 
         return $associatedProducts;
-    }
-
-    private function toggleVariant(ProductVariantInterface $variant): ?ProductVariantInterface
-    {
-        if (method_exists($variant, 'isEnabled') && !$variant->isEnabled()) {
-            $variant = null;
-        }
-
-        return $variant;
     }
 }

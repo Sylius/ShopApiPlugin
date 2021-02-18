@@ -634,12 +634,10 @@ JSON;
         /** @var ProductVariant $productVariant */
         $productVariant = $productVariantRepository->findOneBy(['code' => 'LARGE_LOGAN_T_SHIRT_CODE']);
 
-        if (method_exists($productVariant, 'setEnabled')) {
-            $productVariant->setEnabled(false);
+        $productVariant->setEnabled(false);
 
-            $productVariantManager->persist($productVariant);
-            $productVariantManager->flush();
-        }
+        $productVariantManager->persist($productVariant);
+        $productVariantManager->flush();
 
         /** @var MessageBusInterface $bus */
         $bus = $this->get('sylius_shop_api_plugin.command_bus');
@@ -656,11 +654,7 @@ JSON;
         $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
-        if (method_exists($productVariant, 'setEnabled')) {
-            $this->assertResponse($response, 'cart/validation_product_variant_non_eligible_response', Response::HTTP_BAD_REQUEST);
-        } else {
-            $this->assertResponse($response, 'cart/add_product_variant_to_cart_response_1_7', Response::HTTP_CREATED);
-        }
+        $this->assertResponse($response, 'cart/validation_product_variant_non_eligible_response', Response::HTTP_BAD_REQUEST);
     }
 
     /**

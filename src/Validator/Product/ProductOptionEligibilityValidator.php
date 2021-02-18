@@ -37,16 +37,10 @@ final class ProductOptionEligibilityValidator extends ConstraintValidator
 
         $options = $request->getOptions() ?: [];
 
-        /** @var ProductVariantInterface $variant */
+        /** @var ProductVariantInterface|null $variant */
         $variant = $this->getProductVariant($options, $product);
 
-        /*
-         * Method isEnabled on ProductVariant is added in Sylius 1.8 version
-         * For this bundle to be used also with Sylius 1.7 version
-         * method_exists function is called to check weather isEnabled method
-         * exists on ProductVariant
-         */
-        if (method_exists($variant, 'isEnabled') && !$variant->isEnabled()) {
+        if ($variant && !$variant->isEnabled()) {
             $this->context->buildViolation($constraint->message)
                 ->atPath('productCode')
                 ->addViolation();

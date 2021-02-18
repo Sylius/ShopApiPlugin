@@ -31,14 +31,11 @@ final class CartItemEligibilityValidatorSpec extends ObjectBehavior
         $orderItemRepository->find(1)->willReturn($orderItem);
         $orderItem->getVariant()->willReturn($productVariant);
 
-        if (method_exists($productVariant->getWrappedObject(), 'isEnabled')) {
-            $productVariant->isEnabled()->willReturn(true);
-            $executionContext->addViolation('sylius.shop_api.cart_item.product_variant.non_eligible')->shouldNotBeCalled();
-        }
-
+        $productVariant->isEnabled()->willReturn(true);
         $productVariant->getProduct()->willReturn($product);
         $product->isEnabled()->willReturn(true);
 
+        $executionContext->addViolation('sylius.shop_api.cart_item.product_variant.non_eligible')->shouldNotBeCalled();
         $executionContext->addViolation('sylius.shop_api.cart_item.product.non_eligible')->shouldNotBeCalled();
 
         $this->validate(1, new CartItemEligibility());
@@ -54,15 +51,12 @@ final class CartItemEligibilityValidatorSpec extends ObjectBehavior
         $orderItemRepository->find(1)->willReturn($orderItem);
         $orderItem->getVariant()->willReturn($productVariant);
 
-        if (method_exists($productVariant->getWrappedObject(), 'isEnabled')) {
-            $productVariant->isEnabled()->willReturn(true);
-            $executionContext->addViolation('sylius.shop_api.cart_item.product_variant.non_eligible')->shouldNotBeCalled();
-        }
-
+        $productVariant->isEnabled()->willReturn(true);
         $productVariant->getProduct()->willReturn($product);
         $product->isEnabled()->willReturn(false);
 
         $executionContext->addViolation('sylius.shop_api.cart_item.product.non_eligible')->shouldBeCalled();
+        $executionContext->addViolation('sylius.shop_api.cart_item.product_variant.non_eligible')->shouldNotBeCalled();
 
         $this->validate(1, new CartItemEligibility());
     }
@@ -77,16 +71,11 @@ final class CartItemEligibilityValidatorSpec extends ObjectBehavior
         $orderItemRepository->find(1)->willReturn($orderItem);
         $orderItem->getVariant()->willReturn($productVariant);
 
-        if (method_exists($productVariant->getWrappedObject(), 'isEnabled')) {
-            $productVariant->isEnabled()->willReturn(false);
-            $executionContext->addViolation('sylius.shop_api.cart_item.product_variant.non_eligible')->shouldBeCalled();
-        } else {
-            $executionContext->addViolation('sylius.shop_api.cart_item.product_variant.non_eligible')->shouldNotBeCalled();
-            $executionContext->addViolation('sylius.shop_api.cart_item.product.non_eligible')->shouldNotBeCalled();
-        }
-
         $productVariant->getProduct()->willReturn($product);
         $product->isEnabled()->willReturn(true);
+
+        $productVariant->isEnabled()->willReturn(false);
+        $executionContext->addViolation('sylius.shop_api.cart_item.product_variant.non_eligible')->shouldBeCalled();
 
         $this->validate(1, new CartItemEligibility());
     }
@@ -101,16 +90,11 @@ final class CartItemEligibilityValidatorSpec extends ObjectBehavior
         $orderItemRepository->find(1)->willReturn($orderItem);
         $orderItem->getVariant()->willReturn($productVariant);
 
-        if (method_exists($productVariant->getWrappedObject(), 'isEnabled')) {
-            $productVariant->isEnabled()->willReturn(false);
-            $executionContext->addViolation('sylius.shop_api.cart_item.product_variant.non_eligible')->shouldBeCalled();
-        } else {
-            $executionContext->addViolation('sylius.shop_api.cart_item.product_variant.non_eligible')->shouldNotBeCalled();
-        }
-
         $productVariant->getProduct()->willReturn($product);
         $product->isEnabled()->willReturn(false);
 
+        $productVariant->isEnabled()->willReturn(false);
+        $executionContext->addViolation('sylius.shop_api.cart_item.product_variant.non_eligible')->shouldBeCalled();
         $executionContext->addViolation('sylius.shop_api.cart_item.product.non_eligible')->shouldBeCalled();
 
         $this->validate(1, new CartItemEligibility());

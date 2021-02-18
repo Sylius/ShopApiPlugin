@@ -525,12 +525,10 @@ JSON;
         /** @var ProductVariant $productVariant */
         $productVariant = $productVariantRepository->findOneBy(['code' => 'LARGE_LOGAN_T_SHIRT_CODE']);
 
-        if (method_exists($productVariant, 'setEnabled')) {
-            $productVariant->setEnabled(false);
+        $productVariant->setEnabled(false);
 
-            $productVariantManager->persist($productVariant);
-            $productVariantManager->flush();
-        }
+        $productVariantManager->persist($productVariant);
+        $productVariantManager->flush();
 
         $data =
 <<<JSON
@@ -541,11 +539,7 @@ JSON;
 
         $response = $this->complete($token, $data);
 
-        if (method_exists($productVariant, 'setEnabled')) {
-            $this->assertResponse($response, 'checkout/cart_failed_checkout_product_variant_not_eligible_response', Response::HTTP_BAD_REQUEST);
-        } else {
-            $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
-        }
+        $this->assertResponse($response, 'checkout/cart_failed_checkout_product_variant_not_eligible_response', Response::HTTP_BAD_REQUEST);
     }
 
     /**

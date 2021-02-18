@@ -108,21 +108,15 @@ final class ShowCatalogBySlugApiTest extends JsonApiTestCase
         /** @var ProductVariantInterface $productVariant */
         $productVariant = $productVariantRepository->findOneBy(['code' => 'SMALL_RED_LOGAN_HAT_CODE']);
 
-        if (method_exists($productVariant, 'disable')) {
-            $productVariant->disable();
+        $productVariant->disable();
 
-            $productVariantManager->persist($productVariant);
-            $productVariantManager->flush();
-        }
+        $productVariantManager->persist($productVariant);
+        $productVariantManager->flush();
 
         $this->client->request('GET', '/shop-api/taxon-products/by-slug/brands', [], [], self::CONTENT_TYPE_HEADER);
         $response = $this->client->getResponse();
 
-        if (method_exists($productVariant, 'disable')) {
-            $this->assertResponse($response, 'product/product_list_page_by_slug_without_disabled_product_variants_response', Response::HTTP_OK);
-        } else {
-            $this->assertResponse($response, 'product/product_list_page_by_slug_response', Response::HTTP_OK);
-        }
+        $this->assertResponse($response, 'product/product_list_page_by_slug_without_disabled_product_variants_response', Response::HTTP_OK);
     }
 
     /**

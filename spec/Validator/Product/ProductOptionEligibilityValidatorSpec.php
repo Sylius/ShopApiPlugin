@@ -56,10 +56,7 @@ final class ProductOptionEligibilityValidatorSpec extends ObjectBehavior
         $productVariant->getOptionValues()->willReturn(new ArrayCollection([$productOptionValue->getWrappedObject()]));
 
         $product->getVariants()->willReturn(new ArrayCollection([$productVariant->getWrappedObject()]));
-
-        if (method_exists($productVariant->getWrappedObject(), 'isEnabled')) {
-            $productVariant->isEnabled()->willReturn(true);
-        }
+        $productVariant->isEnabled()->willReturn(true);
 
         $context->buildViolation(Argument::any())->shouldNotBeCalled();
 
@@ -90,16 +87,11 @@ final class ProductOptionEligibilityValidatorSpec extends ObjectBehavior
         $productVariant->getOptionValues()->willReturn(new ArrayCollection([$productOptionValue->getWrappedObject()]));
 
         $product->getVariants()->willReturn(new ArrayCollection([$productVariant->getWrappedObject()]));
+        $productVariant->isEnabled()->willReturn(false);
 
-        if (method_exists($productVariant->getWrappedObject(), 'isEnabled')) {
-            $productVariant->isEnabled()->willReturn(false);
-
-            $context->buildViolation('sylius.shop_api.product_option.non_eligible')->willReturn($builder);
-            $builder->atPath('productCode')->willReturn($builder);
-            $builder->addViolation()->shouldBeCalled();
-        } else {
-            $context->buildViolation(Argument::any())->shouldNotBeCalled();
-        }
+        $context->buildViolation('sylius.shop_api.product_option.non_eligible')->willReturn($builder);
+        $builder->atPath('productCode')->willReturn($builder);
+        $builder->addViolation()->shouldBeCalled();
 
         $this->validate($request, new ProductOptionEligibility());
     }
