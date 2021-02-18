@@ -1,0 +1,110 @@
+name: Build
+
+on:
+    push: ~
+    pull_request: ~
+    release:
+        types: [created]
+    schedule:
+        -
+            cron: "0 1 * * 6" # Run at 1am every Saturday
+
+jobs:
+    tests:
+        runs-on: ubuntu-20.04
+
+        name: "PHP ${{ matrix.php }}, MySQL ${{ matrix.mysql }}"
+
+        strategy:
+            fail-fast: false
+            matrix:
+                php: [7.4, 7.3]
+                node: [10.x]
+                mysql: [5.7, 8.0]
+
+                exclude:
+                    - # PHP 7.3 does not support "caching_sha2_password" authentication plugin which is a default one in MySQL 8.0
+                        php: 7.3
+                        mysql: 8.0
+
+        env:
+            APP_ENV: test
+            APP_SECRET: "Dead men tell no tales"
+            DATABASE_URL: "mysql://root:root@127.0.0.1/sylius?serverVersion=${{ matrix.mysql }}"
+
+        steps:
+            -
+                uses: actions/checkout@v2
+
+            -
+                name: Setup PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: "${{ matrix.php }}"
+                    extensions: intl, gd, opcache, mysql, pdo_mysql
+                    tools: symfony
+                    coverage: none
+
+            -
+                name: Setup Node
+                uses: actions/setup-node@v1
+                with:
+                    node-version: "${{ matrix.node }}"
+
+            -
+                name: Shutdown default MySQL
+                run: sudo service mysql stop
+
+            -
+                name: Setup MySQL
+                uses: mirromutth/mysql-action@v1.1
+                with:
+                    mysql version: "${{ matrix.mysql }}"
+                    mysql root password: "root"
+
+            -
+                name: Output PHP version for Symfony CLI
+                run: php -v | head -n 1 | awk '{ print $2 }' > .php-version
+
+            -
+                name: Get Composer cache directory
+                id: composer-cache
+                run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+            -
+                name: Cache Composer
+                uses: actions/cache@v2
+                with:
+                    path: ${{ steps.composer-cache.outputs.dir }}
+                    key: ${{ runner.os }}-php-${{ matrix.php }}-composer-${{ hashFiles('**/composer.json **/composer.lock') }}
+                    restore-keys: |
+                        ${{ runner.os }}-php-${{ matrix.php }}-composer-
+            -
+                name: Install PHP dependencies
+                run: composer install --no-interaction
+
+            -
+                name: Prepare test application database
+                run: |
+                    (cd tests/Application && bin/console doctrine:database:create -vvv)
+                    (cd tests/Application && bin/console doctrine:schema:create -vvv)
+
+            -
+                name: Validate composer.json
+                run: composer validate --ansi --strict
+
+            -
+                name: Run PHPStan
+                run: vendor/bin/phpstan analyse -c phpstan.neon --no-progress src
+
+            -
+                name: Run PHPSpec
+                run: vendor/bin/phpspec run --ansi -f progress --no-interaction
+
+            -
+                name: Run PHPUnit
+                run: vendor/bin/phpunit --colors=always
+
+            -
+                name: Run Doc Parser
+                run: vendor/bin/doc-parser doc/Cookbook.md

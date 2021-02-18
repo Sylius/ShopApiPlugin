@@ -30,11 +30,13 @@
         }
     },
     "scripts": {
+        "analyse": [
+            "@composer validate --strict",
+            "vendor/bin/ecs check --ansi --no-progress-bar spec src tests/Controller tests/DataFixtures tests/Request",
+            "vendor/bin/phpstan analyse -c phpstan.neon --no-progress src"
+        ],
         "fix": [
             "vendor/bin/ecs check --ansi --no-progress-bar spec src tests/Controller tests/DataFixtures tests/Request --fix"
-        ],
-        "analyse": [
-            "vendor/bin/phpstan analyse -c phpstan.neon --no-progress src"
         ]
     },
     "autoload-dev": {
