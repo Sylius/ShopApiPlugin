@@ -9,7 +9,6 @@ use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
-use Sylius\Component\Inventory\Checker\AvailabilityCheckerInterface;
 use Sylius\ShopApiPlugin\Checker\ProductInCartChannelCheckerInterface;
 use Sylius\ShopApiPlugin\Command\Cart\PutOptionBasedConfigurableItemToCart;
 use Sylius\ShopApiPlugin\Modifier\OrderModifierInterface;
@@ -55,8 +54,7 @@ final class PutOptionBasedConfigurableItemToCartHandler
 
         $productVariant = $this->getVariant($putConfigurableItemToCart->options(), $product);
 
-        $quantity = $putConfigurableItemToCart->quantity();
-        $this->orderModifier->modify($cart, $productVariant, $quantity);
+        $this->orderModifier->modify($cart, $productVariant, $putConfigurableItemToCart->quantity());
     }
 
     private function getVariant(array $options, ProductInterface $product): ProductVariantInterface

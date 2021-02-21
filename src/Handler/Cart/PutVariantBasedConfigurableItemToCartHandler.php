@@ -8,7 +8,6 @@ use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\ProductVariantRepositoryInterface;
-use Sylius\Component\Inventory\Checker\AvailabilityCheckerInterface;
 use Sylius\ShopApiPlugin\Checker\ProductInCartChannelCheckerInterface;
 use Sylius\ShopApiPlugin\Command\Cart\PutVariantBasedConfigurableItemToCart;
 use Sylius\ShopApiPlugin\Modifier\OrderModifierInterface;
@@ -56,8 +55,6 @@ final class PutVariantBasedConfigurableItemToCartHandler
 
         Assert::true($this->channelChecker->isProductInCartChannel($product, $cart), 'Product is not in same channel as cart');
 
-        $quantity = $putConfigurableItemToCart->quantity();
-
-        $this->orderModifier->modify($cart, $productVariant, $quantity);
+        $this->orderModifier->modify($cart, $productVariant, $putConfigurableItemToCart->quantity());
     }
 }

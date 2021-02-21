@@ -6,9 +6,9 @@ namespace Sylius\ShopApiPlugin\Handler\Cart;
 
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\ProductInterface;
+use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
-use Sylius\Component\Inventory\Checker\AvailabilityCheckerInterface;
 use Sylius\ShopApiPlugin\Checker\ProductInCartChannelCheckerInterface;
 use Sylius\ShopApiPlugin\Command\Cart\PutSimpleItemToCart;
 use Sylius\ShopApiPlugin\Modifier\OrderModifierInterface;
@@ -53,9 +53,9 @@ final class PutSimpleItemToCartHandler
         Assert::true($this->channelChecker->isProductInCartChannel($product, $cart), 'Product is not in same channel as cart');
         Assert::true($product->isSimple(), 'Product has to be simple');
 
+        /** @var ProductVariantInterface $productVariant */
         $productVariant = $product->getVariants()[0];
 
-        $quantity = $putSimpleItemToCart->quantity();
-        $this->orderModifier->modify($cart, $productVariant, $quantity);
+        $this->orderModifier->modify($cart, $productVariant, $putSimpleItemToCart->quantity());
     }
 }
