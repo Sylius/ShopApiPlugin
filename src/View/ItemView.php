@@ -17,6 +17,9 @@ class ItemView
     /** @var int */
     public $total;
 
+    /** @var int */
+    public $subTotal;
+
     /** @var ProductView */
     public $product;
 

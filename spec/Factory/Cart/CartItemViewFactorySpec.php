@@ -41,6 +41,7 @@ final class CartItemViewFactorySpec extends ObjectBehavior
         $cartItem->getId()->willReturn(2);
         $cartItem->getQuantity()->willReturn(3);
         $cartItem->getTotal()->willReturn(900);
+        $cartItem->getSubtotal()->willReturn(800);
         $cartItem->getProduct()->willReturn($tShirt);
         $cartItem->getVariant()->willReturn($tShirtVariant);
 
@@ -51,6 +52,7 @@ final class CartItemViewFactorySpec extends ObjectBehavior
         $cartItemView = new ItemView();
         $cartItemView->id = 2;
         $cartItemView->quantity = 3;
+        $cartItemView->subTotal = 800;
         $cartItemView->total = 900;
         $cartItemView->product = new ProductView();
         $cartItemView->product->variants = [new ProductVariantView()];
