@@ -28,21 +28,16 @@ final class PutVariantBasedConfigurableItemToCartHandler
     /** @var ProductInCartChannelCheckerInterface */
     private $channelChecker;
 
-    /** @var AvailabilityCheckerInterface */
-    private $availabilityChecker;
-
     public function __construct(
         OrderRepositoryInterface $cartRepository,
         ProductVariantRepositoryInterface $productVariantRepository,
         OrderModifierInterface $orderModifier,
-        ProductInCartChannelCheckerInterface $channelChecker,
-        AvailabilityCheckerInterface $availabilityChecker
+        ProductInCartChannelCheckerInterface $channelChecker
     ) {
         $this->cartRepository = $cartRepository;
         $this->productVariantRepository = $productVariantRepository;
         $this->orderModifier = $orderModifier;
         $this->channelChecker = $channelChecker;
-        $this->availabilityChecker = $availabilityChecker;
     }
 
     public function __invoke(PutVariantBasedConfigurableItemToCart $putConfigurableItemToCart): void
@@ -62,7 +57,6 @@ final class PutVariantBasedConfigurableItemToCartHandler
         Assert::true($this->channelChecker->isProductInCartChannel($product, $cart), 'Product is not in same channel as cart');
 
         $quantity = $putConfigurableItemToCart->quantity();
-        Assert::true($this->availabilityChecker->isStockSufficient($productVariant, $quantity), 'Product variant is not available in stock');
 
         $this->orderModifier->modify($cart, $productVariant, $quantity);
     }

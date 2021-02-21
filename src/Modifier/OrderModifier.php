@@ -36,7 +36,7 @@ final class OrderModifier implements OrderModifierInterface
         OrderItemQuantityModifierInterface $orderItemQuantityModifier,
         OrderProcessorInterface $orderProcessor,
         ObjectManager $orderManager,
-        ?AvailabilityCheckerInterface $availabilityChecker
+        ?AvailabilityCheckerInterface $availabilityChecker = null
     ) {
         $this->cartItemFactory = $cartItemFactory;
         $this->orderItemQuantityModifier = $orderItemQuantityModifier;

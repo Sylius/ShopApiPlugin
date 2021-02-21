@@ -28,21 +28,16 @@ final class PutSimpleItemToCartHandler
     /** @var ProductInCartChannelCheckerInterface */
     private $channelChecker;
 
-    /** @var AvailabilityCheckerInterface */
-    private $availabilityChecker;
-
     public function __construct(
         OrderRepositoryInterface $cartRepository,
         ProductRepositoryInterface $productRepository,
         OrderModifierInterface $orderModifier,
-        ProductInCartChannelCheckerInterface $channelChecker,
-        AvailabilityCheckerInterface $availabilityChecker
+        ProductInCartChannelCheckerInterface $channelChecker
     ) {
         $this->cartRepository = $cartRepository;
         $this->productRepository = $productRepository;
         $this->orderModifier = $orderModifier;
         $this->channelChecker = $channelChecker;
-        $this->availabilityChecker = $availabilityChecker;
     }
 
     public function __invoke(PutSimpleItemToCart $putSimpleItemToCart): void
@@ -61,8 +56,6 @@ final class PutSimpleItemToCartHandler
         $productVariant = $product->getVariants()[0];
 
         $quantity = $putSimpleItemToCart->quantity();
-        Assert::true($this->availabilityChecker->isStockSufficient($productVariant, $quantity), 'Product variant is not available in stock');
-
         $this->orderModifier->modify($cart, $productVariant, $quantity);
     }
 }
