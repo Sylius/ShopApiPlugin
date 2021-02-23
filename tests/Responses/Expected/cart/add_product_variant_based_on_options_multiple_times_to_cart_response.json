@@ -9,6 +9,7 @@
             "id": @integer@,
             "quantity": 6,
             "total": 3000,
+            "subTotal": 3000,
             "product": {
                 "code": "LOGAN_HAT_CODE",
                 "name": "Logan Hat",

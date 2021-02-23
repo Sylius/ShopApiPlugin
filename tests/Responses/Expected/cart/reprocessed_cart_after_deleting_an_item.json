@@ -9,6 +9,7 @@
             "id": @integer@,
             "quantity": 1,
             "total": 1999,
+            "subTotal": 1999,
             "product": {
                 "code": "LOGAN_MUG_CODE",
                 "name": "Logan Mug",

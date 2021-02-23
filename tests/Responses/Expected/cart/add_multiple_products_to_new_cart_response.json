@@ -8,6 +8,7 @@
     {
       "id": @integer@,
       "quantity": 3,
+      "subTotal": 5997,
       "total": 5997,
       "product": {
         "code": "LOGAN_MUG_CODE",
@@ -69,6 +70,7 @@
     {
       "id": @integer@,
       "quantity": 3,
+      "subTotal": 5997,
       "total": 5997,
       "product": {
         "code": "LOGAN_T_SHIRT_CODE",
@@ -127,6 +129,7 @@
     {
       "id": @integer@,
       "quantity": 3,
+      "subTotal": 1500,
       "total": 1500,
       "product": {
         "code": "LOGAN_HAT_CODE",
