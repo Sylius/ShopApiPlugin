@@ -9,8 +9,10 @@ use Sylius\Component\Core\Factory\CartItemFactoryInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
+use Sylius\Component\Inventory\Checker\AvailabilityCheckerInterface;
 use Sylius\Component\Order\Modifier\OrderItemQuantityModifierInterface;
 use Sylius\Component\Order\Processor\OrderProcessorInterface;
+use Webmozart\Assert\Assert;
 
 final class OrderModifier implements OrderModifierInterface
 {
@@ -26,28 +28,41 @@ final class OrderModifier implements OrderModifierInterface
     /** @var ObjectManager */
     private $orderManager;
 
+    /** @var AvailabilityCheckerInterface|null */
+    private $availabilityChecker;
+
     public function __construct(
         CartItemFactoryInterface $cartItemFactory,
         OrderItemQuantityModifierInterface $orderItemQuantityModifier,
         OrderProcessorInterface $orderProcessor,
-        ObjectManager $orderManager
+        ObjectManager $orderManager,
+        ?AvailabilityCheckerInterface $availabilityChecker = null
     ) {
         $this->cartItemFactory = $cartItemFactory;
         $this->orderItemQuantityModifier = $orderItemQuantityModifier;
         $this->orderProcessor = $orderProcessor;
         $this->orderManager = $orderManager;
+        $this->availabilityChecker = $availabilityChecker;
+
+        if ($this->availabilityChecker === null) {
+            @trigger_error(sprintf('Not passing a $availabilityChecker to %s constructor is deprecated', self::class), \E_USER_DEPRECATED);
+        }
     }
 
     public function modify(OrderInterface $order, ProductVariantInterface $productVariant, int $quantity): void
     {
         $cartItem = $this->getCartItemToModify($order, $productVariant);
         if (null !== $cartItem) {
-            $this->orderItemQuantityModifier->modify($cartItem, $cartItem->getQuantity() + $quantity);
+            $targetQuantity = $cartItem->getQuantity() + $quantity;
+            $this->checkCartQuantity($productVariant, $targetQuantity);
+
+            $this->orderItemQuantityModifier->modify($cartItem, $targetQuantity);
             $this->orderProcessor->process($order);
 
             return;
         }
 
+        $this->checkCartQuantity($productVariant, $quantity);
         $cartItem = $this->cartItemFactory->createForCart($order);
         $cartItem->setVariant($productVariant);
         $this->orderItemQuantityModifier->modify($cartItem, $quantity);
@@ -69,5 +84,16 @@ final class OrderModifier implements OrderModifierInterface
         }
 
         return null;
+    }
+
+    private function checkCartQuantity(ProductVariantInterface $productVariant, int $targetQuantity): void
+    {
+        if($this->availabilityChecker === null) {
+            return;
+        }
+        Assert::true(
+            $this->availabilityChecker->isStockSufficient($productVariant, $targetQuantity),
+            'Not enough stock for product variant: '. $productVariant->getCode()
+        );
     }
 }
