@@ -7,7 +7,9 @@ namespace Sylius\ShopApiPlugin\Factory\Product;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\ProductImageInterface;
 use Sylius\Component\Core\Model\ProductInterface;
+use Sylius\Component\Product\Model\ProductInterface as ProductModelProductInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
+use Sylius\Component\Product\Model\ProductVariantInterface as ProductModelProductVariantInterface;
 use Sylius\Component\Product\Model\ProductAssociationInterface;
 use Sylius\ShopApiPlugin\Exception\ViewCreationException;
 use Sylius\ShopApiPlugin\Factory\ImageViewFactoryInterface;
@@ -52,11 +54,11 @@ final class ListProductViewFactory implements ProductViewFactoryInterface
         $productView = $this->productViewFactory->create($product, $channel, $locale);
 
         /** @var ProductVariantInterface $variant */
-        foreach ($product->getVariants() as $variant) {
+        foreach ($product->getVariants()->filter(function(ProductModelProductVariantInterface $variant): bool {
+            return $variant->isEnabled();
+        }) as $variant) {
             try {
-                if ($variant->isEnabled()) {
-                    $productView->variants[$variant->getCode()] = $this->variantViewFactory->create($variant, $channel, $locale);
-                }
+                $productView->variants[$variant->getCode()] = $this->variantViewFactory->create($variant, $channel, $locale);
             } catch (ViewCreationException $exception) {
                 continue;
             }
@@ -66,13 +68,13 @@ final class ListProductViewFactory implements ProductViewFactoryInterface
         foreach ($product->getImages() as $image) {
             $imageView = $this->imageViewFactory->create($image);
 
-            foreach ($image->getProductVariants() as $productVariant) {
-                if ($productVariant->isEnabled()) {
-                    /** @var ProductVariantView $variantView */
-                    $variantView = $productView->variants[$productVariant->getCode()];
+            foreach ($image->getProductVariants()->filter(function(ProductModelProductVariantInterface $variant): bool {
+                return $variant->isEnabled();
+            }) as $productVariant) {
+                /** @var ProductVariantView $variantView */
+                $variantView = $productView->variants[$productVariant->getCode()];
 
-                    $variantView->images[] = $imageView;
-                }
+                $variantView->images[] = $imageView;
             }
         }
 
@@ -83,10 +85,10 @@ final class ListProductViewFactory implements ProductViewFactoryInterface
     {
         $associatedProducts = [];
 
-        foreach ($association->getAssociatedProducts() as $associatedProduct) {
-            if ($associatedProduct->isEnabled()) {
-                $associatedProducts[] = $this->createWithVariants($associatedProduct, $channel, $locale);
-            }
+        foreach ($association->getAssociatedProducts()->filter(function(ProductModelProductInterface $product): bool {
+            return $product->isEnabled();
+        }) as $associatedProduct) {
+            $associatedProducts[] = $this->createWithVariants($associatedProduct, $channel, $locale);
         }
 
         return $associatedProducts;
