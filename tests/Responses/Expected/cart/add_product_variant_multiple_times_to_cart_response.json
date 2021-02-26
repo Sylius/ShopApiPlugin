@@ -9,6 +9,7 @@
             "id": @integer@,
             "quantity": 6,
             "total": 11994,
+            "subTotal": 11994,
             "product": {
                 "code": "LOGAN_T_SHIRT_CODE",
                 "name": "Logan T-Shirt",

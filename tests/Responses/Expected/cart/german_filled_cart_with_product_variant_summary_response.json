@@ -8,6 +8,7 @@
         {
             "id": @integer@,
             "quantity": 3,
+            "subTotal": 1770,
             "total": 1770,
             "product": {
                 "code": "LOGAN_HAT_CODE",

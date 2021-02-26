@@ -8,6 +8,7 @@
     {
       "id": @integer@,
       "quantity": 3,
+      "subTotal": 5997,
       "total": 5997,
       "product": {
         "code": "LOGAN_MUG_CODE",
