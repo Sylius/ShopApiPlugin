@@ -5,24 +5,25 @@
     "license": "MIT",
     "require": {
         "php": "^7.3",
-
-        "sylius/sylius": "^1.8",
+        "sylius/sylius": "^1.9",
         "lexik/jwt-authentication-bundle": "^2.5",
-        "symfony/messenger": "^4.4"
+        "symfony/messenger": "^5.2",
+        "doctrine/doctrine-bundle": "^2.0",
+        "friendsofsymfony/oauth-server-bundle": ">2.0.0-alpha.0 ^2.0@dev"
     },
     "require-dev": {
-        "lchrusciel/api-test-case": "^4.0",
+        "lchrusciel/api-test-case": "^5.1",
         "matthiasnoback/symfony-config-test": "^4.0",
         "matthiasnoback/symfony-dependency-injection-test": "^4.0",
-        "phpspec/phpspec": "^6.1",
+        "phpspec/phpspec": "^7.0",
         "phpstan/phpstan": "^0.12",
         "phpstan/phpstan-webmozart-assert": "^0.12",
-        "phpunit/phpunit": "^8.0",
+        "phpunit/phpunit": "^9.0",
         "sylius-labs/coding-standard": "^3.0",
-        "symfony/debug-bundle": "^4.1",
-        "symfony/dotenv": "^4.1",
-        "symfony/web-profiler-bundle": "^4.1",
-        "symfony/web-server-bundle": "^4.1",
+        "symfony/debug-bundle": "^5.2",
+        "symfony/dotenv": "^5.2",
+        "symfony/web-profiler-bundle": "^5.2",
+        "symfony/web-server-bundle": "^4.4",
         "mamazu/documentation-validator": "^1.0.1"
     },
     "autoload": {

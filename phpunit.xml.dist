@@ -1,26 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/6.5/phpunit.xsd"
-         colors="true"
-         bootstrap="vendor/autoload.php">
-    <testsuites>
-        <testsuite name="Sylius Shop Api Test Suite">
-            <directory>./tests</directory>
-        </testsuite>
-    </testsuites>
-
-    <php>
-        <server name="KERNEL_CLASS" value="Tests\Sylius\ShopApiPlugin\Application\Kernel" />
-        <server name="IS_DOCTRINE_ORM_SUPPORTED" value="true" />
-        <server name="ESCAPE_JSON" value="true" />
-    </php>
-
-    <filter>
-        <whitelist>
-            <directory>./tests/Application</directory>
-            <directory>./tests/DataFixtures</directory>
-            <directory>./tests/Responses</directory>
-        </whitelist>
-    </filter>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd" colors="true" bootstrap="vendor/autoload.php">
+  <coverage>
+    <include>
+      <directory>./tests/Application</directory>
+      <directory>./tests/DataFixtures</directory>
+      <directory>./tests/Responses</directory>
+    </include>
+  </coverage>
+  <testsuites>
+    <testsuite name="Sylius Shop Api Test Suite">
+      <directory>./tests</directory>
+    </testsuite>
+  </testsuites>
+  <php>
+    <server name="KERNEL_CLASS" value="Tests\Sylius\ShopApiPlugin\Application\Kernel"/>
+    <server name="IS_DOCTRINE_ORM_SUPPORTED" value="true"/>
+    <server name="ESCAPE_JSON" value="true"/>
+  </php>
 </phpunit>
