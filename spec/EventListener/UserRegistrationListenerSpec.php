@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\EventListener;
 
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
@@ -23,7 +23,7 @@ final class UserRegistrationListenerSpec extends ObjectBehavior
         MessageBusInterface $bus,
         ChannelRepositoryInterface $channelRepository,
         UserRepositoryInterface $userRepository,
-        ObjectManager $userManager
+        EntityManagerInterface $userManager
     ): void {
         $this->beConstructedWith($bus, $channelRepository, $userRepository, $userManager);
     }
