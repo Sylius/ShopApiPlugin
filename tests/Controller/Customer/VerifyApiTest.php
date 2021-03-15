@@ -35,7 +35,6 @@ JSON;
 
         /** @var UserRepositoryInterface $userRepository */
         $userRepository = $this->get('sylius.repository.shop_user');
-        dd($data);
         $user = $userRepository->findOneByEmail('vinny@fandf.com');
 
         $parameters = ['token' => $user->getEmailVerificationToken()];
