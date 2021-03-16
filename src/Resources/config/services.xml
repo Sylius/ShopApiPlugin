@@ -48,5 +48,13 @@
             <argument type="service" id="sylius.context.channel" />
             <argument type="service" id="sylius.shop_api_plugin.command_provider.pickup_cart" />
         </service>
+
+
+        <!-- TODO: Remove this definition when LocaleSetter tag priority will be fixed on Sylius/Sylius (changed from 4 to >16) -->
+        <service id="sylius.listener.request_locale_setter" class="Sylius\Bundle\LocaleBundle\Listener\RequestLocaleSetter">
+            <argument type="service" id="sylius.context.locale" />
+            <argument type="service" id="sylius.locale_provider" />
+            <tag name="kernel.event_listener" event="kernel.request" priority="25" />
+        </service>
     </services>
 </container>
