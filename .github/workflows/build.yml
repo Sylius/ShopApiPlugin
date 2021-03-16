@@ -13,7 +13,7 @@ jobs:
     tests:
         runs-on: ubuntu-20.04
 
-        name: "PHP ${{ matrix.php }}, MySQL ${{ matrix.mysql }}"
+        name: "Sylius ${{ matrix.sylius }}, PHP ${{ matrix.php }}, Symfony ${{ matrix.symfony }}, MySQL ${{ matrix.mysql }}"
 
         strategy:
             fail-fast: false
@@ -21,11 +21,16 @@ jobs:
                 php: [7.4, 7.3]
                 node: [10.x]
                 mysql: [5.7, 8.0]
+                symfony: [^4.4, ^5.2]
+                sylius: [~1.8.0, ~1.9.0]
 
                 exclude:
                     - # PHP 7.3 does not support "caching_sha2_password" authentication plugin which is a default one in MySQL 8.0
                         php: 7.3
                         mysql: 8.0
+                    -
+                        sylius: ~1.8.0
+                        symfony: ^5.2
 
         env:
             APP_ENV: test
@@ -65,6 +70,18 @@ jobs:
             -
                 name: Output PHP version for Symfony CLI
                 run: php -v | head -n 1 | awk '{ print $2 }' > .php-version
+
+            -
+                name: Restrict Symfony version
+                if: matrix.symfony != ''
+                run: |
+                    composer require --no-progress --no-scripts --no-plugins "symfony/flex:^1.10"
+                    composer config extra.symfony.require "${{ matrix.symfony }}"
+
+            -
+                name: Restrict Sylius version
+                if: matrix.sylius != ''
+                run: composer require "sylius/sylius:${{ matrix.sylius }}" --no-update --no-scripts --no-interaction
 
             -
                 name: Get Composer cache directory
