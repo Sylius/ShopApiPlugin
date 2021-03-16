@@ -107,10 +107,6 @@ jobs:
                     (cd tests/Application && bin/console doctrine:schema:create -vvv)
 
             -
-                name: Validate composer.json
-                run: composer validate --ansi --strict
-
-            -
                 name: Run PHPStan
                 run: vendor/bin/phpstan analyse -c phpstan.neon --no-progress src
 
