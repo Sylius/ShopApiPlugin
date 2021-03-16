@@ -12,6 +12,5 @@ parameters:
 
     ignoreErrors:
         - /^Access to an undefined property Symfony\\Component\\Validator\\Constraint::\$message\.$/
-        - '/Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface::dispatch\(\)/'
         - '/Sylius\\Component\\Core\\Model\\(\w+), Sylius\\Component\\\w+\\Model\\\1 given\./'
         - '/Call to static method Webmozart\\Assert\\Assert::implementsInterface\(\) with string/'
