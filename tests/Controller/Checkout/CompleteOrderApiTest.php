@@ -4,13 +4,22 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller\Checkout;
 
+use Doctrine\Common\Persistence\ObjectManager;
+use Sylius\Bundle\CoreBundle\Doctrine\ORM\ProductRepository;
+use Sylius\Bundle\CoreBundle\Doctrine\ORM\ProductVariantRepository;
 use Sylius\Component\Core\Model\ChannelInterface;
+use Sylius\Component\Core\Model\OrderItemInterface;
+use Sylius\Component\Core\Model\Product;
 use Sylius\Component\Core\Model\ProductInterface;
+use Sylius\Component\Core\Model\ProductVariant;
+use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\ShopApiPlugin\Command\Cart\AddressOrder;
 use Sylius\ShopApiPlugin\Command\Cart\ChoosePaymentMethod;
 use Sylius\ShopApiPlugin\Command\Cart\ChooseShippingMethod;
 use Sylius\ShopApiPlugin\Command\Cart\PickupCart;
 use Sylius\ShopApiPlugin\Command\Cart\PutSimpleItemToCart;
+use Sylius\ShopApiPlugin\Command\Cart\PutVariantBasedConfigurableItemToCart;
+use Sylius\ShopApiPlugin\Command\Cart\RemoveItemFromCart;
 use Sylius\ShopApiPlugin\Model\Address;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -167,7 +176,7 @@ JSON;
         $bus->dispatch(new ChoosePaymentMethod($token, 0, 'PBC'));
 
         $data =
-            <<<JSON
+<<<JSON
         {
             "email": "example@cusomer.com",
             "notes": "BRING IT AS FAST AS YOU CAN, PLEASE!"
@@ -214,7 +223,7 @@ JSON;
         $bus->dispatch(new ChooseShippingMethod($token, 0, 'FREE'));
 
         $data =
-            <<<JSON
+<<<JSON
         {
             "email": "example@cusomer.com",
             "notes": "BRING IT AS FAST AS YOU CAN, PLEASE!"
@@ -374,7 +383,7 @@ JSON;
         $token = 'SDAOSLEFNWU35H3QLI5325';
 
         $data =
-            <<<JSON
+<<<JSON
         {
             "email": "example@cusomer.com",
             "notes": "BRING IT AS FAST AS YOU CAN, PLEASE!"
@@ -400,7 +409,7 @@ JSON;
         $bus->dispatch(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
 
         $data =
-            <<<JSON
+<<<JSON
         {
             "email": "example@cusomer.com",
             "notes": "BRING IT AS FAST AS YOU CAN, PLEASE!"
@@ -409,6 +418,185 @@ JSON;
 
         $response = $this->complete($token, $data);
         $this->assertResponse($response, 'checkout/cart_not_ready_for_checkout', Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @test
+     */
+    public function it_disallows_to_complete_checkout_if_product_is_disabled(): void
+    {
+        $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml', 'payment.yml']);
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var MessageBusInterface $bus */
+        $bus = $this->get('sylius_shop_api_plugin.command_bus');
+        $bus->dispatch(new PickupCart($token, 'WEB_GB'));
+        $bus->dispatch(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
+        $bus->dispatch(new AddressOrder(
+            $token,
+            Address::createFromArray([
+                'firstName' => 'Sherlock',
+                'lastName' => 'Holmes',
+                'city' => 'London',
+                'street' => 'Baker Street 221b',
+                'countryCode' => 'GB',
+                'postcode' => 'NWB',
+                'provinceName' => 'Greater London',
+            ]), Address::createFromArray([
+            'firstName' => 'Sherlock',
+            'lastName' => 'Holmes',
+            'city' => 'London',
+            'street' => 'Baker Street 221b',
+            'countryCode' => 'GB',
+            'postcode' => 'NWB',
+            'provinceName' => 'Greater London',
+        ])
+        ));
+        $bus->dispatch(new ChooseShippingMethod($token, 0, 'DHL'));
+        $bus->dispatch(new ChoosePaymentMethod($token, 0, 'PBC'));
+
+        /** @var ProductRepository $productRepository */
+        $productRepository = $this->get('sylius.repository.product');
+
+        /** @var ObjectManager $productManager */
+        $productManager = $this->get('sylius.manager.product');
+
+        /** @var Product $product */
+        $product = $productRepository->findOneBy(['code' => 'LOGAN_MUG_CODE']);
+        $product->setEnabled(false);
+
+        $productManager->persist($product);
+        $productManager->flush();
+
+        $data =
+<<<JSON
+        {
+            "email": "example@cusomer.com"
+        }
+JSON;
+
+        $response = $this->complete($token, $data);
+        $this->assertResponse($response, 'checkout/cart_failed_checkout_product_not_eligible_response', Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @test
+     */
+    public function it_disallows_to_complete_checkout_if_product_variant_is_disabled(): void
+    {
+        $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml', 'payment.yml']);
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var MessageBusInterface $bus */
+        $bus = $this->get('sylius_shop_api_plugin.command_bus');
+        $bus->dispatch(new PickupCart($token, 'WEB_GB'));
+        $bus->dispatch(new PutVariantBasedConfigurableItemToCart($token, 'LOGAN_T_SHIRT_CODE', 'LARGE_LOGAN_T_SHIRT_CODE', 1));
+        $bus->dispatch(new AddressOrder(
+            $token,
+            Address::createFromArray([
+                'firstName' => 'Sherlock',
+                'lastName' => 'Holmes',
+                'city' => 'London',
+                'street' => 'Baker Street 221b',
+                'countryCode' => 'GB',
+                'postcode' => 'NWB',
+                'provinceName' => 'Greater London',
+            ]), Address::createFromArray([
+            'firstName' => 'Sherlock',
+            'lastName' => 'Holmes',
+            'city' => 'London',
+            'street' => 'Baker Street 221b',
+            'countryCode' => 'GB',
+            'postcode' => 'NWB',
+            'provinceName' => 'Greater London',
+        ])
+        ));
+        $bus->dispatch(new ChooseShippingMethod($token, 0, 'DHL'));
+        $bus->dispatch(new ChoosePaymentMethod($token, 0, 'PBC'));
+
+        /** @var ProductVariantRepository $productVariantRepository */
+        $productVariantRepository = $this->get('sylius.repository.product_variant');
+
+        /** @var ObjectManager $productVariantManager */
+        $productVariantManager = $this->get('sylius.manager.product_variant');
+
+        /** @var ProductVariant $productVariant */
+        $productVariant = $productVariantRepository->findOneBy(['code' => 'LARGE_LOGAN_T_SHIRT_CODE']);
+
+        $productVariant->setEnabled(false);
+
+        $productVariantManager->persist($productVariant);
+        $productVariantManager->flush();
+
+        $data =
+<<<JSON
+        {
+            "email": "example@cusomer.com"
+        }
+JSON;
+
+        $response = $this->complete($token, $data);
+
+        $this->assertResponse($response, 'checkout/cart_failed_checkout_product_variant_not_eligible_response', Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @test
+     */
+    public function it_disallows_to_complete_checkout_if_chart_is_empty(): void
+    {
+        $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml', 'payment.yml']);
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var MessageBusInterface $bus */
+        $bus = $this->get('sylius_shop_api_plugin.command_bus');
+        $bus->dispatch(new PickupCart($token, 'WEB_GB'));
+        $bus->dispatch(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 1));
+        $bus->dispatch(new AddressOrder(
+            $token,
+            Address::createFromArray([
+                'firstName' => 'Sherlock',
+                'lastName' => 'Holmes',
+                'city' => 'London',
+                'street' => 'Baker Street 221b',
+                'countryCode' => 'GB',
+                'postcode' => 'NWB',
+                'provinceName' => 'Greater London',
+            ]), Address::createFromArray([
+            'firstName' => 'Sherlock',
+            'lastName' => 'Holmes',
+            'city' => 'London',
+            'street' => 'Baker Street 221b',
+            'countryCode' => 'GB',
+            'postcode' => 'NWB',
+            'provinceName' => 'Greater London',
+        ])
+        ));
+        $bus->dispatch(new ChooseShippingMethod($token, 0, 'DHL'));
+        $bus->dispatch(new ChoosePaymentMethod($token, 0, 'PBC'));
+
+        /** @var OrderRepositoryInterface $orderRepository */
+        $orderRepository = $this->get('sylius.repository.order');
+
+        $order = $orderRepository->findOneBy(['tokenValue' => $token]);
+
+        /** @var OrderItemInterface $orderItem */
+        $orderItem = $order->getItems()->first();
+
+        $bus->dispatch(new RemoveItemFromCart($token, $orderItem->getId()));
+
+        $data =
+<<<JSON
+        {
+            "email": "example@cusomer.com"
+        }
+JSON;
+
+        $response = $this->complete($token, $data);
+        $this->assertResponse($response, 'checkout/cart_empty_response', Response::HTTP_BAD_REQUEST);
     }
 
     private function complete(string $token, ?string $data = null): Response

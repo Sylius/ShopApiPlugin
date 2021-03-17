@@ -2,8 +2,11 @@
     "code": 400,
     "message": "Validation failed",
     "errors": {
-        "id": [
-            "Cart item does not exist."
-        ]
+      "token": [
+        "sylius.shop_api.checkout.cart.empty"
+      ],
+      "id": [
+          "Cart item does not exist."
+      ]
     }
 }

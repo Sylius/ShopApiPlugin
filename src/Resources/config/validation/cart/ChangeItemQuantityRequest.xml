@@ -18,6 +18,7 @@
                 <option name="message">sylius.shop_api.token.not_null</option>
             </constraint>
             <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\CartExists" />
+            <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\CartNotEmpty" />
         </property>
         <property name="quantity">
             <constraint name="Type">
@@ -39,6 +40,7 @@
                 <option name="message">sylius.shop_api.cart_item.not_null</option>
             </constraint>
             <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\CartItemExists" />
+            <constraint name="Sylius\ShopApiPlugin\Validator\Constraints\CartItemEligibility" />
         </property>
     </class>
 </constraint-mapping>

@@ -1,0 +1,343 @@
+{
+    "items": [
+        {
+            "code": "LOGAN_HAT_CODE",
+            "name": "Logan Hat",
+            "slug": "logan-hat",
+            "channelCode": "WEB_GB",
+            "description": "Some description Lorem ipsum dolor sit amet.",
+            "averageRating": 0,
+            "taxons": {
+                "main": "HAT",
+                "others": [
+                    "HAT",
+                    "BRAND"
+                ]
+            },
+            "variants": {
+                "LARGE_RED_LOGAN_HAT_CODE": {
+                    "code": "LARGE_RED_LOGAN_HAT_CODE",
+                    "name": "Large Red Logan Hat",
+                    "axis": [
+                        "HAT_SIZE_L",
+                        "HAT_COLOR_RED"
+                    ],
+                    "nameAxis": {
+                        "HAT_SIZE_L": "Size L",
+                        "HAT_COLOR_RED": "Color Red"
+                    },
+                    "available": true,
+                    "price": {
+                        "current": 999,
+                        "currency": "GBP"
+                    },
+                    "images": []
+                },
+                "SMALL_BLUE_LOGAN_HAT_CODE": {
+                    "code": "SMALL_BLUE_LOGAN_HAT_CODE",
+                    "name": "Small Blue Logan Hat",
+                    "axis": [
+                        "HAT_SIZE_S",
+                        "HAT_COLOR_BLUE"
+                    ],
+                    "nameAxis": {
+                        "HAT_SIZE_S": "Size S",
+                        "HAT_COLOR_BLUE": "Color Blue"
+                    },
+                    "available": true,
+                    "price": {
+                        "current": 1500,
+                        "currency": "GBP"
+                    },
+                    "images": []
+                },
+                "LARGE_BLUE_LOGAN_HAT_CODE": {
+                    "code": "LARGE_BLUE_LOGAN_HAT_CODE",
+                    "name": "Large Blue Logan Hat",
+                    "axis": [
+                        "HAT_SIZE_L",
+                        "HAT_COLOR_BLUE"
+                    ],
+                    "nameAxis": {
+                        "HAT_SIZE_L": "Size L",
+                        "HAT_COLOR_BLUE": "Color Blue"
+                    },
+                    "available": true,
+                    "price": {
+                        "current": 2599,
+                        "currency": "GBP"
+                    },
+                    "images": []
+                }
+            },
+            "attributes": [],
+            "associations": {
+                "CROSS_SELL_ASSOCIATION_TYPE": [
+                    {
+                        "code": "LOGAN_MUG_CODE",
+                        "name": "Logan Mug",
+                        "slug": "logan-mug",
+                        "channelCode": "WEB_GB",
+                        "description": "Some description Lorem ipsum dolor sit amet.",
+                        "averageRating": 0,
+                        "taxons": {
+                            "main": "MUG",
+                            "others": [
+                                "MUG",
+                                "BRAND"
+                            ]
+                        },
+                        "variants": {
+                            "LOGAN_MUG_CODE": {
+                                "code": "LOGAN_MUG_CODE",
+                                "name": "Logan Mug",
+                                "axis": [],
+                                "nameAxis": {},
+                                "available": true,
+                                "price": {
+                                    "current": 1999,
+                                    "currency": "GBP"
+                                },
+                                "originalPrice": {
+                                    "current": 2999,
+                                    "currency": "GBP"
+                                },
+                                "images": [
+                                    {
+                                        "code": "thumbnail",
+                                        "path": "/pants.jpeg",
+                                        "cachedPath": "http://localhost/media/cache/sylius_shop_api/pants.jpeg"
+                                    }
+                                ]
+                            }
+                        },
+                        "attributes": [
+                            {
+                                "code": "MUG_MATERIAL_CODE",
+                                "name": "Mug material",
+                                "type": "select",
+                                "value": [
+                                    "Wood"
+                                ]
+                            }
+                        ],
+                        "associations": [],
+                        "images": [
+                            {
+                                "code": "thumbnail",
+                                "path": "/pants.jpeg",
+                                "cachedPath": "http://localhost/media/cache/sylius_shop_api/pants.jpeg"
+                            }
+                        ],
+                        "_links": {
+                            "self": {
+                                "href": "\/shop-api\/products\/by-slug\/logan-mug"
+                            }
+                        }
+                    },
+                    {
+                        "code": "LOGAN_T_SHIRT_CODE",
+                        "name": "Logan T-Shirt",
+                        "slug": "logan-t-shirt",
+                        "channelCode": "WEB_GB",
+                        "description": "Some description Lorem ipsum dolor sit amet.",
+                        "averageRating": 0,
+                        "taxons": {
+                            "main": "T_SHIRTS",
+                            "others": [
+                                "WOMEN_T_SHIRTS",
+                                "BRAND"
+                            ]
+                        },
+                        "variants": {
+                            "SMALL_LOGAN_T_SHIRT_CODE": {
+                                "code": "SMALL_LOGAN_T_SHIRT_CODE",
+                                "name": "Small Logan T-Shirt",
+                                "axis": [],
+                                "nameAxis": {},
+                                "available": true,
+                                "price": {
+                                    "current": 1999,
+                                    "currency": "GBP"
+                                },
+                                "images": [
+                                    {
+                                        "code": "thumbnail",
+                                        "path": "/pants.jpeg",
+                                        "cachedPath": "http://localhost/media/cache/sylius_shop_api/pants.jpeg"
+                                    }
+                                ]
+                            },
+                            "LARGE_LOGAN_T_SHIRT_CODE": {
+                                "code": "LARGE_LOGAN_T_SHIRT_CODE",
+                                "name": "Large Logan T-Shirt",
+                                "axis": [],
+                                "nameAxis": {},
+                                "available": true,
+                                "price": {
+                                    "current": 2999,
+                                    "currency": "GBP"
+                                },
+                                "images": [
+                                    {
+                                        "code": "thumbnail",
+                                        "path": "/pants.jpeg",
+                                        "cachedPath": "http://localhost/media/cache/sylius_shop_api/pants.jpeg"
+                                    }
+                                ]
+                            }
+                        },
+                        "attributes": [],
+                        "associations": [],
+                        "images": [
+                            {
+                                "code": "thumbnail",
+                                "path": "/pants.jpeg",
+                                "cachedPath": "http://localhost/media/cache/sylius_shop_api/pants.jpeg"
+                            },
+                            {
+                                "code": "thumbnail",
+                                "path": "/pants.jpeg",
+                                "cachedPath": "http://localhost/media/cache/sylius_shop_api/pants.jpeg"
+                            },
+                            {
+                                "code": "thumbnail",
+                                "path": "/pants.jpeg",
+                                "cachedPath": "http://localhost/media/cache/sylius_shop_api/pants.jpeg"
+                            }
+                        ],
+                        "_links": {
+                            "self": {
+                                "href": "\/shop-api\/products\/by-slug\/logan-t-shirt"
+                            }
+                        }
+                    }
+                ]
+            },
+            "images": [],
+            "_links": {
+                "self": {
+                    "href": "\/shop-api\/products\/by-slug\/logan-hat"
+                }
+            }
+        },
+        {
+            "code": "LOGAN_MUG_CODE",
+            "name": "Logan Mug",
+            "slug": "logan-mug",
+            "channelCode": "WEB_GB",
+            "description": "Some description Lorem ipsum dolor sit amet.",
+            "averageRating": 0,
+            "taxons": {
+                "main": "MUG",
+                "others": [
+                    "MUG",
+                    "BRAND"
+                ]
+            },
+            "variants": {
+                "LOGAN_MUG_CODE": {
+                    "code": "LOGAN_MUG_CODE",
+                    "name": "Logan Mug",
+                    "axis": [],
+                    "nameAxis": {},
+                    "available": true,
+                    "price": {
+                        "current": 1999,
+                        "currency": "GBP"
+                    },
+                    "originalPrice": {
+                        "current": 2999,
+                        "currency": "GBP"
+                    },
+                    "images": [
+                        {
+                            "code": "thumbnail",
+                            "path": "/pants.jpeg",
+                            "cachedPath": "http://localhost/media/cache/sylius_shop_api/pants.jpeg"
+                        }
+                    ]
+                }
+            },
+            "attributes": [
+                {
+                    "code": "MUG_MATERIAL_CODE",
+                    "name": "Mug material",
+                    "type": "select",
+                    "value": [
+                        "Wood"
+                    ]
+                }
+            ],
+            "associations": [],
+            "images": [
+                {
+                    "code": "thumbnail",
+                    "path": "/pants.jpeg",
+                    "cachedPath": "http://localhost/media/cache/sylius_shop_api/pants.jpeg"
+                }
+            ],
+            "_links": {
+                "self": {
+                    "href": "\/shop-api\/products\/by-slug\/logan-mug"
+                }
+            }
+        },
+        {
+            "code": "LOGAN_SHOES_CODE",
+            "name": "Logan Shoes",
+            "slug": "logan-shoes",
+            "channelCode": "WEB_GB",
+            "description": "Some description Lorem ipsum dolor sit amet.",
+            "averageRating": 0,
+            "taxons": {
+                "others": []
+            },
+            "variants": [],
+            "attributes": [],
+            "associations": [],
+            "images": [],
+            "_links": {
+                "self": {
+                    "href": "\/shop-api\/products\/by-slug\/logan-shoes"
+                }
+            }
+        },
+        {
+            "code": "FREE_DOWNLOAD",
+            "name": "Free download",
+            "slug": "free-download",
+            "channelCode": "WEB_GB",
+            "description": "Some description Lorem ipsum dolor sit amet.",
+            "averageRating": 0,
+            "taxons": {
+                "others": []
+            },
+            "variants": {
+                "FREE_DOWNLOAD": {
+                    "code": "FREE_DOWNLOAD",
+                    "axis": [],
+                    "nameAxis": {},
+                    "available": true,
+                    "price": {
+                        "current": 0,
+                        "currency": "GBP"
+                    },
+                    "originalPrice": {
+                        "current": 0,
+                        "currency": "GBP"
+                    },
+                    "images": []
+                }
+            },
+            "attributes": [],
+            "associations": [],
+            "images": [],
+            "_links": {
+                "self": {
+                    "href": "\/shop-api\/products\/by-slug\/free-download"
+                }
+            }
+        }
+    ]
+}

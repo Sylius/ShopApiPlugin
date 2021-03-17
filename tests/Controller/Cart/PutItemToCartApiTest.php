@@ -4,7 +4,12 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller\Cart;
 
+use Doctrine\Common\Persistence\ObjectManager;
+use Sylius\Bundle\CoreBundle\Doctrine\ORM\ProductRepository;
+use Sylius\Bundle\CoreBundle\Doctrine\ORM\ProductVariantRepository;
 use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\Component\Core\Model\Product;
+use Sylius\Component\Core\Model\ProductVariant;
 use Sylius\ShopApiPlugin\Command\Cart\AddressOrder;
 use Sylius\ShopApiPlugin\Command\Cart\AssignCustomerToCart;
 use Sylius\ShopApiPlugin\Command\Cart\ChoosePaymentMethod;
@@ -240,7 +245,7 @@ JSON;
         $bus->dispatch(new PickupCart($token, 'unused_channel'));
 
         $data =
-            <<<JSON
+<<<JSON
         {
             "productCode": "LOGAN_MUG_CODE",
             "quantity": 3
@@ -327,6 +332,45 @@ JSON;
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/validation_cart_not_exists_response', Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @test
+     */
+    public function it_validates_if_product_is_enabled_during_add_simple_product(): void
+    {
+        $this->loadFixturesFromFiles(['shop.yml']);
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var ProductRepository $productRepository */
+        $productRepository = $this->get('sylius.repository.product');
+
+        /** @var ObjectManager $productManager */
+        $productManager = $this->get('sylius.manager.product');
+
+        /** @var Product $product */
+        $product = $productRepository->findOneBy(['code' => 'LOGAN_MUG_CODE']);
+        $product->setEnabled(false);
+
+        $productManager->persist($product);
+        $productManager->flush();
+
+        /** @var MessageBusInterface $bus */
+        $bus = $this->get('sylius_shop_api_plugin.command_bus');
+        $bus->dispatch(new PickupCart($token, 'WEB_GB'));
+
+        $data =
+<<<JSON
+        {
+            "productCode": "LOGAN_MUG_CODE",
+            "quantity": 3
+        }
+JSON;
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'cart/validation_product_non_eligible_response', Response::HTTP_BAD_REQUEST);
     }
 
     /**
@@ -505,7 +549,7 @@ JSON;
         $bus->dispatch(new PickupCart($token, 'unused_channel'));
 
         $data =
-            <<<JSON
+<<<JSON
         {
             "productCode": "LOGAN_T_SHIRT_CODE",
             "variantCode": "SMALL_LOGAN_T_SHIRT_CODE",
@@ -572,11 +616,28 @@ JSON;
         $this->assertResponse($response, 'cart/validation_product_variant_not_exists_response', Response::HTTP_BAD_REQUEST);
     }
 
-    public function it_throws_an_exception_if_product_variant_has_not_been_found(): void
+    /**
+     * @test
+     */
+    public function it_validates_if_product_variant_is_enabled_during_add_variant_based_configurable_product(): void
     {
         $this->loadFixturesFromFiles(['shop.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var ProductVariantRepository $productVariantRepository */
+        $productVariantRepository = $this->get('sylius.repository.product_variant');
+
+        /** @var ObjectManager $productVariantManager */
+        $productVariantManager = $this->get('sylius.manager.product_variant');
+
+        /** @var ProductVariant $productVariant */
+        $productVariant = $productVariantRepository->findOneBy(['code' => 'LARGE_LOGAN_T_SHIRT_CODE']);
+
+        $productVariant->setEnabled(false);
+
+        $productVariantManager->persist($productVariant);
+        $productVariantManager->flush();
 
         /** @var MessageBusInterface $bus */
         $bus = $this->get('sylius_shop_api_plugin.command_bus');
@@ -585,17 +646,15 @@ JSON;
         $data =
 <<<JSON
         {
-            "productCode": "LOGAN_HAT_CODE",
-            "options": {
-                "HAT_SIZE": "HAT_SIZE_S"
-            },
+            "productCode": "LOGAN_T_SHIRT_CODE",
+            "variantCode": "LARGE_LOGAN_T_SHIRT_CODE",
             "quantity": 3
         }
 JSON;
-        $this->client->request('POST', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/items', [], [], self::CONTENT_TYPE_HEADER, $data);
+        $this->client->request('POST', sprintf('/shop-api/carts/%s/items', $token), [], [], self::CONTENT_TYPE_HEADER, $data);
         $response = $this->client->getResponse();
 
-        $this->assertResponse($response, 'cart/product_variant_has_not_been_found_response', Response::HTTP_NOT_FOUND);
+        $this->assertResponse($response, 'cart/validation_product_variant_non_eligible_response', Response::HTTP_BAD_REQUEST);
     }
 
     /**
@@ -673,7 +732,7 @@ JSON;
         $bus->dispatch(new PickupCart($token, 'unused_channel'));
 
         $data =
-            <<<JSON
+<<<JSON
         {
             "productCode": "LOGAN_HAT_CODE",
             "options": {
@@ -687,6 +746,35 @@ JSON;
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'cart/product_not_in_cart_channel', Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @test
+     */
+    public function it_validates_if_product_variant_exists(): void
+    {
+        $this->loadFixturesFromFiles(['shop.yml']);
+
+        $token = 'SDAOSLEFNWU35H3QLI5325';
+
+        /** @var MessageBusInterface $bus */
+        $bus = $this->get('sylius_shop_api_plugin.command_bus');
+        $bus->dispatch(new PickupCart($token, 'WEB_GB'));
+
+        $data =
+<<<JSON
+        {
+            "productCode": "LOGAN_HAT_CODE",
+            "options": {
+                "HAT_SIZE": "HAT_SIZE_S"
+            },
+            "quantity": 3
+        }
+JSON;
+        $this->client->request('POST', '/shop-api/carts/SDAOSLEFNWU35H3QLI5325/items', [], [], self::CONTENT_TYPE_HEADER, $data);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'cart/product_option_exists_response', Response::HTTP_BAD_REQUEST);
     }
 
     /**

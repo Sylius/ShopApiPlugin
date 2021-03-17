@@ -86,7 +86,7 @@ JSON;
         $bus->dispatch(new ChooseShippingMethod($token, 0, 'DHL'));
 
         $data =
-            <<<JSON
+<<<JSON
         {
             "method": "NON_EXISTING_PAYMENT"
         }
@@ -131,7 +131,7 @@ JSON;
         $bus->dispatch(new ChooseShippingMethod($token, 0, 'DHL'));
 
         $data =
-            <<<JSON
+<<<JSON
         {
             "method": "NOT_AVAILABLE"
         }

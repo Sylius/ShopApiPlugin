@@ -1,0 +1,9 @@
+{
+  "code": 400,
+  "message": "Validation failed",
+  "errors": {
+    "id": [
+      "sylius.shop_api.cart_item.product.non_eligible"
+    ]
+  }
+}

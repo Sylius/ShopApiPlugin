@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller\Product;
 
+use Sylius\Component\Core\Model\ProductVariantInterface;
+use Sylius\Component\Core\Repository\ProductVariantRepositoryInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\Sylius\ShopApiPlugin\Controller\JsonApiTestCase;
 
@@ -83,6 +85,33 @@ final class ShowDetailsBySlugApiTest extends JsonApiTestCase
         $response = $this->client->getResponse();
 
         $this->assertResponse($response, 'product/product_with_variant_details_page', Response::HTTP_OK);
+    }
+
+    /**
+     * @test
+     */
+    public function it_shows_product_with_variant_details_without_disabled_product_variante_page(): void
+    {
+        $this->loadFixturesFromFiles(['shop.yml']);
+
+        /** @var ProductVariantRepositoryInterface $productVariantRepository */
+        $productVariantRepository = $this->get('sylius.repository.product_variant');
+
+        /** @var \Doctrine\Persistence\ObjectManager $productVariantManager */
+        $productVariantManager = $this->get('sylius.manager.product_variant');
+
+        /** @var ProductVariantInterface $productVariant */
+        $productVariant = $productVariantRepository->findOneBy(['code' => 'SMALL_LOGAN_T_SHIRT_CODE']);
+
+        $productVariant->disable();
+
+        $productVariantManager->persist($productVariant);
+        $productVariantManager->flush();
+
+        $this->client->request('GET', '/shop-api/products/by-slug/logan-t-shirt', [], [], self::CONTENT_TYPE_HEADER);
+        $response = $this->client->getResponse();
+
+        $this->assertResponse($response, 'product/product_with_variant_details_without_disabled_product_variant_page', Response::HTTP_OK);
     }
 
     /**
