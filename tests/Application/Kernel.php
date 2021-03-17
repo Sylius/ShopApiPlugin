@@ -85,7 +85,7 @@ final class Kernel extends BaseKernel
         /** @var ContainerBuilder $container */
         Assert::isInstanceOf($container, ContainerBuilder::class);
 
-        $locator = new FileLocator($this, $this->getRootDir() . '/Resources');
+        $locator = new FileLocator($this);
         $resolver = new LoaderResolver([
             new XmlFileLoader($container, $locator),
             new YamlFileLoader($container, $locator),

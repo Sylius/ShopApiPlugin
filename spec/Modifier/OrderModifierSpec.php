@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace spec\Sylius\ShopApiPlugin\Modifier;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Sylius\Component\Core\Factory\CartItemFactoryInterface;
@@ -23,7 +23,7 @@ final class OrderModifierSpec extends ObjectBehavior
         CartItemFactoryInterface $cartItemFactory,
         OrderItemQuantityModifierInterface $orderItemQuantityModifier,
         OrderProcessorInterface $orderProcessor,
-        ObjectManager $orderManager
+        EntityManagerInterface $orderManager
     ): void {
         $this->beConstructedWith($cartItemFactory, $orderItemQuantityModifier, $orderProcessor, $orderManager);
     }
@@ -36,7 +36,7 @@ final class OrderModifierSpec extends ObjectBehavior
     function it_modifies_quantity_of_existing_item_with_the_same_variant_if_it_exist(
         OrderItemQuantityModifierInterface $orderItemQuantityModifier,
         OrderProcessorInterface $orderProcessor,
-        ObjectManager $orderManager,
+        EntityManagerInterface $orderManager,
         OrderInterface $order,
         OrderItemInterface $existingItem,
         ProductVariantInterface $productVariant
@@ -58,7 +58,7 @@ final class OrderModifierSpec extends ObjectBehavior
         CartItemFactoryInterface $cartItemFactory,
         OrderItemQuantityModifierInterface $orderItemQuantityModifier,
         OrderProcessorInterface $orderProcessor,
-        ObjectManager $orderManager,
+        EntityManagerInterface $orderManager,
         OrderInterface $order,
         OrderItemInterface $cartItem,
         ProductVariantInterface $productVariant
@@ -82,7 +82,7 @@ final class OrderModifierSpec extends ObjectBehavior
         CartItemFactoryInterface $cartItemFactory,
         OrderItemQuantityModifierInterface $orderItemQuantityModifier,
         OrderProcessorInterface $orderProcessor,
-        ObjectManager $orderManager,
+        EntityManagerInterface $orderManager,
         OrderInterface $order,
         OrderItemInterface $cartItem,
         ProductVariantInterface $productVariant,

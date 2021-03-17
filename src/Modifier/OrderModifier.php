@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Modifier;
 
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Sylius\Component\Core\Factory\CartItemFactoryInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
@@ -25,7 +25,7 @@ final class OrderModifier implements OrderModifierInterface
     /** @var OrderProcessorInterface */
     private $orderProcessor;
 
-    /** @var ObjectManager */
+    /** @var EntityManagerInterface */
     private $orderManager;
 
     /** @var AvailabilityCheckerInterface|null */
@@ -35,7 +35,7 @@ final class OrderModifier implements OrderModifierInterface
         CartItemFactoryInterface $cartItemFactory,
         OrderItemQuantityModifierInterface $orderItemQuantityModifier,
         OrderProcessorInterface $orderProcessor,
-        ObjectManager $orderManager,
+        EntityManagerInterface $orderManager,
         ?AvailabilityCheckerInterface $availabilityChecker = null
     ) {
         $this->cartItemFactory = $cartItemFactory;

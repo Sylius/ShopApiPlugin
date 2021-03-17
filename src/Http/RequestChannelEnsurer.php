@@ -7,7 +7,7 @@ namespace Sylius\ShopApiPlugin\Http;
 use Sylius\ShopApiPlugin\Checker\ChannelExistenceCheckerInterface;
 use Sylius\ShopApiPlugin\Exception\ChannelNotFoundException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
+use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
 
@@ -21,7 +21,7 @@ final class RequestChannelEnsurer implements EventSubscriberInterface
         $this->channelExistenceChecker = $channelExistenceChecker;
     }
 
-    public function checkChannelCode(FilterControllerEvent $event): void
+    public function checkChannelCode(ControllerEvent $event): void
     {
         $requestAttributes = $event->getRequest()->attributes;
 

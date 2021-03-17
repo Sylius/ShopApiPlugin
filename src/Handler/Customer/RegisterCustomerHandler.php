@@ -66,14 +66,14 @@ final class RegisterCustomerHandler
 
         $this->userRepository->add($user);
 
-        $this->eventDispatcher->dispatch('sylius.customer.post_api_registered', new CustomerRegistered(
+        $this->eventDispatcher->dispatch(new CustomerRegistered(
             $command->email(),
             $command->firstName(),
             $command->lastName(),
             $command->channelCode(),
             $command->subscribedToNewsletter(),
             $command->phoneNumber()
-        ));
+        ), 'sylius.customer.post_api_registered');
     }
 
     private function assertEmailIsNotTaken(string $email): void

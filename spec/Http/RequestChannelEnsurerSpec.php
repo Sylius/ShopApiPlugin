@@ -11,8 +11,9 @@ use Sylius\ShopApiPlugin\Exception\ChannelNotFoundException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
+use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 final class RequestChannelEnsurerSpec extends ObjectBehavior
 {
@@ -28,10 +29,16 @@ final class RequestChannelEnsurerSpec extends ObjectBehavior
 
     function it_ensures_that_channel_code_passed_in_request_is_valid(
         ChannelExistenceCheckerInterface $channelExistenceChecker,
-        FilterControllerEvent $event,
+        HttpKernelInterface $kernel,
         Request $request
     ): void {
-        $event->getRequest()->willReturn($request);
+        $event = new ControllerEvent(
+            $kernel->getWrappedObject(),
+            function () {},
+            $request->getWrappedObject(),
+            HttpKernelInterface::MASTER_REQUEST
+        );
+
         $request->attributes = new ParameterBag(['channelCode' => 'WEB_US']);
 
         $channelExistenceChecker->withCode('WEB_US')->willThrow(ChannelNotFoundException::class);
@@ -44,10 +51,16 @@ final class RequestChannelEnsurerSpec extends ObjectBehavior
 
     function it_does_nothing_if_there_is_no_channel_code_in_request_attributes(
         ChannelExistenceCheckerInterface $channelExistenceChecker,
-        FilterControllerEvent $event,
+        HttpKernelInterface $kernel,
         Request $request
     ): void {
-        $event->getRequest()->willReturn($request);
+        $event = new ControllerEvent(
+            $kernel->getWrappedObject(),
+            function () {},
+            $request->getWrappedObject(),
+            HttpKernelInterface::MASTER_REQUEST
+        );
+
         $request->attributes = new ParameterBag([]);
 
         $channelExistenceChecker->withCode(Argument::any())->shouldNotBeCalled();
