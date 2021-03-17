@@ -83,7 +83,7 @@ final class ShowApiTest extends JsonApiTestCase
         $this->placeOrderForCustomerWithEmail($email, $token);
 
         //logout
-        $this->client->setServerParameter('HTTP_Authorization', null);
+        $this->client->setServerParameter('HTTP_Authorization', '');
 
         $response = $this->showOrder($token);
         $this->assertResponse($response, 'order/order_placed_by_registered_customer', Response::HTTP_NOT_FOUND);
