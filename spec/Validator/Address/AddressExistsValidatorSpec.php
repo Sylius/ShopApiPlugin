@@ -79,4 +79,26 @@ final class AddressExistsValidatorSpec extends ObjectBehavior
 
         $this->validate('ADDRESS_ID', new AddressExists());
     }
+
+    function it_adds_constraint_if_the_address_is_not_owned_by_anyone(
+        AddressInterface $address,
+        AddressRepositoryInterface $addressRepository,
+        LoggedInShopUserProviderInterface $currentUserProvider,
+        ShopUserInterface $shopUser,
+        CustomerInterface $customerOwner,
+        ExecutionContextInterface $executionContext
+    ): void {
+        $addressRepository->findOneBy(['id' => 'ADDRESS_ID'])->willReturn($address);
+
+        $customerOwner->getEmail()->willReturn('oliver@queen.com');
+        $address->getCustomer()->willReturn(null);
+
+        $currentUserProvider->provide()->willReturn($shopUser);
+
+        $shopUser->getEmail()->willReturn('shop@example.com');
+
+        $executionContext->addViolation('sylius.shop_api.address.not_exists')->shouldBeCalled();
+
+        $this->validate('ADDRESS_ID', new AddressExists());
+    }
 }
