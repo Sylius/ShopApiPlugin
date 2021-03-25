@@ -43,7 +43,7 @@ final class AddressExistsValidator extends ConstraintValidator
 
         $user = $this->loggedInUserProvider->provide();
 
-        if ($address->getCustomer()->getEmail() !== $user->getEmail()) {
+        if (null === $address->getCustomer() || $address->getCustomer()->getEmail() !== $user->getEmail()) {
             $this->context->addViolation($constraint->message);
 
             return;
