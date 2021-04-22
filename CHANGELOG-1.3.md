@@ -1,5 +1,10 @@
 # CHANGELOG FOR `1.3.X`
 
+## v1.3.1 (2021-04-22)
+
+### Fixed
+- [#712](https://github.com/Sylius/ShopApiPlugin/issues/712) [Config] Remove overriden localeSetter definition ([@lchrusciel](https://github.com/lchrusciel))
+
 ## v1.3.0 (2021-04-22)
 
 #### TL;DR
