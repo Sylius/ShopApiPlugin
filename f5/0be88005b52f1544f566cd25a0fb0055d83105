@@ -1,0 +1,24 @@
+---------------------------------------------------------------------------
+
+by mamazu at 2021-03-26T19:18:19Z
+
+Hey,
+thanks for your contribution. This looks like an issue that should be fixed. Would you mind, to add tests for you new behaviour?
+
+---------------------------------------------------------------------------
+
+by diimpp at 2021-03-30T07:45:13Z
+
+Fixes https://github.com/Sylius/ShopApiPlugin/issues/705
+
+---------------------------------------------------------------------------
+
+by mamazu at 2021-03-31T09:03:38Z
+
+I have pushed tests to this branch and it is ready to be merged.
+
+---------------------------------------------------------------------------
+
+by lchrusciel at 2021-04-22T08:43:14Z
+
+Thanks, Denys! :1st_place_medal:
