@@ -1,5 +1,10 @@
 # CHANGELOG FOR `1.2.X`
 
+## v1.2.1 (2021-04-22)
+
+### Fixed
+- [#676](https://github.com/Sylius/ShopApiPlugin/issues/676) Fixing the Checkout state validator. ([@mamazu](https://github.com/mamazu))
+
 ## v1.2.0 (2020-12-08)
 
 #### TL;DR
