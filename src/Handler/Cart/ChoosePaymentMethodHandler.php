@@ -58,7 +58,11 @@ final class ChoosePaymentMethodHandler
         $stateMachine->apply(OrderCheckoutTransitions::TRANSITION_SELECT_PAYMENT);
     }
 
-    private function getPayment(OrderInterface $cart, $identifier): PaymentInterface
+    /**
+     * @param string|int $identifier
+     * @return PaymentInterface|\Sylius\Component\Payment\Model\PaymentInterface
+     */
+    private function getPayment(OrderInterface $cart, $identifier)
     {
         $allPayments = $cart->getPayments();
         Assert::true(isset($allPayments[$identifier]), 'Can not find payment with given identifier.');
