@@ -26,18 +26,22 @@ final class ChoosePaymentMethodHandler
     /** @var FactoryInterface */
     private $stateMachineFactory;
 
-    /** @var PaymentMethodsResolverInterface */
+    /** @var PaymentMethodsResolverInterface|null */
     private $paymentMethodsResolver;
 
     public function __construct(
         OrderRepositoryInterface $orderRepository,
         PaymentMethodRepositoryInterface $paymentMethodRepository,
         FactoryInterface $stateMachineFactory,
-        PaymentMethodsResolverInterface $paymentMethodsResolver
+        ?PaymentMethodsResolverInterface $paymentMethodsResolver = null
     ) {
         $this->orderRepository = $orderRepository;
         $this->paymentMethodRepository = $paymentMethodRepository;
         $this->stateMachineFactory = $stateMachineFactory;
+
+        if($this->paymentMethodsResolver === null) {
+            @trigger_error(sprintf('Not passing %s as the fourth argument is deprecated', PaymentMethodsResolverInterface::class), \E_USER_DEPRECATED);
+        }
         $this->paymentMethodsResolver = $paymentMethodsResolver;
     }
 
@@ -52,7 +56,8 @@ final class ChoosePaymentMethodHandler
 
         $payment = $this->getPayment($cart, $choosePaymentMethod->paymentIdentifier());
         $paymentMethod = $this->getPaymentMethod($choosePaymentMethod->paymentMethod());
-        Assert::inArray($paymentMethod, $this->paymentMethodsResolver->getSupportedMethods($payment), 'Payment does not support the selected payment method');
+
+        $this->validatePaymentMethod($payment, $paymentMethod);
 
         $payment->setMethod($paymentMethod);
         $stateMachine->apply(OrderCheckoutTransitions::TRANSITION_SELECT_PAYMENT);
@@ -77,5 +82,19 @@ final class ChoosePaymentMethodHandler
         Assert::notNull($paymentMethod, 'Payment method has not been found');
 
         return $paymentMethod;
+    }
+
+    private function validatePaymentMethod(
+        \Sylius\Component\Payment\Model\PaymentInterface $payment,
+        PaymentMethodInterface $paymentMethod
+    ): void {
+        if ($this->paymentMethodsResolver === null) {
+            return;
+        }
+        Assert::inArray(
+            $paymentMethod,
+            $this->paymentMethodsResolver->getSupportedMethods($payment),
+            'Payment does not support the selected payment method'
+        );
     }
 }
