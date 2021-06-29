@@ -16,7 +16,7 @@
         "matthiasnoback/symfony-config-test": "^4.0",
         "matthiasnoback/symfony-dependency-injection-test": "^4.0",
         "phpspec/phpspec": "^7.0",
-        "phpstan/phpstan": "^0.12",
+        "phpstan/phpstan": "0.12.90",
         "phpstan/phpstan-webmozart-assert": "^0.12",
         "phpunit/phpunit": "^9.0",
         "sylius-labs/coding-standard": "^3.0",
