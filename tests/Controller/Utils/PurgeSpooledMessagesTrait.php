@@ -9,7 +9,7 @@ use Symfony\Component\Filesystem\Filesystem;
 
 trait PurgeSpooledMessagesTrait
 {
-    abstract protected function getContainer(): ContainerInterface;
+    abstract protected static function getContainer(): ContainerInterface;
 
     /**
      * @before

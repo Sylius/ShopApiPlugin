@@ -110,7 +110,7 @@ JSON;
         $this->assertResponse($response, 'customer/customer_log_in_response', Response::HTTP_OK);
     }
 
-    protected function getContainer(): ContainerInterface
+    protected static function getContainer(): ContainerInterface
     {
         return static::$sharedKernel->getContainer();
     }

@@ -76,7 +76,7 @@ JSON;
         return $this->client->getResponse();
     }
 
-    protected function getContainer(): ContainerInterface
+    protected static function getContainer(): ContainerInterface
     {
         return static::$sharedKernel->getContainer();
     }

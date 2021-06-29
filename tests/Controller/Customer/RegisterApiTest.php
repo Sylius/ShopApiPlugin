@@ -182,7 +182,7 @@ JSON;
         $this->assertResponse($response, 'customer/validation_registration_data_response', Response::HTTP_BAD_REQUEST);
     }
 
-    protected function getContainer(): ContainerInterface
+    protected static function getContainer(): ContainerInterface
     {
         return static::$sharedKernel->getContainer();
     }
