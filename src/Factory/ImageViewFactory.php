@@ -37,8 +37,17 @@ final class ImageViewFactory implements ImageViewFactoryInterface
         $imageView->code = $image->getType();
         $imageView->path = $image->getPath();
 
-        $imageView->cachedPath = $this->filterService->getUrlOfFilteredImage($image->getPath(), $this->filter);
+        if ($this->canImageBeFiltered($image->getPath())) {
+            $imageView->cachedPath = $this->filterService->getUrlOfFilteredImage($image->getPath(), $this->filter);
+        } else {
+            $imageView->cachedPath = $image->getPath();
+        }
 
         return $imageView;
+    }
+    
+    private function canImageBeFiltered(string $path): bool
+    {
+        return substr($path, -4) !== '.svg';
     }
 }
