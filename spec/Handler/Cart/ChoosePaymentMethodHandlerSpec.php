@@ -15,6 +15,7 @@ use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Core\OrderCheckoutTransitions;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\PaymentMethodRepositoryInterface;
+use Sylius\Component\Payment\Resolver\PaymentMethodsResolverInterface;
 use Sylius\ShopApiPlugin\Command\Cart\ChoosePaymentMethod;
 
 final class ChoosePaymentMethodHandlerSpec extends ObjectBehavior
@@ -22,19 +23,21 @@ final class ChoosePaymentMethodHandlerSpec extends ObjectBehavior
     function let(
         OrderRepositoryInterface $orderRepository,
         PaymentMethodRepositoryInterface $paymentMethodRepository,
-        FactoryInterface $stateMachineFactory
+        FactoryInterface $stateMachineFactory,
+        PaymentMethodsResolverInterface $paymentMethodsResolver
     ): void {
-        $this->beConstructedWith($orderRepository, $paymentMethodRepository, $stateMachineFactory);
+        $this->beConstructedWith($orderRepository, $paymentMethodRepository, $stateMachineFactory, $paymentMethodsResolver);
     }
 
-    function it_assignes_choosen_payment_method_to_specified_payment(
+    function it_assigns_chosen_payment_method_to_specified_payment(
         OrderRepositoryInterface $orderRepository,
         OrderInterface $order,
         PaymentMethodRepositoryInterface $paymentMethodRepository,
         PaymentMethodInterface $paymentMethod,
         PaymentInterface $payment,
         FactoryInterface $stateMachineFactory,
-        StateMachineInterface $stateMachine
+        StateMachineInterface $stateMachine,
+        PaymentMethodsResolverInterface $paymentMethodsResolver
     ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
         $order->getPayments()->willReturn(new ArrayCollection([$payment->getWrappedObject()]));
@@ -42,6 +45,8 @@ final class ChoosePaymentMethodHandlerSpec extends ObjectBehavior
 
         $stateMachineFactory->get($order, OrderCheckoutTransitions::GRAPH)->willReturn($stateMachine);
         $stateMachine->can('select_payment')->willReturn(true);
+
+        $paymentMethodsResolver->getSupportedMethods($payment)->willReturn([$paymentMethod]);
 
         $payment->setMethod($paymentMethod)->shouldBeCalled();
         $stateMachine->apply('select_payment')->shouldBeCalled();
@@ -98,6 +103,7 @@ final class ChoosePaymentMethodHandlerSpec extends ObjectBehavior
         StateMachineInterface $stateMachine
     ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
+        $order->getPayments()->willReturn(new ArrayCollection([]));
         $paymentMethodRepository->findOneBy(['code' => 'CASH_ON_DELIVERY_METHOD'])->willReturn(null);
         $stateMachineFactory->get($order, OrderCheckoutTransitions::GRAPH)->willReturn($stateMachine);
         $stateMachine->can('select_payment')->willReturn(true);
@@ -137,5 +143,32 @@ final class ChoosePaymentMethodHandlerSpec extends ObjectBehavior
                 new ChoosePaymentMethod('ORDERTOKEN', 0, 'CASH_ON_DELIVERY_METHOD'),
             ])
         ;
+    }
+
+    function it_throws_an_exception_if_the_payment_method_is_not_available(
+        OrderRepositoryInterface $orderRepository,
+        OrderInterface $order,
+        PaymentMethodRepositoryInterface $paymentMethodRepository,
+        PaymentMethodInterface $paymentMethod,
+        PaymentMethodInterface $availableMethod,
+        PaymentInterface $payment,
+        FactoryInterface $stateMachineFactory,
+        StateMachineInterface $stateMachine,
+        PaymentMethodsResolverInterface $paymentMethodsResolver
+    ): void {
+        $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
+        $order->getPayments()->willReturn(new ArrayCollection([$payment->getWrappedObject()]));
+        $paymentMethodRepository->findOneBy(['code' => 'CASH_ON_DELIVERY_METHOD'])->willReturn($paymentMethod);
+
+        $stateMachineFactory->get($order, OrderCheckoutTransitions::GRAPH)->willReturn($stateMachine);
+        $stateMachine->can('select_payment')->willReturn(true);
+
+        $paymentMethodsResolver->getSupportedMethods($payment)->willReturn([$availableMethod]);
+
+        $payment->setMethod($paymentMethod)->shouldNotBeCalled();
+        $stateMachine->apply('select_payment')->shouldNotBeCalled();
+
+        $this->shouldThrow(\InvalidArgumentException::class)
+             ->during('__invoke', [new ChoosePaymentMethod('ORDERTOKEN', 0, 'CASH_ON_DELIVERY_METHOD')]);
     }
 }
