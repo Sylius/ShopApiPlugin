@@ -4,10 +4,10 @@
     "description": "Shop API for Sylius E-Commerce.",
     "license": "MIT",
     "require": {
-        "php": "^7.3",
-        "sylius/sylius": "^1.8",
+        "php": "^7.4|^8.0",
+        "sylius/sylius": "^1.9",
         "lexik/jwt-authentication-bundle": "^2.5",
-        "symfony/messenger": "^4.4|5.2",
+        "symfony/messenger": "^4.4|^5.2",
         "doctrine/doctrine-bundle": "^2.0",
         "friendsofsymfony/oauth-server-bundle": ">2.0.0-alpha.0 ^2.0@dev"
     },
@@ -16,15 +16,14 @@
         "matthiasnoback/symfony-config-test": "^4.0",
         "matthiasnoback/symfony-dependency-injection-test": "^4.0",
         "phpspec/phpspec": "^7.0",
-        "phpstan/phpstan": "^0.12",
+        "phpstan/phpstan": "0.12.90",
         "phpstan/phpstan-webmozart-assert": "^0.12",
         "phpunit/phpunit": "^9.0",
         "sylius-labs/coding-standard": "^3.0",
-        "symfony/debug-bundle": "^4.4|5.2",
-        "symfony/dotenv": "^4.4|5.2",
-        "symfony/web-profiler-bundle": "^4.4|5.2",
-        "symfony/web-server-bundle": "^4.4",
-        "mamazu/documentation-validator": "^1.0.1"
+        "symfony/debug-bundle": "^4.4|^5.2",
+        "symfony/dotenv": "^4.4|^5.2",
+        "symfony/web-profiler-bundle": "^4.4|^5.2",
+        "symfony/web-server-bundle": "^4.4"
     },
     "autoload": {
         "psr-4": {

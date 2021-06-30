@@ -18,19 +18,15 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                php: [7.4, 7.3]
+                php: [7.4, 8.0]
                 node: [10.x]
                 mysql: [5.7, 8.0]
-                symfony: [^4.4, ^5.2]
-                sylius: [~1.8.0, ~1.9.0]
-
+                symfony: [^4.4, ~5.2.0, ~5.3.0]
+                sylius: [~1.9.0, ~1.10.0]
                 exclude:
-                    - # PHP 7.3 does not support "caching_sha2_password" authentication plugin which is a default one in MySQL 8.0
-                        php: 7.3
-                        mysql: 8.0
-                    -
-                        sylius: ~1.8.0
-                        symfony: ^5.2
+                    - # Sylius 1.9 does not support PHP 8.0
+                        sylius: ~1.9.0
+                        php: 8.0
 
         env:
             APP_ENV: test
@@ -117,7 +113,3 @@ jobs:
             -
                 name: Run PHPUnit
                 run: vendor/bin/phpunit --colors=always
-
-            -
-                name: Run Doc Parser
-                run: vendor/bin/doc-parser doc/Cookbook.md

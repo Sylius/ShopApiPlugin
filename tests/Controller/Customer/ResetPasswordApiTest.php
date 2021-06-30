@@ -48,7 +48,7 @@ JSON;
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
     }
 
-    protected function getContainer(): ContainerInterface
+    protected static function getContainer(): ContainerInterface
     {
         return static::$sharedKernel->getContainer();
     }

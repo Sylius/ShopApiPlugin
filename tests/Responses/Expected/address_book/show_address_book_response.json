@@ -31,11 +31,6 @@
                     "ROLE_USER"
                 ],
                 "enabled": true
-            },
-            "_links": {
-                "self": {
-                    "href": "@string@.contains('/api/v1/customers/')"
-                }
             }
         }
     },
@@ -71,11 +66,6 @@
                     "ROLE_USER"
                 ],
                 "enabled": true
-            },
-            "_links": {
-                "self": {
-                    "href": "@string@.contains('/api/v1/customers/')"
-                }
             }
         }
     },
@@ -111,11 +101,6 @@
                     "ROLE_USER"
                 ],
                 "enabled": true
-            },
-            "_links": {
-                "self": {
-                    "href": "@string@.contains('/api/v1/customers/')"
-                }
             }
         }
     }
