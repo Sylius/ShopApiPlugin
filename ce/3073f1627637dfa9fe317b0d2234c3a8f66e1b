@@ -1,0 +1,17 @@
+---------------------------------------------------------------------------
+
+by mamazu at 2021-04-22T10:52:47Z
+
+Is that intentional that 1.2.1 is only valid for one day?
+
+---------------------------------------------------------------------------
+
+by lchrusciel at 2021-04-22T15:16:40Z
+
+Yes, this is written according to our [Release Cycle](https://github.com/Sylius/ShopApiPlugin#release-cycle)
+
+---------------------------------------------------------------------------
+
+by lchrusciel at 2021-06-30T07:41:07Z
+
+Thank you, Łukasz! :1st_place_medal:
