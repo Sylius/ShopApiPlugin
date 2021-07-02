@@ -8,8 +8,7 @@
         "sylius/sylius": "^1.9",
         "lexik/jwt-authentication-bundle": "^2.5",
         "symfony/messenger": "^4.4|^5.2",
-        "doctrine/doctrine-bundle": "^2.0",
-        "friendsofsymfony/oauth-server-bundle": ">2.0.0-alpha.0 ^2.0@dev"
+        "doctrine/doctrine-bundle": "^2.0"
     },
     "require-dev": {
         "lchrusciel/api-test-case": "^5.1",
