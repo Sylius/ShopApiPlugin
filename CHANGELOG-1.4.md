@@ -1,5 +1,14 @@
 # CHANGELOG FOR `1.4.X`
 
+## v1.4.1 (2021-07-06)
+
+#### TL;DR
+
+- Removed unneeded dependency of oauth-server-bundle
+
+### Changed
+- [#718](https://github.com/Sylius/ShopApiPlugin/issues/718) Remove unused oauth-server-bundle from dependencies ([@TiMESPLiNTER](https://github.com/TiMESPLiNTER))
+
 ## v1.4.0 (2021-06-30)
 
 #### TL;DR
