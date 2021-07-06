@@ -204,4 +204,5 @@ We provide security fixes for one year since the release of subsequent minor rel
 | 1.2.1   | 22th April 2021    | 22th April 2021    |
 | 1.3     | 22th April 2021    | 22th April 2021    |
 | 1.3.1   | 22th April 2021    | 30th June 2021     |
-| 1.4     | 30th June 2021     | Under development  |
+| 1.4     | 30th June 2021     | 06th July 2021     |
+| 1.4.1   | 06th July 2021     | Under development  |
