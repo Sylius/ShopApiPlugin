@@ -36,6 +36,7 @@ final class ShopApiExtensionTest extends AbstractExtensionTestCase
             'adjustment' => View\Cart\AdjustmentView::class,
             'cart_item' => View\ItemView::class,
             'cart_summary' => View\Cart\CartSummaryView::class,
+            'country' => View\Country\CountryView::class,
             'estimated_shipping_cost' => View\Cart\EstimatedShippingCostView::class,
             'image' => View\ImageView::class,
             'page' => View\Product\PageView::class,

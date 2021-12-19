@@ -66,6 +66,8 @@ final class Configuration implements ConfigurationInterface
                         ->scalarNode('adjustment')->defaultValue(View\Cart\AdjustmentView::class)->end()
                         ->scalarNode('cart_item')->defaultValue(View\ItemView::class)->end()
                         ->scalarNode('cart_summary')->defaultValue(View\Cart\CartSummaryView::class)->end()
+                        ->scalarNode('country')->defaultValue(View\Country\CountryView::class)->end()
+                        ->scalarNode('province')->defaultValue(View\Country\Province\ProvinceView::class)->end()
                         ->scalarNode('customer')->defaultValue(View\Customer\CustomerView::class)->end()
                         ->scalarNode('estimated_shipping_cost')->defaultValue(View\Cart\EstimatedShippingCostView::class)->end()
                         ->scalarNode('image')->defaultValue(View\ImageView::class)->end()
