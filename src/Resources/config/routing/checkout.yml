@@ -1,3 +1,30 @@
+sylius_shop_api_country_checkout:
+    path: /countries
+    methods: [GET]
+    controller: sylius.controller.country:indexAction
+    defaults:
+        _sylius:
+            paginate: false
+            filterable: true
+            criteria:
+                enabled: true
+            sorting:
+                name: asc
+            serialization_groups: [Default]
+
+sylius_shop_api_country_show_details_by_code_checkout:
+    path: /countries/{code}
+    methods: [GET]
+    controller: sylius.controller.country:showAction
+    defaults:
+        _sylius:
+            paginate: false
+            filterable: true
+            criteria:
+                enabled: true
+                code: $code
+            serialization_groups: [Default, Detailed]
+
 sylius_shop_api_address_checkout:
     path: /{token}/address
     methods: [PUT]

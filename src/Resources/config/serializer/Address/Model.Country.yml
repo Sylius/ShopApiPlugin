@@ -1,0 +1,20 @@
+Sylius\Component\Addressing\Model\Country:
+    exclusion_policy: ALL
+    xml_root_name: country
+    properties:
+        id:
+            expose: true
+            type: integer
+            xml_attribute: true
+        code:
+            expose: true
+            type: string
+            xml_attribute: true
+            groups: [Default, Detailed]
+        provinces:
+            expose: true
+            groups: [Detailed]
+    virtual_properties:
+        getName:
+            serialized_name: name
+            groups: [Default, Detailed]

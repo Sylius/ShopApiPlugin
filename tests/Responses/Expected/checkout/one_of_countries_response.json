@@ -1,0 +1,27 @@
+{
+    "id": @integer@,
+    "name": "United Kingdom",
+    "code": "GB",
+    "provinces": [
+        {
+            "id": @integer@,
+            "code": "GB-ENG",
+            "name": "England"
+        },
+        {
+            "id": @integer@,
+            "code": "GB-NIR",
+            "name": "Northern Ireland"
+        },
+        {
+            "id": @integer@,
+            "code": "GB-SCT",
+            "name": "Scotland"
+        },
+        {
+            "id": @integer@,
+            "code": "GB-WLS",
+            "name": "Wales"
+        }
+    ]
+}
