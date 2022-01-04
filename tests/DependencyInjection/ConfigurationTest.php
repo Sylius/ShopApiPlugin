@@ -77,8 +77,6 @@ final class ConfigurationTest extends TestCase
                 'validation_error' => View\ValidationErrorView::class,
                 'variant_option' => View\Product\VariantOptionView::class,
                 'variant_option_value' => View\Product\VariantOptionValueView::class,
-                'country' => View\Country\CountryView::class,
-                'province' => View\Country\Province\ProvinceView::class,
             ],
         ], 'view_classes');
     }
