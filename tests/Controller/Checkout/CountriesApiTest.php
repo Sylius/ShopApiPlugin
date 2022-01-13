@@ -7,7 +7,7 @@ namespace Tests\Sylius\ShopApiPlugin\Controller\Checkout;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\Sylius\ShopApiPlugin\Controller\JsonApiTestCase;
 
-class CountriesApiTest extends JsonApiTestCase
+final class CountriesApiTest extends JsonApiTestCase
 {
     /**
      * @test
