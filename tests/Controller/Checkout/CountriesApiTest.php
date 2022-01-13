@@ -9,7 +9,6 @@ use Tests\Sylius\ShopApiPlugin\Controller\JsonApiTestCase;
 
 class CountriesApiTest extends JsonApiTestCase
 {
-
     /**
      * @test
      */
