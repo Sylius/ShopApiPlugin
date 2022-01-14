@@ -1,8 +1,8 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller\Checkout;
-
 
 use Symfony\Component\HttpFoundation\Response;
 use Tests\Sylius\ShopApiPlugin\Controller\JsonApiTestCase;
