@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * This file is part of the Sylius package.
+ *
+ *  (c) Paweł Jędrzejewski
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Handler\Cart;
@@ -39,7 +48,7 @@ final class ChoosePaymentMethodHandler
         $this->paymentMethodRepository = $paymentMethodRepository;
         $this->stateMachineFactory = $stateMachineFactory;
 
-        if($this->paymentMethodsResolver === null) {
+        if ($this->paymentMethodsResolver === null) {
             @trigger_error(sprintf('Not passing %s as the fourth argument is deprecated', PaymentMethodsResolverInterface::class), \E_USER_DEPRECATED);
         }
         $this->paymentMethodsResolver = $paymentMethodsResolver;
@@ -65,6 +74,7 @@ final class ChoosePaymentMethodHandler
 
     /**
      * @param string|int $identifier
+     *
      * @return PaymentInterface|\Sylius\Component\Payment\Model\PaymentInterface
      */
     private function getPayment(OrderInterface $cart, $identifier)
