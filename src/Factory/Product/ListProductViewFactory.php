@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * This file is part of the Sylius package.
+ *
+ *  (c) Paweł Jędrzejewski
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Factory\Product;
@@ -7,10 +16,10 @@ namespace Sylius\ShopApiPlugin\Factory\Product;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\ProductImageInterface;
 use Sylius\Component\Core\Model\ProductInterface;
-use Sylius\Component\Product\Model\ProductInterface as ProductModelProductInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
-use Sylius\Component\Product\Model\ProductVariantInterface as ProductModelProductVariantInterface;
 use Sylius\Component\Product\Model\ProductAssociationInterface;
+use Sylius\Component\Product\Model\ProductInterface as ProductModelProductInterface;
+use Sylius\Component\Product\Model\ProductVariantInterface as ProductModelProductVariantInterface;
 use Sylius\ShopApiPlugin\Exception\ViewCreationException;
 use Sylius\ShopApiPlugin\Factory\ImageViewFactoryInterface;
 use Sylius\ShopApiPlugin\View\Product\ProductVariantView;
@@ -54,7 +63,7 @@ final class ListProductViewFactory implements ProductViewFactoryInterface
         $productView = $this->productViewFactory->create($product, $channel, $locale);
 
         /** @var ProductVariantInterface $variant */
-        foreach ($product->getVariants()->filter(function(ProductModelProductVariantInterface $variant): bool {
+        foreach ($product->getVariants()->filter(function (ProductModelProductVariantInterface $variant): bool {
             return $variant->isEnabled();
         }) as $variant) {
             try {
@@ -68,7 +77,7 @@ final class ListProductViewFactory implements ProductViewFactoryInterface
         foreach ($product->getImages() as $image) {
             $imageView = $this->imageViewFactory->create($image);
 
-            foreach ($image->getProductVariants()->filter(function(ProductModelProductVariantInterface $variant): bool {
+            foreach ($image->getProductVariants()->filter(function (ProductModelProductVariantInterface $variant): bool {
                 return $variant->isEnabled();
             }) as $productVariant) {
                 /** @var ProductVariantView $variantView */
@@ -85,7 +94,7 @@ final class ListProductViewFactory implements ProductViewFactoryInterface
     {
         $associatedProducts = [];
 
-        foreach ($association->getAssociatedProducts()->filter(function(ProductModelProductInterface $product): bool {
+        foreach ($association->getAssociatedProducts()->filter(function (ProductModelProductInterface $product): bool {
             return $product->isEnabled();
         }) as $associatedProduct) {
             $associatedProducts[] = $this->createWithVariants($associatedProduct, $channel, $locale);
