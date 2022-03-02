@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * This file is part of the Sylius package.
+ *
+ *  (c) Paweł Jędrzejewski
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Modifier;
@@ -88,12 +97,12 @@ final class OrderModifier implements OrderModifierInterface
 
     private function checkCartQuantity(ProductVariantInterface $productVariant, int $targetQuantity): void
     {
-        if($this->availabilityChecker === null) {
+        if ($this->availabilityChecker === null) {
             return;
         }
         Assert::true(
             $this->availabilityChecker->isStockSufficient($productVariant, $targetQuantity),
-            'Not enough stock for product variant: '. $productVariant->getCode()
+            'Not enough stock for product variant: ' . $productVariant->getCode()
         );
     }
 }
