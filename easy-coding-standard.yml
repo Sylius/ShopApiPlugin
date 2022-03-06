@@ -8,6 +8,10 @@ services:
       header: "This file is part of the Sylius package.\n\n (c) Paweł Jędrzejewski\n\nFor the full copyright and license information, please view the LICENSE\nfile that was distributed with this source code."
 
 parameters:
+    paths:
+        - src
+        - spec
+        - tests
     skip:
         SlevomatCodingStandard\Sniffs\Commenting\InlineDocCommentDeclarationSniff.MissingVariable: ~
         SlevomatCodingStandard\Sniffs\Commenting\InlineDocCommentDeclarationSniff.NoAssignment: ~
