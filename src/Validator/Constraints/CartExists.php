@@ -20,13 +20,13 @@ final class CartExists extends Constraint
     /** @var string */
     public $message = 'sylius.shop_api.cart.not_exists';
 
-    /** {@inheritdoc} */
+    /** @inheritdoc */
     public function getTargets()
     {
         return self::PROPERTY_CONSTRAINT;
     }
 
-    /** {@inheritdoc} */
+    /** @inheritdoc */
     public function validatedBy()
     {
         return 'sylius_shop_api_cart_exists_validator';

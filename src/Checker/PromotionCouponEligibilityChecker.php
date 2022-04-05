@@ -37,7 +37,7 @@ final class PromotionCouponEligibilityChecker implements PromotionCouponEligibil
         $this->couponEligibilityChecker = $couponEligibilityChecker;
     }
 
-    /** {@inheritdoc} */
+    /** @inheritdoc */
     public function isEligible(PromotionSubjectInterface $cart, PromotionCouponInterface $coupon): bool
     {
         /** @var OrderInterface $cart */

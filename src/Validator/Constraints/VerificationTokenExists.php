@@ -20,13 +20,13 @@ final class VerificationTokenExists extends Constraint
     /** @var string */
     public $message = 'sylius.shop_api.verification_token.not_exists';
 
-    /** {@inheritdoc} */
+    /** @inheritdoc */
     public function getTargets(): string
     {
         return self::PROPERTY_CONSTRAINT;
     }
 
-    /** {@inheritdoc} */
+    /** @inheritdoc */
     public function validatedBy(): string
     {
         return 'sylius_shop_api_verification_token_exists_validator';

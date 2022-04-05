@@ -55,7 +55,8 @@ final class UpdatePaymentMethodAction
         $validationResults = $this->validator->validate($updateRequest);
         if (0 !== count($validationResults)) {
             return $this->viewHandler->handle(
-                View::create($this->validationErrorViewFactory->create($validationResults),
+                View::create(
+                    $this->validationErrorViewFactory->create($validationResults),
                     Response::HTTP_BAD_REQUEST
                 )
             );

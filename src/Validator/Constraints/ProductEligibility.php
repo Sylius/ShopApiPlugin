@@ -20,13 +20,13 @@ final class ProductEligibility extends Constraint
     /** @var string */
     public $message = 'sylius.shop_api.product.non_eligible';
 
-    /** {@inheritdoc} */
+    /** @inheritdoc */
     public function getTargets()
     {
         return self::PROPERTY_CONSTRAINT;
     }
 
-    /** {@inheritdoc} */
+    /** @inheritdoc */
     public function validatedBy()
     {
         return 'sylius_shop_api_product_eligibility_validator';

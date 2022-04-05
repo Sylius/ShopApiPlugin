@@ -39,7 +39,7 @@ final class PaymentViewFactory implements PaymentViewFactoryInterface
         $this->paymentViewClass = $paymentViewClass;
     }
 
-    /** {@inheritdoc} */
+    /** @inheritdoc */
     public function create(PaymentInterface $payment, string $locale): PaymentView
     {
         /** @var PaymentView $paymentView */

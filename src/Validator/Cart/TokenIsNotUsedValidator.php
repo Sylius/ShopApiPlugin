@@ -27,7 +27,7 @@ final class TokenIsNotUsedValidator extends ConstraintValidator
         $this->orderRepository = $orderRepository;
     }
 
-    /** {@inheritdoc} */
+    /** @inheritdoc */
     public function validate($token, Constraint $constraint): void
     {
         if (null !== $this->orderRepository->findOneBy(['tokenValue' => $token])) {

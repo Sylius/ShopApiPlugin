@@ -28,7 +28,7 @@ final class ValidationErrorViewFactory implements ValidationErrorViewFactoryInte
         $this->validationErrorViewClass = $validationErrorViewClass;
     }
 
-    /** {@inheritdoc} */
+    /** @inheritdoc */
     public function create(ConstraintViolationListInterface $validationResults): ValidationErrorView
     {
         /** @var ValidationErrorView $errorMessage */

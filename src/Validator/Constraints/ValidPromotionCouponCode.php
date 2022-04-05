@@ -20,13 +20,13 @@ final class ValidPromotionCouponCode extends Constraint
     /** @var string */
     public $message = 'sylius.shop_api.coupon.not_valid';
 
-    /** {@inheritdoc} */
+    /** @inheritdoc */
     public function getTargets()
     {
         return self::CLASS_CONSTRAINT;
     }
 
-    /** {@inheritdoc} */
+    /** @inheritdoc */
     public function validatedBy()
     {
         return 'sylius_shop_api_valid_coupon_code_validator';

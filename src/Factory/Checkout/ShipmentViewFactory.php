@@ -31,7 +31,7 @@ final class ShipmentViewFactory implements ShipmentViewFactoryInterface
         $this->shipmentViewClass = $shipmentViewClass;
     }
 
-    /** {@inheritdoc} */
+    /** @inheritdoc */
     public function create(ShipmentInterface $shipment, string $locale): ShipmentView
     {
         /** @var OrderInterface $order */

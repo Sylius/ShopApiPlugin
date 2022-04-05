@@ -53,7 +53,7 @@ final class ProductViewFactory implements ProductViewFactoryInterface
         $this->fallbackLocale = $fallbackLocale;
     }
 
-    /** {@inheritdoc} */
+    /** @inheritdoc */
     public function create(ProductInterface $product, ChannelInterface $channel, string $locale): ProductView
     {
         /** @var ProductView $productView */

@@ -29,13 +29,13 @@ class CartReadyForCheckout extends Constraint
     /** @var string */
     public $messageOnNoPaymentCart = 'sylius.shop_api.checkout.payment_required';
 
-    /** {@inheritdoc} */
+    /** @inheritdoc */
     public function getTargets(): array
     {
         return [self::PROPERTY_CONSTRAINT];
     }
 
-    /** {@inheritdoc} */
+    /** @inheritdoc */
     public function validatedBy(): string
     {
         return 'sylius_shop_api_cart_ready_for_checkout';

@@ -29,7 +29,7 @@ final class PaymentMethodExistsValidator extends ConstraintValidator
         $this->paymentMethodRepository = $paymentMethodRepository;
     }
 
-    /** {@inheritdoc} */
+    /** @inheritdoc */
     public function validate($value, Constraint $constraint): void
     {
         Assert::isInstanceOf($constraint, PaymentMethodExists::class);

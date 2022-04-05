@@ -42,7 +42,7 @@ final class ShippingMethodViewFactory implements ShippingMethodViewFactoryInterf
         $this->shippingMethodViewClass = $shippingMethodViewClass;
     }
 
-    /** {@inheritdoc} */
+    /** @inheritdoc */
     public function create(ShipmentInterface $shipment, string $locale, string $currency): ShippingMethodView
     {
         $shippingMethod = $shipment->getMethod();
@@ -51,7 +51,7 @@ final class ShippingMethodViewFactory implements ShippingMethodViewFactoryInterf
         return $this->createWithShippingMethod($shipment, $shippingMethod, $locale, $currency);
     }
 
-    /** {@inheritdoc} */
+    /** @inheritdoc */
     public function createWithShippingMethod(
         ShipmentInterface $shipment,
         ShippingMethodInterface $shippingMethod,

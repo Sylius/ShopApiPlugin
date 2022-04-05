@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * This file is part of the Sylius package.
+ *
+ *  (c) Paweł Jędrzejewski
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller\Checkout;
@@ -53,7 +62,8 @@ final class CompleteOrderApiTest extends JsonApiTestCase
                 'countryCode' => 'GB',
                 'postcode' => 'NWB',
                 'provinceName' => 'Greater London',
-            ]), Address::createFromArray([
+            ]),
+            Address::createFromArray([
                 'firstName' => 'Sherlock',
                 'lastName' => 'Holmes',
                 'city' => 'London',
@@ -105,7 +115,8 @@ JSON;
                 'countryCode' => 'GB',
                 'postcode' => 'NWB',
                 'provinceName' => 'Greater London',
-            ]), Address::createFromArray([
+            ]),
+            Address::createFromArray([
                 'firstName' => 'Sherlock',
                 'lastName' => 'Holmes',
                 'city' => 'London',
@@ -163,7 +174,8 @@ JSON;
                 'countryCode' => 'GB',
                 'postcode' => 'NWB',
                 'provinceName' => 'Greater London',
-            ]), Address::createFromArray([
+            ]),
+            Address::createFromArray([
                 'firstName' => 'Sherlock',
                 'lastName' => 'Holmes',
                 'city' => 'London',
@@ -210,7 +222,8 @@ JSON;
                 'countryCode' => 'GB',
                 'postcode' => 'NWB',
                 'provinceName' => 'Greater London',
-            ]), Address::createFromArray([
+            ]),
+            Address::createFromArray([
                 'firstName' => 'Sherlock',
                 'lastName' => 'Holmes',
                 'city' => 'London',
@@ -257,7 +270,8 @@ JSON;
                 'countryCode' => 'GB',
                 'postcode' => 'NWB',
                 'provinceName' => 'Greater London',
-            ]), Address::createFromArray([
+            ]),
+            Address::createFromArray([
                 'firstName' => 'Sherlock',
                 'lastName' => 'Holmes',
                 'city' => 'London',
@@ -299,7 +313,8 @@ JSON;
                 'countryCode' => 'GB',
                 'postcode' => 'NWB',
                 'provinceName' => 'Greater London',
-            ]), Address::createFromArray([
+            ]),
+            Address::createFromArray([
             'firstName' => 'Sherlock',
             'lastName' => 'Holmes',
             'city' => 'London',
@@ -347,7 +362,8 @@ JSON;
                 'countryCode' => 'GB',
                 'postcode' => 'NWB',
                 'provinceName' => 'Greater London',
-            ]), Address::createFromArray([
+            ]),
+            Address::createFromArray([
             'firstName' => 'Sherlock',
             'lastName' => 'Holmes',
             'city' => 'London',
@@ -443,7 +459,8 @@ JSON;
                 'countryCode' => 'GB',
                 'postcode' => 'NWB',
                 'provinceName' => 'Greater London',
-            ]), Address::createFromArray([
+            ]),
+            Address::createFromArray([
             'firstName' => 'Sherlock',
             'lastName' => 'Holmes',
             'city' => 'London',
@@ -503,7 +520,8 @@ JSON;
                 'countryCode' => 'GB',
                 'postcode' => 'NWB',
                 'provinceName' => 'Greater London',
-            ]), Address::createFromArray([
+            ]),
+            Address::createFromArray([
             'firstName' => 'Sherlock',
             'lastName' => 'Holmes',
             'city' => 'London',
@@ -565,7 +583,8 @@ JSON;
                 'countryCode' => 'GB',
                 'postcode' => 'NWB',
                 'provinceName' => 'Greater London',
-            ]), Address::createFromArray([
+            ]),
+            Address::createFromArray([
             'firstName' => 'Sherlock',
             'lastName' => 'Holmes',
             'city' => 'London',

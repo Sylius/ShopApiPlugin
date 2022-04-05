@@ -27,7 +27,7 @@ final class CartItemExistsValidator extends ConstraintValidator
         $this->orderItemRepository = $orderItemRepository;
     }
 
-    /** {@inheritdoc} */
+    /** @inheritdoc */
     public function validate($id, Constraint $constraint): void
     {
         if (null === $this->orderItemRepository->find($id)) {

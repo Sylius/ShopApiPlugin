@@ -21,7 +21,7 @@ final class PaymentNotPaid extends Constraint
     /** @var string */
     public $message = 'sylius.shop_api.payment.paid';
 
-    /** {@inheritdoc} */
+    /** @inheritdoc */
     public function getTargets()
     {
         return self::CLASS_CONSTRAINT;

@@ -26,7 +26,7 @@ final class TotalViewFactory implements TotalViewFactoryInterface
         $this->totalsViewClass = $totalsViewClass;
     }
 
-    /** {@inheritdoc} */
+    /** @inheritdoc */
     public function create(OrderInterface $cart): TotalsView
     {
         /** @var TotalsView $totalsView */

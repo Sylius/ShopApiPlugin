@@ -45,7 +45,7 @@ final class ProductInCartChannelValidator extends ConstraintValidator
         $this->cartRepository = $cartRepository;
     }
 
-    /** {@inheritdoc} */
+    /** @inheritdoc */
     public function validate($value, Constraint $constraint): void
     {
         /** @var PutOptionBasedConfigurableItemToCartRequest|PutVariantBasedConfigurableItemToCartRequest|PutSimpleItemToCartRequest $value */

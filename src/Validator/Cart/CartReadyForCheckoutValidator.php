@@ -36,7 +36,7 @@ class CartReadyForCheckoutValidator extends ConstraintValidator
         $this->stateMachineFactory = $stateMachineFactory;
     }
 
-    /** {@inheritdoc} */
+    /** @inheritdoc */
     public function validate($value, Constraint $constraint): void
     {
         /** @var OrderInterface|null $cart */

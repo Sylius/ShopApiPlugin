@@ -28,7 +28,7 @@ final class ProductEligibilityValidator extends ConstraintValidator
         $this->productRepository = $productRepository;
     }
 
-    /** {@inheritdoc} */
+    /** @inheritdoc */
     public function validate($productCode, Constraint $constraint): void
     {
         if (null === $productCode) {

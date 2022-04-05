@@ -30,7 +30,7 @@ final class CartExistsValidator extends ConstraintValidator
         $this->orderRepository = $orderRepository;
     }
 
-    /** {@inheritdoc} */
+    /** @inheritdoc */
     public function validate($token, Constraint $constraint): void
     {
         Assert::isInstanceOf($constraint, CartExists::class);

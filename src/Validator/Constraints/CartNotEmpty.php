@@ -20,13 +20,13 @@ final class CartNotEmpty extends Constraint
     /** @var string */
     public $message = 'sylius.shop_api.checkout.cart.empty';
 
-    /** {@inheritdoc} */
+    /** @inheritdoc */
     public function getTargets()
     {
         return self::PROPERTY_CONSTRAINT;
     }
 
-    /** {@inheritdoc} */
+    /** @inheritdoc */
     public function validatedBy(): string
     {
         return 'sylius_shop_api_cart_not_empty_validator';
