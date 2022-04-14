@@ -46,8 +46,8 @@ final class CartEligibilityValidatorSpec extends ObjectBehavior
         $arrayIterator->valid()->will(new ReturnPromise(array_merge(array_fill(0, count([$orderItem]), true), [false])));
         $arrayIterator->current()->will(new ReturnPromise([$orderItem]));
         $arrayIterator->count()->willReturn(count([$orderItem]));
-        $arrayIterator->next()->willReturn();
-        $arrayIterator->rewind()->willReturn();
+        $arrayIterator->next()->shouldBeCalled();
+        $arrayIterator->rewind()->shouldBeCalled();
         $arrayIterator->key()->willReturn(0);
 
         $order->getItems()->willReturn($collection);
@@ -84,8 +84,8 @@ final class CartEligibilityValidatorSpec extends ObjectBehavior
         $arrayIterator->valid()->will(new ReturnPromise(array_merge(array_fill(0, count([$orderItem]), true), [false])));
         $arrayIterator->current()->will(new ReturnPromise([$orderItem]));
         $arrayIterator->count()->willReturn(count([$orderItem]));
-        $arrayIterator->next()->willReturn();
-        $arrayIterator->rewind()->willReturn();
+        $arrayIterator->next()->shouldNotBeCalled();
+        $arrayIterator->rewind()->shouldBeCalled();
         $arrayIterator->key()->willReturn(0);
 
         $order->getItems()->willReturn($collection);
@@ -121,8 +121,8 @@ final class CartEligibilityValidatorSpec extends ObjectBehavior
         $arrayIterator->valid()->will(new ReturnPromise(array_merge(array_fill(0, count([$orderItem]), true), [false])));
         $arrayIterator->current()->will(new ReturnPromise([$orderItem]));
         $arrayIterator->count()->willReturn(count([$orderItem]));
-        $arrayIterator->next()->willReturn();
-        $arrayIterator->rewind()->willReturn();
+        $arrayIterator->next()->shouldNotBeCalled();
+        $arrayIterator->rewind()->shouldBeCalled();
         $arrayIterator->key()->willReturn(0);
 
         $order->getItems()->willReturn($collection);
