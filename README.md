@@ -137,7 +137,7 @@ The latest documentation is available [here](https://app.swaggerhub.com/apis/Syl
                     max_age: 3600
         ```
 
-3. Follow https://github.com/lexik/LexikJWTAuthenticationBundle/blob/master/Resources/doc/index.md#installation
+3. Follow https://github.com/lexik/LexikJWTAuthenticationBundle/blob/master/Resources/doc/index.rst#installation
 
 Sample configuration of Shop API can be found here: https://github.com/Sylius/SyliusDemo/commit/4872350dcd6c987d54dec1f365b4bb890d7183c9
 
