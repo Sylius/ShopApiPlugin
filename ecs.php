@@ -40,5 +40,6 @@ TEXT
         InlineDocCommentDeclarationSniff::class . '.MissingVariable',
         InlineDocCommentDeclarationSniff::class . '.NoAssignment',
         VisibilityRequiredFixer::class => ['*Spec.php'],
+        '**/var/*',
     ]);
 };
