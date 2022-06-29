@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Handler\Cart;
@@ -23,7 +30,7 @@ final class PutOptionBasedConfigurableItemToCartHandlerSpec extends ObjectBehavi
         OrderRepositoryInterface $orderRepository,
         ProductRepositoryInterface $productRepository,
         OrderModifierInterface $orderModifier,
-        ProductInCartChannelCheckerInterface $channelChecker
+        ProductInCartChannelCheckerInterface $channelChecker,
     ): void {
         $this->beConstructedWith($orderRepository, $productRepository, $orderModifier, $channelChecker);
     }
@@ -38,7 +45,7 @@ final class PutOptionBasedConfigurableItemToCartHandlerSpec extends ObjectBehavi
         ProductOptionValueInterface $redOptionValue,
         ProductRepositoryInterface $productRepository,
         ProductVariantInterface $blueTShirt,
-        ProductVariantInterface $redTShirt
+        ProductVariantInterface $redTShirt,
     ): void {
         $productRepository->findOneByCode('T_SHIRT_CODE')->willReturn($tShirt);
 
@@ -75,7 +82,7 @@ final class PutOptionBasedConfigurableItemToCartHandlerSpec extends ObjectBehavi
     function it_throws_an_exception_if_product_has_not_been_found(
         OrderInterface $cart,
         OrderRepositoryInterface $orderRepository,
-        ProductRepositoryInterface $productRepository
+        ProductRepositoryInterface $productRepository,
     ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($cart);
         $productRepository->findOneByCode('T_SHIRT_CODE')->willReturn(null);
@@ -95,7 +102,7 @@ final class PutOptionBasedConfigurableItemToCartHandlerSpec extends ObjectBehavi
         ProductVariantInterface $redTShirt,
         ProductOptionValueInterface $blueOptionValue,
         ProductOptionValueInterface $redOptionValue,
-        ProductRepositoryInterface $productRepository
+        ProductRepositoryInterface $productRepository,
     ): void {
         $productRepository->findOneByCode('T_SHIRT_CODE')->willReturn($tShirt);
 
@@ -126,7 +133,7 @@ final class PutOptionBasedConfigurableItemToCartHandlerSpec extends ObjectBehavi
         OrderRepositoryInterface $orderRepository,
         ProductInCartChannelCheckerInterface $channelChecker,
         ProductInterface $tShirt,
-        ProductRepositoryInterface $productRepository
+        ProductRepositoryInterface $productRepository,
     ): void {
         $productRepository->findOneByCode('T_SHIRT_CODE')->willReturn($tShirt);
 

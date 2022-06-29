@@ -1,10 +1,8 @@
 <?php
 
-/**
+/*
  * This file is part of the Sylius package.
- *
- *  (c) Paweł Jędrzejewski
- *
+ * (c) Paweł Jędrzejewski
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -30,7 +28,7 @@ final class SummarizeAction
 
     public function __construct(
         CartViewRepositoryInterface $cartQuery,
-        ViewHandlerInterface $viewHandler
+        ViewHandlerInterface $viewHandler,
     ) {
         $this->cartQuery = $cartQuery;
         $this->viewHandler = $viewHandler;
@@ -42,8 +40,8 @@ final class SummarizeAction
             return $this->viewHandler->handle(
                 View::create(
                     $this->cartQuery->getOneByToken($request->attributes->get('token')),
-                    Response::HTTP_OK
-                )
+                    Response::HTTP_OK,
+                ),
             );
         } catch (\InvalidArgumentException $exception) {
             throw new NotFoundHttpException($exception->getMessage());

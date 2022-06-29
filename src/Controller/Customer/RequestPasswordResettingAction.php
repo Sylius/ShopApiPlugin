@@ -1,10 +1,8 @@
 <?php
 
-/**
+/*
  * This file is part of the Sylius package.
- *
- *  (c) Paweł Jędrzejewski
- *
+ * (c) Paweł Jędrzejewski
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -52,7 +50,7 @@ final class RequestPasswordResettingAction
         ChannelContextInterface $channelContext,
         CommandProviderInterface $generateResetPasswordTokenCommandProvider,
         ChannelBasedCommandProviderInterface $sendResetPasswordTokenCommandProvider,
-        ?ValidationErrorViewFactoryInterface $validationErrorViewFactory
+        ?ValidationErrorViewFactoryInterface $validationErrorViewFactory,
     ) {
         if (null !== $validationErrorViewFactory) {
             @trigger_error('Passing ValidationErrorViewFactory as the fourth argument is deprecated', \E_USER_DEPRECATED);
@@ -74,7 +72,7 @@ final class RequestPasswordResettingAction
         if (0 !== count($validationResults)) {
             return $this->viewHandler->handle(View::create(
                 $this->validationErrorViewFactory->create($validationResults),
-                Response::HTTP_BAD_REQUEST
+                Response::HTTP_BAD_REQUEST,
             ));
         }
 

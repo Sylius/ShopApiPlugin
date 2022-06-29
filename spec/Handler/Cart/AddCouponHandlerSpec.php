@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Handler\Cart;
@@ -22,7 +29,7 @@ final class AddCouponHandlerSpec extends ObjectBehavior
         OrderRepositoryInterface $orderRepository,
         PromotionCouponRepositoryInterface $couponRepository,
         OrderProcessorInterface $orderProcessor,
-        PromotionCouponEligibilityCheckerInterface $couponEligibilityChecker
+        PromotionCouponEligibilityCheckerInterface $couponEligibilityChecker,
     ): void {
         $this->beConstructedWith($orderRepository, $couponRepository, $orderProcessor, $couponEligibilityChecker);
     }
@@ -36,7 +43,7 @@ final class AddCouponHandlerSpec extends ObjectBehavior
         OrderProcessorInterface $orderProcessor,
         OrderRepositoryInterface $orderRepository,
         PromotionCouponEligibilityCheckerInterface $couponEligibilityChecker,
-        PromotionEligibilityCheckerInterface $promotionEligibilityChecker
+        PromotionEligibilityCheckerInterface $promotionEligibilityChecker,
     ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
         $couponRepository->findOneBy(['code' => 'COUPON_CODE'])->willReturn($coupon);
@@ -55,7 +62,7 @@ final class AddCouponHandlerSpec extends ObjectBehavior
     }
 
     function it_throws_an_exception_if_order_does_not_exist(
-        OrderRepositoryInterface $orderRepository
+        OrderRepositoryInterface $orderRepository,
     ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn(null);
 
@@ -67,7 +74,7 @@ final class AddCouponHandlerSpec extends ObjectBehavior
     function it_throws_an_exception_if_coupon_does_not_exist(
         PromotionCouponRepositoryInterface $couponRepository,
         OrderInterface $order,
-        OrderRepositoryInterface $orderRepository
+        OrderRepositoryInterface $orderRepository,
     ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
         $couponRepository->findOneBy(['code' => 'COUPON_CODE'])->willReturn(null);
@@ -82,7 +89,7 @@ final class AddCouponHandlerSpec extends ObjectBehavior
         PromotionCouponRepositoryInterface $couponRepository,
         OrderInterface $order,
         OrderRepositoryInterface $orderRepository,
-        PromotionCouponEligibilityCheckerInterface $couponEligibilityChecker
+        PromotionCouponEligibilityCheckerInterface $couponEligibilityChecker,
     ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
         $couponRepository->findOneBy(['code' => 'COUPON_CODE'])->willReturn($coupon);

@@ -1,10 +1,8 @@
 <?php
 
-/**
+/*
  * This file is part of the Sylius package.
- *
- *  (c) Paweł Jędrzejewski
- *
+ * (c) Paweł Jędrzejewski
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -46,7 +44,7 @@ final class RemoveItemFromCartAction
         MessageBusInterface $bus,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         CartViewRepositoryInterface $cartQuery,
-        CommandProviderInterface $removeItemFromCartCommandProvider
+        CommandProviderInterface $removeItemFromCartCommandProvider,
     ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
@@ -61,7 +59,7 @@ final class RemoveItemFromCartAction
         if (0 !== count($validationResults)) {
             return $this->viewHandler->handle(View::create(
                 $this->validationErrorViewFactory->create($validationResults),
-                Response::HTTP_BAD_REQUEST
+                Response::HTTP_BAD_REQUEST,
             ));
         }
 
@@ -73,7 +71,7 @@ final class RemoveItemFromCartAction
         try {
             return $this->viewHandler->handle(View::create(
                 $this->cartQuery->getOneByToken($removeItemFromCartCommand->orderToken()),
-                Response::HTTP_OK
+                Response::HTTP_OK,
             ));
         } catch (\InvalidArgumentException $exception) {
             throw new BadRequestHttpException($exception->getMessage());

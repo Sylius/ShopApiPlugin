@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Validator\Product;
@@ -28,7 +35,7 @@ final class ConfigurableProductValidatorSpec extends ObjectBehavior
 
     function it_adds_no_violation_if_the_product_does_not_exist(
         ProductRepositoryInterface $productRepository,
-        ExecutionContextInterface $executionContext
+        ExecutionContextInterface $executionContext,
     ): void {
         $productRepository->findOneByCode('PRODUCT_CODE')->willReturn(null);
         $executionContext->addViolation(Argument::any())->shouldNotBeCalled();
@@ -39,7 +46,7 @@ final class ConfigurableProductValidatorSpec extends ObjectBehavior
     function it_adds_no_violation_if_the_product_exists_and_is_configurable(
         ProductRepositoryInterface $productRepository,
         ExecutionContextInterface $executionContext,
-        ProductInterface $product
+        ProductInterface $product,
     ): void {
         $productRepository->findOneByCode('PRODUCT_CODE')->willReturn($product);
 
@@ -53,7 +60,7 @@ final class ConfigurableProductValidatorSpec extends ObjectBehavior
     function it_adds_a_violation_if_the_product_exists_and_is_not_configurable(
         ProductRepositoryInterface $productRepository,
         ExecutionContextInterface $executionContext,
-        ProductInterface $product
+        ProductInterface $product,
     ): void {
         $productRepository->findOneByCode('PRODUCT_CODE')->willReturn($product);
 

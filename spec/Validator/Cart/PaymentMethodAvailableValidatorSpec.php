@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Validator\Cart;
@@ -23,7 +30,7 @@ final class PaymentMethodAvailableValidatorSpec extends ObjectBehavior
         ChoosePaymentMethodRequest $request,
         OrderRepositoryInterface $orderRepository,
         PaymentMethodsResolverInterface $paymentMethodsResolver,
-        ExecutionContextInterface $context
+        ExecutionContextInterface $context,
     ): void {
         $this->beConstructedWith($orderRepository, $paymentMethodsResolver);
         $this->initialize($context);
@@ -37,7 +44,7 @@ final class PaymentMethodAvailableValidatorSpec extends ObjectBehavior
         OrderRepositoryInterface $orderRepository,
         PaymentMethodsResolverInterface $paymentMethodsResolver,
         ExecutionContextInterface $context,
-        ChoosePaymentMethodRequest $request
+        ChoosePaymentMethodRequest $request,
     ): void {
         $orderRepository->findOneBy(['tokenValue' => 'NON_EXISTING', 'state' => 'cart'])->willReturn(null);
         $paymentMethodsResolver->getSupportedMethods(Argument::any())->shouldNotBeCalled();
@@ -54,7 +61,7 @@ final class PaymentMethodAvailableValidatorSpec extends ObjectBehavior
         PaymentMethodsResolverInterface $paymentMethodsResolver,
         PaymentMethodInterface $paymentMethod,
         ExecutionContextInterface $context,
-        ChoosePaymentMethodRequest $request
+        ChoosePaymentMethodRequest $request,
     ): void {
         $orderRepository->findOneBy(['tokenValue' => 'NON_EXISTING', 'state' => 'cart'])->willReturn($cart);
         $cart->getPayments()->willReturn(new ArrayCollection([$payment->getWrappedObject()]));
@@ -63,7 +70,7 @@ final class PaymentMethodAvailableValidatorSpec extends ObjectBehavior
         $paymentMethod->getCode()->willReturn('paypal');
 
         $context->buildViolation('sylius.shop_api.checkout.payment_method_not_available')->willReturn(
-            $violationBuilder
+            $violationBuilder,
         );
         $violationBuilder->atPath('method')->willReturn($violationBuilder);
         $violationBuilder->addViolation()->shouldBeCalled();
@@ -78,7 +85,7 @@ final class PaymentMethodAvailableValidatorSpec extends ObjectBehavior
         PaymentMethodsResolverInterface $paymentMethodsResolver,
         PaymentMethodInterface $paymentMethod,
         ExecutionContextInterface $context,
-        ChoosePaymentMethodRequest $request
+        ChoosePaymentMethodRequest $request,
     ): void {
         $orderRepository->findOneBy(['tokenValue' => 'NON_EXISTING', 'state' => 'cart'])->willReturn($cart);
         $cart->getPayments()->willReturn(new ArrayCollection([$payment->getWrappedObject()]));

@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Normalizer;
@@ -22,7 +29,7 @@ final class RequestCartTokenNormalizerSpec extends ObjectBehavior
     function let(
         MessageBusInterface $bus,
         ChannelContextInterface $channelContext,
-        ChannelBasedCommandProviderInterface $pickupCartCommandProvider
+        ChannelBasedCommandProviderInterface $pickupCartCommandProvider,
     ): void {
         $this->beConstructedWith($bus, $channelContext, $pickupCartCommandProvider);
     }
@@ -37,7 +44,7 @@ final class RequestCartTokenNormalizerSpec extends ObjectBehavior
         ChannelContextInterface $channelContext,
         ChannelBasedCommandProviderInterface $pickupCartCommandProvider,
         ChannelInterface $channel,
-        Request $request
+        Request $request,
     ): void {
         $channelContext->getChannel()->willReturn($channel);
         $channel->getCode()->willReturn('WEB_GB');
@@ -56,7 +63,7 @@ final class RequestCartTokenNormalizerSpec extends ObjectBehavior
         ChannelBasedCommandProviderInterface $pickupCartCommandProvider,
         ChannelInterface $channel,
         Request $request,
-        ConstraintViolationListInterface $constraintViolationList
+        ConstraintViolationListInterface $constraintViolationList,
     ): void {
         $channelContext->getChannel()->willReturn($channel);
         $channel->getCode()->willReturn('WEB_GB');

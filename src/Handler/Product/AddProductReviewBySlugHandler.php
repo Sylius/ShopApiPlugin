@@ -1,10 +1,8 @@
 <?php
 
-/**
+/*
  * This file is part of the Sylius package.
- *
- *  (c) Paweł Jędrzejewski
- *
+ * (c) Paweł Jędrzejewski
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -44,7 +42,7 @@ final class AddProductReviewBySlugHandler
         ChannelRepositoryInterface $channelRepository,
         ProductRepositoryInterface $productRepository,
         ProductReviewerProviderInterface $productReviewerProvider,
-        ReviewFactoryInterface $reviewFactory
+        ReviewFactoryInterface $reviewFactory,
     ) {
         $this->productReviewRepository = $productReviewRepository;
         $this->channelRepository = $channelRepository;
@@ -63,7 +61,7 @@ final class AddProductReviewBySlugHandler
         $product = $this->productRepository->findOneByChannelAndSlug(
             $channel,
             $channel->getDefaultLocale()->getCode(),
-            $addReview->productSlug()
+            $addReview->productSlug(),
         );
 
         Assert::notNull($product, 'Product not found.');

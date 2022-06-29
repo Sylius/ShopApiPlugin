@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Modifier;
@@ -23,7 +30,7 @@ final class OrderModifierSpec extends ObjectBehavior
         CartItemFactoryInterface $cartItemFactory,
         OrderItemQuantityModifierInterface $orderItemQuantityModifier,
         OrderProcessorInterface $orderProcessor,
-        EntityManagerInterface $orderManager
+        EntityManagerInterface $orderManager,
     ): void {
         $this->beConstructedWith($cartItemFactory, $orderItemQuantityModifier, $orderProcessor, $orderManager);
     }
@@ -39,7 +46,7 @@ final class OrderModifierSpec extends ObjectBehavior
         EntityManagerInterface $orderManager,
         OrderInterface $order,
         OrderItemInterface $existingItem,
-        ProductVariantInterface $productVariant
+        ProductVariantInterface $productVariant,
     ): void {
         $order->getItems()->willReturn(new ArrayCollection([$existingItem->getWrappedObject()]));
 
@@ -61,7 +68,7 @@ final class OrderModifierSpec extends ObjectBehavior
         EntityManagerInterface $orderManager,
         OrderInterface $order,
         OrderItemInterface $cartItem,
-        ProductVariantInterface $productVariant
+        ProductVariantInterface $productVariant,
     ): void {
         $order->getItems()->willReturn(new ArrayCollection([]));
 
@@ -86,7 +93,7 @@ final class OrderModifierSpec extends ObjectBehavior
         OrderInterface $order,
         OrderItemInterface $cartItem,
         ProductVariantInterface $productVariant,
-        AvailabilityCheckerInterface $availabilityChecker
+        AvailabilityCheckerInterface $availabilityChecker,
     ): void {
         $this->beConstructedWith($cartItemFactory, $orderItemQuantityModifier, $orderProcessor, $orderManager, $availabilityChecker);
 
@@ -100,6 +107,7 @@ final class OrderModifierSpec extends ObjectBehavior
         $orderManager->persist(Argument::cetera())->shouldNotBeCalled();
 
         $this->shouldThrow(\InvalidArgumentException::class)
-             ->during('modify',  [$order, $productVariant, 4]);
+             ->during('modify', [$order, $productVariant, 4])
+        ;
     }
 }

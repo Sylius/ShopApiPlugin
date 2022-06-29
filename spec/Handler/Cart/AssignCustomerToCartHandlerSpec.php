@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Handler\Cart;
@@ -17,7 +24,7 @@ final class AssignCustomerToCartHandlerSpec extends ObjectBehavior
     function let(
         OrderRepositoryInterface $cartRepository,
         OrderProcessorInterface $orderProcessor,
-        CustomerProviderInterface $customerProvider
+        CustomerProviderInterface $customerProvider,
     ): void {
         $this->beConstructedWith($cartRepository, $orderProcessor, $customerProvider);
     }
@@ -27,7 +34,7 @@ final class AssignCustomerToCartHandlerSpec extends ObjectBehavior
         OrderProcessorInterface $orderProcessor,
         CustomerProviderInterface $customerProvider,
         CustomerInterface $customer,
-        OrderInterface $cart
+        OrderInterface $cart,
     ): void {
         $cartRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($cart);
 
@@ -41,7 +48,7 @@ final class AssignCustomerToCartHandlerSpec extends ObjectBehavior
     }
 
     function it_throws_an_exception_if_order_does_not_exist(
-        OrderRepositoryInterface $cartRepository
+        OrderRepositoryInterface $cartRepository,
     ): void {
         $cartRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn(null);
 

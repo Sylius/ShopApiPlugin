@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Validator\Order;
@@ -23,7 +30,7 @@ class OrderExistsValidatorSpec extends ObjectBehavior
     function it_does_not_add_constraint_if_order_exists(
         OrderInterface $order,
         OrderRepositoryInterface $orderRepository,
-        ExecutionContextInterface $executionContext
+        ExecutionContextInterface $executionContext,
     ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN', 'state' => OrderInterface::STATE_NEW])->willReturn($order);
 
@@ -35,24 +42,25 @@ class OrderExistsValidatorSpec extends ObjectBehavior
     function it_does_not_add_constraint_if_order_exists_multi_state(
         OrderInterface $order,
         OrderRepositoryInterface $orderRepository,
-        ExecutionContextInterface $executionContext
+        ExecutionContextInterface $executionContext,
     ): void {
         $orderRepository->findOneBy(
             [
                 'tokenValue' => 'ORDERTOKEN',
                 'state' => [OrderInterface::STATE_NEW, 'other_state'],
-            ])->willReturn($order);
+            ],
+        )->willReturn($order);
 
         $executionContext->addViolation(Argument::any())->shouldNotBeCalled();
 
         $this->validate('ORDERTOKEN', new OrderExists(
-            ['state' => [OrderInterface::STATE_NEW, 'other_state']]
+            ['state' => [OrderInterface::STATE_NEW, 'other_state']],
         ));
     }
 
     function it_adds_constraint_if_order_does_not_exists(
         OrderRepositoryInterface $orderRepository,
-        ExecutionContextInterface $executionContext
+        ExecutionContextInterface $executionContext,
     ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN', 'state' => OrderInterface::STATE_NEW])->willReturn(null);
 

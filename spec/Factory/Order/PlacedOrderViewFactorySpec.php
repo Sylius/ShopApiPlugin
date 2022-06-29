@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Factory\Order;
@@ -32,7 +39,7 @@ final class PlacedOrderViewFactorySpec extends ObjectBehavior
         TotalViewFactoryInterface $totalViewFactory,
         ShipmentViewFactoryInterface $shipmentViewFactory,
         PaymentViewFactoryInterface $paymentViewFactory,
-        AdjustmentViewFactoryInterface $adjustmentViewFactory
+        AdjustmentViewFactoryInterface $adjustmentViewFactory,
     ): void {
         $this->beConstructedWith(
             $cartItemViewFactory,
@@ -41,7 +48,7 @@ final class PlacedOrderViewFactorySpec extends ObjectBehavior
             $shipmentViewFactory,
             $paymentViewFactory,
             $adjustmentViewFactory,
-            PlacedOrderView::class
+            PlacedOrderView::class,
         );
     }
 
@@ -58,7 +65,7 @@ final class PlacedOrderViewFactorySpec extends ObjectBehavior
         AdjustmentInterface $adjustment,
         AdjustmentInterface $similarAdjustment,
         AdjustmentViewFactoryInterface $adjustmentViewFactory,
-        TotalViewFactoryInterface $totalViewFactory
+        TotalViewFactoryInterface $totalViewFactory,
     ): void {
         $cart->getItemsTotal()->willReturn(1100);
         $cart->getChannel()->willReturn($channel);

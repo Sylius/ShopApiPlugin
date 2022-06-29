@@ -1,10 +1,8 @@
 <?php
 
-/**
+/*
  * This file is part of the Sylius package.
- *
- *  (c) Paweł Jędrzejewski
- *
+ * (c) Paweł Jędrzejewski
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -48,7 +46,7 @@ final class ShippingCostEstimator implements ShippingCostEstimatorInterface
         AddressFactoryInterface $addressFactory,
         FactoryInterface $shipmentFactory,
         ShippingMethodsResolverInterface $shippingMethodResolver,
-        ServiceRegistryInterface $calculators
+        ServiceRegistryInterface $calculators,
     ) {
         $this->cartRepository = $cartRepository;
         $this->addressFactory = $addressFactory;
@@ -60,7 +58,7 @@ final class ShippingCostEstimator implements ShippingCostEstimatorInterface
     public function estimate(
         string $cartToken,
         string $countryCode,
-        ?string $provinceCode
+        ?string $provinceCode,
     ): ShippingCost {
         /** @var OrderInterface|null $cart */
         $cart = $this->cartRepository->findOneBy(['tokenValue' => $cartToken]);

@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Validator\Product;
@@ -14,7 +21,7 @@ final class ProductVariantEligibilityValidatorSpec extends ObjectBehavior
 {
     function let(
         ExecutionContextInterface $executionContext,
-        ProductVariantRepositoryInterface $productVariantRepository
+        ProductVariantRepositoryInterface $productVariantRepository,
     ): void {
         $this->beConstructedWith($productVariantRepository);
 
@@ -24,7 +31,7 @@ final class ProductVariantEligibilityValidatorSpec extends ObjectBehavior
     function it_does_not_add_a_violation_if_the_product_variant_is_enabled(
         ExecutionContextInterface $executionContext,
         ProductVariantRepositoryInterface $productVariantRepository,
-        ProductVariantInterface $productVariant
+        ProductVariantInterface $productVariant,
     ): void {
         $productVariantRepository->findOneBy(['code' => 'VARIANT_CODE'])->willReturn($productVariant);
         $productVariant->isEnabled()->willReturn(true);
@@ -37,7 +44,7 @@ final class ProductVariantEligibilityValidatorSpec extends ObjectBehavior
     function it_adds_a_violation_if_the_product_variant_does_not_exist(
         ExecutionContextInterface $executionContext,
         ProductVariantRepositoryInterface $productVariantRepository,
-        ProductVariantInterface $productVariant
+        ProductVariantInterface $productVariant,
     ): void {
         $productVariantRepository->findOneBy(['code' => 'VARIANT_CODE'])->willReturn($productVariant);
         $productVariant->isEnabled()->willReturn(false);

@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Provider;
@@ -27,7 +34,7 @@ final class LoggedInShopUserProviderSpec extends ObjectBehavior
     function it_throws_an_error_if_there_is_no_shop_user_logged_in(
         TokenStorageInterface $tokenStorage,
         TokenInterface $token,
-        UserInterface $anotherUser
+        UserInterface $anotherUser,
     ): void {
         $tokenStorage->getToken()->willReturn(null, $token);
         $token->getUser()->willReturn(null, $anotherUser);
@@ -40,7 +47,7 @@ final class LoggedInShopUserProviderSpec extends ObjectBehavior
     function it_returns_the_logged_in_user_if_there_is_one(
         TokenStorageInterface $tokenStorage,
         TokenInterface $token,
-        ShopUserInterface $shopUser
+        ShopUserInterface $shopUser,
     ): void {
         $token->getUser()->willReturn($shopUser);
         $tokenStorage->getToken()->willReturn($token);
@@ -52,7 +59,7 @@ final class LoggedInShopUserProviderSpec extends ObjectBehavior
         TokenStorageInterface $tokenStorage,
         TokenInterface $token,
         ShopUserInterface $shopUser,
-        UserInterface $anotherUser
+        UserInterface $anotherUser,
     ): void {
         $tokenStorage->getToken()->willReturn(null, $token);
         $token->getUser()->willReturn(null, $anotherUser, $shopUser);

@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Handler\Cart;
@@ -25,13 +32,13 @@ final class PickupCartHandlerSpec extends ObjectBehavior
         FactoryInterface $cartFactory,
         OrderRepositoryInterface $cartRepository,
         ChannelRepositoryInterface $channelRepository,
-        MessageBusInterface $eventBus
+        MessageBusInterface $eventBus,
     ): void {
         $this->beConstructedWith(
             $cartFactory,
             $cartRepository,
             $channelRepository,
-            $eventBus
+            $eventBus,
         );
     }
 
@@ -48,7 +55,7 @@ final class PickupCartHandlerSpec extends ObjectBehavior
         LocaleInterface $locale,
         OrderInterface $cart,
         OrderRepositoryInterface $cartRepository,
-        MessageBusInterface $eventBus
+        MessageBusInterface $eventBus,
     ): void {
         $channelRepository->findOneByCode('CHANNEL_CODE')->willReturn($channel);
         $channel->getBaseCurrency()->willReturn($currency);
@@ -73,7 +80,7 @@ final class PickupCartHandlerSpec extends ObjectBehavior
     }
 
     function it_throws_an_exception_if_channel_is_not_found(
-        ChannelRepositoryInterface $channelRepository
+        ChannelRepositoryInterface $channelRepository,
     ): void {
         $channelRepository->findOneByCode('CHANNEL_CODE')->willReturn(null);
 

@@ -1,10 +1,8 @@
 <?php
 
-/**
+/*
  * This file is part of the Sylius package.
- *
- *  (c) Paweł Jędrzejewski
- *
+ * (c) Paweł Jędrzejewski
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -38,7 +36,7 @@ final class ProductVariantViewFactory implements ProductVariantViewFactoryInterf
         $this->productVariantViewClass = $productVariantViewClass;
     }
 
-    /** {@inheritdoc} */
+    /** @inheritdoc */
     public function create(ProductVariantInterface $variant, ChannelInterface $channel, string $locale): ProductVariantView
     {
         /** @var ProductVariantView $variantView */
@@ -56,14 +54,14 @@ final class ProductVariantViewFactory implements ProductVariantViewFactoryInterf
         $variantView->available = $this->availabilityChecker->isStockAvailable($variant);
         $variantView->price = $this->priceViewFactory->create(
             $channelPricing->getPrice(),
-            $channel->getBaseCurrency()->getCode()
+            $channel->getBaseCurrency()->getCode(),
         );
 
         $originalPrice = $channelPricing->getOriginalPrice();
         if (null !== $originalPrice) {
             $variantView->originalPrice = $this->priceViewFactory->create(
                 $originalPrice,
-                $channel->getBaseCurrency()->getCode()
+                $channel->getBaseCurrency()->getCode(),
             );
         }
 
@@ -72,7 +70,7 @@ final class ProductVariantViewFactory implements ProductVariantViewFactoryInterf
             $variantView->nameAxis[$optionValue->getCode()] = sprintf(
                 '%s %s',
                 $optionValue->getOption()->getTranslation($locale)->getName(),
-                $optionValue->getTranslation($locale)->getValue()
+                $optionValue->getTranslation($locale)->getValue(),
             );
         }
 

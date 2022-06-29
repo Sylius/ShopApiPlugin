@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Http;
@@ -16,7 +23,7 @@ final class RequestBasedLocaleProviderSpec extends ObjectBehavior
 {
     function let(
         ChannelContextInterface $channelContext,
-        SupportedLocaleProviderInterface $supportedLocaleProvider
+        SupportedLocaleProviderInterface $supportedLocaleProvider,
     ): void {
         $this->beConstructedWith($channelContext, $supportedLocaleProvider);
     }
@@ -30,7 +37,7 @@ final class RequestBasedLocaleProviderSpec extends ObjectBehavior
         ChannelContextInterface $channelContext,
         SupportedLocaleProviderInterface $supportedLocaleProvider,
         ChannelInterface $channel,
-        Request $request
+        Request $request,
     ): void {
         $request->getLocale()->willReturn('fr_FR');
 
@@ -44,7 +51,7 @@ final class RequestBasedLocaleProviderSpec extends ObjectBehavior
         ChannelContextInterface $channelContext,
         SupportedLocaleProviderInterface $supportedLocaleProvider,
         ChannelInterface $channel,
-        Request $request
+        Request $request,
     ): void {
         $request->getLocale()->willReturn(null);
 
@@ -56,7 +63,7 @@ final class RequestBasedLocaleProviderSpec extends ObjectBehavior
 
     function it_throws_an_exception_if_channel_cannot_be_resolved(
         ChannelContextInterface $channelContext,
-        Request $request
+        Request $request,
     ): void {
         $channelContext->getChannel()->willThrow(ChannelNotFoundException::class);
 

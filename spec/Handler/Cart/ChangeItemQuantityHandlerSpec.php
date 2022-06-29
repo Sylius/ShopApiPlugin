@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Handler\Cart;
@@ -19,7 +26,7 @@ final class ChangeItemQuantityHandlerSpec extends ObjectBehavior
         OrderItemRepositoryInterface $orderItemRepository,
         OrderRepositoryInterface $orderRepository,
         OrderItemQuantityModifierInterface $orderItemModifier,
-        OrderProcessorInterface $orderProcessor
+        OrderProcessorInterface $orderProcessor,
     ): void {
         $this->beConstructedWith($orderItemRepository, $orderRepository, $orderItemModifier, $orderProcessor);
     }
@@ -30,7 +37,7 @@ final class ChangeItemQuantityHandlerSpec extends ObjectBehavior
         OrderItemQuantityModifierInterface $orderItemModifier,
         OrderItemRepositoryInterface $orderItemRepository,
         OrderProcessorInterface $orderProcessor,
-        OrderRepositoryInterface $orderRepository
+        OrderRepositoryInterface $orderRepository,
     ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN', 'state' => OrderInterface::STATE_CART])->willReturn($order);
         $orderItemRepository->find(1)->willReturn($orderItem);
@@ -55,7 +62,7 @@ final class ChangeItemQuantityHandlerSpec extends ObjectBehavior
     function it_throws_an_exception_if_order_item_has_not_been_found(
         OrderInterface $order,
         OrderItemRepositoryInterface $orderItemRepository,
-        OrderRepositoryInterface $orderRepository
+        OrderRepositoryInterface $orderRepository,
     ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN', 'state' => OrderInterface::STATE_CART])->willReturn($order);
         $orderItemRepository->find(1)->willReturn(null);
@@ -69,7 +76,7 @@ final class ChangeItemQuantityHandlerSpec extends ObjectBehavior
         OrderInterface $order,
         OrderItemInterface $orderItem,
         OrderItemRepositoryInterface $orderItemRepository,
-        OrderRepositoryInterface $orderRepository
+        OrderRepositoryInterface $orderRepository,
     ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN', 'state' => OrderInterface::STATE_CART])->willReturn($order);
         $orderItemRepository->find(1)->willReturn($orderItem);

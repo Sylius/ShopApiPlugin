@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Factory;
@@ -25,7 +32,7 @@ final class ImageViewFactorySpec extends ObjectBehavior
     function it_generates_a_cache_path_for_the_images_with_one_filter(
         ImageViewFactoryInterface $baseFactory,
         FilterService $filterService,
-        ImageInterface $image
+        ImageInterface $image,
     ): void {
         $image->getType()->willReturn('thumbnail');
         $image->getPath()->willReturn('abc/a.png');

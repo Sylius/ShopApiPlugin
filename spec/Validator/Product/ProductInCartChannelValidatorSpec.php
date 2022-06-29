@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Validator\Product;
@@ -23,7 +30,7 @@ final class ProductInCartChannelValidatorSpec extends ObjectBehavior
         ExecutionContextInterface $executionContext,
         ProductInCartChannelCheckerInterface $productInCartChannelChecker,
         ProductRepositoryInterface $productRepository,
-        OrderRepositoryInterface $orderRepository
+        OrderRepositoryInterface $orderRepository,
     ): void {
         $this->beConstructedWith($productInCartChannelChecker, $productRepository, $orderRepository);
 
@@ -39,7 +46,7 @@ final class ProductInCartChannelValidatorSpec extends ObjectBehavior
         ProductInCartChannelCheckerInterface $productInCartChannelChecker,
         OrderRepositoryInterface $orderRepository,
         ProductRepositoryInterface $productRepository,
-        PutOptionBasedConfigurableItemToCartRequest $request
+        PutOptionBasedConfigurableItemToCartRequest $request,
     ): void {
         $request->getProductCode()->willReturn('TEST');
         $request->getToken()->willReturn('ORDER_TOKEN');
@@ -59,7 +66,7 @@ final class ProductInCartChannelValidatorSpec extends ObjectBehavior
         OrderInterface $order,
         ProductRepositoryInterface $productRepository,
         PutOptionBasedConfigurableItemToCartRequest $request,
-        ExecutionContextInterface $executionContext
+        ExecutionContextInterface $executionContext,
     ): void {
         $request->getProductCode()->willReturn('TEST');
         $request->getToken()->willReturn('ORDER_TOKEN');
@@ -82,7 +89,7 @@ final class ProductInCartChannelValidatorSpec extends ObjectBehavior
         ProductRepositoryInterface $productRepository,
         PutOptionBasedConfigurableItemToCartRequest $request,
         ExecutionContextInterface $executionContext,
-        ConstraintViolationBuilderInterface $constraintViolationBuilder
+        ConstraintViolationBuilderInterface $constraintViolationBuilder,
     ): void {
         $request->getProductCode()->willReturn('TEST');
         $request->getToken()->willReturn('ORDER_TOKEN');

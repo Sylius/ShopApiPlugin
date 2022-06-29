@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller\Checkout;
@@ -182,7 +189,7 @@ JSON;
                 'countryCode' => 'GB',
                 'postcode' => 'NW1',
                 'provinceName' => 'Greater London',
-            ])
+            ]),
         ));
 
         $data =
@@ -230,7 +237,7 @@ JSON;
                 'countryCode' => 'GB',
                 'postcode' => 'NW1',
                 'provinceName' => 'Greater London',
-            ])
+            ]),
         ));
 
         $data =
@@ -297,7 +304,7 @@ JSON;
                 'countryCode' => 'GB',
                 'postcode' => 'NW1',
                 'provinceName' => 'Greater London',
-            ])
+            ]),
         ));
         $bus->dispatch(new ChooseShippingMethod($token, 0, 'DHL'));
 
@@ -321,7 +328,7 @@ JSON;
             sprintf('/shop-api/checkout/%s', $token),
             [],
             [],
-            self::CONTENT_TYPE_HEADER
+            self::CONTENT_TYPE_HEADER,
         );
 
         return $this->client->getResponse();

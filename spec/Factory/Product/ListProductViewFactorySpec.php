@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Factory\Product;
@@ -23,7 +30,7 @@ final class ListProductViewFactorySpec extends ObjectBehavior
     function let(
         ImageViewFactoryInterface $imageViewFactory,
         ProductViewFactoryInterface $productViewFactory,
-        ProductVariantViewFactoryInterface $variantViewFactory
+        ProductVariantViewFactoryInterface $variantViewFactory,
     ): void {
         $this->beConstructedWith($imageViewFactory, $productViewFactory, $variantViewFactory);
     }
@@ -43,7 +50,7 @@ final class ListProductViewFactorySpec extends ObjectBehavior
         ProductVariantInterface $associatedProductVariant,
         ProductVariantInterface $firstProductVariant,
         ProductVariantInterface $secondProductVariant,
-        ProductVariantViewFactoryInterface $variantViewFactory
+        ProductVariantViewFactoryInterface $variantViewFactory,
     ): void {
         $product->getVariants()->willReturn(new ArrayCollection([
             $firstProductVariant->getWrappedObject(),
@@ -108,7 +115,7 @@ final class ListProductViewFactorySpec extends ObjectBehavior
         ProductVariantInterface $firstProductVariant,
         ProductVariantInterface $secondProductVariant,
         ProductVariantInterface $thirdProductVariant,
-        ProductVariantViewFactoryInterface $variantViewFactory
+        ProductVariantViewFactoryInterface $variantViewFactory,
     ): void {
         $product->getVariants()->willReturn(new ArrayCollection([
             $firstProductVariant->getWrappedObject(),
@@ -175,7 +182,7 @@ final class ListProductViewFactorySpec extends ObjectBehavior
         ProductVariantInterface $associatedProductVariant,
         ProductVariantInterface $firstProductVariant,
         ProductVariantInterface $secondProductVariant,
-        ProductVariantViewFactoryInterface $variantViewFactory
+        ProductVariantViewFactoryInterface $variantViewFactory,
     ): void {
         $product->getVariants()->willReturn(new ArrayCollection([
             $firstProductVariant->getWrappedObject(),
@@ -215,7 +222,7 @@ final class ListProductViewFactorySpec extends ObjectBehavior
 
         $productView = new ProductView();
         $productView->variants = [
-            'L_HAT_CODE' => new ProductVariantView()
+            'L_HAT_CODE' => new ProductVariantView(),
         ];
         $productView->associations = [
             'ASSOCIATION_TYPE' => [
@@ -235,7 +242,7 @@ final class ListProductViewFactorySpec extends ObjectBehavior
         ProductViewFactoryInterface $productViewFactory,
         ProductVariantInterface $firstProductVariant,
         ProductVariantInterface $secondProductVariant,
-        ProductVariantViewFactoryInterface $variantViewFactory
+        ProductVariantViewFactoryInterface $variantViewFactory,
     ): void {
         $product->getVariants()->willReturn(new ArrayCollection([
             $firstProductVariant->getWrappedObject(),

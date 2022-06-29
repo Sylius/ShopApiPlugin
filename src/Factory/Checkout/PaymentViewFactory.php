@@ -1,10 +1,8 @@
 <?php
 
-/**
+/*
  * This file is part of the Sylius package.
- *
- *  (c) Paweł Jędrzejewski
- *
+ * (c) Paweł Jędrzejewski
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -32,14 +30,14 @@ final class PaymentViewFactory implements PaymentViewFactoryInterface
     public function __construct(
         PaymentMethodViewFactoryInterface $paymentMethodViewFactory,
         PriceViewFactoryInterface $priceViewFactory,
-        string $paymentViewClass
+        string $paymentViewClass,
     ) {
         $this->paymentMethodViewFactory = $paymentMethodViewFactory;
         $this->priceViewFactory = $priceViewFactory;
         $this->paymentViewClass = $paymentViewClass;
     }
 
-    /** {@inheritdoc} */
+    /** @inheritdoc */
     public function create(PaymentInterface $payment, string $locale): PaymentView
     {
         /** @var PaymentView $paymentView */

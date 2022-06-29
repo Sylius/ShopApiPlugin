@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Mapper;
@@ -18,7 +25,7 @@ class AddressMapperSpec extends ObjectBehavior
     public function let(
         FactoryInterface $addressFactory,
         RepositoryInterface $countryRepository,
-        RepositoryInterface $provinceRepository
+        RepositoryInterface $provinceRepository,
     ): void {
         $this->beConstructedWith($addressFactory, $countryRepository, $provinceRepository);
     }
@@ -29,7 +36,7 @@ class AddressMapperSpec extends ObjectBehavior
         CountryInterface $country,
         AddressInterface $address,
         ProvinceInterface $province,
-        FactoryInterface $addressFactory
+        FactoryInterface $addressFactory,
     ): void {
         $addressFactory->createNew()->willReturn($address);
 
@@ -69,7 +76,7 @@ class AddressMapperSpec extends ObjectBehavior
         RepositoryInterface $countryRepository,
         CountryInterface $country,
         AddressInterface $address,
-        ProvinceInterface $province
+        ProvinceInterface $province,
     ): void {
         $address->setFirstName('Sherlock')->shouldBeCalled();
         $address->setLastName('Holmes')->shouldBeCalled();
@@ -105,8 +112,8 @@ class AddressMapperSpec extends ObjectBehavior
     function it_throws_exception_if_country_code_is_invalid(
         FactoryInterface $addressFactory,
         AddressInterface $address,
-        RepositoryInterface $countryRepository): void
-    {
+        RepositoryInterface $countryRepository,
+    ): void {
         $addressFactory->createNew()->willReturn($address);
         $countryRepository->findOneBy(['code' => 'WRONG_COUNTRY_CODE'])->willReturn(null);
 
@@ -121,7 +128,8 @@ class AddressMapperSpec extends ObjectBehavior
             'provinceCode' => 'GB-GL',
             'phoneNumber' => '0912538092',
             'company' => 'Sherlock ltd.',
-        ])]);
+        ])])
+        ;
     }
 
     function it_throws_exception_if_province_code_is_invalid(
@@ -129,7 +137,7 @@ class AddressMapperSpec extends ObjectBehavior
         RepositoryInterface $provinceRepository,
         CountryInterface $country,
         AddressInterface $address,
-        FactoryInterface $addressFactory
+        FactoryInterface $addressFactory,
     ): void {
         $countryRepository->findOneBy(['code' => 'GB'])->willReturn($country);
 
@@ -160,7 +168,8 @@ class AddressMapperSpec extends ObjectBehavior
             'provinceCode' => 'WRONG_PROVINCE_CODE',
             'phoneNumber' => '0912538092',
             'company' => 'Sherlock ltd.',
-        ])]);
+        ])])
+        ;
     }
 
     function it_does_not_set_province_code_if_province_is_empty(
@@ -168,7 +177,7 @@ class AddressMapperSpec extends ObjectBehavior
         RepositoryInterface $provinceRepository,
         CountryInterface $country,
         AddressInterface $address,
-        FactoryInterface $addressFactory
+        FactoryInterface $addressFactory,
     ): void {
         $countryRepository->findOneBy(['code' => 'GB'])->willReturn($country);
 

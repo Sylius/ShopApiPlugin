@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Handler\Cart;
@@ -24,7 +31,7 @@ final class ChoosePaymentMethodHandlerSpec extends ObjectBehavior
         OrderRepositoryInterface $orderRepository,
         PaymentMethodRepositoryInterface $paymentMethodRepository,
         FactoryInterface $stateMachineFactory,
-        PaymentMethodsResolverInterface $paymentMethodsResolver
+        PaymentMethodsResolverInterface $paymentMethodsResolver,
     ): void {
         $this->beConstructedWith($orderRepository, $paymentMethodRepository, $stateMachineFactory, $paymentMethodsResolver);
     }
@@ -37,7 +44,7 @@ final class ChoosePaymentMethodHandlerSpec extends ObjectBehavior
         PaymentInterface $payment,
         FactoryInterface $stateMachineFactory,
         StateMachineInterface $stateMachine,
-        PaymentMethodsResolverInterface $paymentMethodsResolver
+        PaymentMethodsResolverInterface $paymentMethodsResolver,
     ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
         $order->getPayments()->willReturn(new ArrayCollection([$payment->getWrappedObject()]));
@@ -56,7 +63,7 @@ final class ChoosePaymentMethodHandlerSpec extends ObjectBehavior
 
     function it_throws_an_exception_if_order_with_given_token_has_not_been_found(
         OrderRepositoryInterface $orderRepository,
-        PaymentInterface $payment
+        PaymentInterface $payment,
     ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn(null);
 
@@ -76,7 +83,7 @@ final class ChoosePaymentMethodHandlerSpec extends ObjectBehavior
         PaymentMethodRepositoryInterface $paymentMethodRepository,
         PaymentInterface $payment,
         FactoryInterface $stateMachineFactory,
-        StateMachineInterface $stateMachine
+        StateMachineInterface $stateMachine,
     ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
         $paymentMethodRepository->findOneBy(['code' => 'CASH_ON_DELIVERY_METHOD'])->willReturn(null);
@@ -100,7 +107,7 @@ final class ChoosePaymentMethodHandlerSpec extends ObjectBehavior
         PaymentMethodRepositoryInterface $paymentMethodRepository,
         PaymentInterface $payment,
         FactoryInterface $stateMachineFactory,
-        StateMachineInterface $stateMachine
+        StateMachineInterface $stateMachine,
     ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
         $order->getPayments()->willReturn(new ArrayCollection([]));
@@ -126,7 +133,7 @@ final class ChoosePaymentMethodHandlerSpec extends ObjectBehavior
         PaymentMethodInterface $paymentMethod,
         PaymentInterface $payment,
         FactoryInterface $stateMachineFactory,
-        StateMachineInterface $stateMachine
+        StateMachineInterface $stateMachine,
     ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
         $paymentMethodRepository->findOneBy(['code' => 'CASH_ON_DELIVERY_METHOD'])->willReturn($paymentMethod);
@@ -154,7 +161,7 @@ final class ChoosePaymentMethodHandlerSpec extends ObjectBehavior
         PaymentInterface $payment,
         FactoryInterface $stateMachineFactory,
         StateMachineInterface $stateMachine,
-        PaymentMethodsResolverInterface $paymentMethodsResolver
+        PaymentMethodsResolverInterface $paymentMethodsResolver,
     ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
         $order->getPayments()->willReturn(new ArrayCollection([$payment->getWrappedObject()]));
@@ -169,6 +176,7 @@ final class ChoosePaymentMethodHandlerSpec extends ObjectBehavior
         $stateMachine->apply('select_payment')->shouldNotBeCalled();
 
         $this->shouldThrow(\InvalidArgumentException::class)
-             ->during('__invoke', [new ChoosePaymentMethod('ORDERTOKEN', 0, 'CASH_ON_DELIVERY_METHOD')]);
+             ->during('__invoke', [new ChoosePaymentMethod('ORDERTOKEN', 0, 'CASH_ON_DELIVERY_METHOD')])
+        ;
     }
 }

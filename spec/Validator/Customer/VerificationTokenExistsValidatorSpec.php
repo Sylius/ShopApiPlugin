@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Validator\Customer;
@@ -27,7 +34,7 @@ final class VerificationTokenExistsValidatorSpec extends ObjectBehavior
     }
 
     function it_does_not_add_constraint_if_verification_token_is_empty(
-        ExecutionContextInterface $executionContext
+        ExecutionContextInterface $executionContext,
     ): void {
         $executionContext->addViolation(Argument::any())->shouldNotBeCalled();
 
@@ -35,7 +42,7 @@ final class VerificationTokenExistsValidatorSpec extends ObjectBehavior
     }
 
     function it_does_not_add_constraint_if_verification_token_is_null(
-        ExecutionContextInterface $executionContext
+        ExecutionContextInterface $executionContext,
     ): void {
         $executionContext->addViolation(Argument::any())->shouldNotBeCalled();
 
@@ -45,7 +52,7 @@ final class VerificationTokenExistsValidatorSpec extends ObjectBehavior
     function it_does_not_add_constraint_if_verification_token_exists(
         ShopUserInterface $user,
         UserRepositoryInterface $userRepository,
-        ExecutionContextInterface $executionContext
+        ExecutionContextInterface $executionContext,
     ): void {
         $userRepository->findOneBy(['emailVerificationToken' => 'token'])->willReturn($user);
 
@@ -56,7 +63,7 @@ final class VerificationTokenExistsValidatorSpec extends ObjectBehavior
 
     function it_adds_constraint_if_verification_token_does_not_exist(
         UserRepositoryInterface $userRepository,
-        ExecutionContextInterface $executionContext
+        ExecutionContextInterface $executionContext,
     ): void {
         $userRepository->findOneBy(['emailVerificationToken' => 'token'])->willReturn(null);
 

@@ -1,10 +1,8 @@
 <?php
 
-/**
+/*
  * This file is part of the Sylius package.
- *
- *  (c) Paweł Jędrzejewski
- *
+ * (c) Paweł Jędrzejewski
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -23,13 +21,13 @@ final class CartItemEligibility extends Constraint
     /** @var string */
     public $nonEligibleProductVariantMessage = 'sylius.shop_api.cart_item.product_variant.non_eligible';
 
-    /** {@inheritdoc} */
+    /** @inheritdoc */
     public function getTargets()
     {
         return self::PROPERTY_CONSTRAINT;
     }
 
-    /** {@inheritdoc} */
+    /** @inheritdoc */
     public function validatedBy()
     {
         return 'sylius_shop_api_cart_item_eligibility_validator';

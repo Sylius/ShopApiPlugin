@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\EventListener;
@@ -23,7 +30,7 @@ final class UserRegistrationListenerSpec extends ObjectBehavior
         MessageBusInterface $bus,
         ChannelRepositoryInterface $channelRepository,
         UserRepositoryInterface $userRepository,
-        EntityManagerInterface $userManager
+        EntityManagerInterface $userManager,
     ): void {
         $this->beConstructedWith($bus, $channelRepository, $userRepository, $userManager);
     }
@@ -31,7 +38,7 @@ final class UserRegistrationListenerSpec extends ObjectBehavior
     function it_generates_and_sends_verification_token_if_channel_requires_verification(
         MessageBusInterface $bus,
         ChannelRepositoryInterface $channelRepository,
-        ChannelInterface $channel
+        ChannelInterface $channel,
     ): void {
         $channelRepository->findOneByCode('WEB_GB')->willReturn($channel);
 
@@ -47,7 +54,7 @@ final class UserRegistrationListenerSpec extends ObjectBehavior
             'shop@example.com',
             'Shop',
             'Example',
-            'WEB_GB'
+            'WEB_GB',
         ));
     }
 
@@ -56,7 +63,7 @@ final class UserRegistrationListenerSpec extends ObjectBehavior
         ChannelRepositoryInterface $channelRepository,
         UserRepositoryInterface $userRepository,
         ShopUserInterface $user,
-        ChannelInterface $channel
+        ChannelInterface $channel,
     ): void {
         $userRepository->findOneByEmail('shop@example.com')->willReturn($user);
         $channelRepository->findOneByCode('WEB_GB')->willReturn($channel);
@@ -70,7 +77,7 @@ final class UserRegistrationListenerSpec extends ObjectBehavior
             'shop@example.com',
             'Shop',
             'Example',
-            'WEB_GB'
+            'WEB_GB',
         ));
     }
 
@@ -82,7 +89,7 @@ final class UserRegistrationListenerSpec extends ObjectBehavior
             'shop@example.com',
             'Shop',
             'Example',
-            'WEB_GB'
+            'WEB_GB',
         )]);
     }
 }

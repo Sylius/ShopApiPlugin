@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Validator\Product;
@@ -21,7 +28,7 @@ final class ProductOptionExistsValidatorSpec extends ObjectBehavior
 {
     function let(
         ExecutionContextInterface $context,
-        ProductRepositoryInterface $productRepository
+        ProductRepositoryInterface $productRepository,
     ): void {
         $this->beConstructedWith($productRepository);
 
@@ -39,7 +46,7 @@ final class ProductOptionExistsValidatorSpec extends ObjectBehavior
         ProductInterface $product,
         ProductVariantInterface $productVariant,
         ProductOptionValueInterface $productOptionValue,
-        ExecutionContextInterface $context
+        ExecutionContextInterface $context,
     ): void {
         $productCode = 'LOGAN_HAT_CODE';
         $valueOptionCode = 'HAT_SIZE';
@@ -69,7 +76,7 @@ final class ProductOptionExistsValidatorSpec extends ObjectBehavior
         ProductVariantInterface $productVariant,
         ProductOptionValueInterface $productOptionValue,
         ExecutionContextInterface $context,
-        ConstraintViolationBuilderInterface $builder
+        ConstraintViolationBuilderInterface $builder,
     ): void {
         $productCode = 'LOGAN_HAT_CODE';
         $valueOptionCode = 'HAT_SIZE';

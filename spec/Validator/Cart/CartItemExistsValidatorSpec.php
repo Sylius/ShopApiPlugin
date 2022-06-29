@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Validator\Cart;
@@ -23,7 +30,7 @@ final class CartItemExistsValidatorSpec extends ObjectBehavior
     function it_does_not_add_constraint_if_order_item_exists(
         OrderItemInterface $orderItem,
         OrderItemRepositoryInterface $orderItemRepository,
-        ExecutionContextInterface $executionContext
+        ExecutionContextInterface $executionContext,
     ): void {
         $orderItemRepository->find(1)->willReturn($orderItem);
 
@@ -34,7 +41,7 @@ final class CartItemExistsValidatorSpec extends ObjectBehavior
 
     function it_adds_constraint_if_order_item_does_not_exits_exists(
         OrderItemRepositoryInterface $orderItemRepository,
-        ExecutionContextInterface $executionContext
+        ExecutionContextInterface $executionContext,
     ): void {
         $orderItemRepository->find(1)->willReturn(null);
 

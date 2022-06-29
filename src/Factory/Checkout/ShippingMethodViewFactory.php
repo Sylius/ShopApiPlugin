@@ -1,10 +1,8 @@
 <?php
 
-/**
+/*
  * This file is part of the Sylius package.
- *
- *  (c) Paweł Jędrzejewski
- *
+ * (c) Paweł Jędrzejewski
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -35,14 +33,14 @@ final class ShippingMethodViewFactory implements ShippingMethodViewFactoryInterf
     public function __construct(
         ServiceRegistry $calculatorRegistry,
         PriceViewFactoryInterface $priceViewFactory,
-        string $shippingMethodViewClass
+        string $shippingMethodViewClass,
     ) {
         $this->calculatorRegistry = $calculatorRegistry;
         $this->priceViewFactory = $priceViewFactory;
         $this->shippingMethodViewClass = $shippingMethodViewClass;
     }
 
-    /** {@inheritdoc} */
+    /** @inheritdoc */
     public function create(ShipmentInterface $shipment, string $locale, string $currency): ShippingMethodView
     {
         $shippingMethod = $shipment->getMethod();
@@ -51,12 +49,12 @@ final class ShippingMethodViewFactory implements ShippingMethodViewFactoryInterf
         return $this->createWithShippingMethod($shipment, $shippingMethod, $locale, $currency);
     }
 
-    /** {@inheritdoc} */
+    /** @inheritdoc */
     public function createWithShippingMethod(
         ShipmentInterface $shipment,
         ShippingMethodInterface $shippingMethod,
         string $locale,
-        string $currency
+        string $currency,
     ): ShippingMethodView {
         /** @var CalculatorInterface $calculator */
         $calculator = $this->calculatorRegistry->get($shippingMethod->getCalculator());
@@ -69,7 +67,7 @@ final class ShippingMethodViewFactory implements ShippingMethodViewFactoryInterf
         $shippingMethodView->description = $shippingMethod->getTranslation($locale)->getDescription();
         $shippingMethodView->price = $this->priceViewFactory->create(
             $calculator->calculate($shipment, $shippingMethod->getConfiguration()),
-            $currency
+            $currency,
         );
 
         return $shippingMethodView;

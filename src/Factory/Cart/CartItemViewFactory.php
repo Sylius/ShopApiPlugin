@@ -1,10 +1,8 @@
 <?php
 
-/**
+/*
  * This file is part of the Sylius package.
- *
- *  (c) Paweł Jędrzejewski
- *
+ * (c) Paweł Jędrzejewski
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -33,14 +31,14 @@ final class CartItemViewFactory implements CartItemViewFactoryInterface
     public function __construct(
         ProductViewFactoryInterface $productViewFactory,
         ProductVariantViewFactoryInterface $productVariantViewFactory,
-        string $cartItemViewClass
+        string $cartItemViewClass,
     ) {
         $this->productViewFactory = $productViewFactory;
         $this->productVariantViewFactory = $productVariantViewFactory;
         $this->cartItemViewClass = $cartItemViewClass;
     }
 
-    /** {@inheritdoc} */
+    /** @inheritdoc */
     public function create(OrderItemInterface $item, ChannelInterface $channel, string $locale): ItemView
     {
         /** @var ItemView $itemView */

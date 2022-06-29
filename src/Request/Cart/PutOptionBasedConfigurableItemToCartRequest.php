@@ -1,10 +1,8 @@
 <?php
 
-/**
+/*
  * This file is part of the Sylius package.
- *
- *  (c) Paweł Jędrzejewski
- *
+ * (c) Paweł Jędrzejewski
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -61,7 +59,7 @@ class PutOptionBasedConfigurableItemToCartRequest implements RequestInterface
             $item['token'] ?? null,
             $item['productCode'] ?? null,
             $item['options'] ?? null,
-            $item['quantity'] ?? null
+            $item['quantity'] ?? null,
         );
     }
 
@@ -71,7 +69,7 @@ class PutOptionBasedConfigurableItemToCartRequest implements RequestInterface
             $request->attributes->get('token'),
             $request->request->get('productCode'),
             $request->request->get('options'),
-            $request->request->getInt('quantity', 1)
+            $request->request->getInt('quantity', 1),
         );
     }
 
@@ -81,7 +79,7 @@ class PutOptionBasedConfigurableItemToCartRequest implements RequestInterface
             $this->token,
             $this->productCode,
             $this->options,
-            $this->quantity
+            $this->quantity,
         );
     }
 }

@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\ViewRepository\Product;
@@ -21,13 +28,13 @@ final class ProductDetailsViewRepositorySpec extends ObjectBehavior
         ChannelRepositoryInterface $channelRepository,
         ProductRepositoryInterface $productRepository,
         ProductViewFactoryInterface $productViewFactory,
-        SupportedLocaleProviderInterface $supportedLocaleProvider
+        SupportedLocaleProviderInterface $supportedLocaleProvider,
     ): void {
         $this->beConstructedWith(
             $channelRepository,
             $productRepository,
             $productViewFactory,
-            $supportedLocaleProvider
+            $supportedLocaleProvider,
         );
     }
 
@@ -43,7 +50,7 @@ final class ProductDetailsViewRepositorySpec extends ObjectBehavior
         SupportedLocaleProviderInterface $supportedLocaleProvider,
         ChannelInterface $channel,
         ProductInterface $product,
-        ProductView $productView
+        ProductView $productView,
     ): void {
         $channelRepository->findOneByCode('WEB_GB')->willReturn($channel);
 
@@ -60,7 +67,7 @@ final class ProductDetailsViewRepositorySpec extends ObjectBehavior
         ChannelRepositoryInterface $channelRepository,
         SupportedLocaleProviderInterface $supportedLocaleProvider,
         ProductRepositoryInterface $productRepository,
-        ChannelInterface $channel
+        ChannelInterface $channel,
     ): void {
         $channelRepository->findOneByCode('en_US')->willReturn($channel);
         $supportedLocaleProvider->provide('de_DE', $channel)->willThrow(new \InvalidArgumentException());
@@ -68,7 +75,8 @@ final class ProductDetailsViewRepositorySpec extends ObjectBehavior
         $productRepository->findOneByChannelAndSlug(Argument::any())->shouldNotBeCalled();
 
         $this->shouldThrow(\InvalidArgumentException::class)
-                ->during('findOneBySlug', ['logan-mug', 'en_US', 'de_DE']);
+                ->during('findOneBySlug', ['logan-mug', 'en_US', 'de_DE'])
+        ;
     }
 
     function it_throws_an_exception_if_channel_was_not_found(ChannelRepositoryInterface $channelRepository): void
@@ -83,7 +91,7 @@ final class ProductDetailsViewRepositorySpec extends ObjectBehavior
         ChannelRepositoryInterface $channelRepository,
         ProductRepositoryInterface $productRepository,
         SupportedLocaleProviderInterface $supportedLocaleProvider,
-        ChannelInterface $channel
+        ChannelInterface $channel,
     ): void {
         $channelRepository->findOneByCode('WEB_GB')->willReturn($channel);
         $supportedLocaleProvider->provide('de_DE', $channel)->willReturn('en_GB');
@@ -99,7 +107,7 @@ final class ProductDetailsViewRepositorySpec extends ObjectBehavior
         SupportedLocaleProviderInterface $supportedLocaleProvider,
         ChannelInterface $channel,
         ProductInterface $product,
-        ProductView $productView
+        ProductView $productView,
     ): void {
         $supportedLocaleProvider->provide('en_GB', $channel)->willReturn('en_GB');
 
@@ -117,7 +125,7 @@ final class ProductDetailsViewRepositorySpec extends ObjectBehavior
         ChannelRepositoryInterface $channelRepository,
         ProductRepositoryInterface $productRepository,
         SupportedLocaleProviderInterface $supportedLocaleProvider,
-        ChannelInterface $channel
+        ChannelInterface $channel,
     ): void {
         $channelRepository->findOneByCode('WEB_GB')->willReturn($channel);
         $supportedLocaleProvider->provide('de_DE', $channel)->willReturn('de_DE');
@@ -132,7 +140,7 @@ final class ProductDetailsViewRepositorySpec extends ObjectBehavior
         ProductRepositoryInterface $productRepository,
         SupportedLocaleProviderInterface $supportedLocaleProvider,
         ChannelInterface $channel,
-        ProductInterface $product
+        ProductInterface $product,
     ): void {
         $product->hasChannel($channel)->willReturn(false);
 

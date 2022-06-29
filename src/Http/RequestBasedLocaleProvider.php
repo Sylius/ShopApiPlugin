@@ -1,10 +1,8 @@
 <?php
 
-/**
+/*
  * This file is part of the Sylius package.
- *
- *  (c) Paweł Jędrzejewski
- *
+ * (c) Paweł Jędrzejewski
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -29,7 +27,7 @@ final class RequestBasedLocaleProvider implements RequestBasedLocaleProviderInte
 
     public function __construct(
         ChannelContextInterface $channelContext,
-        SupportedLocaleProviderInterface $supportedLocaleProvider
+        SupportedLocaleProviderInterface $supportedLocaleProvider,
     ) {
         $this->channelContext = $channelContext;
         $this->supportedLocaleProvider = $supportedLocaleProvider;

@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Handler\Product;
@@ -25,7 +32,7 @@ final class AddProductReviewBySlugHandlerSpec extends ObjectBehavior
         ChannelRepositoryInterface $channelRepository,
         ProductRepositoryInterface $productRepository,
         ProductReviewerProviderInterface $productReviewerProvider,
-        ReviewFactoryInterface $reviewFactory
+        ReviewFactoryInterface $reviewFactory,
     ): void {
         $this->beConstructedWith($productReviewRepository, $channelRepository, $productRepository, $productReviewerProvider, $reviewFactory);
     }
@@ -45,7 +52,7 @@ final class AddProductReviewBySlugHandlerSpec extends ObjectBehavior
         ChannelInterface $channel,
         ProductReviewerInterface $productReviewer,
         LocaleInterface $locale,
-        ReviewInterface $productReview
+        ReviewInterface $productReview,
     ): void {
         $channelRepository->findOneByCode('WEB_GB')->willReturn($channel);
         $channel->getDefaultLocale()->willReturn($locale);
@@ -81,7 +88,7 @@ final class AddProductReviewBySlugHandlerSpec extends ObjectBehavior
         ChannelRepositoryInterface $channelRepository,
         ProductRepositoryInterface $productRepository,
         ChannelInterface $channel,
-        LocaleInterface $locale
+        LocaleInterface $locale,
     ): void {
         $channelRepository->findOneByCode('WEB_GB')->willReturn($channel);
         $channel->getDefaultLocale()->willReturn($locale);

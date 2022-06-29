@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Handler\Cart;
@@ -21,7 +28,7 @@ final class CompleteOrderHandlerSpec extends ObjectBehavior
     function let(
         OrderRepositoryInterface $orderRepository,
         StateMachineFactoryInterface $stateMachineFactory,
-        MessageBusInterface $eventBus
+        MessageBusInterface $eventBus,
     ): void {
         $this->beConstructedWith($orderRepository, $stateMachineFactory, $eventBus);
     }
@@ -31,7 +38,7 @@ final class CompleteOrderHandlerSpec extends ObjectBehavior
         OrderRepositoryInterface $orderRepository,
         StateMachineFactoryInterface $stateMachineFactory,
         StateMachineInterface $stateMachine,
-        MessageBusInterface $eventBus
+        MessageBusInterface $eventBus,
     ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
 
@@ -52,7 +59,7 @@ final class CompleteOrderHandlerSpec extends ObjectBehavior
         OrderRepositoryInterface $orderRepository,
         StateMachineFactoryInterface $stateMachineFactory,
         StateMachineInterface $stateMachine,
-        MessageBusInterface $eventBus
+        MessageBusInterface $eventBus,
     ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
 
@@ -70,7 +77,7 @@ final class CompleteOrderHandlerSpec extends ObjectBehavior
     }
 
     function it_throws_an_exception_if_order_does_not_exist(
-        OrderRepositoryInterface $orderRepository
+        OrderRepositoryInterface $orderRepository,
     ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn(null);
 
@@ -84,7 +91,7 @@ final class CompleteOrderHandlerSpec extends ObjectBehavior
         StateMachineFactoryInterface $stateMachineFactory,
         OrderInterface $order,
         OrderRepositoryInterface $orderRepository,
-        StateMachineInterface $stateMachine
+        StateMachineInterface $stateMachine,
     ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
 

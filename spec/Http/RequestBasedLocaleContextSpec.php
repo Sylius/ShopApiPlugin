@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Http;
@@ -25,7 +32,7 @@ class RequestBasedLocaleContextSpec extends ObjectBehavior
     }
 
     public function it_throws_an_error_if_the_request_does_not_exists(
-        RequestStack $requestStack
+        RequestStack $requestStack,
     ): void {
         $requestStack->getCurrentRequest()->willReturn(null);
 
@@ -34,7 +41,7 @@ class RequestBasedLocaleContextSpec extends ObjectBehavior
 
     public function it_throws_an_error_if_the_locale_is_not_set_on_request(
         RequestStack $requestStack,
-        Request $request
+        Request $request,
     ): void {
         $requestStack->getCurrentRequest()->willReturn($request);
         $request->get('locale', null)->willReturn(null);
@@ -46,7 +53,7 @@ class RequestBasedLocaleContextSpec extends ObjectBehavior
     public function it_throws_an_error_if_the_locale_is_not_available(
         RequestStack $requestStack,
         Request $request,
-        LocaleProviderInterface $localeProvider
+        LocaleProviderInterface $localeProvider,
     ): void {
         $requestStack->getCurrentRequest()->willReturn($request);
         $request->get('locale', null)->willReturn('el');
@@ -59,7 +66,7 @@ class RequestBasedLocaleContextSpec extends ObjectBehavior
     public function it_returns_the_locale_from_the_request_arguments(
         RequestStack $requestStack,
         Request $request,
-        LocaleProviderInterface $localeProvider
+        LocaleProviderInterface $localeProvider,
     ): void {
         $requestStack->getCurrentRequest()->willReturn($request);
         $request->get('locale', null)->willReturn('en_US');
@@ -72,7 +79,7 @@ class RequestBasedLocaleContextSpec extends ObjectBehavior
     public function it_returns_the_locale_from_the_request_headers(
         RequestStack $requestStack,
         Request $request,
-        LocaleProviderInterface $localeProvider
+        LocaleProviderInterface $localeProvider,
     ): void {
         $requestStack->getCurrentRequest()->willReturn($request);
         $request->get('locale', null)->willReturn(null);

@@ -1,10 +1,8 @@
 <?php
 
-/**
+/*
  * This file is part of the Sylius package.
- *
- *  (c) Paweł Jędrzejewski
- *
+ * (c) Paweł Jędrzejewski
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -45,7 +43,7 @@ final class RegisterCustomerHandler
         ChannelRepositoryInterface $channelRepository,
         FactoryInterface $userFactory,
         EventDispatcherInterface $eventDispatcher,
-        CustomerProviderInterface $customerProvider
+        CustomerProviderInterface $customerProvider,
     ) {
         $this->userRepository = $userRepository;
         $this->channelRepository = $channelRepository;
@@ -81,7 +79,7 @@ final class RegisterCustomerHandler
             $command->lastName(),
             $command->channelCode(),
             $command->subscribedToNewsletter(),
-            $command->phoneNumber()
+            $command->phoneNumber(),
         ), 'sylius.customer.post_api_registered');
     }
 

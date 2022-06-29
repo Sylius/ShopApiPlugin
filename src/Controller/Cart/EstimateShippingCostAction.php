@@ -1,10 +1,8 @@
 <?php
 
-/**
+/*
  * This file is part of the Sylius package.
- *
- *  (c) Paweł Jędrzejewski
- *
+ * (c) Paweł Jędrzejewski
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -45,7 +43,7 @@ final class EstimateShippingCostAction
         ShippingCostEstimatorInterface $shippingCostEstimator,
         ValidatorInterface $validator,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
-        EstimatedShippingCostViewFactoryInterface $estimatedShippingCostViewFactory
+        EstimatedShippingCostViewFactoryInterface $estimatedShippingCostViewFactory,
     ) {
         $this->viewHandler = $viewHandler;
         $this->shippingCostEstimator = $shippingCostEstimator;
@@ -63,19 +61,19 @@ final class EstimateShippingCostAction
             return $this->viewHandler->handle(
                 View::create(
                     $this->validationErrorViewFactory->create($validationResults),
-                    Response::HTTP_BAD_REQUEST
-                )
+                    Response::HTTP_BAD_REQUEST,
+                ),
             );
         }
 
         $shippingCost = $this->shippingCostEstimator->estimate(
             $estimateShippingCostRequest->cartToken(),
             $estimateShippingCostRequest->countryCode(),
-            $estimateShippingCostRequest->provinceCode()
+            $estimateShippingCostRequest->provinceCode(),
         );
 
         return $this->viewHandler->handle(
-            View::create($this->estimatedShippingCostViewFactory->create($shippingCost), Response::HTTP_OK)
+            View::create($this->estimatedShippingCostViewFactory->create($shippingCost), Response::HTTP_OK),
         );
     }
 }

@@ -1,10 +1,8 @@
 <?php
 
-/**
+/*
  * This file is part of the Sylius package.
- *
- *  (c) Paweł Jędrzejewski
- *
+ * (c) Paweł Jędrzejewski
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -27,7 +25,7 @@ final class EstimatedShippingCostViewFactory implements EstimatedShippingCostVie
 
     public function __construct(
         PriceViewFactoryInterface $priceViewFactory,
-        string $className
+        string $className,
     ) {
         $this->priceViewFactory = $priceViewFactory;
         $this->className = $className;
@@ -37,7 +35,8 @@ final class EstimatedShippingCostViewFactory implements EstimatedShippingCostVie
     {
         $estimatedShippingCostView = new $this->className();
         $estimatedShippingCostView->price = $this->priceViewFactory->create(
-            $shippingCost->price(), $shippingCost->currency()
+            $shippingCost->price(),
+            $shippingCost->currency(),
         );
 
         return $estimatedShippingCostView;

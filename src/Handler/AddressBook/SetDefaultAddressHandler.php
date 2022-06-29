@@ -1,10 +1,8 @@
 <?php
 
-/**
+/*
  * This file is part of the Sylius package.
- *
- *  (c) Paweł Jędrzejewski
- *
+ * (c) Paweł Jędrzejewski
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -36,7 +34,7 @@ final class SetDefaultAddressHandler
     public function __construct(
         CustomerRepositoryInterface $customerRepository,
         AddressRepositoryInterface $addressRepository,
-        RepositoryInterface $shopUserRepository
+        RepositoryInterface $shopUserRepository,
     ) {
         $this->customerRepository = $customerRepository;
         $this->addressRepository = $addressRepository;

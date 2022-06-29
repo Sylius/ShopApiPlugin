@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Factory\Cart;
@@ -37,7 +44,7 @@ final class CartViewFactorySpec extends ObjectBehavior
         TotalViewFactoryInterface $totalViewFactory,
         ShipmentViewFactoryInterface $shipmentViewFactory,
         PaymentViewFactoryInterface $paymentViewFactory,
-        AdjustmentViewFactoryInterface $adjustmentViewFactory
+        AdjustmentViewFactoryInterface $adjustmentViewFactory,
     ): void {
         $this->beConstructedWith($cartItemViewFactory, $addressViewFactory, $totalViewFactory, $shipmentViewFactory, $paymentViewFactory, $adjustmentViewFactory, CartSummaryView::class);
     }
@@ -53,7 +60,7 @@ final class CartViewFactorySpec extends ObjectBehavior
         OrderInterface $cart,
         OrderItemInterface $firstOrderItem,
         OrderItemInterface $secondOrderItem,
-        TotalViewFactoryInterface $totalViewFactory
+        TotalViewFactoryInterface $totalViewFactory,
     ): void {
         $cart->getChannel()->willReturn($channel);
         $cart->getCurrencyCode()->willReturn('GBP');
@@ -101,7 +108,7 @@ final class CartViewFactorySpec extends ObjectBehavior
         OrderInterface $cart,
         OrderItemInterface $firstOrderItem,
         OrderItemInterface $secondOrderItem,
-        TotalViewFactoryInterface $totalViewFactory
+        TotalViewFactoryInterface $totalViewFactory,
     ): void {
         $cart->getChannel()->willReturn($channel);
         $cart->getCurrencyCode()->willReturn('GBP');
@@ -154,7 +161,7 @@ final class CartViewFactorySpec extends ObjectBehavior
         OrderItemInterface $secondOrderItem,
         TotalViewFactoryInterface $totalViewFactory,
         ShipmentInterface $shipment,
-        ShipmentViewFactoryInterface $shipmentViewFactory
+        ShipmentViewFactoryInterface $shipmentViewFactory,
     ): void {
         $cart->getItemsTotal()->willReturn(1100);
         $cart->getChannel()->willReturn($channel);
@@ -207,7 +214,7 @@ final class CartViewFactorySpec extends ObjectBehavior
         OrderItemInterface $secondOrderItem,
         PaymentInterface $payment,
         PaymentViewFactoryInterface $paymentViewFactory,
-        TotalViewFactoryInterface $totalViewFactory
+        TotalViewFactoryInterface $totalViewFactory,
     ): void {
         $cart->getItemsTotal()->willReturn(1100);
         $cart->getChannel()->willReturn($channel);
@@ -259,7 +266,7 @@ final class CartViewFactorySpec extends ObjectBehavior
         OrderItemInterface $orderItem,
         AdjustmentInterface $adjustment,
         AdjustmentViewFactoryInterface $adjustmentViewFactory,
-        TotalViewFactoryInterface $totalViewFactory
+        TotalViewFactoryInterface $totalViewFactory,
     ): void {
         $cart->getItemsTotal()->willReturn(1100);
         $cart->getChannel()->willReturn($channel);
@@ -310,7 +317,7 @@ final class CartViewFactorySpec extends ObjectBehavior
         AdjustmentInterface $adjustment,
         AdjustmentInterface $similarAdjustment,
         AdjustmentViewFactoryInterface $adjustmentViewFactory,
-        TotalViewFactoryInterface $totalViewFactory
+        TotalViewFactoryInterface $totalViewFactory,
     ): void {
         $cart->getItemsTotal()->willReturn(1100);
         $cart->getChannel()->willReturn($channel);
@@ -368,7 +375,7 @@ final class CartViewFactorySpec extends ObjectBehavior
         AdjustmentInterface $similarAdjustment,
         AdjustmentViewFactoryInterface $adjustmentViewFactory,
         PromotionCouponInterface $promotionCoupon,
-        TotalViewFactoryInterface $totalViewFactory
+        TotalViewFactoryInterface $totalViewFactory,
     ): void {
         $cart->getItemsTotal()->willReturn(1100);
         $cart->getChannel()->willReturn($channel);

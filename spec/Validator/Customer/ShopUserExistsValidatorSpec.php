@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Validator\Customer;
@@ -29,7 +36,7 @@ final class ShopUserExistsValidatorSpec extends ObjectBehavior
     function it_does_not_add_constraint_if_user_exists(
         ShopUserInterface $user,
         UserRepositoryInterface $userRepository,
-        ExecutionContextInterface $executionContext
+        ExecutionContextInterface $executionContext,
     ): void {
         $userRepository->findOneByEmail('shop@example.com')->willReturn($user);
 
@@ -40,7 +47,7 @@ final class ShopUserExistsValidatorSpec extends ObjectBehavior
 
     function it_adds_constraint_if_user_does_not_exits_exists(
         UserRepositoryInterface $userRepository,
-        ExecutionContextInterface $executionContext
+        ExecutionContextInterface $executionContext,
     ): void {
         $userRepository->findOneByEmail('shop@example.com')->willReturn(null);
 
