@@ -1,3 +1,8 @@
+# UPGRADE FROM 1.4.1 to 1.5
+
+* Dropped support for PHP 7.4
+* Bumped Sylius requirements to 1.10
+
 # UPGRADE FROM 1.0.0 to 1.1.0
 * Add firewall protection to the `/address-book` and `/me` routes in the `security.yaml`
 
