@@ -47,6 +47,11 @@
     "suggest": {
         "nelmio/cors-bundle": "allows you to send Cross-Origin Ajax API Request"
     },
+    "config": {
+        "allow-plugins": {
+            "symfony/flex": true
+        }
+    },
     "extra": {
         "branch-alias": {
             "dev-master": "1.0-dev"
