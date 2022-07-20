@@ -36,7 +36,7 @@
             "vendor/bin/phpstan analyse -c phpstan.neon --no-progress src"
         ],
         "fix": [
-            "vendor/bin/ecs check --ansi --no-progress-bar"
+            "vendor/bin/ecs check --ansi --no-progress-bar --fix"
         ]
     },
     "autoload-dev": {
