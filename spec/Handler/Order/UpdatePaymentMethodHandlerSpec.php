@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Handler\Order;
@@ -19,7 +26,7 @@ final class UpdatePaymentMethodHandlerSpec extends ObjectBehavior
 {
     function let(
         OrderRepositoryInterface $orderRepository,
-        PaymentMethodRepositoryInterface $paymentMethodRepository
+        PaymentMethodRepositoryInterface $paymentMethodRepository,
     ): void {
         $this->beConstructedWith($orderRepository, $paymentMethodRepository);
     }
@@ -29,7 +36,7 @@ final class UpdatePaymentMethodHandlerSpec extends ObjectBehavior
         OrderInterface $order,
         PaymentMethodRepositoryInterface $paymentMethodRepository,
         PaymentMethodInterface $paymentMethod,
-        PaymentInterface $payment
+        PaymentInterface $payment,
     ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
         $order->getState()->willReturn(OrderInterface::STATE_NEW);
@@ -44,7 +51,7 @@ final class UpdatePaymentMethodHandlerSpec extends ObjectBehavior
 
     function it_throws_an_exception_if_order_with_given_token_has_not_been_found(
         OrderRepositoryInterface $orderRepository,
-        PaymentInterface $payment
+        PaymentInterface $payment,
     ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn(null);
         $payment->setMethod(Argument::type(PaymentMethodInterface::class))->shouldNotBeCalled();
@@ -61,7 +68,7 @@ final class UpdatePaymentMethodHandlerSpec extends ObjectBehavior
         OrderRepositoryInterface $orderRepository,
         OrderInterface $order,
         PaymentMethodRepositoryInterface $paymentMethodRepository,
-        PaymentInterface $payment
+        PaymentInterface $payment,
     ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
         $order->getState()->willReturn(OrderInterface::STATE_CART);
@@ -81,7 +88,7 @@ final class UpdatePaymentMethodHandlerSpec extends ObjectBehavior
         OrderRepositoryInterface $orderRepository,
         OrderInterface $order,
         PaymentMethodRepositoryInterface $paymentMethodRepository,
-        PaymentInterface $payment
+        PaymentInterface $payment,
     ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
         $order->getState()->willReturn(OrderInterface::STATE_NEW);
@@ -102,7 +109,7 @@ final class UpdatePaymentMethodHandlerSpec extends ObjectBehavior
         OrderRepositoryInterface $orderRepository,
         OrderInterface $order,
         PaymentMethodRepositoryInterface $paymentMethodRepository,
-        PaymentInterface $payment
+        PaymentInterface $payment,
     ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
         $order->getState()->willReturn(OrderInterface::STATE_NEW);
@@ -124,7 +131,7 @@ final class UpdatePaymentMethodHandlerSpec extends ObjectBehavior
         OrderInterface $order,
         PaymentMethodRepositoryInterface $paymentMethodRepository,
         PaymentMethodInterface $paymentMethod,
-        PaymentInterface $payment
+        PaymentInterface $payment,
     ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
         $order->getState()->willReturn(OrderInterface::STATE_NEW);
@@ -147,7 +154,7 @@ final class UpdatePaymentMethodHandlerSpec extends ObjectBehavior
         OrderInterface $order,
         PaymentMethodRepositoryInterface $paymentMethodRepository,
         PaymentMethodInterface $paymentMethod,
-        PaymentInterface $payment
+        PaymentInterface $payment,
     ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
         $order->getState()->willReturn(OrderInterface::STATE_NEW);

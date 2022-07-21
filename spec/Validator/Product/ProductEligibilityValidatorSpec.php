@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Validator\Product;
@@ -27,7 +34,7 @@ final class ProductEligibilityValidatorSpec
     function it_does_not_add_constraint_if_product_enabled(
         ProductRepositoryInterface $productRepository,
         ProductInterface $product,
-        ExecutionContextInterface $executionContext
+        ExecutionContextInterface $executionContext,
     ): void {
         $productRepository->findOneByCode('BARBECUE_CODE')->willReturn($product);
         $product->isEnabled()->willReturn(true);
@@ -40,7 +47,7 @@ final class ProductEligibilityValidatorSpec
     function it_adds_constraint_if_product_is_disabled(
         ProductRepositoryInterface $productRepository,
         ProductInterface $product,
-        ExecutionContextInterface $executionContext
+        ExecutionContextInterface $executionContext,
     ): void {
         $productRepository->findOneByCode('BARBECUE_CODE')->willReturn($product);
         $product->isEnabled()->willReturn(false);

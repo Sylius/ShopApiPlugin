@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\CommandProvider;
@@ -27,7 +34,7 @@ final class DefaultCommandProviderSpec extends ObjectBehavior
     function it_validates_request(
         ValidatorInterface $validator,
         Request $httpRequest,
-        ConstraintViolationListInterface $constraintViolationList
+        ConstraintViolationListInterface $constraintViolationList,
     ): void {
         $httpRequest->attributes = new ParameterBag(['token' => 'sample_cart_token']);
 

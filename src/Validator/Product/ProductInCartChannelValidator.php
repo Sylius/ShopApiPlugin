@@ -1,10 +1,8 @@
 <?php
 
-/**
+/*
  * This file is part of the Sylius package.
- *
- *  (c) Paweł Jędrzejewski
- *
+ * (c) Paweł Jędrzejewski
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -38,14 +36,14 @@ final class ProductInCartChannelValidator extends ConstraintValidator
     public function __construct(
         ProductInCartChannelCheckerInterface $productInCartChannelChecker,
         ProductRepositoryInterface $productRepository,
-        OrderRepositoryInterface $cartRepository
+        OrderRepositoryInterface $cartRepository,
     ) {
         $this->productInCartChannelChecker = $productInCartChannelChecker;
         $this->productRepository = $productRepository;
         $this->cartRepository = $cartRepository;
     }
 
-    /** {@inheritdoc} */
+    /** @inheritdoc */
     public function validate($value, Constraint $constraint): void
     {
         /** @var PutOptionBasedConfigurableItemToCartRequest|PutVariantBasedConfigurableItemToCartRequest|PutSimpleItemToCartRequest $value */
@@ -63,7 +61,8 @@ final class ProductInCartChannelValidator extends ConstraintValidator
             /** @var ProductInCartChannel $constraint */
             $this->context->buildViolation($constraint->message)
                 ->atPath('productCode')
-                ->addViolation();
+                ->addViolation()
+            ;
         }
     }
 }

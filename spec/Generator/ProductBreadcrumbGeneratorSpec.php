@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Generator;
@@ -22,7 +29,7 @@ final class ProductBreadcrumbGeneratorSpec extends ObjectBehavior
         ProductInterface $product,
         ProductTranslationInterface $productTranslation,
         TaxonInterface $mainTaxon,
-        TaxonTranslationInterface $mainTaxonTranslation
+        TaxonTranslationInterface $mainTaxonTranslation,
     ): void {
         $product->getTranslation('en_GB')->willReturn($productTranslation);
         $product->getMainTaxon()->willReturn($mainTaxon);
@@ -37,7 +44,7 @@ final class ProductBreadcrumbGeneratorSpec extends ObjectBehavior
 
     function it_returns_product_slug_if_product_does_not_have_main_taxon(
         ProductInterface $product,
-        ProductTranslationInterface $productTranslation
+        ProductTranslationInterface $productTranslation,
     ): void {
         $product->getTranslation('en_GB')->willReturn($productTranslation);
         $product->getMainTaxon()->willReturn(null);

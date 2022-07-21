@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller\Checkout;
@@ -53,7 +60,7 @@ JSON;
             [],
             [],
             self::CONTENT_TYPE_HEADER,
-            $data
+            $data,
         );
 
         $response = $this->client->getResponse();
@@ -98,7 +105,7 @@ JSON;
             [],
             [],
             self::CONTENT_TYPE_HEADER,
-            $data
+            $data,
         );
 
         $response = $this->client->getResponse();
@@ -143,7 +150,7 @@ JSON;
             [],
             [],
             self::CONTENT_TYPE_HEADER,
-            $data
+            $data,
         );
 
         $response = $this->client->getResponse();

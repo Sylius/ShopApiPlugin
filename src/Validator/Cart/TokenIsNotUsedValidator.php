@@ -1,10 +1,8 @@
 <?php
 
-/**
+/*
  * This file is part of the Sylius package.
- *
- *  (c) Paweł Jędrzejewski
- *
+ * (c) Paweł Jędrzejewski
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -27,7 +25,7 @@ final class TokenIsNotUsedValidator extends ConstraintValidator
         $this->orderRepository = $orderRepository;
     }
 
-    /** {@inheritdoc} */
+    /** @inheritdoc */
     public function validate($token, Constraint $constraint): void
     {
         if (null !== $this->orderRepository->findOneBy(['tokenValue' => $token])) {

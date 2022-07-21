@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Checker;
@@ -21,7 +28,7 @@ final class ProductInCartChannelCheckerSpec extends ObjectBehavior
     function it_returns_true_if_the_channels_match(
         ProductInterface $product,
         OrderInterface $order,
-        ChannelInterface $channel
+        ChannelInterface $channel,
     ): void {
         $product->getChannels()->willReturn(new ArrayCollection([$channel->getWrappedObject()]));
 
@@ -35,7 +42,7 @@ final class ProductInCartChannelCheckerSpec extends ObjectBehavior
         OrderInterface $order,
         ChannelInterface $orderChannel,
         ChannelInterface $productChannel1,
-        ChannelInterface $productChannel2
+        ChannelInterface $productChannel2,
     ): void {
         $product->getChannels()->willReturn(new ArrayCollection([
             $productChannel1->getWrappedObject(),

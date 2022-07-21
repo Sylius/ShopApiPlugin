@@ -1,10 +1,8 @@
 <?php
 
-/**
+/*
  * This file is part of the Sylius package.
- *
- *  (c) Paweł Jędrzejewski
- *
+ * (c) Paweł Jędrzejewski
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -53,7 +51,7 @@ final class PutItemToCartAction
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         CartViewRepositoryInterface $cartQuery,
         RequestCartTokenNormalizerInterface $requestCartTokenNormalizer,
-        CommandProviderInterface $putItemToCartCommandProvider
+        CommandProviderInterface $putItemToCartCommandProvider,
     ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
@@ -75,7 +73,7 @@ final class PutItemToCartAction
         if (0 !== count($validationResults)) {
             return $this->viewHandler->handle(View::create(
                 $this->validationErrorViewFactory->create($validationResults),
-                Response::HTTP_BAD_REQUEST
+                Response::HTTP_BAD_REQUEST,
             ));
         }
 
@@ -86,7 +84,7 @@ final class PutItemToCartAction
         try {
             return $this->viewHandler->handle(View::create(
                 $this->cartQuery->getOneByToken($command->orderToken()),
-                Response::HTTP_CREATED
+                Response::HTTP_CREATED,
             ));
         } catch (\InvalidArgumentException $exception) {
             throw new BadRequestHttpException($exception->getMessage());

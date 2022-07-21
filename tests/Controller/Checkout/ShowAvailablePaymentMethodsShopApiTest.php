@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller\Checkout;
@@ -66,7 +73,8 @@ final class ShowAvailablePaymentMethodsShopApiTest extends JsonApiTestCase
                 'countryCode' => 'GB',
                 'postcode' => 'NWB',
                 'provinceName' => 'Greater London',
-            ]), Address::createFromArray([
+            ]),
+            Address::createFromArray([
                 'firstName' => 'Sherlock',
                 'lastName' => 'Holmes',
                 'city' => 'London',
@@ -74,7 +82,7 @@ final class ShowAvailablePaymentMethodsShopApiTest extends JsonApiTestCase
                 'countryCode' => 'GB',
                 'postcode' => 'NWB',
                 'provinceName' => 'Greater London',
-            ])
+            ]),
         ));
 
         $response = $this->showAvailablePaymentMethods($token);
@@ -104,7 +112,8 @@ final class ShowAvailablePaymentMethodsShopApiTest extends JsonApiTestCase
                 'countryCode' => 'GB',
                 'postcode' => 'NWB',
                 'provinceName' => 'Greater London',
-            ]), Address::createFromArray([
+            ]),
+            Address::createFromArray([
                 'firstName' => 'Sherlock',
                 'lastName' => 'Holmes',
                 'city' => 'London',
@@ -112,7 +121,7 @@ final class ShowAvailablePaymentMethodsShopApiTest extends JsonApiTestCase
                 'countryCode' => 'GB',
                 'postcode' => 'NWB',
                 'provinceName' => 'Greater London',
-            ])
+            ]),
         ));
         $bus->dispatch(new ChooseShippingMethod($token, 0, 'DHL'));
 
@@ -127,7 +136,7 @@ final class ShowAvailablePaymentMethodsShopApiTest extends JsonApiTestCase
             sprintf('/shop-api/checkout/%s/payment', $token),
             [],
             [],
-            self::CONTENT_TYPE_HEADER
+            self::CONTENT_TYPE_HEADER,
         );
 
         return $this->client->getResponse();

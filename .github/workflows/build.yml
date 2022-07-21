@@ -111,3 +111,7 @@ jobs:
             -
                 name: Run PHPUnit
                 run: vendor/bin/phpunit --colors=always
+
+            -
+                name: Run Codestyle
+                run: vendor/bin/ecs check

@@ -18,7 +18,7 @@
         "phpstan/phpstan": "0.12.96",
         "phpstan/phpstan-webmozart-assert": "0.12.12",
         "phpunit/phpunit": "^9.0",
-        "sylius-labs/coding-standard": "^3.0",
+        "sylius-labs/coding-standard": "^4.0",
         "symfony/debug-bundle": "^4.4|^5.2",
         "symfony/dotenv": "^4.4|^5.2",
         "symfony/web-profiler-bundle": "^4.4|^5.2",
@@ -32,11 +32,11 @@
     "scripts": {
         "analyse": [
             "@composer validate --strict",
-            "vendor/bin/ecs check --ansi --no-progress-bar spec src tests/Controller tests/DataFixtures tests/Request",
+            "vendor/bin/ecs check --ansi --no-progress-bar",
             "vendor/bin/phpstan analyse -c phpstan.neon --no-progress src"
         ],
         "fix": [
-            "vendor/bin/ecs check --ansi --no-progress-bar spec src tests/Controller tests/DataFixtures tests/Request --fix"
+            "vendor/bin/ecs check --ansi --no-progress-bar --fix"
         ]
     },
     "autoload-dev": {

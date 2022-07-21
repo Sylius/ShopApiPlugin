@@ -1,10 +1,8 @@
 <?php
 
-/**
+/*
  * This file is part of the Sylius package.
- *
- *  (c) Paweł Jędrzejewski
- *
+ * (c) Paweł Jędrzejewski
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -24,7 +22,7 @@ interface ChannelBasedCommandProviderInterface
         Request $httpRequest,
         ChannelInterface $channel,
         array $constraints = null,
-        array $groups = null
+        array $groups = null,
     ): ConstraintViolationListInterface;
 
     public function getCommand(Request $httpRequest, ChannelInterface $channel): CommandInterface;

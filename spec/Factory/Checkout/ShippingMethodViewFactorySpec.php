@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Factory\Checkout;
@@ -33,7 +40,7 @@ final class ShippingMethodViewFactorySpec extends ObjectBehavior
         PriceViewFactoryInterface $priceViewFactory,
         ServiceRegistry $calculatorRegistry,
         ShippingMethodInterface $shippingMethod,
-        ShippingMethodTranslationInterface $shippingMethodTranslation
+        ShippingMethodTranslationInterface $shippingMethodTranslation,
     ): void {
         $shippingMethod->getCode()->willReturn('COD_CODE');
         $shippingMethod->getTranslation('en_GB')->willReturn($shippingMethodTranslation);
@@ -65,7 +72,7 @@ final class ShippingMethodViewFactorySpec extends ObjectBehavior
         PriceViewFactoryInterface $priceViewFactory,
         ServiceRegistry $calculatorRegistry,
         ShippingMethodInterface $shippingMethod,
-        ShippingMethodTranslationInterface $shippingMethodTranslation
+        ShippingMethodTranslationInterface $shippingMethodTranslation,
     ): void {
         $shipment->getMethod()->willReturn($shippingMethod);
 

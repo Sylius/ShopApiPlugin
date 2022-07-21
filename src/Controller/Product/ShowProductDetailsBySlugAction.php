@@ -1,10 +1,8 @@
 <?php
 
-/**
+/*
  * This file is part of the Sylius package.
- *
- *  (c) Paweł Jędrzejewski
- *
+ * (c) Paweł Jędrzejewski
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -36,7 +34,7 @@ final class ShowProductDetailsBySlugAction
     public function __construct(
         ProductDetailsViewRepositoryInterface $productCatalog,
         ViewHandlerInterface $viewHandler,
-        ChannelContextInterface $channelContext
+        ChannelContextInterface $channelContext,
     ) {
         $this->productCatalog = $productCatalog;
         $this->viewHandler = $viewHandler;
@@ -51,7 +49,7 @@ final class ShowProductDetailsBySlugAction
             return $this->viewHandler->handle(View::create($this->productCatalog->findOneBySlug(
                 $request->attributes->get('slug'),
                 $channel->getCode(),
-                $request->query->get('locale')
+                $request->query->get('locale'),
             ), Response::HTTP_OK));
         } catch (ChannelNotFoundException $exception) {
             throw new NotFoundHttpException('Channel has not been found.');

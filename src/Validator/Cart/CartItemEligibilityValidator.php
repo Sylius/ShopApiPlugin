@@ -1,10 +1,8 @@
 <?php
 
-/**
+/*
  * This file is part of the Sylius package.
- *
- *  (c) Paweł Jędrzejewski
- *
+ * (c) Paweł Jędrzejewski
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -48,7 +46,7 @@ final class CartItemEligibilityValidator extends ConstraintValidator
         Assert::isInstanceOf($variant, ProductVariantInterface::class);
         if (!$variant->isEnabled()) {
             $this->context->addViolation(
-                $constraint->nonEligibleProductVariantMessage
+                $constraint->nonEligibleProductVariantMessage,
             );
         }
 
@@ -57,7 +55,7 @@ final class CartItemEligibilityValidator extends ConstraintValidator
         Assert::isInstanceOf($product, ProductInterface::class);
         if (!$product->isEnabled()) {
             $this->context->addViolation(
-                $constraint->nonEligibleProductMessage
+                $constraint->nonEligibleProductMessage,
             );
         }
     }

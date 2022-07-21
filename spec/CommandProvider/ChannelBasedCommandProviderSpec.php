@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\CommandProvider;
@@ -29,7 +36,7 @@ final class ChannelBasedCommandProviderSpec extends ObjectBehavior
         ValidatorInterface $validator,
         Request $httpRequest,
         ConstraintViolationListInterface $constraintViolationList,
-        ChannelInterface $channel
+        ChannelInterface $channel,
     ): void {
         $httpRequest->attributes = new ParameterBag(['token' => 'sample_cart_token']);
         $channel->getCode()->willReturn('WEB_GB');
@@ -38,10 +45,10 @@ final class ChannelBasedCommandProviderSpec extends ObjectBehavior
             ->validate(
                 TestChannelBasedRequest::fromHttpRequestAndChannel(
                     $httpRequest->getWrappedObject(),
-                    $channel->getWrappedObject()
+                    $channel->getWrappedObject(),
                 ),
                 null,
-                null
+                null,
             )
             ->willReturn($constraintViolationList)
         ;

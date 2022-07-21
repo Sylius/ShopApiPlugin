@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Validator\Cart;
@@ -26,7 +33,7 @@ final class CartItemEligibilityValidatorSpec extends ObjectBehavior
         ExecutionContextInterface $executionContext,
         OrderItemInterface $orderItem,
         ProductVariant $productVariant,
-        Product $product
+        Product $product,
     ): void {
         $orderItemRepository->find(1)->willReturn($orderItem);
         $orderItem->getVariant()->willReturn($productVariant);
@@ -46,7 +53,7 @@ final class CartItemEligibilityValidatorSpec extends ObjectBehavior
         ExecutionContextInterface $executionContext,
         OrderItemInterface $orderItem,
         ProductVariant $productVariant,
-        Product $product
+        Product $product,
     ): void {
         $orderItemRepository->find(1)->willReturn($orderItem);
         $orderItem->getVariant()->willReturn($productVariant);
@@ -66,7 +73,7 @@ final class CartItemEligibilityValidatorSpec extends ObjectBehavior
         ExecutionContextInterface $executionContext,
         OrderItemInterface $orderItem,
         ProductVariant $productVariant,
-        Product $product
+        Product $product,
     ): void {
         $orderItemRepository->find(1)->willReturn($orderItem);
         $orderItem->getVariant()->willReturn($productVariant);
@@ -85,7 +92,7 @@ final class CartItemEligibilityValidatorSpec extends ObjectBehavior
         ExecutionContextInterface $executionContext,
         OrderItemInterface $orderItem,
         ProductVariant $productVariant,
-        Product $product
+        Product $product,
     ): void {
         $orderItemRepository->find(1)->willReturn($orderItem);
         $orderItem->getVariant()->willReturn($productVariant);

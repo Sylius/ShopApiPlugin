@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Factory\Product\ProductAttributeValueViewResolver;
@@ -18,7 +25,7 @@ final class SelectProductAttributeValueViewResolverSpec extends ObjectBehavior
 
     function it_returns_a_value(
         ProductAttributeValueInterface $productAttributeValue,
-        ProductAttributeInterface $productAttribute
+        ProductAttributeInterface $productAttribute,
     ): void {
         $productAttributeValue->getValue()->willReturn(['1', '2']);
         $productAttributeValue->getAttribute()->willReturn($productAttribute);

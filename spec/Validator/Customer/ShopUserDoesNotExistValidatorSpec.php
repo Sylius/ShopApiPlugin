@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Validator\Customer;
@@ -22,7 +29,7 @@ final class ShopUserDoesNotExistValidatorSpec extends ObjectBehavior
     function it_adds_a_violation_if_the_email_is_already_taken(
         ExecutionContextInterface $executionContext,
         UserRepositoryInterface $userRepository,
-        ShopUserInterface $user
+        ShopUserInterface $user,
     ): void {
         $userRepository->findOneByEmail('test@sylius.com')->willReturn($user);
 
@@ -33,7 +40,7 @@ final class ShopUserDoesNotExistValidatorSpec extends ObjectBehavior
 
     function it_does_not_add_a_violation_if_the_email_is_empty(
         ExecutionContextInterface $executionContext,
-        UserRepositoryInterface $userRepository
+        UserRepositoryInterface $userRepository,
     ): void {
         $userRepository->findOneByEmail(Argument::any())->shouldNotBeCalled();
 
@@ -44,7 +51,7 @@ final class ShopUserDoesNotExistValidatorSpec extends ObjectBehavior
 
     function it_does_not_add_a_violation_if_the_email_is_available(
         ExecutionContextInterface $executionContext,
-        UserRepositoryInterface $userRepository
+        UserRepositoryInterface $userRepository,
     ): void {
         $userRepository->findOneByEmail('test@sylius.com')->willReturn(null);
 

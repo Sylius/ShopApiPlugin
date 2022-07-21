@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\EventListener;
@@ -38,7 +45,7 @@ final class CartBlamerListenerSpec extends ObjectBehavior
         RequestStack $requestStack,
         ShopUserInterface $shopUser,
         CustomerInterface $customer,
-        JWTCreatedEvent $jwtCreated
+        JWTCreatedEvent $jwtCreated,
     ): void {
         $request = new Request([], ['token' => 'CART_TOKEN']);
         $requestStack->getCurrentRequest()->willReturn($request);
@@ -60,7 +67,7 @@ final class CartBlamerListenerSpec extends ObjectBehavior
         MessageBusInterface $bus,
         RequestStack $requestStack,
         AdminUserInterface $adminUser,
-        JWTCreatedEvent $jwtCreated
+        JWTCreatedEvent $jwtCreated,
     ): void {
         $request = new Request([], ['token' => 'CART_TOKEN']);
         $requestStack->getCurrentRequest()->willReturn($request);
@@ -80,7 +87,7 @@ final class CartBlamerListenerSpec extends ObjectBehavior
         RequestStack $requestStack,
         ShopUserInterface $shopUser,
         CustomerInterface $customer,
-        JWTCreatedEvent $jwtCreated
+        JWTCreatedEvent $jwtCreated,
     ): void {
         $request = new Request([], ['token' => 'CART_TOKEN']);
         $requestStack->getCurrentRequest()->willReturn($request);
@@ -100,7 +107,7 @@ final class CartBlamerListenerSpec extends ObjectBehavior
         OrderRepositoryInterface $orderRepository,
         MessageBusInterface $bus,
         RequestStack $requestStack,
-        JWTCreatedEvent $jwtCreated
+        JWTCreatedEvent $jwtCreated,
     ): void {
         $requestStack->getCurrentRequest()->willReturn(null);
 

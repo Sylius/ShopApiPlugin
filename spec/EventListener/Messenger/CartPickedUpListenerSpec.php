@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\EventListener\Messenger;
@@ -25,7 +32,7 @@ final class CartPickedUpListenerSpec extends ObjectBehavior
         LoggedInShopUserProviderInterface $loggedInShopUserProvider,
         MessageBusInterface $bus,
         ShopUserInterface $shopUser,
-        CustomerInterface $customer
+        CustomerInterface $customer,
     ): void {
         $loggedInShopUserProvider->isUserLoggedIn()->willReturn(true);
 
@@ -42,7 +49,7 @@ final class CartPickedUpListenerSpec extends ObjectBehavior
 
     function it_does_nothing_if_user_is_not_logged_in(
         LoggedInShopUserProviderInterface $loggedInShopUserProvider,
-        MessageBusInterface $bus
+        MessageBusInterface $bus,
     ): void {
         $loggedInShopUserProvider->isUserLoggedIn()->willReturn(false);
 

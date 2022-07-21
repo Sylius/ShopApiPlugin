@@ -1,10 +1,8 @@
 <?php
 
-/**
+/*
  * This file is part of the Sylius package.
- *
- *  (c) Paweł Jędrzejewski
- *
+ * (c) Paweł Jędrzejewski
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -46,7 +44,7 @@ final class ChangeItemQuantityAction
         MessageBusInterface $bus,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         CartViewRepositoryInterface $cartQuery,
-        CommandProviderInterface $changeItemQuantityCommandProvider
+        CommandProviderInterface $changeItemQuantityCommandProvider,
     ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
@@ -61,7 +59,7 @@ final class ChangeItemQuantityAction
         if (0 !== count($validationResults)) {
             return $this->viewHandler->handle(View::create(
                 $this->validationErrorViewFactory->create($validationResults),
-                Response::HTTP_BAD_REQUEST
+                Response::HTTP_BAD_REQUEST,
             ));
         }
 
@@ -72,7 +70,7 @@ final class ChangeItemQuantityAction
 
         try {
             return $this->viewHandler->handle(
-                View::create($this->cartQuery->getOneByToken($changeItemQuantityCommand->orderToken()), Response::HTTP_OK)
+                View::create($this->cartQuery->getOneByToken($changeItemQuantityCommand->orderToken()), Response::HTTP_OK),
             );
         } catch (\InvalidArgumentException $exception) {
             throw new BadRequestHttpException($exception->getMessage());

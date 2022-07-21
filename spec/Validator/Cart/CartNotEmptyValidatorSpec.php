@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Validator\Cart;
@@ -15,7 +22,7 @@ final class CartNotEmptyValidatorSpec extends ObjectBehavior
 {
     function let(
         OrderRepositoryInterface $repository,
-        ExecutionContextInterface $context
+        ExecutionContextInterface $context,
     ): void {
         $this->beConstructedWith($repository);
         $this->initialize($context);
@@ -25,7 +32,7 @@ final class CartNotEmptyValidatorSpec extends ObjectBehavior
         OrderRepositoryInterface $repository,
         OrderInterface $order,
         ArrayCollection $collection,
-        ExecutionContextInterface $context
+        ExecutionContextInterface $context,
     ): void {
         $repository->findOneBy(['tokenValue' => 'CART_TOKEN', 'state' => OrderInterface::STATE_CART])->willReturn($order);
 
@@ -41,7 +48,7 @@ final class CartNotEmptyValidatorSpec extends ObjectBehavior
         OrderRepositoryInterface $repository,
         OrderInterface $order,
         ArrayCollection $collection,
-        ExecutionContextInterface $context
+        ExecutionContextInterface $context,
     ): void {
         $repository->findOneBy(['tokenValue' => 'CART_TOKEN', 'state' => OrderInterface::STATE_CART])->willReturn($order);
 

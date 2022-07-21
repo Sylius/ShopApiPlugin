@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Http;
@@ -30,13 +37,13 @@ final class RequestChannelEnsurerSpec extends ObjectBehavior
     function it_ensures_that_channel_code_passed_in_request_is_valid(
         ChannelExistenceCheckerInterface $channelExistenceChecker,
         HttpKernelInterface $kernel,
-        Request $request
+        Request $request,
     ): void {
         $event = new ControllerEvent(
             $kernel->getWrappedObject(),
             function () {},
             $request->getWrappedObject(),
-            HttpKernelInterface::MASTER_REQUEST
+            HttpKernelInterface::MASTER_REQUEST,
         );
 
         $request->attributes = new ParameterBag(['channelCode' => 'WEB_US']);
@@ -52,13 +59,13 @@ final class RequestChannelEnsurerSpec extends ObjectBehavior
     function it_does_nothing_if_there_is_no_channel_code_in_request_attributes(
         ChannelExistenceCheckerInterface $channelExistenceChecker,
         HttpKernelInterface $kernel,
-        Request $request
+        Request $request,
     ): void {
         $event = new ControllerEvent(
             $kernel->getWrappedObject(),
             function () {},
             $request->getWrappedObject(),
-            HttpKernelInterface::MASTER_REQUEST
+            HttpKernelInterface::MASTER_REQUEST,
         );
 
         $request->attributes = new ParameterBag([]);

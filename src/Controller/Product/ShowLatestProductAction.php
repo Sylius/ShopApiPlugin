@@ -1,10 +1,8 @@
 <?php
 
-/**
+/*
  * This file is part of the Sylius package.
- *
- *  (c) Paweł Jędrzejewski
- *
+ * (c) Paweł Jędrzejewski
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -36,7 +34,7 @@ final class ShowLatestProductAction
     public function __construct(
         ViewHandlerInterface $viewHandler,
         ProductLatestViewRepositoryInterface $productLatestQuery,
-        ChannelContextInterface $channelContext
+        ChannelContextInterface $channelContext,
     ) {
         $this->viewHandler = $viewHandler;
         $this->productLatestQuery = $productLatestQuery;
@@ -51,7 +49,7 @@ final class ShowLatestProductAction
             return $this->viewHandler->handle(View::create($this->productLatestQuery->getLatestProducts(
                 $channel->getCode(),
                 $request->query->get('locale'),
-                $request->query->getInt('limit', 4)
+                $request->query->getInt('limit', 4),
             ), Response::HTTP_OK));
         } catch (ChannelNotFoundException $exception) {
             throw new NotFoundHttpException('Channel has not been found.');

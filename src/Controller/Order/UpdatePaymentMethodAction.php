@@ -1,10 +1,8 @@
 <?php
 
-/**
+/*
  * This file is part of the Sylius package.
- *
- *  (c) Paweł Jędrzejewski
- *
+ * (c) Paweł Jędrzejewski
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -40,7 +38,7 @@ final class UpdatePaymentMethodAction
         ViewHandlerInterface $viewHandler,
         MessageBusInterface $bus,
         ValidatorInterface $validator,
-        ValidationErrorViewFactoryInterface $validationErrorViewFactory
+        ValidationErrorViewFactoryInterface $validationErrorViewFactory,
     ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
@@ -55,9 +53,10 @@ final class UpdatePaymentMethodAction
         $validationResults = $this->validator->validate($updateRequest);
         if (0 !== count($validationResults)) {
             return $this->viewHandler->handle(
-                View::create($this->validationErrorViewFactory->create($validationResults),
-                    Response::HTTP_BAD_REQUEST
-                )
+                View::create(
+                    $this->validationErrorViewFactory->create($validationResults),
+                    Response::HTTP_BAD_REQUEST,
+                ),
             );
         }
 

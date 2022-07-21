@@ -1,10 +1,8 @@
 <?php
 
-/**
+/*
  * This file is part of the Sylius package.
- *
- *  (c) Paweł Jędrzejewski
- *
+ * (c) Paweł Jędrzejewski
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -45,7 +43,7 @@ final class OrderModifier implements OrderModifierInterface
         OrderItemQuantityModifierInterface $orderItemQuantityModifier,
         OrderProcessorInterface $orderProcessor,
         EntityManagerInterface $orderManager,
-        ?AvailabilityCheckerInterface $availabilityChecker = null
+        ?AvailabilityCheckerInterface $availabilityChecker = null,
     ) {
         $this->cartItemFactory = $cartItemFactory;
         $this->orderItemQuantityModifier = $orderItemQuantityModifier;
@@ -102,7 +100,7 @@ final class OrderModifier implements OrderModifierInterface
         }
         Assert::true(
             $this->availabilityChecker->isStockSufficient($productVariant, $targetQuantity),
-            'Not enough stock for product variant: ' . $productVariant->getCode()
+            'Not enough stock for product variant: ' . $productVariant->getCode(),
         );
     }
 }

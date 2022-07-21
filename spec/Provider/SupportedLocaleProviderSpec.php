@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Provider;
@@ -25,18 +32,19 @@ final class SupportedLocaleProviderSpec extends ObjectBehavior
     }
 
     function it_fails_to_provide_a_locale_if_no_one_is_given_and_the_channel_has_no_default_locale(
-        ChannelInterface $channel
+        ChannelInterface $channel,
     ): void {
         $channel->getDefaultLocale()->willReturn(null);
 
         $this->shouldThrow(InvalidArgumentException::class)
-            ->during('provide', [null, $channel]);
+            ->during('provide', [null, $channel])
+        ;
     }
 
     function it_fails_if_the_default_locale_of_the_channel_is_not_supported(
         ChannelInterface $channel,
         LocaleInterface $locale,
-        LocaleInterface $supportedLocale
+        LocaleInterface $supportedLocale,
     ): void {
         $channel->getDefaultLocale()->willReturn($locale);
         $locale->getCode()->willReturn('de_DE');
@@ -45,12 +53,13 @@ final class SupportedLocaleProviderSpec extends ObjectBehavior
         $supportedLocale->getCode()->willReturn('en_US');
 
         $this->shouldThrow(InvalidArgumentException::class)
-            ->during('provide', [null, $channel]);
+            ->during('provide', [null, $channel])
+        ;
     }
 
     function it_fails_if_the_given_locale_is_not_supported(
         ChannelInterface $channel,
-        LocaleInterface $supportedLocale
+        LocaleInterface $supportedLocale,
     ): void {
         $channel->getDefaultLocale()->shouldNotBeCalled();
 
@@ -58,12 +67,13 @@ final class SupportedLocaleProviderSpec extends ObjectBehavior
         $supportedLocale->getCode()->willReturn('de_DE');
 
         $this->shouldThrow(InvalidArgumentException::class)
-            ->during('provide', ['en_US', $channel]);
+            ->during('provide', ['en_US', $channel])
+        ;
     }
 
     function it_provides_the_locale_if_is_supported(
         ChannelInterface $channel,
-        LocaleInterface $supportedLocale
+        LocaleInterface $supportedLocale,
     ): void {
         $channel->getDefaultLocale()->shouldNotBeCalled();
 
@@ -77,7 +87,7 @@ final class SupportedLocaleProviderSpec extends ObjectBehavior
         ChannelInterface $channel,
         LocaleInterface $defaultLocale,
         LocaleInterface $supportedLocale1,
-        LocaleInterface $supportedLocale2
+        LocaleInterface $supportedLocale2,
     ): void {
         $channel->getDefaultLocale()->willReturn($defaultLocale);
         $defaultLocale->getCode()->willReturn('en_US');

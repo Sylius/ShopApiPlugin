@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\ViewRepository\Order;
@@ -21,7 +28,7 @@ final class PlacedOrderViewRepositorySpec extends ObjectBehavior
     function let(
         OrderRepositoryInterface $orderRepository,
         CustomerRepositoryInterface $customerRepository,
-        PlacedOrderViewFactoryInterface $placedOrderViewFactory
+        PlacedOrderViewFactoryInterface $placedOrderViewFactory,
     ): void {
         $this->beConstructedWith($orderRepository, $customerRepository, $placedOrderViewFactory);
     }
@@ -37,7 +44,7 @@ final class PlacedOrderViewRepositorySpec extends ObjectBehavior
         PlacedOrderViewFactoryInterface $placedOrderViewFactory,
         OrderInterface $order,
         CustomerInterface $customer,
-        PlacedOrderView $placedOrderView
+        PlacedOrderView $placedOrderView,
     ): void {
         $customerRepository->findOneBy(['email' => 'test@example.com'])->willReturn($customer);
 
@@ -56,7 +63,7 @@ final class PlacedOrderViewRepositorySpec extends ObjectBehavior
         PlacedOrderViewFactoryInterface $placedOrderViewFactory,
         OrderInterface $order,
         CustomerInterface $customer,
-        PlacedOrderView $placedOrderView
+        PlacedOrderView $placedOrderView,
     ): void {
         $customerRepository->findOneBy(['email' => 'test@example.com'])->willReturn($customer);
 
@@ -77,7 +84,7 @@ final class PlacedOrderViewRepositorySpec extends ObjectBehavior
         PlacedOrderViewFactoryInterface $placedOrderViewFactory,
         OrderInterface $order,
         CustomerInterface $customer,
-        PlacedOrderView $placedOrderView
+        PlacedOrderView $placedOrderView,
     ): void {
         $orderRepository
             ->findOneBy(['tokenValue' => 'ORDERTOKEN', 'checkoutState' => OrderCheckoutStates::STATE_COMPLETED])
@@ -95,7 +102,7 @@ final class PlacedOrderViewRepositorySpec extends ObjectBehavior
     function it_throws_exception_if_there_is_no_placed_order_for_given_customer_email_and_order_id(
         OrderRepositoryInterface $orderRepository,
         CustomerRepositoryInterface $customerRepository,
-        CustomerInterface $customer
+        CustomerInterface $customer,
     ): void {
         $customerRepository->findOneBy(['email' => 'test@example.com'])->willReturn($customer);
 
@@ -112,7 +119,7 @@ final class PlacedOrderViewRepositorySpec extends ObjectBehavior
 
     function it_throws_exception_if_there_is_no_customer_with_given_email(
         CustomerRepositoryInterface $customerRepository,
-        OrderRepositoryInterface $orderRepository
+        OrderRepositoryInterface $orderRepository,
     ): void {
         $customerRepository->findOneBy(['email' => 'test@example.com'])->willReturn(null, null);
         $orderRepository->findOneBy(Argument::any())->shouldNotBeCalled();
@@ -124,7 +131,7 @@ final class PlacedOrderViewRepositorySpec extends ObjectBehavior
     }
 
     function it_throws_exception_if_there_is_no_placed_order_for_guest_and_token(
-        OrderRepositoryInterface $orderRepository
+        OrderRepositoryInterface $orderRepository,
     ): void {
         $orderRepository
             ->findOneBy(['tokenValue' => 'ORDERTOKEN', 'checkoutState' => OrderCheckoutStates::STATE_COMPLETED])
@@ -140,7 +147,7 @@ final class PlacedOrderViewRepositorySpec extends ObjectBehavior
     function it_throws_exception_if_placed_order_for_guest_and_token_has_user(
         OrderRepositoryInterface $orderRepository,
         OrderInterface $order,
-        ShopUserInterface $user
+        ShopUserInterface $user,
     ): void {
         $orderRepository
             ->findOneBy(['tokenValue' => 'ORDERTOKEN', 'checkoutState' => OrderCheckoutStates::STATE_COMPLETED])

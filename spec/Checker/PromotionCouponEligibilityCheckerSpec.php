@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Checker;
@@ -16,7 +23,7 @@ final class PromotionCouponEligibilityCheckerSpec extends ObjectBehavior
 {
     function let(
         PromotionEligibilityCheckerInterface $promotionEligibilityChecker,
-        PromotionCouponEligibilityCheckerInterface $couponEligibilityChecker
+        PromotionCouponEligibilityCheckerInterface $couponEligibilityChecker,
     ): void {
         $this->beConstructedWith($promotionEligibilityChecker, $couponEligibilityChecker);
     }
@@ -32,7 +39,7 @@ final class PromotionCouponEligibilityCheckerSpec extends ObjectBehavior
         PromotionInterface $promotion,
         OrderInterface $order,
         PromotionCouponEligibilityCheckerInterface $couponEligibilityChecker,
-        PromotionEligibilityCheckerInterface $promotionEligibilityChecker
+        PromotionEligibilityCheckerInterface $promotionEligibilityChecker,
     ): void {
         $coupon->getPromotion()->willReturn($promotion);
         $order->getChannel()->willReturn($channel);
@@ -52,7 +59,7 @@ final class PromotionCouponEligibilityCheckerSpec extends ObjectBehavior
         PromotionCouponInterface $coupon,
         PromotionInterface $promotion,
         OrderInterface $order,
-        PromotionCouponEligibilityCheckerInterface $couponEligibilityChecker
+        PromotionCouponEligibilityCheckerInterface $couponEligibilityChecker,
     ): void {
         $coupon->getPromotion()->willReturn($promotion);
         $order->getChannel()->willReturn($channel);
@@ -72,7 +79,7 @@ final class PromotionCouponEligibilityCheckerSpec extends ObjectBehavior
         PromotionInterface $promotion,
         OrderInterface $order,
         PromotionCouponEligibilityCheckerInterface $couponEligibilityChecker,
-        PromotionEligibilityCheckerInterface $promotionEligibilityChecker
+        PromotionEligibilityCheckerInterface $promotionEligibilityChecker,
     ): void {
         $coupon->getPromotion()->willReturn($promotion);
         $order->getChannel()->willReturn($channel);
@@ -91,7 +98,7 @@ final class PromotionCouponEligibilityCheckerSpec extends ObjectBehavior
         ChannelInterface $channel,
         PromotionCouponInterface $coupon,
         PromotionInterface $promotion,
-        OrderInterface $order
+        OrderInterface $order,
     ): void {
         $coupon->getPromotion()->willReturn($promotion);
         $order->getChannel()->willReturn($channel);

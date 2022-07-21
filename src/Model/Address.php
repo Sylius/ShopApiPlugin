@@ -1,10 +1,8 @@
 <?php
 
-/**
+/*
  * This file is part of the Sylius package.
- *
- *  (c) Paweł Jędrzejewski
- *
+ * (c) Paweł Jędrzejewski
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -58,7 +56,7 @@ final class Address
         ?string $provinceName = null,
         ?string $provinceCode = null,
         ?string $phoneNumber = null,
-        ?string $company = null
+        ?string $company = null,
     ) {
         $this->firstName = $firstName;
         $this->lastName = $lastName;
@@ -91,7 +89,7 @@ final class Address
             $address['provinceName'] ?? null,
             $address['provinceCode'] ?? null,
             $address['phoneNumber'] ?? null,
-            $address['company'] ?? null
+            $address['company'] ?? null,
         );
     }
 
@@ -107,7 +105,7 @@ final class Address
             $request->request->get('provinceName'),
             $request->request->get('provinceCode'),
             $request->request->get('phoneNumber'),
-            $request->request->get('company')
+            $request->request->get('company'),
         );
     }
 

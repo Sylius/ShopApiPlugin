@@ -1,10 +1,8 @@
 <?php
 
-/**
+/*
  * This file is part of the Sylius package.
- *
- *  (c) Paweł Jędrzejewski
- *
+ * (c) Paweł Jędrzejewski
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -37,7 +35,7 @@ final class ShowProductCatalogByTaxonSlugAction
     public function __construct(
         ViewHandlerInterface $viewHandler,
         ProductCatalogViewRepositoryInterface $productCatalogQuery,
-        ChannelContextInterface $channelContext
+        ChannelContextInterface $channelContext,
     ) {
         $this->viewHandler = $viewHandler;
         $this->productCatalogQuery = $productCatalogQuery;
@@ -53,7 +51,7 @@ final class ShowProductCatalogByTaxonSlugAction
                 $request->attributes->get('taxonSlug'),
                 $channel->getCode(),
                 new PaginatorDetails($request->attributes->get('_route'), $request->query->all()),
-                $request->query->get('locale')
+                $request->query->get('locale'),
             ), Response::HTTP_OK));
         } catch (ChannelNotFoundException $exception) {
             throw new NotFoundHttpException('Channel has not been found.');

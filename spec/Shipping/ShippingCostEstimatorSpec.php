@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Shipping;
@@ -26,14 +33,14 @@ final class ShippingCostEstimatorSpec extends ObjectBehavior
         AddressFactoryInterface $addressFactory,
         FactoryInterface $shipmentFactory,
         ShippingMethodsResolverInterface $shippingMethodResolver,
-        ServiceRegistryInterface $calculators
+        ServiceRegistryInterface $calculators,
     ): void {
         $this->beConstructedWith(
             $cartRepository,
             $addressFactory,
             $shipmentFactory,
             $shippingMethodResolver,
-            $calculators
+            $calculators,
         );
     }
 
@@ -52,7 +59,7 @@ final class ShippingCostEstimatorSpec extends ObjectBehavior
         ShippingMethodsResolverInterface $shippingMethodResolver,
         ShippingMethodInterface $shippingMethod,
         ServiceRegistryInterface $calculators,
-        CalculatorInterface $calculator
+        CalculatorInterface $calculator,
     ): void {
         $cartRepository->findOneBy(['tokenValue' => 'TOKEN'])->shouldBeCalled()->willReturn($cart);
 
@@ -90,7 +97,7 @@ final class ShippingCostEstimatorSpec extends ObjectBehavior
         AddressFactoryInterface $addressFactory,
         FactoryInterface $shipmentFactory,
         ShipmentInterface $shipment,
-        ShippingMethodsResolverInterface $shippingMethodResolver
+        ShippingMethodsResolverInterface $shippingMethodResolver,
     ): void {
         $cartRepository->findOneBy(['tokenValue' => 'TOKEN'])->shouldBeCalled()->willReturn($cart);
 

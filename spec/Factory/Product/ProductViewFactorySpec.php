@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Factory\Product;
@@ -23,14 +30,14 @@ final class ProductViewFactorySpec extends ObjectBehavior
 {
     function let(
         ImageViewFactoryInterface $imageViewFactory,
-        ProductAttributeValuesViewFactoryInterface $attributeValuesViewFactory
+        ProductAttributeValuesViewFactoryInterface $attributeValuesViewFactory,
     ): void {
         $this->beConstructedWith(
             $imageViewFactory,
             $attributeValuesViewFactory,
             ProductView::class,
             ProductTaxonView::class,
-            'en_GB'
+            'en_GB',
         );
     }
 
@@ -49,7 +56,7 @@ final class ProductViewFactorySpec extends ObjectBehavior
         ProductInterface $product,
         TaxonInterface $taxon,
         TaxonInterface $mainTaxon,
-        ProductTranslationInterface $productTranslation
+        ProductTranslationInterface $productTranslation,
     ): void {
         $product->getTranslation('en_GB')->willReturn($productTranslation);
         $product->getCode()->willReturn('HAT_CODE');
