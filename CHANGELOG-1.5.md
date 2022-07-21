@@ -1,4 +1,9 @@
-# CHANGELOG FOR `1.4.X`
+# CHANGELOG FOR `1.5.X`
+
+## v1.5.1 (2022-07-21)
+
+### Changed
+- [#729](https://github.com/Sylius/ShopApiPlugin/issues/729) Updating the codestyle ([@mamazu](https://github.com/mamazu))
 
 ## v1.5.0 (2022-07-20)
 
