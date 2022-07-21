@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Checker;
@@ -24,7 +31,7 @@ final class ChannelExistenceCheckerSpec extends ObjectBehavior
 
     function it_does_nothing_if_channel_with_given_code_exists(
         ChannelRepositoryInterface $channelRepository,
-        ChannelInterface $channel
+        ChannelInterface $channel,
     ): void {
         $channelRepository->findOneByCode('WEB_US')->willReturn($channel);
 
@@ -32,7 +39,7 @@ final class ChannelExistenceCheckerSpec extends ObjectBehavior
     }
 
     function it_throws_exception_if_channel_with_given_code_does_not_exist(
-        ChannelRepositoryInterface $channelRepository
+        ChannelRepositoryInterface $channelRepository,
     ): void {
         $channelRepository->findOneByCode('WEB_US')->willReturn(null);
 

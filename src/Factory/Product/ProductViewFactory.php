@@ -1,10 +1,8 @@
 <?php
 
-/**
+/*
  * This file is part of the Sylius package.
- *
- *  (c) Paweł Jędrzejewski
- *
+ * (c) Paweł Jędrzejewski
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -44,7 +42,7 @@ final class ProductViewFactory implements ProductViewFactoryInterface
         ProductAttributeValuesViewFactoryInterface $attributeValuesViewFactory,
         string $productViewClass,
         string $productTaxonViewClass,
-        string $fallbackLocale
+        string $fallbackLocale,
     ) {
         $this->imageViewFactory = $imageViewFactory;
         $this->attributeValuesViewFactory = $attributeValuesViewFactory;
@@ -53,7 +51,7 @@ final class ProductViewFactory implements ProductViewFactoryInterface
         $this->fallbackLocale = $fallbackLocale;
     }
 
-    /** {@inheritdoc} */
+    /** @inheritdoc */
     public function create(ProductInterface $product, ChannelInterface $channel, string $locale): ProductView
     {
         /** @var ProductView $productView */
@@ -92,7 +90,7 @@ final class ProductViewFactory implements ProductViewFactoryInterface
 
         $productView->attributes = $this->attributeValuesViewFactory->create(
             $product->getAttributesByLocale($locale, $this->fallbackLocale)->toArray(),
-            $locale
+            $locale,
         );
 
         return $productView;

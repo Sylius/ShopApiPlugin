@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Handler\Cart;
@@ -21,7 +28,7 @@ final class PutSimpleItemToCartHandlerSpec extends ObjectBehavior
         OrderRepositoryInterface $cartRepository,
         ProductRepositoryInterface $productRepository,
         OrderModifierInterface $orderModifier,
-        ProductInCartChannelCheckerInterface $channelChecker
+        ProductInCartChannelCheckerInterface $channelChecker,
     ): void {
         $this->beConstructedWith($cartRepository, $productRepository, $orderModifier, $channelChecker);
     }
@@ -33,7 +40,7 @@ final class PutSimpleItemToCartHandlerSpec extends ObjectBehavior
         ProductRepositoryInterface $productRepository,
         ProductVariantInterface $productVariant,
         OrderModifierInterface $orderModifier,
-        ProductInCartChannelCheckerInterface $channelChecker
+        ProductInCartChannelCheckerInterface $channelChecker,
     ): void {
         $productRepository->findOneBy(['code' => 'T_SHIRT_CODE'])->willReturn($product);
         $product->getVariants()->willReturn(new ArrayCollection([$productVariant->getWrappedObject()]));
@@ -60,7 +67,7 @@ final class PutSimpleItemToCartHandlerSpec extends ObjectBehavior
     function it_throws_an_exception_if_product_has_not_been_found(
         OrderInterface $cart,
         OrderRepositoryInterface $cartRepository,
-        ProductRepositoryInterface $productRepository
+        ProductRepositoryInterface $productRepository,
     ): void {
         $cartRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($cart);
         $productRepository->findOneBy(['code' => 'T_SHIRT_CODE'])->willReturn(null);
@@ -76,7 +83,7 @@ final class PutSimpleItemToCartHandlerSpec extends ObjectBehavior
         ProductInCartChannelCheckerInterface $channelChecker,
         ProductInterface $product,
         ProductRepositoryInterface $productRepository,
-        ProductVariantInterface $productVariant
+        ProductVariantInterface $productVariant,
     ): void {
         $cartRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($cart);
         $productRepository->findOneBy(['code' => 'T_SHIRT_CODE'])->willReturn($product);
@@ -97,7 +104,7 @@ final class PutSimpleItemToCartHandlerSpec extends ObjectBehavior
         ProductInCartChannelCheckerInterface $channelChecker,
         ProductInterface $product,
         ProductRepositoryInterface $productRepository,
-        ProductVariantInterface $productVariant
+        ProductVariantInterface $productVariant,
     ): void {
         $cartRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($cart);
         $productRepository->findOneBy(['code' => 'T_SHIRT_CODE'])->willReturn($product);
@@ -107,9 +114,10 @@ final class PutSimpleItemToCartHandlerSpec extends ObjectBehavior
         $channelChecker->isProductInCartChannel($product, $cart)->willReturn(false);
 
         $this->shouldThrow(\InvalidArgumentException::class)->during(
-            '__invoke', [
+            '__invoke',
+            [
             new PutSimpleItemToCart('ORDERTOKEN', 'T_SHIRT_CODE', 5),
-        ]
+        ],
         );
     }
 }

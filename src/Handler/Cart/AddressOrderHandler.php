@@ -1,10 +1,8 @@
 <?php
 
-/**
+/*
  * This file is part of the Sylius package.
- *
- *  (c) Paweł Jędrzejewski
- *
+ * (c) Paweł Jędrzejewski
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -37,7 +35,7 @@ final class AddressOrderHandler
     public function __construct(
         OrderRepositoryInterface $orderRepository,
         AddressMapperInterface $addressMapper,
-        FactoryInterface $stateMachineFactory
+        FactoryInterface $stateMachineFactory,
     ) {
         $this->orderRepository = $orderRepository;
         $this->stateMachineFactory = $stateMachineFactory;
@@ -55,7 +53,7 @@ final class AddressOrderHandler
 
         Assert::true(
             $stateMachine->can(OrderCheckoutTransitions::TRANSITION_ADDRESS),
-            sprintf('Order with %s token cannot be addressed.', $addressOrder->orderToken())
+            sprintf('Order with %s token cannot be addressed.', $addressOrder->orderToken()),
         );
 
         $order->setShippingAddress($this->mapAddress($order->getShippingAddress(), $addressOrder->shippingAddress()));

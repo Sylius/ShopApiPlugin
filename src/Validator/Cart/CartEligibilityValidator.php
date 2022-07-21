@@ -1,10 +1,8 @@
 <?php
 
-/**
+/*
  * This file is part of the Sylius package.
- *
- *  (c) Paweł Jędrzejewski
- *
+ * (c) Paweł Jędrzejewski
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -43,7 +41,7 @@ final class CartEligibilityValidator extends ConstraintValidator
             [
                 'tokenValue' => $request->getToken(),
                 'state' => OrderInterface::STATE_CART,
-            ]
+            ],
         );
 
         if ($cart === null) {
@@ -62,7 +60,8 @@ final class CartEligibilityValidator extends ConstraintValidator
             if (!$variant->isEnabled()) {
                 $this->context->buildViolation($constraint->nonEligibleCartItemVariantMessage)
                     ->atPath('items[' . $key . '].product.variants[0].code')
-                    ->addViolation();
+                    ->addViolation()
+                ;
 
                 break;
             }
@@ -73,7 +72,8 @@ final class CartEligibilityValidator extends ConstraintValidator
             if (!$product->isEnabled()) {
                 $this->context->buildViolation($constraint->nonEligibleCartItemMessage)
                     ->atPath('items[' . $key . '].product.code')
-                    ->addViolation();
+                    ->addViolation()
+                ;
 
                 break;
             }

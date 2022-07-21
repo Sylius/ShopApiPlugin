@@ -1,10 +1,8 @@
 <?php
 
-/**
+/*
  * This file is part of the Sylius package.
- *
- *  (c) Paweł Jędrzejewski
- *
+ * (c) Paweł Jędrzejewski
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -52,7 +50,7 @@ final class UpdateCustomerAction
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         CustomerViewFactoryInterface $customerViewFactory,
         LoggedInShopUserProvider $loggedInUserProvider,
-        ShopUserBasedCommandProviderInterface $updateCustomerCommandProvider
+        ShopUserBasedCommandProviderInterface $updateCustomerCommandProvider,
     ) {
         $this->viewHandler = $viewHandler;
         $this->bus = $bus;
@@ -75,7 +73,7 @@ final class UpdateCustomerAction
         if (0 !== count($validationResults)) {
             return $this->viewHandler->handle(View::create(
                 $this->validationErrorViewFactory->create($validationResults),
-                Response::HTTP_BAD_REQUEST
+                Response::HTTP_BAD_REQUEST,
             ));
         }
 
@@ -87,7 +85,7 @@ final class UpdateCustomerAction
 
         return $this->viewHandler->handle(View::create(
             $this->customerViewFactory->create($customer),
-            Response::HTTP_OK
+            Response::HTTP_OK,
         ));
     }
 }

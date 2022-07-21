@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Validator\Cart;
@@ -22,7 +29,7 @@ final class CartEligibilityValidatorSpec extends ObjectBehavior
 {
     function let(
         OrderRepositoryInterface $repository,
-        ExecutionContextInterface $context
+        ExecutionContextInterface $context,
     ): void {
         $this->beConstructedWith($repository);
         $this->initialize($context);
@@ -37,7 +44,7 @@ final class CartEligibilityValidatorSpec extends ObjectBehavior
         ArrayCollection $collection,
         ArrayIterator $arrayIterator,
         ExecutionContextInterface $context,
-        CompleteOrderRequest $completeOrderRequest
+        CompleteOrderRequest $completeOrderRequest,
     ): void {
         $completeOrderRequest->getToken()->willReturn('CART_TOKEN');
 
@@ -75,7 +82,7 @@ final class CartEligibilityValidatorSpec extends ObjectBehavior
         ArrayIterator $arrayIterator,
         ExecutionContextInterface $context,
         ConstraintViolationBuilderInterface $builder,
-        CompleteOrderRequest $completeOrderRequest
+        CompleteOrderRequest $completeOrderRequest,
     ): void {
         $completeOrderRequest->getToken()->willReturn('CART_TOKEN');
 
@@ -112,7 +119,7 @@ final class CartEligibilityValidatorSpec extends ObjectBehavior
         ArrayIterator $arrayIterator,
         ExecutionContextInterface $context,
         ConstraintViolationBuilderInterface $builder,
-        CompleteOrderRequest $completeOrderRequest
+        CompleteOrderRequest $completeOrderRequest,
     ): void {
         $completeOrderRequest->getToken()->willReturn('CART_TOKEN');
 

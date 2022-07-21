@@ -1,10 +1,8 @@
 <?php
 
-/**
+/*
  * This file is part of the Sylius package.
- *
- *  (c) Paweł Jędrzejewski
- *
+ * (c) Paweł Jędrzejewski
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -31,13 +29,13 @@ final class PromotionCouponEligibilityChecker implements PromotionCouponEligibil
 
     public function __construct(
         PromotionEligibilityCheckerInterface $promotionEligibilityChecker,
-        PromotionCouponEligibilityCheckerInterface $couponEligibilityChecker
+        PromotionCouponEligibilityCheckerInterface $couponEligibilityChecker,
     ) {
         $this->promotionEligibilityChecker = $promotionEligibilityChecker;
         $this->couponEligibilityChecker = $couponEligibilityChecker;
     }
 
-    /** {@inheritdoc} */
+    /** @inheritdoc */
     public function isEligible(PromotionSubjectInterface $cart, PromotionCouponInterface $coupon): bool
     {
         /** @var OrderInterface $cart */
@@ -49,9 +47,9 @@ final class PromotionCouponEligibilityChecker implements PromotionCouponEligibil
         $cart->setPromotionCoupon($coupon);
 
         $isEligible =
-            $promotion->hasChannel($cart->getChannel())
-            && $this->couponEligibilityChecker->isEligible($cart, $coupon)
-            && $this->promotionEligibilityChecker->isEligible($cart, $coupon->getPromotion())
+            $promotion->hasChannel($cart->getChannel()) &&
+            $this->couponEligibilityChecker->isEligible($cart, $coupon) &&
+            $this->promotionEligibilityChecker->isEligible($cart, $coupon->getPromotion())
         ;
 
         $cart->setPromotionCoupon(null);

@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Validator\Product;
@@ -29,7 +36,7 @@ final class ProductExistsValidatorSpec extends ObjectBehavior
     function it_does_not_add_constraint_if_product_exists(
         ProductRepositoryInterface $productRepository,
         ProductInterface $product,
-        ExecutionContextInterface $executionContext
+        ExecutionContextInterface $executionContext,
     ): void {
         $productRepository->findOneByCode('BARBECUE_CODE')->willReturn($product);
         $product->isSimple()->willReturn(true);
@@ -41,7 +48,7 @@ final class ProductExistsValidatorSpec extends ObjectBehavior
 
     function it_adds_constraint_if_product_does_not_exists(
         ProductRepositoryInterface $productRepository,
-        ExecutionContextInterface $executionContext
+        ExecutionContextInterface $executionContext,
     ): void {
         $productRepository->findOneByCode('BARBECUE_CODE')->willReturn(null);
 

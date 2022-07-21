@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Factory\Checkout;
@@ -29,7 +36,7 @@ final class ShipmentViewFactorySpec extends ObjectBehavior
         ShippingMethodViewFactoryInterface $shippingMethodViewFactory,
         ShipmentInterface $shipment,
         OrderInterface $order,
-        ShippingMethodInterface $shippingMethod
+        ShippingMethodInterface $shippingMethod,
     ): void {
         $shipment->getState()->willReturn('cart');
         $shipment->getMethod()->willReturn($shippingMethod);

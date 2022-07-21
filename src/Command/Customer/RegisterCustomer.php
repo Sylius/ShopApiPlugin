@@ -1,10 +1,8 @@
 <?php
 
-/**
+/*
  * This file is part of the Sylius package.
- *
- *  (c) Paweł Jędrzejewski
- *
+ * (c) Paweł Jędrzejewski
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -45,7 +43,7 @@ class RegisterCustomer implements CommandInterface
         string $lastName,
         string $channelCode,
         ?bool $subscribedToNewsletter,
-        ?string $phoneNumber
+        ?string $phoneNumber,
     ) {
         $this->email = $email;
         $this->plainPassword = $plainPassword;

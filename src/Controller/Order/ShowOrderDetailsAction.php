@@ -1,10 +1,8 @@
 <?php
 
-/**
+/*
  * This file is part of the Sylius package.
- *
- *  (c) Paweł Jędrzejewski
- *
+ * (c) Paweł Jędrzejewski
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -38,7 +36,7 @@ final class ShowOrderDetailsAction
     public function __construct(
         ViewHandlerInterface $viewHandler,
         LoggedInShopUserProviderInterface $loggedInUserProvider,
-        PlacedOrderViewRepositoryInterface $placedOrderQuery
+        PlacedOrderViewRepositoryInterface $placedOrderQuery,
     ) {
         $this->viewHandler = $viewHandler;
         $this->loggedInUserProvider = $loggedInUserProvider;
@@ -58,7 +56,7 @@ final class ShowOrderDetailsAction
         try {
             $order = $this->getPlacedOrderView(
                 (string) $request->attributes->get('tokenValue'),
-                $user
+                $user,
             );
         } catch (\InvalidArgumentException $exception) {
             throw new NotFoundHttpException($exception->getMessage());
@@ -75,11 +73,13 @@ final class ShowOrderDetailsAction
         if (null !== $user) {
             return $this
                 ->placedOrderQuery
-                ->getOneCompletedByCustomerEmailAndToken($user->getEmail(), $token);
+                ->getOneCompletedByCustomerEmailAndToken($user->getEmail(), $token)
+            ;
         }
 
         return $this
             ->placedOrderQuery
-            ->getOneCompletedByGuestAndToken($token);
+            ->getOneCompletedByGuestAndToken($token)
+        ;
     }
 }

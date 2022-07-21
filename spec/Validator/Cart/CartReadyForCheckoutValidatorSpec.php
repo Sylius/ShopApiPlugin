@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Validator\Cart;
@@ -18,7 +25,7 @@ class CartReadyForCheckoutValidatorSpec extends ObjectBehavior
     function let(
         RepositoryInterface $repository,
         FactoryInterface $stateMachineFactory,
-        ExecutionContextInterface $context
+        ExecutionContextInterface $context,
     ): void {
         $this->beConstructedWith($repository, $stateMachineFactory);
         $this->initialize($context);
@@ -26,7 +33,7 @@ class CartReadyForCheckoutValidatorSpec extends ObjectBehavior
 
     function it_does_not_validate_a_cart_if_it_does_not_exist(
         RepositoryInterface $repository,
-        FactoryInterface $stateMachineFactory
+        FactoryInterface $stateMachineFactory,
     ): void {
         $repository->findOneBy(['tokenValue' => 'CART_TOKEN'])->willReturn(null);
 
@@ -40,7 +47,7 @@ class CartReadyForCheckoutValidatorSpec extends ObjectBehavior
         OrderInterface $order,
         FactoryInterface $stateMachineFactory,
         StateMachineInterface $stateMachine,
-        ExecutionContextInterface $context
+        ExecutionContextInterface $context,
     ): void {
         $repository->findOneBy(['tokenValue' => 'CART_TOKEN'])->willReturn($order);
 
@@ -59,7 +66,7 @@ class CartReadyForCheckoutValidatorSpec extends ObjectBehavior
         OrderInterface $order,
         FactoryInterface $stateMachineFactory,
         StateMachineInterface $stateMachine,
-        ExecutionContextInterface $context
+        ExecutionContextInterface $context,
     ): void {
         $repository->findOneBy(['tokenValue' => 'CART_TOKEN'])->willReturn($order);
 
@@ -78,7 +85,7 @@ class CartReadyForCheckoutValidatorSpec extends ObjectBehavior
         OrderInterface $order,
         FactoryInterface $stateMachineFactory,
         StateMachineInterface $stateMachine,
-        ExecutionContextInterface $context
+        ExecutionContextInterface $context,
     ): void {
         $repository->findOneBy(['tokenValue' => 'CART_TOKEN'])->willReturn($order);
 
@@ -97,7 +104,7 @@ class CartReadyForCheckoutValidatorSpec extends ObjectBehavior
         OrderInterface $order,
         FactoryInterface $stateMachineFactory,
         StateMachineInterface $stateMachine,
-        ExecutionContextInterface $context
+        ExecutionContextInterface $context,
     ): void {
         $repository->findOneBy(['tokenValue' => 'CART_TOKEN'])->willReturn($order);
 

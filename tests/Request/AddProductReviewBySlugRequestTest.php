@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Request;
@@ -31,9 +38,9 @@ final class AddProductReviewBySlugRequestTest extends TestCase
                 ],
                 [
                     'slug' => 'pale-ale',
-                ]
+                ],
             ),
-            $channel
+            $channel,
         );
 
         $this->assertEquals($addReviewRequest->getCommand(), new AddProductReviewBySlug(
@@ -42,7 +49,7 @@ final class AddProductReviewBySlugRequestTest extends TestCase
             'Awesome beer',
             5,
             'I love this beer',
-            'pale.ale@brewery.com'
+            'pale.ale@brewery.com',
         ));
     }
 }

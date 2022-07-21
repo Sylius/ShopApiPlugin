@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Validator\Address;
@@ -19,7 +26,7 @@ final class AddressExistsValidatorSpec extends ObjectBehavior
     function let(
         ExecutionContextInterface $executionContext,
         AddressRepositoryInterface $addressRepository,
-        LoggedInShopUserProviderInterface $currentUserProvider
+        LoggedInShopUserProviderInterface $currentUserProvider,
     ): void {
         $this->beConstructedWith($addressRepository, $currentUserProvider);
 
@@ -32,7 +39,7 @@ final class AddressExistsValidatorSpec extends ObjectBehavior
         CustomerInterface $customerOwner,
         LoggedInShopUserProviderInterface $currentUserProvider,
         AddressRepositoryInterface $addressRepository,
-        ExecutionContextInterface $executionContext
+        ExecutionContextInterface $executionContext,
     ): void {
         $addressRepository->findOneBy(['id' => 'ADDRESS_ID'])->willReturn($address);
 
@@ -49,7 +56,7 @@ final class AddressExistsValidatorSpec extends ObjectBehavior
 
     function it_adds_constraint_if_address_does_not_exits_exists(
         AddressRepositoryInterface $addressRepository,
-        ExecutionContextInterface $executionContext
+        ExecutionContextInterface $executionContext,
     ): void {
         $addressRepository->findOneBy(['id' => 'ADDRESS_ID'])->willReturn(null);
 
@@ -64,7 +71,7 @@ final class AddressExistsValidatorSpec extends ObjectBehavior
         LoggedInShopUserProviderInterface $currentUserProvider,
         ShopUserInterface $shopUser,
         CustomerInterface $customerOwner,
-        ExecutionContextInterface $executionContext
+        ExecutionContextInterface $executionContext,
     ): void {
         $addressRepository->findOneBy(['id' => 'ADDRESS_ID'])->willReturn($address);
 
@@ -86,7 +93,7 @@ final class AddressExistsValidatorSpec extends ObjectBehavior
         LoggedInShopUserProviderInterface $currentUserProvider,
         ShopUserInterface $shopUser,
         CustomerInterface $customerOwner,
-        ExecutionContextInterface $executionContext
+        ExecutionContextInterface $executionContext,
     ): void {
         $addressRepository->findOneBy(['id' => 'ADDRESS_ID'])->willReturn($address);
 

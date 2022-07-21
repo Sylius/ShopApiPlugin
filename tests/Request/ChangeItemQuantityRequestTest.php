@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Request;
@@ -19,12 +26,12 @@ final class ChangeItemQuantityRequestTest extends TestCase
         $changeItemQuantityRequest = ChangeItemQuantityRequest::fromHttpRequest(new Request(
             [],
             ['quantity' => 5],
-            ['token' => 'ORDERTOKEN', 'id' => 1]
+            ['token' => 'ORDERTOKEN', 'id' => 1],
         ));
 
         $this->assertEquals(
             new ChangeItemQuantity('ORDERTOKEN', 1, 5),
-            $changeItemQuantityRequest->getCommand()
+            $changeItemQuantityRequest->getCommand(),
         );
     }
 }

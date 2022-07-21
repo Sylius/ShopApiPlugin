@@ -1,10 +1,8 @@
 <?php
 
-/**
+/*
  * This file is part of the Sylius package.
- *
- *  (c) Paweł Jędrzejewski
- *
+ * (c) Paweł Jędrzejewski
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -28,13 +26,13 @@ final class DetailedProductViewFactory implements ProductViewFactoryInterface
 
     public function __construct(
         ProductViewFactoryInterface $productViewFactory,
-        ProductBreadcrumbGeneratorInterface $breadcrumbGenerator
+        ProductBreadcrumbGeneratorInterface $breadcrumbGenerator,
     ) {
         $this->productViewFactory = $productViewFactory;
         $this->breadcrumbGenerator = $breadcrumbGenerator;
     }
 
-    /** {@inheritdoc} */
+    /** @inheritdoc */
     public function create(ProductInterface $product, ChannelInterface $channel, string $locale): ProductView
     {
         $productView = $this->productViewFactory->create($product, $channel, $locale);

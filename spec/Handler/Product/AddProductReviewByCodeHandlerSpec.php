@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Handler\Product;
@@ -24,7 +31,7 @@ final class AddProductReviewByCodeHandlerSpec extends ObjectBehavior
         ChannelRepositoryInterface $channelRepository,
         ProductRepositoryInterface $productRepository,
         ProductReviewerProviderInterface $productReviewerProvider,
-        ReviewFactoryInterface $reviewFactory
+        ReviewFactoryInterface $reviewFactory,
     ): void {
         $this->beConstructedWith($productReviewRepository, $channelRepository, $productRepository, $productReviewerProvider, $reviewFactory);
     }
@@ -43,7 +50,7 @@ final class AddProductReviewByCodeHandlerSpec extends ObjectBehavior
         ProductInterface $product,
         ChannelInterface $channel,
         ProductReviewerInterface $productReviewer,
-        ReviewInterface $productReview
+        ReviewInterface $productReview,
     ): void {
         $channelRepository->findOneByCode('WEB_GB')->willReturn($channel);
         $product->hasChannel($channel)->willReturn(true);
@@ -77,7 +84,7 @@ final class AddProductReviewByCodeHandlerSpec extends ObjectBehavior
     function it_throws_an_exception_if_product_has_not_been_found(
         ChannelRepositoryInterface $channelRepository,
         ProductRepositoryInterface $productRepository,
-        ChannelInterface $channel
+        ChannelInterface $channel,
     ): void {
         $channelRepository->findOneByCode('WEB_GB')->willReturn($channel);
 
@@ -95,7 +102,7 @@ final class AddProductReviewByCodeHandlerSpec extends ObjectBehavior
         ChannelRepositoryInterface $channelRepository,
         ProductRepositoryInterface $productRepository,
         ChannelInterface $channel,
-        ProductInterface $product
+        ProductInterface $product,
     ): void {
         $channelRepository->findOneByCode('WEB_GB')->willReturn($channel);
         $product->hasChannel($channel)->willReturn(false);

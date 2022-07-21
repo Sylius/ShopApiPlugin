@@ -1,10 +1,8 @@
 <?php
 
-/**
+/*
  * This file is part of the Sylius package.
- *
- *  (c) Paweł Jędrzejewski
- *
+ * (c) Paweł Jędrzejewski
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -42,7 +40,7 @@ final class ChoosePaymentMethodHandler
         OrderRepositoryInterface $orderRepository,
         PaymentMethodRepositoryInterface $paymentMethodRepository,
         FactoryInterface $stateMachineFactory,
-        ?PaymentMethodsResolverInterface $paymentMethodsResolver = null
+        ?PaymentMethodsResolverInterface $paymentMethodsResolver = null,
     ) {
         $this->orderRepository = $orderRepository;
         $this->paymentMethodRepository = $paymentMethodRepository;
@@ -96,7 +94,7 @@ final class ChoosePaymentMethodHandler
 
     private function validatePaymentMethod(
         \Sylius\Component\Payment\Model\PaymentInterface $payment,
-        PaymentMethodInterface $paymentMethod
+        PaymentMethodInterface $paymentMethod,
     ): void {
         if ($this->paymentMethodsResolver === null) {
             return;
@@ -104,7 +102,7 @@ final class ChoosePaymentMethodHandler
         Assert::inArray(
             $paymentMethod,
             $this->paymentMethodsResolver->getSupportedMethods($payment),
-            'Payment does not support the selected payment method'
+            'Payment does not support the selected payment method',
         );
     }
 }

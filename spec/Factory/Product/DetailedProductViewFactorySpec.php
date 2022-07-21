@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Factory\Product;
@@ -15,7 +22,7 @@ final class DetailedProductViewFactorySpec extends ObjectBehavior
 {
     function let(
         ProductViewFactoryInterface $productViewFactory,
-        ProductBreadcrumbGeneratorInterface $breadcrumbGenerator
+        ProductBreadcrumbGeneratorInterface $breadcrumbGenerator,
     ): void {
         $this->beConstructedWith($productViewFactory, $breadcrumbGenerator);
     }
@@ -29,7 +36,7 @@ final class DetailedProductViewFactorySpec extends ObjectBehavior
         ChannelInterface $channel,
         ProductInterface $product,
         ProductViewFactoryInterface $productViewFactory,
-        ProductBreadcrumbGeneratorInterface $breadcrumbGenerator
+        ProductBreadcrumbGeneratorInterface $breadcrumbGenerator,
     ): void {
         $productViewFactory->create($product, $channel, 'en_GB')->willReturn(new ProductView());
         $breadcrumbGenerator->generate($product, 'en_GB')->willReturn('taxon/product');

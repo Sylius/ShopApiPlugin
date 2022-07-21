@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Factory\Cart;
@@ -20,7 +27,7 @@ final class CartItemViewFactorySpec extends ObjectBehavior
 {
     function let(
         ProductViewFactoryInterface $productViewFactory,
-        ProductVariantViewFactoryInterface $productVariantViewFactory
+        ProductVariantViewFactoryInterface $productVariantViewFactory,
     ): void {
         $this->beConstructedWith($productViewFactory, $productVariantViewFactory, ItemView::class);
     }
@@ -36,7 +43,7 @@ final class CartItemViewFactorySpec extends ObjectBehavior
         ProductInterface $tShirt,
         ProductVariantInterface $tShirtVariant,
         ProductVariantViewFactoryInterface $productVariantViewFactory,
-        ProductViewFactoryInterface $productViewFactory
+        ProductViewFactoryInterface $productViewFactory,
     ): void {
         $cartItem->getId()->willReturn(2);
         $cartItem->getQuantity()->willReturn(3);

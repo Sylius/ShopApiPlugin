@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Validator;
@@ -23,7 +30,7 @@ final class ChannelExistsValidatorSpec extends ObjectBehavior
     function it_does_not_add_constraint_if_channel_exists(
         ChannelInterface $channel,
         ChannelRepositoryInterface $channelRepository,
-        ExecutionContextInterface $executionContext
+        ExecutionContextInterface $executionContext,
     ): void {
         $channelRepository->findOneByCode('WEB_GB')->willReturn($channel);
 
@@ -34,7 +41,7 @@ final class ChannelExistsValidatorSpec extends ObjectBehavior
 
     function it_adds_constraint_if_channel_does_not_exits_exists(
         ChannelRepositoryInterface $channelRepository,
-        ExecutionContextInterface $executionContext
+        ExecutionContextInterface $executionContext,
     ): void {
         $channelRepository->findOneByCode('WEB_GB')->willReturn(null);
 

@@ -1,10 +1,8 @@
 <?php
 
-/**
+/*
  * This file is part of the Sylius package.
- *
- *  (c) Paweł Jędrzejewski
- *
+ * (c) Paweł Jędrzejewski
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -29,13 +27,13 @@ class CartReadyForCheckout extends Constraint
     /** @var string */
     public $messageOnNoPaymentCart = 'sylius.shop_api.checkout.payment_required';
 
-    /** {@inheritdoc} */
+    /** @inheritdoc */
     public function getTargets(): array
     {
         return [self::PROPERTY_CONSTRAINT];
     }
 
-    /** {@inheritdoc} */
+    /** @inheritdoc */
     public function validatedBy(): string
     {
         return 'sylius_shop_api_cart_ready_for_checkout';

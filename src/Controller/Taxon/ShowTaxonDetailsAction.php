@@ -1,10 +1,8 @@
 <?php
 
-/**
+/*
  * This file is part of the Sylius package.
- *
- *  (c) Paweł Jędrzejewski
- *
+ * (c) Paweł Jędrzejewski
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -41,7 +39,7 @@ final class ShowTaxonDetailsAction
         TaxonRepositoryInterface $taxonRepository,
         ViewHandlerInterface $viewHandler,
         TaxonDetailsViewFactoryInterface $taxonViewFactory,
-        RequestBasedLocaleProviderInterface $requestBasedLocaleProvider
+        RequestBasedLocaleProviderInterface $requestBasedLocaleProvider,
     ) {
         $this->taxonRepository = $taxonRepository;
         $this->viewHandler = $viewHandler;

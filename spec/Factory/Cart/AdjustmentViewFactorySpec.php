@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Factory\Cart;
@@ -25,7 +32,7 @@ final class AdjustmentViewFactorySpec extends ObjectBehavior
 
     function it_builds_adjustment_view(
         AdjustmentInterface $adjustment,
-        PriceViewFactoryInterface $priceViewFactory
+        PriceViewFactoryInterface $priceViewFactory,
     ): void {
         $adjustment->getLabel()->willReturn('Bananas promotion');
         $adjustment->getAmount()->willReturn(500);
@@ -41,7 +48,7 @@ final class AdjustmentViewFactorySpec extends ObjectBehavior
 
     function it_builds_adjustment_view_with_additional_amount(
         AdjustmentInterface $adjustment,
-        PriceViewFactoryInterface $priceViewFactory
+        PriceViewFactoryInterface $priceViewFactory,
     ): void {
         $adjustment->getLabel()->willReturn('Bananas promotion');
         $adjustment->getAmount()->willReturn(500);

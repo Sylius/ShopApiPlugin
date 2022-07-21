@@ -1,10 +1,8 @@
 <?php
 
-/**
+/*
  * This file is part of the Sylius package.
- *
- *  (c) Paweł Jędrzejewski
- *
+ * (c) Paweł Jędrzejewski
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -34,7 +32,7 @@ final class PaymentMethodAvailableValidator extends ConstraintValidator
 
     public function __construct(
         OrderRepositoryInterface $orderRepository,
-        PaymentMethodsResolverInterface $paymentMethodsResolver
+        PaymentMethodsResolverInterface $paymentMethodsResolver,
     ) {
         $this->orderRepository = $orderRepository;
         $this->paymentMethodsResolver = $paymentMethodsResolver;
@@ -47,7 +45,7 @@ final class PaymentMethodAvailableValidator extends ConstraintValidator
 
         /** @var OrderInterface|null $order */
         $order = $this->orderRepository->findOneBy(
-            ['tokenValue' => $value->getOrderToken(), 'state' => OrderCheckoutStates::STATE_CART]
+            ['tokenValue' => $value->getOrderToken(), 'state' => OrderCheckoutStates::STATE_CART],
         );
         if ($order === null) {
             return;
@@ -59,7 +57,7 @@ final class PaymentMethodAvailableValidator extends ConstraintValidator
                 static function (PaymentMethodInterface $paymentMethod) {
                     return $paymentMethod->getCode();
                 },
-                $this->paymentMethodsResolver->getSupportedMethods($payment)
+                $this->paymentMethodsResolver->getSupportedMethods($payment),
             );
 
         if (!in_array($value->getMethod(), $paymentMethodCodes, true)) {
@@ -67,7 +65,8 @@ final class PaymentMethodAvailableValidator extends ConstraintValidator
             $this->context
                 ->buildViolation($constraint->message)
                 ->atPath('method')
-                ->addViolation();
+                ->addViolation()
+            ;
         }
     }
 }

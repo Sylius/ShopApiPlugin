@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\DependencyInjection;
@@ -61,13 +68,13 @@ final class ShopApiExtensionTest extends AbstractExtensionTestCase
         foreach ($nameToClass as $name => $class) {
             $this->assertContainerBuilderHasParameter(
                 sprintf('sylius.shop_api.view.%s.class', $name),
-                $class
+                $class,
             );
         }
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     protected function getContainerExtensions(): array
     {

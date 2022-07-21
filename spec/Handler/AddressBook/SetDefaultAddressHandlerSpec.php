@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Handler\AddressBook;
@@ -19,12 +26,12 @@ final class SetDefaultAddressHandlerSpec extends ObjectBehavior
     function let(
         CustomerRepositoryInterface $customerRepository,
         AddressRepositoryInterface $addressRepository,
-        RepositoryInterface $shopUserRepository
+        RepositoryInterface $shopUserRepository,
     ): void {
         $this->beConstructedWith(
             $customerRepository,
             $addressRepository,
-            $shopUserRepository
+            $shopUserRepository,
         );
     }
 
@@ -33,7 +40,7 @@ final class SetDefaultAddressHandlerSpec extends ObjectBehavior
         AddressRepositoryInterface $addressRepository,
         RepositoryInterface $shopUserRepository,
         ShopUserInterface $user,
-        Customer $customer
+        Customer $customer,
     ): void {
         $shopUserRepository->findOneBy(['username' => 'user@email.com'])->willReturn($user);
         $addressRepository->find(1)->willReturn($address);
@@ -54,7 +61,7 @@ final class SetDefaultAddressHandlerSpec extends ObjectBehavior
         RepositoryInterface $shopUserRepository,
         ShopUserInterface $user,
         CustomerInterface $customer,
-        CustomerInterface $anotherCustomer
+        CustomerInterface $anotherCustomer,
     ): void {
         $shopUserRepository->findOneBy(['username' => 'user@email.com'])->willReturn($user);
         $addressRepository->find(1)->willReturn($address);
@@ -74,7 +81,7 @@ final class SetDefaultAddressHandlerSpec extends ObjectBehavior
         AddressInterface $address,
         AddressRepositoryInterface $addressRepository,
         RepositoryInterface $shopUserRepository,
-        ShopUserInterface $user
+        ShopUserInterface $user,
     ): void {
         $shopUserRepository->findOneBy(['username' => 'user@email.com'])->willReturn($user);
         $addressRepository->find(1)->willReturn($address);

@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Handler\Cart;
@@ -20,7 +27,7 @@ final class AddressOrderHandlerSpec extends ObjectBehavior
     function let(
         OrderRepositoryInterface $orderRepository,
         AddressMapperInterface $addressMapper,
-        FactoryInterface $stateMachineFactory
+        FactoryInterface $stateMachineFactory,
     ): void {
         $this->beConstructedWith($orderRepository, $addressMapper, $stateMachineFactory);
     }
@@ -32,7 +39,7 @@ final class AddressOrderHandlerSpec extends ObjectBehavior
         FactoryInterface $stateMachineFactory,
         OrderInterface $order,
         OrderRepositoryInterface $orderRepository,
-        StateMachineInterface $stateMachine
+        StateMachineInterface $stateMachine,
     ): void {
         $order->getShippingAddress()->willReturn(null);
         $order->getBillingAddress()->willReturn(null);
@@ -82,7 +89,7 @@ final class AddressOrderHandlerSpec extends ObjectBehavior
         FactoryInterface $stateMachineFactory,
         OrderInterface $order,
         OrderRepositoryInterface $orderRepository,
-        StateMachineInterface $stateMachine
+        StateMachineInterface $stateMachine,
     ): void {
         $order->getShippingAddress()->willReturn($shippingAddress);
         $order->getBillingAddress()->willReturn($billingAddress);
@@ -126,7 +133,7 @@ final class AddressOrderHandlerSpec extends ObjectBehavior
     }
 
     function it_throws_an_exception_if_order_does_not_exist(
-        OrderRepositoryInterface $orderRepository
+        OrderRepositoryInterface $orderRepository,
     ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn(null);
 
@@ -150,7 +157,7 @@ final class AddressOrderHandlerSpec extends ObjectBehavior
                     'countryCode' => 'GB',
                     'postcode' => 'NWB',
                     'provinceName' => 'Greater London',
-                ])
+                ]),
             ),
         ]);
     }
@@ -159,7 +166,7 @@ final class AddressOrderHandlerSpec extends ObjectBehavior
         FactoryInterface $stateMachineFactory,
         OrderInterface $order,
         OrderRepositoryInterface $orderRepository,
-        StateMachineInterface $stateMachine
+        StateMachineInterface $stateMachine,
     ): void {
         $orderRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($order);
 
@@ -186,7 +193,7 @@ final class AddressOrderHandlerSpec extends ObjectBehavior
                     'countryCode' => 'GB',
                     'postcode' => 'NWB',
                     'provinceName' => 'Greater London',
-                ])
+                ]),
             ),
         ]);
     }

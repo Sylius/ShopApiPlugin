@@ -1,10 +1,8 @@
 <?php
 
-/**
+/*
  * This file is part of the Sylius package.
- *
- *  (c) Paweł Jędrzejewski
- *
+ * (c) Paweł Jędrzejewski
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -35,7 +33,7 @@ final class ShowProductReviewsByCodeAction
     public function __construct(
         ViewHandlerInterface $viewHandler,
         ProductReviewsViewRepositoryInterface $productReviewsViewRepository,
-        ChannelContextInterface $channelContext
+        ChannelContextInterface $channelContext,
     ) {
         $this->viewHandler = $viewHandler;
         $this->productReviewsViewRepository = $productReviewsViewRepository;
@@ -49,7 +47,7 @@ final class ShowProductReviewsByCodeAction
         $page = $this->productReviewsViewRepository->getByProductCode(
             $request->attributes->get('code'),
             $channel->getCode(),
-            new PaginatorDetails($request->attributes->get('_route'), $request->query->all())
+            new PaginatorDetails($request->attributes->get('_route'), $request->query->all()),
         );
 
         return $this->viewHandler->handle(View::create($page, Response::HTTP_OK));

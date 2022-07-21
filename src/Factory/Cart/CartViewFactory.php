@@ -1,10 +1,8 @@
 <?php
 
-/**
+/*
  * This file is part of the Sylius package.
- *
- *  (c) Paweł Jędrzejewski
- *
+ * (c) Paweł Jędrzejewski
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -52,7 +50,7 @@ final class CartViewFactory implements CartViewFactoryInterface
         ShipmentViewFactoryInterface $shipmentViewFactory,
         PaymentViewFactoryInterface $paymentViewFactory,
         AdjustmentViewFactoryInterface $adjustmentViewFactory,
-        string $cartSummaryViewClass
+        string $cartSummaryViewClass,
     ) {
         $this->cartItemFactory = $cartItemFactory;
         $this->addressViewFactory = $addressViewFactory;
@@ -63,7 +61,7 @@ final class CartViewFactory implements CartViewFactoryInterface
         $this->cartSummaryViewClass = $cartSummaryViewClass;
     }
 
-    /** {@inheritdoc} */
+    /** @inheritdoc */
     public function create(OrderInterface $cart, string $localeCode): CartSummaryView
     {
         /** @var CartSummaryView $cartView */

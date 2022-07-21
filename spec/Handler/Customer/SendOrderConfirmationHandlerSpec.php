@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Handler\Customer;
@@ -29,7 +36,7 @@ final class SendOrderConfirmationHandlerSpec extends ObjectBehavior
         OrderRepositoryInterface $orderRepository,
         OrderInterface $order,
         CustomerInterface $customer,
-        SenderInterface $sender
+        SenderInterface $sender,
     ): void {
         $orderRepository->findOneByTokenValue('ORDERTOKEN')->willReturn($order);
         $order->getCustomer()->willReturn($customer);

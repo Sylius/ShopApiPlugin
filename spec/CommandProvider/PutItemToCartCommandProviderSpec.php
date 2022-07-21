@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\CommandProvider;
@@ -29,7 +36,7 @@ final class PutItemToCartCommandProviderSpec extends ObjectBehavior
     function it_validates_put_simple_item_to_cart_request(
         ValidatorInterface $validator,
         Request $httpRequest,
-        ConstraintViolationListInterface $constraintViolationList
+        ConstraintViolationListInterface $constraintViolationList,
     ): void {
         $httpRequest->attributes = new ParameterBag(['token' => 'ORDERTOKEN']);
         $httpRequest->request = new ParameterBag([
@@ -48,7 +55,7 @@ final class PutItemToCartCommandProviderSpec extends ObjectBehavior
     function it_validates_put_variant_based_configurable_item_to_cart_request(
         ValidatorInterface $validator,
         Request $httpRequest,
-        ConstraintViolationListInterface $constraintViolationList
+        ConstraintViolationListInterface $constraintViolationList,
     ): void {
         $httpRequest->attributes = new ParameterBag(['token' => 'ORDERTOKEN']);
         $httpRequest->request = new ParameterBag([
@@ -68,7 +75,7 @@ final class PutItemToCartCommandProviderSpec extends ObjectBehavior
     function it_validates_put_option_based_configurable_item_to_cart_request(
         ValidatorInterface $validator,
         Request $httpRequest,
-        ConstraintViolationListInterface $constraintViolationList
+        ConstraintViolationListInterface $constraintViolationList,
     ): void {
         $httpRequest->attributes = new ParameterBag(['token' => 'ORDERTOKEN']);
         $httpRequest->request = new ParameterBag([

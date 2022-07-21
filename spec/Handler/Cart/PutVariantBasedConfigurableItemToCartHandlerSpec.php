@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Handler\Cart;
@@ -20,7 +27,7 @@ final class PutVariantBasedConfigurableItemToCartHandlerSpec extends ObjectBehav
         OrderRepositoryInterface $cartRepository,
         ProductVariantRepositoryInterface $productVariantRepository,
         OrderModifierInterface $orderModifier,
-        ProductInCartChannelCheckerInterface $channelChecker
+        ProductInCartChannelCheckerInterface $channelChecker,
     ): void {
         $this->beConstructedWith($cartRepository, $productVariantRepository, $orderModifier, $channelChecker);
     }
@@ -32,7 +39,7 @@ final class PutVariantBasedConfigurableItemToCartHandlerSpec extends ObjectBehav
         ProductInCartChannelCheckerInterface $channelChecker,
         ProductVariantInterface $productVariant,
         ProductInterface $product,
-        ProductVariantRepositoryInterface $productVariantRepository
+        ProductVariantRepositoryInterface $productVariantRepository,
     ): void {
         $productVariantRepository->findOneByCodeAndProductCode('RED_SMALL_T_SHIRT_CODE', 'T_SHIRT_CODE')->willReturn($productVariant);
         $productVariant->getProduct()->willReturn($product);
@@ -58,7 +65,7 @@ final class PutVariantBasedConfigurableItemToCartHandlerSpec extends ObjectBehav
     function it_throws_an_exception_if_product_has_not_been_found(
         OrderInterface $cart,
         OrderRepositoryInterface $cartRepository,
-        ProductVariantRepositoryInterface $productVariantRepository
+        ProductVariantRepositoryInterface $productVariantRepository,
     ): void {
         $cartRepository->findOneBy(['tokenValue' => 'ORDERTOKEN'])->willReturn($cart);
         $productVariantRepository->findOneByCodeAndProductCode('RED_SMALL_T_SHIRT_CODE', 'T_SHIRT_CODE')->willReturn(null);
@@ -74,7 +81,7 @@ final class PutVariantBasedConfigurableItemToCartHandlerSpec extends ObjectBehav
         ProductInCartChannelCheckerInterface $channelChecker,
         ProductVariantRepositoryInterface $productVariantRepository,
         ProductVariantInterface $productVariant,
-        ProductInterface $product
+        ProductInterface $product,
     ): void {
         $productVariantRepository->findOneByCodeAndProductCode('RED_SMALL_T_SHIRT_CODE', 'T_SHIRT_CODE')->willReturn($productVariant);
         $productVariant->getProduct()->willReturn($product);

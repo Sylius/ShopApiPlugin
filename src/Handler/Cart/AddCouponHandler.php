@@ -1,10 +1,8 @@
 <?php
 
-/**
+/*
  * This file is part of the Sylius package.
- *
- *  (c) Paweł Jędrzejewski
- *
+ * (c) Paweł Jędrzejewski
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -40,7 +38,7 @@ final class AddCouponHandler
         OrderRepositoryInterface $orderRepository,
         PromotionCouponRepositoryInterface $couponRepository,
         OrderProcessorInterface $orderProcessor,
-        PromotionCouponEligibilityCheckerInterface $couponEligibilityChecker
+        PromotionCouponEligibilityCheckerInterface $couponEligibilityChecker,
     ) {
         $this->orderRepository = $orderRepository;
         $this->couponRepository = $couponRepository;

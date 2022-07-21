@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Sylius package.
+ * (c) Paweł Jędrzejewski
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace spec\Sylius\ShopApiPlugin\Handler\Customer;
@@ -28,7 +35,7 @@ final class GenerateResetPasswordTokenHandlerSpec extends ObjectBehavior
     function it_handles_generating_user_verification_token(
         UserRepositoryInterface $userRepository,
         GeneratorInterface $tokenGenerator,
-        ShopUserInterface $user
+        ShopUserInterface $user,
     ): void {
         $userRepository->findOneByEmail('example@customer.com')->willReturn($user);
 
@@ -41,7 +48,7 @@ final class GenerateResetPasswordTokenHandlerSpec extends ObjectBehavior
     }
 
     function it_throws_an_exception_if_user_has_not_been_found(
-        UserRepositoryInterface $userRepository
+        UserRepositoryInterface $userRepository,
     ): void {
         $userRepository->findOneByEmail('example@customer.com')->willReturn(null);
         $this->shouldThrow(UserNotFoundException::class)->during('__invoke', [new GenerateResetPasswordToken('example@customer.com')]);
