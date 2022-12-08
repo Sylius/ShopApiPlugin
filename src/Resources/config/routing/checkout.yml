@@ -1,7 +1,7 @@
 sylius_shop_api_country_checkout:
     path: /countries
     methods: [GET]
-    controller: sylius.controller.country:indexAction
+    controller: sylius.controller.country::indexAction
     defaults:
         _sylius:
             paginate: false
@@ -15,7 +15,7 @@ sylius_shop_api_country_checkout:
 sylius_shop_api_country_show_details_by_code_checkout:
     path: /countries/{code}
     methods: [GET]
-    controller: sylius.controller.country:showAction
+    controller: sylius.controller.country::showAction
     defaults:
         _sylius:
             paginate: false

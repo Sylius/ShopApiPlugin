@@ -14,4 +14,4 @@ sylius_shop_api_change_password:
     path: /me/change-password
     methods: [PUT]
     defaults:
-        _controller: sylius.controller.shop_user:changePasswordAction
+        _controller: sylius.controller.shop_user::changePasswordAction
