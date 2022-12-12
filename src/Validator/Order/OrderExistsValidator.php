@@ -27,7 +27,7 @@ final class OrderExistsValidator extends ConstraintValidator
         $this->orderRepository = $orderRepository;
     }
 
-    public function validate($token, Constraint $constraint): void
+    public function validate(mixed $token, Constraint $constraint): void
     {
         Assert::isInstanceOf($constraint, OrderExists::class);
 

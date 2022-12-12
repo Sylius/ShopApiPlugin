@@ -32,7 +32,7 @@ final class CartEligibilityValidator extends ConstraintValidator
         $this->cartRepository = $cartRepository;
     }
 
-    public function validate($request, Constraint $constraint): void
+    public function validate(mixed $request, Constraint $constraint): void
     {
         Assert::isInstanceOf($request, CompleteOrderRequest::class);
         Assert::isInstanceOf($constraint, CartEligibility::class);

@@ -44,7 +44,7 @@ final class ProductInCartChannelValidator extends ConstraintValidator
     }
 
     /** @inheritdoc */
-    public function validate($value, Constraint $constraint): void
+    public function validate(mixed $value, Constraint $constraint): void
     {
         /** @var PutOptionBasedConfigurableItemToCartRequest|PutVariantBasedConfigurableItemToCartRequest|PutSimpleItemToCartRequest $value */
         $product = $this->productRepository->findOneByCode($value->getProductCode());

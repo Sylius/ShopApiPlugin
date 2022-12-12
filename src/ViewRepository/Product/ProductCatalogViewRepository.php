@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\ViewRepository\Product;
 
-use Pagerfanta\Adapter\DoctrineORMAdapter;
+use Pagerfanta\Doctrine\ORM\QueryAdapter;
 use Pagerfanta\Pagerfanta;
 use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
@@ -105,7 +105,7 @@ final class ProductCatalogViewRepository implements ProductCatalogViewRepository
         $queryBuilder->addSelect('productTaxon');
         $queryBuilder->addOrderBy('productTaxon.position');
 
-        $pagerfanta = new Pagerfanta(new DoctrineORMAdapter($queryBuilder));
+        $pagerfanta = new Pagerfanta(new QueryAdapter($queryBuilder));
 
         $pagerfanta->setMaxPerPage($paginatorDetails->limit());
         $pagerfanta->setCurrentPage($paginatorDetails->page());
