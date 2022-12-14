@@ -19,9 +19,9 @@ jobs:
             fail-fast: false
             matrix:
                 php: [8.0, 8.1]
-                node: [10.x]
+                node: [16.x]
                 mysql: [5.7, 8.0]
-                symfony: [^4.4, ~5.2.0, ~5.3.0]
+                symfony: [^5.2]
                 sylius: [~1.10.0, ~1.11.0]
 
         env:
@@ -45,7 +45,7 @@ jobs:
 
             -
                 name: Setup Node
-                uses: actions/setup-node@v1
+                uses: actions/setup-node@v2
                 with:
                     node-version: "${{ matrix.node }}"
 
@@ -69,7 +69,7 @@ jobs:
                 if: matrix.symfony != ''
                 run: |
                     composer global config --no-plugins allow-plugins.symfony/flex true
-                    composer require --no-progress --no-scripts --no-plugins "symfony/flex:^1.10"
+                    composer global require --no-progress --no-scripts --no-plugins "symfony/flex:^1.10"
                     composer config extra.symfony.require "${{ matrix.symfony }}"
 
             -
@@ -78,21 +78,8 @@ jobs:
                 run: composer require "sylius/sylius:${{ matrix.sylius }}" --no-update --no-scripts --no-interaction
 
             -
-                name: Get Composer cache directory
-                id: composer-cache
-                run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-
-            -
-                name: Cache Composer
-                uses: actions/cache@v2
-                with:
-                    path: ${{ steps.composer-cache.outputs.dir }}
-                    key: ${{ runner.os }}-php-${{ matrix.php }}-composer-${{ hashFiles('**/composer.json **/composer.lock') }}
-                    restore-keys: |
-                        ${{ runner.os }}-php-${{ matrix.php }}-composer-
-            -
                 name: Install PHP dependencies
-                run: composer install --no-interaction
+                run: composer update --no-interaction
 
             -
                 name: Prepare test application database
@@ -105,13 +92,13 @@ jobs:
                 run: vendor/bin/phpstan analyse -c phpstan.neon --no-progress src
 
             -
+                name: Run Codestyle
+                run: vendor/bin/ecs check
+
+            -
                 name: Run PHPSpec
                 run: vendor/bin/phpspec run --ansi -f progress --no-interaction
 
             -
                 name: Run PHPUnit
                 run: vendor/bin/phpunit --colors=always
-
-            -
-                name: Run Codestyle
-                run: vendor/bin/ecs check
