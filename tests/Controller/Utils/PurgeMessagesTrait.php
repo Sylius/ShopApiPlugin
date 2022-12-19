@@ -17,13 +17,17 @@ trait PurgeMessagesTrait
 {
     private static ?string $poolDirectory = null;
 
+    use MailerAssertionsTrait;
+
     /**
      * @before
      */
     public function purgeMessages(): void
     {
+        $this->setUpClient();
+
         /** @var Filesystem $filesystem */
-        $filesystem = $this->getContainer()->get('filesystem');
+        $filesystem = self::$clientContainer->get('filesystem');
 
         $filesystem->remove($this->getContainer()->getParameter('kernel.cache_dir') . '/pools');
         $filesystem->remove($this->getContainer()->getParameter('kernel.cache_dir') . '/spool');

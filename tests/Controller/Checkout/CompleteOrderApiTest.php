@@ -39,6 +39,11 @@ final class CompleteOrderApiTest extends JsonApiTestCase
     use ShopUserLoginTrait;
     use MailerAssertionsTrait;
 
+    protected function setUp(): void
+    {
+        $this->setUpClient();
+    }
+
     /**
      * @test
      */

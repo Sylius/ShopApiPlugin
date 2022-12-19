@@ -79,7 +79,7 @@ final class PutItemsToCartAction
 
         $token = $request->attributes->get('token');
 
-        foreach ($request->request->get('items') as $item) {
+        foreach ($request->request->all('items') as $item) {
             $item['token'] = $token;
             $commandRequests[] = $this->provideCommandRequest($item);
         }
