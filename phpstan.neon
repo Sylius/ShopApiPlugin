@@ -12,10 +12,6 @@ parameters:
     ignoreErrors:
         - /^Access to an undefined property Symfony\\Component\\Validator\\Constraint::\$message\.$/
         - '/Sylius\\Component\\Core\\Model\\(\w+), Sylius\\Component\\\w+\\Model\\\1 given\./'
-        - '/Empty array passed to foreach./'
-        - '/Property Sylius\\ShopApiPlugin\\Request\\Checkout\\AddressOrderRequest::\$\w+Address \(array\|null\) does not accept bool\|float\|int\|string\|null\./'
         - '/Property Sylius\\ShopApiPlugin\\Request\\Customer\\UpdateCustomerRequest::\$birthday \(DateTimeImmutable\|null\) does not accept bool\|float\|int\|string\|null\./'
-        - '/Parameter #3 \$options of class Sylius\\ShopApiPlugin\\Request\\Cart\\PutOptionBasedConfigurableItemToCartRequest constructor expects array\|null, bool\|float\|int\|string\|null given\./'
-        - '/Argument of an invalid type bool\|float\|int\|string supplied for foreach, only iterables are supported\./'
         - '/^Property Sylius\\ShopApiPlugin\\Request\\Cart\\(\w+)\:\:\$productCode \(string\) on left side of \?\? is not nullable\./'
         - '/^Expression on left side of \?\? is not nullable\./'
