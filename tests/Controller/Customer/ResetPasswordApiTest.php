@@ -16,11 +16,11 @@ use Sylius\Component\User\Repository\UserRepositoryInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\Sylius\ShopApiPlugin\Controller\JsonApiTestCase;
-use Tests\Sylius\ShopApiPlugin\Controller\Utils\PurgeSpooledMessagesTrait;
+use Tests\Sylius\ShopApiPlugin\Controller\Utils\PurgePooledMessagesTrait;
 
 final class ResetPasswordApiTest extends JsonApiTestCase
 {
-    use PurgeSpooledMessagesTrait;
+    use PurgePooledMessagesTrait;
 
     /**
      * @test

@@ -11,21 +11,26 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller\Customer;
 
-use Sylius\Component\Core\Test\Services\EmailCheckerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\Sylius\ShopApiPlugin\Controller\JsonApiTestCase;
-use Tests\Sylius\ShopApiPlugin\Controller\Utils\PurgeSpooledMessagesTrait;
+use Tests\Sylius\ShopApiPlugin\Controller\Utils\MailerAssertionsTrait;
+use Tests\Sylius\ShopApiPlugin\Controller\Utils\PurgePooledMessagesTrait;
 
 final class RequestPasswordResettingApiTest extends JsonApiTestCase
 {
-    use PurgeSpooledMessagesTrait;
+    use PurgePooledMessagesTrait;
+    use MailerAssertionsTrait;
 
     /**
      * @test
      */
     public function it_allows_to_reset_user_password(): void
     {
+        if (!$this->isSymfonyMailerAvailable() && !$this->isSwiftMailerAvailable()) {
+            $this->markTestSkipped('This test should be executed only with Symfony Mailer.');
+        }
+
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
 
         $data = '{"email": "oliver@queen.com"}';
@@ -35,10 +40,8 @@ final class RequestPasswordResettingApiTest extends JsonApiTestCase
         $response = $this->client->getResponse();
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
 
-        /** @var EmailCheckerInterface $emailChecker */
-        $emailChecker = $this->get('sylius.behat.email_checker');
-
-        $this->assertTrue($emailChecker->hasRecipient('oliver@queen.com'));
+        $email = self::getMailerMessage();
+        $this->assertEmailAddressContains($email, 'to', 'oliver@queen.com');
     }
 
     /**
@@ -89,5 +92,26 @@ final class RequestPasswordResettingApiTest extends JsonApiTestCase
     protected static function getContainer(): ContainerInterface
     {
         return static::$sharedKernel->getContainer();
+    }
+
+    private function isSymfonyMailerAvailable(): bool
+    {
+        if (self::$clientContainer->has('mailer.logger_message_listener')) {
+            return self::$clientContainer->has('mailer.logger_message_listener');
+        }
+        if (self::$clientContainer->has('mailer.message_logger_listener')) {
+            return self::$clientContainer->has('mailer.message_logger_listener');
+        }
+
+        return false;
+    }
+
+    private function isSwiftMailerAvailable(): bool
+    {
+        if (self::$clientContainer->has('swiftmailer')) {
+            return self::$clientContainer->has('swiftmailer');
+        }
+
+        return false;
     }
 }

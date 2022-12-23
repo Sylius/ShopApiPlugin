@@ -11,21 +11,27 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller\Customer;
 
-use Sylius\Component\Core\Test\Services\EmailCheckerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\Sylius\ShopApiPlugin\Controller\JsonApiTestCase;
-use Tests\Sylius\ShopApiPlugin\Controller\Utils\PurgeSpooledMessagesTrait;
+use Tests\Sylius\ShopApiPlugin\Controller\Utils\MailerAssertionsTrait;
+use Tests\Sylius\ShopApiPlugin\Controller\Utils\PurgePooledMessagesTrait;
+use Webmozart\Assert\Assert;
 
 final class ResendVerificationTokenApiTest extends JsonApiTestCase
 {
-    use PurgeSpooledMessagesTrait;
+    use PurgePooledMessagesTrait;
+    use MailerAssertionsTrait;
 
     /**
      * @test
      */
     public function it_allows_to_resend_verification_token(): void
     {
+        if (!$this->isSymfonyMailerAvailable()) {
+            $this->markTestSkipped('This test should be executed only with Symfony Mailer.');
+        }
+
         $this->loadFixturesFromFiles(['channel.yml']);
 
         $data =
@@ -47,10 +53,7 @@ JSON;
         $response = $this->client->getResponse();
         $this->assertResponseCode($response, Response::HTTP_CREATED);
 
-        /** @var EmailCheckerInterface $emailChecker */
-        $emailChecker = $this->get('sylius.behat.email_checker');
-
-        $this->assertSame(2, $emailChecker->countMessagesTo('vinny@fandf.com'));
+        Assert::same(2, count(self::getMailerMessages()));
     }
 
     /**
@@ -99,5 +102,17 @@ JSON;
     protected static function getContainer(): ContainerInterface
     {
         return static::$sharedKernel->getContainer();
+    }
+
+    private function isSymfonyMailerAvailable(): bool
+    {
+        if (self::$clientContainer->has('mailer.logger_message_listener')) {
+            return self::$clientContainer->has('mailer.logger_message_listener');
+        }
+        if (self::$clientContainer->has('mailer.message_logger_listener')) {
+            return self::$clientContainer->has('mailer.message_logger_listener');
+        }
+
+        return false;
     }
 }
