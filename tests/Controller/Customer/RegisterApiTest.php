@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Tests\Sylius\ShopApiPlugin\Controller\Customer;
 
 use PHPUnit\Framework\Assert;
+use Sylius\Component\Core\Test\Services\EmailCheckerInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
 use Sylius\ShopApiPlugin\Command\Cart\AssignCustomerToCart;
 use Sylius\ShopApiPlugin\Command\Cart\PickupCart;
@@ -20,11 +21,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Tests\Sylius\ShopApiPlugin\Controller\JsonApiTestCase;
 use Tests\Sylius\ShopApiPlugin\Controller\Utils\MailerAssertionsTrait;
-use Tests\Sylius\ShopApiPlugin\Controller\Utils\PurgePooledMessagesTrait;
+use Tests\Sylius\ShopApiPlugin\Controller\Utils\PurgeMessagesTrait;
 
 final class RegisterApiTest extends JsonApiTestCase
 {
-    use PurgePooledMessagesTrait;
+    use PurgeMessagesTrait;
     use MailerAssertionsTrait;
 
     /**
@@ -32,10 +33,6 @@ final class RegisterApiTest extends JsonApiTestCase
      */
     public function it_allows_to_register_in_shop_and_sends_a_verification_email_if_channel_requires_verification(): void
     {
-        if (!$this->isSymfonyMailerAvailable()) {
-            $this->markTestSkipped('This test should be executed only with Symfony Mailer.');
-        }
-
         $this->loadFixturesFromFiles(['channel.yml']);
 
         $data =
@@ -60,8 +57,14 @@ JSON;
         Assert::assertNotNull($user);
         Assert::assertFalse($user->isEnabled());
 
-        $email = self::getMailerMessage();
-        self::assertEmailAddressContains($email, 'to', 'vinny@fandf.com');
+        if (!self::isSymfonyMailerAvailable()) {
+            /** @var EmailCheckerInterface $emailChecker */
+            $emailChecker = $this->get('sylius.behat.email_checker');
+            Assert::assertTrue($emailChecker->hasRecipient('vinny@fandf.com'));
+        } else {
+            $email = self::getMailerMessage();
+            self::assertEmailAddressContains($email, 'to', 'vinny@fandf.com');
+        }
     }
 
     /**
@@ -69,10 +72,6 @@ JSON;
      */
     public function it_allows_to_register_a_customer_if_the_customer_did_a_guest_checkout_already(): void
     {
-        if (!$this->isSymfonyMailerAvailable()) {
-            $this->markTestSkipped('This test should be executed only with Symfony Mailer.');
-        }
-
         $this->loadFixturesFromFiles(['channel.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
@@ -103,8 +102,15 @@ JSON;
 
         Assert::assertNotNull($user);
         Assert::assertFalse($user->isEnabled());
-        $email = self::getMailerMessage();
-        $this->assertEmailAddressContains($email, 'to', 'vinny@fandf.com');
+
+        if (!self::isSymfonyMailerAvailable()) {
+            /** @var EmailCheckerInterface $emailChecker */
+            $emailChecker = $this->get('sylius.behat.email_checker');
+            Assert::assertTrue($emailChecker->hasRecipient('vinny@fandf.com'));
+        } else {
+            $email = self::getMailerMessage();
+            self::assertEmailAddressContains($email, 'to', 'vinny@fandf.com');
+        }
     }
 
     /**
@@ -112,10 +118,6 @@ JSON;
      */
     public function it_allows_to_register_in_shop_and_automatically_enables_user_if_channel_does_not_require_verification(): void
     {
-        if (!$this->isSymfonyMailerAvailable()) {
-            $this->markTestSkipped('This test should be executed only with Symfony Mailer.');
-        }
-
         $this->loadFixturesFromFiles(['channel.yml']);
 
         $data =
@@ -140,8 +142,21 @@ JSON;
         Assert::assertNotNull($user);
         Assert::assertTrue($user->isEnabled());
 
-        $email = self::getMailerMessage();
-        Assert::assertNull($email);
+        if (!self::isSymfonyMailerAvailable()) {
+            /** @var EmailCheckerInterface $emailChecker */
+            $emailChecker = $this->get('sylius.behat.email_checker');
+
+            try {
+                Assert::assertFalse($emailChecker->hasRecipient('vinny@fandf.com'));
+            } catch (\InvalidArgumentException $exception) {
+                // Email checker throws an invalid argument exception if spool directory does not exist
+                // It means no mails were sent
+                // Should be fixed in Sylius though
+            }
+        } else {
+            $email = self::getMailerMessage();
+            Assert::assertNull($email);
+        }
     }
 
     /**
@@ -194,17 +209,5 @@ JSON;
     protected static function getContainer(): ContainerInterface
     {
         return static::$sharedKernel->getContainer();
-    }
-
-    private function isSymfonyMailerAvailable(): bool
-    {
-        if (self::$clientContainer->has('mailer.logger_message_listener')) {
-            return self::$clientContainer->has('mailer.logger_message_listener');
-        }
-        if (self::$clientContainer->has('mailer.message_logger_listener')) {
-            return self::$clientContainer->has('mailer.message_logger_listener');
-        }
-
-        return false;
     }
 }

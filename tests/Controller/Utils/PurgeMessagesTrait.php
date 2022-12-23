@@ -13,18 +13,19 @@ namespace Tests\Sylius\ShopApiPlugin\Controller\Utils;
 
 use Symfony\Component\Filesystem\Filesystem;
 
-trait PurgePooledMessagesTrait
+trait PurgeMessagesTrait
 {
     private static ?string $poolDirectory = null;
 
     /**
      * @before
      */
-    public function purgePooledMessages(): void
+    public function purgeMessages(): void
     {
         /** @var Filesystem $filesystem */
         $filesystem = $this->getContainer()->get('filesystem');
 
         $filesystem->remove($this->getContainer()->getParameter('kernel.cache_dir') . '/pools');
+        $filesystem->remove($this->getContainer()->getParameter('kernel.cache_dir') . '/spool');
     }
 }

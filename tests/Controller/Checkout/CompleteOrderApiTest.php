@@ -44,10 +44,6 @@ final class CompleteOrderApiTest extends JsonApiTestCase
      */
     public function it_allows_to_complete_checkout(): void
     {
-        if (!$this->isSymfonyMailerAvailable()) {
-            $this->markTestSkipped('This test should be executed only with Symfony Mailer.');
-        }
-
         $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml', 'payment.yml']);
 
         $token = 'SDAOSLEFNWU35H3QLI5325';
@@ -92,64 +88,7 @@ JSON;
         $response = $this->complete($token, $data);
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
 
-        $this->assertEmailCount(1);
-    }
-
-    /**
-     * @test
-     */
-    public function it_allows_to_complete_checkout_with_swiftmailer(): void
-    {
-        if (!$this->isSwiftMailerAvailable()) {
-            $this->markTestSkipped('This test should be executed only with SwiftMailer.');
-        }
-
-        $this->loadFixturesFromFiles(['shop.yml', 'country.yml', 'shipping.yml', 'payment.yml']);
-
-        $token = 'SDAOSLEFNWU35H3QLI5325';
-
-        /** @var MessageBusInterface $bus */
-        $bus = $this->get('sylius_shop_api_plugin.command_bus');
-        $bus->dispatch(new PickupCart($token, 'WEB_GB'));
-        $bus->dispatch(new PutSimpleItemToCart($token, 'LOGAN_MUG_CODE', 5));
-        $bus->dispatch(new AddressOrder(
-            $token,
-            Address::createFromArray([
-                'firstName' => 'Sherlock',
-                'lastName' => 'Holmes',
-                'city' => 'London',
-                'street' => 'Baker Street 221b',
-                'countryCode' => 'GB',
-                'postcode' => 'NWB',
-                'provinceName' => 'Greater London',
-            ]),
-            Address::createFromArray([
-                'firstName' => 'Sherlock',
-                'lastName' => 'Holmes',
-                'city' => 'London',
-                'street' => 'Baker Street 221b',
-                'countryCode' => 'GB',
-                'postcode' => 'NWB',
-                'provinceName' => 'Greater London',
-            ]),
-        ));
-        $bus->dispatch(new ChooseShippingMethod($token, 0, 'DHL'));
-        $bus->dispatch(new ChoosePaymentMethod($token, 0, 'PBC'));
-
-        $data =
-            <<<JSON
-        {
-            "email": "example@cusomer.com"
-        }
-JSON;
-
-        $this->client->enableProfiler();
-
-        $response = $this->complete($token, $data);
-        $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
-
-        $mailCollector = $this->client->getProfile()->getCollector('swiftmailer');
-        $this->assertSame(1, $mailCollector->getMessageCount());
+        $this->assertEmailsCount(1);
     }
 
     /**
@@ -690,26 +629,5 @@ JSON;
         );
 
         return $this->client->getResponse();
-    }
-
-    private function isSymfonyMailerAvailable(): bool
-    {
-        if (self::$clientContainer->has('mailer.logger_message_listener')) {
-            return self::$clientContainer->has('mailer.logger_message_listener');
-        }
-        if (self::$clientContainer->has('mailer.message_logger_listener')) {
-            return self::$clientContainer->has('mailer.message_logger_listener');
-        }
-
-        return false;
-    }
-
-    private function isSwiftMailerAvailable(): bool
-    {
-        if (self::$clientContainer->has('swiftmailer')) {
-            return self::$clientContainer->has('swiftmailer');
-        }
-
-        return false;
     }
 }

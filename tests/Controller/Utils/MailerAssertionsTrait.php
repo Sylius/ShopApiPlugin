@@ -30,9 +30,22 @@ trait MailerAssertionsTrait
         self::$clientContainer = $this->client->getContainer();
     }
 
-    public static function assertEmailCount(int $count, string $transport = null, string $message = ''): void
+    public function assertEmailsCount(int $count, string $transport = null, string $message = ''): void
     {
-        self::assertThat(self::getMessageMailerEvents(), new Constraint\EmailCount($count, $transport), $message);
+        if (self::isSymfonyMailerAvailable()) {
+            self::assertThat(self::getMessageMailerEvents(), new Constraint\EmailCount($count, $transport), $message);
+
+            return;
+        }
+
+        if (self::isSwiftMailerAvailable()) {
+            $mailCollector = $this->client->getProfile()->getCollector('swiftmailer');
+            self::assertSame($count, $mailCollector->getMessageCount());
+
+            return;
+        }
+
+        throw new AssertionFailedError('This test should be executed only with Symfony Mailer or SwiftMailer.');
     }
 
     /**
@@ -59,5 +72,27 @@ trait MailerAssertionsTrait
         }
 
         throw new AssertionFailedError('A client must have Mailer enabled to make email assertions. Did you forget to require symfony/mailer?');
+    }
+
+    public static function isSymfonyMailerAvailable(): bool
+    {
+        if (self::$clientContainer->has('mailer.logger_message_listener')) {
+            return self::$clientContainer->has('mailer.logger_message_listener');
+        }
+
+        if (self::$clientContainer->has('mailer.message_logger_listener')) {
+            return self::$clientContainer->has('mailer.message_logger_listener');
+        }
+
+        return false;
+    }
+
+    public static function isSwiftMailerAvailable(): bool
+    {
+        if (self::$clientContainer->has('swiftmailer.mailer')) {
+            return self::$clientContainer->has('swiftmailer.mailer');
+        }
+
+        return false;
     }
 }
