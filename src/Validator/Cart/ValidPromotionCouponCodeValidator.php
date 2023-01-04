@@ -65,7 +65,6 @@ final class ValidPromotionCouponCodeValidator extends ConstraintValidator
         }
     }
 
-    /** @param Constraint $constraint */
     private function buildViolation(Constraint $constraint): void
     {
         $this->context

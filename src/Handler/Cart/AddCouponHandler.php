@@ -46,7 +46,6 @@ final class AddCouponHandler
         $this->couponEligibilityChecker = $couponEligibilityChecker;
     }
 
-    /** @param AddCoupon $addCoupon */
     public function __invoke(AddCoupon $addCoupon): void
     {
         /** @var OrderInterface $cart */
