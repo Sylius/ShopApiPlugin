@@ -5,7 +5,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.0",
-        "sylius/sylius": "~1.10.0 || ~1.11.0",
+        "sylius/sylius": "~1.11.0",
         "lexik/jwt-authentication-bundle": "^2.5",
         "symfony/messenger": "^5.2",
         "doctrine/doctrine-bundle": "^2.0"
