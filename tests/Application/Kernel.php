@@ -29,7 +29,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\Config\FileLocator;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
-use Symfony\Component\Routing\RouteCollectionBuilder;
+use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 use Webmozart\Assert\Assert;
 
 final class Kernel extends BaseKernel
@@ -78,13 +78,13 @@ final class Kernel extends BaseKernel
         $loader->load($confDir . '/{services}_' . $this->environment . self::CONFIG_EXTS, 'glob');
     }
 
-    protected function configureRoutes(RouteCollectionBuilder $routes): void
+    protected function configureRoutes(RoutingConfigurator $routes): void
     {
         $confDir = $this->getProjectDir() . '/config';
 
-        $routes->import($confDir . '/{routes}/*' . self::CONFIG_EXTS, '/', 'glob');
-        $routes->import($confDir . '/{routes}/' . $this->environment . '/**/*' . self::CONFIG_EXTS, '/', 'glob');
-        $routes->import($confDir . '/{routes}' . self::CONFIG_EXTS, '/', 'glob');
+        $routes->import($confDir . '/{routes}/*' . self::CONFIG_EXTS);
+        $routes->import($confDir . '/{routes}/' . $this->environment . '/**/*' . self::CONFIG_EXTS);
+        $routes->import($confDir . '/{routes}' . self::CONFIG_EXTS);
     }
 
     protected function getContainerBaseClass(): string
@@ -96,7 +96,7 @@ final class Kernel extends BaseKernel
         return parent::getContainerBaseClass();
     }
 
-    protected function getContainerLoader(ContainerInterface $container): LoaderInterface
+    protected function getContainerLoader(ContainerInterface $container): DelegatingLoader
     {
         /** @var ContainerBuilder $container */
         Assert::isInstanceOf($container, ContainerBuilder::class);
