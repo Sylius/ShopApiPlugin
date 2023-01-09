@@ -31,11 +31,13 @@ use Sylius\ShopApiPlugin\Model\Address;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Tests\Sylius\ShopApiPlugin\Controller\JsonApiTestCase;
+use Tests\Sylius\ShopApiPlugin\Controller\Utils\MailerAssertionsTrait;
 use Tests\Sylius\ShopApiPlugin\Controller\Utils\ShopUserLoginTrait;
 
 final class CompleteOrderApiTest extends JsonApiTestCase
 {
     use ShopUserLoginTrait;
+    use MailerAssertionsTrait;
 
     /**
      * @test
@@ -86,8 +88,7 @@ JSON;
         $response = $this->complete($token, $data);
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
 
-        $mailCollector = $this->client->getProfile()->getCollector('swiftmailer');
-        $this->assertSame(1, $mailCollector->getMessageCount());
+        $this->assertEmailsCount(1);
     }
 
     /**

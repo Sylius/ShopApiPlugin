@@ -12,9 +12,9 @@ declare(strict_types=1);
 namespace Sylius\ShopApiPlugin\Validator\Cart;
 
 use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Core\OrderCheckoutStates;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
+use Sylius\Component\Payment\Model\PaymentMethodInterface;
 use Sylius\Component\Payment\Resolver\PaymentMethodsResolverInterface;
 use Sylius\ShopApiPlugin\Request\Checkout\ChoosePaymentMethodRequest;
 use Sylius\ShopApiPlugin\Validator\Constraints\PaymentMethodAvailable;
@@ -38,7 +38,7 @@ final class PaymentMethodAvailableValidator extends ConstraintValidator
         $this->paymentMethodsResolver = $paymentMethodsResolver;
     }
 
-    public function validate($value, Constraint $constraint): void
+    public function validate(mixed $value, Constraint $constraint): void
     {
         Assert::isInstanceOf($value, ChoosePaymentMethodRequest::class);
         /** @var ChoosePaymentMethodRequest $value */

@@ -27,7 +27,7 @@ final class PaymentNotPaidValidator extends ConstraintValidator
         $this->orderRepository = $orderRepository;
     }
 
-    public function validate($updatePayment, Constraint $constraint): void
+    public function validate(mixed $updatePayment, Constraint $constraint): void
     {
         /** @var OrderInterface|null $order */
         $order = $this->orderRepository->findOneBy(['tokenValue' => $updatePayment->getOrderToken()]);

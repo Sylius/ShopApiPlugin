@@ -54,7 +54,7 @@ final class PutItemToCartCommandProvider implements CommandProviderInterface
             return PutVariantBasedConfigurableItemToCartRequest::fromHttpRequest($httpRequest);
         }
 
-        if (!$hasVariantCode && $hasOptionCode) {
+        if ($hasOptionCode && !$hasVariantCode) {
             return PutOptionBasedConfigurableItemToCartRequest::fromHttpRequest($httpRequest);
         }
 

@@ -3,13 +3,14 @@ parameters:
     sylius_shop_api.security.regex: "^/shop-api"
 
 security:
+    enable_authenticator_manager: true
     providers:
         sylius_admin_user_provider:
             id: sylius.admin_user_provider.email_or_name_based
         sylius_shop_user_provider:
             id: sylius.shop_user_provider.email_or_name_based
 
-    encoders:
+    password_hashers:
         Sylius\Component\User\Model\UserInterface: argon2i
     firewalls:
         admin:
@@ -25,7 +26,7 @@ security:
                 default_target_path: sylius_admin_dashboard
                 use_forward: false
                 use_referer: true
-                csrf_token_generator: security.csrf.token_manager
+                enable_csrf: true
                 csrf_parameter: _csrf_admin_security_token
                 csrf_token_id: admin_authenticate
             remember_me:
@@ -37,12 +38,11 @@ security:
             logout:
                 path: sylius_admin_logout
                 target: sylius_admin_login
-            anonymous: true
 
         sylius_shop_api:
             pattern: "%sylius_shop_api.security.regex%"
             stateless: true
-            anonymous: true
+            entry_point: jwt
             provider: sylius_shop_user_provider
             json_login:
                 check_path: /shop-api/login
@@ -50,9 +50,7 @@ security:
                 password_path: password
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
-            guard:
-                authenticators:
-                    - lexik_jwt_authentication.jwt_token_authenticator
+            jwt: true
 
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/

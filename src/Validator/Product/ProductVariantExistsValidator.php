@@ -26,7 +26,7 @@ final class ProductVariantExistsValidator extends ConstraintValidator
     }
 
     /** @inheritdoc */
-    public function validate($productVariantCode, Constraint $constraint): void
+    public function validate(mixed $productVariantCode, Constraint $constraint): void
     {
         $product = $this->productVariantRepository->findOneBy(['code' => $productVariantCode]);
 

@@ -27,7 +27,7 @@ final class ProductVariantEligibilityValidator extends ConstraintValidator
     }
 
     /** @inheritdoc */
-    public function validate($productVariantCode, Constraint $constraint): void
+    public function validate(mixed $productVariantCode, Constraint $constraint): void
     {
         if (null === $productVariantCode) {
             return;

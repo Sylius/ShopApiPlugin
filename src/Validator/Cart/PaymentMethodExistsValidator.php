@@ -28,7 +28,7 @@ final class PaymentMethodExistsValidator extends ConstraintValidator
     }
 
     /** @inheritdoc */
-    public function validate($value, Constraint $constraint): void
+    public function validate(mixed $value, Constraint $constraint): void
     {
         Assert::isInstanceOf($constraint, PaymentMethodExists::class);
 

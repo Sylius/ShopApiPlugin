@@ -1,6 +1,6 @@
 sylius_shop_api_address_book_create:
     path: /address-book/
-    controller: sylius.controller.address:createAction
+    controller: sylius.controller.address::createAction
     methods: [POST]
     defaults:
         _sylius:
@@ -11,7 +11,7 @@ sylius_shop_api_address_book_create:
 
 sylius_shop_api_address_book_index:
     path: /address-book/
-    controller: sylius.controller.address:indexAction
+    controller: sylius.controller.address::indexAction
     methods: [GET]
     defaults:
         _sylius:
@@ -23,7 +23,7 @@ sylius_shop_api_address_book_index:
 
 sylius_shop_api_address_book_delete:
     path: /address-book/{id}
-    controller: sylius.controller.address:deleteAction
+    controller: sylius.controller.address::deleteAction
     methods: [DELETE]
     defaults:
         _sylius:
@@ -36,7 +36,7 @@ sylius_shop_api_address_book_delete:
 
 sylius_shop_api_address_book_update:
     path: /address-book/{id}
-    controller: sylius.controller.address:updateAction
+    controller: sylius.controller.address::updateAction
     methods: [PUT, PATCH]
     defaults:
         _sylius:

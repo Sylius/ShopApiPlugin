@@ -11,15 +11,18 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller\Customer;
 
+use PHPUnit\Framework\Assert;
 use Sylius\Component\Core\Test\Services\EmailCheckerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\Sylius\ShopApiPlugin\Controller\JsonApiTestCase;
-use Tests\Sylius\ShopApiPlugin\Controller\Utils\PurgeSpooledMessagesTrait;
+use Tests\Sylius\ShopApiPlugin\Controller\Utils\MailerAssertionsTrait;
+use Tests\Sylius\ShopApiPlugin\Controller\Utils\PurgeMessagesTrait;
 
 final class RequestPasswordResettingApiTest extends JsonApiTestCase
 {
-    use PurgeSpooledMessagesTrait;
+    use PurgeMessagesTrait;
+    use MailerAssertionsTrait;
 
     /**
      * @test
@@ -35,10 +38,14 @@ final class RequestPasswordResettingApiTest extends JsonApiTestCase
         $response = $this->client->getResponse();
         $this->assertResponseCode($response, Response::HTTP_NO_CONTENT);
 
-        /** @var EmailCheckerInterface $emailChecker */
-        $emailChecker = $this->get('sylius.behat.email_checker');
-
-        $this->assertTrue($emailChecker->hasRecipient('oliver@queen.com'));
+        if (!self::isSymfonyMailerAvailable()) {
+            /** @var EmailCheckerInterface $emailChecker */
+            $emailChecker = $this->get('sylius.behat.email_checker');
+            Assert::assertTrue($emailChecker->hasRecipient('oliver@queen.com'));
+        } else {
+            $email = self::getMailerMessage();
+            $this->assertEmailAddressContains($email, 'to', 'oliver@queen.com');
+        }
     }
 
     /**

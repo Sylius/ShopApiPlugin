@@ -25,7 +25,7 @@ final class VerificationTokenExistsValidator extends ConstraintValidator
         $this->userRepository = $userRepository;
     }
 
-    public function validate($token, Constraint $constraint): void
+    public function validate(mixed $token, Constraint $constraint): void
     {
         if (null === $token || 0 === strlen($token)) {
             return;

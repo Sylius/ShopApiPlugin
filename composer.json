@@ -5,7 +5,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.0",
-        "sylius/sylius": "~1.11.0",
+        "sylius/sylius": "~1.11.10 || ~1.12.0",
         "lexik/jwt-authentication-bundle": "^2.5",
         "symfony/messenger": "^5.4",
         "doctrine/doctrine-bundle": "^2.0"
@@ -15,13 +15,14 @@
         "matthiasnoback/symfony-config-test": "^4.0",
         "matthiasnoback/symfony-dependency-injection-test": "^4.0",
         "phpspec/phpspec": "^7.0",
-        "phpstan/phpstan": "0.12.96",
-        "phpstan/phpstan-webmozart-assert": "0.12.12",
+        "phpstan/phpstan": "^1.8",
+        "phpstan/phpstan-webmozart-assert": "^1.2",
         "phpunit/phpunit": "^9.0",
         "sylius-labs/coding-standard": "^4.0",
         "symfony/debug-bundle": "^5.4",
         "symfony/dotenv": "^5.4",
-        "symfony/web-profiler-bundle": "^5.4"
+        "symfony/web-profiler-bundle": "^5.4",
+        "symfony/webpack-encore-bundle": "^1.15"
     },
     "autoload": {
         "psr-4": {
@@ -55,7 +56,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0-dev"
+            "dev-master": "1.6-dev"
         }
     }
 }

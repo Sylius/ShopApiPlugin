@@ -43,7 +43,7 @@ final class ValidPromotionCouponCodeValidator extends ConstraintValidator
     }
 
     /** @inheritdoc */
-    public function validate($request, Constraint $constraint): void
+    public function validate(mixed $request, Constraint $constraint): void
     {
         /** @var AddCouponRequest $request */
         Assert::isInstanceOf($request, AddCouponRequest::class);

@@ -15,11 +15,14 @@ use Sylius\Component\Core\Test\Services\EmailCheckerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\Sylius\ShopApiPlugin\Controller\JsonApiTestCase;
-use Tests\Sylius\ShopApiPlugin\Controller\Utils\PurgeSpooledMessagesTrait;
+use Tests\Sylius\ShopApiPlugin\Controller\Utils\MailerAssertionsTrait;
+use Tests\Sylius\ShopApiPlugin\Controller\Utils\PurgeMessagesTrait;
+use Webmozart\Assert\Assert;
 
 final class ResendVerificationTokenApiTest extends JsonApiTestCase
 {
-    use PurgeSpooledMessagesTrait;
+    use PurgeMessagesTrait;
+    use MailerAssertionsTrait;
 
     /**
      * @test
@@ -47,10 +50,14 @@ JSON;
         $response = $this->client->getResponse();
         $this->assertResponseCode($response, Response::HTTP_CREATED);
 
-        /** @var EmailCheckerInterface $emailChecker */
-        $emailChecker = $this->get('sylius.behat.email_checker');
+        if (!self::isSymfonyMailerAvailable()) {
+            /** @var EmailCheckerInterface $emailChecker */
+            $emailChecker = $this->get('sylius.behat.email_checker');
 
-        $this->assertSame(2, $emailChecker->countMessagesTo('vinny@fandf.com'));
+            $this->assertSame(2, $emailChecker->countMessagesTo('vinny@fandf.com'));
+        } else {
+            Assert::same(2, count(self::getMailerMessages()));
+        }
     }
 
     /**

@@ -142,7 +142,7 @@ final class PutItemsToCartAction
             return PutVariantBasedConfigurableItemToCartRequest::fromArray($item);
         }
 
-        if (!$hasVariantCode && $hasOptions) {
+        if ($hasOptions && !$hasVariantCode) {
             return PutOptionBasedConfigurableItemToCartRequest::fromArray($item);
         }
 

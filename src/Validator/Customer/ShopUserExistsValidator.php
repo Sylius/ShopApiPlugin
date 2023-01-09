@@ -25,7 +25,7 @@ final class ShopUserExistsValidator extends ConstraintValidator
         $this->userRepository = $userRepository;
     }
 
-    public function validate($email, Constraint $constraint): void
+    public function validate(mixed $email, Constraint $constraint): void
     {
         if (null === $email || null === $this->userRepository->findOneByEmail($email)) {
             $this->context->addViolation($constraint->message);

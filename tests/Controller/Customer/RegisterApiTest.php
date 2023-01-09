@@ -20,11 +20,13 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Tests\Sylius\ShopApiPlugin\Controller\JsonApiTestCase;
-use Tests\Sylius\ShopApiPlugin\Controller\Utils\PurgeSpooledMessagesTrait;
+use Tests\Sylius\ShopApiPlugin\Controller\Utils\MailerAssertionsTrait;
+use Tests\Sylius\ShopApiPlugin\Controller\Utils\PurgeMessagesTrait;
 
 final class RegisterApiTest extends JsonApiTestCase
 {
-    use PurgeSpooledMessagesTrait;
+    use PurgeMessagesTrait;
+    use MailerAssertionsTrait;
 
     /**
      * @test
@@ -55,9 +57,14 @@ JSON;
         Assert::assertNotNull($user);
         Assert::assertFalse($user->isEnabled());
 
-        /** @var EmailCheckerInterface $emailChecker */
-        $emailChecker = $this->get('sylius.behat.email_checker');
-        Assert::assertTrue($emailChecker->hasRecipient('vinny@fandf.com'));
+        if (!self::isSymfonyMailerAvailable()) {
+            /** @var EmailCheckerInterface $emailChecker */
+            $emailChecker = $this->get('sylius.behat.email_checker');
+            Assert::assertTrue($emailChecker->hasRecipient('vinny@fandf.com'));
+        } else {
+            $email = self::getMailerMessage();
+            self::assertEmailAddressContains($email, 'to', 'vinny@fandf.com');
+        }
     }
 
     /**
@@ -96,9 +103,14 @@ JSON;
         Assert::assertNotNull($user);
         Assert::assertFalse($user->isEnabled());
 
-        /** @var EmailCheckerInterface $emailChecker */
-        $emailChecker = $this->get('sylius.behat.email_checker');
-        Assert::assertTrue($emailChecker->hasRecipient('vinny@fandf.com'));
+        if (!self::isSymfonyMailerAvailable()) {
+            /** @var EmailCheckerInterface $emailChecker */
+            $emailChecker = $this->get('sylius.behat.email_checker');
+            Assert::assertTrue($emailChecker->hasRecipient('vinny@fandf.com'));
+        } else {
+            $email = self::getMailerMessage();
+            self::assertEmailAddressContains($email, 'to', 'vinny@fandf.com');
+        }
     }
 
     /**
@@ -130,15 +142,20 @@ JSON;
         Assert::assertNotNull($user);
         Assert::assertTrue($user->isEnabled());
 
-        /** @var EmailCheckerInterface $emailChecker */
-        $emailChecker = $this->get('sylius.behat.email_checker');
+        if (!self::isSymfonyMailerAvailable()) {
+            /** @var EmailCheckerInterface $emailChecker */
+            $emailChecker = $this->get('sylius.behat.email_checker');
 
-        try {
-            Assert::assertFalse($emailChecker->hasRecipient('vinny@fandf.com'));
-        } catch (\InvalidArgumentException $exception) {
-            // Email checker throws an invalid argument exception if spool directory does not exist
-            // It means no mails were sent
-            // Should be fixed in Sylius though
+            try {
+                Assert::assertFalse($emailChecker->hasRecipient('vinny@fandf.com'));
+            } catch (\InvalidArgumentException $exception) {
+                // Email checker throws an invalid argument exception if spool directory does not exist
+                // It means no mails were sent
+                // Should be fixed in Sylius though
+            }
+        } else {
+            $email = self::getMailerMessage();
+            Assert::assertNull($email);
         }
     }
 

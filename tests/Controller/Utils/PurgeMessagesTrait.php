@@ -11,23 +11,21 @@ declare(strict_types=1);
 
 namespace Tests\Sylius\ShopApiPlugin\Controller\Utils;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Filesystem\Filesystem;
 
-trait PurgeSpooledMessagesTrait
+trait PurgeMessagesTrait
 {
-    abstract protected static function getContainer(): ContainerInterface;
+    private static ?string $poolDirectory = null;
 
     /**
      * @before
      */
-    public function purgeSpooledMessages(): void
+    public function purgeMessages(): void
     {
-        $emailChecker = $this->getContainer()->get('sylius.behat.email_checker');
-
         /** @var Filesystem $filesystem */
         $filesystem = $this->getContainer()->get('filesystem');
 
-        $filesystem->remove($emailChecker->getSpoolDirectory());
+        $filesystem->remove($this->getContainer()->getParameter('kernel.cache_dir') . '/pools');
+        $filesystem->remove($this->getContainer()->getParameter('kernel.cache_dir') . '/spool');
     }
 }

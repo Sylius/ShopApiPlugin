@@ -26,7 +26,7 @@ final class TokenIsNotUsedValidator extends ConstraintValidator
     }
 
     /** @inheritdoc */
-    public function validate($token, Constraint $constraint): void
+    public function validate(mixed $token, Constraint $constraint): void
     {
         if (null !== $this->orderRepository->findOneBy(['tokenValue' => $token])) {
             $this->context->addViolation($constraint->message);
