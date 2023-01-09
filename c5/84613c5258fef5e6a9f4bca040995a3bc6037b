@@ -1,0 +1,28 @@
+---------------------------------------------------------------------------
+
+by TheMilek at 2022-12-21T10:35:20Z
+
+> Thanks for the work you put in to get this plugin up to speed.
+>
+> I just have one two things: Would you mind summarizing in a comment what requirements have changed. I see there is no longer support for Symfony 4, we also dropped Sylius 1.10 anything I missed? Furthermore, do we need a change log entry for the upgrade or should it continue to work out of the box?
+
+Hi @mamazu!
+Yeah it should work out of the box, also with these updated .env files the steps in the `Readme` file are the same. I updated the description with the changes as You requested 💃🏽. The continuation of this PR is [here](https://github.com/Sylius/ShopApiPlugin/pull/736) where I also add SF6 support
+
+---------------------------------------------------------------------------
+
+by mamazu at 2022-12-22T17:39:18Z
+
+@TheMilek That's great. Then I'll merge it. Never mind. Hubkit isn't working. Can you merge it?
+
+---------------------------------------------------------------------------
+
+by TheMilek at 2022-12-23T12:06:50Z
+
+@mamazu I just let know my teammates from Sylius 😄
+
+---------------------------------------------------------------------------
+
+by GSadee at 2023-01-09T06:34:24Z
+
+Thank you, Kamil! :tada:
