@@ -53,53 +53,86 @@ The latest documentation is available [here](https://app.swaggerhub.com/apis/Syl
     
     ```
 
-    4. Add new routes file to import routes from the SyliusShopApiPlugin
+    3. Add new routes file to import routes from the SyliusShopApiPlugin
     ```yml
     # config/routes/sylius_shop_api.yaml
 
     sylius_shop_api:
         resource: "@SyliusShopApiPlugin/Resources/config/routing.yml"
     ```
-    5. Configure firewall
+    4. Configure firewall
         1. Change `sylius.security.shop_regex` parameter to exclude `shop-api` prefix also
         2. Add ShopAPI regex parameter `sylius_shop_api.security.regex: "^/shop-api"`
         3. Add ShopAPI firewall config:
-    ```yml
-    # config/packages/security.yaml
+            * Symfony 6:
+               ```yml
+               # config/packages/security.yaml
+        
+               parameters:
+                   # ...
+            
+                   sylius.security.shop_regex: "^/(?!admin|api/.*|api$|shop-api|media/.*)[^/]++" # shop-api has been added inside the brackets
+                   sylius_shop_api.security.regex: "^/shop-api"
+        
+               # ... 
+        
+               security:
+                   firewalls:
+                       // ...
+        
+                       sylius_shop_api:
+                           pattern: "%sylius_shop_api.security.regex%"
+                           stateless: true
+                           entry_point: jwt
+                           provider: sylius_shop_user_provider
+                           json_login:
+                               check_path: /shop-api/login
+                               username_path: email
+                               password_path: password
+                               success_handler: lexik_jwt_authentication.handler.authentication_success
+                               failure_handler: lexik_jwt_authentication.handler.authentication_failure
+                           jwt: true
+                  access_control:
+                  - { path: "%sylius_shop_api.security.regex%/address-book", role: ROLE_USER}
+                  - { path: "%sylius_shop_api.security.regex%/me", role: ROLE_USER}
+               ```
 
-    parameters:
-        # ...
-    
-        sylius.security.shop_regex: "^/(?!admin|api/.*|api$|shop-api|media/.*)[^/]++" # shop-api has been added inside the brackets
-        sylius_shop_api.security.regex: "^/shop-api"
+            * Symfony 5:
+               ```yml
+               # config/packages/security.yaml
+        
+               parameters:
+                   # ...
+            
+                   sylius.security.shop_regex: "^/(?!admin|api/.*|api$|shop-api|media/.*)[^/]++" # shop-api has been added inside the brackets
+                   sylius_shop_api.security.regex: "^/shop-api"
+        
+               # ... 
+        
+               security:
+                   firewalls:
+                       // ...
+        
+                       sylius_shop_api:
+                           pattern: "%sylius_shop_api.security.regex%"
+                           stateless: true
+                           anonymous: true
+                           provider: sylius_shop_user_provider
+                           json_login:
+                               check_path: /shop-api/login
+                               username_path: email
+                               password_path: password
+                               success_handler: lexik_jwt_authentication.handler.authentication_success
+                               failure_handler: lexik_jwt_authentication.handler.authentication_failure
+                           guard:
+                               authenticators:
+                                   - lexik_jwt_authentication.jwt_token_authenticator
+                  access_control:
+                  - { path: "%sylius_shop_api.security.regex%/address-book", role: ROLE_USER}
+                  - { path: "%sylius_shop_api.security.regex%/me", role: ROLE_USER}
+               ```
 
-    # ... 
-
-    security:
-        firewalls:
-            // ...
-
-            sylius_shop_api:
-                pattern: "%sylius_shop_api.security.regex%"
-                stateless: true
-                anonymous: true
-                provider: sylius_shop_user_provider
-                json_login:
-                    check_path: /shop-api/login
-                    username_path: email
-                    password_path: password
-                    success_handler: lexik_jwt_authentication.handler.authentication_success
-                    failure_handler: lexik_jwt_authentication.handler.authentication_failure
-                guard:
-                    authenticators:
-                        - lexik_jwt_authentication.jwt_token_authenticator
-       access_control:
-       - { path: "%sylius_shop_api.security.regex%/address-book", role: ROLE_USER}
-       - { path: "%sylius_shop_api.security.regex%/me", role: ROLE_USER}
-
-    ```
-    
-    6. (optional) if you have installed `nelmio/NelmioCorsBundle` for Support of Cross-Origin Ajax Request,
+    5. (optional) if you have installed `nelmio/NelmioCorsBundle` for Support of Cross-Origin Ajax Request,
         1. Add the NelmioCorsBundle to the AppKernel
     
         ```php
