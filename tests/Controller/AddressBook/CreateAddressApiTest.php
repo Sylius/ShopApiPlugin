@@ -17,6 +17,7 @@ use Sylius\Component\Core\Model\Customer;
 use Sylius\Component\Core\Repository\AddressRepositoryInterface;
 use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Kernel;
 use Tests\Sylius\ShopApiPlugin\Controller\JsonApiTestCase;
 use Tests\Sylius\ShopApiPlugin\Controller\Utils\ShopUserLoginTrait;
 
@@ -110,7 +111,11 @@ JSON;
 JSON;
 
         $response = $this->createAddress($data);
-        $this->assertResponse($response, 'address_book/validation_create_address_book_with_wrong_country_response', Response::HTTP_BAD_REQUEST);
+        if (Kernel::VERSION_ID < 60000) {
+            $this->assertResponse($response, 'address_book/SF5/validation_create_address_book_with_wrong_country_response', Response::HTTP_BAD_REQUEST);
+        } else {
+            $this->assertResponse($response, 'address_book/SF6/validation_create_address_book_with_wrong_country_response', Response::HTTP_BAD_REQUEST);
+        }
     }
 
     /**
@@ -135,7 +140,11 @@ JSON;
 JSON;
 
         $response = $this->createAddress($data);
-        $this->assertResponse($response, 'address_book/validation_create_address_book_with_wrong_province_response', Response::HTTP_BAD_REQUEST);
+        if (Kernel::VERSION_ID < 60000) {
+            $this->assertResponse($response, 'address_book/SF5/validation_create_address_book_with_wrong_province_response', Response::HTTP_BAD_REQUEST);
+        } else {
+            $this->assertResponse($response, 'address_book/SF6/validation_create_address_book_with_wrong_province_response', Response::HTTP_BAD_REQUEST);
+        }
     }
 
     private function createAddress(string $data): Response

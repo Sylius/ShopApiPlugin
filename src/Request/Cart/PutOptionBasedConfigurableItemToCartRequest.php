@@ -68,7 +68,7 @@ class PutOptionBasedConfigurableItemToCartRequest implements RequestInterface
         return new self(
             $request->attributes->get('token'),
             $request->request->get('productCode'),
-            $request->request->get('options'),
+            $request->request->all('options'),
             $request->request->getInt('quantity', 1),
         );
     }

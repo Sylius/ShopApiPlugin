@@ -21,9 +21,6 @@ trait MailerAssertionsTrait
 {
     private static ContainerInterface $clientContainer;
 
-    /**
-     * @before
-     */
     public function setUpClient(): void
     {
         parent::setUpClient();
