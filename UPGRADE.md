@@ -1,4 +1,10 @@
-# UPGRADE FROM 1.4.1 to 1.5
+# UPGRADE FROM 1.5.1 to 1.6.0
+
+* Dropped support for Symfony 4.4
+* Bumped Symfony 5 to 5.4
+* Dropped support for Sylius 1.10
+
+# UPGRADE FROM 1.4.1 to 1.5.0
 
 * Dropped support for PHP 7.4
 * Bumped Sylius requirements to 1.10
