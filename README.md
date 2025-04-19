@@ -1,7 +1,7 @@
 <h1 align="center">Sylius Shop API </h1>
 
 > [!WARNING]  
-> This project is deprecated. The new way of building APIs in Sylius is with [ApiPlatform](https://docs.sylius.com/the-customization-guide/customizing-api).
+> This plugin is deprecated. The new way of building APIs in Sylius is with [Sylius Api](https://docs.sylius.com/getting-started-with-sylius/using-api).
 
 [![License](https://img.shields.io/packagist/l/sylius/shop-api-plugin.svg)](https://packagist.org/packages/sylius/shop-api-plugin) [![Build Status](https://travis-ci.org/Sylius/ShopApiPlugin.svg?branch=master)](https://travis-ci.org/Sylius/ShopApiPlugin) [![Scrutinizer Quality Score](https://img.shields.io/scrutinizer/g/Sylius/SyliusShopApiPlugin.svg)](https://scrutinizer-ci.com/g/Sylius/SyliusShopApiPlugin/)
 
